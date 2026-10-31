@@ -7,24 +7,9 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_messages,
-  access_timestamp,
 } from "../outputs.js";
-import { access_identifier } from "../schemas.js";
-import {
-  access_access_seat,
-  access_gateway_seat,
-  access_response_collection$$14,
-  access_seat_uid,
-  access_seats,
-} from "./outputs.js";
-import {
-  access_access_seat as access_access_seat$,
-  access_gateway_seat as access_gateway_seat$,
-  access_identifier$$2,
-  access_seat,
-  access_seat_uid as access_seat_uid$,
-  access_seats_definition,
-} from "./schemas.js";
+import { access_response_collection$$14, access_seats } from "./outputs.js";
+import { access_seat, access_seats_definition } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.seats`.
@@ -33,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_seats_edit",
     title: "Update a user seat",
-    description: "Removes a user from a Zero Trust seat when both `access_seat` and `gateway_seat` are set to false.",
+    description: "Removes a user from a Zero Trust seat when both `access_seat` and `gateway_seat` are set to false.\n\nPATCH /accounts/{account_id}/access/seats",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,9 +26,18 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_seats_definition"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -56,28 +50,20 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_access_seat": access_access_seat$,
-        "access_gateway_seat": access_gateway_seat$,
-        "access_identifier": access_identifier,
-        "access_identifier-2": access_identifier$$2,
         "access_seat": access_seat,
-        "access_seat_uid": access_seat_uid$,
         "access_seats_definition": access_seats_definition,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-14",
       $defs: {
-        "access_access_seat": access_access_seat,
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_gateway_seat": access_gateway_seat,
         "access_messages": access_messages,
         "access_response_collection-14": access_response_collection$$14,
-        "access_seat_uid": access_seat_uid,
         "access_seats": access_seats,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -104,16 +90,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_access_seat": access_access_seat,
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_gateway_seat": access_gateway_seat,
         "access_messages": access_messages,
         "access_response_collection-14": access_response_collection$$14,
-        "access_seat_uid": access_seat_uid,
         "access_seats": access_seats,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({

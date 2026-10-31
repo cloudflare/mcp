@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_categories_list",
     title: "List Threat Signals feed categories",
-    description: "Lists the predefined categories that can be assigned to feeds.",
+    description: "Lists the predefined categories that can be assigned to feeds.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/categories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -29,6 +30,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

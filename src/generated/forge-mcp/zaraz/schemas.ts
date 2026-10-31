@@ -342,14 +342,6 @@ export const zaraz_form$$submission$$rule: JsonSchema = {
 };
 
 /**
- * The schema of `zaraz_identifier`.
- */
-export const zaraz_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `zaraz_load-rule`.
  */
 export const zaraz_load$$rule: JsonSchema = {

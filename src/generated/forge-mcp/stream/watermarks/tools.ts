@@ -6,29 +6,9 @@ import {
   stream_api$$response$$common,
   stream_api$$response$$common$$failure,
   stream_api$$response$$single,
-  stream_downloadedFrom,
-  stream_height,
   stream_messages,
-  stream_name,
-  stream_opacity,
-  stream_padding,
-  stream_position,
-  stream_scale,
-  stream_watermark_created,
-  stream_watermark_identifier,
-  stream_watermark_size,
   stream_watermarks,
-  stream_width,
 } from "../outputs.js";
-import {
-  stream_account_identifier,
-  stream_name as stream_name$,
-  stream_opacity as stream_opacity$,
-  stream_padding as stream_padding$,
-  stream_position as stream_position$,
-  stream_scale as stream_scale$,
-  stream_watermark_identifier as stream_watermark_identifier$,
-} from "../schemas.js";
 import {
   stream_watermark_response_collection,
   stream_watermark_response_single,
@@ -41,36 +21,36 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_watermarks_create",
     title: "Create watermark profiles via basic upload",
-    description: "Creates watermark profiles using a single `HTTP POST multipart/form-data` request.",
+    description: "Creates watermark profiles using a single `HTTP POST multipart/form-data` request.\n\nPOST /accounts/{account_id}/stream/watermarks",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "name": {
-              "$ref": "#/$defs/stream_name",
               "default": "",
-              "description": "A short description of the watermark profile."
+              "description": "A short description of the watermark profile.",
+              "type": "string"
             },
             "opacity": {
-              "$ref": "#/$defs/stream_opacity",
               "default": 1,
-              "description": "The translucency of the image. A value of `0.0` makes the image completely transparent, and `1.0` makes the image completely opaque. Note that if the image is already semi-transparent, setting this to `1.0` will not make the image completely opaque."
+              "description": "The translucency of the image. A value of `0.0` makes the image completely transparent, and `1.0` makes the image completely opaque. Note that if the image is already semi-transparent, setting this to `1.0` will not make the image completely opaque.",
+              "type": "number"
             },
             "padding": {
-              "$ref": "#/$defs/stream_padding",
               "default": 0.05,
-              "description": "The whitespace between the adjacent edges (determined by position) of the video and the image. `0.0` indicates no padding, and `1.0` indicates a fully padded video width or length, as determined by the algorithm."
+              "description": "The whitespace between the adjacent edges (determined by position) of the video and the image. `0.0` indicates no padding, and `1.0` indicates a fully padded video width or length, as determined by the algorithm.",
+              "type": "number"
             },
             "position": {
-              "$ref": "#/$defs/stream_position",
               "default": "upperRight",
-              "description": "The location of the image. Valid positions are: `upperRight`, `upperLeft`, `lowerLeft`, `lowerRight`, and `center`. Note that `center` ignores the `padding` parameter."
+              "description": "The location of the image. Valid positions are: `upperRight`, `upperLeft`, `lowerLeft`, `lowerRight`, and `center`. Note that `center` ignores the `padding` parameter.",
+              "type": "string"
             },
             "scale": {
-              "$ref": "#/$defs/stream_scale",
               "default": 0.15,
-              "description": "The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video."
+              "description": "The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video.",
+              "type": "number"
             },
             "url": {
               "description": "URL of the watermark image to copy.",
@@ -80,10 +60,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -96,33 +77,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_name": stream_name$,
-        "stream_opacity": stream_opacity$,
-        "stream_padding": stream_padding$,
-        "stream_position": stream_position$,
-        "stream_scale": stream_scale$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
         "stream_watermark_response_single": stream_watermark_response_single,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -151,20 +114,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
         "stream_watermark_response_single": stream_watermark_response_single,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -175,19 +127,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_watermarks_delete",
     title: "Delete watermark profiles",
-    description: "Deletes a watermark profile.\n\nConfirm with the user before calling this tool. Remove this watermark profile? New upload requests referencing this profile will fail.",
+    description: "Deletes a watermark profile.\n\nConfirm with the user before calling this tool. Remove this watermark profile? New upload requests referencing this profile will fail.\n\nDELETE /accounts/{account_id}/stream/watermarks/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_watermark_identifier",
-              "description": "The unique identifier for a watermark profile."
+              "description": "The unique identifier for a watermark profile.",
+              "type": "string"
             }
           },
           "required": [
@@ -200,10 +153,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_watermark_identifier": stream_watermark_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -272,19 +222,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_watermarks_get",
     title: "Watermark profile details",
-    description: "Retrieves details for a single watermark profile.",
+    description: "Retrieves details for a single watermark profile.\n\nGET /accounts/{account_id}/stream/watermarks/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_watermark_identifier",
-              "description": "The unique identifier for a watermark profile."
+              "description": "The unique identifier for a watermark profile.",
+              "type": "string"
             }
           },
           "required": [
@@ -297,29 +248,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_watermark_identifier": stream_watermark_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
         "stream_watermark_response_single": stream_watermark_response_single,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -349,20 +286,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
         "stream_watermark_response_single": stream_watermark_response_single,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -372,15 +298,16 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_watermarks_list",
     title: "List watermark profiles",
-    description: "Lists all watermark profiles for an account.",
+    description: "Lists all watermark profiles for an account.\n\nGET /accounts/{account_id}/stream/watermarks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -392,28 +319,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_collection",
       $defs: {
         "stream_api-response-common": stream_api$$response$$common,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
         "stream_watermark_response_collection": stream_watermark_response_collection,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -443,20 +357,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
         "stream_watermark_response_collection": stream_watermark_response_collection,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({

@@ -7,24 +7,16 @@ import {
   abuse$$reports_CloudflareAPIErrorResponse,
   abuse$$reports_ErrorMessage,
   abuse$$reports_Message,
-  abuse$$reports_MitigationStatus,
   abuse$$reports_UnauthorizedErrorResponse,
 } from "../outputs.js";
-import { abuse$$reports_MitigationStatus as abuse$$reports_MitigationStatus$ } from "../schemas.js";
 import {
-  abuse$$reports_MitigatedEntityType,
   abuse$$reports_MitigationAppealResult,
   abuse$$reports_MitigationListItem,
-  abuse$$reports_MitigationType,
 } from "./outputs.js";
 import {
-  abuse$$reports_AppealReason,
-  abuse$$reports_AppealType,
   abuse$$reports_DMCACounterNotice,
-  abuse$$reports_MitigatedEntityType as abuse$$reports_MitigatedEntityType$,
   abuse$$reports_MitigationAppeal,
   abuse$$reports_MitigationAppealRequest,
-  abuse$$reports_MitigationType as abuse$$reports_MitigationType$,
 } from "./schemas.js";
 
 /**
@@ -34,11 +26,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_mitigations_list",
     title: "List abuse report mitigations",
-    description: "List mitigations done to remediate the abuse report.",
+    description: "List mitigations done to remediate the abuse report.\n\nGET /accounts/{account_id}/abuse-reports/{report_id}/mitigations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -56,6 +49,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "effective_after": {
               "description": "Returns mitigation that were dispatched after the given date",
@@ -66,8 +60,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "entity_type": {
-              "$ref": "#/$defs/abuse-reports_MitigatedEntityType",
-              "description": "Filter by the type of entity the mitigation impacts."
+              "description": "Filter by the type of entity the mitigation impacts.",
+              "enum": [
+                "url_pattern",
+                "account",
+                "zone",
+                "custom_expression"
+              ],
+              "type": "string"
             },
             "page": {
               "description": "Where in pagination to start listing abuse reports",
@@ -92,12 +92,19 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/abuse-reports_MitigationStatus",
-              "description": "Filter by the status of the mitigation."
+              "description": "Filter by the status of the mitigation.",
+              "enum": [
+                "pending",
+                "active",
+                "in_review",
+                "cancelled",
+                "removed"
+              ],
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/abuse-reports_MitigationType",
-              "description": "Filter by the type of mitigation. This filter parameter can be specified multiple times to include multiple types of mitigations in the result set."
+              "description": "Filter by the type of mitigation. This filter parameter can be specified multiple times to include multiple types of mitigations in the result set.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -106,11 +113,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "abuse-reports_MitigatedEntityType": abuse$$reports_MitigatedEntityType$,
-        "abuse-reports_MitigationStatus": abuse$$reports_MitigationStatus$,
-        "abuse-reports_MitigationType": abuse$$reports_MitigationType$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -177,10 +180,7 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_MitigatedEntityType": abuse$$reports_MitigatedEntityType,
         "abuse-reports_MitigationListItem": abuse$$reports_MitigationListItem,
-        "abuse-reports_MitigationStatus": abuse$$reports_MitigationStatus,
-        "abuse-reports_MitigationType": abuse$$reports_MitigationType,
       },
     },
     annotations: {
@@ -299,10 +299,7 @@ export const tools: readonly Tool[] = [
         "abuse-reports_CloudflareAPIErrorResponse": abuse$$reports_CloudflareAPIErrorResponse,
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_MitigatedEntityType": abuse$$reports_MitigatedEntityType,
         "abuse-reports_MitigationListItem": abuse$$reports_MitigationListItem,
-        "abuse-reports_MitigationStatus": abuse$$reports_MitigationStatus,
-        "abuse-reports_MitigationType": abuse$$reports_MitigationType,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },
     },
@@ -323,7 +320,7 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_mitigations_review",
     title: "Request review on mitigations",
-    description: "Request a review of mitigations applied because of an abuse report, or submit a report-level appeal.\n\n- To request a review of specific mitigations, send `appeals` with the mitigation IDs and reasons. Repeating a request for a mitigation with an unresolved appeal is idempotent and returns that mitigation in the in-review state.\n- To submit a report-level appeal, send `type` and, for a `counter_notice`, the counter-notice details in `data`. Report-level appeals are currently available only for DMCA (copyright) reports.",
+    description: "Request a review of mitigations applied because of an abuse report, or submit a report-level appeal.\n\n- To request a review of specific mitigations, send `appeals` with the mitigation IDs and reasons. Repeating a request for a mitigation with an unresolved appeal is idempotent and returns that mitigation in the in-review state.\n- To submit a report-level appeal, send `type` and, for a `counter_notice`, the counter-notice details in `data`. Report-level appeals are currently available only for DMCA (copyright) reports.\n\nPOST /accounts/{account_id}/abuse-reports/{report_id}/mitigations/appeal",
     inputSchema: {
       type: "object",
       properties: {
@@ -331,6 +328,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/abuse-reports_MitigationAppealRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -352,9 +350,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "abuse-reports_AppealReason": abuse$$reports_AppealReason,
-        "abuse-reports_AppealType": abuse$$reports_AppealType,
         "abuse-reports_DMCACounterNotice": abuse$$reports_DMCACounterNotice,
         "abuse-reports_MitigationAppeal": abuse$$reports_MitigationAppeal,
         "abuse-reports_MitigationAppealRequest": abuse$$reports_MitigationAppealRequest,
@@ -364,11 +361,8 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/abuse-reports_MitigationAppealResult",
       $defs: {
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_MitigatedEntityType": abuse$$reports_MitigatedEntityType,
         "abuse-reports_MitigationAppealResult": abuse$$reports_MitigationAppealResult,
         "abuse-reports_MitigationListItem": abuse$$reports_MitigationListItem,
-        "abuse-reports_MitigationStatus": abuse$$reports_MitigationStatus,
-        "abuse-reports_MitigationType": abuse$$reports_MitigationType,
       },
     },
     annotations: {
@@ -428,11 +422,8 @@ export const tools: readonly Tool[] = [
         "abuse-reports_CloudflareAPIErrorResponse": abuse$$reports_CloudflareAPIErrorResponse,
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_MitigatedEntityType": abuse$$reports_MitigatedEntityType,
         "abuse-reports_MitigationAppealResult": abuse$$reports_MitigationAppealResult,
         "abuse-reports_MitigationListItem": abuse$$reports_MitigationListItem,
-        "abuse-reports_MitigationStatus": abuse$$reports_MitigationStatus,
-        "abuse-reports_MitigationType": abuse$$reports_MitigationType,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },
     },

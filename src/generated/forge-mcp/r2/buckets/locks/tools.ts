@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
 import {
   r2_bucket$$lock$$rule,
   r2_bucket$$lock$$rule$$config,
@@ -30,11 +29,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_locks_delete",
     title: "Delete Bucket Lock Rules",
-    description: "Delete all lock rules for a bucket.\n\nConfirm with the user before calling this tool. This removes all lock rules from the R2 bucket, removing their protection against object deletion and overwriting.",
+    description: "Delete all lock rules for a bucket.\n\nConfirm with the user before calling this tool. This removes all lock rules from the R2 bucket, removing their protection against object deletion and overwriting.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/lock",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -52,14 +52,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -72,10 +73,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/r2_v4_response",
@@ -120,11 +118,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_locks_get",
     title: "Get Bucket Lock Rules",
-    description: "Get lock rules for a bucket.",
+    description: "Get lock rules for a bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/lock",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -142,14 +141,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -162,10 +162,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -244,7 +241,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_locks_update",
     title: "Set Bucket Lock Rules",
-    description: "Replaces the lock rules for an R2 bucket. Enabled rules prevent matching objects from being overwritten or deleted for a duration, until a date, or indefinitely. Rules apply to existing and newly uploaded objects.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's lock rules. Removing or shortening retention can allow objects to be overwritten or deleted.",
+    description: "Replaces the lock rules for an R2 bucket. Enabled rules prevent matching objects from being overwritten or deleted for a duration, until a date, or indefinitely. Rules apply to existing and newly uploaded objects.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's lock rules. Removing or shortening retention can allow objects to be overwritten or deleted.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/lock",
     inputSchema: {
       type: "object",
       properties: {
@@ -260,6 +257,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -277,14 +275,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -298,10 +297,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
         "r2_bucket-lock-rule": r2_bucket$$lock$$rule$,
-        "r2_bucket_name": r2_bucket_name,
         "r2_lock-rule-age-condition": r2_lock$$rule$$age$$condition$,
         "r2_lock-rule-date-condition": r2_lock$$rule$$date$$condition$,
         "r2_lock-rule-indefinite-condition": r2_lock$$rule$$indefinite$$condition$,

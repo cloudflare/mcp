@@ -18,7 +18,12 @@ export const dlp_RiskEvent: JsonSchema = {
       "type": "string"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     },
     "timestamp": {
       "format": "date-time",
@@ -63,7 +68,12 @@ export const dlp_RiskEvents: JsonSchema = {
       "type": "string"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -72,18 +82,6 @@ export const dlp_RiskEvents: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dlp_RiskLevel` in responses.
- */
-export const dlp_RiskLevel: JsonSchema = {
-  "enum": [
-    "low",
-    "medium",
-    "high"
-  ],
-  "type": "string"
 };
 
 /**

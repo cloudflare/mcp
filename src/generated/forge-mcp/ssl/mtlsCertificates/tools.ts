@@ -7,34 +7,15 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$common,
   tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
   tls$$certificates$$and$$hostnames_api$$response$$single,
-  tls$$certificates$$and$$hostnames_expires_on$$2,
   tls$$certificates$$and$$hostnames_messages,
-  tls$$certificates$$and$$hostnames_signature,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_ca,
   tls$$certificates$$and$$hostnames_certificateObject$$3,
   tls$$certificates$$and$$hostnames_certificateObjectPost,
   tls$$certificates$$and$$hostnames_certificate_response_collection$$5,
   tls$$certificates$$and$$hostnames_certificate_response_single$$5,
   tls$$certificates$$and$$hostnames_certificate_response_single_post,
-  tls$$certificates$$and$$hostnames_certificates$$2,
-  tls$$certificates$$and$$hostnames_issuer$$2,
-  tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-  tls$$certificates$$and$$hostnames_name$$2,
-  tls$$certificates$$and$$hostnames_serial_number$$2,
-  tls$$certificates$$and$$hostnames_type$$3,
-  tls$$certificates$$and$$hostnames_updated_at$$4,
-  tls$$certificates$$and$$hostnames_uploaded_on$$4,
 } from "./outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_ca as tls$$certificates$$and$$hostnames_ca$,
-  tls$$certificates$$and$$hostnames_certificates$$2 as tls$$certificates$$and$$hostnames_certificates$$2$,
-  tls$$certificates$$and$$hostnames_mtls_certificate_identifier as tls$$certificates$$and$$hostnames_mtls_certificate_identifier$,
-  tls$$certificates$$and$$hostnames_name$$2 as tls$$certificates$$and$$hostnames_name$$2$,
-  tls$$certificates$$and$$hostnames_private_key$$4,
-} from "./schemas.js";
 
 /**
  * The tools of `ssl.mtlsCertificates`.
@@ -43,27 +24,27 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_mtlsCertificates_create",
     title: "Upload mTLS certificate",
-    description: "Upload a certificate that you want to use with mTLS-enabled Cloudflare services, such as Bring Your Own CA (BYO-CA) for mTLS. To create certificates issued by the Cloudflare managed CA, use the [Create Client Certificate endpoint](/api/resources/client_certificates/methods/create/).",
+    description: "Upload a certificate that you want to use with mTLS-enabled Cloudflare services, such as Bring Your Own CA (BYO-CA) for mTLS. To create certificates issued by the Cloudflare managed CA, use the [Create Client Certificate endpoint](/api/resources/client_certificates/methods/create/).\n\nPOST /accounts/{account_id}/mtls_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "ca": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_ca",
-              "description": "Indicates whether the certificate is a CA or leaf certificate."
+              "description": "Indicates whether the certificate is a CA or leaf certificate.",
+              "type": "boolean"
             },
             "certificates": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_certificates-2",
-              "description": "The uploaded root CA certificate."
+              "description": "The uploaded root CA certificate.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_name-2",
-              "description": "Optional unique name for the certificate. Only used for human readability."
+              "description": "Optional unique name for the certificate. Only used for human readability.",
+              "type": "string"
             },
             "private_key": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_private_key-4",
-              "description": "The private key for the certificate. This field is only needed for specific use cases such as using a custom certificate with Zero Trust's block page."
+              "description": "The private key for the certificate. This field is only needed for specific use cases such as using a custom certificate with Zero Trust's block page.",
+              "type": "string"
             }
           },
           "required": [
@@ -73,10 +54,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -89,32 +71,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca$,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2$,
-        "tls-certificates-and-hostnames_private_key-4": tls$$certificates$$and$$hostnames_private_key$$4,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single_post",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObjectPost": tls$$certificates$$and$$hostnames_certificateObjectPost,
         "tls-certificates-and-hostnames_certificate_response_single_post": tls$$certificates$$and$$hostnames_certificate_response_single_post,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_updated_at-4": tls$$certificates$$and$$hostnames_updated_at$$4,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     annotations: {
@@ -161,20 +126,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObjectPost": tls$$certificates$$and$$hostnames_certificateObjectPost,
         "tls-certificates-and-hostnames_certificate_response_single_post": tls$$certificates$$and$$hostnames_certificate_response_single_post,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_updated_at-4": tls$$certificates$$and$$hostnames_updated_at$$4,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     request: (args) => ({
@@ -185,19 +139,20 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_mtlsCertificates_delete",
     title: "Delete mTLS certificate",
-    description: "Deletes the mTLS certificate unless the certificate is in use by one or more Cloudflare services.",
+    description: "Deletes the mTLS certificate unless the certificate is in use by one or more Cloudflare services.\n\nDELETE /accounts/{account_id}/mtls_certificates/{mtls_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "mtls_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier",
-              "description": "Certificate identifier tag."
+              "description": "Certificate identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -210,28 +165,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-5",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObject-3": tls$$certificates$$and$$hostnames_certificateObject$$3,
         "tls-certificates-and-hostnames_certificate_response_single-5": tls$$certificates$$and$$hostnames_certificate_response_single$$5,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     annotations: {
@@ -278,19 +220,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObject-3": tls$$certificates$$and$$hostnames_certificateObject$$3,
         "tls-certificates-and-hostnames_certificate_response_single-5": tls$$certificates$$and$$hostnames_certificate_response_single$$5,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     request: (args) => ({
@@ -300,19 +232,20 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_mtlsCertificates_get",
     title: "Get mTLS certificate",
-    description: "Fetches a single mTLS certificate uploaded to your account. To get a certificate issued by the Cloudflare managed CA, use the [Client Certificate Details endpoint](/api/resources/client_certificates/methods/get/).",
+    description: "Fetches a single mTLS certificate uploaded to your account. To get a certificate issued by the Cloudflare managed CA, use the [Client Certificate Details endpoint](/api/resources/client_certificates/methods/get/).\n\nGET /accounts/{account_id}/mtls_certificates/{mtls_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "mtls_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier",
-              "description": "Certificate identifier tag."
+              "description": "Certificate identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -325,28 +258,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-5",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObject-3": tls$$certificates$$and$$hostnames_certificateObject$$3,
         "tls-certificates-and-hostnames_certificate_response_single-5": tls$$certificates$$and$$hostnames_certificate_response_single$$5,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     annotations: {
@@ -394,19 +314,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObject-3": tls$$certificates$$and$$hostnames_certificateObject$$3,
         "tls-certificates-and-hostnames_certificate_response_single-5": tls$$certificates$$and$$hostnames_certificate_response_single$$5,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     request: (args) => ({
@@ -416,15 +326,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_mtlsCertificates_list",
     title: "List mTLS certificates",
-    description: "Lists all mTLS certificates uploaded to your account, such as Bring Your Own CA (BYO-CA) for mTLS. To list certificates issued by the Cloudflare managed CA, use the [List Client Certificates endpoint](/api/resources/client_certificates/methods/list/).",
+    description: "Lists all mTLS certificates uploaded to your account, such as Bring Your Own CA (BYO-CA) for mTLS. To list certificates issued by the Cloudflare managed CA, use the [List Client Certificates endpoint](/api/resources/client_certificates/methods/list/).\n\nGET /accounts/{account_id}/mtls_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -433,6 +344,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "type": {
               "description": "Filters results by certificate type. Multiple types can be comma-separated.",
@@ -453,28 +365,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-5",
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObject-3": tls$$certificates$$and$$hostnames_certificateObject$$3,
         "tls-certificates-and-hostnames_certificate_response_collection-5": tls$$certificates$$and$$hostnames_certificate_response_collection$$5,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     annotations: {
@@ -523,19 +423,9 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_ca": tls$$certificates$$and$$hostnames_ca,
         "tls-certificates-and-hostnames_certificateObject-3": tls$$certificates$$and$$hostnames_certificateObject$$3,
         "tls-certificates-and-hostnames_certificate_response_collection-5": tls$$certificates$$and$$hostnames_certificate_response_collection$$5,
-        "tls-certificates-and-hostnames_certificates-2": tls$$certificates$$and$$hostnames_certificates$$2,
-        "tls-certificates-and-hostnames_expires_on-2": tls$$certificates$$and$$hostnames_expires_on$$2,
-        "tls-certificates-and-hostnames_issuer-2": tls$$certificates$$and$$hostnames_issuer$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls$$certificates$$and$$hostnames_mtls_certificate_identifier,
-        "tls-certificates-and-hostnames_name-2": tls$$certificates$$and$$hostnames_name$$2,
-        "tls-certificates-and-hostnames_serial_number-2": tls$$certificates$$and$$hostnames_serial_number$$2,
-        "tls-certificates-and-hostnames_signature": tls$$certificates$$and$$hostnames_signature,
-        "tls-certificates-and-hostnames_type-3": tls$$certificates$$and$$hostnames_type$$3,
-        "tls-certificates-and-hostnames_uploaded_on-4": tls$$certificates$$and$$hostnames_uploaded_on$$4,
       },
     },
     request: (args) => ({

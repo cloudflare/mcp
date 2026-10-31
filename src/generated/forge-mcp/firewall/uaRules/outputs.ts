@@ -4,26 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `firewall_components-schemas-mode` in responses.
- */
-export const firewall_components$$schemas$$mode: JsonSchema = {
-  "enum": [
-    "block",
-    "challenge",
-    "js_challenge",
-    "managed_challenge"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `firewall_components-ua-rule-id` in responses.
- */
-export const firewall_components$$ua$$rule$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `firewall_firewalluablock` in responses.
  */
 export const firewall_firewalluablock: JsonSchema = {
@@ -32,27 +12,25 @@ export const firewall_firewalluablock: JsonSchema = {
       "$ref": "#/$defs/firewall_schemas-configuration"
     },
     "description": {
-      "$ref": "#/$defs/firewall_firewalluablock_components-schemas-description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/firewall_components-ua-rule-id"
+      "type": "string"
     },
     "mode": {
-      "$ref": "#/$defs/firewall_components-schemas-mode"
+      "enum": [
+        "block",
+        "challenge",
+        "js_challenge",
+        "managed_challenge"
+      ],
+      "type": "string"
     },
     "paused": {
-      "$ref": "#/$defs/firewall_schemas-paused"
+      "type": "boolean"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `firewall_firewalluablock_components-schemas-description` in
- * responses.
- */
-export const firewall_firewalluablock_components$$schemas$$description: JsonSchema = {
-  "type": "string"
 };
 
 /**

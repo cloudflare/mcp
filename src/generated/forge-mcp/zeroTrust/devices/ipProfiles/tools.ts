@@ -7,25 +7,9 @@ import {
   teams$$devices_v4_error_response,
   teams$$devices_v4_response_message,
 } from "../outputs.js";
-import {
-  teams$$devices_ip_profile,
-  teams$$devices_ip_profile_created_at,
-  teams$$devices_ip_profile_description,
-  teams$$devices_ip_profile_enabled,
-  teams$$devices_ip_profile_id,
-  teams$$devices_ip_profile_match,
-  teams$$devices_ip_profile_name,
-  teams$$devices_ip_profile_precedence,
-  teams$$devices_ip_profile_subnet_id,
-  teams$$devices_ip_profile_updated_at,
-} from "./outputs.js";
+import { teams$$devices_ip_profile } from "./outputs.js";
 import {
   teams$$devices_ip_profile_create_request,
-  teams$$devices_ip_profile_enabled as teams$$devices_ip_profile_enabled$,
-  teams$$devices_ip_profile_match as teams$$devices_ip_profile_match$,
-  teams$$devices_ip_profile_name as teams$$devices_ip_profile_name$,
-  teams$$devices_ip_profile_precedence as teams$$devices_ip_profile_precedence$,
-  teams$$devices_ip_profile_subnet_id as teams$$devices_ip_profile_subnet_id$,
   teams$$devices_ip_profile_update_request,
 } from "./schemas.js";
 
@@ -36,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_ipProfiles_create",
     title: "Create IP profile",
-    description: "Creates a WARP Device IP profile. Currently, only IPv4 Device subnets can be associated.",
+    description: "Creates a WARP Device IP profile. Currently, only IPv4 Device subnets can be associated.\n\nPOST /accounts/{account_id}/devices/ip-profiles",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,6 +28,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_ip_profile_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -59,12 +44,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "teams-devices_ip_profile_create_request": teams$$devices_ip_profile_create_request,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match$,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name$,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence$,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id$,
       },
     },
     outputSchema: {
@@ -97,15 +79,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
@@ -160,15 +133,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
@@ -181,11 +145,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_ipProfiles_delete",
     title: "Delete IP profile",
-    description: "Delete a WARP Device IP profile.",
+    description: "Delete a WARP Device IP profile.\n\nDELETE /accounts/{account_id}/devices/ip-profiles/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -204,6 +169,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -308,11 +274,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_ipProfiles_get",
     title: "Get IP profile",
-    description: "Fetches a single WARP Device IP profile.",
+    description: "Fetches a single WARP Device IP profile.\n\nGET /accounts/{account_id}/devices/ip-profiles/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -331,6 +298,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -362,15 +330,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
@@ -426,15 +385,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
@@ -446,11 +396,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_ipProfiles_list",
     title: "List IP profiles",
-    description: "Lists WARP Device IP profiles.",
+    description: "Lists WARP Device IP profiles.\n\nGET /accounts/{account_id}/devices/ip-profiles",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -462,6 +413,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -480,6 +432,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -517,15 +470,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_pagination_info": teams$$devices_pagination_info,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
@@ -588,15 +532,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_pagination_info": teams$$devices_pagination_info,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
@@ -613,7 +548,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_ipProfiles_update",
     title: "Update IP profile",
-    description: "Updates a WARP Device IP profile. Currently, only IPv4 Device subnets can be associated.",
+    description: "Updates a WARP Device IP profile. Currently, only IPv4 Device subnets can be associated.\n\nPATCH /accounts/{account_id}/devices/ip-profiles/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -621,6 +556,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_ip_profile_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -640,12 +576,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled$,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match$,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name$,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence$,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id$,
         "teams-devices_ip_profile_update_request": teams$$devices_ip_profile_update_request,
       },
     },
@@ -679,15 +611,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
@@ -742,15 +665,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_ip_profile": teams$$devices_ip_profile,
-        "teams-devices_ip_profile_created_at": teams$$devices_ip_profile_created_at,
-        "teams-devices_ip_profile_description": teams$$devices_ip_profile_description,
-        "teams-devices_ip_profile_enabled": teams$$devices_ip_profile_enabled,
-        "teams-devices_ip_profile_id": teams$$devices_ip_profile_id,
-        "teams-devices_ip_profile_match": teams$$devices_ip_profile_match,
-        "teams-devices_ip_profile_name": teams$$devices_ip_profile_name,
-        "teams-devices_ip_profile_precedence": teams$$devices_ip_profile_precedence,
-        "teams-devices_ip_profile_subnet_id": teams$$devices_ip_profile_subnet_id,
-        "teams-devices_ip_profile_updated_at": teams$$devices_ip_profile_updated_at,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },

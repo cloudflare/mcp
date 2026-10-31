@@ -7,11 +7,7 @@ import {
   secondary$$dns_api$$response$$single,
   secondary$$dns_messages,
 } from "../../outputs.js";
-import { secondary$$dns_identifier } from "../../schemas.js";
-import {
-  secondary$$dns_enable_transfer_response,
-  secondary$$dns_enable_transfer_result,
-} from "../outputs.js";
+import { secondary$$dns_enable_transfer_response } from "../outputs.js";
 
 /**
  * The tools of `dns.zoneTransfers.outgoing.status`.
@@ -20,14 +16,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_status_get",
     title: "Get Outgoing Zone Transfer Status",
-    description: "Get primary zone transfer status.",
+    description: "Get primary zone transfer status.\n\nGET /zones/{zone_id}/secondary_dns/outgoing/status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -39,16 +36,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_enable_transfer_response",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
-        "secondary-dns_enable_transfer_result": secondary$$dns_enable_transfer_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -96,7 +90,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
-        "secondary-dns_enable_transfer_result": secondary$$dns_enable_transfer_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },

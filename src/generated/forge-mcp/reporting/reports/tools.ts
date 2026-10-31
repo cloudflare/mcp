@@ -22,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_reports_get",
     title: "Get a generated report",
-    description: "Gets a generated report by identifier.",
+    description: "Gets a generated report by identifier.\n\nGET /accounts/{account_id}/reporting/reports/{report_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare public account ID (32-character hexadecimal string)",
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/reports_ReportSingleResponse",
@@ -100,11 +102,12 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_reports_list",
     title: "List generated reports",
-    description: "Lists all generated reports for an account.",
+    description: "Lists all generated reports for an account.\n\nGET /accounts/{account_id}/reporting/reports",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare public account ID (32-character hexadecimal string)",
@@ -120,6 +123,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/reports_ReportsListResponse",

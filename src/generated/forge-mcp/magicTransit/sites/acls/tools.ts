@@ -6,39 +6,20 @@ import {
   magic_api$$response$$common,
   magic_api$$response$$common$$failure,
   magic_api$$response$$single,
-  magic_cidr,
-  magic_identifier,
   magic_messages,
 } from "../../outputs.js";
 import {
-  magic_cidr as magic_cidr$,
-  magic_identifier as magic_identifier$,
-} from "../../schemas.js";
-import { magic_ip$$address, magic_port } from "../outputs.js";
-import {
-  magic_ip$$address as magic_ip$$address$,
-  magic_port as magic_port$,
-} from "../schemas.js";
-import {
   magic_acl,
-  magic_acl$$port$$range,
-  magic_acl$$subnet,
   magic_acl_deleted_response,
   magic_acl_modified_response,
   magic_acl_single_response,
   magic_acls_collection_response,
-  magic_forward_locally,
   magic_lan$$acl$$configuration,
-  magic_unidirectional,
 } from "./outputs.js";
 import {
-  magic_acl$$port$$range as magic_acl$$port$$range$,
-  magic_acl$$subnet as magic_acl$$subnet$,
   magic_acl_update_request,
   magic_acls_add_single_request,
-  magic_forward_locally as magic_forward_locally$,
   magic_lan$$acl$$configuration as magic_lan$$acl$$configuration$,
-  magic_unidirectional as magic_unidirectional$,
 } from "./schemas.js";
 
 /**
@@ -48,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_acls_create",
     title: "Create a new Site ACL",
-    description: "Creates a new Site ACL.",
+    description: "Creates a new Site ACL.\n\nPOST /accounts/{account_id}/magic/sites/{site_id}/acls",
     inputSchema: {
       type: "object",
       properties: {
@@ -56,14 +37,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_acls_add_single_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -77,36 +59,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_acl-port-range": magic_acl$$port$$range$,
-        "magic_acl-subnet": magic_acl$$subnet$,
         "magic_acls_add_single_request": magic_acls_add_single_request,
-        "magic_cidr": magic_cidr$,
-        "magic_forward_locally": magic_forward_locally$,
-        "magic_identifier": magic_identifier$,
-        "magic_ip-address": magic_ip$$address$,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration$,
-        "magic_port": magic_port$,
-        "magic_unidirectional": magic_unidirectional$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_acl_single_response",
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_single_response": magic_acl_single_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     annotations: {
@@ -141,20 +108,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_single_response": magic_acl_single_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     request: (args) => ({
@@ -165,23 +124,24 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_acls_delete",
     title: "Delete Site ACL",
-    description: "Remove a specific Site ACL.",
+    description: "Remove a specific Site ACL.\n\nDELETE /accounts/{account_id}/magic/sites/{site_id}/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -195,27 +155,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_acl_deleted_response",
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_deleted_response": magic_acl_deleted_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     annotations: {
@@ -255,20 +205,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_deleted_response": magic_acl_deleted_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     request: (args) => ({
@@ -278,7 +220,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_acls_edit",
     title: "Patch Site ACL",
-    description: "Patch a specific Site ACL.",
+    description: "Patch a specific Site ACL.\n\nPATCH /accounts/{account_id}/magic/sites/{site_id}/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -286,18 +228,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_acl_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -312,36 +255,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_acl-port-range": magic_acl$$port$$range$,
-        "magic_acl-subnet": magic_acl$$subnet$,
         "magic_acl_update_request": magic_acl_update_request,
-        "magic_cidr": magic_cidr$,
-        "magic_forward_locally": magic_forward_locally$,
-        "magic_identifier": magic_identifier$,
-        "magic_ip-address": magic_ip$$address$,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration$,
-        "magic_port": magic_port$,
-        "magic_unidirectional": magic_unidirectional$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_acl_modified_response",
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_modified_response": magic_acl_modified_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     annotations: {
@@ -381,20 +309,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_modified_response": magic_acl_modified_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     request: (args) => ({
@@ -405,23 +325,24 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_acls_get",
     title: "Site ACL Details",
-    description: "Get a specific Site ACL.",
+    description: "Get a specific Site ACL.\n\nGET /accounts/{account_id}/magic/sites/{site_id}/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -435,27 +356,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_acl_single_response",
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_single_response": magic_acl_single_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     annotations: {
@@ -497,20 +408,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_single_response": magic_acl_single_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     request: (args) => ({
@@ -520,19 +423,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_acls_list",
     title: "List Site ACLs",
-    description: "Lists Site ACLs associated with an account.",
+    description: "Lists Site ACLs associated with an account.\n\nGET /accounts/{account_id}/magic/sites/{site_id}/acls",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -545,27 +449,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_acls_collection_response",
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acls_collection_response": magic_acls_collection_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     annotations: {
@@ -602,20 +496,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acls_collection_response": magic_acls_collection_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     request: (args) => ({
@@ -625,7 +511,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_acls_update",
     title: "Update Site ACL",
-    description: "Update a specific Site ACL.",
+    description: "Update a specific Site ACL.\n\nPUT /accounts/{account_id}/magic/sites/{site_id}/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -633,18 +519,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_acl_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -659,36 +546,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_acl-port-range": magic_acl$$port$$range$,
-        "magic_acl-subnet": magic_acl$$subnet$,
         "magic_acl_update_request": magic_acl_update_request,
-        "magic_cidr": magic_cidr$,
-        "magic_forward_locally": magic_forward_locally$,
-        "magic_identifier": magic_identifier$,
-        "magic_ip-address": magic_ip$$address$,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration$,
-        "magic_port": magic_port$,
-        "magic_unidirectional": magic_unidirectional$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_acl_modified_response",
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_modified_response": magic_acl_modified_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     annotations: {
@@ -728,20 +600,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_acl": magic_acl,
-        "magic_acl-port-range": magic_acl$$port$$range,
-        "magic_acl-subnet": magic_acl$$subnet,
         "magic_acl_modified_response": magic_acl_modified_response,
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_cidr": magic_cidr,
-        "magic_forward_locally": magic_forward_locally,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip$$address,
         "magic_lan-acl-configuration": magic_lan$$acl$$configuration,
         "magic_messages": magic_messages,
-        "magic_port": magic_port,
-        "magic_unidirectional": magic_unidirectional,
       },
     },
     request: (args) => ({

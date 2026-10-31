@@ -14,11 +14,8 @@ import {
   firewall_ip_configuration,
   firewall_ipv6_configuration,
   firewall_messages,
-  firewall_notes,
   firewall_result_info,
   firewall_rule,
-  firewall_schemas$$identifier,
-  firewall_schemas$$mode,
 } from "../../outputs.js";
 import {
   firewall_asn_configuration as firewall_asn_configuration$,
@@ -27,16 +24,10 @@ import {
   firewall_country_configuration as firewall_country_configuration$,
   firewall_ip_configuration as firewall_ip_configuration$,
   firewall_ipv6_configuration as firewall_ipv6_configuration$,
-  firewall_notes as firewall_notes$,
   firewall_rule as firewall_rule$,
-  firewall_rule_identifier,
-  firewall_schemas$$mode as firewall_schemas$$mode$,
 } from "../../schemas.js";
-import { firewall_identifier } from "../outputs.js";
-import { firewall_account_identifier } from "../schemas.js";
 import {
   firewall_api$$response$$single$$id,
-  firewall_email,
   firewall_response_collection,
   firewall_response_single,
   firewall_schemas$$rule,
@@ -50,7 +41,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_accessRules_create",
     title: "Create an IP Access rule",
-    description: "Creates a new IP Access rule for an account or zone. The rule will apply to all zones in the account or zone.\n\nNote: To create an IP Access rule that applies to a single zone, refer to the [IP Access rules for a zone](#ip-access-rules-for-a-zone) endpoints.",
+    description: "Creates a new IP Access rule for an account or zone. The rule will apply to all zones in the account or zone.\n\nNote: To create an IP Access rule that applies to a single zone, refer to the [IP Access rules for a zone](#ip-access-rules-for-a-zone) endpoints.\n\nPOST /{account_or_zone}/{account_or_zone_id}/firewall/access_rules/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -61,11 +52,20 @@ export const tools: readonly Tool[] = [
               "description": "The rule configuration."
             },
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode"
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "notes": {
-              "$ref": "#/$defs/firewall_notes",
-              "default": ""
+              "default": "",
+              "description": "An informative summary of the rule, typically used as a reminder or explanation.",
+              "type": "string"
             }
           },
           "required": [
@@ -75,6 +75,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -85,8 +86,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -100,16 +101,14 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
         "firewall_asn_configuration": firewall_asn_configuration$,
         "firewall_cidr_configuration": firewall_cidr_configuration$,
         "firewall_configuration": firewall_configuration$,
         "firewall_country_configuration": firewall_country_configuration$,
         "firewall_ip_configuration": firewall_ip_configuration$,
         "firewall_ipv6_configuration": firewall_ipv6_configuration$,
-        "firewall_notes": firewall_notes$,
-        "firewall_schemas-mode": firewall_schemas$$mode$,
       },
     },
     outputSchema: {
@@ -121,16 +120,11 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_single": firewall_response_single,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -176,16 +170,11 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_single": firewall_response_single,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -197,11 +186,12 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_accessRules_delete",
     title: "Delete an IP Access rule",
-    description: "Deletes an existing IP Access rule defined.\n\nNote: This operation will affect all zones in the account or zone.\n\nConfirm with the user before calling this tool. This operation deletes the account-level IP Access Rule and affects every zone in the account.",
+    description: "Deletes an existing IP Access rule defined.\n\nNote: This operation will affect all zones in the account or zone.\n\nConfirm with the user before calling this tool. This operation deletes the account-level IP Access Rule and affects every zone in the account.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/firewall/access_rules/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -212,12 +202,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/firewall_rule_identifier",
-              "description": "Unique identifier for a rule."
+              "description": "Unique identifier for a rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -231,17 +221,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
-        "firewall_rule_identifier": firewall_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_api-response-single-id",
       $defs: {
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single-id": firewall_api$$response$$single$$id,
-        "firewall_identifier": firewall_identifier,
         "firewall_messages": firewall_messages,
       },
     },
@@ -283,7 +269,6 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single-id": firewall_api$$response$$single$$id,
-        "firewall_identifier": firewall_identifier,
         "firewall_messages": firewall_messages,
       },
     },
@@ -294,7 +279,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_accessRules_edit",
     title: "Update an IP Access rule",
-    description: "Updates an IP Access rule defined.\n\nNote: This operation will affect all zones in the account or zone.",
+    description: "Updates an IP Access rule defined.\n\nNote: This operation will affect all zones in the account or zone.\n\nPATCH /{account_or_zone}/{account_or_zone_id}/firewall/access_rules/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -302,6 +287,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/firewall_schemas-rule"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -312,12 +298,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/firewall_rule_identifier",
-              "description": "Unique identifier for a rule."
+              "description": "Unique identifier for a rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -332,18 +318,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
         "firewall_asn_configuration": firewall_asn_configuration$,
         "firewall_cidr_configuration": firewall_cidr_configuration$,
         "firewall_configuration": firewall_configuration$,
         "firewall_country_configuration": firewall_country_configuration$,
         "firewall_ip_configuration": firewall_ip_configuration$,
         "firewall_ipv6_configuration": firewall_ipv6_configuration$,
-        "firewall_notes": firewall_notes$,
         "firewall_rule": firewall_rule$,
-        "firewall_rule_identifier": firewall_rule_identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode$,
         "firewall_schemas-rule": firewall_schemas$$rule$,
       },
     },
@@ -356,16 +339,11 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_single": firewall_response_single,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -411,16 +389,11 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_single": firewall_response_single,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -432,11 +405,12 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_accessRules_get",
     title: "Get an IP Access rule",
-    description: "Fetches the details of an IP Access rule defined.",
+    description: "Fetches the details of an IP Access rule defined.\n\nGET /{account_or_zone}/{account_or_zone_id}/firewall/access_rules/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -447,12 +421,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/firewall_rule_identifier",
-              "description": "Unique identifier for a rule."
+              "description": "Unique identifier for a rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -466,10 +440,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
-        "firewall_rule_identifier": firewall_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_response_single",
@@ -480,16 +451,11 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_single": firewall_response_single,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -536,16 +502,11 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_single": firewall_response_single,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -556,11 +517,12 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_accessRules_list",
     title: "List IP Access rules",
-    description: "Fetches IP Access rules of an account or zone. These rules apply to all the zones in the account or zone. You can filter the results using several optional parameters.",
+    description: "Fetches IP Access rules of an account or zone. These rules apply to all the zones in the account or zone. You can filter the results using several optional parameters.\n\nGET /{account_or_zone}/{account_or_zone_id}/firewall/access_rules/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -571,8 +533,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -582,6 +544,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "configuration.target": {
               "description": "Defines the target to search in existing rules.",
@@ -615,8 +578,15 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode",
-              "description": "The action to apply to a matched request."
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "notes": {
               "description": "Defines the string to search for in the notes of existing IP Access rules.\nNotes: For example, the string 'attack' would match IP Access rules with notes 'Attack 26/02' and 'Attack 27/02'. The search is case insensitive.",
@@ -646,10 +616,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_response_collection",
@@ -660,17 +627,12 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_collection": firewall_response_collection,
         "firewall_result_info": firewall_result_info,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },
@@ -717,17 +679,12 @@ export const tools: readonly Tool[] = [
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_email": firewall_email,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_response_collection": firewall_response_collection,
         "firewall_result_info": firewall_result_info,
         "firewall_rule": firewall_rule,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
         "firewall_schemas-rule": firewall_schemas$$rule,
       },
     },

@@ -7,15 +7,12 @@ import {
   dnssec_api$$response$$single,
   dnssec_messages,
 } from "../outputs.js";
-import { dnssec_identifier } from "../schemas.js";
 import {
   dnssec_dnskey_record,
   dnssec_dnskey_record_header,
   dnssec_dnskey_signing_key,
-  dnssec_dnssec_key_state,
   dnssec_dnssec_zsk,
   dnssec_dnssec_zsk_response_collection,
-  dnssec_key_storage_location,
 } from "./outputs.js";
 
 /**
@@ -25,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_dnssec_list_zsks",
     title: "List DNSSEC ZSKs",
-    description: "List the Zone Signing Keys (ZSKs) that DNSSEC uses for the zone.",
+    description: "List the Zone Signing Keys (ZSKs) that DNSSEC uses for the zone.\n\nGET /zones/{zone_id}/dnssec/zsk",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dnssec_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -45,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dnssec_identifier": dnssec_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dnssec_dnssec_zsk_response_collection",
@@ -56,10 +52,8 @@ export const tools: readonly Tool[] = [
         "dnssec_dnskey_record": dnssec_dnskey_record,
         "dnssec_dnskey_record_header": dnssec_dnskey_record_header,
         "dnssec_dnskey_signing_key": dnssec_dnskey_signing_key,
-        "dnssec_dnssec_key_state": dnssec_dnssec_key_state,
         "dnssec_dnssec_zsk": dnssec_dnssec_zsk,
         "dnssec_dnssec_zsk_response_collection": dnssec_dnssec_zsk_response_collection,
-        "dnssec_key_storage_location": dnssec_key_storage_location,
         "dnssec_messages": dnssec_messages,
       },
     },
@@ -99,10 +93,8 @@ export const tools: readonly Tool[] = [
         "dnssec_dnskey_record": dnssec_dnskey_record,
         "dnssec_dnskey_record_header": dnssec_dnskey_record_header,
         "dnssec_dnskey_signing_key": dnssec_dnskey_signing_key,
-        "dnssec_dnssec_key_state": dnssec_dnssec_key_state,
         "dnssec_dnssec_zsk": dnssec_dnssec_zsk,
         "dnssec_dnssec_zsk_response_collection": dnssec_dnssec_zsk_response_collection,
-        "dnssec_key_storage_location": dnssec_key_storage_location,
         "dnssec_messages": dnssec_messages,
       },
     },

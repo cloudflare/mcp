@@ -82,13 +82,6 @@ export const smartshield_api$$response$$result: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_identifier` in responses.
- */
-export const smartshield_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_messages` in responses.
  */
 export const smartshield_messages: JsonSchema = {

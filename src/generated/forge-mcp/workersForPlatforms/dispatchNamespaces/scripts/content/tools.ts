@@ -6,11 +6,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../../../outputs.js";
-import {
-  workers_identifier,
-  workers_script_name,
-} from "../../../../schemas.js";
-import { workers_dispatch_namespace_name } from "../../schemas.js";
 
 /**
  * The tools of `workersForPlatforms.dispatchNamespaces.scripts.content`.
@@ -19,23 +14,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_content_get",
     title: "Get Workers for Platforms Script Content",
-    description: "Fetch content from a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Fetch content from a script uploaded to a Workers for Platforms dispatch namespace.\n\nGET /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/content",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,11 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

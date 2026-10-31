@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_skills_create",
     title: "Create Threat Signals skill",
-    description: "Creates a Custom Skill for the account. Free Threat Signals accounts cannot create Custom Skills.",
+    description: "Creates a Custom Skill for the account. Free Threat Signals accounts cannot create Custom Skills.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills",
     inputSchema: {
       type: "object",
       properties: {
@@ -46,6 +46,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -60,6 +61,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -368,11 +370,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_skills_delete",
     title: "Delete Threat Signals skill",
-    description: "Deletes a Custom Skill. The skill's stored outputs on articles are deleted with it. Managed Default Skills cannot be deleted. Free Threat Signals accounts cannot delete Custom Skills.\n\nConfirm with the user before calling this tool. This permanently deletes the custom skill, removes it from every feed it is assigned to, and deletes the outputs it stored on articles.",
+    description: "Deletes a Custom Skill. The skill's stored outputs on articles are deleted with it. Managed Default Skills cannot be deleted. Free Threat Signals accounts cannot delete Custom Skills.\n\nConfirm with the user before calling this tool. This permanently deletes the custom skill, removes it from every feed it is assigned to, and deletes the outputs it stored on articles.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -392,6 +395,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -699,11 +703,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_skills_get",
     title: "Get Threat Signals skill",
-    description: "Retrieves a Managed Default Skill or Custom Skill. Managed catalog definitions are readable. Free Threat Signals accounts cannot read Custom Skills.",
+    description: "Retrieves a Managed Default Skill or Custom Skill. Managed catalog definitions are readable. Free Threat Signals accounts cannot read Custom Skills.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -723,6 +728,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1031,11 +1037,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_skills_list",
     title: "List Threat Signals skills",
-    description: "Lists active Managed Default Skills and Custom Skills. Free Threat Signals accounts see active managed defaults only, with custom_skills_available: false.",
+    description: "Lists active Managed Default Skills and Custom Skills. Free Threat Signals accounts see active managed defaults only, with custom_skills_available: false.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1047,6 +1054,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -1065,6 +1073,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1439,7 +1448,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_skills_update",
     title: "Update Threat Signals skill",
-    description: "Updates a Custom Skill. Managed Default Skills cannot be updated. Free Threat Signals accounts cannot update Custom Skills.",
+    description: "Updates a Custom Skill. Managed Default Skills cannot be updated. Free Threat Signals accounts cannot update Custom Skills.\n\nPATCH /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1469,6 +1478,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1488,6 +1498,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

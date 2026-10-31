@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_step_get",
     title: "Get full step output from instance",
-    description: "Retrieves the full, untruncated output for a specific step on a workflow instance. Returns a flat status-shaped JSON body with step `status` ('running' | 'waiting' | 'complete' | 'errored'), `error` (nullable), and `output` (the step value, or null while running/waiting/errored). When the step returned a ReadableStream from step.do, the response is served as 'application/octet-stream' with the raw bytes as the body instead of JSON. A `status='running'` response with non-null `error` indicates the step is currently retrying after a prior attempt failed.",
+    description: "Retrieves the full, untruncated output for a specific step on a workflow instance. Returns a flat status-shaped JSON body with step `status` ('running' | 'waiting' | 'complete' | 'errored'), `error` (nullable), and `output` (the step value, or null while running/waiting/errored). When the step returned a ReadableStream from step.do, the response is served as 'application/octet-stream' with the raw bytes as the body instead of JSON. A `status='running'` response with non-null `error` indicates the step is currently retrying after a prior attempt failed.\n\nGET /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/step",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "attempt": {
               "description": "Specific attempt number to retrieve output or error for.",
@@ -64,6 +66,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

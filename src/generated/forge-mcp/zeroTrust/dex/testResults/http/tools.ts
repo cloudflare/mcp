@@ -6,12 +6,7 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_uuid as digital$$experience$$monitoring_uuid$,
-} from "../../schemas.js";
 import {
   digital$$experience$$monitoring_test_stat_over_time,
   digital$$experience$$monitoring_test_stat_pct_over_time,
@@ -25,19 +20,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_testResults_http_get",
     title: "Get details and aggregate metrics for an http test",
-    description: "Get test details and aggregate performance metrics for an http test for a given time period between 1 hour and 7 days.",
+    description: "Get test details and aggregate performance metrics for an http test for a given time period between 1 hour and 7 days.\n\nGET /accounts/{account_id}/dex/http-tests/{test_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "test_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier for a specific test."
+              "description": "Unique identifier for a specific test.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,6 +43,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "colo": {
               "description": "Optionally filter result stats to a Cloudflare colo. Cannot be used in combination with deviceId param.",
@@ -88,10 +85,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -113,7 +107,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_test_stat_over_time": digital$$experience$$monitoring_test_stat_over_time,
         "digital-experience-monitoring_test_stat_pct_over_time": digital$$experience$$monitoring_test_stat_pct_over_time,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -161,7 +154,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_test_stat_over_time": digital$$experience$$monitoring_test_stat_over_time,
         "digital-experience-monitoring_test_stat_pct_over_time": digital$$experience$$monitoring_test_stat_pct_over_time,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({

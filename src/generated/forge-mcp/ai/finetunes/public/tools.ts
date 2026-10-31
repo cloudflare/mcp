@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_finetunes_public_list",
     title: "List Public Finetunes",
-    description: "Lists publicly available fine-tuned models that can be used with Workers AI.",
+    description: "Lists publicly available fine-tuned models that can be used with Workers AI.\n\nGET /accounts/{account_id}/ai/finetunes/public",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 20,
@@ -48,6 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

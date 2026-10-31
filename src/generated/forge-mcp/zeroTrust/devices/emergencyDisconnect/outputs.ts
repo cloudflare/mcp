@@ -4,22 +4,16 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_disconnect` in responses.
- */
-export const teams$$devices_disconnect: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_global_warp_override` in responses.
  */
 export const teams$$devices_global_warp_override: JsonSchema = {
   "properties": {
     "disconnect": {
-      "$ref": "#/$defs/teams-devices_disconnect"
+      "type": "boolean"
     },
     "timestamp": {
-      "$ref": "#/$defs/teams-devices_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -42,12 +36,4 @@ export const teams$$devices_global_warp_override_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `teams-devices_timestamp` in responses.
- */
-export const teams$$devices_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

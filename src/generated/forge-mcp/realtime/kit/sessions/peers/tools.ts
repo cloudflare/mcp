@@ -6,10 +6,6 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
 import { realtimekit_PeerEvent } from "../outputs.js";
 import {
   realtimekit_AudioConsumerStats,
@@ -40,19 +36,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_peers_get",
     title: "Fetch details of peer",
-    description: "Returns participant details for the given peer ID along with call statistics.\n\nThis method is beta.",
+    description: "Returns participant details for the given peer ID along with call statistics.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/peer-report/{peer_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "peer_id": {
               "description": "ID of the peer",
@@ -68,6 +65,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "filters": {
               "description": "Filter to apply to the peer report.",
@@ -92,10 +90,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

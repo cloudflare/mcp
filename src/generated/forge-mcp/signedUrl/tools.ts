@@ -11,10 +11,11 @@ export const tools: readonly Tool[] = [
   {
     name: "signedUrl_get",
     title: "Internal route for testing signed URLs",
-    description: "Internal route for testing signed URLs.",
+    description: "Internal route for testing signed URLs.\n\nGET /signed-url",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

@@ -809,7 +809,7 @@ export const workers_observability: JsonSchema = {
 export const workers_route: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/workers_identifier"
+      "type": "string"
     },
     "pattern": {
       "type": "string"

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_ips_top_ases",
     title: "Get top ASes by announced IP space",
-    description: "Returns the top-N autonomous systems by announced IP space at the nearest 8-hour RIB boundary at or before the requested date. The snapped boundary is returned as `anchor_ts`.",
+    description: "Returns the top-N autonomous systems by announced IP space at the nearest 8-hour RIB boundary at or before the requested date. The snapped boundary is returned as `anchor_ts`.\n\nGET /radar/bgp/ips/top/ases",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "country": {
               "description": "Optional ISO 3166-1 alpha-2 country filter. Omit for global top-N.",
@@ -50,6 +51,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

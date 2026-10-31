@@ -8,22 +8,11 @@ import {
   logpush_api$$response$$single,
   logpush_messages,
 } from "../outputs.js";
-import { logpush_identifier } from "../schemas.js";
 import {
-  logpush_destination_conf$$2,
-  logpush_fields,
-  logpush_filter$$2,
   logpush_instant_logs_job,
   logpush_instant_logs_job_response_collection,
   logpush_instant_logs_job_response_single,
-  logpush_sample,
-  logpush_session_id,
 } from "./outputs.js";
-import {
-  logpush_fields as logpush_fields$,
-  logpush_filter$$2 as logpush_filter$$2$,
-  logpush_sample as logpush_sample$,
-} from "./schemas.js";
 
 /**
  * The tools of `logpush.edge`.
@@ -32,32 +21,33 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_edge_create",
     title: "Create Instant Logs job",
-    description: "Creates a new Instant Logs job for a zone.",
+    description: "Creates a new Instant Logs job for a zone.\n\nPOST /zones/{zone_id}/logpush/edge/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "fields": {
-              "$ref": "#/$defs/logpush_fields",
-              "description": "Comma-separated list of fields."
+              "description": "Comma-separated list of fields.",
+              "type": "string"
             },
             "filter": {
-              "$ref": "#/$defs/logpush_filter-2",
-              "description": "Filters to drill down into specific events."
+              "description": "Filters to drill down into specific events.",
+              "type": "string"
             },
             "sample": {
-              "$ref": "#/$defs/logpush_sample",
-              "description": "The sample parameter is the sample rate of the records set by the client: \"sample\": 1 is 100% of records \"sample\": 10 is 10% and so on."
+              "description": "The sample parameter is the sample rate of the records set by the client: \"sample\": 1 is 100% of records \"sample\": 10 is 10% and so on.",
+              "type": "integer"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -70,25 +60,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "logpush_fields": logpush_fields$,
-        "logpush_filter-2": logpush_filter$$2$,
-        "logpush_identifier": logpush_identifier,
-        "logpush_sample": logpush_sample$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_instant_logs_job_response_single",
       $defs: {
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_destination_conf-2": logpush_destination_conf$$2,
-        "logpush_fields": logpush_fields,
-        "logpush_filter-2": logpush_filter$$2,
         "logpush_instant_logs_job": logpush_instant_logs_job,
         "logpush_instant_logs_job_response_single": logpush_instant_logs_job_response_single,
         "logpush_messages": logpush_messages,
-        "logpush_sample": logpush_sample,
-        "logpush_session_id": logpush_session_id,
       },
     },
     annotations: {
@@ -135,14 +115,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_destination_conf-2": logpush_destination_conf$$2,
-        "logpush_fields": logpush_fields,
-        "logpush_filter-2": logpush_filter$$2,
         "logpush_instant_logs_job": logpush_instant_logs_job,
         "logpush_instant_logs_job_response_single": logpush_instant_logs_job_response_single,
         "logpush_messages": logpush_messages,
-        "logpush_sample": logpush_sample,
-        "logpush_session_id": logpush_session_id,
       },
     },
     request: (args) => ({
@@ -153,15 +128,16 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_edge_get",
     title: "List Instant Logs jobs",
-    description: "Lists Instant Logs jobs for a zone.",
+    description: "Lists Instant Logs jobs for a zone.\n\nGET /zones/{zone_id}/logpush/edge/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -173,22 +149,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_instant_logs_job_response_collection",
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
-        "logpush_destination_conf-2": logpush_destination_conf$$2,
-        "logpush_fields": logpush_fields,
-        "logpush_filter-2": logpush_filter$$2,
         "logpush_instant_logs_job": logpush_instant_logs_job,
         "logpush_instant_logs_job_response_collection": logpush_instant_logs_job_response_collection,
         "logpush_messages": logpush_messages,
-        "logpush_sample": logpush_sample,
-        "logpush_session_id": logpush_session_id,
       },
     },
     annotations: {
@@ -235,14 +204,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
-        "logpush_destination_conf-2": logpush_destination_conf$$2,
-        "logpush_fields": logpush_fields,
-        "logpush_filter-2": logpush_filter$$2,
         "logpush_instant_logs_job": logpush_instant_logs_job,
         "logpush_instant_logs_job_response_collection": logpush_instant_logs_job_response_collection,
         "logpush_messages": logpush_messages,
-        "logpush_sample": logpush_sample,
-        "logpush_session_id": logpush_session_id,
       },
     },
     request: (args) => ({

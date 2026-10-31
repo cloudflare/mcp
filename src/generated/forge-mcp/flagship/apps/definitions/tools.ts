@@ -28,11 +28,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_definitions_get",
     title: "Get flag definitions",
-    description: "Returns an app's evaluation-only flag definitions for SDKs that evaluate locally. Send the returned `ETag` in `If-None-Match` to avoid downloading unchanged definitions.\n\nThis method is beta.",
+    description: "Returns an app's evaluation-only flag definitions for SDKs that evaluate locally. Send the returned `ETag` in `If-None-Match` to avoid downloading unchanged definitions.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}/definitions",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "If-None-Match": {
               "description": "Previously returned ETag, or `*`.",
@@ -42,6 +43,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -62,6 +64,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/flagship_FlagDefinitions",

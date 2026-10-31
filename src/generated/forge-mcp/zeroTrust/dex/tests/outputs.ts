@@ -34,23 +34,6 @@ export const digital$$experience$$monitoring_api$$response$$collection$$common: 
 };
 
 /**
- * The schema of
- * `digital-experience-monitoring_device-dex-test-schemas-description` in
- * responses.
- */
-export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_device-dex-test-schemas-enabled`
- * in responses.
- */
-export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-http` in
  * responses.
  */
@@ -64,16 +47,16 @@ export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$http: J
       "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-data"
     },
     "description": {
-      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-description"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-enabled"
+      "type": "boolean"
     },
     "interval": {
-      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-interval"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-name"
+      "type": "string"
     },
     "target_policies": {
       "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-target-policies"
@@ -82,7 +65,7 @@ export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$http: J
       "type": "boolean"
     },
     "test_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_schemas-test-id"
+      "type": "string"
     },
     "updated": {
       "format": "date-time",
@@ -96,23 +79,6 @@ export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$http: J
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_device-dex-test-schemas-interval` in
- * responses.
- */
-export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_device-dex-test-schemas-name` in
- * responses.
- */
-export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -206,7 +172,7 @@ export const digital$$experience$$monitoring_dex_target_policy: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -216,11 +182,4 @@ export const digital$$experience$$monitoring_dex_target_policy: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_schemas-test-id` in responses.
- */
-export const digital$$experience$$monitoring_schemas$$test$$id: JsonSchema = {
-  "type": "string"
 };

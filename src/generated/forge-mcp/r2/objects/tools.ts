@@ -6,12 +6,9 @@ import {
   r2_errors,
   r2_messages,
   r2_prefix_delete_job,
-  r2_r2_bucket_job_status,
-  r2_storage_class,
   r2_v4_response,
   r2_v4_response_failure,
 } from "../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../schemas.js";
 import {
   r2_r2_delete_object_result,
   r2_r2_list_objects_result_info,
@@ -26,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_objects_bulkDelete",
     title: "Delete Objects",
-    description: "Deletes the listed objects from an R2 bucket. Provide a JSON array of 1 to 1000 object\nkeys in the request body.\n\nIf any key cannot be deleted (for example, because it does not exist or is locked), the\nremaining keys are still deleted, but the response is HTTP 200 with `success: false`,\n`result: null` and one entry in `errors` per failed key. The entries in `errors` do not\nidentify which key failed.\n\nTo delete every object under a prefix, or to empty a bucket, create a `prefixDelete` job\nwith the Create Bucket Job endpoint instead. The `prefix` query parameter on this endpoint\nis deprecated; it creates the same job, but responses to it carry a `Deprecation` header\nand a message pointing to Create Bucket Job.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nConfirm with the user before calling this tool. This permanently deletes the listed R2 objects. With the deprecated `prefix` parameter it deletes every object under that prefix, and an empty prefix empties the bucket.",
+    description: "Deletes the listed objects from an R2 bucket. Provide a JSON array of 1 to 1000 object\nkeys in the request body.\n\nIf any key cannot be deleted (for example, because it does not exist or is locked), the\nremaining keys are still deleted, but the response is HTTP 200 with `success: false`,\n`result: null` and one entry in `errors` per failed key. The entries in `errors` do not\nidentify which key failed.\n\nTo delete every object under a prefix, or to empty a bucket, create a `prefixDelete` job\nwith the Create Bucket Job endpoint instead. The `prefix` query parameter on this endpoint\nis deprecated; it creates the same job, but responses to it carry a `Deprecation` header\nand a message pointing to Create Bucket Job.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nConfirm with the user before calling this tool. This permanently deletes the listed R2 objects. With the deprecated `prefix` parameter it deletes every object under that prefix, and an empty prefix empties the bucket.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/objects",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-data-catalog-check": {
               "description": "Set this header to reject the operation when R2 Data Catalog is enabled for the bucket.",
@@ -61,14 +59,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -78,10 +77,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "prefix": {
               "deprecated": true,
-              "description": "Deprecated. Create a `prefixDelete` job with the Create Bucket Job endpoint instead.\nWhen present, the request body is ignored and a prefix-delete job is created for this\nprefix, exactly as Create Bucket Job does; an empty value empties the bucket. The\nresponse is the job descriptor, with a `Deprecation` header and a deprecation message\nin `messages`.\n",
+              "description": "Deprecated. Create a `prefixDelete` job with the Create Bucket Job endpoint instead.\nWhen present, the request body is ignored and a prefix-delete job is created for this\nprefix, exactly as Create Bucket Job does; an empty value empties the bucket. The\nresponse is the job descriptor, with a `Deprecation` header and a deprecation message\nin `messages`.",
               "type": "string"
             }
           },
@@ -91,10 +91,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "oneOf": [
@@ -161,7 +158,6 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors,
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_r2_delete_object_result": r2_r2_delete_object_result,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
@@ -252,7 +248,6 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors,
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_r2_delete_object_result": r2_r2_delete_object_result,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
@@ -272,11 +267,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_objects_delete",
     title: "Delete Object",
-    description: "Deletes an object from an R2 bucket.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nConfirm with the user before calling this tool. This permanently deletes the specified object from the R2 bucket.",
+    description: "Deletes an object from an R2 bucket.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nConfirm with the user before calling this tool. This permanently deletes the specified object from the R2 bucket.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -294,17 +290,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "object_key": {
-              "description": "The key (name) of the object to delete. May contain slashes for path-like keys.\nSlashes (`/`) within the key MUST be sent literally and MUST NOT be percent-encoded\n(i.e. `%2F`); other reserved characters should be percent-encoded as usual.\n",
+              "description": "The key (name) of the object to delete. May contain slashes for path-like keys.\nSlashes (`/`) within the key MUST be sent literally and MUST NOT be percent-encoded\n(i.e. `%2F`); other reserved characters should be percent-encoded as usual.",
               "type": "string"
             }
           },
@@ -319,10 +316,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -398,14 +392,15 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_objects_get",
     title: "Get Object",
-    description: "Retrieves an object from an R2 bucket. Returns the object body along with metadata headers.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.",
+    description: "Retrieves an object from an R2 bucket. Returns the object body along with metadata headers.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "If-Modified-Since": {
-              "description": "Returns the object only if it has been modified since the specified time.\nMust be formatted as an HTTP-date (RFC 7231), e.g. `Tue, 15 Jan 2024 10:30:00 GMT`.\n",
+              "description": "Returns the object only if it has been modified since the specified time.\nMust be formatted as an HTTP-date (RFC 7231), e.g. `Tue, 15 Jan 2024 10:30:00 GMT`.",
               "type": "string"
             },
             "If-None-Match": {
@@ -428,17 +423,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "object_key": {
-              "description": "The key (name) of the object to retrieve. May contain slashes for path-like keys.\nSlashes (`/`) within the key MUST be sent literally and MUST NOT be percent-encoded\n(i.e. `%2F`); other reserved characters should be percent-encoded as usual.\n",
+              "description": "The key (name) of the object to retrieve. May contain slashes for path-like keys.\nSlashes (`/`) within the key MUST be sent literally and MUST NOT be percent-encoded\n(i.e. `%2F`); other reserved characters should be percent-encoded as usual.",
               "type": "string"
             }
           },
@@ -453,10 +449,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -500,11 +493,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_objects_list",
     title: "List Objects",
-    description: "Lists objects in an R2 bucket. Returns object metadata including key, size, etag, last modified date, HTTP metadata, and custom metadata.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.",
+    description: "Lists objects in an R2 bucket. Returns object metadata including key, size, etag, last modified date, HTTP metadata, and custom metadata.\n\nFor most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/objects",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -522,14 +516,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -539,6 +534,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor received from a previous List Objects call. Used to retrieve the next page of results.",
@@ -568,10 +564,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -610,7 +603,6 @@ export const tools: readonly Tool[] = [
         "r2_r2_list_objects_result_info": r2_r2_list_objects_result_info,
         "r2_r2_object": r2_r2_object,
         "r2_r2_object_http_metadata": r2_r2_object_http_metadata,
-        "r2_storage_class": r2_storage_class,
       },
     },
     annotations: {
@@ -673,7 +665,6 @@ export const tools: readonly Tool[] = [
         "r2_r2_list_objects_result_info": r2_r2_list_objects_result_info,
         "r2_r2_object": r2_r2_object,
         "r2_r2_object_http_metadata": r2_r2_object_http_metadata,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
     },

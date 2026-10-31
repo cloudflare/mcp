@@ -6,16 +6,8 @@ import {
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
-  access_uuid,
 } from "../../../../outputs.js";
-import { access_identifier } from "../../../../schemas.js";
-import { access_email$$2, access_name$$10 } from "../../../outputs.js";
-import { access_policy_test_id } from "../schemas.js";
-import {
-  access_policy_users,
-  access_policy_users_resp,
-  access_user_result,
-} from "./outputs.js";
+import { access_policy_users, access_policy_users_resp } from "./outputs.js";
 
 /**
  * The tools of `zeroTrust.access.applications.policyTests.users`.
@@ -24,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_policyTests_users_list",
     title: "Get an Access policy test users page",
-    description: "Fetches a single page of user results from an Access policy test.",
+    description: "Fetches a single page of user results from an Access policy test.\n\nGET /accounts/{account_id}/access/policy-tests/{policy_test_id}/users",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "policy_test_id": {
-              "$ref": "#/$defs/access_policy_test_id",
-              "description": "The UUID of the policy test."
+              "description": "The UUID of the policy test.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -72,22 +66,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_policy_test_id": access_policy_test_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_policy_users_resp",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
         "access_policy_users": access_policy_users,
         "access_policy_users_resp": access_policy_users_resp,
-        "access_user_result": access_user_result,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -117,13 +104,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
         "access_policy_users": access_policy_users,
         "access_policy_users_resp": access_policy_users_resp,
-        "access_user_result": access_user_result,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

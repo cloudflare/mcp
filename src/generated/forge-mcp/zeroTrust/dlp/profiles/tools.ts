@@ -18,13 +18,10 @@ import {
   dlp_Pattern,
   dlp_PredefinedEntry,
   dlp_PredefinedEntryVariant,
-  dlp_PromptTopicType,
   dlp_SensitivityLevelRef,
-  dlp_Validation,
   dlp_WordListEntry,
 } from "../outputs.js";
 import {
-  dlp_Confidence,
   dlp_ContextAwareness,
   dlp_CustomProfile,
   dlp_IntegrationProfile,
@@ -41,11 +38,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_profiles_get",
     title: "Get DLP Profile",
-    description: "Fetches a DLP profile by ID.",
+    description: "Fetches a DLP profile by ID.\n\nGET /accounts/{account_id}/dlp/profiles/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -65,6 +63,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -81,7 +80,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Confidence": dlp_Confidence,
         "dlp_ContextAwareness": dlp_ContextAwareness,
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomProfile": dlp_CustomProfile,
@@ -97,10 +95,8 @@ export const tools: readonly Tool[] = [
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
         "dlp_PredefinedProfile": dlp_PredefinedProfile,
         "dlp_Profile": dlp_Profile,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -143,7 +139,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Confidence": dlp_Confidence,
         "dlp_ContextAwareness": dlp_ContextAwareness,
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomProfile": dlp_CustomProfile,
@@ -159,10 +154,8 @@ export const tools: readonly Tool[] = [
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
         "dlp_PredefinedProfile": dlp_PredefinedProfile,
         "dlp_Profile": dlp_Profile,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -176,11 +169,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_profiles_list",
     title: "List all profiles",
-    description: "Lists all DLP profiles in an account.",
+    description: "Lists all DLP profiles in an account.\n\nGET /accounts/{account_id}/dlp/profiles",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -192,6 +186,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "all": {
               "description": "Return all profiles, including those that current account does not have access to.",
@@ -204,6 +199,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -220,7 +216,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Confidence": dlp_Confidence,
         "dlp_ContextAwareness": dlp_ContextAwareness,
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomProfile": dlp_CustomProfile,
@@ -237,10 +232,8 @@ export const tools: readonly Tool[] = [
         "dlp_PredefinedProfile": dlp_PredefinedProfile,
         "dlp_Profile": dlp_Profile,
         "dlp_ProfileArray": dlp_ProfileArray,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -283,7 +276,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Confidence": dlp_Confidence,
         "dlp_ContextAwareness": dlp_ContextAwareness,
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomProfile": dlp_CustomProfile,
@@ -300,10 +292,8 @@ export const tools: readonly Tool[] = [
         "dlp_PredefinedProfile": dlp_PredefinedProfile,
         "dlp_Profile": dlp_Profile,
         "dlp_ProfileArray": dlp_ProfileArray,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

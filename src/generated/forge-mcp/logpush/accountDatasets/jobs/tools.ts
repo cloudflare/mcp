@@ -5,30 +5,11 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   logpush_api$$response$$common,
   logpush_api$$response$$common$$failure,
-  logpush_dataset,
-  logpush_destination_conf,
-  logpush_enabled,
-  logpush_error_message,
-  logpush_filter_attack_traffic,
-  logpush_frequency,
-  logpush_id,
-  logpush_kind,
-  logpush_last_complete,
-  logpush_last_error,
-  logpush_logpull_options,
   logpush_logpush_job,
   logpush_logpush_job_response_collection,
-  logpush_max_upload_bytes,
-  logpush_max_upload_interval_seconds,
-  logpush_max_upload_records,
   logpush_messages,
-  logpush_name,
   logpush_output_options,
 } from "../../outputs.js";
-import {
-  logpush_dataset as logpush_dataset$,
-  logpush_identifier,
-} from "../../schemas.js";
 
 /**
  * The tools of `logpush.accountDatasets.jobs`.
@@ -37,11 +18,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountDatasets_jobs_get",
     title: "List Logpush jobs for a dataset",
-    description: "Lists Logpush jobs for an account or zone for a dataset.",
+    description: "Lists Logpush jobs for an account or zone for a dataset.\n\nGET /{account_or_zone}/{account_or_zone_id}/logpush/datasets/{dataset_id}/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -52,13 +34,60 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "dataset_id": {
-              "$ref": "#/$defs/logpush_dataset",
               "default": "http_requests",
-              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/).",
+              "oneOf": [
+                {
+                  "enum": [
+                    "access_requests",
+                    "account_abuse_protection_events",
+                    "ai_gateway_events",
+                    "audit_logs",
+                    "audit_logs_v2",
+                    "biso_user_actions",
+                    "casb_findings",
+                    "device_posture_results",
+                    "dex_application_tests",
+                    "dex_device_state_events",
+                    "dlp_forensic_copies",
+                    "dns_firewall_logs",
+                    "dns_logs",
+                    "email_security_alerts",
+                    "email_security_post_delivery_events",
+                    "firewall_events",
+                    "gateway_dns",
+                    "gateway_http",
+                    "gateway_network",
+                    "http_requests",
+                    "ipsec_logs",
+                    "magic_bgp_logs",
+                    "magic_ids_detections",
+                    "mcp_portal_logs",
+                    "mnm_flow_logs",
+                    "nel_reports",
+                    "network_analytics_logs",
+                    "page_shield_events",
+                    "sinkhole_http_logs",
+                    "spectrum_events",
+                    "ssh_logs",
+                    "turnstile_events",
+                    "warp_config_changes",
+                    "warp_toggle_changes",
+                    "websocket_analytics",
+                    "workers_trace_events",
+                    "zaraz_events",
+                    "zero_trust_network_sessions"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -72,33 +101,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_dataset": logpush_dataset$,
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_job_response_collection",
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -139,24 +150,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },

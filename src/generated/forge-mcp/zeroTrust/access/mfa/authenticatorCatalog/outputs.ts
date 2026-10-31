@@ -4,23 +4,16 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `access_aaguid` in responses.
- */
-export const access_aaguid: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `access_authenticator_device_aaguid` in responses.
  */
 export const access_authenticator_device_aaguid: JsonSchema = {
   "properties": {
     "aaguid": {
-      "$ref": "#/$defs/access_aaguid"
+      "format": "uuid",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-14"
+      "type": "string"
     }
   },
   "required": [
@@ -28,13 +21,6 @@ export const access_authenticator_device_aaguid: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_name-14` in responses.
- */
-export const access_name$$14: JsonSchema = {
-  "type": "string"
 };
 
 /**

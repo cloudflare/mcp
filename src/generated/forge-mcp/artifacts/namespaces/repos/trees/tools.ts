@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_trees_get",
     title: "Read a Git tree",
-    description: "Returns decoded entries for an immutable Git tree object. A commit hash returns that commit's root tree; a blob or tag hash returns 422. Tree responses are cacheable forever by hash.\n\nThis method is beta.",
+    description: "Returns decoded entries for an immutable Git tree object. A commit hash returns that commit's root tree; a blob or tag hash returns 422. Tree responses are cacheable forever by hash.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/tree/{hash}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

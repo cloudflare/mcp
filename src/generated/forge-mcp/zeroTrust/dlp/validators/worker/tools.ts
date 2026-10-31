@@ -10,12 +10,9 @@ import {
 } from "../../../outputs.js";
 import {
   dlp_AttachedEntry,
-  dlp_EntryType,
   dlp_ValidatorReferences,
-  dlp_WorkerDefault,
   dlp_WorkerValidator,
 } from "../outputs.js";
-import { dlp_WorkerDefault as dlp_WorkerDefault$ } from "../schemas.js";
 import { dlp_WorkerValidatorArray } from "./outputs.js";
 import { dlp_WorkerValidatorWrite } from "./schemas.js";
 
@@ -26,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_worker_create",
     title: "Create a worker validator",
-    description: "Registers a customer Worker as a validator. An account may own at most 100 validators across\nall kinds.",
+    description: "Registers a customer Worker as a validator. An account may own at most 100 validators across\nall kinds.\n\nPOST /accounts/{account_id}/dlp/validators/worker",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +32,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new validator."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -50,8 +48,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_WorkerDefault": dlp_WorkerDefault$,
         "dlp_WorkerValidatorWrite": dlp_WorkerValidatorWrite,
       },
     },
@@ -71,9 +69,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -116,9 +112,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -133,11 +127,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_worker_delete",
     title: "Delete a worker validator",
-    description: "Deletes a `worker` validator. Fails with `409` while any detection entry is still attached to\nit; detach it from those entries first.",
+    description: "Deletes a `worker` validator. Fails with `409` while any detection entry is still attached to\nit; detach it from those entries first.\n\nDELETE /accounts/{account_id}/dlp/validators/worker/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -157,6 +152,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -227,11 +223,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_worker_get",
     title: "Get a worker validator",
-    description: "Fetches a `worker` validator by ID.",
+    description: "Fetches a `worker` validator by ID.\n\nGET /accounts/{account_id}/dlp/validators/worker/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -251,6 +248,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -268,9 +266,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -314,9 +310,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -330,11 +324,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_worker_list",
     title: "List worker validators",
-    description: "Lists the `worker` validators configured for the account.",
+    description: "Lists the `worker` validators configured for the account.\n\nGET /accounts/{account_id}/dlp/validators/worker",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -349,6 +344,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -366,9 +362,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_WorkerValidatorArray": dlp_WorkerValidatorArray,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -413,9 +407,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_WorkerValidatorArray": dlp_WorkerValidatorArray,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
@@ -430,7 +422,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_worker_update",
     title: "Update a worker validator",
-    description: "Replaces the name, script tag and fallback verdict of a `worker` validator. Attachments to\ndetection entries are owned from the entry side and are not affected.",
+    description: "Replaces the name, script tag and fallback verdict of a `worker` validator. Attachments to\ndetection entries are owned from the entry side and are not affected.\n\nPUT /accounts/{account_id}/dlp/validators/worker/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -439,6 +431,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the validator to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -459,8 +452,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_WorkerDefault": dlp_WorkerDefault$,
         "dlp_WorkerValidatorWrite": dlp_WorkerValidatorWrite,
       },
     },
@@ -480,9 +473,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -525,9 +516,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

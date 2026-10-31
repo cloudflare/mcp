@@ -27,25 +27,18 @@ export const dlp_DlpSettings: JsonSchema = {
 };
 
 /**
- * The schema of `dlp_PayloadLogMaskingLevel` in responses.
- */
-export const dlp_PayloadLogMaskingLevel: JsonSchema = {
-  "enum": [
-    "full",
-    "partial",
-    "clear",
-    "default"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_PayloadLogSetting` in responses.
  */
 export const dlp_PayloadLogSetting: JsonSchema = {
   "properties": {
     "masking_level": {
-      "$ref": "#/$defs/dlp_PayloadLogMaskingLevel"
+      "enum": [
+        "full",
+        "partial",
+        "clear",
+        "default"
+      ],
+      "type": "string"
     },
     "public_key": {
       "oneOf": [

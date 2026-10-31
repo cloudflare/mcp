@@ -3,14 +3,10 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  cc_AccountID,
-  cc_ISO8601Timestamp,
-  cc_Image,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
 } from "../outputs.js";
-import { cc_Image as cc_Image$ } from "../schemas.js";
 import {
   cc_Application,
   cc_ApplicationConstraints,
@@ -19,11 +15,7 @@ import {
   cc_ApplicationHealthError,
   cc_ApplicationHealthErrors,
   cc_ApplicationHealthInstances,
-  cc_ApplicationID,
-  cc_ApplicationJurisdiction,
-  cc_ApplicationName,
   cc_ApplicationObservability,
-  cc_ApplicationRolloutActiveGracePeriod,
   cc_Command,
   cc_ContainersApplicationResponse,
   cc_ContainersDeleteApplicationResponseBody,
@@ -34,25 +26,12 @@ import {
   cc_DurableObjectApplicationConstraints,
   cc_DurableObjectApplicationHealth,
   cc_DurableObjectApplicationObservability,
-  cc_DurableObjectApplicationSchedulingPolicy,
   cc_DurableObjectsConfigurationNamespaceId,
   cc_Entrypoint,
   cc_EnvironmentVariable,
-  cc_EnvironmentVariableName,
-  cc_EnvironmentVariableValue,
-  cc_EventName,
-  cc_EventType,
-  cc_ExecFormParam,
-  cc_InstanceID,
-  cc_InstanceType,
   cc_ObservabilityLogs,
   cc_PlacementEvent,
-  cc_Region,
-  cc_RolloutID,
-  cc_SSHPublicKey,
   cc_ScheduledApplication,
-  cc_ScheduledApplicationSchedulingPolicy,
-  cc_SchedulingPolicy,
   cc_UserDeploymentConfiguration,
   cc_UserSSHPublicKey,
   cc_V4PaginatedResultInfo,
@@ -60,11 +39,7 @@ import {
 } from "./outputs.js";
 import {
   cc_ApplicationConstraints as cc_ApplicationConstraints$,
-  cc_ApplicationID as cc_ApplicationID$,
-  cc_ApplicationJurisdiction as cc_ApplicationJurisdiction$,
-  cc_ApplicationName as cc_ApplicationName$,
   cc_ApplicationObservability as cc_ApplicationObservability$,
-  cc_ApplicationRolloutActiveGracePeriod as cc_ApplicationRolloutActiveGracePeriod$,
   cc_Command as cc_Command$,
   cc_ContainersCreateApplicationRequest,
   cc_ContainersCreateDurableObjectApplicationRequest,
@@ -75,20 +50,12 @@ import {
   cc_DurableObjectApplicationConfiguration as cc_DurableObjectApplicationConfiguration$,
   cc_DurableObjectApplicationConstraints as cc_DurableObjectApplicationConstraints$,
   cc_DurableObjectApplicationObservability as cc_DurableObjectApplicationObservability$,
-  cc_DurableObjectApplicationSchedulingPolicy as cc_DurableObjectApplicationSchedulingPolicy$,
   cc_DurableObjectsConfiguration,
   cc_DurableObjectsConfigurationNamespaceId as cc_DurableObjectsConfigurationNamespaceId$,
   cc_DurableObjectsConfigurationScriptAndClass,
   cc_Entrypoint as cc_Entrypoint$,
   cc_EnvironmentVariable as cc_EnvironmentVariable$,
-  cc_EnvironmentVariableName as cc_EnvironmentVariableName$,
-  cc_EnvironmentVariableValue as cc_EnvironmentVariableValue$,
-  cc_ExecFormParam as cc_ExecFormParam$,
-  cc_InstanceType as cc_InstanceType$,
   cc_ObservabilityLogs as cc_ObservabilityLogs$,
-  cc_Region as cc_Region$,
-  cc_SSHPublicKey as cc_SSHPublicKey$,
-  cc_ScheduledApplicationSchedulingPolicy as cc_ScheduledApplicationSchedulingPolicy$,
   cc_UserDeploymentConfiguration as cc_UserDeploymentConfiguration$,
   cc_UserSSHPublicKey as cc_UserSSHPublicKey$,
   cc_WranglerSSHConfig as cc_WranglerSSHConfig$,
@@ -101,7 +68,7 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_create",
     title: "Create a new application",
-    description: "Create a Containers application.\n\nUse `scheduling_policy: \"default\"` for a scheduler-backed application. The\nContainers scheduler maintains the requested instance count and manages\ndeployment configuration, placement, scaling, versions, and rollouts.\n\nUse `scheduling_policy: \"durable_object\"` for a Durable Object-managed\napplication. Each Durable Object creates and manages the lifecycle of its\ncontainer instance. Supply `name`, `scheduling_policy`, and `durable_objects`,\nwith optional `configuration` and optional top-level `observability` settings.\nDeployment configuration, scaling, constraints, versions, and rollouts do not apply.",
+    description: "Create a Containers application.\n\nUse `scheduling_policy: \"default\"` for a scheduler-backed application. The\nContainers scheduler maintains the requested instance count and manages\ndeployment configuration, placement, scaling, versions, and rollouts.\n\nUse `scheduling_policy: \"durable_object\"` for a Durable Object-managed\napplication. Each Durable Object creates and manages the lifecycle of its\ncontainer instance. Supply `name`, `scheduling_policy`, and `durable_objects`,\nwith optional `configuration` and optional top-level `observability` settings.\nDeployment configuration, scaling, constraints, versions, and rollouts do not apply.\n\nPOST /accounts/{account_id}/containers/applications",
     inputSchema: {
       type: "object",
       properties: {
@@ -109,6 +76,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cc_ContainersCreateApplicationRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -125,11 +93,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cc_ApplicationConstraints": cc_ApplicationConstraints$,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction$,
         "cc_ApplicationObservability": cc_ApplicationObservability$,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod$,
         "cc_Command": cc_Command$,
         "cc_ContainersCreateApplicationRequest": cc_ContainersCreateApplicationRequest,
         "cc_ContainersCreateDurableObjectApplicationRequest": cc_ContainersCreateDurableObjectApplicationRequest,
@@ -138,21 +105,12 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConfiguration": cc_DurableObjectApplicationConfiguration$,
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints$,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability$,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy$,
         "cc_DurableObjectsConfiguration": cc_DurableObjectsConfiguration,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId$,
         "cc_DurableObjectsConfigurationScriptAndClass": cc_DurableObjectsConfigurationScriptAndClass,
         "cc_Entrypoint": cc_Entrypoint$,
         "cc_EnvironmentVariable": cc_EnvironmentVariable$,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName$,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue$,
-        "cc_ExecFormParam": cc_ExecFormParam$,
-        "cc_Image": cc_Image$,
-        "cc_InstanceType": cc_InstanceType$,
         "cc_ObservabilityLogs": cc_ObservabilityLogs$,
-        "cc_Region": cc_Region$,
-        "cc_SSHPublicKey": cc_SSHPublicKey$,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy$,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration$,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey$,
         "cc_WranglerSSHConfig": cc_WranglerSSHConfig$,
@@ -176,7 +134,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -184,11 +141,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -197,28 +150,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -268,7 +206,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -276,11 +213,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -289,28 +222,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
@@ -326,19 +244,20 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_delete",
     title: "Delete a single application by id",
-    description: "Deletes a single application by id.\n\nConfirm with the user before calling this tool. This operation permanently deletes the application and stops its containers.",
+    description: "Deletes a single application by id.\n\nConfirm with the user before calling this tool. This operation permanently deletes the application and stops its containers.\n\nDELETE /accounts/{account_id}/containers/applications/{application_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             }
           },
           "required": [
@@ -351,9 +270,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cc_ApplicationID": cc_ApplicationID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -436,7 +353,7 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_edit",
     title: "Modify an application",
-    description: "Modifies a single application by id. Durable Object-managed application settings are\npublished to runtime metadata without creating deployments or rollouts. Top-level\n`observability` for these applications supports only `logs.enabled`.\nThe supported fields depend on the existing\napplication's scheduling policy. For scheduler-backed applications, changes that\nreplace instance deployment configuration, including the image, require a rollout.",
+    description: "Modifies a single application by id. Durable Object-managed application settings are\npublished to runtime metadata without creating deployments or rollouts. Top-level\n`observability` for these applications supports only `logs.enabled`.\nThe supported fields depend on the existing\napplication's scheduling policy. For scheduler-backed applications, changes that\nreplace instance deployment configuration, including the image, require a rollout.\n\nPATCH /accounts/{account_id}/containers/applications/{application_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -444,14 +361,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cc_ContainersModifyApplicationRequestBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             }
           },
           "required": [
@@ -465,17 +383,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cc_ApplicationConstraints": cc_ApplicationConstraints$,
-        "cc_ApplicationID": cc_ApplicationID$,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction$,
         "cc_ApplicationObservability": cc_ApplicationObservability$,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod$,
         "cc_ContainersModifyApplicationConfiguration": cc_ContainersModifyApplicationConfiguration,
         "cc_ContainersModifyApplicationRequestBody": cc_ContainersModifyApplicationRequestBody,
         "cc_ObservabilityLogs": cc_ObservabilityLogs$,
-        "cc_Region": cc_Region$,
-        "cc_SSHPublicKey": cc_SSHPublicKey$,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey$,
         "cc_WranglerSSHConfig": cc_WranglerSSHConfig$,
       },
@@ -498,7 +412,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -506,11 +419,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -519,28 +428,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -598,7 +492,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -606,11 +499,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -619,28 +508,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
@@ -656,19 +530,20 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_get",
     title: "Get a single application by id",
-    description: "Returns a single application by id.",
+    description: "Returns a single application by id.\n\nGET /accounts/{account_id}/containers/applications/{application_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             }
           },
           "required": [
@@ -681,9 +556,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cc_ApplicationID": cc_ApplicationID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -703,7 +576,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -711,11 +583,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -724,28 +592,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -798,7 +651,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -806,11 +658,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -819,28 +667,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
@@ -855,11 +688,12 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_list",
     title: "List Applications associated with your account",
-    description: "Lists all the applications that are associated with your account.",
+    description: "Lists all the applications that are associated with your account.\n\nGET /accounts/{account_id}/containers/applications",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -872,14 +706,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "image": {
-              "$ref": "#/$defs/cc_Image",
-              "description": "Filter applications by image."
+              "description": "Filter applications by image.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/cc_ApplicationName",
-              "description": "Filter applications by name."
+              "description": "Filter applications by name.",
+              "type": "string"
             },
             "page_token": {
               "description": "Opaque token from a previous response to retrieve the next page.",
@@ -896,10 +731,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cc_ApplicationName": cc_ApplicationName$,
-        "cc_Image": cc_Image$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -923,7 +755,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -931,11 +762,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_ContainersListApplications": cc_ContainersListApplications,
@@ -945,28 +772,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -1025,7 +837,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_Application": cc_Application,
         "cc_ApplicationConstraints": cc_ApplicationConstraints,
         "cc_ApplicationDurableObjectsConfiguration": cc_ApplicationDurableObjectsConfiguration,
@@ -1033,11 +844,7 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthError": cc_ApplicationHealthError,
         "cc_ApplicationHealthErrors": cc_ApplicationHealthErrors,
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances,
-        "cc_ApplicationID": cc_ApplicationID,
-        "cc_ApplicationJurisdiction": cc_ApplicationJurisdiction,
-        "cc_ApplicationName": cc_ApplicationName,
         "cc_ApplicationObservability": cc_ApplicationObservability,
-        "cc_ApplicationRolloutActiveGracePeriod": cc_ApplicationRolloutActiveGracePeriod,
         "cc_Command": cc_Command,
         "cc_ContainersApplicationResponse": cc_ContainersApplicationResponse,
         "cc_ContainersListApplications": cc_ContainersListApplications,
@@ -1047,28 +854,13 @@ export const tools: readonly Tool[] = [
         "cc_DurableObjectApplicationConstraints": cc_DurableObjectApplicationConstraints,
         "cc_DurableObjectApplicationHealth": cc_DurableObjectApplicationHealth,
         "cc_DurableObjectApplicationObservability": cc_DurableObjectApplicationObservability,
-        "cc_DurableObjectApplicationSchedulingPolicy": cc_DurableObjectApplicationSchedulingPolicy,
         "cc_DurableObjectsConfigurationNamespaceId": cc_DurableObjectsConfigurationNamespaceId,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_Region": cc_Region,
-        "cc_RolloutID": cc_RolloutID,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_ScheduledApplication": cc_ScheduledApplication,
-        "cc_ScheduledApplicationSchedulingPolicy": cc_ScheduledApplicationSchedulingPolicy,
-        "cc_SchedulingPolicy": cc_SchedulingPolicy,
         "cc_UserDeploymentConfiguration": cc_UserDeploymentConfiguration,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,

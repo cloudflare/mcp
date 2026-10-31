@@ -27,10 +27,10 @@ export const dns$$custom$$nameservers_CustomNS$$2: JsonSchema = {
       "type": "array"
     },
     "ns_name": {
-      "$ref": "#/$defs/dns-custom-nameservers_ns_name"
+      "type": "string"
     },
     "ns_set": {
-      "$ref": "#/$defs/dns-custom-nameservers_ns_set"
+      "type": "number"
     },
     "status": {
       "enum": [
@@ -41,7 +41,7 @@ export const dns$$custom$$nameservers_CustomNS$$2: JsonSchema = {
       "type": "string"
     },
     "zone_tag": {
-      "$ref": "#/$defs/dns-custom-nameservers_identifier-2"
+      "type": "string"
     }
   },
   "required": [

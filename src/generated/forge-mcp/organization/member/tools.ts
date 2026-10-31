@@ -6,13 +6,10 @@ import {
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../../outputs.js";
-import { organizations$$api_OrganizationID } from "../../schemas.js";
 import {
-  organizations$$api_MemberID,
   organizations$$api_MemberSubjectUser,
   organizations$$api_PageTokenResultInfo,
 } from "../outputs.js";
-import { organizations$$api_MemberID as organizations$$api_MemberID$ } from "../schemas.js";
 import {
   organizations$$api_DeleteOrganizationMemberResult,
   organizations$$api_Member,
@@ -32,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_member_create",
     title: "Create organization member",
-    description: "Create a membership that grants access to a specific Organization.",
+    description: "Create a membership that grants access to a specific Organization.\n\nPOST /organizations/{organization_id}/members",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,9 +37,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/organizations-api_CreateMemberRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID"
+              "description": "Organization ID",
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +54,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "organizations-api_CreateMemberRequest": organizations$$api_CreateMemberRequest,
         "organizations-api_CreateSingleMember": organizations$$api_CreateSingleMember,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
       },
     },
     outputSchema: {
@@ -95,7 +94,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "organizations-api_Member": organizations$$api_Member,
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
         "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
         "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
@@ -156,7 +154,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "organizations-api_Member": organizations$$api_Member,
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
         "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
         "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
@@ -173,18 +170,20 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_member_delete",
     title: "Delete organization member",
-    description: "Delete a membership to a particular Organization.\n\nConfirm with the user before calling this tool. Delete this organization membership? The member will lose access to this organization and its sub-organizations.",
+    description: "Delete a membership to a particular Organization.\n\nConfirm with the user before calling this tool. Delete this organization membership? The member will lose access to this organization and its sub-organizations.\n\nDELETE /organizations/{organization_id}/members/{member_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "member_id": {
-              "$ref": "#/$defs/organizations-api_MemberID",
-              "description": "Organization Member ID"
+              "description": "Organization Member ID",
+              "type": "string"
             },
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID"
+              "description": "Organization ID",
+              "type": "string"
             }
           },
           "required": [
@@ -197,10 +196,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_MemberID": organizations$$api_MemberID$,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -303,18 +299,20 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_member_get",
     title: "Get organization member",
-    description: "Retrieve a single membership from an Organization.",
+    description: "Retrieve a single membership from an Organization.\n\nGET /organizations/{organization_id}/members/{member_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "member_id": {
-              "$ref": "#/$defs/organizations-api_MemberID",
-              "description": "Organization Member ID"
+              "description": "Organization Member ID",
+              "type": "string"
             },
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID"
+              "description": "Organization ID",
+              "type": "string"
             }
           },
           "required": [
@@ -327,10 +325,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_MemberID": organizations$$api_MemberID$,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -366,7 +361,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "organizations-api_Member": organizations$$api_Member,
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
         "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
         "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
@@ -427,7 +421,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "organizations-api_Member": organizations$$api_Member,
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
         "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
         "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
@@ -443,14 +436,16 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_member_list",
     title: "List organization members",
-    description: "List memberships for an Organization.",
+    description: "List memberships for an Organization.\n\nGET /organizations/{organization_id}/members",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID"
+              "description": "Organization ID",
+              "type": "string"
             }
           },
           "required": [
@@ -459,6 +454,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_size": {
               "description": "The amount of items to return. Defaults to 10.",
@@ -504,9 +500,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -549,7 +543,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "organizations-api_Member": organizations$$api_Member,
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
         "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
         "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
@@ -618,7 +611,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "organizations-api_Member": organizations$$api_Member,
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
         "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
         "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,

@@ -6,49 +6,27 @@ import {
   api$$shield_api$$response$$collection,
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
-  api$$shield_host,
   api$$shield_messages,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../outputs.js";
-import {
-  api$$shield_host as api$$shield_host$,
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid as api$$shield_uuid$,
-  api$$shield_uuid$$2 as api$$shield_uuid$$2$,
-} from "../../../schemas.js";
 import { api$$shield_api$$response$$single } from "../../outputs.js";
 import {
   api$$shield_Rule,
-  api$$shield_action,
   api$$shield_api$$response$$single$$obj,
-  api$$shield_description$$2,
-  api$$shield_enabled,
-  api$$shield_expression,
   api$$shield_selector,
   api$$shield_selector$$exclude,
   api$$shield_selector$$include,
-  api$$shield_title$$2,
 } from "./outputs.js";
 import {
-  api$$shield_action as api$$shield_action$,
   api$$shield_after,
   api$$shield_before,
   api$$shield_create$$single$$rule$$request,
-  api$$shield_description$$2 as api$$shield_description$$2$,
   api$$shield_edit$$single$$rule$$request,
-  api$$shield_enabled as api$$shield_enabled$,
-  api$$shield_expression as api$$shield_expression$,
   api$$shield_index,
   api$$shield_position,
   api$$shield_rule$$properties,
   api$$shield_selector as api$$shield_selector$,
   api$$shield_selector$$exclude as api$$shield_selector$$exclude$,
   api$$shield_selector$$include as api$$shield_selector$$include$,
-  api$$shield_title$$2 as api$$shield_title$$2$,
 } from "./schemas.js";
 
 /**
@@ -58,7 +36,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_bulkCreate",
     title: "Create token validation rules",
-    description: "Creates multiple token validation rules for the zone in one request.",
+    description: "Creates multiple token validation rules for the zone in one request.\n\nPOST /zones/{zone_id}/token_validation/rules/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -69,9 +47,18 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -84,21 +71,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_action": api$$shield_action$,
         "api-shield_create-single-rule-request": api$$shield_create$$single$$rule$$request,
-        "api-shield_description-2": api$$shield_description$$2$,
-        "api-shield_enabled": api$$shield_enabled$,
-        "api-shield_expression": api$$shield_expression$,
-        "api-shield_host": api$$shield_host$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
         "api-shield_selector": api$$shield_selector$,
         "api-shield_selector-exclude": api$$shield_selector$$exclude$,
         "api-shield_selector-include": api$$shield_selector$$include$,
-        "api-shield_title-2": api$$shield_title$$2$,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
       },
     },
     outputSchema: {
@@ -123,22 +101,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -185,23 +153,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -212,7 +170,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_bulkEdit",
     title: "Edit token validation rules",
-    description: "Updates and reorders multiple token validation rules in one request, then returns the updated rules.",
+    description: "Updates and reorders multiple token validation rules in one request, then returns the updated rules.\n\nPATCH /zones/{zone_id}/token_validation/rules/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -240,9 +198,18 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -255,26 +222,17 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_action": api$$shield_action$,
         "api-shield_after": api$$shield_after,
         "api-shield_before": api$$shield_before,
-        "api-shield_description-2": api$$shield_description$$2$,
         "api-shield_edit-single-rule-request": api$$shield_edit$$single$$rule$$request,
-        "api-shield_enabled": api$$shield_enabled$,
-        "api-shield_expression": api$$shield_expression$,
-        "api-shield_host": api$$shield_host$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
         "api-shield_index": api$$shield_index,
         "api-shield_position": api$$shield_position,
         "api-shield_rule-properties": api$$shield_rule$$properties,
         "api-shield_selector": api$$shield_selector$,
         "api-shield_selector-exclude": api$$shield_selector$$exclude$,
         "api-shield_selector-include": api$$shield_selector$$include$,
-        "api-shield_title-2": api$$shield_title$$2$,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
       },
     },
     outputSchema: {
@@ -299,22 +257,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -361,23 +309,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -388,7 +326,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_create",
     title: "Create a token validation rule",
-    description: "Creates a token validation rule for the zone.",
+    description: "Creates a token validation rule for the zone.\n\nPOST /zones/{zone_id}/token_validation/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -396,9 +334,18 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_create-single-rule-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -411,21 +358,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_action": api$$shield_action$,
         "api-shield_create-single-rule-request": api$$shield_create$$single$$rule$$request,
-        "api-shield_description-2": api$$shield_description$$2$,
-        "api-shield_enabled": api$$shield_enabled$,
-        "api-shield_expression": api$$shield_expression$,
-        "api-shield_host": api$$shield_host$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
         "api-shield_selector": api$$shield_selector$,
         "api-shield_selector-exclude": api$$shield_selector$$exclude$,
         "api-shield_selector-include": api$$shield_selector$$include$,
-        "api-shield_title-2": api$$shield_title$$2$,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
       },
     },
     outputSchema: {
@@ -447,21 +385,11 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-single": api$$shield_api$$response$$single,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -505,22 +433,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_api-response-single": api$$shield_api$$response$$single,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -531,18 +449,35 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_delete",
     title: "Delete a token validation rule",
-    description: "Deletes a token validation rule from the zone.\n\nConfirm with the user before calling this tool. This operation deletes the token validation rule from the zone.",
+    description: "Deletes a token validation rule from the zone.\n\nConfirm with the user before calling this tool. This operation deletes the token validation rule from the zone.\n\nDELETE /zones/{zone_id}/token_validation/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Validation Rule ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -555,12 +490,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_api-response-single-obj",
@@ -608,7 +538,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_edit",
     title: "Edit a token validation rule",
-    description: "Updates only the supplied fields on a token validation rule.",
+    description: "Updates only the supplied fields on a token validation rule.\n\nPATCH /zones/{zone_id}/token_validation/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -616,13 +546,30 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_edit-single-rule-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Validation Rule ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -636,26 +583,17 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_action": api$$shield_action$,
         "api-shield_after": api$$shield_after,
         "api-shield_before": api$$shield_before,
-        "api-shield_description-2": api$$shield_description$$2$,
         "api-shield_edit-single-rule-request": api$$shield_edit$$single$$rule$$request,
-        "api-shield_enabled": api$$shield_enabled$,
-        "api-shield_expression": api$$shield_expression$,
-        "api-shield_host": api$$shield_host$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
         "api-shield_index": api$$shield_index,
         "api-shield_position": api$$shield_position,
         "api-shield_rule-properties": api$$shield_rule$$properties,
         "api-shield_selector": api$$shield_selector$,
         "api-shield_selector-exclude": api$$shield_selector$$exclude$,
         "api-shield_selector-include": api$$shield_selector$$include$,
-        "api-shield_title-2": api$$shield_title$$2$,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
       },
     },
     outputSchema: {
@@ -677,21 +615,11 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-single": api$$shield_api$$response$$single,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -735,22 +663,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_api-response-single": api$$shield_api$$response$$single,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -761,18 +679,35 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_get",
     title: "Get a token validation rule",
-    description: "Returns a token validation rule by ID.",
+    description: "Returns a token validation rule by ID.\n\nGET /zones/{zone_id}/token_validation/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Validation Rule ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -785,12 +720,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -811,21 +741,11 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -871,22 +791,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -896,14 +806,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_rules_list",
     title: "List token validation rules",
-    description: "Lists token validation rules for the zone, with filters for configuration, action, state, ID, and host.",
+    description: "Lists token validation rules for the zone, with filters for configuration, action, state, ID, and host.\n\nGET /zones/{zone_id}/token_validation/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -912,25 +831,38 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "action": {
-              "$ref": "#/$defs/api-shield_action",
-              "description": "Action to take on requests that match operations included in `selector` and fail `expression`."
+              "description": "Action to take on requests that match operations included in `selector` and fail `expression`.",
+              "enum": [
+                "log",
+                "block"
+              ],
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/api-shield_enabled",
-              "description": "Toggle rule on or off."
+              "description": "Toggle rule on or off.",
+              "type": "boolean"
             },
             "host": {
-              "$ref": "#/$defs/api-shield_host",
-              "description": "Select rules with this host in `include`."
+              "description": "Select rules with this host in `include`.",
+              "type": "string"
             },
             "hostname": {
-              "$ref": "#/$defs/api-shield_host",
-              "description": "Select rules with this host in `include`."
+              "description": "Select rules with this host in `include`.",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Select rules with these IDs."
             },
             "page": {
@@ -944,13 +876,29 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "rule_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Select rules with these IDs."
             },
             "token_configuration": {
               "description": "Select rules using any of these token configurations.",
               "items": {
-                "$ref": "#/$defs/api-shield_uuid-2"
+                "allOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "description": "UUID.",
+                    "type": "string"
+                  }
+                ]
               },
               "type": "array"
             }
@@ -961,15 +909,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_action": api$$shield_action$,
-        "api-shield_enabled": api$$shield_enabled$,
-        "api-shield_host": api$$shield_host$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -993,22 +933,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -1057,23 +987,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
-        "api-shield_action": api$$shield_action,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_description-2": api$$shield_description$$2,
-        "api-shield_enabled": api$$shield_enabled,
-        "api-shield_expression": api$$shield_expression,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
         "api-shield_selector-exclude": api$$shield_selector$$exclude,
         "api-shield_selector-include": api$$shield_selector$$include,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title-2": api$$shield_title$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

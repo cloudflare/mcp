@@ -7,27 +7,13 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_brand_check,
-  tls$$certificates$$and$$hostnames_cert_pack_uuid,
-  tls$$certificates$$and$$hostnames_certificate_status,
-  tls$$certificates$$and$$hostnames_signature$$2,
   tls$$certificates$$and$$hostnames_ssl_validation_method_response_collection,
   tls$$certificates$$and$$hostnames_ssl_verification_response_collection,
-  tls$$certificates$$and$$hostnames_status$$6,
-  tls$$certificates$$and$$hostnames_validation_method$$2,
-  tls$$certificates$$and$$hostnames_validation_method_definition,
   tls$$certificates$$and$$hostnames_verification,
   tls$$certificates$$and$$hostnames_verification_info,
-  tls$$certificates$$and$$hostnames_verification_status,
-  tls$$certificates$$and$$hostnames_verification_type,
 } from "./outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_cert_pack_uuid as tls$$certificates$$and$$hostnames_cert_pack_uuid$,
-  tls$$certificates$$and$$hostnames_validation_method$$3,
-  tls$$certificates$$and$$hostnames_validation_method_definition as tls$$certificates$$and$$hostnames_validation_method_definition$,
-} from "./schemas.js";
+import { tls$$certificates$$and$$hostnames_validation_method$$3 } from "./schemas.js";
 
 /**
  * The tools of `ssl.verification`.
@@ -36,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_verification_edit",
     title: "Edit SSL Certificate Pack Validation Method",
-    description: "Edit SSL validation method for a certificate pack. A PATCH request will request an immediate validation check on any certificate, and return the updated status. If a validation method is provided, the validation will be immediately attempted using that method.",
+    description: "Edit SSL validation method for a certificate pack. A PATCH request will request an immediate validation check on any certificate, and return the updated status. If a validation method is provided, the validation will be immediately attempted using that method.\n\nPATCH /zones/{zone_id}/ssl/verification/{certificate_pack_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,14 +30,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method-3"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "certificate_pack_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_cert_pack_uuid",
-              "description": "Certificate Pack UUID."
+              "description": "Certificate Pack UUID.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -65,11 +52,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "tls-certificates-and-hostnames_cert_pack_uuid": tls$$certificates$$and$$hostnames_cert_pack_uuid$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
         "tls-certificates-and-hostnames_validation_method-3": tls$$certificates$$and$$hostnames_validation_method$$3,
-        "tls-certificates-and-hostnames_validation_method_definition": tls$$certificates$$and$$hostnames_validation_method_definition$,
       },
     },
     outputSchema: {
@@ -78,8 +63,6 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_ssl_validation_method_response_collection": tls$$certificates$$and$$hostnames_ssl_validation_method_response_collection,
-        "tls-certificates-and-hostnames_status-6": tls$$certificates$$and$$hostnames_status$$6,
-        "tls-certificates-and-hostnames_validation_method_definition": tls$$certificates$$and$$hostnames_validation_method_definition,
       },
     },
     annotations: {
@@ -132,8 +115,6 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_ssl_validation_method_response_collection": tls$$certificates$$and$$hostnames_ssl_validation_method_response_collection,
-        "tls-certificates-and-hostnames_status-6": tls$$certificates$$and$$hostnames_status$$6,
-        "tls-certificates-and-hostnames_validation_method_definition": tls$$certificates$$and$$hostnames_validation_method_definition,
       },
     },
     request: (args) => ({
@@ -144,15 +125,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_verification_get",
     title: "SSL Verification Details",
-    description: "Get SSL Verification Info for a Zone.",
+    description: "Get SSL Verification Info for a Zone.\n\nGET /zones/{zone_id}/ssl/verification",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -161,6 +143,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "retry": {
               "description": "Immediately retry SSL Verification.",
@@ -176,23 +159,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_verification_response_collection",
       $defs: {
-        "tls-certificates-and-hostnames_brand_check": tls$$certificates$$and$$hostnames_brand_check,
-        "tls-certificates-and-hostnames_cert_pack_uuid": tls$$certificates$$and$$hostnames_cert_pack_uuid,
-        "tls-certificates-and-hostnames_certificate_status": tls$$certificates$$and$$hostnames_certificate_status,
-        "tls-certificates-and-hostnames_signature-2": tls$$certificates$$and$$hostnames_signature$$2,
         "tls-certificates-and-hostnames_ssl_verification_response_collection": tls$$certificates$$and$$hostnames_ssl_verification_response_collection,
-        "tls-certificates-and-hostnames_validation_method-2": tls$$certificates$$and$$hostnames_validation_method$$2,
         "tls-certificates-and-hostnames_verification": tls$$certificates$$and$$hostnames_verification,
         "tls-certificates-and-hostnames_verification_info": tls$$certificates$$and$$hostnames_verification_info,
-        "tls-certificates-and-hostnames_verification_status": tls$$certificates$$and$$hostnames_verification_status,
-        "tls-certificates-and-hostnames_verification_type": tls$$certificates$$and$$hostnames_verification_type,
       },
     },
     annotations: {
@@ -241,17 +215,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_brand_check": tls$$certificates$$and$$hostnames_brand_check,
-        "tls-certificates-and-hostnames_cert_pack_uuid": tls$$certificates$$and$$hostnames_cert_pack_uuid,
-        "tls-certificates-and-hostnames_certificate_status": tls$$certificates$$and$$hostnames_certificate_status,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_signature-2": tls$$certificates$$and$$hostnames_signature$$2,
         "tls-certificates-and-hostnames_ssl_verification_response_collection": tls$$certificates$$and$$hostnames_ssl_verification_response_collection,
-        "tls-certificates-and-hostnames_validation_method-2": tls$$certificates$$and$$hostnames_validation_method$$2,
         "tls-certificates-and-hostnames_verification": tls$$certificates$$and$$hostnames_verification,
         "tls-certificates-and-hostnames_verification_info": tls$$certificates$$and$$hostnames_verification_info,
-        "tls-certificates-and-hostnames_verification_status": tls$$certificates$$and$$hostnames_verification_status,
-        "tls-certificates-and-hostnames_verification_type": tls$$certificates$$and$$hostnames_verification_type,
       },
     },
     request: (args) => ({

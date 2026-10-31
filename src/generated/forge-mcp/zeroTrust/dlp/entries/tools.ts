@@ -11,7 +11,6 @@ import {
 import {
   dlp_CustomEntry,
   dlp_CustomPromptTopicEntry,
-  dlp_DatasetUploadStatus,
   dlp_DocumentFingerprintEntry,
   dlp_Entry,
   dlp_EntryConfidence,
@@ -20,14 +19,9 @@ import {
   dlp_Pattern,
   dlp_PredefinedEntry,
   dlp_PredefinedEntryVariant,
-  dlp_PromptTopicType,
-  dlp_Validation,
   dlp_WordListEntry,
 } from "../outputs.js";
-import {
-  dlp_Pattern as dlp_Pattern$,
-  dlp_Validation as dlp_Validation$,
-} from "../schemas.js";
+import { dlp_Pattern as dlp_Pattern$ } from "../schemas.js";
 import {
   dlp_EntryProfile,
   dlp_EntryWithSharedProfiles,
@@ -42,7 +36,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_entries_create",
     title: "Create custom entry",
-    description: "Creates a DLP custom entry.",
+    description: "Creates a DLP custom entry.\n\nPOST /accounts/{account_id}/dlp/entries",
     inputSchema: {
       type: "object",
       properties: {
@@ -51,6 +45,7 @@ export const tools: readonly Tool[] = [
           "description": "A new entry to create."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -66,10 +61,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewEntry": dlp_NewEntry,
         "dlp_Pattern": dlp_Pattern$,
-        "dlp_Validation": dlp_Validation$,
       },
     },
     outputSchema: {
@@ -89,7 +84,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_Pattern": dlp_Pattern,
-        "dlp_Validation": dlp_Validation,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -132,7 +126,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_Pattern": dlp_Pattern,
-        "dlp_Validation": dlp_Validation,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -146,11 +139,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_entries_delete",
     title: "Delete custom entry",
-    description: "Deletes a DLP custom entry.",
+    description: "Deletes a DLP custom entry.\n\nDELETE /accounts/{account_id}/dlp/entries/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -170,6 +164,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -240,11 +235,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_entries_get",
     title: "Get DLP Entry",
-    description: "Fetches a DLP entry by ID.",
+    description: "Fetches a DLP entry by ID.\n\nGET /accounts/{account_id}/dlp/entries/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -264,6 +260,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -282,7 +279,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
         "dlp_Entry": dlp_Entry,
         "dlp_EntryConfidence": dlp_EntryConfidence,
@@ -294,8 +290,6 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern,
         "dlp_PredefinedEntry": dlp_PredefinedEntry,
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -340,7 +334,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
         "dlp_Entry": dlp_Entry,
         "dlp_EntryConfidence": dlp_EntryConfidence,
@@ -352,8 +345,6 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern,
         "dlp_PredefinedEntry": dlp_PredefinedEntry,
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -367,11 +358,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_entries_list",
     title: "List all entries",
-    description: "Lists all DLP entries in an account.",
+    description: "Lists all DLP entries in an account.\n\nGET /accounts/{account_id}/dlp/entries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -386,6 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -407,7 +400,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
         "dlp_Entry": dlp_Entry,
         "dlp_EntryConfidence": dlp_EntryConfidence,
@@ -417,8 +409,6 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern,
         "dlp_PredefinedEntry": dlp_PredefinedEntry,
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -466,7 +456,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
         "dlp_Entry": dlp_Entry,
         "dlp_EntryConfidence": dlp_EntryConfidence,
@@ -476,8 +465,6 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern,
         "dlp_PredefinedEntry": dlp_PredefinedEntry,
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -491,7 +478,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_entries_update",
     title: "Update entry",
-    description: "Updates a DLP entry.",
+    description: "Updates a DLP entry.\n\nPUT /accounts/{account_id}/dlp/entries/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -500,6 +487,7 @@ export const tools: readonly Tool[] = [
           "description": "Update to be applied to the entry."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -520,10 +508,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_EntryUpdate": dlp_EntryUpdate,
         "dlp_Pattern": dlp_Pattern$,
-        "dlp_Validation": dlp_Validation$,
       },
     },
     outputSchema: {
@@ -551,8 +539,6 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern,
         "dlp_PredefinedEntry": dlp_PredefinedEntry,
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -604,8 +590,6 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern,
         "dlp_PredefinedEntry": dlp_PredefinedEntry,
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

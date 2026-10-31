@@ -7,7 +7,6 @@ import {
   waf$$product$$api$$bundle_api$$response$$single,
   waf$$product$$api$$bundle_messages,
 } from "../outputs.js";
-import { waf$$product$$api$$bundle_identifier } from "../schemas.js";
 import {
   waf$$product$$api$$bundle_api$$response$$common$$failure,
   waf$$product$$api$$bundle_response$$status,
@@ -22,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_get",
     title: "Get the Leaked Credential Checks status for a zone.",
-    description: "Get the current Leaked Credential Checks status for the zone. While enabled, Cloudflare scans incoming requests for usernames and passwords that were exposed in known data breaches.",
+    description: "Get the current Leaked Credential Checks status for the zone. While enabled, Cloudflare scans incoming requests for usernames and passwords that were exposed in known data breaches.\n\nGET /zones/{zone_id}/leaked-credential-checks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,9 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status",
@@ -105,7 +103,7 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_update",
     title: "Update the Leaked Credential Checks status for a zone.",
-    description: "Update the Leaked Credential Checks status for the zone, enabling or disabling the detection. While enabled, the detection populates the `cf.waf.credential_check.*` fields, which you can reference in custom rules and rate limiting rules to challenge or block requests carrying compromised credentials.\n\nConfirm with the user before calling this tool. This operation toggles Leaked Credential Checks for a zone.",
+    description: "Update the Leaked Credential Checks status for the zone, enabling or disabling the detection. While enabled, the detection populates the `cf.waf.credential_check.*` fields, which you can reference in custom rules and rate limiting rules to challenge or block requests carrying compromised credentials.\n\nConfirm with the user before calling this tool. This operation toggles Leaked Credential Checks for a zone.\n\nPOST /zones/{zone_id}/leaked-credential-checks",
     inputSchema: {
       type: "object",
       properties: {
@@ -113,10 +111,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_status"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -129,8 +128,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_status": waf$$product$$api$$bundle_status$,
       },
     },

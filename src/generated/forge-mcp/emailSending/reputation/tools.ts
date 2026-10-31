@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { email_api$$response$$single, email_messages } from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
 import {
   email_ReputationPolicy,
   email_ReputationThreshold,
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_reputation_get",
     title: "Get account reputation",
-    description: "Returns the authoritative Email Sending reputation state and active evaluation policy. Accounts without an evaluation are Healthy with null evaluation timestamps.",
+    description: "Returns the authoritative Email Sending reputation state and active evaluation policy. Accounts without an evaluation are Healthy with null evaluation timestamps.\n\nGET /accounts/{account_id}/email/sending/reputation",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_reputation_response_single",

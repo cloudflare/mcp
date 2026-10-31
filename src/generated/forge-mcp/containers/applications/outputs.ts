@@ -9,10 +9,10 @@ import type { JsonSchema } from "../../_/tool.js";
 export const cc_Application: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/cc_AccountID"
+      "type": "string"
     },
     "active_rollout_id": {
-      "$ref": "#/$defs/cc_RolloutID"
+      "type": "string"
     },
     "configuration": {
       "$ref": "#/$defs/cc_UserDeploymentConfiguration"
@@ -21,7 +21,7 @@ export const cc_Application: JsonSchema = {
       "$ref": "#/$defs/cc_ApplicationConstraints"
     },
     "created_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "durable_objects": {
       "$ref": "#/$defs/cc_ApplicationDurableObjectsConfiguration"
@@ -30,7 +30,7 @@ export const cc_Application: JsonSchema = {
       "$ref": "#/$defs/cc_ApplicationHealth"
     },
     "id": {
-      "$ref": "#/$defs/cc_ApplicationID"
+      "type": "string"
     },
     "instances": {
       "type": "integer"
@@ -39,19 +39,23 @@ export const cc_Application: JsonSchema = {
       "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/cc_ApplicationName"
+      "type": "string"
     },
     "observability": {
       "$ref": "#/$defs/cc_ApplicationObservability"
     },
     "rollout_active_grace_period": {
-      "$ref": "#/$defs/cc_ApplicationRolloutActiveGracePeriod"
+      "type": "integer"
     },
     "scheduling_policy": {
-      "$ref": "#/$defs/cc_SchedulingPolicy"
+      "enum": [
+        "default",
+        "durable_object"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "version": {
       "type": "integer"
@@ -77,11 +81,11 @@ export const cc_Application: JsonSchema = {
 export const cc_ApplicationConstraints: JsonSchema = {
   "properties": {
     "jurisdiction": {
-      "$ref": "#/$defs/cc_ApplicationJurisdiction"
+      "type": "string"
     },
     "regions": {
       "items": {
-        "$ref": "#/$defs/cc_Region"
+        "type": "string"
       },
       "type": "array"
     }
@@ -133,7 +137,7 @@ export const cc_ApplicationHealthError: JsonSchema = {
       "$ref": "#/$defs/cc_PlacementEvent"
     },
     "instance_id": {
-      "$ref": "#/$defs/cc_InstanceID"
+      "type": "string"
     }
   },
   "required": [
@@ -173,27 +177,6 @@ export const cc_ApplicationHealthInstances: JsonSchema = {
 };
 
 /**
- * The schema of `cc_ApplicationID` in responses.
- */
-export const cc_ApplicationID: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ApplicationJurisdiction` in responses.
- */
-export const cc_ApplicationJurisdiction: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ApplicationName` in responses.
- */
-export const cc_ApplicationName: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `cc_ApplicationObservability` in responses.
  */
 export const cc_ApplicationObservability: JsonSchema = {
@@ -206,18 +189,11 @@ export const cc_ApplicationObservability: JsonSchema = {
 };
 
 /**
- * The schema of `cc_ApplicationRolloutActiveGracePeriod` in responses.
- */
-export const cc_ApplicationRolloutActiveGracePeriod: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `cc_Command` in responses.
  */
 export const cc_Command: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/cc_ExecFormParam"
+    "type": "string"
   },
   "type": "array"
 };
@@ -279,7 +255,7 @@ export const cc_DeploymentObservability: JsonSchema = {
 export const cc_DurableObjectApplication: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/cc_AccountID"
+      "type": "string"
     },
     "configuration": {
       "$ref": "#/$defs/cc_DurableObjectApplicationConfiguration"
@@ -288,7 +264,7 @@ export const cc_DurableObjectApplication: JsonSchema = {
       "$ref": "#/$defs/cc_DurableObjectApplicationConstraints"
     },
     "created_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "durable_objects": {
       "$ref": "#/$defs/cc_DurableObjectsConfigurationNamespaceId"
@@ -297,19 +273,22 @@ export const cc_DurableObjectApplication: JsonSchema = {
       "$ref": "#/$defs/cc_DurableObjectApplicationHealth"
     },
     "id": {
-      "$ref": "#/$defs/cc_ApplicationID"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/cc_ApplicationName"
+      "type": "string"
     },
     "observability": {
       "$ref": "#/$defs/cc_DurableObjectApplicationObservability"
     },
     "scheduling_policy": {
-      "$ref": "#/$defs/cc_DurableObjectApplicationSchedulingPolicy"
+      "enum": [
+        "durable_object"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     }
   },
   "required": [
@@ -413,16 +392,6 @@ export const cc_DurableObjectApplicationObservability: JsonSchema = {
 };
 
 /**
- * The schema of `cc_DurableObjectApplicationSchedulingPolicy` in responses.
- */
-export const cc_DurableObjectApplicationSchedulingPolicy: JsonSchema = {
-  "enum": [
-    "durable_object"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cc_DurableObjectsConfigurationNamespaceId` in responses.
  */
 export const cc_DurableObjectsConfigurationNamespaceId: JsonSchema = {
@@ -442,7 +411,7 @@ export const cc_DurableObjectsConfigurationNamespaceId: JsonSchema = {
  */
 export const cc_Entrypoint: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/cc_ExecFormParam"
+    "type": "string"
   },
   "type": "array"
 };
@@ -453,10 +422,10 @@ export const cc_Entrypoint: JsonSchema = {
 export const cc_EnvironmentVariable: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/cc_EnvironmentVariableName"
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cc_EnvironmentVariableValue"
+      "type": "string"
     }
   },
   "required": [
@@ -464,89 +433,6 @@ export const cc_EnvironmentVariable: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cc_EnvironmentVariableName` in responses.
- */
-export const cc_EnvironmentVariableName: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_EnvironmentVariableValue` in responses.
- */
-export const cc_EnvironmentVariableValue: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_EventName` in responses.
- */
-export const cc_EventName: JsonSchema = {
-  "enum": [
-    "SchedulerPlaced",
-    "NetworkingIPAssigned",
-    "VMStarted",
-    "ImagePulled",
-    "ImagePullError",
-    "VMFailedToStart",
-    "NetworkingIPAssignmentFailed",
-    "VMRunning",
-    "VMStopping",
-    "VMStopped",
-    "VMFailed",
-    "RuntimeStartFailed",
-    "SSHStarted",
-    "ServiceHealthUpdates",
-    "CheckUpdate",
-    "DurableObjectConnected",
-    "ContainerStarted"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `cc_EventType` in responses.
- */
-export const cc_EventType: JsonSchema = {
-  "enum": [
-    "Info",
-    "Error",
-    "Warn",
-    "UserError",
-    "SystemError"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ExecFormParam` in responses.
- */
-export const cc_ExecFormParam: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_InstanceID` in responses.
- */
-export const cc_InstanceID: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_InstanceType` in responses.
- */
-export const cc_InstanceType: JsonSchema = {
-  "enum": [
-    "lite",
-    "basic",
-    "standard-1",
-    "standard-2",
-    "standard-3",
-    "standard-4"
-  ],
-  "type": "string"
 };
 
 /**
@@ -573,10 +459,18 @@ export const cc_ModifyUserDeploymentConfiguration: JsonSchema = {
       "type": "array"
     },
     "image": {
-      "$ref": "#/$defs/cc_Image"
+      "type": "string"
     },
     "instance_type": {
-      "$ref": "#/$defs/cc_InstanceType"
+      "enum": [
+        "lite",
+        "basic",
+        "standard-1",
+        "standard-2",
+        "standard-3",
+        "standard-4"
+      ],
+      "type": "string"
     },
     "observability": {
       "$ref": "#/$defs/cc_DeploymentObservability"
@@ -612,16 +506,42 @@ export const cc_PlacementEvent: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/cc_EventName"
+      "enum": [
+        "SchedulerPlaced",
+        "NetworkingIPAssigned",
+        "VMStarted",
+        "ImagePulled",
+        "ImagePullError",
+        "VMFailedToStart",
+        "NetworkingIPAssignmentFailed",
+        "VMRunning",
+        "VMStopping",
+        "VMStopped",
+        "VMFailed",
+        "RuntimeStartFailed",
+        "SSHStarted",
+        "ServiceHealthUpdates",
+        "CheckUpdate",
+        "DurableObjectConnected",
+        "ContainerStarted"
+      ],
+      "type": "string"
     },
     "statusChange": {
       "type": "object"
     },
     "time": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/cc_EventType"
+      "enum": [
+        "Info",
+        "Error",
+        "Warn",
+        "UserError",
+        "SystemError"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -637,27 +557,6 @@ export const cc_PlacementEvent: JsonSchema = {
 };
 
 /**
- * The schema of `cc_Region` in responses.
- */
-export const cc_Region: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_RolloutID` in responses.
- */
-export const cc_RolloutID: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_SSHPublicKey` in responses.
- */
-export const cc_SSHPublicKey: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `cc_ScheduledApplication` in responses.
  */
 export const cc_ScheduledApplication: JsonSchema = {
@@ -668,7 +567,10 @@ export const cc_ScheduledApplication: JsonSchema = {
     {
       "properties": {
         "scheduling_policy": {
-          "$ref": "#/$defs/cc_ScheduledApplicationSchedulingPolicy"
+          "enum": [
+            "default"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -677,27 +579,6 @@ export const cc_ScheduledApplication: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `cc_ScheduledApplicationSchedulingPolicy` in responses.
- */
-export const cc_ScheduledApplicationSchedulingPolicy: JsonSchema = {
-  "enum": [
-    "default"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `cc_SchedulingPolicy` in responses.
- */
-export const cc_SchedulingPolicy: JsonSchema = {
-  "enum": [
-    "default",
-    "durable_object"
-  ],
-  "type": "string"
 };
 
 /**
@@ -724,10 +605,18 @@ export const cc_UserDeploymentConfiguration: JsonSchema = {
       "type": "array"
     },
     "image": {
-      "$ref": "#/$defs/cc_Image"
+      "type": "string"
     },
     "instance_type": {
-      "$ref": "#/$defs/cc_InstanceType"
+      "enum": [
+        "lite",
+        "basic",
+        "standard-1",
+        "standard-2",
+        "standard-3",
+        "standard-4"
+      ],
+      "type": "string"
     },
     "observability": {
       "$ref": "#/$defs/cc_DeploymentObservability"
@@ -748,7 +637,7 @@ export const cc_UserSSHPublicKey: JsonSchema = {
       "type": "string"
     },
     "public_key": {
-      "$ref": "#/$defs/cc_SSHPublicKey"
+      "type": "string"
     }
   },
   "required": [

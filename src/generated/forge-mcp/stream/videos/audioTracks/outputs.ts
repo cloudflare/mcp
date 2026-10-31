@@ -28,45 +28,24 @@ export const stream_addAudioTrackResponse: JsonSchema = {
 export const stream_additionalAudio: JsonSchema = {
   "properties": {
     "default": {
-      "$ref": "#/$defs/stream_audio_default"
+      "type": "boolean"
     },
     "label": {
-      "$ref": "#/$defs/stream_audio_label"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/stream_audio_state"
+      "enum": [
+        "queued",
+        "ready",
+        "error"
+      ],
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/stream_identifier"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_audio_default` in responses.
- */
-export const stream_audio_default: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_audio_label` in responses.
- */
-export const stream_audio_label: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_audio_state` in responses.
- */
-export const stream_audio_state: JsonSchema = {
-  "enum": [
-    "queued",
-    "ready",
-    "error"
-  ],
-  "type": "string"
 };
 
 /**

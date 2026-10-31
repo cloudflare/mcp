@@ -4,19 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `dlp_Confidence` in responses.
- */
-export const dlp_Confidence: JsonSchema = {
-  "enum": [
-    "low",
-    "medium",
-    "high",
-    "very_high"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_ContextAwareness` in responses.
  */
 export const dlp_ContextAwareness: JsonSchema = {
@@ -47,7 +34,13 @@ export const dlp_CustomProfile: JsonSchema = {
       "type": "integer"
     },
     "confidence_threshold": {
-      "$ref": "#/$defs/dlp_Confidence"
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "very_high"
+      ],
+      "type": "string"
     },
     "context_awareness": {
       "$ref": "#/$defs/dlp_ContextAwareness"
@@ -195,7 +188,13 @@ export const dlp_PredefinedProfile: JsonSchema = {
       "type": "integer"
     },
     "confidence_threshold": {
-      "$ref": "#/$defs/dlp_Confidence"
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "very_high"
+      ],
+      "type": "string"
     },
     "context_awareness": {
       "$ref": "#/$defs/dlp_ContextAwareness"

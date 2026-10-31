@@ -40,16 +40,32 @@ export const tunnel_mesh_configuration_response: JsonSchema = {
       "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "ha_mode": {
-      "$ref": "#/$defs/tunnel_mesh_ha_mode"
+      "enum": [
+        "none",
+        "disabled",
+        "aws",
+        "local"
+      ],
+      "type": "string"
     },
     "tunnel_id": {
-      "$ref": "#/$defs/tunnel_tunnel_id-2"
+      "format": "uuid",
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tunnel_updated_at"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
@@ -78,19 +94,6 @@ export const tunnel_mesh_configuration_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tunnel_mesh_ha_mode` in responses.
- */
-export const tunnel_mesh_ha_mode: JsonSchema = {
-  "enum": [
-    "none",
-    "disabled",
-    "aws",
-    "local"
-  ],
-  "type": "string"
 };
 
 /**
@@ -133,19 +136,4 @@ export const tunnel_mesh_vip_entry: JsonSchema = {
     "address"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_updated_at` in responses.
- */
-export const tunnel_updated_at: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

@@ -6,26 +6,12 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
 } from "../../../../outputs.js";
 import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
-} from "../../../../schemas.js";
-import {
   api$$shield_label,
-  api$$shield_label_description,
   api$$shield_label_metadata,
-  api$$shield_label_name,
-  api$$shield_label_source,
 } from "../../../outputs.js";
-import {
-  api$$shield_label_name as api$$shield_label_name$,
-  api$$shield_operation_id_selector,
-} from "../../../schemas.js";
+import { api$$shield_operation_id_selector } from "../../../schemas.js";
 import {
   api$$shield_full_label,
   api$$shield_label_mapped_resources,
@@ -40,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_labels_managed_operations_update",
     title: "Replace operations attached to a managed label",
-    description: "Replaces the complete set of web and API operations attached to the managed label.",
+    description: "Replaces the complete set of web and API operations attached to the managed label.\n\nPUT /zones/{zone_id}/api_gateway/labels/managed/{name}/resources/operation",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,13 +34,22 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_replace_operations_attached_to_label_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "name": {
-              "$ref": "#/$defs/api-shield_label_name",
-              "description": "The label name"
+              "description": "The label name",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -68,14 +63,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_label_name": api$$shield_label_name$,
         "api-shield_operation_id_selector": api$$shield_operation_id_selector,
         "api-shield_replace_operations_attached_to_label_request": api$$shield_replace_operations_attached_to_label_request,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     outputSchema: {
@@ -100,14 +91,9 @@ export const tools: readonly Tool[] = [
         "api-shield_full_label": api$$shield_full_label,
         "api-shield_full_managed_label": api$$shield_full_managed_label,
         "api-shield_label": api$$shield_label,
-        "api-shield_label_description": api$$shield_label_description,
         "api-shield_label_mapped_resources": api$$shield_label_mapped_resources,
         "api-shield_label_metadata": api$$shield_label_metadata,
-        "api-shield_label_name": api$$shield_label_name,
-        "api-shield_label_source": api$$shield_label_source,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
       },
     },
     annotations: {
@@ -155,14 +141,9 @@ export const tools: readonly Tool[] = [
         "api-shield_full_label": api$$shield_full_label,
         "api-shield_full_managed_label": api$$shield_full_managed_label,
         "api-shield_label": api$$shield_label,
-        "api-shield_label_description": api$$shield_label_description,
         "api-shield_label_mapped_resources": api$$shield_label_mapped_resources,
         "api-shield_label_metadata": api$$shield_label_metadata,
-        "api-shield_label_name": api$$shield_label_name,
-        "api-shield_label_source": api$$shield_label_source,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
       },
     },
     request: (args) => ({

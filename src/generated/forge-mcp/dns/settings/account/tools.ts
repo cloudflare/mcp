@@ -10,33 +10,18 @@ import {
   dns$$settings_dns$$settings$$base,
   dns$$settings_dns$$settings$$response,
   dns$$settings_dns_response_single,
-  dns$$settings_enforce_dns_only,
-  dns$$settings_flatten_all_cnames,
-  dns$$settings_foundation_dns,
   dns$$settings_internal_dns_base,
   dns$$settings_internal_dns_response,
   dns$$settings_messages,
-  dns$$settings_multi_provider,
-  dns$$settings_ns_ttl,
-  dns$$settings_secondary_overrides,
   dns$$settings_soa$$base,
   dns$$settings_soa$$response,
-  dns$$settings_zone_mode,
 } from "./outputs.js";
 import {
   dns$$settings_account_settings_patch,
   dns$$settings_dns$$settings$$account$$patch,
   dns$$settings_dns$$settings$$patch,
-  dns$$settings_enforce_dns_only as dns$$settings_enforce_dns_only$,
-  dns$$settings_flatten_all_cnames as dns$$settings_flatten_all_cnames$,
-  dns$$settings_foundation_dns as dns$$settings_foundation_dns$,
-  dns$$settings_identifier,
   dns$$settings_internal_dns_base as dns$$settings_internal_dns_base$,
-  dns$$settings_multi_provider as dns$$settings_multi_provider$,
-  dns$$settings_ns_ttl as dns$$settings_ns_ttl$,
-  dns$$settings_secondary_overrides as dns$$settings_secondary_overrides$,
   dns$$settings_soa$$base as dns$$settings_soa$$base$,
-  dns$$settings_zone_mode as dns$$settings_zone_mode$,
 } from "./schemas.js";
 
 /**
@@ -46,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_edit",
     title: "Update DNS Settings",
-    description: "Update DNS settings for an account or zone",
+    description: "Update DNS settings for an account or zone\n\nPATCH /{account_or_zone}/{account_or_zone_id}/dns_settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -54,6 +39,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-settings_account_settings_patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -64,8 +50,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -79,20 +65,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-settings_account_settings_patch": dns$$settings_account_settings_patch,
         "dns-settings_dns-settings-account-patch": dns$$settings_dns$$settings$$account$$patch,
         "dns-settings_dns-settings-patch": dns$$settings_dns$$settings$$patch,
-        "dns-settings_enforce_dns_only": dns$$settings_enforce_dns_only$,
-        "dns-settings_flatten_all_cnames": dns$$settings_flatten_all_cnames$,
-        "dns-settings_foundation_dns": dns$$settings_foundation_dns$,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_internal_dns_base": dns$$settings_internal_dns_base$,
-        "dns-settings_multi_provider": dns$$settings_multi_provider$,
-        "dns-settings_ns_ttl": dns$$settings_ns_ttl$,
-        "dns-settings_secondary_overrides": dns$$settings_secondary_overrides$,
         "dns-settings_soa-base": dns$$settings_soa$$base$,
-        "dns-settings_zone_mode": dns$$settings_zone_mode$,
       },
     },
     outputSchema: {
@@ -104,18 +83,11 @@ export const tools: readonly Tool[] = [
         "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base,
         "dns-settings_dns-settings-response": dns$$settings_dns$$settings$$response,
         "dns-settings_dns_response_single": dns$$settings_dns_response_single,
-        "dns-settings_enforce_dns_only": dns$$settings_enforce_dns_only,
-        "dns-settings_flatten_all_cnames": dns$$settings_flatten_all_cnames,
-        "dns-settings_foundation_dns": dns$$settings_foundation_dns,
         "dns-settings_internal_dns_base": dns$$settings_internal_dns_base,
         "dns-settings_internal_dns_response": dns$$settings_internal_dns_response,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_multi_provider": dns$$settings_multi_provider,
-        "dns-settings_ns_ttl": dns$$settings_ns_ttl,
-        "dns-settings_secondary_overrides": dns$$settings_secondary_overrides,
         "dns-settings_soa-base": dns$$settings_soa$$base,
         "dns-settings_soa-response": dns$$settings_soa$$response,
-        "dns-settings_zone_mode": dns$$settings_zone_mode,
       },
     },
     annotations: {
@@ -167,18 +139,11 @@ export const tools: readonly Tool[] = [
         "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base,
         "dns-settings_dns-settings-response": dns$$settings_dns$$settings$$response,
         "dns-settings_dns_response_single": dns$$settings_dns_response_single,
-        "dns-settings_enforce_dns_only": dns$$settings_enforce_dns_only,
-        "dns-settings_flatten_all_cnames": dns$$settings_flatten_all_cnames,
-        "dns-settings_foundation_dns": dns$$settings_foundation_dns,
         "dns-settings_internal_dns_base": dns$$settings_internal_dns_base,
         "dns-settings_internal_dns_response": dns$$settings_internal_dns_response,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_multi_provider": dns$$settings_multi_provider,
-        "dns-settings_ns_ttl": dns$$settings_ns_ttl,
-        "dns-settings_secondary_overrides": dns$$settings_secondary_overrides,
         "dns-settings_soa-base": dns$$settings_soa$$base,
         "dns-settings_soa-response": dns$$settings_soa$$response,
-        "dns-settings_zone_mode": dns$$settings_zone_mode,
       },
     },
     request: (args) => ({
@@ -189,11 +154,12 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_get",
     title: "Show DNS Settings",
-    description: "Show DNS settings for an account or zone",
+    description: "Show DNS settings for an account or zone\n\nGET /{account_or_zone}/{account_or_zone_id}/dns_settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -204,8 +170,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -218,9 +184,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-settings_identifier": dns$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-settings_dns_response_single",
@@ -231,18 +195,11 @@ export const tools: readonly Tool[] = [
         "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base,
         "dns-settings_dns-settings-response": dns$$settings_dns$$settings$$response,
         "dns-settings_dns_response_single": dns$$settings_dns_response_single,
-        "dns-settings_enforce_dns_only": dns$$settings_enforce_dns_only,
-        "dns-settings_flatten_all_cnames": dns$$settings_flatten_all_cnames,
-        "dns-settings_foundation_dns": dns$$settings_foundation_dns,
         "dns-settings_internal_dns_base": dns$$settings_internal_dns_base,
         "dns-settings_internal_dns_response": dns$$settings_internal_dns_response,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_multi_provider": dns$$settings_multi_provider,
-        "dns-settings_ns_ttl": dns$$settings_ns_ttl,
-        "dns-settings_secondary_overrides": dns$$settings_secondary_overrides,
         "dns-settings_soa-base": dns$$settings_soa$$base,
         "dns-settings_soa-response": dns$$settings_soa$$response,
-        "dns-settings_zone_mode": dns$$settings_zone_mode,
       },
     },
     annotations: {
@@ -295,18 +252,11 @@ export const tools: readonly Tool[] = [
         "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base,
         "dns-settings_dns-settings-response": dns$$settings_dns$$settings$$response,
         "dns-settings_dns_response_single": dns$$settings_dns_response_single,
-        "dns-settings_enforce_dns_only": dns$$settings_enforce_dns_only,
-        "dns-settings_flatten_all_cnames": dns$$settings_flatten_all_cnames,
-        "dns-settings_foundation_dns": dns$$settings_foundation_dns,
         "dns-settings_internal_dns_base": dns$$settings_internal_dns_base,
         "dns-settings_internal_dns_response": dns$$settings_internal_dns_response,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_multi_provider": dns$$settings_multi_provider,
-        "dns-settings_ns_ttl": dns$$settings_ns_ttl,
-        "dns-settings_secondary_overrides": dns$$settings_secondary_overrides,
         "dns-settings_soa-base": dns$$settings_soa$$base,
         "dns-settings_soa-response": dns$$settings_soa$$response,
-        "dns-settings_zone_mode": dns$$settings_zone_mode,
       },
     },
     request: (args) => ({

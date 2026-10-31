@@ -24,19 +24,12 @@ export const tls$$certificates$$and$$hostnames_dcv_delegation_response: JsonSche
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_uuid` in responses.
- */
-export const tls$$certificates$$and$$hostnames_uuid: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_uuidObject` in responses.
  */
 export const tls$$certificates$$and$$hostnames_uuidObject: JsonSchema = {
   "properties": {
     "uuid": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uuid"
+      "type": "string"
     }
   },
   "type": "object"

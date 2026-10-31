@@ -3,7 +3,6 @@
 
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
-  r2$$slurper_Jurisdiction,
   r2$$slurper_api$$v4$$error,
   r2$$slurper_api$$v4$$failure,
   r2$$slurper_api$$v4$$message,
@@ -12,7 +11,6 @@ import {
 import {
   r2$$slurper_GCSLikeCredsSchema,
   r2$$slurper_GCSSourceSchema,
-  r2$$slurper_Jurisdiction as r2$$slurper_Jurisdiction$,
   r2$$slurper_R2SourceSchema,
   r2$$slurper_R2TargetSchema,
   r2$$slurper_S3LikeCredsSchema,
@@ -22,7 +20,6 @@ import {
 import {
   r2$$slurper_JobProgressResponse,
   r2$$slurper_JobResponse,
-  r2$$slurper_JobStatus,
 } from "./outputs.js";
 import { r2$$slurper_CreateJobRequest } from "./schemas.js";
 
@@ -33,11 +30,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_abort",
     title: "Abort a job",
-    description: "Cancels a specific R2 Super Slurper migration job. Any objects in the middle of a transfer will finish, but no new objects will start transferring.\n\nConfirm with the user before calling this tool. This operation stops a running migration job.",
+    description: "Cancels a specific R2 Super Slurper migration job. Any objects in the middle of a transfer will finish, but no new objects will start transferring.\n\nConfirm with the user before calling this tool. This operation stops a running migration job.\n\nPUT /accounts/{account_id}/slurper/jobs/{job_id}/abort",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -56,6 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -121,11 +120,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_abortAll",
     title: "Abort all jobs",
-    description: "Cancels all running R2 Super Slurper migration jobs for the account. Any objects in the middle of a transfer will finish, but no new objects will start transferring.\n\nConfirm with the user before calling this tool. This operation stops every running migration job.",
+    description: "Cancels all running R2 Super Slurper migration jobs for the account. Any objects in the middle of a transfer will finish, but no new objects will start transferring.\n\nConfirm with the user before calling this tool. This operation stops every running migration job.\n\nPUT /accounts/{account_id}/slurper/jobs/abortAll",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -140,6 +140,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -205,7 +206,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_create",
     title: "Create a job",
-    description: "Creates a new R2 Super Slurper migration job to transfer objects from a source bucket (e.g. S3, GCS, R2) to R2.",
+    description: "Creates a new R2 Super Slurper migration job to transfer objects from a source bucket (e.g. S3, GCS, R2) to R2.\n\nPOST /accounts/{account_id}/slurper/jobs",
     inputSchema: {
       type: "object",
       properties: {
@@ -213,6 +214,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2-slurper_CreateJobRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -228,11 +230,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "r2-slurper_CreateJobRequest": r2$$slurper_CreateJobRequest,
         "r2-slurper_GCSLikeCredsSchema": r2$$slurper_GCSLikeCredsSchema,
         "r2-slurper_GCSSourceSchema": r2$$slurper_GCSSourceSchema,
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction$,
         "r2-slurper_R2SourceSchema": r2$$slurper_R2SourceSchema,
         "r2-slurper_R2TargetSchema": r2$$slurper_R2TargetSchema,
         "r2-slurper_S3LikeCredsSchema": r2$$slurper_S3LikeCredsSchema,
@@ -318,11 +320,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_delete",
     title: "Delete a job",
-    description: "Deletes a completed, aborted, or errored R2 Super Slurper migration job. Active jobs cannot be deleted.",
+    description: "Deletes a completed, aborted, or errored R2 Super Slurper migration job. Active jobs cannot be deleted.\n\nDELETE /accounts/{account_id}/slurper/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -341,6 +344,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -409,11 +413,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_get",
     title: "Get job details",
-    description: "Retrieves detailed status and configuration for a specific R2 Super Slurper migration job.",
+    description: "Retrieves detailed status and configuration for a specific R2 Super Slurper migration job.\n\nGET /accounts/{account_id}/slurper/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -432,6 +437,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -449,8 +455,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2-slurper_JobResponse": r2$$slurper_JobResponse,
-        "r2-slurper_JobStatus": r2$$slurper_JobStatus,
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
         "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
         "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
         "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
@@ -488,8 +492,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-slurper_JobResponse": r2$$slurper_JobResponse,
-        "r2-slurper_JobStatus": r2$$slurper_JobStatus,
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
         "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
         "r2-slurper_api-v4-failure": r2$$slurper_api$$v4$$failure,
         "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
@@ -503,11 +505,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_list",
     title: "List jobs",
-    description: "Lists all R2 Super Slurper migration jobs for the account with their status.",
+    description: "Lists all R2 Super Slurper migration jobs for the account with their status.\n\nGET /accounts/{account_id}/slurper/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -519,6 +522,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "type": "integer"
@@ -533,6 +537,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -553,8 +558,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2-slurper_JobResponse": r2$$slurper_JobResponse,
-        "r2-slurper_JobStatus": r2$$slurper_JobStatus,
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
         "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
         "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
         "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
@@ -595,8 +598,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-slurper_JobResponse": r2$$slurper_JobResponse,
-        "r2-slurper_JobStatus": r2$$slurper_JobStatus,
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
         "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
         "r2-slurper_api-v4-failure": r2$$slurper_api$$v4$$failure,
         "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
@@ -614,11 +615,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_pause",
     title: "Pause a job",
-    description: "Pauses a running R2 Super Slurper migration job. The job can be resumed later to continue transferring.",
+    description: "Pauses a running R2 Super Slurper migration job. The job can be resumed later to continue transferring.\n\nPUT /accounts/{account_id}/slurper/jobs/{job_id}/pause",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -637,6 +639,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -705,11 +708,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_progress",
     title: "Get job progress",
-    description: "Retrieves current progress metrics for an R2 Super Slurper migration job",
+    description: "Retrieves current progress metrics for an R2 Super Slurper migration job\n\nGET /accounts/{account_id}/slurper/jobs/{job_id}/progress",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -728,6 +732,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -745,7 +750,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2-slurper_JobProgressResponse": r2$$slurper_JobProgressResponse,
-        "r2-slurper_JobStatus": r2$$slurper_JobStatus,
         "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
         "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
         "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
@@ -783,7 +787,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-slurper_JobProgressResponse": r2$$slurper_JobProgressResponse,
-        "r2-slurper_JobStatus": r2$$slurper_JobStatus,
         "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
         "r2-slurper_api-v4-failure": r2$$slurper_api$$v4$$failure,
         "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
@@ -797,11 +800,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_resume",
     title: "Resume a job",
-    description: "Resumes a paused R2 Super Slurper migration job, continuing the transfer from where it stopped.",
+    description: "Resumes a paused R2 Super Slurper migration job, continuing the transfer from where it stopped.\n\nPUT /accounts/{account_id}/slurper/jobs/{job_id}/resume",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -820,6 +824,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

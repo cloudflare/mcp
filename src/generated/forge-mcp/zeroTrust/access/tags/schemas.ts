@@ -4,28 +4,36 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_name-13`.
- */
-export const access_name$$13: JsonSchema = {
-  "description": "The name of the tag",
-  "type": "string"
-};
-
-/**
  * The schema of `access_tag_without_app_count`.
  */
 export const access_tag_without_app_count: JsonSchema = {
   "description": "A tag",
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "name": {
-      "$ref": "#/$defs/access_name-13",
-      "description": "The name of the tag"
+      "description": "The name of the tag",
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "required": [

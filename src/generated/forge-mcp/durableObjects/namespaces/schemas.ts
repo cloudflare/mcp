@@ -11,7 +11,17 @@ export const workers_query: JsonSchema = {
     "params": {
       "description": "Values bound to the `?` placeholders in `sql`, in order.",
       "items": {
-        "$ref": "#/$defs/workers_query-param"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ]
       },
       "type": "array"
     },
@@ -76,29 +86,4 @@ export const workers_query$$by$$name: JsonSchema = {
     "queries"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_query-param`.
- */
-export const workers_query$$param: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_schemas-id`.
- */
-export const workers_schemas$$id: JsonSchema = {
-  "description": "ID of the namespace.",
-  "type": "string"
 };

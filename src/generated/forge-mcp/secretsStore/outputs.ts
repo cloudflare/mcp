@@ -96,14 +96,6 @@ export const secrets$$store_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `secrets-store_created` in responses.
- */
-export const secrets$$store_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `secrets-store_messages` in responses.
  */
 export const secrets$$store_messages: JsonSchema = {
@@ -134,19 +126,4 @@ export const secrets$$store_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `secrets-store_modified` in responses.
- */
-export const secrets$$store_modified: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `secrets-store_store_identifier` in responses.
- */
-export const secrets$$store_store_identifier: JsonSchema = {
-  "type": "string"
 };

@@ -8,7 +8,6 @@ import {
   intel_messages,
   intel_schemas$$messages,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
 import {
   intel_url_intelligence,
   intel_url_intelligence_category_with_source,
@@ -22,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_urls_get",
     title: "Get URL Intelligence",
-    description: "Gets security information about a URL, including content categories and risk types. The URL must be provided as a query parameter.",
+    description: "Gets security information about a URL, including content categories and risk types. The URL must be provided as a query parameter.\n\nGET /accounts/{account_id}/intel/url",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "url": {
               "description": "The URL to look up.",
@@ -55,9 +56,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_url_intelligence_single_response",

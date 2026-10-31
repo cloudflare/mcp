@@ -8,18 +8,13 @@ import {
   precursor_messages,
   precursor_precursor_config,
   precursor_precursor_config_response_body,
-  precursor_precursor_mode,
   precursor_precursor_rule,
   precursor_precursor_rules,
-  precursor_show_interstitial,
 } from "./outputs.js";
 import {
-  precursor_identifier,
   precursor_precursor_config as precursor_precursor_config$,
-  precursor_precursor_mode as precursor_precursor_mode$,
   precursor_precursor_rule as precursor_precursor_rule$,
   precursor_precursor_rules as precursor_precursor_rules$,
-  precursor_show_interstitial as precursor_show_interstitial$,
 } from "./schemas.js";
 
 /**
@@ -29,11 +24,12 @@ export const tools: readonly Tool[] = [
   {
     name: "precursor_get",
     title: "Get Zone Precursor Config",
-    description: "Retrieve a zone's Precursor configuration: the detection `mode`,\nwhether to `show_interstitial`, and the ordered list of `rules`.\n\nThis method is beta.",
+    description: "Retrieve a zone's Precursor configuration: the detection `mode`,\nwhether to `show_interstitial`, and the ordered list of `rules`.\n\nThis method is beta.\n\nGET /zones/{zone_id}/precursor",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Cloudflare-Version": {
               "default": "1.0",
@@ -50,10 +46,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/precursor_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -66,9 +63,7 @@ export const tools: readonly Tool[] = [
         "path",
         "headers"
       ],
-      $defs: {
-        "precursor_identifier": precursor_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/precursor_precursor_config_response_body",
@@ -77,10 +72,8 @@ export const tools: readonly Tool[] = [
         "precursor_messages": precursor_messages,
         "precursor_precursor_config": precursor_precursor_config,
         "precursor_precursor_config_response_body": precursor_precursor_config_response_body,
-        "precursor_precursor_mode": precursor_precursor_mode,
         "precursor_precursor_rule": precursor_precursor_rule,
         "precursor_precursor_rules": precursor_precursor_rules,
-        "precursor_show_interstitial": precursor_show_interstitial,
       },
     },
     annotations: {
@@ -128,10 +121,8 @@ export const tools: readonly Tool[] = [
         "precursor_messages": precursor_messages,
         "precursor_precursor_config": precursor_precursor_config,
         "precursor_precursor_config_response_body": precursor_precursor_config_response_body,
-        "precursor_precursor_mode": precursor_precursor_mode,
         "precursor_precursor_rule": precursor_precursor_rule,
         "precursor_precursor_rules": precursor_precursor_rules,
-        "precursor_show_interstitial": precursor_show_interstitial,
       },
     },
     request: (args) => ({
@@ -144,7 +135,7 @@ export const tools: readonly Tool[] = [
   {
     name: "precursor_update",
     title: "Update Zone Precursor Config",
-    description: "Updates the Precursor configuration for a zone.\n\n`mode` controls whether Precursor detection is off, monitoring, or\narmed. `show_interstitial` controls the zone-level response when armed.\n`rules` is the ordered list of overrides for matching requests.\n\nThis is a partial update: only the fields present in the request body\nare changed.\n\n- Sending an empty array (`[]`) clears all rules.\n- At least one of `mode`, `show_interstitial`, or `rules` must be\n  present; an empty body (`{}`) is rejected with `400`.\n- Rule `id` is read-only (assigned by Cloudflare) and ignored on input.\n- Rule `show_interstitial` is required and controls the response for\n  requests that match that rule.\n- Rule `expression` is limited to 4000 characters. The limit applies to\n  each rule individually, not to the combined size of all rules.\n\nThis method is beta.",
+    description: "Updates the Precursor configuration for a zone.\n\n`mode` controls whether Precursor detection is off, monitoring, or\narmed. `show_interstitial` controls the zone-level response when armed.\n`rules` is the ordered list of overrides for matching requests.\n\nThis is a partial update: only the fields present in the request body\nare changed.\n\n- Sending an empty array (`[]`) clears all rules.\n- At least one of `mode`, `show_interstitial`, or `rules` must be\n  present; an empty body (`{}`) is rejected with `400`.\n- Rule `id` is read-only (assigned by Cloudflare) and ignored on input.\n- Rule `show_interstitial` is required and controls the response for\n  requests that match that rule.\n- Rule `expression` is limited to 4000 characters. The limit applies to\n  each rule individually, not to the combined size of all rules.\n\nThis method is beta.\n\nPUT /zones/{zone_id}/precursor",
     inputSchema: {
       type: "object",
       properties: {
@@ -152,6 +143,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/precursor_precursor_config"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Cloudflare-Version": {
               "default": "1.0",
@@ -168,10 +160,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/precursor_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -185,13 +178,11 @@ export const tools: readonly Tool[] = [
         "headers",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "precursor_identifier": precursor_identifier,
         "precursor_precursor_config": precursor_precursor_config$,
-        "precursor_precursor_mode": precursor_precursor_mode$,
         "precursor_precursor_rule": precursor_precursor_rule$,
         "precursor_precursor_rules": precursor_precursor_rules$,
-        "precursor_show_interstitial": precursor_show_interstitial$,
       },
     },
     outputSchema: {
@@ -201,10 +192,8 @@ export const tools: readonly Tool[] = [
         "precursor_messages": precursor_messages,
         "precursor_precursor_config": precursor_precursor_config,
         "precursor_precursor_config_response_body": precursor_precursor_config_response_body,
-        "precursor_precursor_mode": precursor_precursor_mode,
         "precursor_precursor_rule": precursor_precursor_rule,
         "precursor_precursor_rules": precursor_precursor_rules,
-        "precursor_show_interstitial": precursor_show_interstitial,
       },
     },
     annotations: {
@@ -251,10 +240,8 @@ export const tools: readonly Tool[] = [
         "precursor_messages": precursor_messages,
         "precursor_precursor_config": precursor_precursor_config,
         "precursor_precursor_config_response_body": precursor_precursor_config_response_body,
-        "precursor_precursor_mode": precursor_precursor_mode,
         "precursor_precursor_rule": precursor_precursor_rule,
         "precursor_precursor_rules": precursor_precursor_rules,
-        "precursor_show_interstitial": precursor_show_interstitial,
       },
     },
     request: (args) => ({

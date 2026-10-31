@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_accountToolCallAnalytics",
     title: "Account-global MCP tool-call timeseries",
-    description: "Returns daily or monthly tool-call counts across the account.\n\nThis method is beta.",
+    description: "Returns daily or monthly tool-call counts across the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/analytics/tool-calls/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggregate": {
               "default": "false",
@@ -69,6 +71,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -296,7 +299,7 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_create",
     title: "Create a new MCP Portal",
-    description: "Creates a new MCP portal for managing AI tool access through Cloudflare Access.\n\nThis method is beta.",
+    description: "Creates a new MCP portal for managing AI tool access through Cloudflare Access.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/access/ai-controls/mcp/portals",
     inputSchema: {
       type: "object",
       properties: {
@@ -428,6 +431,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -442,6 +446,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1172,11 +1177,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_delete",
     title: "Delete an MCP Portal",
-    description: "Deletes an MCP portal from the account.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the MCP portal.",
+    description: "Deletes an MCP portal from the account.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the MCP portal.\n\nDELETE /accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1196,6 +1202,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1392,11 +1399,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_list",
     title: "List MCP Portals",
-    description: "Lists all MCP portals configured for the account.\n\nThis method is beta.",
+    description: "Lists all MCP portals configured for the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/portals",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1408,6 +1416,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -1428,6 +1437,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2159,11 +2169,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_read",
     title: "Read details of an MCP Portal",
-    description: "Read the details of a single MCP Portal, including its configured servers.\n\nThis method is beta.",
+    description: "Read the details of a single MCP Portal, including its configured servers.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2183,6 +2194,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2906,11 +2918,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_toolCallAnalytics",
     title: "Per-portal MCP tool-call timeseries",
-    description: "Returns daily or monthly tool-call counts for a portal.\n\nThis method is beta.",
+    description: "Returns daily or monthly tool-call counts for a portal.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/analytics/portals/{portal_id}/tool-calls/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2926,6 +2939,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggregate": {
               "default": "false",
@@ -2969,6 +2983,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3196,7 +3211,7 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_portals_update",
     title: "Update an MCP Portal",
-    description: "Updates an MCP portal configuration.\n\nThis method is beta.",
+    description: "Updates an MCP portal configuration.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -3319,6 +3334,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3338,6 +3354,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

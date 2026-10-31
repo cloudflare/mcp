@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_messages_create",
     title: "Create a customer follow-on message on an RFI request",
-    description: "Creates a customer dashboard message on an RFI request. Messages are always published on send. Workflow-enabled projects require Idempotency-Key and atomically record message activity and any policy transition. For token-billed project types, substantive follow-on messages consume message tokens and are subject to quarterly quota enforcement.",
+    description: "Creates a customer dashboard message on an RFI request. Messages are always published on send. Workflow-enabled projects require Idempotency-Key and atomically record message activity and any policy transition. For token-billed project types, substantive follow-on messages consume message tokens and are subject to quarterly quota enforcement.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/messages/new",
     inputSchema: {
       type: "object",
       properties: {
@@ -54,6 +54,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Idempotency-Key": {
               "description": "Client command key. Required when publishing a message for a workflow-enabled project; trimmed and limited to 255 characters.",
@@ -70,6 +71,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -92,6 +94,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -336,11 +339,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_messages_get",
     title: "Read a single message for an RFI request",
-    description: "Returns the details for a specific message belonging to an RFI request.",
+    description: "Returns the details for a specific message belonging to an RFI request.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/messages/{message_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -367,6 +371,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -606,11 +611,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_messages_list",
     title: "List messages for an RFI request",
-    description: "Retrieves the published, non-deleted messages visible to the agent for an RFI request, with pagination.",
+    description: "Retrieves the published, non-deleted messages visible to the agent for an RFI request, with pagination.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/messages",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -630,6 +636,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": "1",
@@ -646,6 +653,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -959,7 +967,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_messages_update",
     title: "Update/publish a message for an RFI request",
-    description: "Updates an existing message, typically to publish a draft by setting publish=true. Workflow-enabled publication requires Idempotency-Key and atomically records message activity and any policy transition.",
+    description: "Updates an existing message, typically to publish a draft by setting publish=true. Workflow-enabled publication requires Idempotency-Key and atomically records message activity and any policy transition.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/messages/{message_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -997,6 +1005,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Idempotency-Key": {
               "description": "Client command key. Required when publishing a message for a workflow-enabled project; trimmed and limited to 255 characters.",
@@ -1013,6 +1022,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1039,6 +1049,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

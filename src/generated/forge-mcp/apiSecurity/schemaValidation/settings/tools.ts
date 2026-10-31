@@ -6,10 +6,6 @@ import {
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
 } from "../../../outputs.js";
-import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-} from "../../../schemas.js";
 import { api$$shield_api$$response$$single } from "../../outputs.js";
 import { api$$shield_global_settings } from "./outputs.js";
 import { api$$shield_global_setting_change_base } from "./schemas.js";
@@ -21,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_edit",
     title: "Edit global schema validation settings",
-    description: "Partially updates global schema validation settings for a zone using PATCH semantics.",
+    description: "Partially updates global schema validation settings for a zone using PATCH semantics.\n\nPATCH /zones/{zone_id}/schema_validation/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,9 +25,18 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_global_setting_change_base"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -44,10 +49,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "api-shield_global_setting_change_base": api$$shield_global_setting_change_base,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
       },
     },
     outputSchema: {
@@ -127,14 +131,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_get",
     title: "Get global schema validation settings",
-    description: "Retrieves the current global schema validation settings for a zone.",
+    description: "Retrieves the current global schema validation settings for a zone.\n\nGET /zones/{zone_id}/schema_validation/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -146,10 +159,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -229,14 +239,14 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_update",
     title: "Update global schema validation settings",
-    description: "Fully updates global schema validation settings for a zone, replacing existing configuration.",
+    description: "Fully updates global schema validation settings for a zone, replacing existing configuration.\n\nPUT /zones/{zone_id}/schema_validation/settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "validation_default_mitigation_action": {
-              "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation\n",
+              "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation",
               "enum": [
                 "none",
                 "log",
@@ -245,7 +255,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "validation_override_mitigation_action": {
-              "description": "When set, this overrides both zone level and operation level mitigation actions.\n\n  - `\"none\"` - skip running schema validation entirely for the request\n  - `null` - clears any existing override\n",
+              "description": "When set, this overrides both zone level and operation level mitigation actions.\n\n  - `\"none\"` - skip running schema validation entirely for the request\n  - `null` - clears any existing override",
               "oneOf": [
                 {
                   "enum": [
@@ -265,9 +275,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -280,10 +299,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

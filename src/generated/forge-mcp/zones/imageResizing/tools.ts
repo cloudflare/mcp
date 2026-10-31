@@ -8,12 +8,7 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_image_resizing_response,
-  speed_image_resizing_value,
-} from "./outputs.js";
-import { speed_image_resizing_value as speed_image_resizing_value$ } from "./schemas.js";
+import { speed_image_resizing_response } from "./outputs.js";
 
 /**
  * The tools of `zones.imageResizing`.
@@ -22,15 +17,21 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_imageResizing_edit",
     title: "Change Image Transformations setting",
-    description: "Sets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.",
+    description: "Sets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.\n\nPATCH /zones/{zone_id}/settings/image_resizing",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_image_resizing_value",
-              "description": "Controls Image Resizing behavior:\n- \"off\": Feature disabled.\n- \"on\": Resizing is enabled for same-zone images only.\n- \"open\": Resizing is enabled for images from any origin.\n- \"latest\": Resizing is enabled for same-zone images using the latest version.\n"
+              "description": "Controls Image Resizing behavior:\n- \"off\": Feature disabled.\n- \"on\": Resizing is enabled for same-zone images only.\n- \"open\": Resizing is enabled for images from any origin.\n- \"latest\": Resizing is enabled for same-zone images using the latest version.",
+              "enum": [
+                "off",
+                "on",
+                "open",
+                "latest"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -39,10 +40,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +57,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-        "speed_image_resizing_value": speed_image_resizing_value$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -78,7 +77,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common": speed_api$$response$$common,
         "speed_base": speed_base,
         "speed_image_resizing_response": speed_image_resizing_response,
-        "speed_image_resizing_value": speed_image_resizing_value,
         "speed_messages": speed_messages,
       },
     },
@@ -133,7 +131,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common-failure": speed_api$$response$$common$$failure,
         "speed_base": speed_base,
         "speed_image_resizing_response": speed_image_resizing_response,
-        "speed_image_resizing_value": speed_image_resizing_value,
         "speed_messages": speed_messages,
       },
     },
@@ -145,15 +142,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_imageResizing_get",
     title: "Get Image Transformations setting",
-    description: "Gets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.",
+    description: "Gets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.\n\nGET /zones/{zone_id}/settings/image_resizing",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -165,9 +163,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -187,7 +183,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common": speed_api$$response$$common,
         "speed_base": speed_base,
         "speed_image_resizing_response": speed_image_resizing_response,
-        "speed_image_resizing_value": speed_image_resizing_value,
         "speed_messages": speed_messages,
       },
     },
@@ -243,7 +238,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common-failure": speed_api$$response$$common$$failure,
         "speed_base": speed_base,
         "speed_image_resizing_response": speed_image_resizing_response,
-        "speed_image_resizing_value": speed_image_resizing_value,
         "speed_messages": speed_messages,
       },
     },

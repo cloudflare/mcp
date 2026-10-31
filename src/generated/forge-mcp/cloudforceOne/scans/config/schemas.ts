@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `cloudforce-one-port-scan-api_frequency`.
- */
-export const cloudforce$$one$$port$$scan$$api_frequency: JsonSchema = {
-  "description": "Defines the number of days between each scan (0 = One-off scan).",
-  "type": "number"
-};
-
-/**
  * The schema of `cloudforce-one-port-scan-api_ips`.
  */
 export const cloudforce$$one$$port$$scan$$api_ips: JsonSchema = {

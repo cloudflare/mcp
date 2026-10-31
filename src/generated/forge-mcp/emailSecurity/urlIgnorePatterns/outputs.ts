@@ -9,7 +9,8 @@ import type { JsonSchema } from "../../_/tool.js";
 export const email$$security_DeletedUrlIgnorePattern: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_UrlIgnorePatternId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -38,7 +39,8 @@ export const email$$security_UrlIgnorePattern: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/email-security_UrlIgnorePatternId"
+      "format": "uuid",
+      "type": "string"
     },
     "last_modified": {
       "format": "date-time",
@@ -58,12 +60,4 @@ export const email$$security_UrlIgnorePattern: JsonSchema = {
     "pattern"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-security_UrlIgnorePatternId` in responses.
- */
-export const email$$security_UrlIgnorePatternId: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

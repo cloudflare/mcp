@@ -4,17 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `cloudflare-pipelines_JsonCompression` in responses.
- */
-export const cloudflare$$pipelines_JsonCompression: JsonSchema = {
-  "enum": [
-    "uncompressed",
-    "gzip"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cloudflare-pipelines_SinkFormat` in responses.
  */
 export const cloudflare$$pipelines_SinkFormat: JsonSchema = {
@@ -39,7 +28,11 @@ export const cloudflare$$pipelines_SinkJsonFormat: JsonSchema = {
     {
       "properties": {
         "compression": {
-          "$ref": "#/$defs/cloudflare-pipelines_JsonCompression"
+          "enum": [
+            "uncompressed",
+            "gzip"
+          ],
+          "type": "string"
         },
         "type": {
           "enum": [

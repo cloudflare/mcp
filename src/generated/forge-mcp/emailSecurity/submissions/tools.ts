@@ -9,20 +9,12 @@ import {
   email$$security_messages,
 } from "../outputs.js";
 import {
-  email$$security_PostfixId,
-  email$$security_identifier,
-} from "../schemas.js";
-import {
-  email$$security_CustomerStatus,
-  email$$security_OptionalSubmissionDisposition,
   email$$security_Submission,
-  email$$security_SubmissionDisposition,
   email$$security_SubmissionResult,
 } from "./outputs.js";
 import {
   email$$security_MissedDetectionSubmission,
   email$$security_ReclassificationSubmission,
-  email$$security_SubmissionDisposition as email$$security_SubmissionDisposition$,
 } from "./schemas.js";
 
 /**
@@ -32,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_submissions_create",
     title: "Create new submissions",
-    description: "Submits messages for reclassification or to report missed detections.\n\nThis method is beta.",
+    description: "Submits messages for reclassification or to report missed detections.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/submissions",
     inputSchema: {
       type: "object",
       properties: {
@@ -83,10 +75,11 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -99,12 +92,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_MissedDetectionSubmission": email$$security_MissedDetectionSubmission,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_ReclassificationSubmission": email$$security_ReclassificationSubmission,
-        "email-security_SubmissionDisposition": email$$security_SubmissionDisposition$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -203,15 +194,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_submissions_list",
     title: "List reclassify submissions",
-    description: "Returns information for submissions made to reclassify emails. Shows the status, outcome, and disposition changes for reclassification requests made by users or the security team. Useful for tracking false positive/negative reports.\n\nThis method is beta.",
+    description: "Returns information for submissions made to reclassify emails. Shows the status, outcome, and disposition changes for reclassification requests made by users or the security team. Useful for tracking false positive/negative reports.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/submissions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -220,6 +212,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -252,12 +245,28 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "original_disposition": {
-              "$ref": "#/$defs/email-security_SubmissionDisposition",
-              "description": "The disposition a message is submitted to have."
+              "description": "The disposition a message is submitted to have.",
+              "enum": [
+                "MALICIOUS",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "NONE"
+              ],
+              "type": "string"
             },
             "outcome_disposition": {
-              "$ref": "#/$defs/email-security_SubmissionDisposition",
-              "description": "The disposition a message is submitted to have."
+              "description": "The disposition a message is submitted to have.",
+              "enum": [
+                "MALICIOUS",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "NONE"
+              ],
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -281,8 +290,16 @@ export const tools: readonly Tool[] = [
               ]
             },
             "requested_disposition": {
-              "$ref": "#/$defs/email-security_SubmissionDisposition",
-              "description": "The disposition a message is submitted to have."
+              "description": "The disposition a message is submitted to have.",
+              "enum": [
+                "MALICIOUS",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "NONE"
+              ],
+              "type": "string"
             },
             "start": {
               "description": "The beginning of the search date range. Defaults to `now - 30 days`.",
@@ -312,10 +329,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_SubmissionDisposition": email$$security_SubmissionDisposition$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -335,10 +349,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_CustomerStatus": email$$security_CustomerStatus,
-        "email-security_OptionalSubmissionDisposition": email$$security_OptionalSubmissionDisposition,
         "email-security_Submission": email$$security_Submission,
-        "email-security_SubmissionDisposition": email$$security_SubmissionDisposition,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
@@ -382,10 +393,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_CustomerStatus": email$$security_CustomerStatus,
-        "email-security_OptionalSubmissionDisposition": email$$security_OptionalSubmissionDisposition,
         "email-security_Submission": email$$security_Submission,
-        "email-security_SubmissionDisposition": email$$security_SubmissionDisposition,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,

@@ -9,7 +9,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../outputs.js";
-import { access_identifier, access_uuid } from "../../schemas.js";
 import {
   access_certificate_set_list_response,
   access_certificate_set_response,
@@ -24,19 +23,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_samlEncryptionCertificates_get",
     title: "Get SAML certificate set",
-    description: "Retrieves a specific SAML encryption certificate set by its UID, including both current and previous certificates if available.",
+    description: "Retrieves a specific SAML encryption certificate set by its UID, including both current and previous certificates if available.\n\nGET /accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "saml_cert_set_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UID of the SAML certificate set."
+              "description": "UID of the SAML certificate set.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,10 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_certificate_set_response",
@@ -101,19 +98,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_samlEncryptionCertificates_getPem",
     title: "Download current certificate in PEM format",
-    description: "Downloads the current SAML encryption certificate's public key in PEM format for the specified certificate set. This endpoint is useful for providing the certificate to Identity Providers for SAML assertion encryption configuration.",
+    description: "Downloads the current SAML encryption certificate's public key in PEM format for the specified certificate set. This endpoint is useful for providing the certificate to Identity Providers for SAML assertion encryption configuration.\n\nGET /accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}/pem",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "saml_cert_set_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UID of the SAML certificate set."
+              "description": "UID of the SAML certificate set.",
+              "type": "string"
             }
           },
           "required": [
@@ -126,10 +124,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -162,15 +157,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_samlEncryptionCertificates_list",
     title: "List SAML certificate sets",
-    description: "Returns a paginated list of the organization's SAML encryption certificate sets.\nEach certificate set includes the current and (if present) previous certificates.",
+    description: "Returns a paginated list of the organization's SAML encryption certificate sets.\nEach certificate set includes the current and (if present) previous certificates.\n\nGET /accounts/{account_id}/access/saml_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -179,6 +175,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "Filter by SAML certificate set UID. Accepts a comma-separated list of UIDs.",
@@ -201,9 +198,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_certificate_set_list_response",
@@ -256,19 +251,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_samlEncryptionCertificates_rotate",
     title: "Rotate SAML certificate",
-    description: "Rotates the SAML encryption certificates within the specified certificate set. This generates a new\ncertificate and moves the current certificate to the previous slot. If a previous certificate exists,\nit will be deactivated and removed.\n\nThis endpoint ensures zero-downtime rotation by maintaining both current and previous certificates \nduring the transition period, allowing IdPs time to update their configurations. Automated rotation\nhappens 30 days before a current certificate's expiration.",
+    description: "Rotates the SAML encryption certificates within the specified certificate set. This generates a new\ncertificate and moves the current certificate to the previous slot. If a previous certificate exists,\nit will be deactivated and removed.\n\nThis endpoint ensures zero-downtime rotation by maintaining both current and previous certificates \nduring the transition period, allowing IdPs time to update their configurations. Automated rotation\nhappens 30 days before a current certificate's expiration.\n\nPOST /accounts/{account_id}/access/saml_certificates/{saml_cert_set_id}/rotate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "saml_cert_set_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UID of the SAML certificate set to rotate."
+              "description": "UID of the SAML certificate set to rotate.",
+              "type": "string"
             }
           },
           "required": [
@@ -281,10 +277,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_certificate_set_response",

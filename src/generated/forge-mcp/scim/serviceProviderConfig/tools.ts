@@ -2,10 +2,6 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier,
-} from "../../schemas.js";
 import { iam_scim_error_response } from "../outputs.js";
 import {
   iam_scim_authentication_scheme,
@@ -22,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_serviceProviderConfig_get",
     title: "Get SCIM Service Provider Config",
-    description: "Returns the SCIM 2.0 Service Provider configuration (RFC 7643 Section 5). IdPs use this endpoint to auto-configure their SCIM integration with Cloudflare, discovering which optional features (patch, bulk, filter, etc.) are supported.",
+    description: "Returns the SCIM 2.0 Service Provider configuration (RFC 7643 Section 5). IdPs use this endpoint to auto-configure their SCIM integration with Cloudflare, discovering which optional features (patch, bulk, filter, etc.) are supported.\n\nGET /accounts/{account_id}/scim/v2/ServiceProviderConfig",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,10 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_service_provider_config",

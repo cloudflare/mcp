@@ -2,11 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import {
-  waf$$product$$api$$bundle_identifier,
-  waf$$product$$api$$bundle_messages,
-} from "../../outputs.js";
-import { waf$$product$$api$$bundle_identifier as waf$$product$$api$$bundle_identifier$ } from "../../schemas.js";
+import { waf$$product$$api$$bundle_messages } from "../../outputs.js";
 import {
   waf$$product$$api$$bundle_api$$response$$common$$2,
   waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
@@ -14,14 +10,8 @@ import {
 import {
   waf$$product$$api$$bundle_api$$response$$collection$$2,
   waf$$product$$api$$bundle_custom$$scan,
-  waf$$product$$api$$bundle_custom$$scan$$id,
-  waf$$product$$api$$bundle_custom$$scan$$payload,
   waf$$product$$api$$bundle_response$$custom$$scan$$collection,
 } from "./outputs.js";
-import {
-  waf$$product$$api$$bundle_custom$$scan$$id as waf$$product$$api$$bundle_custom$$scan$$id$,
-  waf$$product$$api$$bundle_custom$$scan$$payload as waf$$product$$api$$bundle_custom$$scan$$payload$,
-} from "./schemas.js";
 
 /**
  * The tools of `contentScan.expressions`.
@@ -30,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "contentScan_expressions_create",
     title: "Create Content Scanning custom expressions for a zone.",
-    description: "Create one or more Content Scanning custom expressions, appending them to the existing list of the zone, and return the updated list. Each expression reaches content objects the scanner cannot find automatically, for example `lookup_json_string(http.request.body.raw, \"file\")`.",
+    description: "Create one or more Content Scanning custom expressions, appending them to the existing list of the zone, and return the updated list. Each expression reaches content objects the scanner cannot find automatically, for example `lookup_json_string(http.request.body.raw, \"file\")`.\n\nPOST /zones/{zone_id}/content-upload-scan/payloads",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,8 +29,8 @@ export const tools: readonly Tool[] = [
           "items": {
             "properties": {
               "payload": {
-                "$ref": "#/$defs/waf-product-api-bundle_custom-scan-payload",
-                "description": "Defines the custom content extraction expression used to reach content objects in the request."
+                "description": "Defines the custom content extraction expression used to reach content objects in the request.",
+                "type": "string"
               }
             },
             "required": [
@@ -51,10 +41,11 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -67,10 +58,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection",
@@ -78,9 +66,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-collection-2": waf$$product$$api$$bundle_api$$response$$collection$$2,
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -121,9 +106,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_api-response-common-failure-2": waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -136,19 +118,20 @@ export const tools: readonly Tool[] = [
   {
     name: "contentScan_expressions_delete",
     title: "Delete a Content Scanning custom expression from a zone.",
-    description: "Delete the Content Scanning custom expression with the given identifier and return the expressions that remain. Content objects reached only by the deleted expression are no longer scanned.\n\nConfirm with the user before calling this tool. This operation deletes a Content Scanning custom expression.",
+    description: "Delete the Content Scanning custom expression with the given identifier and return the expressions that remain. Content objects reached only by the deleted expression are no longer scanned.\n\nConfirm with the user before calling this tool. This operation deletes a Content Scanning custom expression.\n\nDELETE /zones/{zone_id}/content-upload-scan/payloads/{expression_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "expression_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_custom-scan-id",
-              "description": "Defines the unique ID for this Content Scanning custom expression."
+              "description": "Defines the unique ID for this Content Scanning custom expression.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -161,10 +144,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection",
@@ -172,9 +152,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-collection-2": waf$$product$$api$$bundle_api$$response$$collection$$2,
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -215,9 +192,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_api-response-common-failure-2": waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -229,15 +203,16 @@ export const tools: readonly Tool[] = [
   {
     name: "contentScan_expressions_list",
     title: "List the Content Scanning custom expressions of a zone.",
-    description: "List the Content Scanning custom expressions configured for the zone, each with its own identifier. A custom expression tells the scanner how to reach content objects in a request it cannot parse on its own, such as files Base64-encoded inside a JSON body.",
+    description: "List the Content Scanning custom expressions configured for the zone, each with its own identifier. A custom expression tells the scanner how to reach content objects in a request it cannot parse on its own, such as files Base64-encoded inside a JSON body.\n\nGET /zones/{zone_id}/content-upload-scan/payloads",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -249,9 +224,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection",
@@ -259,9 +232,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-collection-2": waf$$product$$api$$bundle_api$$response$$collection$$2,
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -304,9 +274,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_api-response-common-failure-2": waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -318,7 +285,7 @@ export const tools: readonly Tool[] = [
   {
     name: "contentScan_expressions_update",
     title: "Update a Content Scanning custom expression for a zone.",
-    description: "Update the Content Scanning custom expression with the given identifier and return the updated list of expressions.",
+    description: "Update the Content Scanning custom expression with the given identifier and return the updated list of expressions.\n\nPATCH /zones/{zone_id}/content-upload-scan/payloads/{expression_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -326,8 +293,8 @@ export const tools: readonly Tool[] = [
           "description": "Content Scanning custom expression to update.",
           "properties": {
             "payload": {
-              "$ref": "#/$defs/waf-product-api-bundle_custom-scan-payload",
-              "description": "Defines the custom content extraction expression used to reach content objects in the request."
+              "description": "Defines the custom content extraction expression used to reach content objects in the request.",
+              "type": "string"
             }
           },
           "required": [
@@ -336,14 +303,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "expression_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_custom-scan-id",
-              "description": "Defines the unique ID for this Content Scanning custom expression."
+              "description": "Defines the unique ID for this Content Scanning custom expression.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -357,11 +325,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id$,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-scan-collection",
@@ -369,9 +333,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-collection-2": waf$$product$$api$$bundle_api$$response$$collection$$2,
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },
@@ -412,9 +373,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
         "waf-product-api-bundle_api-response-common-failure-2": waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
         "waf-product-api-bundle_custom-scan": waf$$product$$api$$bundle_custom$$scan,
-        "waf-product-api-bundle_custom-scan-id": waf$$product$$api$$bundle_custom$$scan$$id,
-        "waf-product-api-bundle_custom-scan-payload": waf$$product$$api$$bundle_custom$$scan$$payload,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-scan-collection": waf$$product$$api$$bundle_response$$custom$$scan$$collection,
       },

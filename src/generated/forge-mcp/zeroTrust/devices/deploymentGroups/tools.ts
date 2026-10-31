@@ -9,16 +9,11 @@ import {
 } from "../outputs.js";
 import {
   teams$$devices_deployment_group,
-  teams$$devices_deployment_group_created_at,
-  teams$$devices_deployment_group_id,
-  teams$$devices_deployment_group_name,
   teams$$devices_deployment_group_policy_ids,
-  teams$$devices_deployment_group_updated_at,
   teams$$devices_version_config,
 } from "./outputs.js";
 import {
   teams$$devices_deployment_group_create_request,
-  teams$$devices_deployment_group_name as teams$$devices_deployment_group_name$,
   teams$$devices_deployment_group_update_request,
   teams$$devices_version_config as teams$$devices_version_config$,
 } from "./schemas.js";
@@ -30,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_deploymentGroups_create",
     title: "Create deployment group",
-    description: "Creates a new deployment group. Policy IDs must be unique across all deployment groups. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Creates a new deployment group. Policy IDs must be unique across all deployment groups. This endpoint is in Beta.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/devices/deployment-groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,6 +33,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_deployment_group_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -53,9 +49,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "teams-devices_deployment_group_create_request": teams$$devices_deployment_group_create_request,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name$,
         "teams-devices_version_config": teams$$devices_version_config$,
       },
     },
@@ -89,11 +85,7 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,
       },
@@ -147,11 +139,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,
@@ -165,11 +153,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_deploymentGroups_delete",
     title: "Delete deployment group",
-    description: "Deletes a deployment group. Associated policies no longer apply and devices stop receiving version targets. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Deletes a deployment group. Associated policies no longer apply and devices stop receiving version targets. This endpoint is in Beta.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/devices/deployment-groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -188,6 +177,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -290,11 +280,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_deploymentGroups_get",
     title: "Get deployment group",
-    description: "Fetches a single deployment group by its ID. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Fetches a single deployment group by its ID. This endpoint is in Beta.\n\nThis method is beta.\n\nGET /accounts/{account_id}/devices/deployment-groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -313,6 +304,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -344,11 +336,7 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,
       },
@@ -399,11 +387,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,
@@ -416,11 +400,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_deploymentGroups_list",
     title: "List deployment groups",
-    description: "Lists all deployment groups for an account. Use deployment groups to assign target WARP client versions to specific devices. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Lists all deployment groups for an account. Use deployment groups to assign target WARP client versions to specific devices. This endpoint is in Beta.\n\nThis method is beta.\n\nGET /accounts/{account_id}/devices/deployment-groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -432,6 +417,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -450,6 +436,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -488,11 +475,7 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_pagination_info": teams$$devices_pagination_info,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,
@@ -551,11 +534,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_pagination_info": teams$$devices_pagination_info,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
@@ -573,7 +552,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_deploymentGroups_update",
     title: "Update deployment group",
-    description: "Updates a deployment group. Returns 409 if any newly added policy IDs already belong to another deployment group. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Updates a deployment group. Returns 409 if any newly added policy IDs already belong to another deployment group. This endpoint is in Beta.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/devices/deployment-groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -581,6 +560,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_deployment_group_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -600,8 +580,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name$,
         "teams-devices_deployment_group_update_request": teams$$devices_deployment_group_update_request,
         "teams-devices_version_config": teams$$devices_version_config$,
       },
@@ -636,11 +616,7 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,
       },
@@ -694,11 +670,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "teams-devices_deployment_group": teams$$devices_deployment_group,
-        "teams-devices_deployment_group_created_at": teams$$devices_deployment_group_created_at,
-        "teams-devices_deployment_group_id": teams$$devices_deployment_group_id,
-        "teams-devices_deployment_group_name": teams$$devices_deployment_group_name,
         "teams-devices_deployment_group_policy_ids": teams$$devices_deployment_group_policy_ids,
-        "teams-devices_deployment_group_updated_at": teams$$devices_deployment_group_updated_at,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
         "teams-devices_version_config": teams$$devices_version_config,

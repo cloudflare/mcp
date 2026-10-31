@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_datasets_download",
     title: "Get dataset download URL",
-    description: "Retrieves an URL to download a single dataset.",
+    description: "Retrieves an URL to download a single dataset.\n\nPOST /radar/datasets/download",
     inputSchema: {
       type: "object",
       properties: {
@@ -26,6 +26,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -39,6 +40,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -160,11 +162,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_datasets_get",
     title: "Get dataset CSV stream",
-    description: "Retrieves the CSV content of a given dataset by alias or ID. When getting the content by alias the latest dataset is returned, optionally filtered by the latest available at a given date.",
+    description: "Retrieves the CSV content of a given dataset by alias or ID. When getting the content by alias the latest dataset is returned, optionally filtered by the latest available at a given date.\n\nGET /radar/datasets/{alias}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "alias": {
               "description": "Dataset alias or ID.",
@@ -180,6 +183,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -244,11 +248,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_datasets_list",
     title: "List datasets",
-    description: "Retrieves a list of datasets.",
+    description: "Retrieves a list of datasets.\n\nGET /radar/datasets",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetType": {
               "default": "RANKING_BUCKET",
@@ -285,6 +290,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -8,9 +8,7 @@ import {
   mconn_good_response,
   mconn_none,
   mconn_response,
-  mconn_uuid,
 } from "../outputs.js";
-import { mconn_account_id, mconn_uuid as mconn_uuid$ } from "../schemas.js";
 import {
   mconn_customer_connector,
   mconn_customer_connectors_create_response,
@@ -20,8 +18,6 @@ import {
   mconn_customer_connectors_list_response,
   mconn_customer_connectors_update_response,
   mconn_customer_device,
-  mconn_day_of_week,
-  mconn_embargo_date,
 } from "./outputs.js";
 import {
   mconn_customer_connector_fields,
@@ -29,8 +25,6 @@ import {
   mconn_customer_connectors_edit_request,
   mconn_customer_connectors_update_request,
   mconn_customer_device_options,
-  mconn_day_of_week as mconn_day_of_week$,
-  mconn_embargo_date as mconn_embargo_date$,
 } from "./schemas.js";
 
 /**
@@ -40,7 +34,7 @@ export const tools: readonly Tool[] = [
   {
     name: "connectors_create",
     title: "Create Connector",
-    description: "Creates a Magic WAN Connector.",
+    description: "Creates a Magic WAN Connector.\n\nPOST /accounts/{account_id}/magic/connectors",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,9 +42,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/mconn_customer_connectors_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             }
           },
           "required": [
@@ -63,13 +58,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "mconn_account_id": mconn_account_id,
         "mconn_customer_connector_fields": mconn_customer_connector_fields,
         "mconn_customer_connectors_create_request": mconn_customer_connectors_create_request,
         "mconn_customer_device_options": mconn_customer_device_options,
-        "mconn_day_of_week": mconn_day_of_week$,
-        "mconn_embargo_date": mconn_embargo_date$,
       },
     },
     outputSchema: {
@@ -79,11 +72,8 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_create_response": mconn_customer_connectors_create_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     annotations: {
@@ -136,12 +126,9 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_create_response": mconn_customer_connectors_create_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_none": mconn_none,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     request: (args) => ({
@@ -152,17 +139,18 @@ export const tools: readonly Tool[] = [
   {
     name: "connectors_delete",
     title: "Delete Connector",
-    description: "Deletes a Magic WAN Connector.",
+    description: "Deletes a Magic WAN Connector.\n\nDELETE /accounts/{account_id}/magic/connectors/{connector_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             },
             "connector_id": {
-              "$ref": "#/$defs/mconn_uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -175,10 +163,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mconn_account_id": mconn_account_id,
-        "mconn_uuid": mconn_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn_customer_connectors_delete_response",
@@ -187,11 +172,8 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_delete_response": mconn_customer_connectors_delete_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     annotations: {
@@ -241,12 +223,9 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_delete_response": mconn_customer_connectors_delete_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_none": mconn_none,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     request: (args) => ({
@@ -256,7 +235,7 @@ export const tools: readonly Tool[] = [
   {
     name: "connectors_edit",
     title: "Edit Connector",
-    description: "Edits properties of a Magic WAN Connector. May be used to re-provision a license key.",
+    description: "Edits properties of a Magic WAN Connector. May be used to re-provision a license key.\n\nPATCH /accounts/{account_id}/magic/connectors/{connector_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -264,12 +243,13 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/mconn_customer_connectors_edit_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             },
             "connector_id": {
-              "$ref": "#/$defs/mconn_uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -283,13 +263,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "mconn_account_id": mconn_account_id,
         "mconn_customer_connector_fields": mconn_customer_connector_fields,
         "mconn_customer_connectors_edit_request": mconn_customer_connectors_edit_request,
-        "mconn_day_of_week": mconn_day_of_week$,
-        "mconn_embargo_date": mconn_embargo_date$,
-        "mconn_uuid": mconn_uuid$,
       },
     },
     outputSchema: {
@@ -299,11 +276,8 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_edit_response": mconn_customer_connectors_edit_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     annotations: {
@@ -353,12 +327,9 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_edit_response": mconn_customer_connectors_edit_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_none": mconn_none,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     request: (args) => ({
@@ -369,17 +340,18 @@ export const tools: readonly Tool[] = [
   {
     name: "connectors_get",
     title: "Get Connector",
-    description: "Gets a Magic WAN Connector.",
+    description: "Gets a Magic WAN Connector.\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             },
             "connector_id": {
-              "$ref": "#/$defs/mconn_uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -392,10 +364,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mconn_account_id": mconn_account_id,
-        "mconn_uuid": mconn_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn_customer_connectors_get_response",
@@ -404,11 +373,8 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_get_response": mconn_customer_connectors_get_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     annotations: {
@@ -459,12 +425,9 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_get_response": mconn_customer_connectors_get_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_none": mconn_none,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     request: (args) => ({
@@ -474,14 +437,15 @@ export const tools: readonly Tool[] = [
   {
     name: "connectors_list",
     title: "List Connectors",
-    description: "Lists Magic WAN Connectors.",
+    description: "Lists Magic WAN Connectors.\n\nGET /accounts/{account_id}/magic/connectors",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             }
           },
           "required": [
@@ -490,6 +454,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "device_type": {
               "description": "Filter connectors by device type.",
@@ -506,9 +471,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mconn_account_id": mconn_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn_customer_connectors_list_response",
@@ -517,11 +480,8 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_list_response": mconn_customer_connectors_list_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     annotations: {
@@ -569,12 +529,9 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_list_response": mconn_customer_connectors_list_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_none": mconn_none,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     request: (args) => ({
@@ -587,7 +544,7 @@ export const tools: readonly Tool[] = [
   {
     name: "connectors_update",
     title: "Update Connector",
-    description: "Updates properties of a Magic WAN Connector. May be used to re-provision a license key.",
+    description: "Updates properties of a Magic WAN Connector. May be used to re-provision a license key.\n\nPUT /accounts/{account_id}/magic/connectors/{connector_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -595,12 +552,13 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/mconn_customer_connectors_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             },
             "connector_id": {
-              "$ref": "#/$defs/mconn_uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -614,13 +572,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "mconn_account_id": mconn_account_id,
         "mconn_customer_connector_fields": mconn_customer_connector_fields,
         "mconn_customer_connectors_update_request": mconn_customer_connectors_update_request,
-        "mconn_day_of_week": mconn_day_of_week$,
-        "mconn_embargo_date": mconn_embargo_date$,
-        "mconn_uuid": mconn_uuid$,
       },
     },
     outputSchema: {
@@ -630,11 +585,8 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_update_response": mconn_customer_connectors_update_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     annotations: {
@@ -684,12 +636,9 @@ export const tools: readonly Tool[] = [
         "mconn_customer_connector": mconn_customer_connector,
         "mconn_customer_connectors_update_response": mconn_customer_connectors_update_response,
         "mconn_customer_device": mconn_customer_device,
-        "mconn_day_of_week": mconn_day_of_week,
-        "mconn_embargo_date": mconn_embargo_date,
         "mconn_good_response": mconn_good_response,
         "mconn_none": mconn_none,
         "mconn_response": mconn_response,
-        "mconn_uuid": mconn_uuid,
       },
     },
     request: (args) => ({

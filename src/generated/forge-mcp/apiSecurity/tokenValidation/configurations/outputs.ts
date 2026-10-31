@@ -9,28 +9,54 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const api$$shield_TokenConfiguration: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "credentials": {
       "$ref": "#/$defs/api-shield_credentials"
     },
     "description": {
-      "$ref": "#/$defs/api-shield_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/api-shield_uuid-2"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "title": {
-      "$ref": "#/$defs/api-shield_title"
+      "type": "string"
     },
     "token_sources": {
       "$ref": "#/$defs/api-shield_token_sources"
     },
     "token_type": {
-      "$ref": "#/$defs/api-shield_token_type"
+      "enum": [
+        "JWT"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -44,13 +70,6 @@ export const api$$shield_TokenConfiguration: JsonSchema = {
     "token_type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_cookie` in responses.
- */
-export const api$$shield_cookie: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -284,51 +303,20 @@ export const api$$shield_credentials$$JWT$$Key$$response: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_description` in responses.
- */
-export const api$$shield_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_header` in responses.
- */
-export const api$$shield_header: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_title` in responses.
- */
-export const api$$shield_title: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `api-shield_token_sources` in responses.
  */
 export const api$$shield_token_sources: JsonSchema = {
   "items": {
     "anyOf": [
       {
-        "$ref": "#/$defs/api-shield_header"
+        "type": "string"
       },
       {
-        "$ref": "#/$defs/api-shield_cookie"
+        "type": "string"
       }
     ]
   },
   "maxItems": 4,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of `api-shield_token_type` in responses.
- */
-export const api$$shield_token_type: JsonSchema = {
-  "enum": [
-    "JWT"
-  ],
-  "type": "string"
 };

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_types_list",
     title: "List visible request types for a project (dashboard)",
-    description: "Returns request types available to dashboard (external) callers. For restricted project types (e.g. legal-response), only the allowlisted subset is returned.",
+    description: "Returns request types available to dashboard (external) callers. For restricted project types (e.g. legal-response), only the allowlisted subset is returned.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

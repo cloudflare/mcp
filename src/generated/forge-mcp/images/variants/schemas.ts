@@ -9,12 +9,12 @@ import type { JsonSchema } from "../../_/tool.js";
 export const images_image_variant_definition: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/images_image_variant_identifier"
+      "type": "string"
     },
     "neverRequireSignedURLs": {
-      "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs",
       "default": false,
-      "description": "Indicates whether the variant can access an image without a signature, regardless of image access control."
+      "description": "Indicates whether the variant can access an image without a signature, regardless of image access control.",
+      "type": "boolean"
     },
     "options": {
       "$ref": "#/$defs/images_image_variant_options",
@@ -29,64 +29,38 @@ export const images_image_variant_definition: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_fit`.
- */
-export const images_image_variant_fit: JsonSchema = {
-  "description": "The fit property describes how the width and height dimensions should be interpreted.",
-  "enum": [
-    "scale-down",
-    "contain",
-    "cover",
-    "crop",
-    "pad"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_variant_height`.
- */
-export const images_image_variant_height: JsonSchema = {
-  "description": "Maximum height in image pixels.",
-  "type": "number"
-};
-
-/**
- * The schema of `images_image_variant_identifier`.
- */
-export const images_image_variant_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_variant_neverRequireSignedURLs`.
- */
-export const images_image_variant_neverRequireSignedURLs: JsonSchema = {
-  "description": "Indicates whether the variant can access an image without a signature, regardless of image access control.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `images_image_variant_options`.
  */
 export const images_image_variant_options: JsonSchema = {
   "description": "Allows you to define image resizing sizes for different use cases.",
   "properties": {
     "fit": {
-      "$ref": "#/$defs/images_image_variant_fit",
-      "description": "The fit property describes how the width and height dimensions should be interpreted."
+      "description": "The fit property describes how the width and height dimensions should be interpreted.",
+      "enum": [
+        "scale-down",
+        "contain",
+        "cover",
+        "crop",
+        "pad"
+      ],
+      "type": "string"
     },
     "height": {
-      "$ref": "#/$defs/images_image_variant_height",
-      "description": "Maximum height in image pixels."
+      "description": "Maximum height in image pixels.",
+      "type": "number"
     },
     "metadata": {
-      "$ref": "#/$defs/images_image_variant_schemas_metadata",
-      "description": "What EXIF data should be preserved in the output image."
+      "description": "What EXIF data should be preserved in the output image.",
+      "enum": [
+        "keep",
+        "copyright",
+        "none"
+      ],
+      "type": "string"
     },
     "width": {
-      "$ref": "#/$defs/images_image_variant_width",
-      "description": "Maximum width in image pixels."
+      "description": "Maximum width in image pixels.",
+      "type": "number"
     }
   },
   "required": [
@@ -104,9 +78,9 @@ export const images_image_variant_options: JsonSchema = {
 export const images_image_variant_patch_request: JsonSchema = {
   "properties": {
     "neverRequireSignedURLs": {
-      "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs",
       "default": false,
-      "description": "Indicates whether the variant can access an image without a signature, regardless of image access control."
+      "description": "Indicates whether the variant can access an image without a signature, regardless of image access control.",
+      "type": "boolean"
     },
     "options": {
       "$ref": "#/$defs/images_image_variant_options",
@@ -117,25 +91,4 @@ export const images_image_variant_patch_request: JsonSchema = {
     "options"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `images_image_variant_schemas_metadata`.
- */
-export const images_image_variant_schemas_metadata: JsonSchema = {
-  "description": "What EXIF data should be preserved in the output image.",
-  "enum": [
-    "keep",
-    "copyright",
-    "none"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_variant_width`.
- */
-export const images_image_variant_width: JsonSchema = {
-  "description": "Maximum width in image pixels.",
-  "type": "number"
 };

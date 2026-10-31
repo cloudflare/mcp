@@ -7,28 +7,15 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_created_at,
   access_messages,
-  access_timestamp,
-  access_updated_at,
 } from "../../outputs.js";
 import {
-  access_created_at as access_created_at$,
-  access_identifier,
-  access_timestamp as access_timestamp$,
-  access_updated_at as access_updated_at$,
-} from "../../schemas.js";
-import {
-  access_name$$13,
   access_name_response,
   access_response_collection$$16,
   access_single_response$$15,
   access_tag,
 } from "./outputs.js";
-import {
-  access_name$$13 as access_name$$13$,
-  access_tag_without_app_count,
-} from "./schemas.js";
+import { access_tag_without_app_count } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.tags`.
@@ -37,24 +24,25 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_tags_create",
     title: "Create a tag",
-    description: "Create a tag",
+    description: "Create a tag\n\nPOST /accounts/{account_id}/access/tags",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "name": {
-              "$ref": "#/$defs/access_name-13",
-              "description": "The name of the tag"
+              "description": "The name of the tag",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -66,22 +54,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_name-13": access_name$$13$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-15",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_single_response-15": access_single_response$$15,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -105,13 +86,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_single_response-15": access_single_response$$15,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -122,19 +99,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_tags_delete",
     title: "Delete a tag",
-    description: "Delete a tag",
+    description: "Delete a tag\n\nDELETE /accounts/{account_id}/access/tags/{tag_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "tag_name": {
-              "$ref": "#/$defs/access_name-13",
-              "description": "The name of the tag"
+              "description": "The name of the tag",
+              "type": "string"
             }
           },
           "required": [
@@ -147,17 +125,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_name-13": access_name$$13$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_name_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_name_response": access_name_response,
       },
     },
@@ -183,7 +157,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_name_response": access_name_response,
       },
     },
@@ -194,19 +167,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_tags_get",
     title: "Get a tag",
-    description: "Get a tag",
+    description: "Get a tag\n\nGET /accounts/{account_id}/access/tags/{tag_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "tag_name": {
-              "$ref": "#/$defs/access_name-13",
-              "description": "The name of the tag"
+              "description": "The name of the tag",
+              "type": "string"
             }
           },
           "required": [
@@ -219,22 +193,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_name-13": access_name$$13$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-15",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_single_response-15": access_single_response$$15,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -258,13 +225,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_single_response-15": access_single_response$$15,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -274,15 +237,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_tags_list",
     title: "List tags",
-    description: "List tags",
+    description: "List tags\n\nGET /accounts/{account_id}/access/tags",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -291,6 +255,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -309,22 +274,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-16",
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_response_collection-16": access_response_collection$$16,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -349,13 +308,9 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_response_collection-16": access_response_collection$$16,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -369,7 +324,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_tags_update",
     title: "Update a tag",
-    description: "Update a tag",
+    description: "Update a tag\n\nPUT /accounts/{account_id}/access/tags/{tag_name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -377,14 +332,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_tag_without_app_count"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "tag_name": {
-              "$ref": "#/$defs/access_name-13",
-              "description": "The name of the tag"
+              "description": "The name of the tag",
+              "type": "string"
             }
           },
           "required": [
@@ -397,26 +353,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_created_at": access_created_at$,
-        "access_identifier": access_identifier,
-        "access_name-13": access_name$$13$,
         "access_tag_without_app_count": access_tag_without_app_count,
-        "access_timestamp": access_timestamp$,
-        "access_updated_at": access_updated_at$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-15",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_single_response-15": access_single_response$$15,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -440,13 +388,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
-        "access_name-13": access_name$$13,
         "access_single_response-15": access_single_response$$15,
         "access_tag": access_tag,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({

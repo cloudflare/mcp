@@ -46,15 +46,6 @@ export const email$$security_CreateTrustedDomain: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_TrustedDomainId`.
- */
-export const email$$security_TrustedDomainId: JsonSchema = {
-  "description": "Trusted domain identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_UpdateTrustedDomain`.
  */
 export const email$$security_UpdateTrustedDomain: JsonSchema = {

@@ -3,23 +3,16 @@
 
 import { type Tool, param, pathParam } from "../_/tool.js";
 import {
-  iam_account$$type,
   iam_api$$response$$collection,
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_common_components$$schemas$$identifier,
   iam_messages$$2,
   iam_result_info,
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../outputs.js";
-import {
-  iam_account$$type as iam_account$$type$,
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier as iam_common_components$$schemas$$identifier$,
-} from "../schemas.js";
 import {
   iam_account,
   iam_response_collection_accounts,
@@ -39,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_create",
     title: "Create an Account",
-    description: "Create an Account. To create the Account within an Organization, provide `unit.id` and omit `standalone`. To create a standalone Free Account, provide `standalone: true` and omit `unit`. Providing both fields is invalid. If you omit both fields, Cloudflare can determine the destination only when the User is an administrator of exactly one Organization. Cloudflare creates the Account in that Organization; otherwise, the request returns an error. Account names are limited to 65 UTF-8 bytes.",
+    description: "Create an Account. To create the Account within an Organization, provide `unit.id` and omit `standalone`. To create a standalone Free Account, provide `standalone: true` and omit `unit`. Providing both fields is invalid. If you omit both fields, Cloudflare can determine the destination only when the User is an administrator of exactly one Organization. Cloudflare creates the Account in that Organization; otherwise, the request returns an error. Account names are limited to 65 UTF-8 bytes.\n\nPOST /accounts",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,6 +41,7 @@ export const tools: readonly Tool[] = [
           "description": "Parameters for account creation"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Idempotency-Key": {
               "description": "Optional key that identifies an Account-creation request. Free Account creation can require exactly one valid key, so API clients should send a key with every Account-creation request. Reuse the same key when retrying the same request.",
@@ -60,8 +54,8 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account-type": iam_account$$type$,
         "iam_create-account": iam_create$$account,
       },
     },
@@ -69,9 +63,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_account": iam_response_single_account,
       },
@@ -104,10 +96,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_account": iam_response_single_account,
       },
@@ -123,11 +113,12 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_delete",
     title: "Delete a specific account",
-    description: "Delete a specific account (only available for tenant admins at this time). This is a permanent operation that will delete any zones or other resources under the account\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Delete a specific account (only available for tenant admins at this time). This is a permanent operation that will delete any zones or other resources under the account\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "The account ID of the account to be deleted",
@@ -143,13 +134,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -191,7 +182,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -202,15 +192,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_get",
     title: "Account Details",
-    description: "Get information about a specific account that you are a member of.",
+    description: "Get information about a specific account that you are a member of.\n\nGET /accounts/{account_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -222,18 +213,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_account": iam_response_single_account,
       },
@@ -302,10 +288,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_account": iam_response_single_account,
       },
@@ -317,11 +301,12 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_list",
     title: "List Accounts",
-    description: "List all accounts you have ownership or verified access to.",
+    description: "List all accounts you have ownership or verified access to.\n\nGET /accounts",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Direction to order results.",
@@ -349,15 +334,14 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_response_collection_accounts",
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_collection_accounts": iam_response_collection_accounts,
         "iam_result_info": iam_result_info,
@@ -391,11 +375,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_collection_accounts": iam_response_collection_accounts,
         "iam_result_info": iam_result_info,
@@ -414,7 +396,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_move",
     title: "Move account to organization",
-    description: "Move an account into a destination organization, either assigning a standalone account\nto an organization or moving it between organizations in the same hierarchy. Availability\ndepends on the organization's capabilities.",
+    description: "Move an account into a destination organization, either assigning a standalone account\nto an organization or moving it between organizations in the same hierarchy. Availability\ndepends on the organization's capabilities.\n\nPOST /accounts/{account_id}/move",
     inputSchema: {
       type: "object",
       properties: {
@@ -432,6 +414,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "The ID of the account to move.",
@@ -448,6 +431,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -554,7 +538,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_update",
     title: "Update Account",
-    description: "Update an existing account. Account names are limited to 65 UTF-8 bytes.",
+    description: "Update an existing account. Account names are limited to 65 UTF-8 bytes.\n\nPUT /accounts/{account_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -562,10 +546,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_components-schemas-account"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -578,11 +563,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "iam_account": iam_account$,
-        "iam_account-type": iam_account$$type$,
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_components-schemas-account": iam_components$$schemas$$account,
       },
     },
@@ -590,9 +573,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_account": iam_response_single_account,
       },
@@ -633,10 +614,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_account": iam_account,
-        "iam_account-type": iam_account$$type,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_account": iam_response_single_account,
       },

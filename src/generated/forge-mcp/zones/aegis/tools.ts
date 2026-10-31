@@ -6,17 +6,12 @@ import {
   cache$$settings_api$$response$$common,
   cache$$settings_api$$response$$common$$failure,
   cache$$settings_base,
-  cache$$settings_editable,
   cache$$settings_messages,
-  cache$$settings_modified_on,
   cache$$settings_result$$object,
   cache$$settings_result$$object$$delete,
-  cache$$settings_setting_id,
-  cache$$settings_setting_value,
   cache$$settings_zone_cache_settings_delete_response_single,
   cache$$settings_zone_cache_settings_response_single,
 } from "../../outputs.js";
-import { cache$$settings_identifier } from "../../schemas.js";
 import {
   cache$$settings_aegis,
   cache$$settings_aegis_response_value,
@@ -31,15 +26,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_aegis_delete",
     title: "Delete aegis setting",
-    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.",
+    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.\n\nDELETE /zones/{zone_id}/settings/aegis",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,9 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -70,11 +64,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_aegis_value": cache$$settings_aegis_value,
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
-        "cache-settings_setting_id": cache$$settings_setting_id,
         "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
     },
@@ -127,11 +118,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
-        "cache-settings_setting_id": cache$$settings_setting_id,
         "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
     },
@@ -142,7 +130,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_aegis_edit",
     title: "Change aegis setting",
-    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.",
+    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.\n\nPATCH /zones/{zone_id}/settings/aegis",
     inputSchema: {
       type: "object",
       properties: {
@@ -159,10 +147,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -175,9 +164,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cache-settings_aegis_value": cache$$settings_aegis_value$,
-        "cache-settings_identifier": cache$$settings_identifier,
       },
     },
     outputSchema: {
@@ -195,12 +184,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_aegis_value": cache$$settings_aegis_value,
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -253,12 +238,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -270,15 +251,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_aegis_get",
     title: "Get aegis setting",
-    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.",
+    description: "Aegis provides dedicated egress IPs (from Cloudflare to your origin) for your layer 7 WAF and CDN services. The egress IPs are reserved exclusively for your account so that you can increase your origin security by only allowing traffic from a small list of IP addresses.\n\nGET /zones/{zone_id}/settings/aegis",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -290,9 +272,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -309,12 +289,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_aegis_value": cache$$settings_aegis_value,
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -369,12 +345,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },

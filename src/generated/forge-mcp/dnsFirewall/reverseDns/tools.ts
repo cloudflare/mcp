@@ -7,7 +7,6 @@ import {
   dns$$firewall_api$$response$$single,
   dns$$firewall_messages,
 } from "../outputs.js";
-import { dns$$firewall_identifier } from "../schemas.js";
 import {
   dns$$firewall_dns$$firewall$$reverse$$dns$$response,
   dns$$firewall_dns_firewall_reverse_dns_response,
@@ -21,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_reverseDns_edit",
     title: "Update DNS Firewall Cluster Reverse DNS",
-    description: "Update reverse DNS configuration (PTR records) for a DNS Firewall cluster",
+    description: "Update reverse DNS configuration (PTR records) for a DNS Firewall cluster\n\nPATCH /accounts/{account_id}/dns_firewall/{dns_firewall_id}/reverse_dns",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,14 +28,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dns_firewall_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +50,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-firewall_dns-firewall-reverse-dns-patch": dns$$firewall_dns$$firewall$$reverse$$dns$$patch,
-        "dns-firewall_identifier": dns$$firewall_identifier,
       },
     },
     outputSchema: {
@@ -114,19 +114,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_reverseDns_get",
     title: "Show DNS Firewall Cluster Reverse DNS",
-    description: "Show reverse DNS configuration (PTR records) for a DNS Firewall cluster",
+    description: "Show reverse DNS configuration (PTR records) for a DNS Firewall cluster\n\nGET /accounts/{account_id}/dns_firewall/{dns_firewall_id}/reverse_dns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dns_firewall_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -139,9 +140,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-firewall_identifier": dns$$firewall_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",

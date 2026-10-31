@@ -7,12 +7,7 @@ import {
   digital$$experience$$monitoring_api$$response$$common,
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_platform,
-  digital$$experience$$monitoring_status,
-  digital$$experience$$monitoring_timestamp,
-  digital$$experience$$monitoring_version,
 } from "../../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../../schemas.js";
 import { digital$$experience$$monitoring_commands_devices_response } from "./outputs.js";
 
 /**
@@ -22,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_commands_eligibleDevices_list",
     title: "List devices eligible for remote captures",
-    description: "List devices with WARP client support for remote captures which have been connected in the last 1 hour.",
+    description: "List devices with WARP client support for remote captures which have been connected in the last 1 hour.\n\nGET /accounts/{account_id}/dex/commands/devices",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,6 +35,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -65,9 +62,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -88,10 +83,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_commands_devices_response": digital$$experience$$monitoring_commands_devices_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version,
       },
     },
     annotations: {
@@ -138,10 +129,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_commands_devices_response": digital$$experience$$monitoring_commands_devices_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version,
       },
     },
     request: (args) => ({

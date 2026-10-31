@@ -308,10 +308,10 @@ export const access_identity$$provider: JsonSchema = {
       "type": "object"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-3"
+      "type": "string"
     },
     "read_only": {
       "type": "boolean"
@@ -458,13 +458,6 @@ export const access_linkedin: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_name-3` in responses.
- */
-export const access_name$$3: JsonSchema = {
-  "type": "string"
 };
 
 /**

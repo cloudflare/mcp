@@ -4,22 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `digital-experience-monitoring_account_identifier`.
- */
-export const digital$$experience$$monitoring_account_identifier: JsonSchema = {
-  "description": "Unique identifier linked to an account.",
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_colo`.
- */
-export const digital$$experience$$monitoring_colo: JsonSchema = {
-  "description": "Cloudflare colo airport code.",
-  "type": "string"
-};
-
-/**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-data`.
  */
 export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$data: JsonSchema = {
@@ -50,43 +34,4 @@ export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$data: J
     "kind"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_platform`.
- */
-export const digital$$experience$$monitoring_platform: JsonSchema = {
-  "description": "Operating system.",
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_status`.
- */
-export const digital$$experience$$monitoring_status: JsonSchema = {
-  "description": "Network status.",
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_timestamp`.
- */
-export const digital$$experience$$monitoring_timestamp: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_uuid`.
- */
-export const digital$$experience$$monitoring_uuid: JsonSchema = {
-  "description": "API Resource UUID tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_version`.
- */
-export const digital$$experience$$monitoring_version: JsonSchema = {
-  "description": "WARP client version.",
-  "type": "string"
 };

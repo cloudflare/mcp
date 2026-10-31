@@ -10,14 +10,9 @@ import {
   hyperdrive_hyperdrive$$caching$$response,
   hyperdrive_hyperdrive$$config$$response,
   hyperdrive_hyperdrive$$database$$full,
-  hyperdrive_hyperdrive$$integration$$provider,
   hyperdrive_hyperdrive$$mtls,
-  hyperdrive_hyperdrive$$name,
-  hyperdrive_hyperdrive$$origin$$connection$$limit,
   hyperdrive_hyperdrive$$origin$$full,
   hyperdrive_hyperdrive$$planet$$scale$$integration,
-  hyperdrive_hyperdrive$$scheme,
-  hyperdrive_identifier,
   hyperdrive_internet$$origin,
   hyperdrive_messages,
   hyperdrive_over$$access$$origin,
@@ -40,14 +35,9 @@ import {
   hyperdrive_hyperdrive$$config$$patch,
   hyperdrive_hyperdrive$$database,
   hyperdrive_hyperdrive$$database$$full as hyperdrive_hyperdrive$$database$$full$,
-  hyperdrive_hyperdrive$$integration$$provider as hyperdrive_hyperdrive$$integration$$provider$,
   hyperdrive_hyperdrive$$mtls as hyperdrive_hyperdrive$$mtls$,
-  hyperdrive_hyperdrive$$name as hyperdrive_hyperdrive$$name$,
-  hyperdrive_hyperdrive$$origin$$connection$$limit as hyperdrive_hyperdrive$$origin$$connection$$limit$,
   hyperdrive_hyperdrive$$origin$$full as hyperdrive_hyperdrive$$origin$$full$,
   hyperdrive_hyperdrive$$planet$$scale$$integration as hyperdrive_hyperdrive$$planet$$scale$$integration$,
-  hyperdrive_hyperdrive$$scheme as hyperdrive_hyperdrive$$scheme$,
-  hyperdrive_identifier as hyperdrive_identifier$,
   hyperdrive_internet$$origin as hyperdrive_internet$$origin$,
   hyperdrive_over$$access$$origin as hyperdrive_over$$access$$origin$,
   hyperdrive_vpc$$service$$origin as hyperdrive_vpc$$service$$origin$,
@@ -60,7 +50,7 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_create",
     title: "Create Hyperdrive",
-    description: "Creates and returns a new Hyperdrive configuration. For a PlanetScale integration, the Cloudflare account must already be linked to PlanetScale in the Hyperdrive dashboard.",
+    description: "Creates and returns a new Hyperdrive configuration. For a PlanetScale integration, the Cloudflare account must already be linked to PlanetScale in the Hyperdrive dashboard.\n\nPOST /accounts/{account_id}/hyperdrive/configs",
     inputSchema: {
       type: "object",
       properties: {
@@ -68,10 +58,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/hyperdrive_hyperdrive-config-create"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -84,6 +75,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "hyperdrive_hyperdrive-caching-create": hyperdrive_hyperdrive$$caching$$create,
         "hyperdrive_hyperdrive-caching-create-disabled": hyperdrive_hyperdrive$$caching$$create$$disabled,
@@ -93,14 +85,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-config-create-with-integration": hyperdrive_hyperdrive$$config$$create$$with$$integration,
         "hyperdrive_hyperdrive-config-create-with-origin": hyperdrive_hyperdrive$$config$$create$$with$$origin,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full$,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider$,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name$,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit$,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full$,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration$,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme$,
-        "hyperdrive_identifier": hyperdrive_identifier$,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin$,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin$,
         "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin$,
@@ -125,14 +112,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -197,14 +179,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -219,19 +196,20 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_delete",
     title: "Delete Hyperdrive",
-    description: "Deletes the specified Hyperdrive.\n\nConfirm with the user before calling this tool. This operation deletes an existing Hyperdrive configuration.",
+    description: "Deletes the specified Hyperdrive.\n\nConfirm with the user before calling this tool. This operation deletes an existing Hyperdrive configuration.\n\nDELETE /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             },
             "hyperdrive_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The unique identifier of the Hyperdrive configuration."
+              "description": "The unique identifier of the Hyperdrive configuration.",
+              "type": "string"
             }
           },
           "required": [
@@ -244,9 +222,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "hyperdrive_identifier": hyperdrive_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -334,19 +310,20 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_get",
     title: "Get Hyperdrive",
-    description: "Returns the specified Hyperdrive configuration.",
+    description: "Returns the specified Hyperdrive configuration.\n\nGET /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             },
             "hyperdrive_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The unique identifier of the Hyperdrive configuration."
+              "description": "The unique identifier of the Hyperdrive configuration.",
+              "type": "string"
             }
           },
           "required": [
@@ -359,9 +336,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "hyperdrive_identifier": hyperdrive_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -382,14 +357,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -443,14 +413,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -464,15 +429,16 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_list",
     title: "List Hyperdrives",
-    description: "Returns a list of Hyperdrives.",
+    description: "Returns a list of Hyperdrives.\n\nGET /accounts/{account_id}/hyperdrive/configs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -481,6 +447,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -499,9 +466,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "hyperdrive_identifier": hyperdrive_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -526,14 +491,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -592,14 +552,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -618,7 +573,7 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_replace",
     title: "Replace Hyperdrive",
-    description: "Replaces and returns the specified Hyperdrive configuration. The request must include the name and complete origin connection details. Omitted caching settings are reset to their defaults, while omitted mTLS settings and origin connection limits are preserved. The integration association is set only during creation and cannot be changed; omit the integration field even when replacing an integration-backed configuration. Use the update operation to modify only selected fields.",
+    description: "Replaces and returns the specified Hyperdrive configuration. The request must include the name and complete origin connection details. Omitted caching settings are reset to their defaults, while omitted mTLS settings and origin connection limits are preserved. The integration association is set only during creation and cannot be changed; omit the integration field even when replacing an integration-backed configuration. Use the update operation to modify only selected fields.\n\nPUT /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -626,14 +581,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/hyperdrive_hyperdrive-config"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             },
             "hyperdrive_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The unique identifier of the Hyperdrive configuration."
+              "description": "The unique identifier of the Hyperdrive configuration.",
+              "type": "string"
             }
           },
           "required": [
@@ -647,6 +603,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "hyperdrive_hyperdrive-caching": hyperdrive_hyperdrive$$caching,
         "hyperdrive_hyperdrive-caching-common": hyperdrive_hyperdrive$$caching$$common,
@@ -655,11 +612,7 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-config": hyperdrive_hyperdrive$$config,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full$,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name$,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit$,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full$,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme$,
-        "hyperdrive_identifier": hyperdrive_identifier$,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin$,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin$,
         "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin$,
@@ -684,14 +637,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -756,14 +704,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -778,19 +721,20 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_restart",
     title: "Restart Hyperdrive",
-    description: "Restarts the connection pool for the specified Hyperdrive configuration without changing its configuration. Existing connections are drained and a new pool is established at the edge.",
+    description: "Restarts the connection pool for the specified Hyperdrive configuration without changing its configuration. Existing connections are drained and a new pool is established at the edge.\n\nPOST /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}/restart",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             },
             "hyperdrive_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The unique identifier of the Hyperdrive configuration."
+              "description": "The unique identifier of the Hyperdrive configuration.",
+              "type": "string"
             }
           },
           "required": [
@@ -803,9 +747,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "hyperdrive_identifier": hyperdrive_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -826,14 +768,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -881,14 +818,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -902,7 +834,7 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_update",
     title: "Update Hyperdrive",
-    description: "Updates and returns the specified fields of the Hyperdrive configuration. Custom caching settings are not kept if caching is disabled. For an integration-backed configuration, the integration association is preserved but cannot be changed; omit the integration field.",
+    description: "Updates and returns the specified fields of the Hyperdrive configuration. Custom caching settings are not kept if caching is disabled. For an integration-backed configuration, the integration association is preserved but cannot be changed; omit the integration field.\n\nPATCH /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -910,14 +842,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/hyperdrive_hyperdrive-config-patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The Cloudflare account ID."
+              "description": "The Cloudflare account ID.",
+              "type": "string"
             },
             "hyperdrive_id": {
-              "$ref": "#/$defs/hyperdrive_identifier",
-              "description": "The unique identifier of the Hyperdrive configuration."
+              "description": "The unique identifier of the Hyperdrive configuration.",
+              "type": "string"
             }
           },
           "required": [
@@ -931,6 +864,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "hyperdrive_hyperdrive-caching": hyperdrive_hyperdrive$$caching,
         "hyperdrive_hyperdrive-caching-common": hyperdrive_hyperdrive$$caching$$common,
@@ -939,9 +873,6 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-config-patch": hyperdrive_hyperdrive$$config$$patch,
         "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit$,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme$,
-        "hyperdrive_identifier": hyperdrive_identifier$,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin$,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin$,
         "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin$,
@@ -966,14 +897,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
@@ -1038,14 +964,9 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive$$integration$$provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive$$name,
-        "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive$$origin$$connection$$limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive$$scheme,
-        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin,
         "hyperdrive_messages": hyperdrive_messages,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,

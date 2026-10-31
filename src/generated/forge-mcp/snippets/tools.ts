@@ -6,19 +6,10 @@ import {
   snippets_Errors,
   snippets_Message,
   snippets_Messages,
-  snippets_Page,
-  snippets_PerPage,
   snippets_Response,
   snippets_ResultInfo,
   snippets_Snippet,
-  snippets_SnippetName,
 } from "./outputs.js";
-import {
-  snippets_Page as snippets_Page$,
-  snippets_PerPage as snippets_PerPage$,
-  snippets_SnippetName as snippets_SnippetName$,
-  snippets_ZoneId,
-} from "./schemas.js";
 
 /**
  * The tools of `snippets`.
@@ -27,19 +18,20 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_delete",
     title: "Delete a zone snippet",
-    description: "Deletes a snippet belonging to the zone. Returns a 4XX response if the zone or snippet no longer exists.",
+    description: "Deletes a snippet belonging to the zone. Returns a 4XX response if the zone or snippet no longer exists.\n\nDELETE /zones/{zone_id}/snippets/{snippet_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "snippet_name": {
-              "$ref": "#/$defs/snippets_SnippetName",
-              "description": "Identify the snippet."
+              "description": "Identify the snippet.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -52,10 +44,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "snippets_SnippetName": snippets_SnippetName$,
-        "snippets_ZoneId": snippets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -186,19 +175,20 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_get",
     title: "Get a zone snippet",
-    description: "Fetches a snippet belonging to the zone.",
+    description: "Fetches a snippet belonging to the zone.\n\nGET /zones/{zone_id}/snippets/{snippet_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "snippet_name": {
-              "$ref": "#/$defs/snippets_SnippetName",
-              "description": "Identify the snippet."
+              "description": "Identify the snippet.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -211,10 +201,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "snippets_SnippetName": snippets_SnippetName$,
-        "snippets_ZoneId": snippets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -243,7 +230,6 @@ export const tools: readonly Tool[] = [
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
         "snippets_Snippet": snippets_Snippet,
-        "snippets_SnippetName": snippets_SnippetName,
       },
     },
     annotations: {
@@ -340,7 +326,6 @@ export const tools: readonly Tool[] = [
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
         "snippets_Snippet": snippets_Snippet,
-        "snippets_SnippetName": snippets_SnippetName,
       },
     },
     request: (args) => ({
@@ -350,15 +335,16 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_list",
     title: "List zone snippets",
-    description: "Fetches all snippets belonging to the zone.",
+    description: "Fetches all snippets belonging to the zone.\n\nGET /zones/{zone_id}/snippets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -367,16 +353,17 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
-              "$ref": "#/$defs/snippets_Page",
               "default": 1,
-              "description": "Specifies the current page number."
+              "description": "Specifies the current page number.",
+              "type": "integer"
             },
             "per_page": {
-              "$ref": "#/$defs/snippets_PerPage",
               "default": 25,
-              "description": "Specifies how many results to return per page."
+              "description": "Specifies how many results to return per page.",
+              "type": "integer"
             }
           },
           "type": "object"
@@ -385,11 +372,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "snippets_Page": snippets_Page$,
-        "snippets_PerPage": snippets_PerPage$,
-        "snippets_ZoneId": snippets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -422,12 +405,9 @@ export const tools: readonly Tool[] = [
         "snippets_Errors": snippets_Errors,
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
-        "snippets_Page": snippets_Page,
-        "snippets_PerPage": snippets_PerPage,
         "snippets_Response": snippets_Response,
         "snippets_ResultInfo": snippets_ResultInfo,
         "snippets_Snippet": snippets_Snippet,
-        "snippets_SnippetName": snippets_SnippetName,
       },
     },
     annotations: {
@@ -528,12 +508,9 @@ export const tools: readonly Tool[] = [
         "snippets_Errors": snippets_Errors,
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
-        "snippets_Page": snippets_Page,
-        "snippets_PerPage": snippets_PerPage,
         "snippets_Response": snippets_Response,
         "snippets_ResultInfo": snippets_ResultInfo,
         "snippets_Snippet": snippets_Snippet,
-        "snippets_SnippetName": snippets_SnippetName,
       },
     },
     request: (args) => ({

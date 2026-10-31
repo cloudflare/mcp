@@ -6,43 +6,18 @@ import {
   digital$$experience$$monitoring_api$$response$$collection,
   digital$$experience$$monitoring_api$$response$$common,
   digital$$experience$$monitoring_api$$response$$common$$failure,
-  digital$$experience$$monitoring_colo,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_platform,
-  digital$$experience$$monitoring_status,
-  digital$$experience$$monitoring_timestamp,
-  digital$$experience$$monitoring_version,
 } from "../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_colo as digital$$experience$$monitoring_colo$,
-  digital$$experience$$monitoring_platform as digital$$experience$$monitoring_platform$,
-  digital$$experience$$monitoring_status as digital$$experience$$monitoring_status$,
-  digital$$experience$$monitoring_timestamp as digital$$experience$$monitoring_timestamp$,
-  digital$$experience$$monitoring_version as digital$$experience$$monitoring_version$,
-} from "../schemas.js";
 import {
   digital$$experience$$monitoring_cpu_pct_by_app,
   digital$$experience$$monitoring_device,
   digital$$experience$$monitoring_directional_stat,
   digital$$experience$$monitoring_fleet_status_devices_response,
-  digital$$experience$$monitoring_mode,
-  digital$$experience$$monitoring_personEmail,
   digital$$experience$$monitoring_ram_used_pct_by_app,
   digital$$experience$$monitoring_rtt_stats,
   digital$$experience$$monitoring_schemas$$ip_info,
   digital$$experience$$monitoring_tunnel_stats,
 } from "./outputs.js";
-import {
-  digital$$experience$$monitoring_device_id,
-  digital$$experience$$monitoring_mode as digital$$experience$$monitoring_mode$,
-  digital$$experience$$monitoring_page,
-  digital$$experience$$monitoring_per_page,
-  digital$$experience$$monitoring_since_minutes,
-  digital$$experience$$monitoring_sort_by,
-  digital$$experience$$monitoring_source,
-  digital$$experience$$monitoring_time_now,
-} from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.dex.devices`.
@@ -51,19 +26,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_devices_get",
     title: "Get the latest status of a device.",
-    description: "Get the latest status of a device given device_id from the device_state table.",
+    description: "Get the latest status of a device given device_id from the device_state table.\n\nGET /accounts/{account_id}/dex/devices/{device_id}/fleet-status/live",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "device_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_device_id",
-              "description": "Device-specific ID, given as UUID."
+              "description": "Device-specific ID, given as UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -73,20 +49,21 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "colo": {
-              "$ref": "#/$defs/digital-experience-monitoring_colo",
-              "description": "List of data centers to filter results."
+              "description": "List of data centers to filter results.",
+              "type": "string"
             },
             "since_minutes": {
-              "$ref": "#/$defs/digital-experience-monitoring_since_minutes",
               "default": 10,
-              "description": "Number of minutes before current time."
+              "description": "Number of minutes before current time.",
+              "type": "number"
             },
             "time_now": {
-              "$ref": "#/$defs/digital-experience-monitoring_time_now",
               "deprecated": true,
-              "description": "Current time in ISO format."
+              "description": "Current time in ISO format.",
+              "type": "string"
             }
           },
           "required": [
@@ -99,31 +76,18 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo$,
-        "digital-experience-monitoring_device_id": digital$$experience$$monitoring_device_id,
-        "digital-experience-monitoring_since_minutes": digital$$experience$$monitoring_since_minutes,
-        "digital-experience-monitoring_time_now": digital$$experience$$monitoring_time_now,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_device",
       $defs: {
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
         "digital-experience-monitoring_cpu_pct_by_app": digital$$experience$$monitoring_cpu_pct_by_app,
         "digital-experience-monitoring_device": digital$$experience$$monitoring_device,
         "digital-experience-monitoring_directional_stat": digital$$experience$$monitoring_directional_stat,
-        "digital-experience-monitoring_mode": digital$$experience$$monitoring_mode,
-        "digital-experience-monitoring_personEmail": digital$$experience$$monitoring_personEmail,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform,
         "digital-experience-monitoring_ram_used_pct_by_app": digital$$experience$$monitoring_ram_used_pct_by_app,
         "digital-experience-monitoring_rtt_stats": digital$$experience$$monitoring_rtt_stats,
         "digital-experience-monitoring_schemas-ip_info": digital$$experience$$monitoring_schemas$$ip_info,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
         "digital-experience-monitoring_tunnel_stats": digital$$experience$$monitoring_tunnel_stats,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version,
       },
     },
     annotations: {
@@ -154,21 +118,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
         "digital-experience-monitoring_cpu_pct_by_app": digital$$experience$$monitoring_cpu_pct_by_app,
         "digital-experience-monitoring_device": digital$$experience$$monitoring_device,
         "digital-experience-monitoring_directional_stat": digital$$experience$$monitoring_directional_stat,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_mode": digital$$experience$$monitoring_mode,
-        "digital-experience-monitoring_personEmail": digital$$experience$$monitoring_personEmail,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform,
         "digital-experience-monitoring_ram_used_pct_by_app": digital$$experience$$monitoring_ram_used_pct_by_app,
         "digital-experience-monitoring_rtt_stats": digital$$experience$$monitoring_rtt_stats,
         "digital-experience-monitoring_schemas-ip_info": digital$$experience$$monitoring_schemas$$ip_info,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
         "digital-experience-monitoring_tunnel_stats": digital$$experience$$monitoring_tunnel_stats,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version,
       },
     },
     request: (args) => ({
@@ -183,15 +140,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_devices_list",
     title: "List details of devices using WARP.",
-    description: "List details of devices using WARP.",
+    description: "List details of devices using WARP.\n\nGET /accounts/{account_id}/dex/fleet-status/devices",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -200,57 +158,72 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "colo": {
-              "$ref": "#/$defs/digital-experience-monitoring_colo",
-              "description": "Cloudflare colo airport code."
+              "description": "Cloudflare colo airport code.",
+              "type": "string"
             },
             "device_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_device_id",
-              "description": "Device-specific ID, given as UUID."
+              "description": "Device-specific ID, given as UUID.",
+              "type": "string"
             },
             "from": {
-              "$ref": "#/$defs/digital-experience-monitoring_timestamp",
-              "description": "Start of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch."
+              "description": "Start of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
+              "type": "string"
             },
             "mode": {
-              "$ref": "#/$defs/digital-experience-monitoring_mode",
-              "description": "The mode under which the WARP client is run."
+              "description": "The mode under which the WARP client is run.",
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/digital-experience-monitoring_page",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/digital-experience-monitoring_per_page",
-              "description": "Number of results per page."
+              "description": "Number of results per page.",
+              "type": "number"
             },
             "platform": {
-              "$ref": "#/$defs/digital-experience-monitoring_platform",
-              "description": "Operating system."
+              "description": "Operating system.",
+              "type": "string"
             },
             "sort_by": {
-              "$ref": "#/$defs/digital-experience-monitoring_sort_by",
               "default": "timestamp",
-              "description": "Dimension to sort results by."
+              "description": "Dimension to sort results by.",
+              "enum": [
+                "colo",
+                "device_id",
+                "mode",
+                "platform",
+                "status",
+                "timestamp",
+                "version"
+              ],
+              "type": "string"
             },
             "source": {
-              "$ref": "#/$defs/digital-experience-monitoring_source",
               "default": "last_seen",
-              "description": "Source:\n  * `hourly` - device details aggregated hourly, up to 7 days prior\n  * `last_seen` - device details, up to 60 minutes prior. Time windows exceeding 60 minutes will be rejected from June 1st, 2026. Please use 'hourly' or 'raw' instead for longer time ranges.\n  * `raw` - device details, up to 7 days prior\n"
+              "description": "Source:\n  * `hourly` - device details aggregated hourly, up to 7 days prior\n  * `last_seen` - device details, up to 60 minutes prior. Time windows exceeding 60 minutes will be rejected from June 1st, 2026. Please use 'hourly' or 'raw' instead for longer time ranges.\n  * `raw` - device details, up to 7 days prior",
+              "enum": [
+                "last_seen",
+                "hourly",
+                "raw"
+              ],
+              "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/digital-experience-monitoring_status",
-              "description": "Network status."
+              "description": "Network status.",
+              "type": "string"
             },
             "to": {
-              "$ref": "#/$defs/digital-experience-monitoring_timestamp",
-              "description": "End of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch."
+              "description": "End of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
+              "type": "string"
             },
             "version": {
-              "$ref": "#/$defs/digital-experience-monitoring_version",
-              "description": "WARP client version."
+              "description": "WARP client version.",
+              "type": "string"
             }
           },
           "required": [
@@ -266,42 +239,22 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo$,
-        "digital-experience-monitoring_device_id": digital$$experience$$monitoring_device_id,
-        "digital-experience-monitoring_mode": digital$$experience$$monitoring_mode$,
-        "digital-experience-monitoring_page": digital$$experience$$monitoring_page,
-        "digital-experience-monitoring_per_page": digital$$experience$$monitoring_per_page,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform$,
-        "digital-experience-monitoring_sort_by": digital$$experience$$monitoring_sort_by,
-        "digital-experience-monitoring_source": digital$$experience$$monitoring_source,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status$,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp$,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_fleet_status_devices_response",
       $defs: {
         "digital-experience-monitoring_api-response-collection": digital$$experience$$monitoring_api$$response$$collection,
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
         "digital-experience-monitoring_cpu_pct_by_app": digital$$experience$$monitoring_cpu_pct_by_app,
         "digital-experience-monitoring_device": digital$$experience$$monitoring_device,
         "digital-experience-monitoring_directional_stat": digital$$experience$$monitoring_directional_stat,
         "digital-experience-monitoring_fleet_status_devices_response": digital$$experience$$monitoring_fleet_status_devices_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_mode": digital$$experience$$monitoring_mode,
-        "digital-experience-monitoring_personEmail": digital$$experience$$monitoring_personEmail,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform,
         "digital-experience-monitoring_ram_used_pct_by_app": digital$$experience$$monitoring_ram_used_pct_by_app,
         "digital-experience-monitoring_rtt_stats": digital$$experience$$monitoring_rtt_stats,
         "digital-experience-monitoring_schemas-ip_info": digital$$experience$$monitoring_schemas$$ip_info,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
         "digital-experience-monitoring_tunnel_stats": digital$$experience$$monitoring_tunnel_stats,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version,
       },
     },
     annotations: {
@@ -334,22 +287,15 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-collection": digital$$experience$$monitoring_api$$response$$collection,
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
         "digital-experience-monitoring_cpu_pct_by_app": digital$$experience$$monitoring_cpu_pct_by_app,
         "digital-experience-monitoring_device": digital$$experience$$monitoring_device,
         "digital-experience-monitoring_directional_stat": digital$$experience$$monitoring_directional_stat,
         "digital-experience-monitoring_fleet_status_devices_response": digital$$experience$$monitoring_fleet_status_devices_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_mode": digital$$experience$$monitoring_mode,
-        "digital-experience-monitoring_personEmail": digital$$experience$$monitoring_personEmail,
-        "digital-experience-monitoring_platform": digital$$experience$$monitoring_platform,
         "digital-experience-monitoring_ram_used_pct_by_app": digital$$experience$$monitoring_ram_used_pct_by_app,
         "digital-experience-monitoring_rtt_stats": digital$$experience$$monitoring_rtt_stats,
         "digital-experience-monitoring_schemas-ip_info": digital$$experience$$monitoring_schemas$$ip_info,
-        "digital-experience-monitoring_status": digital$$experience$$monitoring_status,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
         "digital-experience-monitoring_tunnel_stats": digital$$experience$$monitoring_tunnel_stats,
-        "digital-experience-monitoring_version": digital$$experience$$monitoring_version,
       },
     },
     request: (args) => ({

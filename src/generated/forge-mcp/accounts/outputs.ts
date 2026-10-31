@@ -99,13 +99,6 @@ export const alexandria_api_response_common_failure: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_category_id` in responses.
- */
-export const alexandria_category_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `alexandria_messages` in responses.
  */
 export const alexandria_messages: JsonSchema = {
@@ -148,7 +141,7 @@ export const iam_account: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_common_components-schemas-identifier"
+      "type": "string"
     },
     "managed_by": {
       "properties": {
@@ -182,7 +175,11 @@ export const iam_account: JsonSchema = {
       "type": "object"
     },
     "type": {
-      "$ref": "#/$defs/iam_account-type"
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -243,7 +240,7 @@ export const iam_role: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_role_components-schemas-identifier"
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -259,13 +256,6 @@ export const iam_role: JsonSchema = {
     "permissions"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_role_components-schemas-identifier` in responses.
- */
-export const iam_role_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**

@@ -3,40 +3,22 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  email$$security_DispositionLabel,
   email$$security_api$$response$$collection,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
 import {
-  email$$security_DispositionLabel as email$$security_DispositionLabel$,
-  email$$security_identifier,
-} from "../schemas.js";
-import {
   email$$security_DeletedDomain,
-  email$$security_DeliveryMode,
-  email$$security_DmarcStatus,
   email$$security_Domain,
   email$$security_DomainAuthorization,
-  email$$security_DomainId,
   email$$security_DomainList,
-  email$$security_DomainStatus,
   email$$security_EmailsProcessed,
-  email$$security_Region,
-  email$$security_ScannableFolder,
-  email$$security_SpfStatus,
 } from "./outputs.js";
 import {
   email$$security_CreateDomain,
-  email$$security_DeliveryMode as email$$security_DeliveryMode$,
-  email$$security_DomainId as email$$security_DomainId$,
-  email$$security_DomainStatus as email$$security_DomainStatus$,
-  email$$security_Region as email$$security_Region$,
   email$$security_ReplaceDomain,
-  email$$security_ScannableFolder as email$$security_ScannableFolder$,
   email$$security_UpdateDomain,
 } from "./schemas.js";
 
@@ -47,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_batch",
     title: "Batch domain operations",
-    description: "Executes multiple domain operations in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may permanently delete protection for the selected email domains. Emails for those domains will no longer be processed by Email Security.",
+    description: "Executes multiple domain operations in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may permanently delete protection for the selected email domains. Emails for those domains will no longer be processed by Email Security.\n\nPOST /accounts/{account_id}/email-security/settings/domains/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -58,8 +40,9 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/email-security_DomainId",
-                    "description": "Domain identifier."
+                    "description": "Domain identifier.",
+                    "format": "uuid",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -80,8 +63,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_DomainId",
-                        "description": "Domain identifier."
+                        "description": "Domain identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -112,8 +96,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_DomainId",
-                        "description": "Domain identifier."
+                        "description": "Domain identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -136,10 +121,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -152,16 +138,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateDomain": email$$security_CreateDomain,
-        "email-security_DeliveryMode": email$$security_DeliveryMode$,
-        "email-security_DispositionLabel": email$$security_DispositionLabel$,
-        "email-security_DomainId": email$$security_DomainId$,
-        "email-security_Region": email$$security_Region$,
         "email-security_ReplaceDomain": email$$security_ReplaceDomain,
-        "email-security_ScannableFolder": email$$security_ScannableFolder$,
         "email-security_UpdateDomain": email$$security_UpdateDomain,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -203,21 +184,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedDomain": email$$security_DeletedDomain,
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
         "email-security_DomainList": email$$security_DomainList,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -281,22 +253,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_DeletedDomain": email$$security_DeletedDomain,
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
         "email-security_DomainList": email$$security_DomainList,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -307,7 +270,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_create",
     title: "Add a new email domain",
-    description: "Protects a new email domain by adding it to Email Security. Accepts a flat configuration object covering all delivery modes. Returns the newly created domain configuration.\n\nThis method is beta.",
+    description: "Protects a new email domain by adding it to Email Security. Accepts a flat configuration object covering all delivery modes. Returns the newly created domain configuration.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/domains",
     inputSchema: {
       type: "object",
       properties: {
@@ -315,10 +278,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateDomain"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -331,13 +295,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateDomain": email$$security_CreateDomain,
-        "email-security_DeliveryMode": email$$security_DeliveryMode$,
-        "email-security_DispositionLabel": email$$security_DispositionLabel$,
-        "email-security_Region": email$$security_Region$,
-        "email-security_ScannableFolder": email$$security_ScannableFolder$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -355,20 +315,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -408,21 +359,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -433,19 +375,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_delete",
     title: "Unprotect an email domain",
-    description: "Removes email security protection from a domain. After deletion, emails for this domain will no longer be processed by Email Security. This action cannot be undone.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes protection for the email domain. Emails for this domain will no longer be processed by Email Security.",
+    description: "Removes email security protection from a domain. After deletion, emails for this domain will no longer be processed by Email Security. This action cannot be undone.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes protection for the email domain. Emails for this domain will no longer be processed by Email Security.\n\nDELETE /accounts/{account_id}/email-security/settings/domains/{domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "domain_id": {
-              "$ref": "#/$defs/email-security_DomainId",
-              "description": "Domain identifier."
+              "description": "Domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -458,10 +402,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_DomainId": email$$security_DomainId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -479,7 +420,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedDomain": email$$security_DeletedDomain,
-        "email-security_DomainId": email$$security_DomainId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -522,7 +462,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_DeletedDomain": email$$security_DeletedDomain,
-        "email-security_DomainId": email$$security_DomainId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -535,7 +474,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_edit",
     title: "Update an email domain",
-    description: "Updates configuration for a protected email domain. Only provided fields will be modified. Changes affect delivery mode, security settings, and regional processing.\n\nThis method is beta.",
+    description: "Updates configuration for a protected email domain. Only provided fields will be modified. Changes affect delivery mode, security settings, and regional processing.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/domains/{domain_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -543,14 +482,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateDomain"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "domain_id": {
-              "$ref": "#/$defs/email-security_DomainId",
-              "description": "Domain identifier."
+              "description": "Domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -564,14 +505,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode$,
-        "email-security_DispositionLabel": email$$security_DispositionLabel$,
-        "email-security_DomainId": email$$security_DomainId$,
-        "email-security_Region": email$$security_Region$,
-        "email-security_ScannableFolder": email$$security_ScannableFolder$,
         "email-security_UpdateDomain": email$$security_UpdateDomain,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -589,20 +525,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -642,21 +569,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -667,19 +585,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_get",
     title: "Get an email domain",
-    description: "Retrieves detailed information for a specific protected email domain including its delivery configuration, SPF/DMARC status, and authorization state.\n\nThis method is beta.",
+    description: "Retrieves detailed information for a specific protected email domain including its delivery configuration, SPF/DMARC status, and authorization state.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/domains/{domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "domain_id": {
-              "$ref": "#/$defs/email-security_DomainId",
-              "description": "Domain identifier."
+              "description": "Domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -692,10 +612,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_DomainId": email$$security_DomainId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -712,20 +629,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -766,21 +674,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -790,15 +689,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_list",
     title: "List protected email domains",
-    description: "Returns a paginated list of email domains protected by Email Security. Includes domain configuration, delivery modes, and authorization status. Supports filtering by delivery mode and integration ID.\n\nThis method is beta.",
+    description: "Returns a paginated list of email domains protected by Email Security. Includes domain configuration, delivery modes, and authorization status. Supports filtering by delivery mode and integration ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -807,14 +707,29 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "active_delivery_mode": {
-              "$ref": "#/$defs/email-security_DeliveryMode",
-              "description": "Currently active delivery mode to filter by."
+              "description": "Currently active delivery mode to filter by.",
+              "enum": [
+                "DIRECT",
+                "BCC",
+                "JOURNAL",
+                "API",
+                "RETRO_SCAN"
+              ],
+              "type": "string"
             },
             "allowed_delivery_mode": {
-              "$ref": "#/$defs/email-security_DeliveryMode",
-              "description": "Delivery mode to filter by."
+              "description": "Delivery mode to filter by.",
+              "enum": [
+                "DIRECT",
+                "BCC",
+                "JOURNAL",
+                "API",
+                "RETRO_SCAN"
+              ],
+              "type": "string"
             },
             "direction": {
               "description": "The sorting direction.",
@@ -859,8 +774,21 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/email-security_DomainStatus",
-              "description": "Filters response to domains with the provided status."
+              "description": "Filters response to domains with the provided status.",
+              "oneOf": [
+                {
+                  "enum": [
+                    "PENDING",
+                    "ACTIVE",
+                    "FAILED",
+                    "TIMEOUT"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "type": "object"
@@ -869,11 +797,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode$,
-        "email-security_DomainStatus": email$$security_DomainStatus$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -890,22 +814,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
         "email-security_DomainList": email$$security_DomainList,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -946,23 +861,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
         "email-security_DomainList": email$$security_DomainList,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -984,7 +890,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_update",
     title: "Replace an email domain",
-    description: "Replaces all mutable fields of a protected email domain in a single atomic operation. Unlike PATCH, all non-computed fields are required.\n\nThis method is beta.",
+    description: "Replaces all mutable fields of a protected email domain in a single atomic operation. Unlike PATCH, all non-computed fields are required.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/email-security/settings/domains/{domain_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -992,14 +898,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_ReplaceDomain"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "domain_id": {
-              "$ref": "#/$defs/email-security_DomainId",
-              "description": "Domain identifier."
+              "description": "Domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -1013,14 +921,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode$,
-        "email-security_DispositionLabel": email$$security_DispositionLabel$,
-        "email-security_DomainId": email$$security_DomainId$,
-        "email-security_Region": email$$security_Region$,
         "email-security_ReplaceDomain": email$$security_ReplaceDomain,
-        "email-security_ScannableFolder": email$$security_ScannableFolder$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -1038,20 +941,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -1088,21 +982,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DeliveryMode": email$$security_DeliveryMode,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_DmarcStatus": email$$security_DmarcStatus,
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
-        "email-security_Region": email$$security_Region,
-        "email-security_ScannableFolder": email$$security_ScannableFolder,
-        "email-security_SpfStatus": email$$security_SpfStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

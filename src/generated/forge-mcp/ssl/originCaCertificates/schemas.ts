@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_csr`.
- */
-export const tls$$certificates$$and$$hostnames_csr: JsonSchema = {
-  "description": "The Certificate Signing Request (CSR). Must be newline-encoded.",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_hostnames`.
  */
 export const tls$$certificates$$and$$hostnames_hostnames: JsonSchema = {
@@ -22,43 +14,4 @@ export const tls$$certificates$$and$$hostnames_hostnames: JsonSchema = {
   "maxItems": 100,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_origin_ca_certificate_identifier`.
- */
-export const tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier: JsonSchema = {
-  "description": "The x509 serial number of the Origin CA certificate.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_request_type`.
- */
-export const tls$$certificates$$and$$hostnames_request_type: JsonSchema = {
-  "description": "Signature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers).",
-  "enum": [
-    "origin-rsa",
-    "origin-ecc",
-    "keyless-certificate"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_requested_validity`.
- */
-export const tls$$certificates$$and$$hostnames_requested_validity: JsonSchema = {
-  "description": "The number of days for which the certificate should be valid.",
-  "enum": [
-    7,
-    30,
-    90,
-    365,
-    730,
-    1095,
-    5475
-  ],
-  "type": "integer"
 };

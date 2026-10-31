@@ -4,106 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `resource-tagging_account_resource_type`.
- */
-export const resource$$tagging_account_resource_type: JsonSchema = {
-  "description": "Identifies the type of account-level resource.",
-  "enum": [
-    "access_application",
-    "access_group",
-    "access_service_token",
-    "account",
-    "account_ruleset",
-    "ai_gateway",
-    "ai_search_instance",
-    "ai_search_namespace",
-    "alerting_policy",
-    "alerting_webhook",
-    "cloudflared_tunnel",
-    "cws_deployment",
-    "cws_policy",
-    "cws_policy_set",
-    "cws_workload",
-    "d1_database",
-    "device",
-    "durable_object_namespace",
-    "gateway_list",
-    "gateway_rule",
-    "image",
-    "infrastructure_target",
-    "kv_namespace",
-    "load_balancer_monitor",
-    "load_balancer_pool",
-    "namespace_worker",
-    "pages_project",
-    "queue",
-    "r2_bucket",
-    "resource_share",
-    "stream_live_input",
-    "stream_video",
-    "vectorize_index",
-    "worker",
-    "worker_version"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_account_resource_type_base_enum`.
- */
-export const resource$$tagging_account_resource_type_base_enum: JsonSchema = {
-  "description": "Enum for base account-level resource types (those with no extra required fields).",
-  "enum": [
-    "access_application",
-    "access_group",
-    "access_service_token",
-    "account",
-    "account_ruleset",
-    "ai_gateway",
-    "ai_search_instance",
-    "ai_search_namespace",
-    "alerting_policy",
-    "alerting_webhook",
-    "cloudflared_tunnel",
-    "cws_deployment",
-    "cws_policy",
-    "cws_policy_set",
-    "cws_workload",
-    "d1_database",
-    "device",
-    "durable_object_namespace",
-    "gateway_list",
-    "gateway_rule",
-    "image",
-    "infrastructure_target",
-    "kv_namespace",
-    "load_balancer_monitor",
-    "load_balancer_pool",
-    "namespace_worker",
-    "pages_project",
-    "queue",
-    "r2_bucket",
-    "resource_share",
-    "stream_live_input",
-    "stream_video",
-    "vectorize_index",
-    "worker"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_account_resource_type_worker_version_enum`.
- */
-export const resource$$tagging_account_resource_type_worker_version_enum: JsonSchema = {
-  "description": "Enum for worker_version resource type.",
-  "enum": [
-    "worker_version"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `resource-tagging_delete_tags_request_account_level`.
  */
 export const resource$$tagging_delete_tags_request_account_level: JsonSchema = {
@@ -125,12 +25,48 @@ export const resource$$tagging_delete_tags_request_account_level_base: JsonSchem
   "description": "Request body schema for deleting tags from account-level resources.",
   "properties": {
     "resource_id": {
-      "$ref": "#/$defs/resource-tagging_resource_id",
-      "description": "Identifies the unique resource."
+      "description": "Identifies the unique resource.",
+      "type": "string"
     },
     "resource_type": {
-      "$ref": "#/$defs/resource-tagging_account_resource_type_base_enum",
-      "description": "Enum for base account-level resource types (those with no extra required fields)."
+      "description": "Enum for base account-level resource types (those with no extra required fields).",
+      "enum": [
+        "access_application",
+        "access_group",
+        "access_service_token",
+        "account",
+        "account_ruleset",
+        "ai_gateway",
+        "ai_search_instance",
+        "ai_search_namespace",
+        "alerting_policy",
+        "alerting_webhook",
+        "cloudflared_tunnel",
+        "cws_deployment",
+        "cws_policy",
+        "cws_policy_set",
+        "cws_workload",
+        "d1_database",
+        "device",
+        "durable_object_namespace",
+        "gateway_list",
+        "gateway_rule",
+        "image",
+        "infrastructure_target",
+        "kv_namespace",
+        "load_balancer_monitor",
+        "load_balancer_pool",
+        "namespace_worker",
+        "pages_project",
+        "queue",
+        "r2_bucket",
+        "resource_share",
+        "stream_live_input",
+        "stream_video",
+        "vectorize_index",
+        "worker"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -148,16 +84,19 @@ export const resource$$tagging_delete_tags_request_account_level_worker_version:
   "description": "Request body schema for deleting tags from worker_version resources.",
   "properties": {
     "resource_id": {
-      "$ref": "#/$defs/resource-tagging_resource_id",
-      "description": "Identifies the unique resource."
+      "description": "Identifies the unique resource.",
+      "type": "string"
     },
     "resource_type": {
-      "$ref": "#/$defs/resource-tagging_account_resource_type_worker_version_enum",
-      "description": "Enum for worker_version resource type."
+      "description": "Enum for worker_version resource type.",
+      "enum": [
+        "worker_version"
+      ],
+      "type": "string"
     },
     "worker_id": {
-      "$ref": "#/$defs/resource-tagging_worker_id",
-      "description": "Worker ID is required only for worker_version resources"
+      "description": "Worker ID is required only for worker_version resources",
+      "type": "string"
     }
   },
   "required": [

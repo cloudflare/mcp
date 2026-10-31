@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const api$$shield_global_setting_change_base: JsonSchema = {
   "properties": {
     "validation_default_mitigation_action": {
-      "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation\n",
+      "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation",
       "enum": [
         "none",
         "log",
@@ -18,7 +18,7 @@ export const api$$shield_global_setting_change_base: JsonSchema = {
       "type": "string"
     },
     "validation_override_mitigation_action": {
-      "description": "When set, this overrides both zone level and operation level mitigation actions.\n\n  - `\"none\"` - skip running schema validation entirely for the request\n  - `null` - clears any existing override\n",
+      "description": "When set, this overrides both zone level and operation level mitigation actions.\n\n  - `\"none\"` - skip running schema validation entirely for the request\n  - `null` - clears any existing override",
       "oneOf": [
         {
           "enum": [

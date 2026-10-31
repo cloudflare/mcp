@@ -4,15 +4,12 @@
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   posture$$api_ExportJob,
-  posture$$api_ExportJobTypeEnum,
-  posture$$api_StatusEnum,
   posture$$api_api$$response$$collection,
   posture$$api_api$$response$$common,
   posture$$api_export$$job$$response,
   posture$$api_messages,
   posture$$api_result$$info,
 } from "../outputs.js";
-import { posture$$api_StatusEnum as posture$$api_StatusEnum$ } from "../schemas.js";
 import { posture$$api_PaginatedExportJobList } from "./outputs.js";
 
 /**
@@ -22,11 +19,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_exports_get",
     title: "Get a single export job",
-    description: "Retrieves a single export job by its unique identifier",
+    description: "Retrieves a single export job by its unique identifier\n\nGET /accounts/{account_id}/data-security/posture/exports/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -47,13 +45,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -87,8 +84,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -101,11 +96,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_exports_list",
     title: "List all export jobs",
-    description: "List all export jobs for a given requestor's organization",
+    description: "List all export jobs for a given requestor's organization\n\nGET /accounts/{account_id}/data-security/posture/exports",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -118,6 +114,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "description": "A page number within the paginated result set.",
@@ -128,8 +125,15 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/posture-api_StatusEnum",
-              "description": "Filter on export job's status"
+              "description": "Filter on export job's status",
+              "enum": [
+                "Pending",
+                "Success",
+                "Failure",
+                "Rescheduled",
+                "In-Progress"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -138,17 +142,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "posture-api_StatusEnum": posture$$api_StatusEnum$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_PaginatedExportJobList",
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
         "posture-api_PaginatedExportJobList": posture$$api_PaginatedExportJobList,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
         "posture-api_messages": posture$$api_messages,
         "posture-api_result-info": posture$$api_result$$info,
@@ -181,9 +181,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
         "posture-api_PaginatedExportJobList": posture$$api_PaginatedExportJobList,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_messages": posture$$api_messages,

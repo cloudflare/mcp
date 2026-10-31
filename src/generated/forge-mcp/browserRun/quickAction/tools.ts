@@ -11,7 +11,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_accessibilityTree",
     title: "Get accessibility tree page",
-    description: "Returns the page's accessibility tree. Use `interestingOnly` to only return semantically meaningful nodes; use `root` to scope the tree to a CSS-selector-anchored subtree. Control page loading with `gotoOptions` and `waitFor*` options.",
+    description: "Returns the page's accessibility tree. Use `interestingOnly` to only return semantically meaningful nodes; use `root` to scope the tree to a CSS-selector-anchored subtree. Control page loading with `gotoOptions` and `waitFor*` options.\n\nPOST /accounts/{account_id}/browser-rendering/accessibilityTree",
     inputSchema: {
       type: "object",
       properties: {
@@ -392,6 +392,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -404,6 +405,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -425,6 +427,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -764,7 +767,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_content",
     title: "Get HTML content.",
-    description: "Fetches rendered HTML content from provided URL or HTML. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.",
+    description: "Fetches rendered HTML content from provided URL or HTML. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.\n\nPOST /accounts/{account_id}/browser-rendering/content",
     inputSchema: {
       type: "object",
       properties: {
@@ -1139,6 +1142,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1151,6 +1155,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -1172,6 +1177,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1487,7 +1493,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_json",
     title: "Get json.",
-    description: "Gets json from a webpage from a provided URL or HTML. Pass `prompt` or `schema` in the body. Control page loading with `gotoOptions` and `waitFor*` options.",
+    description: "Gets json from a webpage from a provided URL or HTML. Pass `prompt` or `schema` in the body. Control page loading with `gotoOptions` and `waitFor*` options.\n\nPOST /accounts/{account_id}/browser-rendering/json",
     inputSchema: {
       type: "object",
       properties: {
@@ -1907,6 +1913,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1919,6 +1926,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -1940,6 +1948,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2280,7 +2289,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_links",
     title: "Get Links.",
-    description: "Get links from a web page.",
+    description: "Get links from a web page.\n\nPOST /accounts/{account_id}/browser-rendering/links",
     inputSchema: {
       type: "object",
       properties: {
@@ -2663,6 +2672,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -2675,6 +2685,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -2696,6 +2707,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3019,7 +3031,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_markdown",
     title: "Get markdown.",
-    description: "Gets markdown of a webpage from provided URL or HTML. Control page loading with `gotoOptions` and `waitFor*` options.",
+    description: "Gets markdown of a webpage from provided URL or HTML. Control page loading with `gotoOptions` and `waitFor*` options.\n\nPOST /accounts/{account_id}/browser-rendering/markdown",
     inputSchema: {
       type: "object",
       properties: {
@@ -3394,6 +3406,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -3406,6 +3419,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -3427,6 +3441,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3742,7 +3757,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_pdf",
     title: "Get PDF.",
-    description: "Fetches rendered PDF from provided URL or HTML. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.",
+    description: "Fetches rendered PDF from provided URL or HTML. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.\n\nPOST /accounts/{account_id}/browser-rendering/pdf",
     inputSchema: {
       type: "object",
       properties: {
@@ -4267,6 +4282,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -4279,6 +4295,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -4300,6 +4317,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -4460,7 +4478,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_scrape",
     title: "Scrape elements.",
-    description: "Get meta attributes like height, width, text and others of selected elements.",
+    description: "Get meta attributes like height, width, text and others of selected elements.\n\nPOST /accounts/{account_id}/browser-rendering/scrape",
     inputSchema: {
       type: "object",
       properties: {
@@ -4853,6 +4871,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -4865,6 +4884,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -4886,6 +4906,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -5327,7 +5348,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_screenshot",
     title: "Get screenshot.",
-    description: "Takes a screenshot of a webpage from provided URL or HTML. Control page loading with `gotoOptions` and `waitFor*` options. Customize screenshots with `viewport`, `fullPage`, `clip` and others.",
+    description: "Takes a screenshot of a webpage from provided URL or HTML. Control page loading with `gotoOptions` and `waitFor*` options. Customize screenshots with `viewport`, `fullPage`, `clip` and others.\n\nPOST /accounts/{account_id}/browser-rendering/screenshot",
     inputSchema: {
       type: "object",
       properties: {
@@ -5776,6 +5797,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -5788,6 +5810,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -5809,6 +5832,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -6026,7 +6050,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_quickAction_snapshot",
     title: "Get HTML content and screenshot.",
-    description: "Returns the page's HTML content and screenshot. Control page loading with `gotoOptions` and `waitFor*` options. Customize screenshots with `viewport`, `fullPage`, `clip` and others.",
+    description: "Returns the page's HTML content and screenshot. Control page loading with `gotoOptions` and `waitFor*` options. Customize screenshots with `viewport`, `fullPage`, `clip` and others.\n\nPOST /accounts/{account_id}/browser-rendering/snapshot",
     inputSchema: {
       type: "object",
       properties: {
@@ -6476,6 +6500,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -6488,6 +6513,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "browser": {
               "description": "Rendering backend. Set to `kitesurf` to use Kitesurf (beta).",
@@ -6509,6 +6535,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

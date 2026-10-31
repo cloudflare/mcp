@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const dns$$settings_account_settings: JsonSchema = {
   "properties": {
     "enforce_dns_only": {
-      "$ref": "#/$defs/dns-settings_enforce_dns_only"
+      "type": "boolean"
     },
     "zone_defaults": {
       "$ref": "#/$defs/dns-settings_dns-settings-account-response"
@@ -182,28 +182,33 @@ export const dns$$settings_dns$$settings$$account$$response: JsonSchema = {
 export const dns$$settings_dns$$settings$$base: JsonSchema = {
   "properties": {
     "flatten_all_cnames": {
-      "$ref": "#/$defs/dns-settings_flatten_all_cnames"
+      "type": "boolean"
     },
     "foundation_dns": {
-      "$ref": "#/$defs/dns-settings_foundation_dns"
+      "type": "boolean"
     },
     "internal_dns": {
       "$ref": "#/$defs/dns-settings_internal_dns_base"
     },
     "multi_provider": {
-      "$ref": "#/$defs/dns-settings_multi_provider"
+      "type": "boolean"
     },
     "ns_ttl": {
-      "$ref": "#/$defs/dns-settings_ns_ttl"
+      "type": "number"
     },
     "secondary_overrides": {
-      "$ref": "#/$defs/dns-settings_secondary_overrides"
+      "type": "boolean"
     },
     "soa": {
       "$ref": "#/$defs/dns-settings_soa-base"
     },
     "zone_mode": {
-      "$ref": "#/$defs/dns-settings_zone_mode"
+      "enum": [
+        "standard",
+        "cdn_only",
+        "dns_only"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -252,34 +257,6 @@ export const dns$$settings_dns_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `dns-settings_enforce_dns_only` in responses.
- */
-export const dns$$settings_enforce_dns_only: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_flatten_all_cnames` in responses.
- */
-export const dns$$settings_flatten_all_cnames: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_foundation_dns` in responses.
- */
-export const dns$$settings_foundation_dns: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_identifier` in responses.
- */
-export const dns$$settings_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -340,27 +317,6 @@ export const dns$$settings_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-settings_multi_provider` in responses.
- */
-export const dns$$settings_multi_provider: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_ns_ttl` in responses.
- */
-export const dns$$settings_ns_ttl: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `dns-settings_secondary_overrides` in responses.
- */
-export const dns$$settings_secondary_overrides: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -444,16 +400,4 @@ export const dns$$settings_soa$$response: JsonSchema = {
     "ttl"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_zone_mode` in responses.
- */
-export const dns$$settings_zone_mode: JsonSchema = {
-  "enum": [
-    "standard",
-    "cdn_only",
-    "dns_only"
-  ],
-  "type": "string"
 };

@@ -14,11 +14,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_agents_sessions_list",
     title: "List Agent sessions",
-    description: "Lists sessions in which the specified agent participated, ordered by most recent activity. A session is identified by gen_ai.conversation.id and includes authorized activity from every agent in that conversation during the requested time range. Agent invocation and chat spans without a conversation ID are attributed only when their trace is associated with exactly one observed conversation.",
+    description: "Lists sessions in which the specified agent participated, ordered by most recent activity. A session is identified by gen_ai.conversation.id and includes authorized activity from every agent in that conversation during the requested time range. Agent invocation and chat spans without a conversation ID are attributed only when their trace is associated with exactly one observed conversation.\n\nGET /accounts/{account_id}/workers/observability/agents/sessions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "agent": {
               "description": "Agent name reported in gen_ai.agent.name. The request is limited to conversations in which this service and agent participated.",
@@ -70,6 +72,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -583,11 +586,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_agents_sessions_runs",
     title: "List Agent session runs",
-    description: "Lists the traces associated with a session, ordered by most recent activity. The service and agent parameters must identify an agent that participated in the conversation. Results include every authorized trace containing an agent invocation in that conversation during the requested time range.",
+    description: "Lists the traces associated with a session, ordered by most recent activity. The service and agent parameters must identify an agent that participated in the conversation. Results include every authorized trace containing an agent invocation in that conversation during the requested time range.\n\nGET /accounts/{account_id}/workers/observability/agents/sessions/{conversationId}/runs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -605,6 +609,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "agent": {
               "description": "Agent name reported in gen_ai.agent.name. The request is limited to conversations in which this service and agent participated.",
@@ -644,6 +649,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

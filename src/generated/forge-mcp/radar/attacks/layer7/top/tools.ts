@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_attacks_layer7_top_attacks",
     title: "Get top layer 7 attack pairs (origin and target locations)",
-    description: "Retrieves the top attacks from origin to target location. Values are percentages of the total layer 7 attacks (with billing country). The attack magnitude can be defined by the number of mitigated requests or by the number of zones affected. You can optionally limit the number of attacks by origin/target location (useful if all the top attacks are from or to the same location).",
+    description: "Retrieves the top attacks from origin to target location. Values are percentages of the total layer 7 attacks (with billing country). The attack magnitude can be defined by the number of mitigated requests or by the number of zones affected. You can optionally limit the number of attacks by origin/target location (useful if all the top attacks are from or to the same location).\n\nGET /radar/attacks/layer7/top/attacks",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -123,6 +124,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

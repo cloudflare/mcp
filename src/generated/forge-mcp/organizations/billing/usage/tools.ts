@@ -8,7 +8,6 @@ import {
   billable$$usage$$api_message,
   billable$$usage$$api_v2_usage_response,
 } from "../../../outputs.js";
-import { billable$$usage$$api_identifier } from "../../../schemas.js";
 
 /**
  * The tools of `organizations.billing.usage`.
@@ -17,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "organizations_billing_usage_get",
     title: "Get Organization Usage (Version 2, Alpha, Restricted)",
-    description: "Returns cost and usage data for all accounts within an organization,\naligned with the [FinOps FOCUS v1.3](https://focus.finops.org/focus-specification/v1-3/)\nCost and Usage dataset specification.\n\nEach record represents one billable metric for one account on one day.\nThis includes all metered usage, including usage that falls within\nfree-tier allowances and may result in zero cost. The response\nincludes usage for every account belonging to the specified\norganization.\n\n**Note:** This endpoint serves `usage` records only; cost and pricing\nfields are absent from responses. Rated costs are available per\naccount via `POST /accounts/{account_id}/billable/usage` with\n`Metric: cost`.\n\nWhen `from` and `to` are omitted, defaults to the start of the current\nmonth through today. The maximum date range is 31 days.\n\nAn organization with no accounts, or an organization ID that does not\nexist, returns a successful response with an empty result set rather\nthan an error.",
+    description: "Returns cost and usage data for all accounts within an organization,\naligned with the [FinOps FOCUS v1.3](https://focus.finops.org/focus-specification/v1-3/)\nCost and Usage dataset specification.\n\nEach record represents one billable metric for one account on one day.\nThis includes all metered usage, including usage that falls within\nfree-tier allowances and may result in zero cost. The response\nincludes usage for every account belonging to the specified\norganization.\n\n**Note:** This endpoint serves `usage` records only; cost and pricing\nfields are absent from responses. Rated costs are available per\naccount via `POST /accounts/{account_id}/billable/usage` with\n`Metric: cost`.\n\nWhen `from` and `to` are omitted, defaults to the start of the current\nmonth through today. The maximum date range is 31 days.\n\nAn organization with no accounts, or an organization ID that does not\nexist, returns a successful response with an empty result set rather\nthan an error.\n\nGET /organizations/{organization_id}/billable/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/billable-usage-api_identifier",
-              "description": "Identifies the Cloudflare organization."
+              "description": "Identifies the Cloudflare organization.",
+              "type": "string"
             }
           },
           "required": [
@@ -34,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "from": {
               "description": "Start date for the usage query (ISO 8601). Required if `to` is set. When omitted along with `to`, defaults to the start of the current month. Filters by charge period (when consumption happened), not billing period. The maximum date range is 31 days.",
@@ -52,9 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billable-usage-api_identifier": billable$$usage$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billable-usage-api_v2_usage_response",

@@ -6,15 +6,10 @@ import {
   secrets$$store_api$$response$$collection,
   secrets$$store_api$$response$$common,
   secrets$$store_api$$response$$common$$failure,
-  secrets$$store_created,
   secrets$$store_messages,
-  secrets$$store_modified,
-  secrets$$store_store_identifier,
 } from "../outputs.js";
 import {
-  secrets$$store_account_identifier,
   secrets$$store_storeObject,
-  secrets$$store_store_name,
   secrets$$store_store_response,
   secrets$$store_stores_response_collection,
 } from "./outputs.js";
@@ -26,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_stores_get",
     title: "Get a store by ID",
-    description: "Returns details of a single store.\n\nThis method is beta.",
+    description: "Returns details of a single store.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/stores/{store_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -51,19 +47,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_store_response",
       $defs: {
-        "secrets-store_account_identifier": secrets$$store_account_identifier,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
-        "secrets-store_created": secrets$$store_created,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_storeObject": secrets$$store_storeObject,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
-        "secrets-store_store_name": secrets$$store_store_name,
         "secrets-store_store_response": secrets$$store_store_response,
       },
     },
@@ -99,16 +91,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_account_identifier": secrets$$store_account_identifier,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
-        "secrets-store_created": secrets$$store_created,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_storeObject": secrets$$store_storeObject,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
-        "secrets-store_store_name": secrets$$store_store_name,
         "secrets-store_store_response": secrets$$store_store_response,
       },
     },
@@ -119,11 +106,12 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_stores_list",
     title: "List account stores",
-    description: "Lists all the stores in an account.\n\nThis method is beta.",
+    description: "Lists all the stores in an account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/stores",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -136,6 +124,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "desc",
@@ -171,19 +160,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_stores_response_collection",
       $defs: {
-        "secrets-store_account_identifier": secrets$$store_account_identifier,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
-        "secrets-store_created": secrets$$store_created,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_storeObject": secrets$$store_storeObject,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
-        "secrets-store_store_name": secrets$$store_store_name,
         "secrets-store_stores_response_collection": secrets$$store_stores_response_collection,
       },
     },
@@ -219,16 +204,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_account_identifier": secrets$$store_account_identifier,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
-        "secrets-store_created": secrets$$store_created,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_storeObject": secrets$$store_storeObject,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
-        "secrets-store_store_name": secrets$$store_store_name,
         "secrets-store_stores_response_collection": secrets$$store_stores_response_collection,
       },
     },

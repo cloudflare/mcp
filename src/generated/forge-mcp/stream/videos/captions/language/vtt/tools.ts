@@ -6,9 +6,6 @@ import {
   stream_api$$response$$common$$failure,
   stream_messages,
 } from "../../../../outputs.js";
-import { stream_identifier$$2 } from "../../../../schemas.js";
-import { stream_identifier } from "../../../schemas.js";
-import { stream_language } from "../../schemas.js";
 
 /**
  * The tools of `stream.videos.captions.language.vtt`.
@@ -17,23 +14,24 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_captions_language_vtt_get",
     title: "Return WebVTT captions for a provided language",
-    description: "Return WebVTT captions for a provided language.",
+    description: "Return WebVTT captions for a provided language.\n\nGET /accounts/{account_id}/stream/{identifier}/captions/{language}/vtt",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             },
             "language": {
-              "$ref": "#/$defs/stream_language",
-              "description": "The language tag in BCP 47 format."
+              "description": "The language tag in BCP 47 format.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,11 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_language": stream_language,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

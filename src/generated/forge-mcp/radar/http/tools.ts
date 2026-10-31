@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_summaryV2",
     title: "Get HTTP requests summary by dimension",
-    description: "Retrieves the distribution of HTTP requests by the specified dimension.",
+    description: "Retrieves the distribution of HTTP requests by the specified dimension.\n\nGET /radar/http/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the HTTP attribute by which to group the results.",
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "apiTraffic": {
               "description": "Filters results by API traffic classification. API traffic is identified by JSON or XML response content types on dynamic (non-cacheable) HTTP requests. Incompatible with the `browserFamily`, `deviceType`, `httpProtocol`, `httpVersion`, `ipVersion`, `os`, and `tlsVersion` filters/dimensions. When set, results can only be further filtered by location, continent, or Autonomous System.",
@@ -245,6 +247,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -701,11 +704,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_timeseries",
     title: "Get HTTP requests time series",
-    description: "Retrieves the HTTP requests over time.",
+    description: "Retrieves the HTTP requests over time.\n\nGET /radar/http/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -931,6 +935,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1441,11 +1446,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_timeseriesGroupsV2",
     title: "Get HTTP requests time series grouped by dimension",
-    description: "Retrieves the distribution of HTTP requests grouped by dimension.",
+    description: "Retrieves the distribution of HTTP requests grouped by dimension.\n\nGET /radar/http/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the HTTP attribute by which to group the results.",
@@ -1475,6 +1481,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1695,6 +1702,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

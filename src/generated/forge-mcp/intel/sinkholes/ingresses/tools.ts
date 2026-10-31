@@ -8,7 +8,6 @@ import {
   intel$$sinkholes_api_response_single_empty,
   intel$$sinkholes_messages,
 } from "../outputs.js";
-import { intel$$sinkholes_identifier } from "../schemas.js";
 import {
   intel$$sinkholes_ingress_collection_response,
   intel$$sinkholes_ingress_item,
@@ -23,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_ingresses_create",
     title: "Create an ingress rule",
-    description: "Create a new ingress rule for the specified sinkhole. The CIDR block must be a Cloudflare BYOIP associated with your account. The zone_id must be a zone with the ability to create Spectrum Apps. The sinkhole must belong to the same account as the zone.",
+    description: "Create a new ingress rule for the specified sinkhole. The CIDR block must be a Cloudflare BYOIP associated with your account. The zone_id must be a zone with the ability to create Spectrum Apps. The sinkhole must belong to the same account as the zone.\n\nPOST /zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,14 +30,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/intel-sinkholes_ingress_create_params"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "sinkhole_id": {
               "description": "The unique identifier for the sinkhole.",
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare zone."
+              "description": "The unique identifier for the Cloudflare zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -52,8 +52,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
         "intel-sinkholes_ingress_create_params": intel$$sinkholes_ingress_create_params,
       },
     },
@@ -105,11 +105,12 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_ingresses_delete",
     title: "Delete an ingress rule",
-    description: "Delete the specified ingress rule. The sinkhole must belong to the same account as the zone.",
+    description: "Delete the specified ingress rule. The sinkhole must belong to the same account as the zone.\n\nDELETE /zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses/{ingress_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ingress_id": {
               "description": "The unique identifier for the ingress rule.",
@@ -120,8 +121,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare zone."
+              "description": "The unique identifier for the Cloudflare zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -135,9 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_api_response_single_empty",
@@ -184,11 +183,12 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_ingresses_get",
     title: "Get an ingress rule",
-    description: "Get the specified ingress rule associated with a sinkhole. The sinkhole must belong to the same account as the zone.",
+    description: "Get the specified ingress rule associated with a sinkhole. The sinkhole must belong to the same account as the zone.\n\nGET /zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses/{ingress_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ingress_id": {
               "description": "The unique identifier for the ingress rule.",
@@ -199,8 +199,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare zone."
+              "description": "The unique identifier for the Cloudflare zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -214,9 +214,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_ingress_single_response",
@@ -266,11 +264,12 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_ingresses_list",
     title: "List ingresses for a sinkhole",
-    description: "Returns all ingress rules associated with the specified sinkhole.",
+    description: "Returns all ingress rules associated with the specified sinkhole.\n\nGET /{account_or_zone}/{account_or_zone_id}/intel/sinkholes/{sinkhole_id}/ingresses",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -281,8 +280,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "sinkhole_id": {
               "description": "The unique identifier for the sinkhole.",
@@ -300,9 +299,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_ingress_collection_response",
@@ -352,7 +349,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_ingresses_update",
     title: "Update an ingress rule",
-    description: "Replaces the specified ingress rule. The sinkhole must belong to the same account as the zone.",
+    description: "Replaces the specified ingress rule. The sinkhole must belong to the same account as the zone.\n\nPUT /zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses/{ingress_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -360,6 +357,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/intel-sinkholes_ingress_create_params"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ingress_id": {
               "description": "The unique identifier for the ingress rule.",
@@ -370,8 +368,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare zone."
+              "description": "The unique identifier for the Cloudflare zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -386,8 +384,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
         "intel-sinkholes_ingress_create_params": intel$$sinkholes_ingress_create_params,
       },
     },

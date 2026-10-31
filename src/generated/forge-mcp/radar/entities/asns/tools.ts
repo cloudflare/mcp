@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_asns_asSet",
     title: "Get IRR AS-SETs that an AS is a member of",
-    description: "Retrieves Internet Routing Registry AS-SETs that an AS is a member of.",
+    description: "Retrieves Internet Routing Registry AS-SETs that an AS is a member of.\n\nGET /radar/entities/asns/{asn}/as_set",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Retrieves all AS-SETs that the given AS is a member of.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -261,11 +264,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_asns_botnetThreatFeed",
     title: "Get AS rankings by botnet threat feed activity",
-    description: "Retrieves a ranked list of Autonomous Systems based on their presence in the Cloudflare Botnet Threat Feed. Rankings can be sorted by offense count or number of bad IPs. Optionally compare to a previous date to see rank changes.",
+    description: "Retrieves a ranked list of Autonomous Systems based on their presence in the Cloudflare Botnet Threat Feed. Rankings can be sorted by offense count or number of bad IPs. Optionally compare to a previous date to see rank changes.\n\nGET /radar/entities/asns/botnet_threat_feed",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -325,6 +329,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -535,11 +540,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_asns_get",
     title: "Get AS details by ASN",
-    description: "Retrieves the requested autonomous system information. (A confidence level below `5` indicates a low level of confidence in the traffic data - normally this happens because Cloudflare has a small amount of traffic from/to this AS). Population estimates come from APNIC (refer to https://labs.apnic.net/?p=526).",
+    description: "Retrieves the requested autonomous system information. (A confidence level below `5` indicates a low level of confidence in the traffic data - normally this happens because Cloudflare has a small amount of traffic from/to this AS). Population estimates come from APNIC (refer to https://labs.apnic.net/?p=526).\n\nGET /radar/entities/asns/{asn}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Single Autonomous System Number (ASN) as integer.",
@@ -552,6 +558,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -568,6 +575,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -855,11 +863,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_asns_ip",
     title: "Get AS details by IP address",
-    description: "Retrieves the requested autonomous system information based on IP address. Population estimates come from APNIC (refer to https://labs.apnic.net/?p=526).",
+    description: "Retrieves the requested autonomous system information based on IP address. Population estimates come from APNIC (refer to https://labs.apnic.net/?p=526).\n\nGET /radar/entities/asns/ip",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -883,6 +892,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1163,11 +1173,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_asns_list",
     title: "List autonomous systems",
-    description: "Retrieves a list of autonomous systems.",
+    description: "Retrieves a list of autonomous systems.\n\nGET /radar/entities/asns",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list.",
@@ -1207,6 +1218,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1406,11 +1418,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_asns_rel",
     title: "Get AS-level relationships by ASN",
-    description: "Retrieves AS-level relationship for given networks.",
+    description: "Retrieves AS-level relationship for given networks.\n\nGET /radar/entities/asns/{asn}/rel",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Retrieves all ASNs with provider-customer or peering relationships with the given ASN.",
@@ -1423,6 +1436,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn2": {
               "description": "Retrieves the AS relationship of ASN2 with respect to the given ASN.",
@@ -1443,6 +1457,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

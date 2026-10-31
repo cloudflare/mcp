@@ -12,13 +12,18 @@ export const cc_ContainerImagePreparation: JsonSchema = {
       "type": "string"
     },
     "image": {
-      "$ref": "#/$defs/cc_Image"
+      "type": "string"
     },
     "reason": {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/cc_ContainerImagePreparationStatus"
+      "enum": [
+        "pending",
+        "ready",
+        "error"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -26,16 +31,4 @@ export const cc_ContainerImagePreparation: JsonSchema = {
     "status"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cc_ContainerImagePreparationStatus` in responses.
- */
-export const cc_ContainerImagePreparationStatus: JsonSchema = {
-  "enum": [
-    "pending",
-    "ready",
-    "error"
-  ],
-  "type": "string"
 };

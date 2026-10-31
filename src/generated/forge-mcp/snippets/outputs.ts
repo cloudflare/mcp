@@ -42,20 +42,6 @@ export const snippets_Messages: JsonSchema = {
 };
 
 /**
- * The schema of `snippets_Page` in responses.
- */
-export const snippets_Page: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `snippets_PerPage` in responses.
- */
-export const snippets_PerPage: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `snippets_Response` in responses.
  */
 export const snippets_Response: JsonSchema = {
@@ -87,10 +73,10 @@ export const snippets_ResultInfo: JsonSchema = {
       "type": "integer"
     },
     "page": {
-      "$ref": "#/$defs/snippets_Page"
+      "type": "integer"
     },
     "per_page": {
-      "$ref": "#/$defs/snippets_PerPage"
+      "type": "integer"
     },
     "total_count": {
       "type": "integer"
@@ -123,7 +109,7 @@ export const snippets_Snippet: JsonSchema = {
       "type": "string"
     },
     "snippet_name": {
-      "$ref": "#/$defs/snippets_SnippetName"
+      "type": "string"
     }
   },
   "required": [
@@ -131,11 +117,4 @@ export const snippets_Snippet: JsonSchema = {
     "snippet_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `snippets_SnippetName` in responses.
- */
-export const snippets_SnippetName: JsonSchema = {
-  "type": "string"
 };

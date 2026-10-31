@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_create",
     title: "Create a new webhook configuration",
-    description: "Creates a new webhook configuration for sending finding notifications to external endpoints.",
+    description: "Creates a new webhook configuration for sending finding notifications to external endpoints.\n\nPOST /accounts/{account_id}/data-security/posture/webhooks",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_CreateWebhookRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_CreateWebhookRequest": posture$$api_CreateWebhookRequest,
         "posture-api_WebhookHeaderInput": posture$$api_WebhookHeaderInput,
@@ -138,11 +140,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_delete",
     title: "Delete a webhook configuration",
-    description: "Soft deletes a webhook configuration by its unique identifier.\nThe webhook will be marked as deleted and will no longer be available for use.",
+    description: "Soft deletes a webhook configuration by its unique identifier.\nThe webhook will be marked as deleted and will no longer be available for use.\n\nDELETE /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -164,6 +167,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_api-response-common",
@@ -212,7 +216,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_evaluate",
     title: "Test a webhook configuration before creating it",
-    description: "Sends a test webhook event to the specified destination URL to verify the webhook endpoint \nis reachable and properly configured. This allows customers to validate their webhook \nconfiguration before creating the actual webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true",
+    description: "Sends a test webhook event to the specified destination URL to verify the webhook endpoint \nis reachable and properly configured. This allows customers to validate their webhook \nconfiguration before creating the actual webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true\n\nPOST /accounts/{account_id}/data-security/posture/webhooks/evaluate",
     inputSchema: {
       type: "object",
       properties: {
@@ -220,6 +224,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_EvaluateNewWebhookRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -236,6 +241,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_EvaluateNewWebhookRequest": posture$$api_EvaluateNewWebhookRequest,
         "posture-api_WebhookHeaderInput": posture$$api_WebhookHeaderInput,
@@ -320,11 +326,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_evaluateExisting",
     title: "Test an existing webhook configuration",
-    description: "Sends a test webhook event using an existing webhook configuration.\nThis allows customers to verify their webhook endpoint is still reachable and properly \nconfigured after creating the webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true",
+    description: "Sends a test webhook event using an existing webhook configuration.\nThis allows customers to verify their webhook endpoint is still reachable and properly \nconfigured after creating the webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true\n\nPOST /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}/evaluate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -346,6 +353,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -428,11 +436,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_get",
     title: "Get webhook configuration by ID",
-    description: "Retrieves a specific webhook configuration by its unique identifier.",
+    description: "Retrieves a specific webhook configuration by its unique identifier.\n\nGET /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -454,6 +463,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_webhook-response",
@@ -515,11 +525,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_list",
     title: "List webhook configurations",
-    description: "Retrieves all webhook configurations for the authenticated account.\nReturns an array of webhook configurations that can be used to send finding notifications.",
+    description: "Retrieves all webhook configurations for the authenticated account.\nReturns an array of webhook configurations that can be used to send finding notifications.\n\nGET /accounts/{account_id}/data-security/posture/webhooks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -535,6 +546,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_webhook-list-response",
@@ -590,7 +602,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_update",
     title: "Update an existing webhook configuration",
-    description: "Updates an existing webhook configuration with new settings.",
+    description: "Updates an existing webhook configuration with new settings.\n\nPUT /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -598,6 +610,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_UpdateWebhookRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -620,6 +633,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_UpdateWebhookRequest": posture$$api_UpdateWebhookRequest,
         "posture-api_WebhookHeaderInput": posture$$api_WebhookHeaderInput,

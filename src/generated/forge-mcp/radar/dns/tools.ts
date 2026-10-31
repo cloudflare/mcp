@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_dns_summaryV2",
     title: "Get DNS summary by dimension",
-    description: "Retrieves the distribution of DNS queries by the specified dimension.",
+    description: "Retrieves the distribution of DNS queries by the specified dimension.\n\nGET /radar/dns/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results. Grouping by `TLD_DNS_MAGNITUDE` does not support sub-daily aggregation intervals; `15m` and `1h` are raised to `1d`.",
@@ -43,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -348,6 +350,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -806,11 +809,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_dns_timeseries",
     title: "Get DNS queries time series",
-    description: "Retrieves normalized query volume to the 1.1.1.1 DNS resolver over time.",
+    description: "Retrieves normalized query volume to the 1.1.1.1 DNS resolver over time.\n\nGET /radar/dns/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1119,6 +1123,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1629,11 +1634,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_dns_timeseriesGroupsV2",
     title: "Get DNS time series grouped by dimension",
-    description: "Retrieves the distribution of DNS queries grouped by dimension over time.",
+    description: "Retrieves the distribution of DNS queries grouped by dimension over time.\n\nGET /radar/dns/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results. Grouping by `TLD_DNS_MAGNITUDE` does not support sub-daily aggregation intervals; `15m` and `1h` are raised to `1d`.",
@@ -1662,6 +1668,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1987,6 +1994,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

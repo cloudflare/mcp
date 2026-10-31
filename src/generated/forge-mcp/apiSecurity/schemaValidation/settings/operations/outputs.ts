@@ -17,7 +17,14 @@ export const api$$shield_per_operation_setting: JsonSchema = {
       "type": "string"
     },
     "operation_id": {
-      "$ref": "#/$defs/api-shield_uuid-2"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     }
   },
   "required": [

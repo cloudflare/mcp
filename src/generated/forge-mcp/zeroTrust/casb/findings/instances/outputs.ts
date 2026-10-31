@@ -179,7 +179,14 @@ export const posture$$api_RemediationJobSummary: JsonSchema = {
       "type": "boolean"
     },
     "status": {
-      "$ref": "#/$defs/posture-api_RemediationJobStatusEnum"
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed",
+        "validating"
+      ],
+      "type": "string"
     }
   },
   "required": [

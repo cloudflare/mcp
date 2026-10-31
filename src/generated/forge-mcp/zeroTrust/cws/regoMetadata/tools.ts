@@ -30,7 +30,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoMetadata_create",
     title: "Create a new rego metadata document",
-    description: "Creates a JSON document that Rego can access through its import path.\n\nThis method is beta.",
+    description: "Creates a JSON document that Rego can access through its import path.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/rego-metadata",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,6 +38,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_RegoMetadataBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -54,6 +55,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_JSONDocument": cws_JSONDocument$,
         "cws_JSONValue": cws_JSONValue$,
@@ -113,11 +115,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoMetadata_delete",
     title: "Delete a rego metadata document",
-    description: "Deletes the specified Rego metadata document.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Rego metadata document?",
+    description: "Deletes the specified Rego metadata document.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Rego metadata document?\n\nDELETE /accounts/{account_id}/cws/rego-metadata/{rego_metadata_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -139,6 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -188,11 +192,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoMetadata_get",
     title: "Get a rego metadata document by ID",
-    description: "Returns the Rego metadata document with the specified ID.\n\nThis method is beta.",
+    description: "Returns the Rego metadata document with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/rego-metadata/{rego_metadata_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -214,6 +219,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseRegoMetadata",
@@ -267,11 +273,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoMetadata_list",
     title: "List Rego metadata documents",
-    description: "Returns a paginated list of Rego metadata documents in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of Rego metadata documents in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/rego-metadata",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -284,6 +291,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -328,6 +336,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseRegoMetadata",
@@ -391,7 +400,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoMetadata_update",
     title: "Update a rego metadata document",
-    description: "Replaces the metadata document's name, import path, and JSON data.\n\nThis method is beta.",
+    description: "Replaces the metadata document's name, import path, and JSON data.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/rego-metadata/{rego_metadata_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -399,6 +408,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_RegoMetadataBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -421,6 +431,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_JSONDocument": cws_JSONDocument$,
         "cws_JSONValue": cws_JSONValue$,

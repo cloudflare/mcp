@@ -8,7 +8,6 @@ import {
   access_api$$response$$common$$failure,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier } from "../../../schemas.js";
 import {
   access_response_collection_hostnames,
   access_settings,
@@ -22,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_settings_get",
     title: "List all mTLS hostname settings",
-    description: "List all mTLS hostname settings for this account or zone.",
+    description: "List all mTLS hostname settings for this account or zone.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/certificates/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -37,8 +37,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,9 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection_hostnames",
@@ -105,7 +103,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_settings_update",
     title: "Update an mTLS certificate's hostname settings",
-    description: "Updates an mTLS certificate's hostname settings.",
+    description: "Updates an mTLS certificate's hostname settings.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/certificates/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -124,6 +122,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -134,8 +133,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -149,8 +148,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier,
         "access_settings": access_settings$,
       },
     },

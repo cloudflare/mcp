@@ -10,15 +10,12 @@ import {
   fraud_fraud_settings,
   fraud_fraud_settings_response_body,
   fraud_messages,
-  fraud_user_profiles_status,
   fraud_username_expressions,
 } from "./outputs.js";
 import {
   fraud_auth_criteria as fraud_auth_criteria$,
   fraud_authentication_settings as fraud_authentication_settings$,
   fraud_fraud_settings as fraud_fraud_settings$,
-  fraud_identifier,
-  fraud_user_profiles_status as fraud_user_profiles_status$,
   fraud_username_expressions as fraud_username_expressions$,
 } from "./schemas.js";
 
@@ -29,15 +26,16 @@ export const tools: readonly Tool[] = [
   {
     name: "fraud_get",
     title: "Get Fraud Detection Settings",
-    description: "Retrieve Fraud Detection settings for a zone.",
+    description: "Retrieve Fraud Detection settings for a zone.\n\nGET /zones/{zone_id}/fraud_detection/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/fraud_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,9 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "fraud_identifier": fraud_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/fraud_fraud_settings_response_body",
@@ -62,7 +58,6 @@ export const tools: readonly Tool[] = [
         "fraud_fraud_settings": fraud_fraud_settings,
         "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
         "fraud_messages": fraud_messages,
-        "fraud_user_profiles_status": fraud_user_profiles_status,
         "fraud_username_expressions": fraud_username_expressions,
       },
     },
@@ -98,7 +93,6 @@ export const tools: readonly Tool[] = [
         "fraud_fraud_settings": fraud_fraud_settings,
         "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
         "fraud_messages": fraud_messages,
-        "fraud_user_profiles_status": fraud_user_profiles_status,
         "fraud_username_expressions": fraud_username_expressions,
       },
     },
@@ -109,7 +103,7 @@ export const tools: readonly Tool[] = [
   {
     name: "fraud_update",
     title: "Update Fraud Detection Settings",
-    description: "Update Fraud Detection settings for a zone.\n\nNotes on `username_expressions` behavior:\n- If omitted or set to null, expressions are not modified.\n- If provided as an empty array `[]`, all expressions will be cleared.",
+    description: "Update Fraud Detection settings for a zone.\n\nNotes on `username_expressions` behavior:\n- If omitted or set to null, expressions are not modified.\n- If provided as an empty array `[]`, all expressions will be cleared.\n\nPUT /zones/{zone_id}/fraud_detection/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -117,10 +111,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/fraud_fraud_settings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/fraud_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -133,12 +128,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "fraud_auth_criteria": fraud_auth_criteria$,
         "fraud_authentication_settings": fraud_authentication_settings$,
         "fraud_fraud_settings": fraud_fraud_settings$,
-        "fraud_identifier": fraud_identifier,
-        "fraud_user_profiles_status": fraud_user_profiles_status$,
         "fraud_username_expressions": fraud_username_expressions$,
       },
     },
@@ -151,7 +145,6 @@ export const tools: readonly Tool[] = [
         "fraud_fraud_settings": fraud_fraud_settings,
         "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
         "fraud_messages": fraud_messages,
-        "fraud_user_profiles_status": fraud_user_profiles_status,
         "fraud_username_expressions": fraud_username_expressions,
       },
     },
@@ -186,7 +179,6 @@ export const tools: readonly Tool[] = [
         "fraud_fraud_settings": fraud_fraud_settings,
         "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
         "fraud_messages": fraud_messages,
-        "fraud_user_profiles_status": fraud_user_profiles_status,
         "fraud_username_expressions": fraud_username_expressions,
       },
     },

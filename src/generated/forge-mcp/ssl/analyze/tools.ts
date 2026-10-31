@@ -7,11 +7,6 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
-import {
-  tls$$certificates$$and$$hostnames_bundle_method,
-  tls$$certificates$$and$$hostnames_certificate,
-} from "../schemas.js";
 import { tls$$certificates$$and$$hostnames_certificate_analyze_response } from "./outputs.js";
 
 /**
@@ -21,29 +16,35 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_analyze_create",
     title: "Analyze Certificate",
-    description: "Returns the set of hostnames, the signature algorithm, and the expiration date of the certificate.",
+    description: "Returns the set of hostnames, the signature algorithm, and the expiration date of the certificate.\n\nPOST /zones/{zone_id}/ssl/analyze",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "bundle_method": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_bundle_method",
               "default": "ubiquitous",
-              "description": "A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it."
+              "description": "A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it.",
+              "enum": [
+                "ubiquitous",
+                "optimal",
+                "force"
+              ],
+              "type": "string"
             },
             "certificate": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_certificate",
-              "description": "The zone's SSL certificate or certificate and the intermediate(s)."
+              "description": "The zone's SSL certificate or certificate and the intermediate(s).",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,11 +57,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_bundle_method": tls$$certificates$$and$$hostnames_bundle_method,
-        "tls-certificates-and-hostnames_certificate": tls$$certificates$$and$$hostnames_certificate,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_analyze_response",

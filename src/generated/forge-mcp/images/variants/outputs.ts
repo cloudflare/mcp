@@ -9,10 +9,10 @@ import type { JsonSchema } from "../../_/tool.js";
 export const images_image_variant_definition: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/images_image_variant_identifier"
+      "type": "string"
     },
     "neverRequireSignedURLs": {
-      "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs"
+      "type": "boolean"
     },
     "options": {
       "$ref": "#/$defs/images_image_variant_options"
@@ -23,34 +23,6 @@ export const images_image_variant_definition: JsonSchema = {
     "options"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `images_image_variant_fit` in responses.
- */
-export const images_image_variant_fit: JsonSchema = {
-  "enum": [
-    "scale-down",
-    "contain",
-    "cover",
-    "crop",
-    "pad"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_variant_height` in responses.
- */
-export const images_image_variant_height: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `images_image_variant_identifier` in responses.
- */
-export const images_image_variant_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -73,28 +45,33 @@ export const images_image_variant_list_response: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_neverRequireSignedURLs` in responses.
- */
-export const images_image_variant_neverRequireSignedURLs: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `images_image_variant_options` in responses.
  */
 export const images_image_variant_options: JsonSchema = {
   "properties": {
     "fit": {
-      "$ref": "#/$defs/images_image_variant_fit"
+      "enum": [
+        "scale-down",
+        "contain",
+        "cover",
+        "crop",
+        "pad"
+      ],
+      "type": "string"
     },
     "height": {
-      "$ref": "#/$defs/images_image_variant_height"
+      "type": "number"
     },
     "metadata": {
-      "$ref": "#/$defs/images_image_variant_schemas_metadata"
+      "enum": [
+        "keep",
+        "copyright",
+        "none"
+      ],
+      "type": "string"
     },
     "width": {
-      "$ref": "#/$defs/images_image_variant_width"
+      "type": "number"
     }
   },
   "required": [
@@ -114,10 +91,10 @@ export const images_image_variant_public_request: JsonSchema = {
     "hero": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/images_image_variant_identifier"
+          "type": "string"
         },
         "neverRequireSignedURLs": {
-          "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs"
+          "type": "boolean"
         },
         "options": {
           "$ref": "#/$defs/images_image_variant_options"
@@ -146,18 +123,6 @@ export const images_image_variant_response: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_schemas_metadata` in responses.
- */
-export const images_image_variant_schemas_metadata: JsonSchema = {
-  "enum": [
-    "keep",
-    "copyright",
-    "none"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_variant_simple_response` in responses.
  */
 export const images_image_variant_simple_response: JsonSchema = {
@@ -174,13 +139,6 @@ export const images_image_variant_simple_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `images_image_variant_width` in responses.
- */
-export const images_image_variant_width: JsonSchema = {
-  "type": "number"
 };
 
 /**

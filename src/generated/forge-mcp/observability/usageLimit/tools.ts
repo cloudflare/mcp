@@ -11,11 +11,12 @@ export const tools: readonly Tool[] = [
   {
     name: "observability_usageLimit_get",
     title: "Get usage limit status",
-    description: "Whether Workers Observability is keeping fewer of the account's events, usually because it passed its daily limit, and what that limit is. Daily limits reset at 00:00 UTC; paid accounts are brought back in stages over the following hours.\n\nThis method is beta.",
+    description: "Whether Workers Observability is keeping fewer of the account's events, usually because it passed its daily limit, and what that limit is. Daily limits reset at 00:00 UTC; paid accounts are brought back in stages over the following hours.\n\nThis method is beta.\n\nGET /accounts/{account_id}/observability/usage/limit",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

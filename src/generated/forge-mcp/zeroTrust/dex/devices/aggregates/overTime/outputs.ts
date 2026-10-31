@@ -31,7 +31,7 @@ export const digital$$experience$$monitoring_fleet_status_over_time_response: Js
                   "type": "array"
                 },
                 "uniqueDevicesTotal": {
-                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                  "type": "number"
                 }
               },
               "type": "object"
@@ -52,10 +52,10 @@ export const digital$$experience$$monitoring_fleet_status_over_time_response: Js
 export const digital$$experience$$monitoring_schemas$$aggregate_stat: JsonSchema = {
   "properties": {
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp"
+      "type": "string"
     },
     "uniqueDevicesTotal": {
-      "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+      "type": "number"
     },
     "value": {
       "type": "string"

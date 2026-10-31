@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_user_get",
     title: "Get current user profile",
-    description: "Get the current user's profile in a specific RFI project.",
+    description: "Get the current user's profile in a specific RFI project.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/user/me",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

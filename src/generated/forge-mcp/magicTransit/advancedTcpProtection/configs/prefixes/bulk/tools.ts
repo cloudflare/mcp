@@ -8,7 +8,6 @@ import {
   advanced$$ddos$$protection_api$$response$$common$$failure,
   advanced$$ddos$$protection_messages,
 } from "../../../../outputs.js";
-import { advanced$$ddos$$protection_identifier } from "../../../../schemas.js";
 import {
   advanced$$ddos$$protection_Prefix,
   advanced$$ddos$$protection_prefix$$list$$response,
@@ -22,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_bulk_create",
     title: "Create multiple prefixes.",
-    description: "Create multiple prefixes for an account.",
+    description: "Create multiple prefixes for an account.\n\nPOST /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -34,10 +33,11 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +50,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_NewPrefix": advanced$$ddos$$protection_NewPrefix,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {

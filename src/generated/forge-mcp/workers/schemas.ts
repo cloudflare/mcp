@@ -275,7 +275,7 @@ export const workers_env: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/workers_env_binding_item"
   },
-  "description": "Bindings attached to a Worker, keyed by binding name. `bindings`\ncarries the same information as an array of objects that each\nname themselves, and an upload can use one form or the other.\n",
+  "description": "Bindings attached to a Worker, keyed by binding name. `bindings`\ncarries the same information as an array of objects that each\nname themselves, and an upload can use one form or the other.",
   "type": "object"
 };
 
@@ -283,7 +283,7 @@ export const workers_env: JsonSchema = {
  * The schema of `workers_env_binding_item`.
  */
 export const workers_env_binding_item: JsonSchema = {
-  "description": "A single entry in the `env` map. An entry holds the same payload\nas an entry of `bindings` without the `name` property, because\nthe map key supplies the name. See `binding_item` for the payload\nof each binding kind.\n",
+  "description": "A single entry in the `env` map. An entry holds the same payload\nas an entry of `bindings` without the `name` property, because\nthe map key supplies the name. See `binding_item` for the payload\nof each binding kind.",
   "properties": {
     "type": {
       "description": "The kind of resource that the binding provides.",

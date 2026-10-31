@@ -9,10 +9,6 @@ import {
   resource$$tagging_messages,
 } from "../outputs.js";
 import {
-  resource$$tagging_account_id,
-  resource$$tagging_identifier,
-} from "../schemas.js";
-import {
   resource$$tagging_tag_key_summary,
   resource$$tagging_tag_key_summary_response_collection,
 } from "./outputs.js";
@@ -24,14 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "tags_summary_get",
     title: "List tag key summary",
-    description: "Lists all distinct tag keys and their distinct values across resources in an account.\n\nThis method is beta.",
+    description: "Lists all distinct tag keys and their distinct values across resources in an account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/tags/summary",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-tagging_account_id"
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -40,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Cursor for pagination.",
@@ -52,10 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-tagging_account_id": resource$$tagging_account_id,
-        "resource-tagging_identifier": resource$$tagging_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-tagging_tag_key_summary_response_collection",

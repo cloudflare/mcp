@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `logcontrol_allow_out_of_region_access` in responses.
- */
-export const logcontrol_allow_out_of_region_access: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `logcontrol_api-response-common` in responses.
  */
 export const logcontrol_api$$response$$common: JsonSchema = {
@@ -44,10 +37,10 @@ export const logcontrol_cmb_config: JsonSchema = {
     {
       "properties": {
         "allow_out_of_region_access": {
-          "$ref": "#/$defs/logcontrol_allow_out_of_region_access"
+          "type": "boolean"
         },
         "regions": {
-          "$ref": "#/$defs/logcontrol_regions"
+          "type": "string"
         }
       },
       "type": "object"
@@ -82,11 +75,4 @@ export const logcontrol_cmb_config_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `logcontrol_regions` in responses.
- */
-export const logcontrol_regions: JsonSchema = {
-  "type": "string"
 };

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_quota_create",
     title: "Get PIR quota for an account",
-    description: "Returns the account's PIR quota. `quota` and `remaining` count active PIRs against the entitlement limit; moving a PIR to draft or deleting it frees its slot. `total_quota` and `total_remaining` count every PIR, drafts included, against five times the limit. Anniversary dates are informational.",
+    description: "Returns the account's PIR quota. `quota` and `remaining` count active PIRs against the entitlement limit; moving a PIR to draft or deleting it frees its slot. `total_quota` and `total_remaining` count every PIR, drafts included, against five times the limit. Anniversary dates are informational.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/quota",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -29,6 +30,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

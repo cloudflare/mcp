@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `resource-tagging_access_application_id` in responses.
- */
-export const resource$$tagging_access_application_id: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `resource-tagging_api-response-common` in responses.
  */
 export const resource$$tagging_api$$response$$common: JsonSchema = {
@@ -90,20 +82,6 @@ export const resource$$tagging_cursor_result_info: JsonSchema = {
 };
 
 /**
- * The schema of `resource-tagging_etag` in responses.
- */
-export const resource$$tagging_etag: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_identifier` in responses.
- */
-export const resource$$tagging_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-tagging_messages` in responses.
  */
 export const resource$$tagging_messages: JsonSchema = {
@@ -157,20 +135,6 @@ export const resource$$tagging_namespace_worker_navigation: JsonSchema = {
     "script_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `resource-tagging_resource_id` in responses.
- */
-export const resource$$tagging_resource_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_resource_name` in responses.
- */
-export const resource$$tagging_resource_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -380,25 +344,27 @@ export const resource$$tagging_tagged_resource_object_access_application_policy:
 export const resource$$tagging_tagged_resource_object_access_application_policy_base: JsonSchema = {
   "properties": {
     "access_application_id": {
-      "$ref": "#/$defs/resource-tagging_access_application_id"
+      "format": "uuid",
+      "type": "string"
     },
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     },
     "zone_id": {
-      "$ref": "#/$defs/resource-tagging_zone_id"
+      "type": "string"
     }
   },
   "required": [
@@ -496,19 +462,20 @@ export const resource$$tagging_tagged_resource_object_account: JsonSchema = {
 export const resource$$tagging_tagged_resource_object_account_level_base: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -1542,22 +1509,23 @@ export const resource$$tagging_tagged_resource_object_worker_version: JsonSchema
 export const resource$$tagging_tagged_resource_object_worker_version_base: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     },
     "worker_id": {
-      "$ref": "#/$defs/resource-tagging_worker_id"
+      "type": "string"
     }
   },
   "required": [
@@ -1602,22 +1570,23 @@ export const resource$$tagging_tagged_resource_object_zone: JsonSchema = {
 export const resource$$tagging_tagged_resource_object_zone_level_base: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     },
     "zone_id": {
-      "$ref": "#/$defs/resource-tagging_zone_id"
+      "type": "string"
     }
   },
   "required": [
@@ -1664,26 +1633,4 @@ export const resource$$tagging_tags: JsonSchema = {
     "type": "string"
   },
   "type": "object"
-};
-
-/**
- * The schema of `resource-tagging_tags_updated_at` in responses.
- */
-export const resource$$tagging_tags_updated_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_worker_id` in responses.
- */
-export const resource$$tagging_worker_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_zone_id` in responses.
- */
-export const resource$$tagging_zone_id: JsonSchema = {
-  "$ref": "#/$defs/resource-tagging_identifier"
 };

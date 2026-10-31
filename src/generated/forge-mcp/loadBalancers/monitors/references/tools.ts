@@ -8,8 +8,6 @@ import {
   load$$balancing_messages,
   load$$balancing_monitor$$references$$response,
 } from "../../../outputs.js";
-import { load$$balancing_identifier } from "../../../schemas.js";
-import { load$$balancing_components$$schemas$$identifier } from "../../schemas.js";
 
 /**
  * The tools of `loadBalancers.monitors.references`.
@@ -18,18 +16,19 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitors_references_get",
     title: "List Monitor References",
-    description: "Get the list of resources that reference the provided monitor.",
+    description: "Get the list of resources that reference the provided monitor.\n\nGET /accounts/{account_id}/load_balancers/monitors/{monitor_id}/references",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "monitor_id": {
-              "$ref": "#/$defs/load-balancing_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -42,10 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-        "load-balancing_identifier": load$$balancing_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-references-response",

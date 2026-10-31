@@ -47,7 +47,11 @@ export const teams$$devices_registration: JsonSchema = {
       "$ref": "#/$defs/teams-devices_policy_summary"
     },
     "registration_type": {
-      "$ref": "#/$defs/teams-devices_registration_type"
+      "enum": [
+        "warp",
+        "browser_extension"
+      ],
+      "type": "string"
     },
     "revoked_at": {
       "oneOf": [

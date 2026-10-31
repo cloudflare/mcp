@@ -10,11 +10,8 @@ import {
 } from "../../../../../outputs.js";
 import {
   workers_create$$assets$$upload$$session$$object,
-  workers_identifier,
   workers_manifest$$value,
-  workers_script_name,
 } from "../../../../../schemas.js";
-import { workers_dispatch_namespace_name } from "../../../schemas.js";
 
 /**
  * The tools of `workersForPlatforms.dispatchNamespaces.scripts.assets.upload`.
@@ -23,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_assets_upload_createSession",
     title: "Create Workers for Platforms Assets Upload Session",
-    description: "Start uploading a collection of assets for use in a Workers for Platforms script version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.",
+    description: "Start uploading a collection of assets for use in a Workers for Platforms script version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.\n\nPOST /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/assets-upload-session",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,18 +28,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_create-assets-upload-session-object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,12 +55,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_create-assets-upload-session-object": workers_create$$assets$$upload$$session$$object,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
         "workers_manifest-value": workers_manifest$$value,
-        "workers_script_name": workers_script_name,
       },
     },
     outputSchema: {

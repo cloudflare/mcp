@@ -60,19 +60,12 @@ export const public$$ip_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `public-ip_etag` in responses.
- */
-export const public$$ip_etag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `public-ip_ips` in responses.
  */
 export const public$$ip_ips: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/public-ip_etag"
+      "type": "string"
     },
     "ipv4_cidrs": {
       "$ref": "#/$defs/public-ip_ipv4_cidrs"
@@ -90,7 +83,7 @@ export const public$$ip_ips: JsonSchema = {
 export const public$$ip_ips_jdcloud: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/public-ip_etag"
+      "type": "string"
     },
     "ipv4_cidrs": {
       "$ref": "#/$defs/public-ip_ipv4_cidrs"

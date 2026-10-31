@@ -7,26 +7,15 @@ import {
   mq_api$$v4$$failure,
   mq_api$$v4$$message,
   mq_api$$v4$$success,
-  mq_batch$$size,
   mq_consumer$$response,
   mq_http$$consumer$$response,
-  mq_identifier,
-  mq_jurisdiction,
-  mq_max$$concurrency,
-  mq_max$$retries,
-  mq_max$$wait$$time,
   mq_producer,
   mq_queue,
-  mq_queue$$name,
   mq_queue$$settings,
   mq_r2$$producer,
-  mq_retry$$delay,
-  mq_script$$name,
-  mq_visibility$$timeout,
   mq_worker$$consumer$$response,
   mq_worker$$producer,
 } from "../outputs.js";
-import { mq_identifier as mq_identifier$ } from "../schemas.js";
 
 /**
  * The tools of `queues.purge`.
@@ -35,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_purge_start",
     title: "Purge Queue",
-    description: "Starts a purge that deletes all messages from a Queue.\n\nConfirm with the user before calling this tool. This operation drops every message in the queue.",
+    description: "Starts a purge that deletes all messages from a Queue.\n\nConfirm with the user before calling this tool. This operation drops every message in the queue.\n\nPOST /accounts/{account_id}/queues/{queue_id}/purge",
     inputSchema: {
       type: "object",
       properties: {
@@ -49,14 +38,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -69,9 +59,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -91,22 +79,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api$$v4$$error,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -157,22 +135,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-failure": mq_api$$v4$$failure,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -185,19 +153,20 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_purge_status",
     title: "Get Queue Purge Status",
-    description: "Returns the status of a Queue purge operation.",
+    description: "Returns the status of a Queue purge operation.\n\nGET /accounts/{account_id}/queues/{queue_id}/purge",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -210,9 +179,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

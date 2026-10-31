@@ -4,27 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `bill-subs-api_frequency_response` in responses.
- */
-export const bill$$subs$$api_frequency_response: JsonSchema = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/bill-subs-api_frequency"
-    },
-    {
-      "enum": [
-        "weekly",
-        "monthly",
-        "quarterly",
-        "yearly",
-        "not-applicable"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
  * The schema of `bill-subs-api_subscription_response` in responses.
  */
 export const bill$$subs$$api_subscription_response: JsonSchema = {
@@ -35,7 +14,27 @@ export const bill$$subs$$api_subscription_response: JsonSchema = {
     {
       "properties": {
         "frequency": {
-          "$ref": "#/$defs/bill-subs-api_frequency_response"
+          "allOf": [
+            {
+              "enum": [
+                "weekly",
+                "monthly",
+                "quarterly",
+                "yearly"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "weekly",
+                "monthly",
+                "quarterly",
+                "yearly",
+                "not-applicable"
+              ],
+              "type": "string"
+            }
+          ]
         }
       },
       "type": "object"

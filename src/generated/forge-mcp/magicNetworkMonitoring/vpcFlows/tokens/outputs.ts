@@ -15,17 +15,10 @@ export const magic$$visibility$$mnm_mnm_vpc_flows_single_response: JsonSchema = 
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_token"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_vpc_flows_token` in responses.
- */
-export const magic$$visibility$$mnm_mnm_vpc_flows_token: JsonSchema = {
-  "type": "string"
 };

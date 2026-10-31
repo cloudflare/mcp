@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_routes_upstreams_timeseries",
     title: "Get upstream composition time series for an AS",
-    description: "Retrieves the share of an AS’s observed paths carried by each direct upstream over time, derived from RouteViews RIB snapshots across all collectors (the combined product). Each upstream ASN is returned as its own series of shares (0–1); the least-significant upstreams beyond the requested limit are grouped into an \"OTHER\" series. Series share a common set of timestamps.",
+    description: "Retrieves the share of an AS’s observed paths carried by each direct upstream over time, derived from RouteViews RIB snapshots across all collectors (the combined product). Each upstream ASN is returned as its own series of shares (0–1); the least-significant upstreams beyond the requested limit are grouped into an \"OTHER\" series. Series share a common set of timestamps.\n\nGET /radar/bgp/routes/upstreams/{asn}/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Single Autonomous System Number (ASN) as integer.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`.",
@@ -66,6 +68,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

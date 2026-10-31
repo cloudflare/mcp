@@ -11,7 +11,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_add",
     title: "Add issue group members",
-    description: "Add one or more ungrouped issues to an existing issue group.",
+    description: "Add one or more ungrouped issues to an existing issue group.\n\nPOST /accounts/{account_id}/workers/observability/issues/groups/{groupId}/members",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -52,6 +53,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -630,11 +632,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_get",
     title: "Get an issue",
-    description: "Retrieve an issue.",
+    description: "Retrieve an issue.\n\nGET /accounts/{account_id}/workers/observability/issues/{issueId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -654,6 +657,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1391,7 +1395,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_group",
     title: "Create an issue group",
-    description: "Group two or more issues under a new customer-defined identity.",
+    description: "Group two or more issues under a new customer-defined identity.\n\nPOST /accounts/{account_id}/workers/observability/issues/groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -1416,6 +1420,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1432,6 +1437,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2010,11 +2016,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_list",
     title: "List detected issues",
-    description: "List detected issues.",
+    description: "List detected issues.\n\nGET /accounts/{account_id}/workers/observability/issues",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -2027,6 +2034,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order": {
               "enum": [
@@ -2081,6 +2089,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2874,7 +2883,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_notify",
     title: "Notify about an issue",
-    description: "Send the issue to one ANS policy, or every matching Real-Time Issue policy when no policy ID is provided.",
+    description: "Send the issue to one ANS policy, or every matching Real-Time Issue policy when no policy ID is provided.\n\nPOST /accounts/{account_id}/workers/observability/issues/{issueId}/notification-runs",
     inputSchema: {
       type: "object",
       properties: {
@@ -2887,6 +2896,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -2907,6 +2917,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3513,11 +3524,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_occurrences",
     title: "List issue occurrences",
-    description: "List the retained error occurrences grouped into an issue, newest first.",
+    description: "List the retained error occurrences grouped into an issue, newest first.\n\nGET /accounts/{account_id}/workers/observability/issues/{issueId}/occurrences",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -3535,6 +3547,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque cursor returned in result_info.cursors.after.",
@@ -3550,6 +3563,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4109,11 +4123,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_remove",
     title: "Remove an issue group member",
-    description: "Remove an issue from a group, dissolving the group when fewer than two members remain.",
+    description: "Remove an issue from a group, dissolving the group when fewer than two members remain.\n\nDELETE /accounts/{account_id}/workers/observability/issues/groups/{groupId}/members/{issueId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -4137,6 +4152,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4728,11 +4744,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_summary",
     title: "Summarize detected issues",
-    description: "Retrieve aggregate issue counts for the account.",
+    description: "Retrieve aggregate issue counts for the account.\n\nGET /accounts/{account_id}/workers/observability/issues/summary",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -4745,6 +4762,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "service": {
               "type": "string"
@@ -4756,6 +4774,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -5136,11 +5155,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_ungroup",
     title: "Dissolve an issue group",
-    description: "Dissolve an issue group and restore its members as standalone issues.",
+    description: "Dissolve an issue group and restore its members as standalone issues.\n\nDELETE /accounts/{account_id}/workers/observability/issues/groups/{groupId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -5160,6 +5180,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -5505,7 +5526,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_update",
     title: "Modify an issue",
-    description: "Modify an issue status or group title.",
+    description: "Modify an issue status or group title.\n\nPATCH /accounts/{account_id}/workers/observability/issues/{issueId}",
     inputSchema: {
       type: "object",
       properties: {
@@ -5527,6 +5548,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -5547,6 +5569,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -118,10 +118,10 @@ export const email$$security_ReleaseResponse: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_InvestigateId"
+      "type": "string"
     },
     "postfix_id": {
-      "$ref": "#/$defs/email-security_PostfixId"
+      "type": "string"
     },
     "undelivered": {
       "oneOf": [

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_bulkCreate",
     title: "Create indicators in bulk",
-    description: "Creates multiple indicators in a dataset in one request. Set `autoCreateType` to create any indicator types that don't exist.",
+    description: "Creates multiple indicators in a dataset in one request. Set `autoCreateType` to create any indicator types that don't exist.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -95,6 +95,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -116,6 +117,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "number",
@@ -180,11 +182,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_bulkDelete",
     title: "Delete indicators in bulk",
-    description: "Deletes up to 200 indicators from a dataset. Pass the indicator UUIDs in `indicatorIds`; UUIDs that are not found are returned in `missingUUIDs`.",
+    description: "Deletes up to 200 indicators from a dataset. Pass the indicator UUIDs in `indicatorIds`; UUIDs that are not found are returned in `missingUUIDs`.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -202,6 +205,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "indicatorIds": {
               "description": "Indicator UUIDs to delete, 1-200 per request.",
@@ -224,6 +228,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -347,7 +352,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_create",
     title: "Create an indicator",
-    description: "Creates an indicator in a dataset. Set `autoCreateType` to create the indicator type if it doesn't exist.",
+    description: "Creates an indicator in a dataset. Set `autoCreateType` to create the indicator type if it doesn't exist.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -417,6 +422,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -438,6 +444,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -696,11 +703,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_delete",
     title: "Delete an indicator",
-    description: "Deletes an indicator by its UUID.",
+    description: "Deletes an indicator by its UUID.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -726,6 +734,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -804,11 +813,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_get",
     title: "Get an indicator",
-    description: "Returns an indicator by its UUID.",
+    description: "Returns an indicator by its UUID.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -834,6 +844,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1091,11 +1102,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_list",
     title: "List indicators",
-    description: "Lists indicators across datasets, newest first. `datasetIds` accepts dataset UUIDs or one scope value used alone: `all` (or `*`) and `operational` select the intelligence datasets you can read, and `analytics` selects the analytics datasets you can read. Without `datasetIds`, the default dataset is used.",
+    description: "Lists indicators across datasets, newest first. `datasetIds` accepts dataset UUIDs or one scope value used alone: `all` (or `*`) and `operational` select the intelligence datasets you can read, and `analytics` selects the analytics datasets you can read. Without `datasetIds`, the default dataset is used.\n\nGET /accounts/{account_id}/cloudforce-one/events/indicators",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1108,6 +1120,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cache": {
               "description": "Cache strategy. 'from-graph' serves results from the graph-node KV cache when all requested UUIDs are cached; falls back to normal path on partial/zero hit. Cannot be combined with `cursor`.",
@@ -1320,6 +1333,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2270,7 +2284,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_update",
     title: "Update an indicator",
-    description: "Updates the given fields of an indicator and leaves the other fields unchanged.",
+    description: "Updates the given fields of an indicator and leaves the other fields unchanged.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -2332,6 +2346,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -2357,6 +2372,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

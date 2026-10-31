@@ -34,7 +34,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_create",
     title: "Create an email rule",
-    description: "Create a structured email rule.",
+    description: "Create a structured email rule.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/structured",
     inputSchema: {
       type: "object",
       properties: {
@@ -127,6 +127,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -142,6 +143,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_EmailRuleArrayCondition": cloudforce$$one_EmailRuleArrayCondition,
         "cloudforce-one_EmailRuleCondition": cloudforce$$one_EmailRuleCondition,
@@ -207,11 +209,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_delete",
     title: "Delete an email rule",
-    description: "Delete an existing structured email rule.",
+    description: "Delete an existing structured email rule.\n\nDELETE /accounts/{account_id}/cloudforce-one/rules/structured/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -233,6 +236,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "anyOf": [
@@ -292,11 +296,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_get",
     title: "Get an email rule",
-    description: "Get a structured email rule by ID.",
+    description: "Get a structured email rule by ID.\n\nGET /accounts/{account_id}/cloudforce-one/rules/structured/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -318,6 +323,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_RulePreview",
@@ -362,11 +368,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_list",
     title: "List email rules",
-    description: "Returns structured email rules.",
+    description: "Returns structured email rules.\n\nGET /accounts/{account_id}/cloudforce-one/rules/structured",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -379,6 +386,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 50,
@@ -405,6 +413,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_EmailRulesListResponse",
@@ -453,7 +462,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_test",
     title: "Test an email rule",
-    description: "Test a structured email rule against sample email JSON.",
+    description: "Test a structured email rule against sample email JSON.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/structured/{id}/test",
     inputSchema: {
       type: "object",
       properties: {
@@ -469,6 +478,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -490,6 +500,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -563,7 +574,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_update",
     title: "Update an email rule",
-    description: "Updates an existing structured email rule.",
+    description: "Updates an existing structured email rule.\n\nPUT /accounts/{account_id}/cloudforce-one/rules/structured/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -649,6 +660,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -670,6 +682,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_EmailRuleArrayCondition": cloudforce$$one_EmailRuleArrayCondition,
         "cloudforce-one_EmailRuleCondition": cloudforce$$one_EmailRuleCondition,
@@ -742,7 +755,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_updatePendingApproval",
     title: "Update a pending structured email rule approval",
-    description: "Validate, compile, and replace the proposed structured email rule on a pending approval. Only the original requester may update it.",
+    description: "Validate, compile, and replace the proposed structured email rule on a pending approval. Only the original requester may update it.\n\nPUT /accounts/{account_id}/cloudforce-one/rules/structured/approvals/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -835,6 +848,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -852,6 +866,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "module": {
               "default": "eml",
@@ -868,6 +883,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_EmailRuleArrayCondition": cloudforce$$one_EmailRuleArrayCondition,
         "cloudforce-one_EmailRuleCondition": cloudforce$$one_EmailRuleCondition,
@@ -936,7 +952,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_validate",
     title: "Validate an email rule",
-    description: "Validates structured email rule syntax and metadata.",
+    description: "Validates structured email rule syntax and metadata.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/structured/validate",
     inputSchema: {
       type: "object",
       properties: {
@@ -1034,6 +1050,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -1049,6 +1066,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_EmailRuleArrayCondition": cloudforce$$one_EmailRuleArrayCondition,
         "cloudforce-one_EmailRuleCondition": cloudforce$$one_EmailRuleCondition,

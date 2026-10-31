@@ -99,13 +99,6 @@ export const registrar$$api_domain_check_result: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api_domain_name` in responses.
- */
-export const registrar$$api_domain_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api_domain_search_response` in responses.
  */
 export const registrar$$api_domain_search_response: JsonSchema = {
@@ -178,32 +171,6 @@ export const registrar$$api_domain_search_result: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api_domain_transfer_check_reason` in responses.
- */
-export const registrar$$api_domain_transfer_check_reason: JsonSchema = {
-  "enum": [
-    "extension_not_supported_via_api",
-    "extension_not_supported",
-    "domain_premium",
-    "extension_disallows_transfer",
-    "domain_not_exists",
-    "domain_on_cloudflare",
-    "domain_locked",
-    "registry_status",
-    "domain_outside_transfer_window",
-    "domain_max_term",
-    "invalid_auth_code",
-    "invalid_auth_code_format",
-    "dnssec_enabled",
-    "zone_not_found",
-    "zone_status_invalid",
-    "invalid_zone_plan",
-    "domain_unsupported"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api_domain_transfer_check_response` in responses.
  */
 export const registrar$$api_domain_transfer_check_response: JsonSchema = {
@@ -253,7 +220,26 @@ export const registrar$$api_domain_transfer_check_result: JsonSchema = {
           "items": {
             "properties": {
               "code": {
-                "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+                "enum": [
+                  "extension_not_supported_via_api",
+                  "extension_not_supported",
+                  "domain_premium",
+                  "extension_disallows_transfer",
+                  "domain_not_exists",
+                  "domain_on_cloudflare",
+                  "domain_locked",
+                  "registry_status",
+                  "domain_outside_transfer_window",
+                  "domain_max_term",
+                  "invalid_auth_code",
+                  "invalid_auth_code_format",
+                  "dnssec_enabled",
+                  "zone_not_found",
+                  "zone_status_invalid",
+                  "invalid_zone_plan",
+                  "domain_unsupported"
+                ],
+                "type": "string"
               }
             },
             "required": [
@@ -282,7 +268,26 @@ export const registrar$$api_domain_transfer_check_result: JsonSchema = {
               "items": {
                 "properties": {
                   "code": {
-                    "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+                    "enum": [
+                      "extension_not_supported_via_api",
+                      "extension_not_supported",
+                      "domain_premium",
+                      "extension_disallows_transfer",
+                      "domain_not_exists",
+                      "domain_on_cloudflare",
+                      "domain_locked",
+                      "registry_status",
+                      "domain_outside_transfer_window",
+                      "domain_max_term",
+                      "invalid_auth_code",
+                      "invalid_auth_code_format",
+                      "dnssec_enabled",
+                      "zone_not_found",
+                      "zone_status_invalid",
+                      "invalid_zone_plan",
+                      "domain_unsupported"
+                    ],
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -311,7 +316,26 @@ export const registrar$$api_domain_transfer_check_result: JsonSchema = {
               "items": {
                 "properties": {
                   "code": {
-                    "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+                    "enum": [
+                      "extension_not_supported_via_api",
+                      "extension_not_supported",
+                      "domain_premium",
+                      "extension_disallows_transfer",
+                      "domain_not_exists",
+                      "domain_on_cloudflare",
+                      "domain_locked",
+                      "registry_status",
+                      "domain_outside_transfer_window",
+                      "domain_max_term",
+                      "invalid_auth_code",
+                      "invalid_auth_code_format",
+                      "dnssec_enabled",
+                      "zone_not_found",
+                      "zone_status_invalid",
+                      "invalid_zone_plan",
+                      "domain_unsupported"
+                    ],
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -415,7 +439,7 @@ export const registrar$$api_registration: JsonSchema = {
       "type": "string"
     },
     "domain_name": {
-      "$ref": "#/$defs/registrar-api_domain_name"
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [

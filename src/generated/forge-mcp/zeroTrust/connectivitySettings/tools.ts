@@ -7,16 +7,7 @@ import {
   tunnel_api$$response$$common$$failure,
   tunnel_messages,
 } from "../../outputs.js";
-import { tunnel_account_id } from "../../schemas.js";
-import {
-  tunnel_icmp_proxy_enabled,
-  tunnel_offramp_warp_enabled,
-  tunnel_zero_trust_connectivity_settings_response,
-} from "./outputs.js";
-import {
-  tunnel_icmp_proxy_enabled as tunnel_icmp_proxy_enabled$,
-  tunnel_offramp_warp_enabled as tunnel_offramp_warp_enabled$,
-} from "./schemas.js";
+import { tunnel_zero_trust_connectivity_settings_response } from "./outputs.js";
 
 /**
  * The tools of `zeroTrust.connectivitySettings`.
@@ -25,28 +16,29 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_connectivitySettings_edit",
     title: "Updates the Zero Trust Connectivity Settings",
-    description: "Updates the Zero Trust Connectivity Settings for the given account.",
+    description: "Updates the Zero Trust Connectivity Settings for the given account.\n\nPATCH /accounts/{account_id}/zerotrust/connectivity_settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "icmp_proxy_enabled": {
-              "$ref": "#/$defs/tunnel_icmp_proxy_enabled",
-              "description": "A flag to enable the ICMP proxy for the account network."
+              "description": "A flag to enable the ICMP proxy for the account network.",
+              "type": "boolean"
             },
             "offramp_warp_enabled": {
-              "$ref": "#/$defs/tunnel_offramp_warp_enabled",
-              "description": "A flag to enable WARP to WARP traffic."
+              "description": "A flag to enable WARP to WARP traffic.",
+              "type": "boolean"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -59,19 +51,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled$,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_zero_trust_connectivity_settings_response",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
         "tunnel_messages": tunnel_messages,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
         "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
@@ -101,9 +87,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
         "tunnel_messages": tunnel_messages,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
         "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
@@ -115,15 +99,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_connectivitySettings_get",
     title: "Get Zero Trust Connectivity Settings",
-    description: "Gets the Zero Trust Connectivity Settings for the given account.",
+    description: "Gets the Zero Trust Connectivity Settings for the given account.\n\nGET /accounts/{account_id}/zerotrust/connectivity_settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -135,17 +120,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_zero_trust_connectivity_settings_response",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
         "tunnel_messages": tunnel_messages,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
         "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
@@ -177,9 +158,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
         "tunnel_messages": tunnel_messages,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
         "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },

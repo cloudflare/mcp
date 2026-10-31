@@ -8,7 +8,6 @@ import {
   load$$balancing_messages,
   load$$balancing_monitor$$references$$response,
 } from "../../../../outputs.js";
-import { load$$balancing_identifier } from "../../../../schemas.js";
 
 /**
  * The tools of `user.loadBalancers.monitors.references`.
@@ -17,14 +16,15 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_monitors_references_list",
     title: "List Monitor References",
-    description: "Get the list of resources that reference the provided monitor.",
+    description: "Get the list of resources that reference the provided monitor.\n\nGET /user/load_balancers/monitors/{monitor_id}/references",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "monitor_id": {
-              "$ref": "#/$defs/load-balancing_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -36,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_identifier": load$$balancing_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-references-response",

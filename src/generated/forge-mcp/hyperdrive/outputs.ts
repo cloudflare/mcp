@@ -138,7 +138,7 @@ export const hyperdrive_hyperdrive$$config$$response: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/hyperdrive_identifier"
+      "type": "string"
     },
     "integration": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-planet-scale-integration"
@@ -151,13 +151,13 @@ export const hyperdrive_hyperdrive$$config$$response: JsonSchema = {
       "$ref": "#/$defs/hyperdrive_hyperdrive-mtls"
     },
     "name": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-name"
+      "type": "string"
     },
     "origin": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-origin-full"
     },
     "origin_connection_limit": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-origin-connection-limit"
+      "type": "integer"
     },
     "restarted_on": {
       "oneOf": [
@@ -192,7 +192,12 @@ export const hyperdrive_hyperdrive$$database$$full: JsonSchema = {
       "type": "string"
     },
     "scheme": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme"
+      "enum": [
+        "postgres",
+        "postgresql",
+        "mysql"
+      ],
+      "type": "string"
     },
     "user": {
       "type": "string"
@@ -205,16 +210,6 @@ export const hyperdrive_hyperdrive$$database$$full: JsonSchema = {
     "user"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `hyperdrive_hyperdrive-integration-provider` in responses.
- */
-export const hyperdrive_hyperdrive$$integration$$provider: JsonSchema = {
-  "enum": [
-    "planetscale"
-  ],
-  "type": "string"
 };
 
 /**
@@ -233,20 +228,6 @@ export const hyperdrive_hyperdrive$$mtls: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `hyperdrive_hyperdrive-name` in responses.
- */
-export const hyperdrive_hyperdrive$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `hyperdrive_hyperdrive-origin-connection-limit` in responses.
- */
-export const hyperdrive_hyperdrive$$origin$$connection$$limit: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -305,10 +286,18 @@ export const hyperdrive_hyperdrive$$planet$$scale$$integration: JsonSchema = {
       "type": "string"
     },
     "provider": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-integration-provider"
+      "enum": [
+        "planetscale"
+      ],
+      "type": "string"
     },
     "scheme": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme"
+      "enum": [
+        "postgres",
+        "postgresql",
+        "mysql"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -319,25 +308,6 @@ export const hyperdrive_hyperdrive$$planet$$scale$$integration: JsonSchema = {
     "scheme"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `hyperdrive_hyperdrive-scheme` in responses.
- */
-export const hyperdrive_hyperdrive$$scheme: JsonSchema = {
-  "enum": [
-    "postgres",
-    "postgresql",
-    "mysql"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `hyperdrive_identifier` in responses.
- */
-export const hyperdrive_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**

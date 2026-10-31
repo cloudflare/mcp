@@ -6,10 +6,6 @@ import {
   intel_api$$response$$common$$failure,
   intel_messages,
 } from "../../outputs.js";
-import { intel_identifier } from "../../schemas.js";
-import { intel_asn } from "../outputs.js";
-import { intel_asn as intel_asn$ } from "../schemas.js";
-import { intel_count, intel_page, intel_per_page } from "./outputs.js";
 
 /**
  * The tools of `intel.asn.subnets`.
@@ -18,18 +14,19 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_asn_subnets_get",
     title: "Get ASN Subnets",
-    description: "Get ASN Subnets.",
+    description: "Get ASN Subnets.\n\nGET /accounts/{account_id}/intel/asn/{asn}/subnets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "asn": {
-              "$ref": "#/$defs/intel_asn"
+              "type": "integer"
             }
           },
           "required": [
@@ -42,27 +39,24 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_asn": intel_asn$,
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
         "asn": {
-          "$ref": "#/$defs/intel_asn"
+          "type": "integer"
         },
         "count": {
-          "$ref": "#/$defs/intel_count"
+          "type": "number"
         },
         "ip_count_total": {
           "type": "integer"
         },
         "page": {
-          "$ref": "#/$defs/intel_page"
+          "type": "number"
         },
         "per_page": {
-          "$ref": "#/$defs/intel_per_page"
+          "type": "number"
         },
         "subnets": {
           "items": {
@@ -72,12 +66,6 @@ export const tools: readonly Tool[] = [
         }
       },
       "type": "object",
-      $defs: {
-        "intel_asn": intel_asn,
-        "intel_count": intel_count,
-        "intel_page": intel_page,
-        "intel_per_page": intel_per_page,
-      },
     },
     annotations: {
       "destructiveHint": false,
@@ -99,19 +87,19 @@ export const tools: readonly Tool[] = [
         "200": {
           "properties": {
             "asn": {
-              "$ref": "#/$defs/intel_asn"
+              "type": "integer"
             },
             "count": {
-              "$ref": "#/$defs/intel_count"
+              "type": "number"
             },
             "ip_count_total": {
               "type": "integer"
             },
             "page": {
-              "$ref": "#/$defs/intel_page"
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/intel_per_page"
+              "type": "number"
             },
             "subnets": {
               "items": {
@@ -127,19 +115,19 @@ export const tools: readonly Tool[] = [
             {
               "properties": {
                 "asn": {
-                  "$ref": "#/$defs/intel_asn"
+                  "type": "integer"
                 },
                 "count": {
-                  "$ref": "#/$defs/intel_count"
+                  "type": "number"
                 },
                 "ip_count_total": {
                   "type": "integer"
                 },
                 "page": {
-                  "$ref": "#/$defs/intel_page"
+                  "type": "number"
                 },
                 "per_page": {
-                  "$ref": "#/$defs/intel_per_page"
+                  "type": "number"
                 },
                 "subnets": {
                   "items": {
@@ -158,11 +146,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "intel_api-response-common-failure": intel_api$$response$$common$$failure,
-        "intel_asn": intel_asn,
-        "intel_count": intel_count,
         "intel_messages": intel_messages,
-        "intel_page": intel_page,
-        "intel_per_page": intel_per_page,
       },
     },
     request: (args) => ({

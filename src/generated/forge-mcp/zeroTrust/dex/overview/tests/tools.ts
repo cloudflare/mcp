@@ -6,9 +6,7 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../../schemas.js";
 import {
   digital$$experience$$monitoring_aggregate_stat,
   digital$$experience$$monitoring_aggregate_time_period,
@@ -24,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_overview_tests_list",
     title: "List DEX test analytics",
-    description: "List DEX tests with overview metrics.",
+    description: "List DEX tests with overview metrics.\n\nGET /accounts/{account_id}/dex/tests/overview",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,6 +40,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "colo": {
               "description": "Optionally filter result stats to a Cloudflare colo. Cannot be used in combination with deviceId param.",
@@ -86,9 +86,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -112,7 +110,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_tests_response": digital$$experience$$monitoring_tests_response,
         "digital-experience-monitoring_timing_aggregates": digital$$experience$$monitoring_timing_aggregates,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -162,7 +159,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_tests_response": digital$$experience$$monitoring_tests_response,
         "digital-experience-monitoring_timing_aggregates": digital$$experience$$monitoring_timing_aggregates,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({

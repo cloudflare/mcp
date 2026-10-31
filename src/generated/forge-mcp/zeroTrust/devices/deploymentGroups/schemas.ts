@@ -9,8 +9,8 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const teams$$devices_deployment_group_create_request: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/teams-devices_deployment_group_name",
-      "description": "A user-friendly name for the deployment group."
+      "description": "A user-friendly name for the deployment group.",
+      "type": "string"
     },
     "policy_ids": {
       "description": "Contains an optional list of policy IDs assigned to a group.",
@@ -36,21 +36,13 @@ export const teams$$devices_deployment_group_create_request: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_deployment_group_name`.
- */
-export const teams$$devices_deployment_group_name: JsonSchema = {
-  "description": "A user-friendly name for the deployment group.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_deployment_group_update_request`.
  */
 export const teams$$devices_deployment_group_update_request: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/teams-devices_deployment_group_name",
-      "description": "A user-friendly name for the deployment group."
+      "description": "A user-friendly name for the deployment group.",
+      "type": "string"
     },
     "policy_ids": {
       "description": "Replaces the entire list of policy IDs.",

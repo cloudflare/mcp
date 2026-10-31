@@ -7,7 +7,6 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../../schemas.js";
 import {
   tls$$certificates$$and$$hostnames_hostname_associations_response,
   tls$$certificates$$and$$hostnames_hostnames$$2,
@@ -24,15 +23,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_certificateAuthorities_hostnameAssociations_get",
     title: "List Hostname Associations",
-    description: "List Hostname Associations.",
+    description: "List Hostname Associations.\n\nGET /zones/{zone_id}/certificate_authorities/hostname_associations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "mtls_certificate_id": {
               "description": "The UUID to match against for a certificate that was uploaded to the mTLS Certificate Management endpoint. If no mtls_certificate_id is given, the results will be the hostnames associated to your active Cloudflare Managed CA.",
@@ -53,9 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_associations_response",
@@ -114,7 +113,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_certificateAuthorities_hostnameAssociations_update",
     title: "Replace Hostname Associations",
-    description: "Replace Hostname Associations.",
+    description: "Replace Hostname Associations.\n\nPUT /zones/{zone_id}/certificate_authorities/hostname_associations",
     inputSchema: {
       type: "object",
       properties: {
@@ -122,10 +121,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_association"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -138,10 +138,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "tls-certificates-and-hostnames_hostname_association": tls$$certificates$$and$$hostnames_hostname_association,
         "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {

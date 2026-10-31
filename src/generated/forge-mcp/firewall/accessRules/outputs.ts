@@ -18,7 +18,7 @@ export const firewall_api$$response$$single$$id: JsonSchema = {
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/firewall_identifier"
+                  "type": "string"
                 }
               },
               "required": [
@@ -35,13 +35,6 @@ export const firewall_api$$response$$single$$id: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `firewall_email` in responses.
- */
-export const firewall_email: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -98,10 +91,10 @@ export const firewall_schemas$$rule: JsonSchema = {
         "scope": {
           "properties": {
             "email": {
-              "$ref": "#/$defs/firewall_email"
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/firewall_identifier"
+              "type": "string"
             },
             "type": {
               "enum": [

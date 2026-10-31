@@ -4,27 +4,13 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_colo_name` in responses.
- */
-export const magic_colo_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_colo_names` in responses.
  */
 export const magic_colo_names: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic_colo_name"
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic_colo_region` in responses.
- */
-export const magic_colo_region: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -32,7 +18,7 @@ export const magic_colo_region: JsonSchema = {
  */
 export const magic_colo_regions: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic_colo_region"
+    "type": "string"
   },
   "type": "array"
 };
@@ -54,29 +40,6 @@ export const magic_create_route_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic_created_on` in responses.
- */
-export const magic_created_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_description` in responses.
- */
-export const magic_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_modified_on` in responses.
- */
-export const magic_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -140,57 +103,38 @@ export const magic_multiple_route_modified_response: JsonSchema = {
 };
 
 /**
- * The schema of `magic_nexthop` in responses.
- */
-export const magic_nexthop: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_prefix` in responses.
- */
-export const magic_prefix: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_priority` in responses.
- */
-export const magic_priority: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `magic_route` in responses.
  */
 export const magic_route: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/magic_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/magic_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "nexthop": {
-      "$ref": "#/$defs/magic_nexthop"
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_prefix"
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/magic_priority"
+      "type": "integer"
     },
     "scope": {
       "$ref": "#/$defs/magic_scope"
     },
     "weight": {
-      "$ref": "#/$defs/magic_weight"
+      "type": "integer"
     }
   },
   "required": [
@@ -320,11 +264,4 @@ export const magic_scope: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_weight` in responses.
- */
-export const magic_weight: JsonSchema = {
-  "type": "integer"
 };

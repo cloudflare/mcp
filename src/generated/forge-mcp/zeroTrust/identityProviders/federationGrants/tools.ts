@@ -7,12 +7,8 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_created_at,
-  access_identifier,
   access_messages,
-  access_timestamp,
 } from "../../outputs.js";
-import { access_identifier as access_identifier$ } from "../../schemas.js";
 import {
   access_idp_federation_grant,
   access_idp_federation_grant_id_response,
@@ -28,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_federationGrants_create",
     title: "Create an IdP federation grant",
-    description: "Creates an IdP federation grant for the specified identity provider, making it\navailable for federation to other accounts in the same Cloudflare organization.\n\nThe account must belong to a Cloudflare organization. One-time pin and\nCloudflare-managed identity providers cannot be federated. An account\ncan federate at most five identity providers at a time.",
+    description: "Creates an IdP federation grant for the specified identity provider, making it\navailable for federation to other accounts in the same Cloudflare organization.\n\nThe account must belong to a Cloudflare organization. One-time pin and\nCloudflare-managed identity providers cannot be federated. An account\ncan federate at most five identity providers at a time.\n\nPOST /accounts/{account_id}/access/idp_federation_grants",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,10 +32,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_idp_federation_grant_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -52,8 +49,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier$,
         "access_idp_federation_grant_create_request": access_idp_federation_grant_create_request,
       },
     },
@@ -61,12 +58,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/access_idp_federation_grant_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_response": access_idp_federation_grant_response,
         "access_messages": access_messages,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -93,12 +87,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_response": access_idp_federation_grant_response,
         "access_messages": access_messages,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({
@@ -109,19 +100,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_federationGrants_delete",
     title: "Delete an IdP federation grant",
-    description: "Deletes an IdP federation grant. The identity provider remains in the account,\nbut it is no longer available for federation to other accounts.",
+    description: "Deletes an IdP federation grant. The identity provider remains in the account,\nbut it is no longer available for federation to other accounts.\n\nDELETE /accounts/{account_id}/access/idp_federation_grants/{grant_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "grant_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "UID of the IdP federation grant."
+              "description": "UID of the IdP federation grant.",
+              "type": "string"
             }
           },
           "required": [
@@ -134,15 +126,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_idp_federation_grant_id_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant_id_response": access_idp_federation_grant_id_response,
         "access_messages": access_messages,
       },
@@ -171,7 +160,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant_id_response": access_idp_federation_grant_id_response,
         "access_messages": access_messages,
       },
@@ -183,19 +171,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_federationGrants_get",
     title: "Get an IdP federation grant",
-    description: "Retrieves a single IdP federation grant by its UID.",
+    description: "Retrieves a single IdP federation grant by its UID.\n\nGET /accounts/{account_id}/access/idp_federation_grants/{grant_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "grant_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "UID of the IdP federation grant."
+              "description": "UID of the IdP federation grant.",
+              "type": "string"
             }
           },
           "required": [
@@ -208,20 +197,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_idp_federation_grant_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_response": access_idp_federation_grant_response,
         "access_messages": access_messages,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -251,12 +235,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_response": access_idp_federation_grant_response,
         "access_messages": access_messages,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({
@@ -266,15 +247,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_federationGrants_list",
     title: "List IdP federation grants",
-    description: "Lists the IdP federation grants owned by the account.",
+    description: "Lists the IdP federation grants owned by the account.\n\nGET /accounts/{account_id}/access/idp_federation_grants",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -286,21 +268,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_idp_federation_grant_list_response",
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_created_at": access_created_at,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_list_response": access_idp_federation_grant_list_response,
         "access_messages": access_messages,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -328,12 +305,9 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_created_at": access_created_at,
-        "access_identifier": access_identifier,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_list_response": access_idp_federation_grant_list_response,
         "access_messages": access_messages,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({

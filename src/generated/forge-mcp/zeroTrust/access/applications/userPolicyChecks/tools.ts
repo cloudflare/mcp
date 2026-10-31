@@ -6,13 +6,7 @@ import {
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
-  access_uuid,
 } from "../../../outputs.js";
-import {
-  access_identifier,
-  access_uuid as access_uuid$,
-} from "../../../schemas.js";
-import { access_app_id } from "../schemas.js";
 import { access_policy_check_response } from "./outputs.js";
 
 /**
@@ -22,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_userPolicyChecks_list",
     title: "Test Access policies",
-    description: "Tests if a specific user has permission to access an application.",
+    description: "Tests if a specific user has permission to access an application.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}/user_policy_checks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -37,11 +32,20 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/access_app_id"
+              "oneOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -55,11 +59,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_app_id": access_app_id,
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_policy_check_response",
@@ -67,7 +67,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_policy_check_response": access_policy_check_response,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -99,7 +98,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_policy_check_response": access_policy_check_response,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

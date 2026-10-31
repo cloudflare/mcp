@@ -13,7 +13,6 @@ import {
 import {
   csam$$config$$service_csam_scanner_third_party_update_request,
   csam$$config$$service_csam_scanner_third_party_update_value,
-  csam$$config$$service_zone_identifier,
 } from "./schemas.js";
 
 /**
@@ -23,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "csamScanner_edit",
     title: "Update CSAM Scanner setting",
-    description: "Update the CSAM Scanner configuration for a zone. Allows enabling or\ndisabling CSAM scanning, updating the notification email, and\nconfiguring scanning sources.\n\nThis is a partial update: fields omitted from `value` keep their\ncurrent setting, and `sources` is merged per source (`null` clears\nall sources). Send an empty `email` to clear the notification\naddress.\n\nWhen a new email is provided, email verification is triggered\nautomatically. The `enabled` field is a toggle; the server may\nadjust it based on whether the notification email is verified.\n\nReturns 403 if the zone or account is locked by Trust & Safety.",
+    description: "Update the CSAM Scanner configuration for a zone. Allows enabling or\ndisabling CSAM scanning, updating the notification email, and\nconfiguring scanning sources.\n\nThis is a partial update: fields omitted from `value` keep their\ncurrent setting, and `sources` is merged per source (`null` clears\nall sources). Send an empty `email` to clear the notification\naddress.\n\nWhen a new email is provided, email verification is triggered\nautomatically. The `enabled` field is a toggle; the server may\nadjust it based on whether the notification email is verified.\n\nReturns 403 if the zone or account is locked by Trust & Safety.\n\nPATCH /zones/{zone_id}/settings/csam_scanner_third_party",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,10 +30,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/csam-config-service_csam_scanner_third_party_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/csam-config-service_zone_identifier",
-              "description": "Identifier for the zone."
+              "description": "Identifier for the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,10 +47,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "csam-config-service_csam_scanner_third_party_update_request": csam$$config$$service_csam_scanner_third_party_update_request,
         "csam-config-service_csam_scanner_third_party_update_value": csam$$config$$service_csam_scanner_third_party_update_value,
-        "csam-config-service_zone_identifier": csam$$config$$service_zone_identifier,
       },
     },
     outputSchema: {
@@ -115,15 +115,16 @@ export const tools: readonly Tool[] = [
   {
     name: "csamScanner_get",
     title: "Get CSAM Scanner setting",
-    description: "Retrieve the current CSAM Scanner configuration for a zone.\n\nThe notification email is masked by default in responses.",
+    description: "Retrieve the current CSAM Scanner configuration for a zone.\n\nThe notification email is masked by default in responses.\n\nGET /zones/{zone_id}/settings/csam_scanner_third_party",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/csam-config-service_zone_identifier",
-              "description": "Identifier for the zone."
+              "description": "Identifier for the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -135,9 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "csam-config-service_zone_identifier": csam$$config$$service_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/csam-config-service_csam_scanner_single_response",

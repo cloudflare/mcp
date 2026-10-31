@@ -7,39 +7,16 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_client_id,
-  access_created_at,
-  access_duration,
-  access_enabled,
-  access_leak_report_url,
-  access_leak_reported_at,
-  access_leak_reporter,
   access_messages,
-  access_name$$2,
   access_service$$tokens,
   access_single_response$$2,
   access_tags,
-  access_timestamp,
-  access_updated_at,
-  access_uuid,
 } from "../../outputs.js";
+import { access_tags as access_tags$ } from "../../schemas.js";
 import {
-  access_duration as access_duration$,
-  access_enabled as access_enabled$,
-  access_identifier,
-  access_name$$2 as access_name$$2$,
-  access_tags as access_tags$,
-  access_uuid as access_uuid$,
-} from "../../schemas.js";
-import {
-  access_client_secret,
   access_create_response,
   access_response_collection$$4,
 } from "./outputs.js";
-import {
-  access_client_secret_version,
-  access_previous_client_secret_expires_at,
-} from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.serviceTokens`.
@@ -48,33 +25,34 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_create",
     title: "Create a service token",
-    description: "Generates a new service token. **Note:** This is the only time you can get the Client Secret. If you lose the Client Secret, you will have to rotate the Client Secret or create a new service token.",
+    description: "Generates a new service token. **Note:** This is the only time you can get the Client Secret. If you lose the Client Secret, you will have to rotate the Client Secret or create a new service token.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/service_tokens",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "client_secret_version": {
-              "$ref": "#/$defs/access_client_secret_version",
               "default": 1,
-              "description": "A version number identifying the current `client_secret` associated with the service token. Incrementing it triggers a rotation; the previous secret will still be accepted until the time indicated by `previous_client_secret_expires_at`. If the service token was reported as leaked, `previous_client_secret_expires_at` is not required, may not be in the future, and the previous secret is discarded immediately."
+              "description": "A version number identifying the current `client_secret` associated with the service token. Incrementing it triggers a rotation; the previous secret will still be accepted until the time indicated by `previous_client_secret_expires_at`. If the service token was reported as leaked, `previous_client_secret_expires_at` is not required, may not be in the future, and the previous secret is discarded immediately.",
+              "type": "number"
             },
             "duration": {
-              "$ref": "#/$defs/access_duration",
               "default": "8760h",
-              "description": "The duration for how long the service token will be valid. Must be in the format `300ms` or `2h45m`, or the special value `forever` for non-expiring tokens. Valid time units are: ns, us (or µs), ms, s, m, h. The default is 1 year in hours (8760h)."
+              "description": "The duration for how long the service token will be valid. Must be in the format `300ms` or `2h45m`, or the special value `forever` for non-expiring tokens. Valid time units are: ns, us (or µs), ms, s, m, h. The default is 1 year in hours (8760h).",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/access_enabled",
-              "description": "Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create."
+              "description": "Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/access_name-2",
-              "description": "The name of the service token."
+              "description": "The name of the service token.",
+              "type": "string"
             },
             "previous_client_secret_expires_at": {
-              "$ref": "#/$defs/access_previous_client_secret_expires_at",
-              "description": "The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set."
+              "description": "The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set.",
+              "format": "date-time",
+              "type": "string"
             },
             "tags": {
               "$ref": "#/$defs/access_tags",
@@ -87,6 +65,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -97,8 +76,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -112,13 +91,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_client_secret_version": access_client_secret_version,
-        "access_duration": access_duration$,
-        "access_enabled": access_enabled$,
-        "access_identifier": access_identifier,
-        "access_name-2": access_name$$2$,
-        "access_previous_client_secret_expires_at": access_previous_client_secret_expires_at,
         "access_tags": access_tags$,
       },
     },
@@ -126,17 +100,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/access_create_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_client_secret": access_client_secret,
         "access_create_response": access_create_response,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -165,17 +131,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_client_secret": access_client_secret,
         "access_create_response": access_create_response,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -186,11 +144,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_delete",
     title: "Delete a service token",
-    description: "Deletes a service token.",
+    description: "Deletes a service token.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/access/service_tokens/{service_token_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -201,12 +160,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "service_token_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -220,30 +179,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -272,21 +217,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -296,11 +230,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_get",
     title: "Get a service token",
-    description: "Fetches a single service token.",
+    description: "Fetches a single service token.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/service_tokens/{service_token_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -311,12 +246,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "service_token_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -330,30 +265,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -383,21 +304,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -407,11 +317,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_list",
     title: "List service tokens",
-    description: "Lists all service tokens.",
+    description: "Lists all service tokens.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/service_tokens",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -422,8 +333,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -433,6 +344,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "The name of the service token.",
@@ -459,30 +371,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-4",
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_response_collection-4": access_response_collection$$4,
         "access_service-tokens": access_service$$tokens,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -513,21 +412,10 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_response_collection-4": access_response_collection$$4,
         "access_service-tokens": access_service$$tokens,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -543,19 +431,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_refresh",
     title: "Refresh a service token",
-    description: "Refreshes the expiration of a service token.",
+    description: "Refreshes the expiration of a service token.\n\nPOST /accounts/{account_id}/access/service_tokens/{service_token_id}/refresh",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "service_token_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -568,30 +457,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -620,21 +495,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -644,7 +508,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_rotate",
     title: "Rotate a service token",
-    description: "Generates a new Client Secret for a service token and revokes the old one.",
+    description: "Generates a new Client Secret for a service token and revokes the old one.\n\nPOST /accounts/{account_id}/access/service_tokens/{service_token_id}/rotate",
     inputSchema: {
       type: "object",
       properties: {
@@ -659,14 +523,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "service_token_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -679,26 +544,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_create_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_client_secret": access_client_secret,
         "access_create_response": access_create_response,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -722,17 +576,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_client_secret": access_client_secret,
         "access_create_response": access_create_response,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -743,33 +589,34 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_serviceTokens_update",
     title: "Update a service token",
-    description: "Updates a configured service token.",
+    description: "Updates a configured service token.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/service_tokens/{service_token_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "client_secret_version": {
-              "$ref": "#/$defs/access_client_secret_version",
               "default": 1,
-              "description": "A version number identifying the current `client_secret` associated with the service token. Incrementing it triggers a rotation; the previous secret will still be accepted until the time indicated by `previous_client_secret_expires_at`. If the service token was reported as leaked, `previous_client_secret_expires_at` is not required, may not be in the future, and the previous secret is discarded immediately."
+              "description": "A version number identifying the current `client_secret` associated with the service token. Incrementing it triggers a rotation; the previous secret will still be accepted until the time indicated by `previous_client_secret_expires_at`. If the service token was reported as leaked, `previous_client_secret_expires_at` is not required, may not be in the future, and the previous secret is discarded immediately.",
+              "type": "number"
             },
             "duration": {
-              "$ref": "#/$defs/access_duration",
               "default": "8760h",
-              "description": "The duration for how long the service token will be valid. Must be in the format `300ms` or `2h45m`, or the special value `forever` for non-expiring tokens. Valid time units are: ns, us (or µs), ms, s, m, h. The default is 1 year in hours (8760h)."
+              "description": "The duration for how long the service token will be valid. Must be in the format `300ms` or `2h45m`, or the special value `forever` for non-expiring tokens. Valid time units are: ns, us (or µs), ms, s, m, h. The default is 1 year in hours (8760h).",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/access_enabled",
-              "description": "Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create."
+              "description": "Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/access_name-2",
-              "description": "The name of the service token."
+              "description": "The name of the service token.",
+              "type": "string"
             },
             "previous_client_secret_expires_at": {
-              "$ref": "#/$defs/access_previous_client_secret_expires_at",
-              "description": "The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set."
+              "description": "The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set.",
+              "format": "date-time",
+              "type": "string"
             },
             "tags": {
               "$ref": "#/$defs/access_tags",
@@ -779,6 +626,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -789,12 +637,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "service_token_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -809,36 +657,19 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_client_secret_version": access_client_secret_version,
-        "access_duration": access_duration$,
-        "access_enabled": access_enabled$,
-        "access_identifier": access_identifier,
-        "access_name-2": access_name$$2$,
-        "access_previous_client_secret_expires_at": access_previous_client_secret_expires_at,
         "access_tags": access_tags$,
-        "access_uuid": access_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -867,21 +698,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

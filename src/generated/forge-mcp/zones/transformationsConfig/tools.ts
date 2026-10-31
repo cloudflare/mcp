@@ -8,7 +8,6 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
 import {
   speed_transformations_config_response,
   speed_transformations_config_value,
@@ -22,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_transformationsConfig_edit",
     title: "Change Transformations configuration",
-    description: "Updates one or more fields of the combined Transformations configuration for a zone.\nOmitted fields are left unchanged. The response always returns the full current state\nof all three sub-settings.",
+    description: "Updates one or more fields of the combined Transformations configuration for a zone.\nOmitted fields are left unchanged. The response always returns the full current state\nof all three sub-settings.\n\nPATCH /zones/{zone_id}/settings/transformations_config",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,7 +29,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "value": {
               "$ref": "#/$defs/speed_transformations_config_value",
-              "description": "Combined configuration value for Transformations. All fields are optional on PATCH;\nomitted fields are left unchanged.\n"
+              "description": "Combined configuration value for Transformations. All fields are optional on PATCH;\nomitted fields are left unchanged."
             }
           },
           "required": [
@@ -39,10 +38,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,8 +55,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "speed_identifier": speed_identifier,
         "speed_transformations_config_value": speed_transformations_config_value$,
       },
     },
@@ -140,15 +140,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_transformationsConfig_get",
     title: "Get Transformations configuration",
-    description: "Returns the combined Transformations configuration for a zone, including the transformations\ntoggle, allowed origins, and C2PA signing settings in a single response.",
+    description: "Returns the combined Transformations configuration for a zone, including the transformations\ntoggle, allowed origins, and C2PA signing settings in a single response.\n\nGET /zones/{zone_id}/settings/transformations_config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -160,9 +161,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

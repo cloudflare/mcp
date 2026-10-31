@@ -4,48 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_allow_mode_switch` in responses.
- */
-export const teams$$devices_allow_mode_switch: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_allow_updates` in responses.
- */
-export const teams$$devices_allow_updates: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_allowed_to_leave` in responses.
- */
-export const teams$$devices_allowed_to_leave: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_auto_connect` in responses.
- */
-export const teams$$devices_auto_connect: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_captive_portal` in responses.
- */
-export const teams$$devices_captive_portal: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_disable_auto_fallback` in responses.
- */
-export const teams$$devices_disable_auto_fallback: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_dns_search_suffix` in responses.
  */
 export const teams$$devices_dns_search_suffix: JsonSchema = {
@@ -74,14 +32,6 @@ export const teams$$devices_dns_search_suffixes: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_enable_device_credential_authentication` in
- * responses.
- */
-export const teams$$devices_enable_device_credential_authentication: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_exclude` in responses.
  */
 export const teams$$devices_exclude: JsonSchema = {
@@ -92,22 +42,15 @@ export const teams$$devices_exclude: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_exclude_office_ips` in responses.
- */
-export const teams$$devices_exclude_office_ips: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_exclude_split_tunnel_with_address` in responses.
  */
 export const teams$$devices_exclude_split_tunnel_with_address: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_address"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_description"
+      "type": "string"
     }
   },
   "required": [
@@ -122,10 +65,10 @@ export const teams$$devices_exclude_split_tunnel_with_address: JsonSchema = {
 export const teams$$devices_exclude_split_tunnel_with_host: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_description"
+      "type": "string"
     },
     "host": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_host"
+      "type": "string"
     }
   },
   "required": [
@@ -144,7 +87,7 @@ export const teams$$devices_fallback_domain: JsonSchema = {
     },
     "dns_server": {
       "items": {
-        "$ref": "#/$defs/teams-devices_ip"
+        "type": "string"
       },
       "type": "array"
     },
@@ -166,13 +109,6 @@ export const teams$$devices_fallback_domains: JsonSchema = {
     "$ref": "#/$defs/teams-devices_fallback_domain"
   },
   "type": "array"
-};
-
-/**
- * The schema of `teams-devices_gateway_unique_id` in responses.
- */
-export const teams$$devices_gateway_unique_id: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -238,36 +174,15 @@ export const teams$$devices_include: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_include_split_tunnel_address` in responses.
- */
-export const teams$$devices_include_split_tunnel_address: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_include_split_tunnel_description` in responses.
- */
-export const teams$$devices_include_split_tunnel_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_include_split_tunnel_host` in responses.
- */
-export const teams$$devices_include_split_tunnel_host: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_include_split_tunnel_with_address` in responses.
  */
 export const teams$$devices_include_split_tunnel_with_address: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_address"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_description"
+      "type": "string"
     }
   },
   "required": [
@@ -282,69 +197,16 @@ export const teams$$devices_include_split_tunnel_with_address: JsonSchema = {
 export const teams$$devices_include_split_tunnel_with_host: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_description"
+      "type": "string"
     },
     "host": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_host"
+      "type": "string"
     }
   },
   "required": [
     "host"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_ip` in responses.
- */
-export const teams$$devices_ip: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_lan_allow_minutes` in responses.
- */
-export const teams$$devices_lan_allow_minutes: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_lan_allow_subnet_size` in responses.
- */
-export const teams$$devices_lan_allow_subnet_size: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_profile_type` in responses.
- */
-export const teams$$devices_profile_type: JsonSchema = {
-  "enum": [
-    "warp",
-    "browser_extension"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_register_interface_ip_with_dns` in responses.
- */
-export const teams$$devices_register_interface_ip_with_dns: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_sccm_vpn_boundary_support` in responses.
- */
-export const teams$$devices_sccm_vpn_boundary_support: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_schemas-uuid` in responses.
- */
-export const teams$$devices_schemas$$uuid: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -377,27 +239,6 @@ export const teams$$devices_split_tunnel: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_split_tunnel_address` in responses.
- */
-export const teams$$devices_split_tunnel_address: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_split_tunnel_description` in responses.
- */
-export const teams$$devices_split_tunnel_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_split_tunnel_host` in responses.
- */
-export const teams$$devices_split_tunnel_host: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_split_tunnel_include` in responses.
  */
 export const teams$$devices_split_tunnel_include: JsonSchema = {
@@ -409,34 +250,6 @@ export const teams$$devices_split_tunnel_include: JsonSchema = {
       "$ref": "#/$defs/teams-devices_include_split_tunnel_with_host"
     }
   ]
-};
-
-/**
- * The schema of `teams-devices_support_url` in responses.
- */
-export const teams$$devices_support_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_switch_locked` in responses.
- */
-export const teams$$devices_switch_locked: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_tunnel_protocol` in responses.
- */
-export const teams$$devices_tunnel_protocol: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_uninstall_protection` in responses.
- */
-export const teams$$devices_uninstall_protection: JsonSchema = {
-  "type": "boolean"
 };
 
 /**

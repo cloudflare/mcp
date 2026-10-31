@@ -42,7 +42,7 @@ export const workers$$kv_bulk$$get$$result$$with$$metadata: JsonSchema = {
           {
             "properties": {
               "expiration": {
-                "$ref": "#/$defs/workers-kv_expiration"
+                "type": "number"
               },
               "metadata": {
                 "$ref": "#/$defs/workers-kv_any"

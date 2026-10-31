@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_tcpResetsTimeouts_summary",
     title: "Get TCP resets and timeouts summary",
-    description: "Retrieves the distribution of connection stage by TCP connections terminated within the first 10 packets by a reset or timeout.",
+    description: "Retrieves the distribution of connection stage by TCP connections terminated within the first 10 packets by a reset or timeout.\n\nGET /radar/tcp_resets_timeouts/summary",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -79,6 +80,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -566,11 +568,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_tcpResetsTimeouts_timeseriesGroups",
     title: "Get TCP resets and timeouts time series",
-    description: "Retrieves the distribution of connection stage by TCP connections terminated within the first 10 packets by a reset or timeout over time.",
+    description: "Retrieves the distribution of connection stage by TCP connections terminated within the first 10 packets by a reset or timeout over time.\n\nGET /radar/tcp_resets_timeouts/timeseries_groups",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -645,6 +648,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

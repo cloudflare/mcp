@@ -4,20 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `addressing_delegated_account_identifier` in responses.
- */
-export const addressing_delegated_account_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_delegation_identifier` in responses.
- */
-export const addressing_delegation_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_id_response` in responses.
  */
 export const addressing_id_response: JsonSchema = {
@@ -30,7 +16,7 @@ export const addressing_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/addressing_delegation_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -47,22 +33,24 @@ export const addressing_id_response: JsonSchema = {
 export const addressing_ipam$$delegations: JsonSchema = {
   "properties": {
     "cidr": {
-      "$ref": "#/$defs/addressing_cidr"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "delegated_account_id": {
-      "$ref": "#/$defs/addressing_delegated_account_identifier"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_delegation_identifier"
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "parent_prefix_id": {
-      "$ref": "#/$defs/addressing_prefix_identifier"
+      "type": "string"
     }
   },
   "type": "object"

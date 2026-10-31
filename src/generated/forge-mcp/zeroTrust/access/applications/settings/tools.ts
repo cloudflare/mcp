@@ -7,13 +7,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
-import { access_allow_iframe, access_skip_interstitial } from "../outputs.js";
-import {
-  access_allow_iframe as access_allow_iframe$,
-  access_app_id,
-  access_skip_interstitial as access_skip_interstitial$,
-} from "../schemas.js";
 import {
   access_app_settings_response,
   access_single_response_update,
@@ -27,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_settings_update",
     title: "Update Access application settings",
-    description: "Updates Access application settings.",
+    description: "Updates Access application settings.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +28,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_app_settings_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -45,11 +39,20 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/access_app_id"
+              "oneOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -64,24 +67,18 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_allow_iframe": access_allow_iframe$,
-        "access_app_id": access_app_id,
         "access_app_settings_request": access_app_settings_request,
-        "access_identifier": access_identifier,
-        "access_skip_interstitial": access_skip_interstitial$,
-        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response_update",
       $defs: {
-        "access_allow_iframe": access_allow_iframe,
         "access_api-response-single": access_api$$response$$single,
         "access_app_settings_response": access_app_settings_response,
         "access_messages": access_messages,
         "access_single_response_update": access_single_response_update,
-        "access_skip_interstitial": access_skip_interstitial,
       },
     },
     annotations: {
@@ -108,13 +105,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_allow_iframe": access_allow_iframe,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
         "access_app_settings_response": access_app_settings_response,
         "access_messages": access_messages,
         "access_single_response_update": access_single_response_update,
-        "access_skip_interstitial": access_skip_interstitial,
       },
     },
     request: (args) => ({

@@ -239,7 +239,11 @@ export const infra_ServiceCommon: JsonSchema = {
       ]
     },
     "type": {
-      "$ref": "#/$defs/infra_ServiceType"
+      "enum": [
+        "tcp",
+        "http"
+      ],
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",
@@ -286,17 +290,6 @@ export const infra_ServiceHost: JsonSchema = {
       "$ref": "#/$defs/infra_HostnameHost"
     }
   ]
-};
-
-/**
- * The schema of `infra_ServiceType` in responses.
- */
-export const infra_ServiceType: JsonSchema = {
-  "enum": [
-    "tcp",
-    "http"
-  ],
-  "type": "string"
 };
 
 /**

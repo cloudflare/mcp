@@ -29,7 +29,15 @@ export const api$$shield_schema_response_discovery: JsonSchema = {
               "type": "array"
             },
             "timestamp": {
-              "$ref": "#/$defs/api-shield_timestamp-2"
+              "allOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [

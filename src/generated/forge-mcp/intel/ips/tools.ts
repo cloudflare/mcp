@@ -9,14 +9,7 @@ import {
   intel_messages,
   intel_result_info,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
-import {
-  intel_ip,
-  intel_ipv4,
-  intel_ipv6,
-  intel_schemas$$ip,
-  intel_schemas$$response,
-} from "./outputs.js";
+import { intel_schemas$$ip, intel_schemas$$response } from "./outputs.js";
 
 /**
  * The tools of `intel.ips`.
@@ -25,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_ips_get",
     title: "Get IP Overview",
-    description: "Gets the geolocation, ASN, infrastructure type of the ASN, and any security threat categories of an IP address. **Must provide ip query parameters.** For example, `/intel/ip?ipv4=1.1.1.1` or `/intel/ip?ipv6=2001:db8::1`.",
+    description: "Gets the geolocation, ASN, infrastructure type of the ASN, and any security threat categories of an IP address. **Must provide ip query parameters.** For example, `/intel/ip?ipv4=1.1.1.1` or `/intel/ip?ipv6=2001:db8::1`.\n\nGET /accounts/{account_id}/intel/ip",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "ipv4": {
               "type": "string"
@@ -56,18 +51,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_schemas-response",
       $defs: {
         "intel_api-response-collection": intel_api$$response$$collection,
         "intel_api-response-common": intel_api$$response$$common,
-        "intel_ip": intel_ip,
-        "intel_ipv4": intel_ipv4,
-        "intel_ipv6": intel_ipv6,
         "intel_messages": intel_messages,
         "intel_result_info": intel_result_info,
         "intel_schemas-ip": intel_schemas$$ip,
@@ -109,9 +99,6 @@ export const tools: readonly Tool[] = [
         "intel_api-response-collection": intel_api$$response$$collection,
         "intel_api-response-common": intel_api$$response$$common,
         "intel_api-response-common-failure": intel_api$$response$$common$$failure,
-        "intel_ip": intel_ip,
-        "intel_ipv4": intel_ipv4,
-        "intel_ipv6": intel_ipv6,
         "intel_messages": intel_messages,
         "intel_result_info": intel_result_info,
         "intel_schemas-ip": intel_schemas$$ip,

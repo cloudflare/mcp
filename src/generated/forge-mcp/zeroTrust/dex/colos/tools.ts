@@ -7,7 +7,6 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_messages,
 } from "../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../schemas.js";
 import { digital$$experience$$monitoring_colos_response } from "./outputs.js";
 
 /**
@@ -17,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_colos_list",
     title: "List Cloudflare colos",
-    description: "List Cloudflare colos that account's devices were connected to during a time period, sorted by usage starting from the most used colo. Colos without traffic are also returned and sorted alphabetically.",
+    description: "List Cloudflare colos that account's devices were connected to during a time period, sorted by usage starting from the most used colo. Colos without traffic are also returned and sorted alphabetically.\n\nGET /accounts/{account_id}/dex/colos",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -34,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "from": {
               "description": "Start time for connection period in ISO (RFC3339 - ISO 8601) format.",
@@ -63,9 +64,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

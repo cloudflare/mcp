@@ -4,17 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_bgp_filter_match_action` in responses.
- */
-export const magic_bgp_filter_match_action: JsonSchema = {
-  "enum": [
-    "allow",
-    "deny"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `magic_bgp_filter_profile` in responses.
  */
 export const magic_bgp_filter_profile: JsonSchema = {
@@ -27,10 +16,14 @@ export const magic_bgp_filter_profile: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/magic_schemas-identifier"
+      "type": "string"
     },
     "match_action": {
-      "$ref": "#/$defs/magic_bgp_filter_match_action"
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",

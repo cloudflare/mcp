@@ -3,17 +3,13 @@
 
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
-  teams$$devices_components$$schemas$$uuid,
   teams$$devices_cursor_result_info,
-  teams$$devices_email,
   teams$$devices_empty_body,
   teams$$devices_policy_summary,
-  teams$$devices_registration_type,
   teams$$devices_user,
   teams$$devices_v4_error_response,
   teams$$devices_v4_response_message,
 } from "../outputs.js";
-import { teams$$devices_registration_type as teams$$devices_registration_type$ } from "../schemas.js";
 import {
   teams$$devices_registration,
   teams$$devices_registration_device_details,
@@ -26,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_registrations_bulkDelete",
     title: "Delete registrations",
-    description: "Deletes a list of WARP registrations.",
+    description: "Deletes a list of WARP registrations.\n\nDELETE /accounts/{account_id}/devices/registrations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -42,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "A list of registration IDs to delete.",
@@ -61,6 +59,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -168,11 +167,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_registrations_delete",
     title: "Delete registration",
-    description: "Deletes a WARP registration.",
+    description: "Deletes a WARP registration.\n\nDELETE /accounts/{account_id}/devices/registrations/{registration_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -191,6 +191,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -285,11 +286,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_registrations_get",
     title: "Get registration",
-    description: "Fetches a single WARP registration.",
+    description: "Fetches a single WARP registration.\n\nGET /accounts/{account_id}/devices/registrations/{registration_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -305,9 +307,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include": {
-              "description": "Comma-separated list of additional information that should be included in the registration response. Supported values are: \"policy\".\n",
+              "description": "Comma-separated list of additional information that should be included in the registration response. Supported values are: \"policy\".",
               "type": "string"
             }
           },
@@ -317,6 +320,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -347,12 +351,9 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration": teams$$devices_registration,
         "teams-devices_registration_device_details": teams$$devices_registration_device_details,
-        "teams-devices_registration_type": teams$$devices_registration_type,
         "teams-devices_user": teams$$devices_user,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
@@ -402,12 +403,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration": teams$$devices_registration,
         "teams-devices_registration_device_details": teams$$devices_registration_device_details,
-        "teams-devices_registration_type": teams$$devices_registration_type,
         "teams-devices_user": teams$$devices_user,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
@@ -423,11 +421,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_registrations_list",
     title: "List registrations",
-    description: "Lists WARP registrations.",
+    description: "Lists WARP registrations.\n\nGET /accounts/{account_id}/devices/registrations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -439,6 +438,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque token indicating the starting position when requesting the next set of records. A cursor value can be obtained from the result_info.cursor field in the response.",
@@ -456,7 +456,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "include": {
-              "description": "Comma-separated list of additional information that should be included in the registration response. Supported values are: \"policy\".\n",
+              "description": "Comma-separated list of additional information that should be included in the registration response. Supported values are: \"policy\".",
               "type": "string"
             },
             "per_page": {
@@ -469,8 +469,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "registration_type": {
-              "$ref": "#/$defs/teams-devices_registration_type",
-              "description": "Filter by registration client type."
+              "description": "Filter by registration client type.",
+              "enum": [
+                "warp",
+                "browser_extension"
+              ],
+              "type": "string"
             },
             "search": {
               "description": "Filter by registration details.",
@@ -526,9 +530,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_registration_type": teams$$devices_registration_type$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -565,13 +567,10 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
         "teams-devices_cursor_result_info": teams$$devices_cursor_result_info,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration": teams$$devices_registration,
         "teams-devices_registration_device_details": teams$$devices_registration_device_details,
-        "teams-devices_registration_type": teams$$devices_registration_type,
         "teams-devices_user": teams$$devices_user,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
@@ -627,13 +626,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
         "teams-devices_cursor_result_info": teams$$devices_cursor_result_info,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration": teams$$devices_registration,
         "teams-devices_registration_device_details": teams$$devices_registration_device_details,
-        "teams-devices_registration_type": teams$$devices_registration_type,
         "teams-devices_user": teams$$devices_user,
         "teams-devices_v4_error_response": teams$$devices_v4_error_response,
         "teams-devices_v4_response_message": teams$$devices_v4_response_message,

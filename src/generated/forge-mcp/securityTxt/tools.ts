@@ -8,7 +8,6 @@ import {
   security$$center_api$$response$$single,
   security$$center_messages,
 } from "../outputs.js";
-import { security$$center_identifier } from "../schemas.js";
 import { security$$center_securityTxt } from "./outputs.js";
 import { security$$center_securityTxt as security$$center_securityTxt$ } from "./schemas.js";
 
@@ -19,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "securityTxt_delete",
     title: "Deletes security.txt",
-    description: "Removes the security.txt file configuration for a zone. The /.well-known/security.txt endpoint will no longer be served.",
+    description: "Removes the security.txt file configuration for a zone. The /.well-known/security.txt endpoint will no longer be served.\n\nDELETE /zones/{zone_id}/security-center/securitytxt",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
@@ -86,15 +84,16 @@ export const tools: readonly Tool[] = [
   {
     name: "securityTxt_get",
     title: "Retrieves security.txt",
-    description: "Retrieves the current security.txt file configuration for a zone, used for security vulnerability reporting.",
+    description: "Retrieves the current security.txt file configuration for a zone, used for security vulnerability reporting.\n\nGET /zones/{zone_id}/security-center/securitytxt",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -106,9 +105,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -180,7 +177,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityTxt_update",
     title: "Updates security.txt",
-    description: "Updates the security.txt file configuration for a zone, which provides security researchers with vulnerability reporting information.",
+    description: "Updates the security.txt file configuration for a zone, which provides security researchers with vulnerability reporting information.\n\nPUT /zones/{zone_id}/security-center/securitytxt",
     inputSchema: {
       type: "object",
       properties: {
@@ -188,10 +185,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_securityTxt"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -204,8 +202,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security$$center_identifier,
         "security-center_securityTxt": security$$center_securityTxt$,
       },
     },

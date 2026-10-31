@@ -7,29 +7,17 @@ import {
   custom$$indicator$$feeds_api$$response$$single,
   custom$$indicator$$feeds_api_response_common_failure,
   custom$$indicator$$feeds_create_feed_response,
-  custom$$indicator$$feeds_description,
-  custom$$indicator$$feeds_id,
   custom$$indicator$$feeds_indicator_feed_item,
   custom$$indicator$$feeds_indicator_feed_metadata,
   custom$$indicator$$feeds_indicator_feed_metadata_response,
   custom$$indicator$$feeds_indicator_feed_response,
-  custom$$indicator$$feeds_is_attributable,
-  custom$$indicator$$feeds_is_downloadable,
-  custom$$indicator$$feeds_is_public,
   custom$$indicator$$feeds_last_upload_summary,
   custom$$indicator$$feeds_messages,
   custom$$indicator$$feeds_messages$$2,
-  custom$$indicator$$feeds_name,
-  custom$$indicator$$feeds_provider_id,
-  custom$$indicator$$feeds_provider_name,
   custom$$indicator$$feeds_update_public_field_response,
 } from "./outputs.js";
 import {
   custom$$indicator$$feeds_create_feed,
-  custom$$indicator$$feeds_description as custom$$indicator$$feeds_description$,
-  custom$$indicator$$feeds_feed_id,
-  custom$$indicator$$feeds_identifier,
-  custom$$indicator$$feeds_name as custom$$indicator$$feeds_name$,
   custom$$indicator$$feeds_update_public_field_request,
 } from "./schemas.js";
 
@@ -40,7 +28,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_create",
     title: "Create new indicator feed",
-    description: "Creates a new custom threat indicator feed for sharing threat intelligence data.",
+    description: "Creates a new custom threat indicator feed for sharing threat intelligence data.\n\nPOST /accounts/{account_id}/intel/indicator-feeds",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,10 +36,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/custom-indicator-feeds_create_feed"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -64,11 +53,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "custom-indicator-feeds_create_feed": custom$$indicator$$feeds_create_feed,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description$,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name$,
       },
     },
     outputSchema: {
@@ -76,14 +63,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_create_feed_response": custom$$indicator$$feeds_create_feed_response,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
       },
     },
     annotations: {
@@ -115,15 +96,9 @@ export const tools: readonly Tool[] = [
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
         "custom-indicator-feeds_create_feed_response": custom$$indicator$$feeds_create_feed_response,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
       },
     },
     request: (args) => ({
@@ -134,19 +109,20 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_data",
     title: "Get indicator feed data",
-    description: "Retrieves the raw data entries in a custom threat indicator feed.",
+    description: "Retrieves the raw data entries in a custom threat indicator feed.\n\nGET /accounts/{account_id}/intel/indicator-feeds/{feed_id}/data",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "feed_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-              "description": "Indicator feed ID"
+              "description": "Indicator feed ID",
+              "type": "integer"
             }
           },
           "required": [
@@ -159,10 +135,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -198,19 +171,20 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_get",
     title: "Get indicator feed metadata",
-    description: "Retrieves details for a specific custom threat indicator feed.",
+    description: "Retrieves details for a specific custom threat indicator feed.\n\nGET /accounts/{account_id}/intel/indicator-feeds/{feed_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "feed_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-              "description": "Indicator feed ID"
+              "description": "Indicator feed ID",
+              "type": "integer"
             }
           },
           "required": [
@@ -223,27 +197,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata_response",
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_metadata": custom$$indicator$$feeds_indicator_feed_metadata,
         "custom-indicator-feeds_indicator_feed_metadata_response": custom$$indicator$$feeds_indicator_feed_metadata_response,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_last_upload_summary": custom$$indicator$$feeds_last_upload_summary,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
-        "custom-indicator-feeds_provider_id": custom$$indicator$$feeds_provider_id,
-        "custom-indicator-feeds_provider_name": custom$$indicator$$feeds_provider_name,
       },
     },
     annotations: {
@@ -280,19 +243,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_metadata": custom$$indicator$$feeds_indicator_feed_metadata,
         "custom-indicator-feeds_indicator_feed_metadata_response": custom$$indicator$$feeds_indicator_feed_metadata_response,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_last_upload_summary": custom$$indicator$$feeds_last_upload_summary,
         "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
-        "custom-indicator-feeds_provider_id": custom$$indicator$$feeds_provider_id,
-        "custom-indicator-feeds_provider_name": custom$$indicator$$feeds_provider_name,
       },
     },
     request: (args) => ({
@@ -302,15 +257,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_list",
     title: "Get indicator feeds owned by this account",
-    description: "Retrieves details for all accessible custom threat indicator feeds.",
+    description: "Retrieves details for all accessible custom threat indicator feeds.\n\nGET /accounts/{account_id}/intel/indicator-feeds",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -322,23 +278,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_response",
       $defs: {
         "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
         "custom-indicator-feeds_indicator_feed_response": custom$$indicator$$feeds_indicator_feed_response,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
       },
     },
     annotations: {
@@ -375,16 +323,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
         "custom-indicator-feeds_indicator_feed_response": custom$$indicator$$feeds_indicator_feed_response,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
       },
     },
     request: (args) => ({
@@ -394,7 +336,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_update",
     title: "Update indicator feed metadata",
-    description: "Revises details for a specific custom threat indicator feed.",
+    description: "Revises details for a specific custom threat indicator feed.\n\nPUT /accounts/{account_id}/intel/indicator-feeds/{feed_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -402,14 +344,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/custom-indicator-feeds_update_public_field_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "feed_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-              "description": "Indicator feed ID"
+              "description": "Indicator feed ID",
+              "type": "integer"
             }
           },
           "required": [
@@ -423,9 +366,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
         "custom-indicator-feeds_update_public_field_request": custom$$indicator$$feeds_update_public_field_request,
       },
     },
@@ -433,14 +375,8 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/custom-indicator-feeds_update_public_field_response",
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
         "custom-indicator-feeds_update_public_field_response": custom$$indicator$$feeds_update_public_field_response,
       },
     },
@@ -472,15 +408,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
-        "custom-indicator-feeds_description": custom$$indicator$$feeds_description,
-        "custom-indicator-feeds_id": custom$$indicator$$feeds_id,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
-        "custom-indicator-feeds_is_attributable": custom$$indicator$$feeds_is_attributable,
-        "custom-indicator-feeds_is_downloadable": custom$$indicator$$feeds_is_downloadable,
-        "custom-indicator-feeds_is_public": custom$$indicator$$feeds_is_public,
         "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_name": custom$$indicator$$feeds_name,
         "custom-indicator-feeds_update_public_field_response": custom$$indicator$$feeds_update_public_field_response,
       },
     },

@@ -7,7 +7,6 @@ import {
   dlp_messages,
 } from "../../outputs.js";
 import {
-  dlp_RiskLevel,
   dlp_api$$response$$collection,
   dlp_api$$response$$common,
 } from "../outputs.js";
@@ -20,11 +19,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_summary_get",
     title: "Get risk score info for all users in the account",
-    description: "Gets an aggregate summary of risk scores across the account, including distribution and trends.",
+    description: "Gets an aggregate summary of risk scores across the account, including distribution and trends.\n\nGET /accounts/{account_id}/zt_risk_scoring/summary",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -39,6 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -55,7 +56,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_RiskSummary": dlp_RiskSummary,
         "dlp_UserRiskInfo": dlp_UserRiskInfo,
         "dlp_api-response-collection": dlp_api$$response$$collection,
@@ -99,7 +99,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_RiskSummary": dlp_RiskSummary,
         "dlp_UserRiskInfo": dlp_UserRiskInfo,
         "dlp_api-response-collection": dlp_api$$response$$collection,

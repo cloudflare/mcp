@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { email_api$$response$$single, email_messages } from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
 import {
   email_sending_limits_properties,
   email_sending_limits_response_single,
@@ -16,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_limits_get",
     title: "Get sending limits",
-    description: "Returns the current daily sending quota for the account and, when a quota is resolved, the account's current usage against it. Quota is null when not yet available; usage is null when there is no resolved quota or usage is temporarily unavailable.",
+    description: "Returns the current daily sending quota for the account and, when a quota is resolved, the account's current usage against it. Quota is null when not yet available; usage is null when there is no resolved quota or usage is temporarily unavailable.\n\nGET /accounts/{account_id}/email/sending/limits",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -36,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_limits_response_single",

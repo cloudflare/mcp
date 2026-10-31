@@ -99,13 +99,6 @@ export const registrar$$api$$sandbox_domain_check_result: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_name` in responses.
- */
-export const registrar$$api$$sandbox_domain_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api-sandbox_domain_search_response` in responses.
  */
 export const registrar$$api$$sandbox_domain_search_response: JsonSchema = {
@@ -231,7 +224,7 @@ export const registrar$$api$$sandbox_registration: JsonSchema = {
       "type": "string"
     },
     "domain_name": {
-      "$ref": "#/$defs/registrar-api-sandbox_domain_name"
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [

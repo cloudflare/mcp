@@ -12,7 +12,6 @@ import {
   analytics$$sql_IntrospectionDataset,
   analytics$$sql_IntrospectionDatasetKind,
   analytics$$sql_IntrospectionResponse,
-  analytics$$sql_IntrospectionSampling,
 } from "../../../../outputs.js";
 
 /**
@@ -22,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_sql_accounts_introspection_get",
     title: "List available analytics datasets",
-    description: "Returns the dataset catalogue for the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account; account_tag is not required as a query parameter. If supplied, it must match the path account. Dataset and column discovery options are identical to the legacy introspection endpoint.\n\nThis method is alpha.",
+    description: "Returns the dataset catalogue for the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account; account_tag is not required as a query parameter. If supplied, it must match the path account. Dataset and column discovery options are identical to the legacy introspection endpoint.\n\nThis method is alpha.\n\nGET /accounts/{account_id}/analytics/sql/introspection",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account that authorizes and scopes the request.",
@@ -39,14 +39,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dataset_name": {
-              "description": "Return only the dataset with this exact name. An empty value is treated as if the parameter had been omitted, and does not filter the catalogue. A name that matches no dataset in this deployment's catalogue is rejected with `422`; a dataset that exists but is not describable here is rejected identically, so the two cases cannot be told apart.\n\nA Workers Analytics Engine dataset is named in full, as `events.analyticsEngine.<dataset_name>`; the namespace on its own returns every such dataset the account has. A `dataset_name` the account does not have is rejected with `422` like any other unknown name.\n",
+              "description": "Return only the dataset with this exact name. An empty value is treated as if the parameter had been omitted, and does not filter the catalogue. A name that matches no dataset in this deployment's catalogue is rejected with `422`; a dataset that exists but is not describable here is rejected identically, so the two cases cannot be told apart.\n\nA Workers Analytics Engine dataset is named in full, as `events.analyticsEngine.<dataset_name>`; the namespace on its own returns every such dataset the account has. A `dataset_name` the account does not have is rejected with `422` like any other unknown name.",
               "type": "string"
             },
             "include_attributes": {
               "default": false,
-              "description": "Include a capped set of attribute names and types observed during the preceding seven days, as `attributes`. Requires a nonempty dataset_name. Replaces `include_custom_attributes`, which is deprecated.\n",
+              "description": "Include a capped set of attribute names and types observed during the preceding seven days, as `attributes`. Requires a nonempty dataset_name. Replaces `include_custom_attributes`, which is deprecated.",
               "type": "boolean"
             },
             "include_columns": {
@@ -56,17 +57,17 @@ export const tools: readonly Tool[] = [
             },
             "include_custom_attributes": {
               "default": false,
-              "description": "Include a capped set of custom attribute names and types observed during the preceding seven days, as `custom_attributes`. Requires a nonempty dataset_name. Deprecated in favor of `include_attributes`.\n",
+              "description": "Include a capped set of custom attribute names and types observed during the preceding seven days, as `custom_attributes`. Requires a nonempty dataset_name. Deprecated in favor of `include_attributes`.",
               "type": "boolean"
             },
             "include_lex": {
               "default": true,
-              "description": "Include Log Explorer datasets, which are listed only where the account has them. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.\n",
+              "description": "Include Log Explorer datasets, which are listed only where the account has them. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.",
               "type": "boolean"
             },
             "include_wae": {
               "default": true,
-              "description": "Include Workers Analytics Engine datasets, which are discovered from the account's own data. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.\n",
+              "description": "Include Workers Analytics Engine datasets, which are discovered from the account's own data. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.",
               "type": "boolean"
             }
           },
@@ -76,6 +77,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/analytics-sql_IntrospectionResponse",
@@ -87,7 +89,6 @@ export const tools: readonly Tool[] = [
         "analytics-sql_IntrospectionDataset": analytics$$sql_IntrospectionDataset,
         "analytics-sql_IntrospectionDatasetKind": analytics$$sql_IntrospectionDatasetKind,
         "analytics-sql_IntrospectionResponse": analytics$$sql_IntrospectionResponse,
-        "analytics-sql_IntrospectionSampling": analytics$$sql_IntrospectionSampling,
       },
     },
     annotations: {
@@ -137,7 +138,6 @@ export const tools: readonly Tool[] = [
         "analytics-sql_IntrospectionDataset": analytics$$sql_IntrospectionDataset,
         "analytics-sql_IntrospectionDatasetKind": analytics$$sql_IntrospectionDatasetKind,
         "analytics-sql_IntrospectionResponse": analytics$$sql_IntrospectionResponse,
-        "analytics-sql_IntrospectionSampling": analytics$$sql_IntrospectionSampling,
       },
     },
     request: (args) => ({

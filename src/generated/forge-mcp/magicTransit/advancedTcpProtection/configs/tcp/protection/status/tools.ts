@@ -7,7 +7,6 @@ import {
   advanced$$ddos$$protection_api$$response$$common$$failure,
   advanced$$ddos$$protection_messages,
 } from "../../../../../outputs.js";
-import { advanced$$ddos$$protection_identifier } from "../../../../../schemas.js";
 import {
   advanced$$ddos$$protection_ProtectionStatus,
   advanced$$ddos$$protection_protection$$status$$response,
@@ -22,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_protection_status_get",
     title: "Get protection status.",
-    description: "Get the protection status of the account.",
+    description: "Get the protection status of the account.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_protection_status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The account ID."
+              "description": "The account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,9 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_protection-status-response",
@@ -94,7 +92,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_protection_status_update",
     title: "Update protection status.",
-    description: "Update the protection status of the account.",
+    description: "Update the protection status of the account.\n\nPATCH /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_protection_status",
     inputSchema: {
       type: "object",
       properties: {
@@ -103,10 +101,11 @@ export const tools: readonly Tool[] = [
           "description": "The update to apply to the protection status."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The account ID."
+              "description": "The account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -119,9 +118,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_UpdateProtectionStatus": advanced$$ddos$$protection_UpdateProtectionStatus,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {

@@ -9,10 +9,6 @@ import {
   realtimekit_PagingResponse,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
 import { realtimekit_Participant } from "./outputs.js";
 import { realtimekit_ParticipantTokenValidity } from "./schemas.js";
 
@@ -23,18 +19,18 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_create",
     title: "Add a participant",
-    description: "Adds a participant to the given meeting ID.\n\nThis method is beta.",
+    description: "Adds a participant to the given meeting ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "custom_participant_id": {
-              "description": "A unique participant ID. You must specify a unique ID for the participant, for example, UUID, email address, and so on. ",
+              "description": "A unique participant ID. You must specify a unique ID for the participant, for example, UUID, email address, and so on.",
               "type": "string"
             },
             "name": {
-              "description": "(Optional) Name of the participant. ",
+              "description": "(Optional) Name of the participant.",
               "oneOf": [
                 {
                   "type": "string"
@@ -45,7 +41,7 @@ export const tools: readonly Tool[] = [
               ]
             },
             "picture": {
-              "description": "(Optional) A URL to a picture to be used for the participant. ",
+              "description": "(Optional) A URL to a picture to be used for the participant.",
               "oneOf": [
                 {
                   "type": "string"
@@ -72,14 +68,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
@@ -99,10 +96,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_ParticipantTokenValidity": realtimekit_ParticipantTokenValidity,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -224,19 +220,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_delete",
     title: "Delete a participant",
-    description: "Deletes a participant for the given meeting and participant ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation removes the participant from the meeting and revokes their authentication token.",
+    description: "Deletes a participant for the given meeting and participant ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation removes the participant from the meeting and revokes their authentication token.\n\nDELETE /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
@@ -260,10 +257,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -381,19 +375,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_get",
     title: "Fetch a participant's detail",
-    description: "Returns a participant details for the given meeting and participant ID.\n\nThis method is beta.",
+    description: "Returns a participant details for the given meeting and participant ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
@@ -417,10 +412,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -500,19 +492,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_list",
     title: "Fetch all participants of a meeting",
-    description: "Returns all participants detail for the given meeting ID.\n\nThis method is beta.",
+    description: "Returns all participants detail for the given meeting ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
@@ -528,6 +521,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_no": {
               "description": "The page number from which you want your page search results to be displayed.",
@@ -544,10 +538,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -633,7 +624,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_replace",
     title: "Replace a participant's detail",
-    description: "Replaces a participant's details for the given meeting and participant ID.\n\nThis method is beta.",
+    description: "Replaces a participant's details for the given meeting and participant ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -677,14 +668,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
@@ -709,10 +701,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -833,7 +822,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_update",
     title: "Edit a participant's detail",
-    description: "Updates a participant's details for the given meeting and participant ID.\n\nThis method is beta.",
+    description: "Updates a participant's details for the given meeting and participant ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -876,14 +865,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
@@ -908,10 +898,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

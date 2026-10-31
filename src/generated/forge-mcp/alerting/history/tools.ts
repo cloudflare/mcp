@@ -7,23 +7,12 @@ import {
   aaa_api$$response$$common$$2,
   aaa_api$$response$$common$$failure$$3,
   aaa_messages$$3,
-  aaa_policy$$id,
   aaa_result_info$$2,
-  aaa_schemas$$name,
-  aaa_uuid,
 } from "../outputs.js";
-import { aaa_account$$id } from "../schemas.js";
 import {
-  aaa_alert_body,
-  aaa_components$$schemas$$description,
   aaa_history,
   aaa_history_components$$schemas$$response_collection,
-  aaa_mechanism,
-  aaa_mechanism_type,
-  aaa_schemas$$alert_type,
-  aaa_sent,
 } from "./outputs.js";
-import { aaa_before, aaa_per_page } from "./schemas.js";
 
 /**
  * The tools of `alerting.history`.
@@ -32,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_history_list",
     title: "List History",
-    description: "Gets a list of history records for notifications sent to an account. The records are displayed for last `x` number of days based on the zone plan (free = 30, pro = 30, biz = 30, ent = 90).",
+    description: "Gets a list of history records for notifications sent to an account. The records are displayed for last `x` number of days based on the zone plan (free = 30, pro = 30, biz = 30, ent = 90).\n\nGET /accounts/{account_id}/alerting/v3/history",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             }
           },
           "required": [
@@ -49,10 +39,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "before": {
-              "$ref": "#/$defs/aaa_before",
-              "description": "Limit the returned results to history records older than the specified date. This must be a timestamp that conforms to RFC3339."
+              "description": "Limit the returned results to history records older than the specified date. This must be a timestamp that conforms to RFC3339.",
+              "format": "date-time",
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -60,9 +52,9 @@ export const tools: readonly Tool[] = [
               "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/aaa_per_page",
               "default": 25,
-              "description": "Number of items per page."
+              "description": "Number of items per page.",
+              "type": "number"
             },
             "since": {
               "description": "Limit the returned results to history records newer than the specified date. This must be a timestamp that conforms to RFC3339.",
@@ -76,30 +68,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id,
-        "aaa_before": aaa_before,
-        "aaa_per_page": aaa_per_page,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_history_components-schemas-response_collection",
       $defs: {
-        "aaa_alert_body": aaa_alert_body,
         "aaa_api-response-collection": aaa_api$$response$$collection,
         "aaa_api-response-common-2": aaa_api$$response$$common$$2,
-        "aaa_components-schemas-description": aaa_components$$schemas$$description,
         "aaa_history": aaa_history,
         "aaa_history_components-schemas-response_collection": aaa_history_components$$schemas$$response_collection,
-        "aaa_mechanism": aaa_mechanism,
-        "aaa_mechanism_type": aaa_mechanism_type,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_policy-id": aaa_policy$$id,
         "aaa_result_info-2": aaa_result_info$$2,
-        "aaa_schemas-alert_type": aaa_schemas$$alert_type,
-        "aaa_schemas-name": aaa_schemas$$name,
-        "aaa_sent": aaa_sent,
-        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -137,22 +116,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_alert_body": aaa_alert_body,
         "aaa_api-response-collection": aaa_api$$response$$collection,
         "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
-        "aaa_components-schemas-description": aaa_components$$schemas$$description,
         "aaa_history": aaa_history,
         "aaa_history_components-schemas-response_collection": aaa_history_components$$schemas$$response_collection,
-        "aaa_mechanism": aaa_mechanism,
-        "aaa_mechanism_type": aaa_mechanism_type,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_policy-id": aaa_policy$$id,
         "aaa_result_info-2": aaa_result_info$$2,
-        "aaa_schemas-alert_type": aaa_schemas$$alert_type,
-        "aaa_schemas-name": aaa_schemas$$name,
-        "aaa_sent": aaa_sent,
-        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({

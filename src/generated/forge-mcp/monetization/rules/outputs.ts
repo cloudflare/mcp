@@ -4,20 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `monetization_identifier` in responses.
- */
-export const monetization_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `monetization_monetization-price` in responses.
- */
-export const monetization_monetization$$price: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `monetization_monetization-rule` in responses.
  */
 export const monetization_monetization$$rule: JsonSchema = {
@@ -28,7 +14,7 @@ export const monetization_monetization$$rule: JsonSchema = {
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/monetization_identifier"
+          "type": "string"
         }
       },
       "required": [
@@ -113,10 +99,10 @@ export const monetization_monetization$$rule$$input$$fixed$$price: JsonSchema = 
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/monetization_identifier"
+      "type": "string"
     },
     "price": {
-      "$ref": "#/$defs/monetization_monetization-price"
+      "type": "string"
     },
     "scheme": {
       "enum": [
@@ -154,7 +140,7 @@ export const monetization_monetization$$rule$$input$$origin$$controlled: JsonSch
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/monetization_identifier"
+      "type": "string"
     },
     "scheme": {
       "enum": [

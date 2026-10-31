@@ -12,10 +12,7 @@ import {
   waf$$product$$api$$bundle_response$$settings,
   waf$$product$$api$$bundle_settings,
 } from "./outputs.js";
-import {
-  waf$$product$$api$$bundle_settings as waf$$product$$api$$bundle_settings$,
-  waf$$product$$api$$bundle_zone_id,
-} from "./schemas.js";
+import { waf$$product$$api$$bundle_settings as waf$$product$$api$$bundle_settings$ } from "./schemas.js";
 
 /**
  * The tools of `aiSecurity`.
@@ -24,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSecurity_get",
     title: "Get the AI Security for Apps status for a zone.",
-    description: "Get the current AI Security for Apps status for the zone. While enabled, Cloudflare scans prompts sent to endpoints labeled `cf-llm` for personally identifiable information, unsafe topics, and prompt injection attempts.",
+    description: "Get the current AI Security for Apps status for the zone. While enabled, Cloudflare scans prompts sent to endpoints labeled `cf-llm` for personally identifiable information, unsafe topics, and prompt injection attempts.\n\nGET /zones/{zone_id}/ai-security/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-              "description": "Defines the zone."
+              "description": "Defines the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,9 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_zone_id": waf$$product$$api$$bundle_zone_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-settings",
@@ -99,7 +95,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSecurity_update",
     title: "Update the AI Security for Apps status for a zone.",
-    description: "Update the AI Security for Apps status for the zone, enabling or disabling the detection. The detection results are exposed as `cf.llm.prompt.*` fields for use in custom rules and rate limiting rules; changes can take up to a minute to propagate.\n\nConfirm with the user before calling this tool. This operation toggles AI Security for Apps for a zone.",
+    description: "Update the AI Security for Apps status for the zone, enabling or disabling the detection. The detection results are exposed as `cf.llm.prompt.*` fields for use in custom rules and rate limiting rules; changes can take up to a minute to propagate.\n\nConfirm with the user before calling this tool. This operation toggles AI Security for Apps for a zone.\n\nPUT /zones/{zone_id}/ai-security/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -107,10 +103,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_settings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-              "description": "Defines the zone."
+              "description": "Defines the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -123,9 +120,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "waf-product-api-bundle_settings": waf$$product$$api$$bundle_settings$,
-        "waf-product-api-bundle_zone_id": waf$$product$$api$$bundle_zone_id,
       },
     },
     outputSchema: {

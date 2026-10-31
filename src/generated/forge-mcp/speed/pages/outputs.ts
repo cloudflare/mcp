@@ -43,7 +43,11 @@ export const observatory_pages$$response$$collection: JsonSchema = {
                 "$ref": "#/$defs/observatory_labeled_region"
               },
               "scheduleFrequency": {
-                "$ref": "#/$defs/observatory_schedule_frequency"
+                "enum": [
+                  "DAILY",
+                  "WEEKLY"
+                ],
+                "type": "string"
               },
               "tests": {
                 "items": {
@@ -52,7 +56,7 @@ export const observatory_pages$$response$$collection: JsonSchema = {
                 "type": "array"
               },
               "url": {
-                "$ref": "#/$defs/observatory_url"
+                "type": "string"
               }
             },
             "type": "object"

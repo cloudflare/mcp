@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_credentialMonitor_domains_create",
     title: "Create monitored domain",
-    description: "Register a domain for credential monitoring.",
+    description: "Register a domain for credential monitoring.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/credential-monitor/domains",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -42,6 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -183,11 +185,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_credentialMonitor_domains_delete",
     title: "Delete monitored domain",
-    description: "Remove a domain from credential monitoring.",
+    description: "Remove a domain from credential monitoring.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/credential-monitor/domains/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -208,6 +211,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -332,11 +336,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_credentialMonitor_domains_list",
     title: "List monitored domains",
-    description: "List all domains registered for credential monitoring.",
+    description: "List all domains registered for credential monitoring.\n\nGET /accounts/{account_id}/cloudforce-one/v2/credential-monitor/domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -349,6 +354,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -367,6 +373,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

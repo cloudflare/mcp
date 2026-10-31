@@ -4,18 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_bgp_filter_match_action`.
- */
-export const magic_bgp_filter_match_action: JsonSchema = {
-  "description": "Action to take when a route matches one of the targets in this profile",
-  "enum": [
-    "allow",
-    "deny"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `magic_create_bgp_filter_profile_request`.
  */
 export const magic_create_bgp_filter_profile_request: JsonSchema = {
@@ -26,8 +14,12 @@ export const magic_create_bgp_filter_profile_request: JsonSchema = {
       "type": "string"
     },
     "match_action": {
-      "$ref": "#/$defs/magic_bgp_filter_match_action",
-      "description": "Action to take when a route matches one of the targets in this profile"
+      "description": "Action to take when a route matches one of the targets in this profile",
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Friendly name for the filter profile",
@@ -61,8 +53,12 @@ export const magic_update_bgp_filter_profile_request: JsonSchema = {
       "type": "string"
     },
     "match_action": {
-      "$ref": "#/$defs/magic_bgp_filter_match_action",
-      "description": "Action to take when a route matches one of the targets in this profile"
+      "description": "Action to take when a route matches one of the targets in this profile",
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Friendly name for the filter profile",

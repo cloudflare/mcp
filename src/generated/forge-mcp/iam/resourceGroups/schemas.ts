@@ -10,7 +10,6 @@ export const iam_create$$scope: JsonSchema = {
   "description": "A scope is a combination of scope objects which provides additional context.",
   "properties": {
     "key": {
-      "$ref": "#/$defs/iam_create_resource_group_scope_scope_key",
       "description": "This is a combination of pre-defined resource name and identifier (like Account ID etc.)"
     },
     "objects": {
@@ -29,20 +28,12 @@ export const iam_create$$scope: JsonSchema = {
 };
 
 /**
- * The schema of `iam_create_resource_group_scope_scope_key`.
- */
-export const iam_create_resource_group_scope_scope_key: JsonSchema = {
-  "description": "This is a combination of pre-defined resource name and identifier (like Account ID etc.)"
-};
-
-/**
  * The schema of `iam_create_resource_group_scope_scope_object`.
  */
 export const iam_create_resource_group_scope_scope_object: JsonSchema = {
   "description": "A scope object represents any resource that can have actions applied against invite.",
   "properties": {
     "key": {
-      "$ref": "#/$defs/iam_create_resource_group_scope_scope_object_key",
       "description": "This is a combination of pre-defined resource name and identifier (like Zone ID etc.)"
     }
   },
@@ -50,13 +41,6 @@ export const iam_create_resource_group_scope_scope_object: JsonSchema = {
     "key"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_create_resource_group_scope_scope_object_key`.
- */
-export const iam_create_resource_group_scope_scope_object_key: JsonSchema = {
-  "description": "This is a combination of pre-defined resource name and identifier (like Zone ID etc.)"
 };
 
 /**

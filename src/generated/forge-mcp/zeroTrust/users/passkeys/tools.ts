@@ -7,9 +7,7 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../outputs.js";
-import { access_identifier, access_uuid } from "../../schemas.js";
 import { access_delete_authenticator_response } from "../outputs.js";
-import { access_authenticator_id } from "../schemas.js";
 
 /**
  * The tools of `zeroTrust.users.passkeys`.
@@ -18,23 +16,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_users_passkeys_delete",
     title: "Delete a user's passkey",
-    description: "Alias of the authenticator deletion endpoint for passkey management. The identifier is the passkey's authenticator ID from the last-seen identity response. Successful deletion revokes the enrollment and returns a null result.",
+    description: "Alias of the authenticator deletion endpoint for passkey management. The identifier is the passkey's authenticator ID from the last-seen identity response. Successful deletion revokes the enrollment and returns a null result.\n\nDELETE /accounts/{account_id}/access/users/{user_id}/passkeys/{authenticator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "authenticator_id": {
-              "$ref": "#/$defs/access_authenticator_id",
-              "description": "The unique identifier for the MFA device."
+              "description": "The unique identifier for the MFA device.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,11 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_authenticator_id": access_authenticator_id,
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_delete_authenticator_response",

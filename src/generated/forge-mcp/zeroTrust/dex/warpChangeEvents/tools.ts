@@ -7,11 +7,8 @@ import {
   digital$$experience$$monitoring_api$$response$$common,
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../schemas.js";
 import {
-  digital$$experience$$monitoring_timestamp_datetime,
   digital$$experience$$monitoring_warp_config_change_event,
   digital$$experience$$monitoring_warp_config_details,
   digital$$experience$$monitoring_warp_events_response,
@@ -25,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_warpChangeEvents_list",
     title: "List WARP change events.",
-    description: "List WARP configuration and enablement toggle change events by device.",
+    description: "List WARP configuration and enablement toggle change events by device.\n\nGET /accounts/{account_id}/dex/warp-change-events",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,6 +40,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "account_name": {
               "description": "Filter events by account name.",
@@ -107,9 +106,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -129,8 +126,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-collection": digital$$experience$$monitoring_api$$response$$collection,
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_timestamp_datetime": digital$$experience$$monitoring_timestamp_datetime,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
         "digital-experience-monitoring_warp_config_change_event": digital$$experience$$monitoring_warp_config_change_event,
         "digital-experience-monitoring_warp_config_details": digital$$experience$$monitoring_warp_config_details,
         "digital-experience-monitoring_warp_events_response": digital$$experience$$monitoring_warp_events_response,
@@ -180,8 +175,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_timestamp_datetime": digital$$experience$$monitoring_timestamp_datetime,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
         "digital-experience-monitoring_warp_config_change_event": digital$$experience$$monitoring_warp_config_change_event,
         "digital-experience-monitoring_warp_config_details": digital$$experience$$monitoring_warp_config_details,
         "digital-experience-monitoring_warp_events_response": digital$$experience$$monitoring_warp_events_response,

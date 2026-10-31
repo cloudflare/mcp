@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_queries_dismiss",
     title: "Dismiss a match",
-    description: "Mark a specific domain as dismissed for a given query. Dismissals are per-query — dismissing a domain in one query does not affect other queries.",
+    description: "Mark a specific domain as dismissed for a given query. Dismissals are per-query — dismissing a domain in one query does not affect other queries.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/queries/{query_id}/matches/{domain_id}/dismiss",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -37,6 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -126,11 +128,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_queries_get",
     title: "Get queries",
-    description: "Get all saved brand protection queries for an account",
+    description: "Get all saved brand protection queries for an account\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/queries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -142,6 +145,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "type": "string"
@@ -161,6 +165,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -630,11 +635,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_queries_undismiss",
     title: "Undismiss a match",
-    description: "Remove the dismissed status from a specific domain for a given query. Undismissals are per-query — undismissing a domain in one query does not affect other queries.",
+    description: "Remove the dismissed status from a specific domain for a given query. Undismissals are per-query — undismissing a domain in one query does not affect other queries.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/queries/{query_id}/matches/{domain_id}/undismiss",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -657,6 +663,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -18,35 +18,22 @@ export const zero$$trust$$gateway_app$$types: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_app_id` in responses.
- */
-export const zero$$trust$$gateway_app_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `zero-trust-gateway_app_type_id` in responses.
- */
-export const zero$$trust$$gateway_app_type_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `zero-trust-gateway_application` in responses.
  */
 export const zero$$trust$$gateway_application: JsonSchema = {
   "properties": {
     "application_type_id": {
-      "$ref": "#/$defs/zero-trust-gateway_app_type_id"
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_app_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-4"
+      "type": "string"
     }
   },
   "type": "object"
@@ -58,26 +45,20 @@ export const zero$$trust$$gateway_application: JsonSchema = {
 export const zero$$trust$$gateway_application_type: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_app_type_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-4"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-4` in responses.
- */
-export const zero$$trust$$gateway_name$$4: JsonSchema = {
-  "type": "string"
 };
 
 /**

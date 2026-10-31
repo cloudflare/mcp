@@ -9,25 +9,29 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const tunnel_route: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/tunnel_route_comment"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_route_id"
+      "type": "string"
     },
     "network": {
-      "$ref": "#/$defs/tunnel_ip_network"
+      "type": "string"
     },
     "tunnel_id": {
-      "$ref": "#/$defs/tunnel_tunnel_id"
+      "format": "uuid",
+      "type": "string"
     },
     "virtual_network_id": {
-      "$ref": "#/$defs/tunnel_virtual_network_id"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"

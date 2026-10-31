@@ -4,28 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate_authority` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_certificate_authority: JsonSchema = {
-  "enum": [
-    "digicert",
-    "google",
-    "lets_encrypt",
-    "ssl_com"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_created_at` in responses.
- */
-export const tls$$certificates$$and$$hostnames_created_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_custom-hostname` in responses.
  */
 export const tls$$certificates$$and$$hostnames_custom$$hostname: JsonSchema = {
@@ -33,10 +11,10 @@ export const tls$$certificates$$and$$hostnames_custom$$hostname: JsonSchema = {
     {
       "properties": {
         "hostname": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_hostname"
+          "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier"
+          "type": "string"
         },
         "ssl": {
           "$ref": "#/$defs/tls-certificates-and-hostnames_ssl"
@@ -80,14 +58,6 @@ export const tls$$certificates$$and$$hostnames_custom_hostname_api_response_comm
     "success"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_hostname_identifier` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_hostname_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -161,43 +131,28 @@ export const tls$$certificates$$and$$hostnames_custom_metadata: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_custom_origin_server` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_origin_server: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_origin_sni` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_origin_sni: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_customhostname` in responses.
  */
 export const tls$$certificates$$and$$hostnames_customhostname: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "custom_metadata": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_metadata"
     },
     "custom_origin_server": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_origin_server"
+      "type": "string"
     },
     "custom_origin_sni": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_origin_sni"
+      "type": "string"
     },
     "hostname": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier"
+      "type": "string"
     },
     "ownership_verification": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ownership_verification"
@@ -209,20 +164,31 @@ export const tls$$certificates$$and$$hostnames_customhostname: JsonSchema = {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ssl"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-3"
+      "enum": [
+        "active",
+        "pending",
+        "active_redeploying",
+        "moved",
+        "pending_deletion",
+        "deleted",
+        "pending_blocked",
+        "pending_migration",
+        "pending_provisioned",
+        "test_pending",
+        "test_active",
+        "test_active_apex",
+        "test_blocked",
+        "test_failed",
+        "provisioned",
+        "blocked"
+      ],
+      "type": "string"
     },
     "verification_errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_verification_errors"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_hostname` in responses.
- */
-export const tls$$certificates$$and$$hostnames_hostname: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -301,7 +267,13 @@ export const tls$$certificates$$and$$hostnames_ssl: JsonSchema = {
       "type": "string"
     },
     "certificate_authority": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority"
+      "enum": [
+        "digicert",
+        "google",
+        "lets_encrypt",
+        "ssl_com"
+      ],
+      "type": "string"
     },
     "custom_certificate": {
       "type": "string"
@@ -454,31 +426,6 @@ export const tls$$certificates$$and$$hostnames_sslsettings: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-3` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status$$3: JsonSchema = {
-  "enum": [
-    "active",
-    "pending",
-    "active_redeploying",
-    "moved",
-    "pending_deletion",
-    "deleted",
-    "pending_blocked",
-    "pending_migration",
-    "pending_provisioned",
-    "test_pending",
-    "test_active",
-    "test_active_apex",
-    "test_blocked",
-    "test_failed",
-    "provisioned",
-    "blocked"
-  ],
-  "type": "string"
 };
 
 /**

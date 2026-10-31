@@ -16,7 +16,7 @@ export const rum_rule$$id$$response$$single: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/rum_rule_identifier"
+              "type": "string"
             }
           },
           "type": "object"

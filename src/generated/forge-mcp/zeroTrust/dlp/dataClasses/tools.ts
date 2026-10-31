@@ -20,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataClasses_create",
     title: "Creates a new data class",
-    description: "Creates a data class for use in DLP profiles.",
+    description: "Creates a data class for use in DLP profiles.\n\nPOST /accounts/{account_id}/dlp/data_classes",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,6 +29,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new data class."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewDataClass": dlp_NewDataClass,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef$,
@@ -121,11 +123,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataClasses_delete",
     title: "Delete a single data class",
-    description: "Deletes a data class from the account.",
+    description: "Deletes a data class from the account.\n\nDELETE /accounts/{account_id}/dlp/data_classes/{data_class_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -145,6 +148,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -215,11 +219,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataClasses_get",
     title: "Retrieve a specific data class",
-    description: "Gets the configuration for a data class.",
+    description: "Gets the configuration for a data class.\n\nGET /accounts/{account_id}/dlp/data_classes/{data_class_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -239,6 +244,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -312,11 +318,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataClasses_list",
     title: "Retrieve all data classes in an account",
-    description: "Lists data classes configured for the account.",
+    description: "Lists data classes configured for the account.\n\nGET /accounts/{account_id}/dlp/data_classes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -331,6 +338,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -406,7 +414,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataClasses_update",
     title: "Update the attributes of a single data class",
-    description: "Updates the configuration for a data class.",
+    description: "Updates the configuration for a data class.\n\nPUT /accounts/{account_id}/dlp/data_classes/{data_class_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -415,6 +423,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the data class to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -435,6 +444,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_DataClassUpdate": dlp_DataClassUpdate,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef$,

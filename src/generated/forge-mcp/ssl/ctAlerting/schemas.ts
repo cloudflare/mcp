@@ -7,20 +7,12 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_ct_alerting_emails`.
  */
 export const tls$$certificates$$and$$hostnames_ct_alerting_emails: JsonSchema = {
-  "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.\n",
+  "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.",
   "items": {
     "type": "string"
   },
   "maxItems": 100,
   "type": "array"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_ct_alerting_enabled`.
- */
-export const tls$$certificates$$and$$hostnames_ct_alerting_enabled: JsonSchema = {
-  "description": "Whether CT alerting is enabled for the zone.",
-  "type": "boolean"
 };
 
 /**
@@ -32,11 +24,11 @@ export const tls$$certificates$$and$$hostnames_ct_alerting_subscription_update: 
   "properties": {
     "emails": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_emails",
-      "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.\n"
+      "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma."
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_enabled",
-      "description": "Whether CT alerting is enabled for the zone."
+      "description": "Whether CT alerting is enabled for the zone.",
+      "type": "boolean"
     }
   },
   "required": [

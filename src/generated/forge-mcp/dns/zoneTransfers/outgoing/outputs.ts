@@ -14,19 +14,12 @@ export const secondary$$dns_disable_transfer_response: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/secondary-dns_disable_transfer_result"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secondary-dns_disable_transfer_result` in responses.
- */
-export const secondary$$dns_disable_transfer_result: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -40,19 +33,12 @@ export const secondary$$dns_enable_transfer_response: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/secondary-dns_enable_transfer_result"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secondary-dns_enable_transfer_result` in responses.
- */
-export const secondary$$dns_enable_transfer_result: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -66,19 +52,12 @@ export const secondary$$dns_force_response$$2: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/secondary-dns_force_result-2"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secondary-dns_force_result-2` in responses.
- */
-export const secondary$$dns_force_result$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -94,25 +73,25 @@ export const secondary$$dns_single_response_outgoing: JsonSchema = {
         "result": {
           "properties": {
             "checked_time": {
-              "$ref": "#/$defs/secondary-dns_time"
+              "type": "string"
             },
             "created_time": {
-              "$ref": "#/$defs/secondary-dns_time"
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             },
             "last_transferred_time": {
-              "$ref": "#/$defs/secondary-dns_time"
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/secondary-dns_name"
+              "type": "string"
             },
             "peers": {
               "$ref": "#/$defs/secondary-dns_peers"
             },
             "soa_serial": {
-              "$ref": "#/$defs/secondary-dns_soa_serial"
+              "type": "number"
             }
           },
           "type": "object"

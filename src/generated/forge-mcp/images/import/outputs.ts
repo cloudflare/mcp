@@ -4,39 +4,16 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `images_sourcingkit_acceptable_content_type` in responses.
- */
-export const images_sourcingkit_acceptable_content_type: JsonSchema = {
-  "enum": [
-    "image/jpeg",
-    "image/png",
-    "image/webp",
-    "image/gif",
-    "image/avif",
-    "image/heic",
-    "image/svg+xml"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_sourcingkit_conflict_behaviour` in responses.
- */
-export const images_sourcingkit_conflict_behaviour: JsonSchema = {
-  "enum": [
-    "skip",
-    "overwrite"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `images_sourcingkit_migration` in responses.
  */
 export const images_sourcingkit_migration: JsonSchema = {
   "properties": {
     "conflictBehaviour": {
-      "$ref": "#/$defs/images_sourcingkit_conflict_behaviour"
+      "enum": [
+        "skip",
+        "overwrite"
+      ],
+      "type": "string"
     },
     "createdAt": {
       "format": "date-time",
@@ -57,7 +34,16 @@ export const images_sourcingkit_migration: JsonSchema = {
       "oneOf": [
         {
           "items": {
-            "$ref": "#/$defs/images_sourcingkit_acceptable_content_type"
+            "enum": [
+              "image/jpeg",
+              "image/png",
+              "image/webp",
+              "image/gif",
+              "image/avif",
+              "image/heic",
+              "image/svg+xml"
+            ],
+            "type": "string"
           },
           "type": "array"
         },
@@ -126,7 +112,14 @@ export const images_sourcingkit_migration: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/images_sourcingkit_migration_status"
+      "enum": [
+        "pending",
+        "processing",
+        "success",
+        "error",
+        "aborted"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -195,7 +188,21 @@ export const images_sourcingkit_migration_log: JsonSchema = {
       ]
     },
     "logType": {
-      "$ref": "#/$defs/images_sourcingkit_migration_log_type"
+      "enum": [
+        "default",
+        "importSkippedUnsupportedContentType",
+        "importSkippedExcludedContentType",
+        "importSkippedInvalidMedia",
+        "importErrorRetryExhaustion",
+        "importSkippedOversized",
+        "migrationErrorFailedContinuation",
+        "migrationStart",
+        "migrationAbort",
+        "migrationError",
+        "migrationComplete",
+        "importSkippedStorageClass"
+      ],
+      "type": "string"
     },
     "msg": {
       "oneOf": [
@@ -236,27 +243,6 @@ export const images_sourcingkit_migration_log_list_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `images_sourcingkit_migration_log_type` in responses.
- */
-export const images_sourcingkit_migration_log_type: JsonSchema = {
-  "enum": [
-    "default",
-    "importSkippedUnsupportedContentType",
-    "importSkippedExcludedContentType",
-    "importSkippedInvalidMedia",
-    "importErrorRetryExhaustion",
-    "importSkippedOversized",
-    "migrationErrorFailedContinuation",
-    "migrationStart",
-    "migrationAbort",
-    "migrationError",
-    "migrationComplete",
-    "importSkippedStorageClass"
-  ],
-  "type": "string"
 };
 
 /**
@@ -327,7 +313,14 @@ export const images_sourcingkit_migration_progress_response: JsonSchema = {
               ]
             },
             "status": {
-              "$ref": "#/$defs/images_sourcingkit_migration_status"
+              "enum": [
+                "pending",
+                "processing",
+                "success",
+                "error",
+                "aborted"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -355,18 +348,4 @@ export const images_sourcingkit_migration_single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `images_sourcingkit_migration_status` in responses.
- */
-export const images_sourcingkit_migration_status: JsonSchema = {
-  "enum": [
-    "pending",
-    "processing",
-    "success",
-    "error",
-    "aborted"
-  ],
-  "type": "string"
 };

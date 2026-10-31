@@ -131,13 +131,6 @@ export const rulesets_CompressResponseRule: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_Cursor` in responses.
- */
-export const rulesets_Cursor: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_DDoSDynamicRule` in responses.
  */
 export const rulesets_DDoSDynamicRule: JsonSchema = {
@@ -171,7 +164,7 @@ export const rulesets_ExecuteCategoryOverrides: JsonSchema = {
       "action": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_RuleAction"
+            "type": "string"
           },
           {
             "type": "string"
@@ -181,7 +174,7 @@ export const rulesets_ExecuteCategoryOverrides: JsonSchema = {
       "category": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_RuleCategory"
+            "type": "string"
           },
           {
             "type": "string"
@@ -191,7 +184,7 @@ export const rulesets_ExecuteCategoryOverrides: JsonSchema = {
       "enabled": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_RuleEnabled"
+            "type": "boolean"
           },
           {
             "type": "boolean"
@@ -201,7 +194,13 @@ export const rulesets_ExecuteCategoryOverrides: JsonSchema = {
       "sensitivity_level": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ExecuteSensitivityLevel"
+            "enum": [
+              "default",
+              "medium",
+              "low",
+              "eoff"
+            ],
+            "type": "string"
           },
           {
             "type": "string"
@@ -241,7 +240,7 @@ export const rulesets_ExecuteOverrides: JsonSchema = {
     "action": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_RuleAction"
+          "type": "string"
         },
         {
           "type": "string"
@@ -254,7 +253,7 @@ export const rulesets_ExecuteOverrides: JsonSchema = {
     "enabled": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+          "type": "boolean"
         },
         {
           "type": "boolean"
@@ -267,7 +266,13 @@ export const rulesets_ExecuteOverrides: JsonSchema = {
     "sensitivity_level": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_ExecuteSensitivityLevel"
+          "enum": [
+            "default",
+            "medium",
+            "low",
+            "eoff"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -299,7 +304,7 @@ export const rulesets_ExecuteRule: JsonSchema = {
             "id": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/rulesets_RulesetId"
+                  "type": "string"
                 },
                 {
                   "type": "string"
@@ -336,7 +341,7 @@ export const rulesets_ExecuteRuleOverrides: JsonSchema = {
       "action": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_RuleAction"
+            "type": "string"
           },
           {
             "type": "string"
@@ -346,7 +351,7 @@ export const rulesets_ExecuteRuleOverrides: JsonSchema = {
       "enabled": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_RuleEnabled"
+            "type": "boolean"
           },
           {
             "type": "boolean"
@@ -356,7 +361,7 @@ export const rulesets_ExecuteRuleOverrides: JsonSchema = {
       "id": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_RuleId"
+            "type": "string"
           },
           {
             "type": "string"
@@ -369,7 +374,13 @@ export const rulesets_ExecuteRuleOverrides: JsonSchema = {
       "sensitivity_level": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ExecuteSensitivityLevel"
+            "enum": [
+              "default",
+              "medium",
+              "low",
+              "eoff"
+            ],
+            "type": "string"
           },
           {
             "type": "string"
@@ -384,19 +395,6 @@ export const rulesets_ExecuteRuleOverrides: JsonSchema = {
   },
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of `rulesets_ExecuteSensitivityLevel` in responses.
- */
-export const rulesets_ExecuteSensitivityLevel: JsonSchema = {
-  "enum": [
-    "default",
-    "medium",
-    "low",
-    "eoff"
-  ],
-  "type": "string"
 };
 
 /**
@@ -865,7 +863,7 @@ export const rulesets_ResultInfo: JsonSchema = {
         "after": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_Cursor"
+              "type": "string"
             },
             {
               "type": "string"
@@ -883,27 +881,6 @@ export const rulesets_ResultInfo: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_RewriteHeaderExpression` in responses.
- */
-export const rulesets_RewriteHeaderExpression: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_RewriteHeaderOperation` in responses.
- */
-export const rulesets_RewriteHeaderOperation: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_RewriteHeaderValue` in responses.
- */
-export const rulesets_RewriteHeaderValue: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_RewriteHeaders` in responses.
  */
 export const rulesets_RewriteHeaders: JsonSchema = {
@@ -914,7 +891,7 @@ export const rulesets_RewriteHeaders: JsonSchema = {
           "operation": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_RewriteHeaderOperation"
+                "type": "string"
               },
               {
                 "enum": [
@@ -925,7 +902,7 @@ export const rulesets_RewriteHeaders: JsonSchema = {
             ]
           },
           "value": {
-            "$ref": "#/$defs/rulesets_RewriteHeaderValue"
+            "type": "string"
           }
         },
         "required": [
@@ -937,12 +914,12 @@ export const rulesets_RewriteHeaders: JsonSchema = {
       {
         "properties": {
           "expression": {
-            "$ref": "#/$defs/rulesets_RewriteHeaderExpression"
+            "type": "string"
           },
           "operation": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_RewriteHeaderOperation"
+                "type": "string"
               },
               {
                 "enum": [
@@ -964,7 +941,7 @@ export const rulesets_RewriteHeaders: JsonSchema = {
           "operation": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_RewriteHeaderOperation"
+                "type": "string"
               },
               {
                 "enum": [
@@ -975,7 +952,7 @@ export const rulesets_RewriteHeaders: JsonSchema = {
             ]
           },
           "value": {
-            "$ref": "#/$defs/rulesets_RewriteHeaderValue"
+            "type": "string"
           }
         },
         "required": [
@@ -987,12 +964,12 @@ export const rulesets_RewriteHeaders: JsonSchema = {
       {
         "properties": {
           "expression": {
-            "$ref": "#/$defs/rulesets_RewriteHeaderExpression"
+            "type": "string"
           },
           "operation": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_RewriteHeaderOperation"
+                "type": "string"
               },
               {
                 "enum": [
@@ -1014,7 +991,7 @@ export const rulesets_RewriteHeaders: JsonSchema = {
           "operation": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_RewriteHeaderOperation"
+                "type": "string"
               },
               {
                 "enum": [
@@ -1144,13 +1121,6 @@ export const rulesets_RewriteUriQuery: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_RouteHostHeader` in responses.
- */
-export const rulesets_RouteHostHeader: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_RouteOrigin` in responses.
  */
 export const rulesets_RouteOrigin: JsonSchema = {
@@ -1184,7 +1154,7 @@ export const rulesets_RouteRule: JsonSchema = {
         "action_parameters": {
           "properties": {
             "host_header": {
-              "$ref": "#/$defs/rulesets_RouteHostHeader"
+              "type": "string"
             },
             "origin": {
               "$ref": "#/$defs/rulesets_RouteOrigin"
@@ -1225,7 +1195,7 @@ export const rulesets_RouteSNI: JsonSchema = {
 export const rulesets_Rule: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/rulesets_RuleAction"
+      "type": "string"
     },
     "action_parameters": {
       "type": "object"
@@ -1239,7 +1209,7 @@ export const rulesets_Rule: JsonSchema = {
     "enabled": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+          "type": "boolean"
         },
         {
           "type": "boolean"
@@ -1253,7 +1223,7 @@ export const rulesets_Rule: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
+      "type": "string"
     },
     "last_updated": {
       "format": "date-time",
@@ -1280,35 +1250,14 @@ export const rulesets_Rule: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_RuleAction` in responses.
- */
-export const rulesets_RuleAction: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_RuleCategories` in responses.
  */
 export const rulesets_RuleCategories: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/rulesets_RuleCategory"
+    "type": "string"
   },
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of `rulesets_RuleCategory` in responses.
- */
-export const rulesets_RuleCategory: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_RuleEnabled` in responses.
- */
-export const rulesets_RuleEnabled: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -1328,13 +1277,6 @@ export const rulesets_RuleExposedCredentialCheck: JsonSchema = {
     "username_expression"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `rulesets_RuleId` in responses.
- */
-export const rulesets_RuleId: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -1404,7 +1346,7 @@ export const rulesets_Ruleset: JsonSchema = {
     "id": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_RulesetId"
+          "type": "string"
         },
         {
           "type": "string"
@@ -1421,7 +1363,7 @@ export const rulesets_Ruleset: JsonSchema = {
     "version": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_RulesetVersion"
+          "type": "string"
         },
         {
           "type": "string"
@@ -1435,74 +1377,6 @@ export const rulesets_Ruleset: JsonSchema = {
     "version"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `rulesets_RulesetId` in responses.
- */
-export const rulesets_RulesetId: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_RulesetKind` in responses.
- */
-export const rulesets_RulesetKind: JsonSchema = {
-  "enum": [
-    "managed",
-    "custom",
-    "root",
-    "zone"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_RulesetPhase` in responses.
- */
-export const rulesets_RulesetPhase: JsonSchema = {
-  "enum": [
-    "ddos_l4",
-    "ddos_l7",
-    "http_config_settings",
-    "http_custom_errors",
-    "http_log_custom_fields",
-    "http_ratelimit",
-    "http_request_cache_settings",
-    "http_request_dynamic_redirect",
-    "http_request_firewall_custom",
-    "http_request_firewall_managed",
-    "http_request_late_transform",
-    "http_request_origin",
-    "http_request_redirect",
-    "http_request_sanitize",
-    "http_request_sbfm",
-    "http_request_transform",
-    "http_response_cache_settings",
-    "http_response_compression",
-    "http_response_firewall_custom",
-    "http_response_firewall_managed",
-    "http_response_headers_transform",
-    "magic_transit",
-    "magic_transit_ids_managed",
-    "magic_transit_managed",
-    "magic_transit_ratelimit"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_RulesetVersion` in responses.
- */
-export const rulesets_RulesetVersion: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_ScoreIncrement` in responses.
- */
-export const rulesets_ScoreIncrement: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -1524,7 +1398,7 @@ export const rulesets_ScoreRule: JsonSchema = {
         "action_parameters": {
           "properties": {
             "increment": {
-              "$ref": "#/$defs/rulesets_ScoreIncrement"
+              "type": "integer"
             }
           },
           "required": [
@@ -1539,33 +1413,6 @@ export const rulesets_ScoreRule: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `rulesets_ServeErrorAssetName` in responses.
- */
-export const rulesets_ServeErrorAssetName: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_ServeErrorContent` in responses.
- */
-export const rulesets_ServeErrorContent: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_ServeErrorContentType` in responses.
- */
-export const rulesets_ServeErrorContentType: JsonSchema = {
-  "enum": [
-    "application/json",
-    "text/html",
-    "text/plain",
-    "text/xml"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1589,10 +1436,16 @@ export const rulesets_ServeErrorRule: JsonSchema = {
             {
               "properties": {
                 "content_type": {
-                  "$ref": "#/$defs/rulesets_ServeErrorContentType"
+                  "enum": [
+                    "application/json",
+                    "text/html",
+                    "text/plain",
+                    "text/xml"
+                  ],
+                  "type": "string"
                 },
                 "status_code": {
-                  "$ref": "#/$defs/rulesets_ServeErrorStatusCode"
+                  "type": "integer"
                 }
               },
               "required": [
@@ -1605,7 +1458,7 @@ export const rulesets_ServeErrorRule: JsonSchema = {
                 {
                   "properties": {
                     "content": {
-                      "$ref": "#/$defs/rulesets_ServeErrorContent"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1616,7 +1469,7 @@ export const rulesets_ServeErrorRule: JsonSchema = {
                 {
                   "properties": {
                     "asset_name": {
-                      "$ref": "#/$defs/rulesets_ServeErrorAssetName"
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1638,20 +1491,6 @@ export const rulesets_ServeErrorRule: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_ServeErrorStatusCode` in responses.
- */
-export const rulesets_ServeErrorStatusCode: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `rulesets_SetCacheControlCloudflareOnly` in responses.
- */
-export const rulesets_SetCacheControlCloudflareOnly: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `rulesets_SetCacheControlDirective` in responses.
  */
 export const rulesets_SetCacheControlDirective: JsonSchema = {
@@ -1659,12 +1498,16 @@ export const rulesets_SetCacheControlDirective: JsonSchema = {
     {
       "properties": {
         "cloudflare_only": {
-          "$ref": "#/$defs/rulesets_SetCacheControlCloudflareOnly"
+          "type": "boolean"
         },
         "operation": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheControlOperation"
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "type": "string"
             },
             {
               "enum": [
@@ -1683,12 +1526,16 @@ export const rulesets_SetCacheControlDirective: JsonSchema = {
     {
       "properties": {
         "cloudflare_only": {
-          "$ref": "#/$defs/rulesets_SetCacheControlCloudflareOnly"
+          "type": "boolean"
         },
         "operation": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheControlOperation"
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "type": "string"
             },
             {
               "enum": [
@@ -1715,12 +1562,16 @@ export const rulesets_SetCacheControlDirectiveWithQualifiers: JsonSchema = {
     {
       "properties": {
         "cloudflare_only": {
-          "$ref": "#/$defs/rulesets_SetCacheControlCloudflareOnly"
+          "type": "boolean"
         },
         "operation": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheControlOperation"
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "type": "string"
             },
             {
               "enum": [
@@ -1745,12 +1596,16 @@ export const rulesets_SetCacheControlDirectiveWithQualifiers: JsonSchema = {
     {
       "properties": {
         "cloudflare_only": {
-          "$ref": "#/$defs/rulesets_SetCacheControlCloudflareOnly"
+          "type": "boolean"
         },
         "operation": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheControlOperation"
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "type": "string"
             },
             {
               "enum": [
@@ -1777,12 +1632,16 @@ export const rulesets_SetCacheControlDirectiveWithValue: JsonSchema = {
     {
       "properties": {
         "cloudflare_only": {
-          "$ref": "#/$defs/rulesets_SetCacheControlCloudflareOnly"
+          "type": "boolean"
         },
         "operation": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheControlOperation"
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "type": "string"
             },
             {
               "enum": [
@@ -1805,12 +1664,16 @@ export const rulesets_SetCacheControlDirectiveWithValue: JsonSchema = {
     {
       "properties": {
         "cloudflare_only": {
-          "$ref": "#/$defs/rulesets_SetCacheControlCloudflareOnly"
+          "type": "boolean"
         },
         "operation": {
           "allOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheControlOperation"
+              "enum": [
+                "set",
+                "remove"
+              ],
+              "type": "string"
             },
             {
               "enum": [
@@ -1827,17 +1690,6 @@ export const rulesets_SetCacheControlDirectiveWithValue: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `rulesets_SetCacheControlOperation` in responses.
- */
-export const rulesets_SetCacheControlOperation: JsonSchema = {
-  "enum": [
-    "set",
-    "remove"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1943,13 +1795,6 @@ export const rulesets_SetCacheSettingsBrowserTTL: JsonSchema = {
     "mode"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsCache` in responses.
- */
-export const rulesets_SetCacheSettingsCache: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -2177,21 +2022,6 @@ export const rulesets_SetCacheSettingsEdgeTTL: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_SetCacheSettingsOriginCacheControl` in responses.
- */
-export const rulesets_SetCacheSettingsOriginCacheControl: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsOriginErrorPagePassthru` in
- * responses.
- */
-export const rulesets_SetCacheSettingsOriginErrorPagePassthru: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `rulesets_SetCacheSettingsOriginRangeRequests` in responses.
  */
 export const rulesets_SetCacheSettingsOriginRangeRequests: JsonSchema = {
@@ -2209,20 +2039,6 @@ export const rulesets_SetCacheSettingsOriginRangeRequests: JsonSchema = {
     "mode"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsReadTimeout` in responses.
- */
-export const rulesets_SetCacheSettingsReadTimeout: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsRespectStrongEtags` in responses.
- */
-export const rulesets_SetCacheSettingsRespectStrongEtags: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -2250,7 +2066,7 @@ export const rulesets_SetCacheSettingsRule: JsonSchema = {
               "$ref": "#/$defs/rulesets_SetCacheSettingsBrowserTTL"
             },
             "cache": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsCache"
+              "type": "boolean"
             },
             "cache_key": {
               "$ref": "#/$defs/rulesets_SetCacheSettingsCacheKey"
@@ -2262,19 +2078,19 @@ export const rulesets_SetCacheSettingsRule: JsonSchema = {
               "$ref": "#/$defs/rulesets_SetCacheSettingsEdgeTTL"
             },
             "origin_cache_control": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginCacheControl"
+              "type": "boolean"
             },
             "origin_error_page_passthru": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginErrorPagePassthru"
+              "type": "boolean"
             },
             "origin_range_requests": {
               "$ref": "#/$defs/rulesets_SetCacheSettingsOriginRangeRequests"
             },
             "read_timeout": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsReadTimeout"
+              "type": "integer"
             },
             "respect_strong_etags": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsRespectStrongEtags"
+              "type": "boolean"
             },
             "serve_stale": {
               "$ref": "#/$defs/rulesets_SetCacheSettingsServeStale"
@@ -2283,13 +2099,13 @@ export const rulesets_SetCacheSettingsRule: JsonSchema = {
               "$ref": "#/$defs/rulesets_SetCacheSettingsSharedDictionary"
             },
             "strip_etags": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsStripETags"
+              "type": "boolean"
             },
             "strip_last_modified": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsStripLastModified"
+              "type": "boolean"
             },
             "strip_set_cookie": {
-              "$ref": "#/$defs/rulesets_SetCacheSettingsStripSetCookie"
+              "type": "boolean"
             },
             "vary": {
               "$ref": "#/$defs/rulesets_SetCacheSettingsVary"
@@ -2367,27 +2183,6 @@ export const rulesets_SetCacheSettingsStatusCodeTTL: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_SetCacheSettingsStripETags` in responses.
- */
-export const rulesets_SetCacheSettingsStripETags: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsStripLastModified` in responses.
- */
-export const rulesets_SetCacheSettingsStripLastModified: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsStripSetCookie` in responses.
- */
-export const rulesets_SetCacheSettingsStripSetCookie: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `rulesets_SetCacheSettingsVary` in responses.
  */
 export const rulesets_SetCacheSettingsVary: JsonSchema = {
@@ -2460,25 +2255,6 @@ export const rulesets_SetCacheSettingsVaryHeader: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_SetCacheTagsExpression` in responses.
- */
-export const rulesets_SetCacheTagsExpression: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_SetCacheTagsOperation` in responses.
- */
-export const rulesets_SetCacheTagsOperation: JsonSchema = {
-  "enum": [
-    "add",
-    "remove",
-    "set"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_SetCacheTagsRule` in responses.
  */
 export const rulesets_SetCacheTagsRule: JsonSchema = {
@@ -2501,7 +2277,12 @@ export const rulesets_SetCacheTagsRule: JsonSchema = {
                 "operation": {
                   "allOf": [
                     {
-                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                      "enum": [
+                        "add",
+                        "remove",
+                        "set"
+                      ],
+                      "type": "string"
                     },
                     {
                       "enum": [
@@ -2524,12 +2305,17 @@ export const rulesets_SetCacheTagsRule: JsonSchema = {
             {
               "properties": {
                 "expression": {
-                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+                  "type": "string"
                 },
                 "operation": {
                   "allOf": [
                     {
-                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                      "enum": [
+                        "add",
+                        "remove",
+                        "set"
+                      ],
+                      "type": "string"
                     },
                     {
                       "enum": [
@@ -2551,7 +2337,12 @@ export const rulesets_SetCacheTagsRule: JsonSchema = {
                 "operation": {
                   "allOf": [
                     {
-                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                      "enum": [
+                        "add",
+                        "remove",
+                        "set"
+                      ],
+                      "type": "string"
                     },
                     {
                       "enum": [
@@ -2574,12 +2365,17 @@ export const rulesets_SetCacheTagsRule: JsonSchema = {
             {
               "properties": {
                 "expression": {
-                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+                  "type": "string"
                 },
                 "operation": {
                   "allOf": [
                     {
-                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                      "enum": [
+                        "add",
+                        "remove",
+                        "set"
+                      ],
+                      "type": "string"
                     },
                     {
                       "enum": [
@@ -2601,7 +2397,12 @@ export const rulesets_SetCacheTagsRule: JsonSchema = {
                 "operation": {
                   "allOf": [
                     {
-                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                      "enum": [
+                        "add",
+                        "remove",
+                        "set"
+                      ],
+                      "type": "string"
                     },
                     {
                       "enum": [
@@ -2624,12 +2425,17 @@ export const rulesets_SetCacheTagsRule: JsonSchema = {
             {
               "properties": {
                 "expression": {
-                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+                  "type": "string"
                 },
                 "operation": {
                   "allOf": [
                     {
-                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                      "enum": [
+                        "add",
+                        "remove",
+                        "set"
+                      ],
+                      "type": "string"
                     },
                     {
                       "enum": [
@@ -2836,23 +2642,40 @@ export const rulesets_SetConfigRule: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_SkipPhase` in responses.
- */
-export const rulesets_SkipPhase: JsonSchema = {
-  "enum": [
-    "current"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_SkipPhases` in responses.
  */
 export const rulesets_SkipPhases: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/rulesets_RulesetPhase"
+        "enum": [
+          "ddos_l4",
+          "ddos_l7",
+          "http_config_settings",
+          "http_custom_errors",
+          "http_log_custom_fields",
+          "http_ratelimit",
+          "http_request_cache_settings",
+          "http_request_dynamic_redirect",
+          "http_request_firewall_custom",
+          "http_request_firewall_managed",
+          "http_request_late_transform",
+          "http_request_origin",
+          "http_request_redirect",
+          "http_request_sanitize",
+          "http_request_sbfm",
+          "http_request_transform",
+          "http_response_cache_settings",
+          "http_response_compression",
+          "http_response_firewall_custom",
+          "http_response_firewall_managed",
+          "http_response_headers_transform",
+          "magic_transit",
+          "magic_transit_ids_managed",
+          "magic_transit_managed",
+          "magic_transit_ratelimit"
+        ],
+        "type": "string"
       },
       {
         "type": "string"
@@ -2902,7 +2725,10 @@ export const rulesets_SkipRule: JsonSchema = {
         "action_parameters": {
           "properties": {
             "phase": {
-              "$ref": "#/$defs/rulesets_SkipPhase"
+              "enum": [
+                "current"
+              ],
+              "type": "string"
             },
             "phases": {
               "$ref": "#/$defs/rulesets_SkipPhases"
@@ -2914,7 +2740,10 @@ export const rulesets_SkipRule: JsonSchema = {
               "$ref": "#/$defs/rulesets_SkipRules"
             },
             "ruleset": {
-              "$ref": "#/$defs/rulesets_SkipRuleset"
+              "enum": [
+                "current"
+              ],
+              "type": "string"
             },
             "rulesets": {
               "$ref": "#/$defs/rulesets_SkipRulesets"
@@ -2939,7 +2768,7 @@ export const rulesets_SkipRules: JsonSchema = {
     "items": {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_RuleId"
+          "type": "string"
         },
         {
           "type": "string"
@@ -2953,23 +2782,13 @@ export const rulesets_SkipRules: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_SkipRuleset` in responses.
- */
-export const rulesets_SkipRuleset: JsonSchema = {
-  "enum": [
-    "current"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_SkipRulesets` in responses.
  */
 export const rulesets_SkipRulesets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/rulesets_RulesetId"
+        "type": "string"
       },
       {
         "type": "string"

@@ -92,7 +92,7 @@ describe('direct-tool response schema checks', () => {
         'd1_list', // the generated tool whose schema was used
         '200',
         'type',
-        '#/components/schemas/d1_database-identifier/type',
+        '#/components/schemas/d1_database-response/properties/uuid/type',
         '/result/*/uuid',
         source.release
       ],
@@ -133,7 +133,7 @@ describe('direct-tool response schema checks', () => {
       'd1_list',
       '200',
       'type',
-      '#/components/schemas/d1_database-identifier/type'
+      '#/components/schemas/d1_database-response/properties/uuid/type'
     ])
   })
 

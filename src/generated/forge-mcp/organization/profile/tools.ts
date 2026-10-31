@@ -7,10 +7,7 @@ import {
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../../outputs.js";
-import {
-  organizations$$api_ModifyProfileRequest,
-  organizations$$api_OrganizationID,
-} from "../../schemas.js";
+import { organizations$$api_ModifyProfileRequest } from "../../schemas.js";
 import { organizations$$api_ProfileResponse } from "./outputs.js";
 
 /**
@@ -20,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_profile_get",
     title: "Get organization profile",
-    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record. Profiles can be shared across\naccounts and organizations. Only available to members of the organization.",
+    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record. Profiles can be shared across\naccounts and organizations. Only available to members of the organization.\n\nGET /organizations/{organization_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID",
-              "description": "The ID of the organization to retrieve a profile for."
+              "description": "The ID of the organization to retrieve a profile for.",
+              "type": "string"
             }
           },
           "required": [
@@ -40,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/organizations-api_ProfileResponse",
@@ -87,7 +83,7 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_profile_update",
     title: "Modify organization profile.",
-    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record, creating the profile if it does not\nexist. Changes apply to every account and organization sharing that profile. Omitted,\nempty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8\nbytes. Only available to members of the organization.",
+    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record, creating the profile if it does not\nexist. Changes apply to every account and organization sharing that profile. Omitted,\nempty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8\nbytes. Only available to members of the organization.\n\nPUT /organizations/{organization_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
@@ -95,9 +91,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/organizations-api_ModifyProfileRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID"
+              "description": "Organization ID",
+              "type": "string"
             }
           },
           "required": [
@@ -110,9 +108,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "organizations-api_ModifyProfileRequest": organizations$$api_ModifyProfileRequest,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
       },
     },
     annotations: {

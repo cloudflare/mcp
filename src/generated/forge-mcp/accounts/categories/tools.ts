@@ -6,16 +6,11 @@ import {
   alexandria_api$$response$$collection,
   alexandria_api$$response$$common,
   alexandria_api_response_common_failure,
-  alexandria_category_id,
   alexandria_messages,
 } from "../outputs.js";
-import { alexandria_category_id as alexandria_category_id$ } from "../schemas.js";
 import {
   alexandria_categories,
   alexandria_category,
-  alexandria_category_created_at,
-  alexandria_category_description,
-  alexandria_category_name,
   alexandria_get_categories_response,
   alexandria_get_category_response,
 } from "./outputs.js";
@@ -27,19 +22,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_categories_get",
     title: "Get application category",
-    description: "Retrieve an application category by its numeric ID.",
+    description: "Retrieve an application category by its numeric ID.\n\nGET /accounts/{account_id}/resource-library/categories/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
               "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/alexandria_category_id",
-              "description": "Application category ID."
+              "description": "Application category ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -52,19 +48,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "alexandria_category_id": alexandria_category_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/alexandria_get_category_response",
       $defs: {
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_category": alexandria_category,
-        "alexandria_category_created_at": alexandria_category_created_at,
-        "alexandria_category_description": alexandria_category_description,
-        "alexandria_category_id": alexandria_category_id,
-        "alexandria_category_name": alexandria_category_name,
         "alexandria_get_category_response": alexandria_get_category_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -99,10 +89,6 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
         "alexandria_category": alexandria_category,
-        "alexandria_category_created_at": alexandria_category_created_at,
-        "alexandria_category_description": alexandria_category_description,
-        "alexandria_category_id": alexandria_category_id,
-        "alexandria_category_name": alexandria_category_name,
         "alexandria_get_category_response": alexandria_get_category_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -114,11 +100,12 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_categories_list",
     title: "List application categories",
-    description: "List the categories available for classifying applications, ordered by name.\nResults are paginated by `offset` or `cursor`.",
+    description: "List the categories available for classifying applications, ordered by name.\nResults are paginated by `offset` or `cursor`.\n\nGET /accounts/{account_id}/resource-library/categories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -131,9 +118,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
-              "description": "Opaque value from `result_info.cursor` of the previous response. Returns the\ncategories that follow it. `limit` may change between requests. An empty value\nis the same as no cursor. A modified cursor, or one returned by a different list,\nreturns `400`.\n",
+              "description": "Opaque value from `result_info.cursor` of the previous response. Returns the\ncategories that follow it. `limit` may change between requests. An empty value\nis the same as no cursor. A modified cursor, or one returned by a different list,\nreturns `400`.",
               "type": "string"
             },
             "limit": {
@@ -153,6 +141,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/alexandria_get_categories_response",
@@ -161,10 +150,6 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_categories": alexandria_categories,
         "alexandria_category": alexandria_category,
-        "alexandria_category_created_at": alexandria_category_created_at,
-        "alexandria_category_description": alexandria_category_description,
-        "alexandria_category_id": alexandria_category_id,
-        "alexandria_category_name": alexandria_category_name,
         "alexandria_get_categories_response": alexandria_get_categories_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -204,10 +189,6 @@ export const tools: readonly Tool[] = [
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
         "alexandria_categories": alexandria_categories,
         "alexandria_category": alexandria_category,
-        "alexandria_category_created_at": alexandria_category_created_at,
-        "alexandria_category_description": alexandria_category_description,
-        "alexandria_category_id": alexandria_category_id,
-        "alexandria_category_name": alexandria_category_name,
         "alexandria_get_categories_response": alexandria_get_categories_response,
         "alexandria_messages": alexandria_messages,
       },

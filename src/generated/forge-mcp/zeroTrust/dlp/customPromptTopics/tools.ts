@@ -21,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_customPromptTopics_create",
     title: "Create custom prompt topic",
-    description: "Creates a DLP custom prompt topic entry.",
+    description: "Creates a DLP custom prompt topic entry.\n\nPOST /accounts/{account_id}/dlp/custom_prompt_topics",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,6 +30,7 @@ export const tools: readonly Tool[] = [
           "description": "A new custom prompt topic to create."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewCustomPromptTopic": dlp_NewCustomPromptTopic,
       },
@@ -122,11 +124,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_customPromptTopics_delete",
     title: "Delete custom prompt topic",
-    description: "Deletes a DLP custom prompt topic entry.",
+    description: "Deletes a DLP custom prompt topic entry.\n\nDELETE /accounts/{account_id}/dlp/custom_prompt_topics/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -146,6 +149,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -219,11 +223,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_customPromptTopics_get",
     title: "Get custom prompt topic",
-    description: "Fetches a DLP custom prompt topic entry by ID.",
+    description: "Fetches a DLP custom prompt topic entry by ID.\n\nGET /accounts/{account_id}/dlp/custom_prompt_topics/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -243,6 +248,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -314,11 +320,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_customPromptTopics_list",
     title: "List custom prompt topics",
-    description: "Lists all DLP custom prompt topic entries in an account.",
+    description: "Lists all DLP custom prompt topic entries in an account.\n\nGET /accounts/{account_id}/dlp/custom_prompt_topics",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -333,6 +340,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -410,7 +418,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_customPromptTopics_update",
     title: "Update custom prompt topic",
-    description: "Updates a DLP custom prompt topic entry.",
+    description: "Updates a DLP custom prompt topic entry.\n\nPUT /accounts/{account_id}/dlp/custom_prompt_topics/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -419,6 +427,7 @@ export const tools: readonly Tool[] = [
           "description": "Update to be applied to the custom prompt topic."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -439,6 +448,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CustomPromptTopicUpdate": dlp_CustomPromptTopicUpdate,
       },

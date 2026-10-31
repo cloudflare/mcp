@@ -49,7 +49,8 @@ export const infra_Target: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/infra_TargetId"
+      "format": "uuid",
+      "type": "string"
     },
     "ip": {
       "$ref": "#/$defs/infra_IPInfo"
@@ -90,12 +91,4 @@ export const infra_TargetArray: JsonSchema = {
     "$ref": "#/$defs/infra_Target"
   },
   "type": "array"
-};
-
-/**
- * The schema of `infra_TargetId` in responses.
- */
-export const infra_TargetId: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

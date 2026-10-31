@@ -5,27 +5,16 @@ import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   email$$security_ActionLogEntry,
   email$$security_CursorResultInfo,
-  email$$security_DispositionLabel,
-  email$$security_InvestigateId,
-  email$$security_MailboxDestination,
-  email$$security_MessageDeliveryMode,
-  email$$security_MessageDeliveryStatus,
   email$$security_MessageDetails,
-  email$$security_PostfixId,
   email$$security_Validation,
-  email$$security_ValidationStatus,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_messages,
 } from "../../outputs.js";
-import { email$$security_identifier } from "../../schemas.js";
-import { email$$security_BulkJobId } from "../schemas.js";
 import {
   email$$security_BulkActionMessageDetail,
-  email$$security_BulkActionMessageStatus,
   email$$security_BulkMessageActionParams,
 } from "./outputs.js";
-import { email$$security_BulkActionMessageStatus as email$$security_BulkActionMessageStatus$ } from "./schemas.js";
 
 /**
  * The tools of `emailSecurity.bulkActions.messages`.
@@ -34,19 +23,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_bulkActions_messages_list",
     title: "List messages for a bulk action job",
-    description: "Returns the individual messages associated with a bulk action job, including their processing status.\n\nThis method is beta.",
+    description: "Returns the individual messages associated with a bulk action job, including their processing status.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/bulk/{job_id}/messages",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/email-security_BulkJobId",
-              "description": "Identifier of the bulk action job whose messages to list."
+              "description": "Identifier of the bulk action job whose messages to list.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -56,6 +47,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -68,8 +60,16 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/email-security_BulkActionMessageStatus",
-              "description": "Filter the job's messages by their processing status."
+              "description": "Filter the job's messages by their processing status.",
+              "enum": [
+                "PENDING",
+                "PROCESSING",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED",
+                "SKIPPED"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -78,11 +78,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BulkActionMessageStatus": email$$security_BulkActionMessageStatus$,
-        "email-security_BulkJobId": email$$security_BulkJobId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -111,18 +107,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ActionLogEntry": email$$security_ActionLogEntry,
         "email-security_BulkActionMessageDetail": email$$security_BulkActionMessageDetail,
-        "email-security_BulkActionMessageStatus": email$$security_BulkActionMessageStatus,
         "email-security_BulkMessageActionParams": email$$security_BulkMessageActionParams,
         "email-security_CursorResultInfo": email$$security_CursorResultInfo,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryMode": email$$security_MessageDeliveryMode,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_MessageDetails": email$$security_MessageDetails,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
       },
@@ -177,18 +165,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ActionLogEntry": email$$security_ActionLogEntry,
         "email-security_BulkActionMessageDetail": email$$security_BulkActionMessageDetail,
-        "email-security_BulkActionMessageStatus": email$$security_BulkActionMessageStatus,
         "email-security_BulkMessageActionParams": email$$security_BulkMessageActionParams,
         "email-security_CursorResultInfo": email$$security_CursorResultInfo,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryMode": email$$security_MessageDeliveryMode,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_MessageDetails": email$$security_MessageDetails,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,

@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_workloads_create",
     title: "Create a new workload",
-    description: "Creates a reusable workload selector from a filter expression.\n\nThis method is beta.",
+    description: "Creates a reusable workload selector from a filter expression.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/workloads",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreateWorkloadInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreateWorkloadInputBody": cws_CreateWorkloadInputBody,
       },
@@ -104,11 +106,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_workloads_delete",
     title: "Delete a workload",
-    description: "Deletes the workload if it is not targeted by a policy set.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this workload?",
+    description: "Deletes the workload if it is not targeted by a policy set.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this workload?\n\nDELETE /accounts/{account_id}/cws/workloads/{workload_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -130,6 +133,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -179,11 +183,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_workloads_get",
     title: "Get a workload by ID",
-    description: "Returns the workload with the specified ID.\n\nThis method is beta.",
+    description: "Returns the workload with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/workloads/{workload_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -205,6 +210,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseWorkload",
@@ -254,11 +260,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_workloads_list",
     title: "List workloads",
-    description: "Returns a paginated list of workloads in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of workloads in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/workloads",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -271,6 +278,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -316,6 +324,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseWorkload",
@@ -375,7 +384,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_workloads_update",
     title: "Update a workload",
-    description: "Replaces the workload's configuration. Omit tags or use {} to clear them.\n\nThis method is beta.",
+    description: "Replaces the workload's configuration. Omit tags or use {} to clear them.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/workloads/{workload_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -383,6 +392,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_UpdateWorkloadInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -405,6 +415,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_UpdateWorkloadInputBody": cws_UpdateWorkloadInputBody,
       },

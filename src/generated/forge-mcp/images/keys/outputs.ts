@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `images_image_key_name` in responses.
- */
-export const images_image_key_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_key_response_collection` in responses.
  */
 export const images_image_key_response_collection: JsonSchema = {
@@ -30,22 +23,15 @@ export const images_image_key_response_collection: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_key_value` in responses.
- */
-export const images_image_key_value: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_keys` in responses.
  */
 export const images_image_keys: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/images_image_key_name"
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/images_image_key_value"
+      "type": "string"
     }
   },
   "type": "object"

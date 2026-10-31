@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `logcontrol_flag`.
- */
-export const logcontrol_flag: JsonSchema = {
-  "description": "The log retention flag for Logpull API.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `logcontrol_retention_flag`.
  */
 export const logcontrol_retention_flag: JsonSchema = {
@@ -19,8 +11,8 @@ export const logcontrol_retention_flag: JsonSchema = {
     {
       "properties": {
         "flag": {
-          "$ref": "#/$defs/logcontrol_flag",
-          "description": "The log retention flag for Logpull API."
+          "description": "The log retention flag for Logpull API.",
+          "type": "boolean"
         }
       },
       "type": "object"

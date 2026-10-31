@@ -4,27 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `access_allow_authenticate_via_warp` in responses.
- */
-export const access_allow_authenticate_via_warp: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_auth_domain` in responses.
- */
-export const access_auth_domain: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_auto_redirect_to_identity` in responses.
- */
-export const access_auto_redirect_to_identity: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_custom_pages` in responses.
  */
 export const access_custom_pages: JsonSchema = {
@@ -40,13 +19,6 @@ export const access_custom_pages: JsonSchema = {
 };
 
 /**
- * The schema of `access_deny_unmatched_requests` in responses.
- */
-export const access_deny_unmatched_requests: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_deny_unmatched_requests_exempted_zone_names` in
  * responses.
  */
@@ -55,13 +27,6 @@ export const access_deny_unmatched_requests_exempted_zone_names: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_disable_end_user_app_creation` in responses.
- */
-export const access_disable_end_user_app_creation: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -96,13 +61,6 @@ export const access_get_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_is_ui_read_only` in responses.
- */
-export const access_is_ui_read_only: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -183,20 +141,6 @@ export const access_mfa_piv_key_requirements: JsonSchema = {
 };
 
 /**
- * The schema of `access_mfa_required_for_all_apps` in responses.
- */
-export const access_mfa_required_for_all_apps: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_name` in responses.
- */
-export const access_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_org_mfa_config` in responses.
  */
 export const access_org_mfa_config: JsonSchema = {
@@ -234,31 +178,39 @@ export const access_org_mfa_config: JsonSchema = {
 export const access_organizations: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp"
+      "type": "boolean"
     },
     "auth_domain": {
-      "$ref": "#/$defs/access_auth_domain"
+      "type": "string"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity"
+      "type": "boolean"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages"
     },
     "deny_unmatched_requests": {
-      "$ref": "#/$defs/access_deny_unmatched_requests"
+      "type": "boolean"
     },
     "deny_unmatched_requests_exempted_zone_names": {
       "$ref": "#/$defs/access_deny_unmatched_requests_exempted_zone_names"
     },
     "disable_end_user_app_creation": {
-      "$ref": "#/$defs/access_disable_end_user_app_creation"
+      "type": "boolean"
     },
     "is_ui_read_only": {
-      "$ref": "#/$defs/access_is_ui_read_only"
+      "type": "boolean"
     },
     "login_design": {
       "$ref": "#/$defs/access_login_design"
@@ -270,34 +222,42 @@ export const access_organizations: JsonSchema = {
       "$ref": "#/$defs/access_mfa_piv_key_requirements"
     },
     "mfa_required_for_all_apps": {
-      "$ref": "#/$defs/access_mfa_required_for_all_apps"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/access_name"
+      "type": "string"
     },
     "service_token_inactivity": {
       "$ref": "#/$defs/access_service_token_inactivity"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration"
+      "type": "string"
     },
     "strict_service_token_auth": {
-      "$ref": "#/$defs/access_strict_service_token_auth"
+      "type": "boolean"
     },
     "ui_read_only_toggle_reason": {
-      "$ref": "#/$defs/access_ui_read_only_toggle_reason"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "user_seat_expiration_inactive_time": {
-      "$ref": "#/$defs/access_user_seat_expiration_inactive_time"
+      "type": "string"
     },
     "warp_auth_non_browser_401": {
-      "$ref": "#/$defs/access_warp_auth_non_browser_401"
+      "type": "boolean"
     },
     "warp_auth_session_duration": {
-      "$ref": "#/$defs/access_warp_auth_session_duration"
+      "type": "string"
     }
   },
   "type": "object"
@@ -331,13 +291,6 @@ export const access_service_token_inactivity: JsonSchema = {
 };
 
 /**
- * The schema of `access_session_duration` in responses.
- */
-export const access_session_duration: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_single_response` in responses.
  */
 export const access_single_response: JsonSchema = {
@@ -354,39 +307,4 @@ export const access_single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_strict_service_token_auth` in responses.
- */
-export const access_strict_service_token_auth: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_ui_read_only_toggle_reason` in responses.
- */
-export const access_ui_read_only_toggle_reason: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_user_seat_expiration_inactive_time` in responses.
- */
-export const access_user_seat_expiration_inactive_time: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_warp_auth_non_browser_401` in responses.
- */
-export const access_warp_auth_non_browser_401: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_warp_auth_session_duration` in responses.
- */
-export const access_warp_auth_session_duration: JsonSchema = {
-  "type": "string"
 };

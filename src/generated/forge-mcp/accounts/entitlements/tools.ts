@@ -11,7 +11,6 @@ import {
   entitlements_entitlements_response,
   entitlements_feature,
 } from "./outputs.js";
-import { entitlements_identifier } from "./schemas.js";
 
 /**
  * The tools of `accounts.entitlements`.
@@ -20,11 +19,12 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_entitlements_get",
     title: "Get account or zone Entitlements",
-    description: "Returns the list of entitlements (features and their allocations) for a given account or zone. Each entitlement describes a product feature the account or zone is permitted to use and the allocation value (boolean, count, range, enum, or string) that governs its behaviour.",
+    description: "Returns the list of entitlements (features and their allocations) for a given account or zone. Each entitlement describes a product feature the account or zone is permitted to use and the allocation value (boolean, count, range, enum, or string) that governs its behaviour.\n\nGET /{account_or_zone}/{account_or_zone_id}/entitlements",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -35,8 +35,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/entitlements_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,9 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "entitlements_identifier": entitlements_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

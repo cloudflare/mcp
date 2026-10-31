@@ -7,10 +7,6 @@ import {
   botnet$$feed$$api_api$$response$$common$$failure,
   botnet$$feed$$api_messages,
 } from "../../outputs.js";
-import {
-  botnet$$feed$$api_asn,
-  botnet$$feed$$api_identifier,
-} from "../../schemas.js";
 
 /**
  * The tools of `botnetFeed.configs.asn`.
@@ -19,18 +15,19 @@ export const tools: readonly Tool[] = [
   {
     name: "botnetFeed_configs_asn_delete",
     title: "Delete an ASN",
-    description: "Delete an ASN from botnet threat feed for a given user.",
+    description: "Delete an ASN from botnet threat feed for a given user.\n\nDELETE /accounts/{account_id}/botnet_feed/configs/asn/{asn_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/botnet-feed-api_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "asn_id": {
-              "$ref": "#/$defs/botnet-feed-api_asn"
+              "type": "integer"
             }
           },
           "required": [
@@ -43,10 +40,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "botnet-feed-api_asn": botnet$$feed$$api_asn,
-        "botnet-feed-api_identifier": botnet$$feed$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -125,15 +119,16 @@ export const tools: readonly Tool[] = [
   {
     name: "botnetFeed_configs_asn_get",
     title: "Get list of ASNs",
-    description: "Gets a list of all ASNs registered for a user for the DDoS Botnet Feed API.",
+    description: "Gets a list of all ASNs registered for a user for the DDoS Botnet Feed API.\n\nGET /accounts/{account_id}/botnet_feed/configs/asn",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/botnet-feed-api_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -145,9 +140,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "botnet-feed-api_identifier": botnet$$feed$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

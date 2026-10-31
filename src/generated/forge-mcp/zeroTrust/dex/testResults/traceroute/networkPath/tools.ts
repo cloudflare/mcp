@@ -5,18 +5,9 @@ import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_api$$response$$single,
-  digital$$experience$$monitoring_colo,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../../../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_uuid as digital$$experience$$monitoring_uuid$,
-} from "../../../schemas.js";
-import {
-  digital$$experience$$monitoring_execution_context,
-  digital$$experience$$monitoring_traceroute_test_result_network_path_response,
-} from "./outputs.js";
+import { digital$$experience$$monitoring_traceroute_test_result_network_path_response } from "./outputs.js";
 
 /**
  * The tools of `zeroTrust.dex.testResults.traceroute.networkPath`.
@@ -25,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_testResults_traceroute_networkPath_get",
     title: "Get details for a specific traceroute test run",
-    description: "Get a breakdown of hops and performance metrics for a specific traceroute test run",
+    description: "Get a breakdown of hops and performance metrics for a specific traceroute test run\n\nGET /accounts/{account_id}/dex/traceroute-test-results/{test_result_id}/network-path",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "test_result_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier for a specific traceroute test."
+              "description": "Unique identifier for a specific traceroute test.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,10 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -71,11 +60,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
-        "digital-experience-monitoring_execution_context": digital$$experience$$monitoring_execution_context,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_traceroute_test_result_network_path_response": digital$$experience$$monitoring_traceroute_test_result_network_path_response,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -119,11 +105,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
-        "digital-experience-monitoring_execution_context": digital$$experience$$monitoring_execution_context,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_traceroute_test_result_network_path_response": digital$$experience$$monitoring_traceroute_test_result_network_path_response,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({

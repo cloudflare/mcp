@@ -60,13 +60,6 @@ export const zone$$activation_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `zone-activation_identifier` in responses.
- */
-export const zone$$activation_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zone-activation_messages` in responses.
  */
 export const zone$$activation_messages: JsonSchema = {

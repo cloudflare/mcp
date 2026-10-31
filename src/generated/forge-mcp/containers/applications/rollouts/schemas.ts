@@ -15,7 +15,7 @@ export const cc_ContainersCreateApplicationRolloutRequest: JsonSchema = {
     },
     "kind": {
       "default": "full_auto",
-      "description": "Kind of the rollout process. Defaults to \"full_auto\".\n - \"full_auto\": For rolling rollouts, starts progressing steps upon rollout creation. For new_instances rollouts, advances percentage targets automatically after target-version health is observed.\n - \"full_manual\": Requires manually progressing each step in the rollout using the UpdateRollout's action parameter.\n",
+      "description": "Kind of the rollout process. Defaults to \"full_auto\".\n - \"full_auto\": For rolling rollouts, starts progressing steps upon rollout creation. For new_instances rollouts, advances percentage targets automatically after target-version health is observed.\n - \"full_manual\": Requires manually progressing each step in the rollout using the UpdateRollout's action parameter.",
       "enum": [
         "full_auto",
         "full_manual"
@@ -23,11 +23,11 @@ export const cc_ContainersCreateApplicationRolloutRequest: JsonSchema = {
       "type": "string"
     },
     "percentage": {
-      "description": "Initial target version percentage (0-100). Version sync actively replaces instances to match.\nRequired when strategy is \"new_instances\" and kind is \"full_manual\". When strategy is \"new_instances\" and kind is \"full_auto\", omitted percentage starts at 10% or the smallest percentage that targets at least one instance. Unused for \"rolling\".\n",
+      "description": "Initial target version percentage (0-100). Version sync actively replaces instances to match.\nRequired when strategy is \"new_instances\" and kind is \"full_manual\". When strategy is \"new_instances\" and kind is \"full_auto\", omitted percentage starts at 10% or the smallest percentage that targets at least one instance. Unused for \"rolling\".",
       "type": "integer"
     },
     "step_percentage": {
-      "description": "Percentage of rollout to increase in each step when \"steps\" is absent. Applicable values: 5, 10, 20, 25, 50, 100.\nThese create rollouts with 20, 10, 5, 4, 2, 1 steps respectively.\nOnly valid for \"rolling\" strategy.\n",
+      "description": "Percentage of rollout to increase in each step when \"steps\" is absent. Applicable values: 5, 10, 20, 25, 50, 100.\nThese create rollouts with 20, 10, 5, 4, 2, 1 steps respectively.\nOnly valid for \"rolling\" strategy.",
       "enum": [
         5,
         10,
@@ -39,14 +39,14 @@ export const cc_ContainersCreateApplicationRolloutRequest: JsonSchema = {
       "type": "integer"
     },
     "steps": {
-      "description": "Steps defining the rollout process, used when \"step_percentage\" is absent.\nSpecify only one of \"step_percentage\" or \"steps\" when creating a rollout.\n\"steps\" allow granular control over each step.\nOnly valid for \"rolling\" strategy.\n",
+      "description": "Steps defining the rollout process, used when \"step_percentage\" is absent.\nSpecify only one of \"step_percentage\" or \"steps\" when creating a rollout.\n\"steps\" allow granular control over each step.\nOnly valid for \"rolling\" strategy.",
       "items": {
         "$ref": "#/$defs/cc_RolloutStepRequest"
       },
       "type": "array"
     },
     "strategy": {
-      "description": "Strategy used for the rollout.\n- \"rolling\": Step-based rollout with health gates. Actively replaces instances to reach each step's target percentage.\n- \"new_instances\": Percentage control over version distribution. Version sync actively replaces instances to match the configured percentage. The \"full_auto\" kind advances through fixed percentage targets after target-version health is observed.\n",
+      "description": "Strategy used for the rollout.\n- \"rolling\": Step-based rollout with health gates. Actively replaces instances to reach each step's target percentage.\n- \"new_instances\": Percentage control over version distribution. Version sync actively replaces instances to match the configured percentage. The \"full_auto\" kind advances through fixed percentage targets after target-version health is observed.",
       "enum": [
         "rolling",
         "new_instances"

@@ -7,7 +7,6 @@ import {
   security$$center_api$$response$$common$$failure,
   security$$center_messages,
 } from "../../outputs.js";
-import { security$$center_identifier } from "../../schemas.js";
 import {
   security$$center_auditLog,
   security$$center_auditLogResponse,
@@ -20,11 +19,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_auditLogs_get",
     title: "Retrieves Issue Audit Log",
-    description: "Lists audit log entries for a specific Security Center insight, showing changes to its status and classification over time.",
+    description: "Lists audit log entries for a specific Security Center insight, showing changes to its status and classification over time.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/{issue_id}/audit-log",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -35,8 +35,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "issue_id": {
               "type": "string"
@@ -50,6 +50,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "before": {
               "description": "Filter entries changed before this timestamp (RFC 3339).",
@@ -98,9 +99,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_auditLogResponse",
@@ -153,11 +152,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_auditLogs_list",
     title: "Retrieves account or zone Audit Log",
-    description: "Lists audit log entries for all Security Center insights in the account or zone, showing changes to insight status and classification.",
+    description: "Lists audit log entries for all Security Center insights in the account or zone, showing changes to insight status and classification.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/audit-log",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -168,8 +168,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -179,6 +179,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "before": {
               "description": "Filter entries changed before this timestamp (RFC 3339).",
@@ -227,9 +228,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_auditLogResponse",

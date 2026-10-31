@@ -4,28 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic_acl-port-range`.
- */
-export const magic_acl$$port$$range: JsonSchema = {
-  "description": "A valid port range value.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_acl-subnet`.
- */
-export const magic_acl$$subnet: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/magic_ip-address"
-    },
-    {
-      "$ref": "#/$defs/magic_cidr"
-    }
-  ]
-};
-
-/**
  * The schema of `magic_acl_update_request`.
  */
 export const magic_acl_update_request: JsonSchema = {
@@ -35,8 +13,8 @@ export const magic_acl_update_request: JsonSchema = {
       "type": "string"
     },
     "forward_locally": {
-      "$ref": "#/$defs/magic_forward_locally",
-      "description": "The desired forwarding action for this ACL policy. If set to \"false\", the policy will forward traffic to Cloudflare. If set to \"true\", the policy will forward traffic locally on the Magic Connector. If not included in request, will default to false."
+      "description": "The desired forwarding action for this ACL policy. If set to \"false\", the policy will forward traffic to Cloudflare. If set to \"true\", the policy will forward traffic locally on the Magic Connector. If not included in request, will default to false.",
+      "type": "boolean"
     },
     "lan_1": {
       "$ref": "#/$defs/magic_lan-acl-configuration"
@@ -60,8 +38,8 @@ export const magic_acl_update_request: JsonSchema = {
       "type": "array"
     },
     "unidirectional": {
-      "$ref": "#/$defs/magic_unidirectional",
-      "description": "The desired traffic direction for this ACL policy. If set to \"false\", the policy will allow bidirectional traffic. If set to \"true\", the policy will only allow traffic in one direction. If not included in request, will default to false."
+      "description": "The desired traffic direction for this ACL policy. If set to \"false\", the policy will allow bidirectional traffic. If set to \"true\", the policy will only allow traffic in one direction. If not included in request, will default to false.",
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -78,8 +56,8 @@ export const magic_acls_add_single_request: JsonSchema = {
       "type": "string"
     },
     "forward_locally": {
-      "$ref": "#/$defs/magic_forward_locally",
-      "description": "The desired forwarding action for this ACL policy. If set to \"false\", the policy will forward traffic to Cloudflare. If set to \"true\", the policy will forward traffic locally on the Magic Connector. If not included in request, will default to false."
+      "description": "The desired forwarding action for this ACL policy. If set to \"false\", the policy will forward traffic to Cloudflare. If set to \"true\", the policy will forward traffic locally on the Magic Connector. If not included in request, will default to false.",
+      "type": "boolean"
     },
     "lan_1": {
       "$ref": "#/$defs/magic_lan-acl-configuration"
@@ -103,8 +81,8 @@ export const magic_acls_add_single_request: JsonSchema = {
       "type": "array"
     },
     "unidirectional": {
-      "$ref": "#/$defs/magic_unidirectional",
-      "description": "The desired traffic direction for this ACL policy. If set to \"false\", the policy will allow bidirectional traffic. If set to \"true\", the policy will only allow traffic in one direction. If not included in request, will default to false."
+      "description": "The desired traffic direction for this ACL policy. If set to \"false\", the policy will allow bidirectional traffic. If set to \"true\", the policy will only allow traffic in one direction. If not included in request, will default to false.",
+      "type": "boolean"
     }
   },
   "required": [
@@ -113,14 +91,6 @@ export const magic_acls_add_single_request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_forward_locally`.
- */
-export const magic_forward_locally: JsonSchema = {
-  "description": "The desired forwarding action for this ACL policy. If set to \"false\", the policy will forward traffic to Cloudflare. If set to \"true\", the policy will forward traffic locally on the Magic Connector. If not included in request, will default to false.",
-  "type": "boolean"
 };
 
 /**
@@ -139,21 +109,31 @@ export const magic_lan$$acl$$configuration: JsonSchema = {
     "port_ranges": {
       "description": "Array of port ranges on the provided LAN that will be included in the ACL. If no ports or port rangess are provided, communication on any port on this LAN is allowed.",
       "items": {
-        "$ref": "#/$defs/magic_acl-port-range"
+        "description": "A valid port range value.",
+        "type": "string"
       },
       "type": "array"
     },
     "ports": {
       "description": "Array of ports on the provided LAN that will be included in the ACL. If no ports or port ranges are provided, communication on any port on this LAN is allowed.",
       "items": {
-        "$ref": "#/$defs/magic_port"
+        "type": "integer"
       },
       "type": "array"
     },
     "subnets": {
       "description": "Array of subnet IPs within the LAN that will be included in the ACL. If no subnets are provided, communication on any subnets on this LAN are allowed.",
       "items": {
-        "$ref": "#/$defs/magic_acl-subnet"
+        "oneOf": [
+          {
+            "description": "A valid IPv4 address.",
+            "type": "string"
+          },
+          {
+            "description": "A valid CIDR notation representing an IP range.",
+            "type": "string"
+          }
+        ]
       },
       "type": "array"
     }
@@ -162,12 +142,4 @@ export const magic_lan$$acl$$configuration: JsonSchema = {
     "lan_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_unidirectional`.
- */
-export const magic_unidirectional: JsonSchema = {
-  "description": "The desired traffic direction for this ACL policy. If set to \"false\", the policy will allow bidirectional traffic. If set to \"true\", the policy will only allow traffic in one direction. If not included in request, will default to false.",
-  "type": "boolean"
 };

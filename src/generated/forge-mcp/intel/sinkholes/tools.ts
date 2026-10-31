@@ -11,10 +11,7 @@ import {
   intel$$sinkholes_sinkhole_item,
   intel$$sinkholes_sinkhole_single_response,
 } from "./outputs.js";
-import {
-  intel$$sinkholes_identifier,
-  intel$$sinkholes_sinkhole_create_params,
-} from "./schemas.js";
+import { intel$$sinkholes_sinkhole_create_params } from "./schemas.js";
 
 /**
  * The tools of `intel.sinkholes`.
@@ -23,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_create",
     title: "Create a new sinkhole for your account",
-    description: "Create a new sinkhole. Logs of large request bodies will be truncated, but the full request body can be recorded in R2. If you wish to record large request bodies in R2, include the R2 key ID, key secret, and bucket name in the request body.",
+    description: "Create a new sinkhole. Logs of large request bodies will be truncated, but the full request body can be recorded in R2. If you wish to record large request bodies in R2, include the R2 key ID, key secret, and bucket name in the request body.\n\nPOST /accounts/{account_id}/intel/sinkholes",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,10 +28,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/intel-sinkholes_sinkhole_create_params"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare account."
+              "description": "The unique identifier for the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,8 +45,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
         "intel-sinkholes_sinkhole_create_params": intel$$sinkholes_sinkhole_create_params,
       },
     },
@@ -100,15 +98,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_delete",
     title: "Delete a sinkhole",
-    description: "Delete the specified sinkhole. The sinkhole must not have any active ingress rules defined. A 409 response code indicates that this condition is not met.",
+    description: "Delete the specified sinkhole. The sinkhole must not have any active ingress rules defined. A 409 response code indicates that this condition is not met.\n\nDELETE /accounts/{account_id}/intel/sinkholes/{sinkhole_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare account."
+              "description": "The unique identifier for the Cloudflare account.",
+              "type": "string"
             },
             "sinkhole_id": {
               "description": "The unique identifier for the sinkhole.",
@@ -125,9 +124,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_api_response_single_empty",
@@ -177,15 +174,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_get",
     title: "Get a sinkhole",
-    description: "Get the specified sinkhole by its unique identifier.",
+    description: "Get the specified sinkhole by its unique identifier.\n\nGET /accounts/{account_id}/intel/sinkholes/{sinkhole_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare account."
+              "description": "The unique identifier for the Cloudflare account.",
+              "type": "string"
             },
             "sinkhole_id": {
               "description": "The unique identifier for the sinkhole.",
@@ -202,9 +200,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_sinkhole_single_response",
@@ -254,15 +250,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_list",
     title: "List sinkholes owned by this account",
-    description: "Lists sinkholes owned by the account for redirecting malicious traffic.",
+    description: "Lists sinkholes owned by the account for redirecting malicious traffic.\n\nGET /accounts/{account_id}/intel/sinkholes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare account."
+              "description": "The unique identifier for the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -274,9 +271,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_sinkhole_collection_response",
@@ -326,7 +321,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_sinkholes_update",
     title: "Update a sinkhole",
-    description: "Replaces the name or R2 configuration of the specified sinkhole. This is a full replacement. All fields, including r2_secret, must be re-supplied. Omitting r2_secret overwrites the stored value with an empty string.",
+    description: "Replaces the name or R2 configuration of the specified sinkhole. This is a full replacement. All fields, including r2_secret, must be re-supplied. Omitting r2_secret overwrites the stored value with an empty string.\n\nPUT /accounts/{account_id}/intel/sinkholes/{sinkhole_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -334,10 +329,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/intel-sinkholes_sinkhole_create_params"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel-sinkholes_identifier",
-              "description": "The unique identifier for the Cloudflare account."
+              "description": "The unique identifier for the Cloudflare account.",
+              "type": "string"
             },
             "sinkhole_id": {
               "description": "The unique identifier for the sinkhole.",
@@ -355,8 +351,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
         "intel-sinkholes_sinkhole_create_params": intel$$sinkholes_sinkhole_create_params,
       },
     },

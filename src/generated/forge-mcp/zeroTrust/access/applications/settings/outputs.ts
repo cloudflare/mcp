@@ -9,10 +9,10 @@ import type { JsonSchema } from "../../../../_/tool.js";
 export const access_app_settings_response: JsonSchema = {
   "properties": {
     "allow_iframe": {
-      "$ref": "#/$defs/access_allow_iframe"
+      "type": "boolean"
     },
     "skip_interstitial": {
-      "$ref": "#/$defs/access_skip_interstitial"
+      "type": "boolean"
     }
   },
   "type": "object"

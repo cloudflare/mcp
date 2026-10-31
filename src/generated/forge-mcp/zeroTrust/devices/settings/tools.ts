@@ -8,7 +8,6 @@ import {
   teams$$devices_api$$response$$single,
   teams$$devices_messages,
 } from "../outputs.js";
-import { teams$$devices_identifier } from "../schemas.js";
 import {
   teams$$devices_zero$$trust$$account$$device$$settings,
   teams$$devices_zero$$trust$$account$$device$$settings$$response,
@@ -22,14 +21,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_settings_delete",
     title: "Reset device settings",
-    description: "Resets the current device settings for a Zero Trust account.",
+    description: "Resets the current device settings for a Zero Trust account.\n\nDELETE /accounts/{account_id}/devices/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -41,9 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response",
@@ -94,14 +92,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_settings_get",
     title: "Get device settings",
-    description: "Describes the current device settings for a Zero Trust account.",
+    description: "Describes the current device settings for a Zero Trust account.\n\nGET /accounts/{account_id}/devices/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -113,9 +112,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response",
@@ -161,7 +158,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_settings_update",
     title: "Update device settings",
-    description: "Updates the device settings for a Zero Trust account.",
+    description: "Updates the device settings for a Zero Trust account.\n\nPATCH /accounts/{account_id}/devices/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -169,9 +166,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -184,8 +182,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
         "teams-devices_zero-trust-account-device-settings": teams$$devices_zero$$trust$$account$$device$$settings$,
       },
     },

@@ -4,29 +4,21 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `logpush_transformer_code`.
- */
-export const logpush_transformer_code: JsonSchema = {
-  "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset.",
-  "type": "string"
-};
-
-/**
  * The schema of `logpush_transformer_create_request`.
  */
 export const logpush_transformer_create_request: JsonSchema = {
   "properties": {
     "code": {
-      "$ref": "#/$defs/logpush_transformer_code",
-      "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset."
+      "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/logpush_transformer_description",
-      "description": "Optional customer-provided description."
+      "description": "Optional customer-provided description.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/logpush_transformer_name",
-      "description": "Customer-provided name for identification."
+      "description": "Customer-provided name for identification.",
+      "type": "string"
     }
   },
   "required": [
@@ -34,30 +26,6 @@ export const logpush_transformer_create_request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `logpush_transformer_description`.
- */
-export const logpush_transformer_description: JsonSchema = {
-  "description": "Optional customer-provided description.",
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_transformer_identifier`.
- */
-export const logpush_transformer_identifier: JsonSchema = {
-  "description": "The transformer ID.",
-  "type": "integer"
-};
-
-/**
- * The schema of `logpush_transformer_name`.
- */
-export const logpush_transformer_name: JsonSchema = {
-  "description": "Customer-provided name for identification.",
-  "type": "string"
 };
 
 /**
@@ -70,8 +38,8 @@ export const logpush_transformer_preview_request: JsonSchema = {
       "type": "object"
     },
     "sql": {
-      "$ref": "#/$defs/logpush_transformer_code",
-      "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset."
+      "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset.",
+      "type": "string"
     }
   },
   "required": [
@@ -87,16 +55,16 @@ export const logpush_transformer_preview_request: JsonSchema = {
 export const logpush_transformer_update_request: JsonSchema = {
   "properties": {
     "code": {
-      "$ref": "#/$defs/logpush_transformer_code",
-      "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset."
+      "description": "The SQL transformer query. Maximum 32 KB. The query must contain a FROM clause referencing a valid logpush dataset.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/logpush_transformer_description",
-      "description": "Optional customer-provided description."
+      "description": "Optional customer-provided description.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/logpush_transformer_name",
-      "description": "Customer-provided name for identification."
+      "description": "Customer-provided name for identification.",
+      "type": "string"
     }
   },
   "required": [

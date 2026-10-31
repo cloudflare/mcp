@@ -9,10 +9,6 @@ import {
   advanced$$ddos$$protection_messages,
 } from "../../../outputs.js";
 import {
-  advanced$$ddos$$protection_identifier,
-  advanced$$ddos$$protection_uuid,
-} from "../../../schemas.js";
-import {
   advanced$$ddos$$protection_Prefix,
   advanced$$ddos$$protection_prefix$$list$$response,
   advanced$$ddos$$protection_prefix$$response,
@@ -29,15 +25,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_bulkDelete",
     title: "Delete all prefixes.",
-    description: "Delete all prefixes for an account.",
+    description: "Delete all prefixes for an account.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,9 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -96,7 +91,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_create",
     title: "Create prefix.",
-    description: "Create a prefix for an account.",
+    description: "Create a prefix for an account.\n\nPOST /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes",
     inputSchema: {
       type: "object",
       properties: {
@@ -105,10 +100,11 @@ export const tools: readonly Tool[] = [
           "description": "The new prefix to create."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -121,9 +117,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_NewPrefix": advanced$$ddos$$protection_NewPrefix,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {
@@ -174,19 +170,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_delete",
     title: "Delete prefix.",
-    description: "Delete the prefix for an account given a UUID.",
+    description: "Delete the prefix for an account given a UUID.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes/{prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the prefix to delete."
+              "description": "The UUID of the prefix to delete.",
+              "type": "string"
             }
           },
           "required": [
@@ -199,10 +196,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -247,19 +241,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_get",
     title: "Get prefix.",
-    description: "Get a prefix specified by the given UUID.",
+    description: "Get a prefix specified by the given UUID.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes/{prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the prefix."
+              "description": "The UUID of the prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -272,10 +267,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_prefix-response",
@@ -325,15 +317,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_list",
     title: "List all prefixes.",
-    description: "List all prefixes for an account.",
+    description: "List all prefixes for an account.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -342,6 +335,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The direction of ordering (ASC or DESC). Defaults to 'ASC'.",
@@ -366,9 +360,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_prefix-list-response",
@@ -426,7 +418,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_prefixes_update",
     title: "Update prefix.",
-    description: "Update a prefix specified by the given UUID.",
+    description: "Update a prefix specified by the given UUID.\n\nPATCH /accounts/{account_id}/magic/advanced_tcp_protection/configs/prefixes/{prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -435,14 +427,15 @@ export const tools: readonly Tool[] = [
           "description": "The updates to apply to the prefix."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the prefix to update."
+              "description": "The UUID of the prefix to update.",
+              "type": "string"
             }
           },
           "required": [
@@ -456,10 +449,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_PrefixUpdate": advanced$$ddos$$protection_PrefixUpdate,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
       },
     },
     outputSchema: {

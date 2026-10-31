@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_postQuantum_origin_summary",
     title: "Get Origin Post-Quantum Data Summary",
-    description: "Returns a summary of origin post-quantum data grouped by the specified dimension.",
+    description: "Returns a summary of origin post-quantum data grouped by the specified dimension.\n\nGET /radar/post_quantum/origin/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the origin post-quantum data dimension by which to group the results.",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`. When requesting comparison series, every series must resolve to the same duration as the main series. Each `dateStart`/`dateEnd` is floored to the nearest 15 minutes before evaluation, so windows whose durations match only before alignment may be rejected.",
@@ -76,6 +78,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -518,11 +521,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_postQuantum_origin_timeseriesGroups",
     title: "Get Origin Post-Quantum Data Over Time",
-    description: "Returns a timeseries of origin post-quantum data grouped by the specified dimension.",
+    description: "Returns a timeseries of origin post-quantum data grouped by the specified dimension.\n\nGET /radar/post_quantum/origin/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the origin post-quantum data dimension by which to group the results.",
@@ -538,6 +542,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`. When requesting comparison series, every series must resolve to the same duration as the main series. Each `dateStart`/`dateEnd` is floored to the nearest 15 minutes before evaluation, so windows whose durations match only before alignment may be rejected.",
@@ -584,6 +589,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -6,45 +6,29 @@ import {
   magic_api$$response$$common,
   magic_api$$response$$common$$failure,
   magic_api$$response$$single,
-  magic_automatic_return_routing,
   magic_health_check_base,
   magic_health_check_target,
-  magic_interface_address6,
   magic_messages,
-  magic_schemas$$created_on,
-  magic_schemas$$identifier,
-  magic_schemas$$modified_on,
 } from "../outputs.js";
 import {
-  magic_automatic_return_routing as magic_automatic_return_routing$,
   magic_health_check_base as magic_health_check_base$,
   magic_health_check_target as magic_health_check_target$,
-  magic_identifier,
-  magic_interface_address6 as magic_interface_address6$,
 } from "../schemas.js";
 import {
   magic_components$$schemas$$modified_tunnels_collection_response,
-  magic_components$$schemas$$name,
   magic_components$$schemas$$tunnel_modified_response,
   magic_components$$schemas$$tunnel_single_response,
   magic_components$$schemas$$tunnels_collection_response,
   magic_gre,
   magic_interconnect,
   magic_interconnect_bgp_config,
-  magic_interconnect_components$$schemas$$description,
   magic_interconnect_health_check,
-  magic_interface_address_interconnect,
-  magic_schemas$$mtu,
 } from "./outputs.js";
 import {
-  magic_components$$schemas$$name as magic_components$$schemas$$name$,
   magic_gre as magic_gre$,
   magic_interconnect_bgp_config as magic_interconnect_bgp_config$,
-  magic_interconnect_components$$schemas$$description as magic_interconnect_components$$schemas$$description$,
   magic_interconnect_health_check as magic_interconnect_health_check$,
   magic_interconnect_tunnel_update_request,
-  magic_interface_address_interconnect as magic_interface_address_interconnect$,
-  magic_schemas$$mtu as magic_schemas$$mtu$,
 } from "./schemas.js";
 
 /**
@@ -54,7 +38,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cfInterconnects_bulkUpdate",
     title: "Update multiple interconnects",
-    description: "Updates multiple interconnects associated with an account. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes.",
+    description: "Updates multiple interconnects associated with an account. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes.\n\nPUT /accounts/{account_id}/magic/cf_interconnects",
     inputSchema: {
       type: "object",
       properties: {
@@ -62,6 +46,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "x-magic-new-hc-target": {
               "description": "If true, the health check target in the request and response bodies will be presented using the new object format. Defaults to false.",
@@ -71,10 +56,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -87,32 +73,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_components-schemas-modified_tunnels_collection_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
         "magic_components-schemas-modified_tunnels_collection_response": magic_components$$schemas$$modified_tunnels_collection_response,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     annotations: {
@@ -149,23 +124,14 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
         "magic_components-schemas-modified_tunnels_collection_response": magic_components$$schemas$$modified_tunnels_collection_response,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     request: (args) => ({
@@ -179,11 +145,12 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cfInterconnects_get",
     title: "List interconnect Details",
-    description: "Lists details for a specific interconnect.",
+    description: "Lists details for a specific interconnect.\n\nGET /accounts/{account_id}/magic/cf_interconnects/{cf_interconnect_id}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "x-magic-new-hc-target": {
               "description": "If true, the health check target in the response body will be presented using the new object format. Defaults to false.",
@@ -193,14 +160,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "cf_interconnect_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -213,32 +181,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_components-schemas-tunnel_single_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_components-schemas-tunnel_single_response": magic_components$$schemas$$tunnel_single_response,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     annotations: {
@@ -277,23 +234,14 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_components-schemas-tunnel_single_response": magic_components$$schemas$$tunnel_single_response,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     request: (args) => ({
@@ -306,11 +254,12 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cfInterconnects_list",
     title: "List interconnects",
-    description: "Lists interconnects associated with an account.",
+    description: "Lists interconnects associated with an account.\n\nGET /accounts/{account_id}/magic/cf_interconnects",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "x-magic-new-hc-target": {
               "description": "If true, the health check target in the response body will be presented using the new object format. Defaults to false.",
@@ -320,10 +269,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -335,32 +285,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_components-schemas-tunnels_collection_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_components-schemas-tunnels_collection_response": magic_components$$schemas$$tunnels_collection_response,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     annotations: {
@@ -399,23 +338,14 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_components-schemas-tunnels_collection_response": magic_components$$schemas$$tunnels_collection_response,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     request: (args) => ({
@@ -428,7 +358,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cfInterconnects_update",
     title: "Update interconnect",
-    description: "Updates a specific interconnect associated with an account. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes.",
+    description: "Updates a specific interconnect associated with an account. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes.\n\nPUT /accounts/{account_id}/magic/cf_interconnects/{cf_interconnect_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -436,6 +366,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_interconnect_tunnel_update_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "x-magic-new-hc-target": {
               "description": "If true, the health check target in the request and response bodies will be presented using the new object format. Defaults to false.",
@@ -445,14 +376,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "cf_interconnect_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -466,20 +398,14 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_automatic_return_routing": magic_automatic_return_routing$,
-        "magic_components-schemas-name": magic_components$$schemas$$name$,
         "magic_gre": magic_gre$,
         "magic_health_check_base": magic_health_check_base$,
         "magic_health_check_target": magic_health_check_target$,
-        "magic_identifier": magic_identifier,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config$,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description$,
         "magic_interconnect_health_check": magic_interconnect_health_check$,
         "magic_interconnect_tunnel_update_request": magic_interconnect_tunnel_update_request,
-        "magic_interface_address6": magic_interface_address6$,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect$,
-        "magic_schemas-mtu": magic_schemas$$mtu$,
       },
     },
     outputSchema: {
@@ -487,23 +413,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_components-schemas-tunnel_modified_response": magic_components$$schemas$$tunnel_modified_response,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     annotations: {
@@ -540,23 +457,14 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_automatic_return_routing": magic_automatic_return_routing,
-        "magic_components-schemas-name": magic_components$$schemas$$name,
         "magic_components-schemas-tunnel_modified_response": magic_components$$schemas$$tunnel_modified_response,
         "magic_gre": magic_gre,
         "magic_health_check_base": magic_health_check_base,
         "magic_health_check_target": magic_health_check_target,
         "magic_interconnect": magic_interconnect,
         "magic_interconnect_bgp_config": magic_interconnect_bgp_config,
-        "magic_interconnect_components-schemas-description": magic_interconnect_components$$schemas$$description,
         "magic_interconnect_health_check": magic_interconnect_health_check,
-        "magic_interface_address6": magic_interface_address6,
-        "magic_interface_address_interconnect": magic_interface_address_interconnect,
         "magic_messages": magic_messages,
-        "magic_schemas-created_on": magic_schemas$$created_on,
-        "magic_schemas-identifier": magic_schemas$$identifier,
-        "magic_schemas-modified_on": magic_schemas$$modified_on,
-        "magic_schemas-mtu": magic_schemas$$mtu,
       },
     },
     request: (args) => ({

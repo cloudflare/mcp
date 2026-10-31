@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_create",
     title: "Create a new MCP Server",
-    description: "Creates a new MCP server for connecting to an upstream MCP endpoint.\n\nThis method is beta.",
+    description: "Creates a new MCP server for connecting to an upstream MCP endpoint.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/access/ai-controls/mcp/servers",
     inputSchema: {
       type: "object",
       properties: {
@@ -132,6 +132,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -146,6 +147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -722,11 +724,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_delete",
     title: "Delete an MCP Server",
-    description: "Deletes an MCP server from the account.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the MCP server, removes it from every portal, and deletes its stored OAuth secrets.",
+    description: "Deletes an MCP server from the account.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the MCP server, removes it from every portal, and deletes its stored OAuth secrets.\n\nDELETE /accounts/{account_id}/access/ai-controls/mcp/servers/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -746,6 +749,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1314,11 +1318,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_list",
     title: "List MCP Servers",
-    description: "Lists all MCP servers configured for the account.\n\nThis method is beta.",
+    description: "Lists all MCP servers configured for the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/servers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1330,6 +1335,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -1350,6 +1356,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1927,11 +1934,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_read",
     title: "Read the details of an MCP Server",
-    description: "Retrieves an MCP server's configuration and capability sync state.\n\nThis method is beta.",
+    description: "Retrieves an MCP server's configuration and capability sync state.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/servers/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1951,6 +1959,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2520,11 +2529,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_sync",
     title: "Sync MCP Server Capabilities",
-    description: "Syncs an MCP server's capabilities and returns the updated server state, including any connection errors.\n\nThis method is beta.",
+    description: "Syncs an MCP server's capabilities and returns the updated server state, including any connection errors.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/access/ai-controls/mcp/servers/{id}/sync",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2544,6 +2554,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2712,11 +2723,12 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_toolCallAnalytics",
     title: "Per-server MCP tool-call timeseries",
-    description: "Returns daily or monthly tool-call counts for a server.\n\nThis method is beta.",
+    description: "Returns daily or monthly tool-call counts for a server.\n\nThis method is beta.\n\nGET /accounts/{account_id}/access/ai-controls/mcp/analytics/servers/{server_id}/tool-calls/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2732,6 +2744,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggregate": {
               "default": "false",
@@ -2775,6 +2788,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3002,7 +3016,7 @@ export const tools: readonly Tool[] = [
   {
     name: "mcp_servers_update",
     title: "Update an MCP Server",
-    description: "Updates an MCP server's configuration and credentials.\n\nThis method is beta.",
+    description: "Updates an MCP server's configuration and credentials.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/access/ai-controls/mcp/servers/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -3101,6 +3115,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3120,6 +3135,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

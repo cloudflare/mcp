@@ -9,47 +9,15 @@ import type { JsonSchema } from "../../_/tool.js";
 export const custom$$indicator$$feeds_create_feed: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description",
-      "description": "The description of the example test"
+      "description": "The description of the example test",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name",
-      "description": "The name of the indicator feed"
+      "description": "The name of the indicator feed",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `custom-indicator-feeds_description`.
- */
-export const custom$$indicator$$feeds_description: JsonSchema = {
-  "description": "The description of the example test",
-  "type": "string"
-};
-
-/**
- * The schema of `custom-indicator-feeds_feed_id`.
- */
-export const custom$$indicator$$feeds_feed_id: JsonSchema = {
-  "description": "Indicator feed ID",
-  "type": "integer"
-};
-
-/**
- * The schema of `custom-indicator-feeds_identifier`.
- */
-export const custom$$indicator$$feeds_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
-};
-
-/**
- * The schema of `custom-indicator-feeds_name`.
- */
-export const custom$$indicator$$feeds_name: JsonSchema = {
-  "description": "The name of the indicator feed",
-  "type": "string"
 };
 
 /**

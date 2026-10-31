@@ -7,16 +7,11 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../outputs.js";
-import { access_identifier } from "../../schemas.js";
 import {
-  access_grant_trust_to_all_accounts_in_org,
   access_trust_settings_response,
   access_trusting_accounts,
 } from "./outputs.js";
-import {
-  access_grant_trust_to_all_accounts_in_org as access_grant_trust_to_all_accounts_in_org$,
-  access_trusting_accounts as access_trusting_accounts$,
-} from "./schemas.js";
+import { access_trusting_accounts as access_trusting_accounts$ } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.organization.trustSettings`.
@@ -25,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_organization_trustSettings_delete",
     title: "Delete Zero Trust organization trust settings",
-    description: "Resets the trust settings for your Zero Trust organization.",
+    description: "Resets the trust settings for your Zero Trust organization.\n\nDELETE /accounts/{account_id}/access/organizations/trust_settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -45,15 +41,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_trust_settings_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -85,7 +78,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -98,15 +90,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_organization_trustSettings_get",
     title: "Get Zero Trust organization trust settings",
-    description: "Returns the trust settings for your Zero Trust organization.",
+    description: "Returns the trust settings for your Zero Trust organization.\n\nGET /accounts/{account_id}/access/organizations/trust_settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -118,15 +111,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_trust_settings_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -160,7 +150,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -173,15 +162,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_organization_trustSettings_replace",
     title: "Replace Zero Trust organization trust settings",
-    description: "Replaces the trust settings for your Zero Trust organization.",
+    description: "Replaces the trust settings for your Zero Trust organization.\n\nPUT /accounts/{account_id}/access/organizations/trust_settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "grant_trust_to_all_accounts_in_org": {
-              "$ref": "#/$defs/access_grant_trust_to_all_accounts_in_org",
-              "description": "Whether all accounts in the organization are trusted to use this account's cross-account Access resources."
+              "description": "Whether all accounts in the organization are trusted to use this account's cross-account Access resources.",
+              "type": "boolean"
             },
             "trusting_accounts": {
               "$ref": "#/$defs/access_trusting_accounts",
@@ -194,10 +183,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -210,9 +200,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org$,
-        "access_identifier": access_identifier,
         "access_trusting_accounts": access_trusting_accounts$,
       },
     },
@@ -220,7 +209,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/access_trust_settings_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -252,7 +240,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -266,15 +253,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_organization_trustSettings_update",
     title: "Update Zero Trust organization trust settings",
-    description: "Updates the trust settings for your Zero Trust organization.",
+    description: "Updates the trust settings for your Zero Trust organization.\n\nPATCH /accounts/{account_id}/access/organizations/trust_settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "grant_trust_to_all_accounts_in_org": {
-              "$ref": "#/$defs/access_grant_trust_to_all_accounts_in_org",
-              "description": "Whether all accounts in the organization are trusted to use this account's cross-account Access resources."
+              "description": "Whether all accounts in the organization are trusted to use this account's cross-account Access resources.",
+              "type": "boolean"
             },
             "trusting_accounts": {
               "$ref": "#/$defs/access_trusting_accounts",
@@ -284,10 +271,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -300,9 +288,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org$,
-        "access_identifier": access_identifier,
         "access_trusting_accounts": access_trusting_accounts$,
       },
     },
@@ -310,7 +297,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/access_trust_settings_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,
@@ -342,7 +328,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_grant_trust_to_all_accounts_in_org": access_grant_trust_to_all_accounts_in_org,
         "access_messages": access_messages,
         "access_trust_settings_response": access_trust_settings_response,
         "access_trusting_accounts": access_trusting_accounts,

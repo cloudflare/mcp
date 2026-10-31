@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_matches_bulkDismiss",
     title: "Bulk dismiss or undismiss matches",
-    description: "Dismiss or undismiss multiple matches in a single request. Accepts either the new format (matches: [{query_id, domain_id}]) for per-query control, or the legacy format (match_ids: [number]) which dismisses for all queries sharing each match's hash. Returns per-item success/error results.",
+    description: "Dismiss or undismiss multiple matches in a single request. Accepts either the new format (matches: [{query_id, domain_id}]) for per-query control, or the legacy format (match_ids: [number]) which dismisses for all queries sharing each match's hash. Returns per-item success/error results.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/matches/bulk-dismiss",
     inputSchema: {
       type: "object",
       properties: {
@@ -58,6 +58,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -72,6 +73,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "anyOf": [
@@ -280,11 +282,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_matches_get",
     title: "List saved query matches",
-    description: "Get paginated list of domain matches for one or more brand protection queries. When multiple query_ids are provided (comma-separated), matches are deduplicated across queries and each match includes a match_details array with per-match query metadata and individual dismissed state.",
+    description: "Get paginated list of domain matches for one or more brand protection queries. When multiple query_ids are provided (comma-separated), matches are deduplicated across queries and each match includes a match_details array with per-match query metadata and individual dismissed state.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/matches",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -296,6 +299,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "domain_search": {
               "description": "Filter matches by domain name (substring match)",
@@ -351,6 +355,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

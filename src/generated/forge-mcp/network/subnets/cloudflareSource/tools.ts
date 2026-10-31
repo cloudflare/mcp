@@ -5,28 +5,13 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_created_at,
-  tunnel_deleted_at,
   tunnel_messages,
 } from "../../../outputs.js";
-import { tunnel_account_id } from "../../../schemas.js";
 import {
   tunnel_subnet,
   tunnel_subnet_capacity,
-  tunnel_subnet_comment,
-  tunnel_subnet_id,
-  tunnel_subnet_ip_network,
-  tunnel_subnet_is_default_network,
-  tunnel_subnet_name,
   tunnel_subnet_response_single,
-  tunnel_subnet_type,
 } from "../outputs.js";
-import {
-  tunnel_address_family,
-  tunnel_subnet_comment as tunnel_subnet_comment$,
-  tunnel_subnet_ip_network as tunnel_subnet_ip_network$,
-  tunnel_subnet_name as tunnel_subnet_name$,
-} from "../schemas.js";
 
 /**
  * The tools of `network.subnets.cloudflareSource`.
@@ -35,37 +20,42 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_cloudflareSource_edit",
     title: "Update Cloudflare Source Subnet",
-    description: "Updates the Cloudflare Source subnet of the given address family",
+    description: "Updates the Cloudflare Source subnet of the given address family\n\nPATCH /accounts/{account_id}/zerotrust/subnets/cloudflare_source/{address_family}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_subnet_comment",
               "default": "",
-              "description": "An optional description of the subnet."
+              "description": "An optional description of the subnet.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/tunnel_subnet_name",
-              "description": "A user-friendly name for the subnet."
+              "description": "A user-friendly name for the subnet.",
+              "type": "string"
             },
             "network": {
-              "$ref": "#/$defs/tunnel_subnet_ip_network",
-              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation."
+              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "address_family": {
-              "$ref": "#/$defs/tunnel_address_family",
-              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)"
+              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)",
+              "enum": [
+                "v4",
+                "v6"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -79,30 +69,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_address_family": tunnel_address_family,
-        "tunnel_subnet_comment": tunnel_subnet_comment$,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network$,
-        "tunnel_subnet_name": tunnel_subnet_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
         "tunnel_messages": tunnel_messages,
         "tunnel_subnet": tunnel_subnet,
         "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
         "tunnel_subnet_response_single": tunnel_subnet_response_single,
-        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     annotations: {
@@ -138,18 +114,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
         "tunnel_messages": tunnel_messages,
         "tunnel_subnet": tunnel_subnet,
         "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
         "tunnel_subnet_response_single": tunnel_subnet_response_single,
-        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     request: (args) => ({
@@ -160,19 +128,24 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_cloudflareSource_get",
     title: "Get Cloudflare Source Subnet",
-    description: "Returns the account's default Cloudflare Source subnet for the given address family.",
+    description: "Returns the account's default Cloudflare Source subnet for the given address family.\n\nGET /accounts/{account_id}/zerotrust/subnets/cloudflare_source/{address_family}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "address_family": {
-              "$ref": "#/$defs/tunnel_address_family",
-              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)"
+              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)",
+              "enum": [
+                "v4",
+                "v6"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -185,27 +158,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_address_family": tunnel_address_family,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
         "tunnel_messages": tunnel_messages,
         "tunnel_subnet": tunnel_subnet,
         "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
         "tunnel_subnet_response_single": tunnel_subnet_response_single,
-        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     annotations: {
@@ -236,18 +198,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
         "tunnel_messages": tunnel_messages,
         "tunnel_subnet": tunnel_subnet,
         "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
         "tunnel_subnet_response_single": tunnel_subnet_response_single,
-        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     request: (args) => ({

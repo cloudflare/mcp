@@ -2,8 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
-import { nsc_AccountTag, nsc_FacilityInfo } from "../outputs.js";
-import { nsc_AccountTag as nsc_AccountTag$ } from "../schemas.js";
+import { nsc_FacilityInfo } from "../outputs.js";
 import { nsc_SlotInfo, nsc_SlotList } from "./outputs.js";
 
 /**
@@ -13,15 +12,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_slots_get",
     title: "Get information about the specified slot",
-    description: "Gets information about a specific infrastructure slot allocation.",
+    description: "Gets information about a specific infrastructure slot allocation.\n\nGET /accounts/{account_id}/cni/slots/{slot}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "slot": {
               "format": "uuid",
@@ -38,14 +38,11 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_SlotInfo",
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_SlotInfo": nsc_SlotInfo,
       },
@@ -77,7 +74,6 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_SlotInfo": nsc_SlotInfo,
       },
@@ -89,15 +85,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_slots_list",
     title: "Retrieve a list of all slots matching the specified parameters",
-    description: "Lists all available infrastructure slots for the account, showing allocation status and\ncapacity.",
+    description: "Lists all available infrastructure slots for the account, showing allocation status and\ncapacity.\n\nGET /accounts/{account_id}/cni/slots",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             }
           },
           "required": [
@@ -106,6 +103,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "address_contains": {
               "description": "If specified, only show slots with the given text in their address field",
@@ -178,14 +176,11 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_SlotList",
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_SlotInfo": nsc_SlotInfo,
         "nsc_SlotList": nsc_SlotList,
@@ -217,7 +212,6 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_SlotInfo": nsc_SlotInfo,
         "nsc_SlotList": nsc_SlotList,

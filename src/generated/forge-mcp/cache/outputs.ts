@@ -53,7 +53,7 @@ export const cache$$purge_api$$response$$single$$id: JsonSchema = {
         {
           "properties": {
             "id": {
-              "$ref": "#/$defs/cache-purge_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -76,13 +76,6 @@ export const cache$$purge_api$$response$$single$$id: JsonSchema = {
     "success"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache-purge_identifier` in responses.
- */
-export const cache$$purge_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**

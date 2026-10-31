@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_recording_get",
     title: "Get recording data.",
-    description: "Returns the recording data for a given session as a dictionary of events per targetId.",
+    description: "Returns the recording data for a given session as a dictionary of events per targetId.\n\nGET /accounts/{account_id}/browser-rendering/recording/{session_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

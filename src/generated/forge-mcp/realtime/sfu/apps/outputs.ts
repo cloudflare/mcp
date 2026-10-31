@@ -9,16 +9,18 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const calls_app: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/calls_created"
+      "format": "date-time",
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/calls_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/calls_name"
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/calls_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -96,19 +98,21 @@ export const calls_app_response_single_with_secret: JsonSchema = {
 export const calls_app_with_secret: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/calls_created"
+      "format": "date-time",
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/calls_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/calls_name"
+      "type": "string"
     },
     "secret": {
-      "$ref": "#/$defs/calls_secret"
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/calls_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -119,11 +123,4 @@ export const calls_app_with_secret: JsonSchema = {
     "uid"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `calls_secret` in responses.
- */
-export const calls_secret: JsonSchema = {
-  "type": "string"
 };

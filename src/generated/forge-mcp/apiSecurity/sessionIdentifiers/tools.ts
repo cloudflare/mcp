@@ -8,10 +8,6 @@ import {
   api$$shield_messages,
 } from "../../outputs.js";
 import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-} from "../../schemas.js";
-import {
   api$$shield_auth_id_characteristic,
   api$$shield_auth_id_characteristic_jwt_claim,
   api$$shield_auth_id_characteristics,
@@ -32,14 +28,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_sessionIdentifiers_get",
     title: "Get session identifier settings",
-    description: "Returns the authentication identifier characteristics configured for the zone. Header, cookie, or JWT claim values identify distinct API sessions.",
+    description: "Returns the authentication identifier characteristics configured for the zone. Header, cookie, or JWT claim values identify distinct API sessions.\n\nGET /zones/{zone_id}/api_gateway/configuration",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -48,6 +53,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "normalize": {
               "description": "Ensures that the configuration is written or retrieved in normalized fashion",
@@ -60,10 +66,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_configuration-single-response",
@@ -124,7 +127,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_sessionIdentifiers_update",
     title: "Update session identifier settings",
-    description: "Replaces the zone's authentication identifier characteristics used to identify distinct API sessions.",
+    description: "Replaces the zone's authentication identifier characteristics used to identify distinct API sessions.\n\nPUT /zones/{zone_id}/api_gateway/configuration",
     inputSchema: {
       type: "object",
       properties: {
@@ -132,9 +135,18 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_configuration"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -143,6 +155,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "normalize": {
               "description": "Ensures that the configuration is written or retrieved in normalized fashion",
@@ -156,13 +169,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "api-shield_auth_id_characteristic": api$$shield_auth_id_characteristic$,
         "api-shield_auth_id_characteristic_jwt_claim": api$$shield_auth_id_characteristic_jwt_claim$,
         "api-shield_auth_id_characteristics": api$$shield_auth_id_characteristics$,
         "api-shield_configuration": api$$shield_configuration$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
       },
     },
     outputSchema: {

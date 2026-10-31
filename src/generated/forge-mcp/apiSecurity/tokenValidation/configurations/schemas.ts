@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `api-shield_cookie`.
- */
-export const api$$shield_cookie: JsonSchema = {
-  "description": "HTTP request cookie",
-  "type": "string"
-};
-
-/**
  * The schema of `api-shield_credentials-JWT-Key-EC-ES256`.
  */
 export const api$$shield_credentials$$JWT$$Key$$EC$$ES256: JsonSchema = {
@@ -267,52 +259,22 @@ export const api$$shield_credentials$$request: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_description`.
- */
-export const api$$shield_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_header`.
- */
-export const api$$shield_header: JsonSchema = {
-  "description": "HTTP request header (must be lowercase)",
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_title`.
- */
-export const api$$shield_title: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `api-shield_token_sources`.
  */
 export const api$$shield_token_sources: JsonSchema = {
   "items": {
     "anyOf": [
       {
-        "$ref": "#/$defs/api-shield_header"
+        "description": "HTTP request header (must be lowercase)",
+        "type": "string"
       },
       {
-        "$ref": "#/$defs/api-shield_cookie"
+        "description": "HTTP request cookie",
+        "type": "string"
       }
     ]
   },
   "maxItems": 4,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of `api-shield_token_type`.
- */
-export const api$$shield_token_type: JsonSchema = {
-  "enum": [
-    "JWT"
-  ],
-  "type": "string"
 };

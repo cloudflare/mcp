@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_jobs_cancel",
     title: "Cancel an indexing job.",
-    description: "Cancels an in-progress indexing job for an AI Search instance.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation cancels the running indexing job.",
+    description: "Cancels an in-progress indexing job for an AI Search instance.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation cancels the running indexing job.\n\nPATCH /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,6 +29,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -58,6 +59,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -300,7 +302,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_jobs_create",
     title: "Create new job",
-    description: "Creates a new indexing job for an AI Search instance.\n\nThis method is beta.",
+    description: "Creates a new indexing job for an AI Search instance.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs",
     inputSchema: {
       type: "object",
       properties: {
@@ -313,6 +315,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -338,6 +341,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -641,11 +645,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_jobs_get",
     title: "Get a Job Details",
-    description: "Retrieves details for a specific AI Search indexing job.\n\nThis method is beta.",
+    description: "Retrieves details for a specific AI Search indexing job.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -675,6 +680,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -879,11 +885,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_jobs_list",
     title: "List Jobs",
-    description: "Lists indexing jobs for an AI Search instance.\n\nThis method is beta.",
+    description: "Lists indexing jobs for an AI Search instance.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -906,6 +913,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -922,6 +930,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1221,11 +1230,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_jobs_logs",
     title: "List Job Logs",
-    description: "Lists log entries for an AI Search indexing job.\n\nThis method is beta.",
+    description: "Lists log entries for an AI Search indexing job.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1252,6 +1262,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -1268,6 +1279,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

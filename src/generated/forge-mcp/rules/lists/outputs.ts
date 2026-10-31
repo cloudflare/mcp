@@ -103,60 +103,39 @@ export const lists_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `lists_created_on` in responses.
- */
-export const lists_created_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `lists_description` in responses.
- */
-export const lists_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `lists_kind` in responses.
- */
-export const lists_kind: JsonSchema = {
-  "enum": [
-    "ip",
-    "redirect",
-    "hostname",
-    "asn"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `lists_list` in responses.
  */
 export const lists_list: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/lists_created_on"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/lists_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/lists_list_id"
+      "type": "string"
     },
     "kind": {
-      "$ref": "#/$defs/lists_kind"
+      "enum": [
+        "ip",
+        "redirect",
+        "hostname",
+        "asn"
+      ],
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/lists_modified_on"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/lists_name"
+      "type": "string"
     },
     "num_items": {
-      "$ref": "#/$defs/lists_num_items"
+      "type": "number"
     },
     "num_referencing_filters": {
-      "$ref": "#/$defs/lists_num_referencing_filters"
+      "type": "number"
     }
   },
   "required": [
@@ -181,7 +160,7 @@ export const lists_list$$delete$$response$$collection: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/lists_list_id"
+              "type": "string"
             }
           },
           "required": [
@@ -215,13 +194,6 @@ export const lists_list$$response$$collection: JsonSchema = {
       "$ref": "#/$defs/lists_api-response-common"
     }
   ]
-};
-
-/**
- * The schema of `lists_list_id` in responses.
- */
-export const lists_list_id: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -266,39 +238,4 @@ export const lists_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `lists_modified_on` in responses.
- */
-export const lists_modified_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `lists_name` in responses.
- */
-export const lists_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `lists_num_items` in responses.
- */
-export const lists_num_items: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `lists_num_referencing_filters` in responses.
- */
-export const lists_num_referencing_filters: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `lists_operation_id` in responses.
- */
-export const lists_operation_id: JsonSchema = {
-  "type": "string"
 };

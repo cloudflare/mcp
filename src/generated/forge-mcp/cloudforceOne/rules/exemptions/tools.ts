@@ -17,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_exemptions_create",
     title: "Add patterns to exemption rules",
-    description: "Add regex patterns to per-account exemption rules (union semantics). Missing keys leave that type untouched; duplicates are silently deduped.",
+    description: "Add regex patterns to per-account exemption rules (union semantics). Missing keys leave that type untouched; duplicates are silently deduped.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
@@ -25,6 +25,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_PartialAccountExemptions"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -40,6 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_PartialAccountExemptions": cloudforce$$one_PartialAccountExemptions,
       },
@@ -87,7 +89,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_exemptions_delete",
     title: "Remove patterns from exemption rules",
-    description: "Remove regex patterns from per-account exemption rules. Missing keys leave that type untouched; non-existent patterns are silently skipped.",
+    description: "Remove regex patterns from per-account exemption rules. Missing keys leave that type untouched; non-existent patterns are silently skipped.\n\nDELETE /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
@@ -95,6 +97,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_PartialAccountExemptions"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -110,6 +113,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_PartialAccountExemptions": cloudforce$$one_PartialAccountExemptions,
       },
@@ -157,11 +161,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_exemptions_get",
     title: "Get exemption rules for an account",
-    description: "Get all exemption rule patterns for the account, grouped by type.",
+    description: "Get all exemption rule patterns for the account, grouped by type.\n\nGET /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -177,6 +182,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_AccountExemptions",
@@ -220,7 +226,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_exemptions_update",
     title: "Update exemption rule patterns",
-    description: "Replace existing exemption patterns with new values. Each key maps to an array of {old_pattern, new_pattern} entries. Missing keys leave that type untouched. Fails if any old pattern is not found or any new pattern already exists.",
+    description: "Replace existing exemption patterns with new values. Each key maps to an array of {old_pattern, new_pattern} entries. Missing keys leave that type untouched. Fails if any old pattern is not found or any new pattern already exists.\n\nPUT /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
@@ -228,6 +234,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_UpdateAccountExemptionsBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -243,6 +250,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_ExemptionUpdateEntry": cloudforce$$one_ExemptionUpdateEntry,
         "cloudforce-one_UpdateAccountExemptionsBody": cloudforce$$one_UpdateAccountExemptionsBody,

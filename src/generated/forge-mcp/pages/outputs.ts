@@ -260,7 +260,7 @@ export const pages_deployment: JsonSchema = {
       "type": "string"
     },
     "project_name": {
-      "$ref": "#/$defs/pages_project_name"
+      "type": "string"
     },
     "short_id": {
       "type": "string"
@@ -748,7 +748,7 @@ export const pages_project: JsonSchema = {
       "$ref": "#/$defs/pages_deployment"
     },
     "name": {
-      "$ref": "#/$defs/pages_project_name"
+      "type": "string"
     },
     "preview_script_name": {
       "type": "string"
@@ -794,13 +794,6 @@ export const pages_project: JsonSchema = {
 };
 
 /**
- * The schema of `pages_project_name` in responses.
- */
-export const pages_project_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `pages_secret_text_env_var` in responses.
  */
 export const pages_secret_text_env_var: JsonSchema = {
@@ -838,7 +831,11 @@ export const pages_source: JsonSchema = {
       "$ref": "#/$defs/pages_source_config"
     },
     "type": {
-      "$ref": "#/$defs/pages_source_type"
+      "enum": [
+        "github",
+        "gitlab"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -926,17 +923,6 @@ export const pages_source_config: JsonSchema = {
     "repo_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `pages_source_type` in responses.
- */
-export const pages_source_type: JsonSchema = {
-  "enum": [
-    "github",
-    "gitlab"
-  ],
-  "type": "string"
 };
 
 /**

@@ -21,7 +21,19 @@ export const email$$security_Attachment: JsonSchema = {
     "detection": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -126,7 +138,19 @@ export const email$$security_Finding: JsonSchema = {
     "detection": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -239,7 +263,19 @@ export const email$$security_MessageDetectionDetails: JsonSchema = {
     "final_disposition": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"

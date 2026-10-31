@@ -4,29 +4,24 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `resource-sharing_excluded_recipient_id` in responses.
- */
-export const resource$$sharing_excluded_recipient_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-sharing_share_excluded_recipient_object` in
  * responses.
  */
 export const resource$$sharing_share_excluded_recipient_object: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id"
+      "type": "string"
     },
     "created": {
-      "$ref": "#/$defs/resource-sharing_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-sharing_excluded_recipient_id"
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/resource-sharing_modified"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [

@@ -17,11 +17,12 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_industry_get",
     title: "Get an account industry",
-    description: "Gets the industry classification for an account.",
+    description: "Gets the industry classification for an account.\n\nGET /accounts/{account_id}/reporting/industry",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare public account ID (32-character hexadecimal string)",
@@ -37,6 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -137,7 +139,7 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_industry_update",
     title: "Update an account industry",
-    description: "Updates the industry classification for an account.",
+    description: "Updates the industry classification for an account.\n\nPATCH /accounts/{account_id}/reporting/industry",
     inputSchema: {
       type: "object",
       properties: {
@@ -145,6 +147,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/reports_PatchAccountIndustryBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare public account ID (32-character hexadecimal string)",
@@ -160,6 +163,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "reports_PatchAccountIndustryBody": reports_PatchAccountIndustryBody,
       },

@@ -7,7 +7,6 @@ import {
   r2$$data$$catalog_api$$response$$errors,
   r2$$data$$catalog_api$$response$$messages,
   r2$$data$$catalog_api$$response$$single,
-  r2$$data$$catalog_api$$response$$success,
   r2$$data$$catalog_get$$table$$response,
   r2$$data$$catalog_namespace$$identifier,
   r2$$data$$catalog_table$$details,
@@ -15,10 +14,6 @@ import {
   r2$$data$$catalog_table$$list$$response,
   r2$$data$$catalog_table$$metadata,
 } from "../../../outputs.js";
-import {
-  r2$$data$$catalog_account$$id,
-  r2$$data$$catalog_bucket$$name,
-} from "../../../schemas.js";
 
 /**
  * The tools of `basinCatalog.namespaces.tables`.
@@ -27,22 +22,23 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_tables_get",
     title: "Get table details",
-    description: "Returns full Apache Iceberg metadata for a single table: schema,\npartition specs, sort orders, properties, and recent snapshot history.\nDesigned for catalog introspection UIs that need per-table details\nwithout holding R2 credentials.\n\nThe `metadata.snapshots`, `metadata.snapshot-log`, and\n`metadata.metadata-log` arrays are pruned to the most recent 10\nentries by `timestamp-ms`. Use `total_snapshots` and\n`returned_snapshots` to surface the truncation to end users.",
+    description: "Returns full Apache Iceberg metadata for a single table: schema,\npartition specs, sort orders, properties, and recent snapshot history.\nDesigned for catalog introspection UIs that need per-table details\nwithout holding R2 credentials.\n\nThe `metadata.snapshots`, `metadata.snapshot-log`, and\n`metadata.metadata-log` arrays are pruned to the most recent 10\nentries by `timestamp-ms`. Use `total_snapshots` and\n`returned_snapshots` to surface the truncation to end users.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             },
             "namespace": {
-              "description": "The namespace identifier.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").\n",
+              "description": "The namespace identifier.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").",
               "type": "string"
             },
             "table_name": {
@@ -62,10 +58,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -85,7 +78,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_get-table-response": r2$$data$$catalog_get$$table$$response,
         "r2-data-catalog_namespace-identifier": r2$$data$$catalog_namespace$$identifier,
         "r2-data-catalog_table-identifier": r2$$data$$catalog_table$$identifier,
@@ -145,7 +137,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_get-table-response": r2$$data$$catalog_get$$table$$response,
         "r2-data-catalog_namespace-identifier": r2$$data$$catalog_namespace$$identifier,
         "r2-data-catalog_table-identifier": r2$$data$$catalog_table$$identifier,
@@ -159,22 +150,23 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_tables_list",
     title: "List tables in namespace",
-    description: "Returns a list of tables in the specified namespace within a Basin Catalog.\nSupports pagination for efficient traversal of large table collections.",
+    description: "Returns a list of tables in the specified namespace within a Basin Catalog.\nSupports pagination for efficient traversal of large table collections.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             },
             "namespace": {
-              "description": "The namespace identifier.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").\n",
+              "description": "The namespace identifier.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").",
               "type": "string"
             }
           },
@@ -186,24 +178,25 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_size": {
               "default": 100,
-              "description": "Maximum number of tables to return per page.\nDefaults to 100, maximum 1000.\n",
+              "description": "Maximum number of tables to return per page.\nDefaults to 100, maximum 1000.",
               "type": "integer"
             },
             "page_token": {
-              "description": "Opaque pagination token from a previous response.\nUse this to fetch the next page of results.\n",
+              "description": "Opaque pagination token from a previous response.\nUse this to fetch the next page of results.",
               "type": "string"
             },
             "return_details": {
               "default": false,
-              "description": "Whether to include additional metadata (timestamps, locations).\nWhen true, response includes created_at, updated_at, metadata_locations, and locations arrays.\n",
+              "description": "Whether to include additional metadata (timestamps, locations).\nWhen true, response includes created_at, updated_at, metadata_locations, and locations arrays.",
               "type": "boolean"
             },
             "return_uuids": {
               "default": false,
-              "description": "Whether to include table UUIDs in the response.\nSet to true to receive the table_uuids array.\n",
+              "description": "Whether to include table UUIDs in the response.\nSet to true to receive the table_uuids array.",
               "type": "boolean"
             }
           },
@@ -213,10 +206,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -236,7 +226,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_namespace-identifier": r2$$data$$catalog_namespace$$identifier,
         "r2-data-catalog_table-details": r2$$data$$catalog_table$$details,
         "r2-data-catalog_table-identifier": r2$$data$$catalog_table$$identifier,
@@ -296,7 +285,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_namespace-identifier": r2$$data$$catalog_namespace$$identifier,
         "r2-data-catalog_table-details": r2$$data$$catalog_table$$details,
         "r2-data-catalog_table-identifier": r2$$data$$catalog_table$$identifier,

@@ -15,31 +15,42 @@ export const builds_TriggerResponse: JsonSchema = {
       "$ref": "#/$defs/builds_branch_includes"
     },
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled"
+      "type": "boolean"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command"
+      "type": "string"
     },
     "build_token_name": {
-      "$ref": "#/$defs/builds_build_token_name"
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/builds_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_on": {
-      "$ref": "#/$defs/builds_deleted_on"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command"
+      "type": "string"
     },
     "external_script_id": {
-      "$ref": "#/$defs/builds_external_script_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/builds_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "path_excludes": {
       "$ref": "#/$defs/builds_path_excludes"
@@ -51,13 +62,14 @@ export const builds_TriggerResponse: JsonSchema = {
       "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory"
+      "type": "string"
     },
     "trigger_name": {
-      "$ref": "#/$defs/builds_trigger_name"
+      "type": "string"
     },
     "trigger_uuid": {
-      "$ref": "#/$defs/builds_trigger_uuid"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"

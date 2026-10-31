@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_app_count` in responses.
- */
-export const access_app_count: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `access_id_response-4` in responses.
  */
 export const access_id_response$$4: JsonSchema = {
@@ -23,7 +16,7 @@ export const access_id_response$$4: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/access_uuid-2"
+              "type": "string"
             }
           },
           "type": "object"
@@ -67,10 +60,10 @@ export const access_reusable_policy_resp: JsonSchema = {
     {
       "properties": {
         "account_id": {
-          "$ref": "#/$defs/access_identifier"
+          "type": "string"
         },
         "app_count": {
-          "$ref": "#/$defs/access_app_count"
+          "type": "integer"
         },
         "reusable": {
           "enum": [

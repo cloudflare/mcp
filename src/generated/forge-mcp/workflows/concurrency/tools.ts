@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_concurrency_create",
     title: "Create a concurrency key",
-    description: "Creates an account-scoped concurrency key. Limits count steps still in flight from a previously deleted key of the same name.\n\nThis method is beta.",
+    description: "Creates an account-scoped concurrency key. Limits count steps still in flight from a previously deleted key of the same name.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/workflows/concurrency",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -47,6 +48,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -432,11 +434,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_concurrency_delete",
     title: "Delete a concurrency key",
-    description: "Deletes a concurrency key. Fails while any workflow’s latest version references the key. The key disappears immediately, but steps already holding it keep their slots until they finish and still count against a key re-created with the same name.\n\nThis method is beta.",
+    description: "Deletes a concurrency key. Fails while any workflow’s latest version references the key. The key disappears immediately, but steps already holding it keep their slots until they finish and still count against a key re-created with the same name.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/workflows/concurrency/{key_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -457,6 +460,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -885,7 +889,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_concurrency_edit",
     title: "Update a concurrency key",
-    description: "Updates the limit of a concurrency key. Applies to instances that start after the change.\n\nThis method is beta.",
+    description: "Updates the limit of a concurrency key. Applies to instances that start after the change.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/workflows/concurrency/{key_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -902,6 +906,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -923,6 +928,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1308,11 +1314,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_concurrency_get",
     title: "Get concurrency key details",
-    description: "Retrieves a concurrency key and the workflows whose latest version references it.\n\nThis method is beta.",
+    description: "Retrieves a concurrency key and the workflows whose latest version references it.\n\nThis method is beta.\n\nGET /accounts/{account_id}/workflows/concurrency/{key_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1333,6 +1340,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1759,11 +1767,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_concurrency_list",
     title: "List concurrency keys",
-    description: "Lists the account-scoped concurrency keys.\n\nThis method is beta.",
+    description: "Lists the account-scoped concurrency keys.\n\nThis method is beta.\n\nGET /accounts/{account_id}/workflows/concurrency",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1775,6 +1784,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -1791,6 +1801,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

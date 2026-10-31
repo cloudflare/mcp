@@ -17,25 +17,26 @@ export const builds_CreateTriggerRequest: JsonSchema = {
       "description": "Branch patterns that can start builds."
     },
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled",
       "default": false,
-      "description": "Whether builds reuse cached dependencies and build artifacts."
+      "description": "Whether builds reuse cached dependencies and build artifacts.",
+      "type": "boolean"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command",
-      "description": "Command to build the Worker."
+      "description": "Command to build the Worker.",
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid",
-      "description": "UUID of the build token used when deploying the Worker."
+      "description": "UUID of the build token used when deploying the Worker.",
+      "format": "uuid",
+      "type": "string"
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command",
-      "description": "Command to deploy the Worker."
+      "description": "Command to deploy the Worker.",
+      "type": "string"
     },
     "external_script_id": {
-      "$ref": "#/$defs/builds_external_script_id",
-      "description": "System-generated tag of the Worker. This is not the Worker name."
+      "description": "System-generated tag of the Worker. This is not the Worker name.",
+      "type": "string"
     },
     "path_excludes": {
       "$ref": "#/$defs/builds_path_excludes",
@@ -49,16 +50,17 @@ export const builds_CreateTriggerRequest: JsonSchema = {
       "description": "Path patterns that can start builds."
     },
     "repo_connection_uuid": {
-      "$ref": "#/$defs/builds_repo_connection_uuid",
-      "description": "Repository connection UUID."
+      "description": "Repository connection UUID.",
+      "format": "uuid",
+      "type": "string"
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory",
-      "description": "Repository directory in which build and deploy commands run."
+      "description": "Repository directory in which build and deploy commands run.",
+      "type": "string"
     },
     "trigger_name": {
-      "$ref": "#/$defs/builds_trigger_name",
-      "description": "Human-readable name of the build trigger."
+      "description": "Human-readable name of the build trigger.",
+      "type": "string"
     }
   },
   "required": [
@@ -91,21 +93,22 @@ export const builds_UpdateTriggerRequest: JsonSchema = {
       "description": "Branch patterns that can start builds."
     },
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled",
       "default": false,
-      "description": "Whether builds reuse cached dependencies and build artifacts."
+      "description": "Whether builds reuse cached dependencies and build artifacts.",
+      "type": "boolean"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command",
-      "description": "Command to build the Worker."
+      "description": "Command to build the Worker.",
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid",
-      "description": "UUID of the build token used when deploying the Worker."
+      "description": "UUID of the build token used when deploying the Worker.",
+      "format": "uuid",
+      "type": "string"
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command",
-      "description": "Command to deploy the Worker."
+      "description": "Command to deploy the Worker.",
+      "type": "string"
     },
     "path_excludes": {
       "$ref": "#/$defs/builds_path_excludes",
@@ -119,12 +122,12 @@ export const builds_UpdateTriggerRequest: JsonSchema = {
       "description": "Path patterns that can start builds."
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory",
-      "description": "Repository directory in which build and deploy commands run."
+      "description": "Repository directory in which build and deploy commands run.",
+      "type": "string"
     },
     "trigger_name": {
-      "$ref": "#/$defs/builds_trigger_name",
-      "description": "Human-readable name of the build trigger."
+      "description": "Human-readable name of the build trigger.",
+      "type": "string"
     }
   },
   "type": "object"

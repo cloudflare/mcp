@@ -8,10 +8,6 @@ import {
   realtimekit_PagingInfo,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
 
 /**
  * The tools of `realtime.kit.sessions.livestreams`.
@@ -20,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_livestreams_get",
     title: "Fetch livestream session details using a session ID",
-    description: "Returns livestream session details for the given session ID. Retreive the session ID using the `Fetch all sessions of an App` API.\n\nThis method is beta.",
+    description: "Returns livestream session details for the given session ID. Retreive the session ID using the `Fetch all sessions of an App` API.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/livestream-sessions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "session_id": {
               "format": "uuid",
@@ -47,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_no": {
               "description": "The page number from which you want your page search results to be displayed.",
@@ -63,10 +61,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

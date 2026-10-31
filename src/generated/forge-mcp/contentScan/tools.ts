@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import { waf$$product$$api$$bundle_messages } from "../outputs.js";
-import { waf$$product$$api$$bundle_identifier } from "../schemas.js";
 import {
   waf$$product$$api$$bundle_api$$response$$common$$2,
   waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
@@ -19,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "contentScan_get",
     title: "Get the Content Scanning status for a zone.",
-    description: "Get the current Content Scanning status for the zone, together with the date the status was last modified.",
+    description: "Get the current Content Scanning status for the zone, together with the date the status was last modified.\n\nGET /zones/{zone_id}/content-upload-scan/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status-2",
@@ -95,7 +93,7 @@ export const tools: readonly Tool[] = [
   {
     name: "contentScan_update",
     title: "Update the Content Scanning status for a zone.",
-    description: "Update the Content Scanning status by setting the status value to `enabled` or `disabled`. This is equivalent to calling the dedicated enable and disable endpoints.\n\nConfirm with the user before calling this tool. This operation toggles Content Scanning for a zone.",
+    description: "Update the Content Scanning status by setting the status value to `enabled` or `disabled`. This is equivalent to calling the dedicated enable and disable endpoints.\n\nConfirm with the user before calling this tool. This operation toggles Content Scanning for a zone.\n\nPUT /zones/{zone_id}/content-upload-scan/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -117,10 +115,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -133,9 +132,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status-2",

@@ -13,7 +13,6 @@ import {
   analytics$$sql_IntrospectionDataset,
   analytics$$sql_IntrospectionDatasetKind,
   analytics$$sql_IntrospectionResponse,
-  analytics$$sql_IntrospectionSampling,
   analytics$$sql_LogExplorerQueryResponse,
   analytics$$sql_SqlQueryResponse,
   analytics$$sql_SqlQueryStatistics,
@@ -33,23 +32,24 @@ export const tools: readonly Tool[] = [
   {
     name: "sql_datasets",
     title: "List available analytics datasets",
-    description: "Returns the analytics dataset catalogue. By default, the response contains dataset names, titles, categories, descriptions, kinds, and hidden flags. Set `include_columns` to include each dataset's column names, descriptions, data types, and hidden flags. The caller must have Account Analytics Read permission on the account identified by `account_tag`. Dataset names, descriptions, and columns are the same for every authorized account. When `include_custom_attributes` or `include_attributes` is set, the response also includes attribute names and types discovered from that account's own data, which legitimately differs per caller. `attributes` is a replacement for `custom_attributes` that will eventually be removed; until then, set either flag independently to receive the corresponding field. `hidden` marks catalogue entries a client should de-emphasise. It has no effect on access: hidden datasets and columns are returned here and remain fully queryable.\n\nThe catalogue lists the datasets this deployment is able to describe, which is not a fixed list. Some datasets are described by the service that owns them and are listed only where that service is available, so the same account may see a different catalogue in different environments, and datasets may appear or disappear without a change to this API. Clients should query the catalogue rather than hard-coding it, and should not treat a dataset's absence as proof that it does not exist.\n\nWorkers Analytics Engine datasets are named by the account that writes them, so they are discovered from that account's own data rather than from a fixed list. They appear as `events.analyticsEngine.<dataset_name>` and differ per account. A dataset is listed for as long as any of its data is retained, so it does not disappear from the catalogue merely because writes have stopped. An account with a very large number of datasets may receive a truncated list. Set `include_wae=false` to omit them.\n\nLog Explorer datasets are listed only where the account has them, so they differ per account and are not part of the static catalogue. Set `include_lex=false` to omit them.",
+    description: "Returns the analytics dataset catalogue. By default, the response contains dataset names, titles, categories, descriptions, kinds, and hidden flags. Set `include_columns` to include each dataset's column names, descriptions, data types, and hidden flags. The caller must have Account Analytics Read permission on the account identified by `account_tag`. Dataset names, descriptions, and columns are the same for every authorized account. When `include_custom_attributes` or `include_attributes` is set, the response also includes attribute names and types discovered from that account's own data, which legitimately differs per caller. `attributes` is a replacement for `custom_attributes` that will eventually be removed; until then, set either flag independently to receive the corresponding field. `hidden` marks catalogue entries a client should de-emphasise. It has no effect on access: hidden datasets and columns are returned here and remain fully queryable.\n\nThe catalogue lists the datasets this deployment is able to describe, which is not a fixed list. Some datasets are described by the service that owns them and are listed only where that service is available, so the same account may see a different catalogue in different environments, and datasets may appear or disappear without a change to this API. Clients should query the catalogue rather than hard-coding it, and should not treat a dataset's absence as proof that it does not exist.\n\nWorkers Analytics Engine datasets are named by the account that writes them, so they are discovered from that account's own data rather than from a fixed list. They appear as `events.analyticsEngine.<dataset_name>` and differ per account. A dataset is listed for as long as any of its data is retained, so it does not disappear from the catalogue merely because writes have stopped. An account with a very large number of datasets may receive a truncated list. Set `include_wae=false` to omit them.\n\nLog Explorer datasets are listed only where the account has them, so they differ per account and are not part of the static catalogue. Set `include_lex=false` to omit them.\n\nGET /analytics/sql/introspection",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "account_tag": {
               "description": "Account whose available analytics datasets are returned.",
               "type": "string"
             },
             "dataset_name": {
-              "description": "Return only the dataset with this exact name. An empty value is treated as if the parameter had been omitted, and does not filter the catalogue. A name that matches no dataset in this deployment's catalogue is rejected with `422`; a dataset that exists but is not describable here is rejected identically, so the two cases cannot be told apart.\n\nA Workers Analytics Engine dataset is named in full, as `events.analyticsEngine.<dataset_name>`; the namespace on its own returns every such dataset the account has. A `dataset_name` the account does not have is rejected with `422` like any other unknown name.\n",
+              "description": "Return only the dataset with this exact name. An empty value is treated as if the parameter had been omitted, and does not filter the catalogue. A name that matches no dataset in this deployment's catalogue is rejected with `422`; a dataset that exists but is not describable here is rejected identically, so the two cases cannot be told apart.\n\nA Workers Analytics Engine dataset is named in full, as `events.analyticsEngine.<dataset_name>`; the namespace on its own returns every such dataset the account has. A `dataset_name` the account does not have is rejected with `422` like any other unknown name.",
               "type": "string"
             },
             "include_attributes": {
               "default": false,
-              "description": "Include a capped set of attribute names and types observed during the preceding seven days, as `attributes`. Requires a nonempty dataset_name. Replaces `include_custom_attributes`, which is deprecated.\n",
+              "description": "Include a capped set of attribute names and types observed during the preceding seven days, as `attributes`. Requires a nonempty dataset_name. Replaces `include_custom_attributes`, which is deprecated.",
               "type": "boolean"
             },
             "include_columns": {
@@ -59,17 +59,17 @@ export const tools: readonly Tool[] = [
             },
             "include_custom_attributes": {
               "default": false,
-              "description": "Include a capped set of custom attribute names and types observed during the preceding seven days, as `custom_attributes`. Requires a nonempty dataset_name. Deprecated in favor of `include_attributes`.\n",
+              "description": "Include a capped set of custom attribute names and types observed during the preceding seven days, as `custom_attributes`. Requires a nonempty dataset_name. Deprecated in favor of `include_attributes`.",
               "type": "boolean"
             },
             "include_lex": {
               "default": true,
-              "description": "Include Log Explorer datasets, which are listed only where the account has them. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.\n",
+              "description": "Include Log Explorer datasets, which are listed only where the account has them. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.",
               "type": "boolean"
             },
             "include_wae": {
               "default": true,
-              "description": "Include Workers Analytics Engine datasets, which are discovered from the account's own data. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.\n",
+              "description": "Include Workers Analytics Engine datasets, which are discovered from the account's own data. Set to `false` to return only datasets described from the static catalogue, which avoids that lookup.",
               "type": "boolean"
             }
           },
@@ -82,6 +82,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/analytics-sql_IntrospectionResponse",
@@ -93,7 +94,6 @@ export const tools: readonly Tool[] = [
         "analytics-sql_IntrospectionDataset": analytics$$sql_IntrospectionDataset,
         "analytics-sql_IntrospectionDatasetKind": analytics$$sql_IntrospectionDatasetKind,
         "analytics-sql_IntrospectionResponse": analytics$$sql_IntrospectionResponse,
-        "analytics-sql_IntrospectionSampling": analytics$$sql_IntrospectionSampling,
       },
     },
     annotations: {
@@ -140,7 +140,6 @@ export const tools: readonly Tool[] = [
         "analytics-sql_IntrospectionDataset": analytics$$sql_IntrospectionDataset,
         "analytics-sql_IntrospectionDatasetKind": analytics$$sql_IntrospectionDatasetKind,
         "analytics-sql_IntrospectionResponse": analytics$$sql_IntrospectionResponse,
-        "analytics-sql_IntrospectionSampling": analytics$$sql_IntrospectionSampling,
       },
     },
     request: (args) => ({
@@ -159,7 +158,7 @@ export const tools: readonly Tool[] = [
   {
     name: "sql_query",
     title: "Query analytics datasets",
-    description: "Executes a SQL query against the analytics datasets available to the caller. Send either raw SQL or a JSON object containing the query and optional positional or named parameters, time range, and account or zone scope. Raw SQL placeholders can also be bound with query parameters named `param_<name>`. A trailing `FORMAT JSON`, `FORMAT JSONEachRow`, `FORMAT TabSeparated`, or `FORMAT TSV` is supported for all datasets. Without FORMAT, each backend retains its existing default JSON response.",
+    description: "Executes a SQL query against the analytics datasets available to the caller. Send either raw SQL or a JSON object containing the query and optional positional or named parameters, time range, and account or zone scope. Raw SQL placeholders can also be bound with query parameters named `param_<name>`. A trailing `FORMAT JSON`, `FORMAT JSONEachRow`, `FORMAT TabSeparated`, or `FORMAT TSV` is supported for all datasets. Without FORMAT, each backend retains its existing default JSON response.\n\nPOST /analytics/sql",
     inputSchema: {
       type: "object",
       properties: {
@@ -170,6 +169,7 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "analytics-sql_SqlQueryAccountScope": analytics$$sql_SqlQueryAccountScope,
         "analytics-sql_SqlQueryRequest": analytics$$sql_SqlQueryRequest,

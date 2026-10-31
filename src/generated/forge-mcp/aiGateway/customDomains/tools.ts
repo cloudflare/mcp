@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customDomains_create",
     title: "Create a custom domain for a gateway",
-    description: "Provisions a Cloudflare-for-SaaS custom hostname and returns the CNAME target to point DNS at.",
+    description: "Provisions a Cloudflare-for-SaaS custom hostname and returns the CNAME target to point DNS at.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -60,6 +61,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -234,11 +236,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customDomains_delete",
     title: "Delete a custom domain",
-    description: "Deletes a custom domain from an AI Gateway and removes its Cloudflare for SaaS custom hostname.\n\nConfirm with the user before calling this tool. This deletes the custom domain and its custom hostname. Requests to this hostname will stop reaching the gateway.",
+    description: "Deletes a custom domain from an AI Gateway and removes its Cloudflare for SaaS custom hostname.\n\nConfirm with the user before calling this tool. This deletes the custom domain and its custom hostname. Requests to this hostname will stop reaching the gateway.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -263,6 +266,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -444,11 +448,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customDomains_get",
     title: "Get a custom domain",
-    description: "Retrieves a custom domain attached to an AI Gateway, including its status and CNAME target.",
+    description: "Retrieves a custom domain attached to an AI Gateway, including its status and CNAME target.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -473,6 +478,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -655,11 +661,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customDomains_list",
     title: "List custom domains",
-    description: "Lists the custom domains attached to an AI Gateway, including the certificate and validation status of each domain.",
+    description: "Lists the custom domains attached to an AI Gateway, including the certificate and validation status of each domain.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -676,6 +683,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -706,6 +714,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

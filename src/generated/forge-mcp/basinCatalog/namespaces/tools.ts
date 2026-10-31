@@ -7,15 +7,10 @@ import {
   r2$$data$$catalog_api$$response$$errors,
   r2$$data$$catalog_api$$response$$messages,
   r2$$data$$catalog_api$$response$$single,
-  r2$$data$$catalog_api$$response$$success,
   r2$$data$$catalog_namespace$$details,
   r2$$data$$catalog_namespace$$identifier,
   r2$$data$$catalog_namespace$$list$$response,
 } from "../../outputs.js";
-import {
-  r2$$data$$catalog_account$$id,
-  r2$$data$$catalog_bucket$$name,
-} from "../../schemas.js";
 
 /**
  * The tools of `basinCatalog.namespaces`.
@@ -24,19 +19,20 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_list",
     title: "List namespaces in catalog",
-    description: "Returns a list of namespaces in the specified Basin Catalog.\nSupports hierarchical filtering and pagination for efficient traversal\nof large namespace hierarchies.",
+    description: "Returns a list of namespaces in the specified Basin Catalog.\nSupports hierarchical filtering and pagination for efficient traversal\nof large namespace hierarchies.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,28 +42,29 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_size": {
               "default": 100,
-              "description": "Maximum number of namespaces to return per page.\nDefaults to 100, maximum 1000.\n",
+              "description": "Maximum number of namespaces to return per page.\nDefaults to 100, maximum 1000.",
               "type": "integer"
             },
             "page_token": {
-              "description": "Opaque pagination token from a previous response.\nUse this to fetch the next page of results.\n",
+              "description": "Opaque pagination token from a previous response.\nUse this to fetch the next page of results.",
               "type": "string"
             },
             "parent": {
-              "description": "Parent namespace to filter by. Only returns direct children of this namespace.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").\nOmit this parameter to list top-level namespaces.\n",
+              "description": "Parent namespace to filter by. Only returns direct children of this namespace.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").\nOmit this parameter to list top-level namespaces.",
               "type": "string"
             },
             "return_details": {
               "default": false,
-              "description": "Whether to include additional metadata (timestamps).\nWhen true, response includes created_at and updated_at arrays.\n",
+              "description": "Whether to include additional metadata (timestamps).\nWhen true, response includes created_at and updated_at arrays.",
               "type": "boolean"
             },
             "return_uuids": {
               "default": false,
-              "description": "Whether to include namespace UUIDs in the response.\nSet to true to receive the namespace_uuids array.\n",
+              "description": "Whether to include namespace UUIDs in the response.\nSet to true to receive the namespace_uuids array.",
               "type": "boolean"
             }
           },
@@ -77,10 +74,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -100,7 +94,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_namespace-details": r2$$data$$catalog_namespace$$details,
         "r2-data-catalog_namespace-identifier": r2$$data$$catalog_namespace$$identifier,
         "r2-data-catalog_namespace-list-response": r2$$data$$catalog_namespace$$list$$response,
@@ -159,7 +152,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_namespace-details": r2$$data$$catalog_namespace$$details,
         "r2-data-catalog_namespace-identifier": r2$$data$$catalog_namespace$$identifier,
         "r2-data-catalog_namespace-list-response": r2$$data$$catalog_namespace$$list$$response,

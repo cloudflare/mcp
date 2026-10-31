@@ -384,7 +384,7 @@ export const dns$$records_MXRecord: JsonSchema = {
           "type": "string"
         },
         "priority": {
-          "$ref": "#/$defs/dns-records_priority"
+          "type": "number"
         },
         "type": {
           "enum": [
@@ -582,7 +582,7 @@ export const dns$$records_SRVRecord: JsonSchema = {
               "type": "number"
             },
             "priority": {
-              "$ref": "#/$defs/dns-records_priority"
+              "type": "number"
             },
             "target": {
               "type": "string"
@@ -775,7 +775,7 @@ export const dns$$records_URIRecord: JsonSchema = {
           "type": "object"
         },
         "priority": {
-          "$ref": "#/$defs/dns-records_priority"
+          "type": "number"
         },
         "type": {
           "enum": [
@@ -852,13 +852,6 @@ export const dns$$records_api$$response$$common: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_comment` in responses.
- */
-export const dns$$records_comment: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_dns-record-response` in responses.
  */
 export const dns$$records_dns$$record$$response: JsonSchema = {
@@ -884,7 +877,7 @@ export const dns$$records_dns$$record$$response: JsonSchema = {
           "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/dns-records_identifier"
+          "type": "string"
         },
         "meta": {
           "properties": {
@@ -936,13 +929,13 @@ export const dns$$records_dns$$record$$response: JsonSchema = {
 export const dns$$records_dns$$record$$shared$$fields: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/dns-records_name"
+      "type": "string"
     },
     "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
+      "type": "boolean"
     },
     "settings": {
       "$ref": "#/$defs/dns-records_settings"
@@ -951,7 +944,17 @@ export const dns$$records_dns$$record$$shared$$fields: JsonSchema = {
       "$ref": "#/$defs/dns-records_tags"
     },
     "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            1
+          ],
+          "type": "integer"
+        }
+      ]
     }
   },
   "type": "object"
@@ -1082,7 +1085,7 @@ export const dns$$records_dns$$response$$review$$scan$$object: JsonSchema = {
     },
     "rejects": {
       "items": {
-        "$ref": "#/$defs/dns-records_identifier"
+        "type": "string"
       },
       "type": "array"
     }
@@ -1196,27 +1199,6 @@ export const dns$$records_dns_response_trigger_scan: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_name` in responses.
- */
-export const dns$$records_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dns-records_priority` in responses.
- */
-export const dns$$records_priority: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `dns-records_proxied` in responses.
- */
-export const dns$$records_proxied: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `dns-records_settings` in responses.
  */
 export const dns$$records_settings: JsonSchema = {
@@ -1239,21 +1221,4 @@ export const dns$$records_tags: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-records_ttl` in responses.
- */
-export const dns$$records_ttl: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "number"
-    },
-    {
-      "enum": [
-        1
-      ],
-      "type": "integer"
-    }
-  ]
 };

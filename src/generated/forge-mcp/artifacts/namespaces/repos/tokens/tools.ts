@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_tokens_list",
     title: "List repository tokens",
-    description: "Lists tokens for a repository.\n\nThis method is beta.",
+    description: "Lists tokens for a repository.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/tokens",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -37,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -63,6 +65,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

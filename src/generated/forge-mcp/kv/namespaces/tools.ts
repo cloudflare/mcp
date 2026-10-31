@@ -7,25 +7,15 @@ import {
   workers$$kv_api$$response$$common$$failure,
   workers$$kv_api$$response$$common$$no$$result,
   workers$$kv_messages,
-  workers$$kv_namespace_identifier,
 } from "../outputs.js";
 import {
-  workers$$kv_identifier,
-  workers$$kv_namespace_identifier as workers$$kv_namespace_identifier$,
-} from "../schemas.js";
-import {
   workers$$kv_api$$response$$collection,
-  workers$$kv_jurisdiction,
   workers$$kv_namespace,
-  workers$$kv_namespace_mode,
-  workers$$kv_namespace_title,
   workers$$kv_result_info,
 } from "./outputs.js";
 import {
   workers$$kv_create_namespace_body,
   workers$$kv_create_rename_namespace_body,
-  workers$$kv_jurisdiction as workers$$kv_jurisdiction$,
-  workers$$kv_namespace_title as workers$$kv_namespace_title$,
 } from "./schemas.js";
 
 /**
@@ -35,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_namespaces_create",
     title: "Create a namespace",
-    description: "Creates a Workers KV namespace in the specified account with the given title. Returns `400` if the account already owns a namespace with that title; an existing namespace must be explicitly deleted before it can be replaced. An optional jurisdiction restricts where data is durably stored and can only be set at creation time.",
+    description: "Creates a Workers KV namespace in the specified account with the given title. Returns `400` if the account already owns a namespace with that title; an existing namespace must be explicitly deleted before it can be replaced. An optional jurisdiction restricts where data is durably stored and can only be set at creation time.\n\nPOST /accounts/{account_id}/storage/kv/namespaces",
     inputSchema: {
       type: "object",
       properties: {
@@ -43,10 +33,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers-kv_create_namespace_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,11 +50,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-kv_create_namespace_body": workers$$kv_create_namespace_body,
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction$,
-        "workers-kv_namespace_title": workers$$kv_namespace_title$,
       },
     },
     outputSchema: {
@@ -82,12 +71,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
       },
     },
     annotations: {
@@ -128,12 +113,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
         "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
       },
     },
     request: (args) => ({
@@ -144,19 +125,20 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_namespaces_delete",
     title: "Delete a namespace",
-    description: "Deletes the specified Workers KV namespace and its stored key-value pairs from the account.\n\nConfirm with the user before calling this tool. This operation deletes the selected Workers KV namespace and all of its key-value pairs.",
+    description: "Deletes the specified Workers KV namespace and its stored key-value pairs from the account.\n\nConfirm with the user before calling this tool. This operation deletes the selected Workers KV namespace and all of its key-value pairs.\n\nDELETE /accounts/{account_id}/storage/kv/namespaces/{namespace_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -169,10 +151,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers-kv_api-response-common-no-result",
@@ -219,19 +198,20 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_namespaces_get",
     title: "Get a namespace",
-    description: "Returns the Workers KV namespace for the specified account and namespace ID.",
+    description: "Returns the Workers KV namespace for the specified account and namespace ID.\n\nGET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -244,10 +224,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -265,12 +242,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
       },
     },
     annotations: {
@@ -312,12 +285,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
         "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
       },
     },
     request: (args) => ({
@@ -327,15 +296,16 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_namespaces_list",
     title: "List namespaces",
-    description: "Lists Workers KV namespaces owned by the specified account. Use `page` and `per_page` to select a page of results, and `order` and `direction` to control sorting.",
+    description: "Lists Workers KV namespaces owned by the specified account. Use `page` and `per_page` to select a page of results, and `order` and `direction` to control sorting.\n\nGET /accounts/{account_id}/storage/kv/namespaces",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             }
           },
           "required": [
@@ -344,6 +314,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Sort namespaces in ascending (`asc`) or descending (`desc`) order.",
@@ -378,9 +349,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -402,12 +371,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-kv_api-response-collection": workers$$kv_api$$response$$collection,
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
         "workers-kv_result_info": workers$$kv_result_info,
       },
     },
@@ -454,12 +419,8 @@ export const tools: readonly Tool[] = [
         "workers-kv_api-response-collection": workers$$kv_api$$response$$collection,
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
         "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
         "workers-kv_result_info": workers$$kv_result_info,
       },
     },
@@ -476,7 +437,7 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_namespaces_update",
     title: "Rename a namespace",
-    description: "Changes the title of the specified Workers KV namespace and returns the updated namespace. The namespace ID and stored key-value pairs are unchanged.",
+    description: "Changes the title of the specified Workers KV namespace and returns the updated namespace. The namespace ID and stored key-value pairs are unchanged.\n\nPUT /accounts/{account_id}/storage/kv/namespaces/{namespace_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -484,14 +445,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers-kv_create_rename_namespace_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -505,11 +467,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-kv_create_rename_namespace_body": workers$$kv_create_rename_namespace_body,
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier$,
-        "workers-kv_namespace_title": workers$$kv_namespace_title$,
       },
     },
     outputSchema: {
@@ -531,12 +491,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
       },
     },
     annotations: {
@@ -580,12 +536,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
         "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
-        "workers-kv_jurisdiction": workers$$kv_jurisdiction,
         "workers-kv_messages": workers$$kv_messages,
         "workers-kv_namespace": workers$$kv_namespace,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-        "workers-kv_namespace_mode": workers$$kv_namespace_mode,
-        "workers-kv_namespace_title": workers$$kv_namespace_title,
       },
     },
     request: (args) => ({

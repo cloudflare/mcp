@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_create",
     title: "Create account Email Sending suppression",
-    description: "Creates a suppression for every sending domain of the account (default) or for one sending domain (`scope.type = sending_domain`). Creating an existing active suppression returns its identifier. If a mutable legacy zone-linked account row already exists, it is promoted without changing its identifier.",
+    description: "Creates a suppression for every sending domain of the account (default) or for one sending domain (`scope.type = sending_domain`). Creating an existing active suppression returns its identifier. If a mutable legacy zone-linked account row already exists, it is promoted without changing its identifier.\n\nPOST /accounts/{account_id}/email/sending/suppressions",
     inputSchema: {
       type: "object",
       properties: {
@@ -83,6 +83,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -98,6 +99,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -448,11 +450,12 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_delete",
     title: "Delete account Email Sending suppression",
-    description: "Deletes the suppression, its note, and every legacy internal zone membership, allowing future delivery attempts to the address.\n\nConfirm with the user before calling this tool. This operation removes an Email Sending suppression and may allow email delivery to resume for the address.",
+    description: "Deletes the suppression, its note, and every legacy internal zone membership, allowing future delivery attempts to the address.\n\nConfirm with the user before calling this tool. This operation removes an Email Sending suppression and may allow email delivery to resume for the address.\n\nDELETE /accounts/{account_id}/email/sending/suppressions/{suppression_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -474,6 +477,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -823,7 +827,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_edit",
     title: "Update account Email Sending suppression",
-    description: "Updates expiry or advisory note fields without changing legacy internal zone memberships. Scope cannot be changed.",
+    description: "Updates expiry or advisory note fields without changing legacy internal zone memberships. Scope cannot be changed.\n\nPATCH /accounts/{account_id}/email/sending/suppressions/{suppression_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -853,6 +857,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -874,6 +879,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1257,11 +1263,12 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_get",
     title: "Get account Email Sending suppression",
-    description: "Gets an Email Sending suppression owned by the account.",
+    description: "Gets an Email Sending suppression owned by the account.\n\nGET /accounts/{account_id}/email/sending/suppressions/{suppression_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -1283,6 +1290,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1575,7 +1583,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_import",
     title: "Bulk import account Email Sending suppressions",
-    description: "Imports up to 1,000 Email Sending suppressions in one request. Each item applies to every sending domain of the account (default) or to one sending domain.",
+    description: "Imports up to 1,000 Email Sending suppressions in one request. Each item applies to every sending domain of the account (default) or to one sending domain.\n\nPOST /accounts/{account_id}/email/sending/suppressions/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -1661,6 +1669,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -1676,6 +1685,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1999,11 +2009,12 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_list",
     title: "List account Email Sending suppressions",
-    description: "Lists every active Email Sending suppression owned by the account: sending-domain suppressions first, then account-wide suppressions (including legacy rows with internal zone memberships). Each group is newest first.",
+    description: "Lists every active Email Sending suppression owned by the account: sending-domain suppressions first, then account-wide suppressions (including legacy rows with internal zone memberships). Each group is newest first.\n\nGET /accounts/{account_id}/email/sending/suppressions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -2016,6 +2027,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque pagination cursor returned as `result_info.next_cursor`. It carries the filters that produced it.",
@@ -2064,6 +2076,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

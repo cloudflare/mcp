@@ -4,59 +4,32 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `resource-sharing_recipient_association_status` in responses.
- */
-export const resource$$sharing_recipient_association_status: JsonSchema = {
-  "enum": [
-    "associating",
-    "associated",
-    "disassociating",
-    "disassociated"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_recipient_id` in responses.
- */
-export const resource$$sharing_recipient_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_recipient_resource_error` in responses.
- */
-export const resource$$sharing_recipient_resource_error: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_recipient_resource_error_terminal` in
- * responses.
- */
-export const resource$$sharing_recipient_resource_error_terminal: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `resource-sharing_share_recipient_object` in responses.
  */
 export const resource$$sharing_share_recipient_object: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id"
+      "type": "string"
     },
     "association_status": {
-      "$ref": "#/$defs/resource-sharing_recipient_association_status"
+      "enum": [
+        "associating",
+        "associated",
+        "disassociating",
+        "disassociated"
+      ],
+      "type": "string"
     },
     "created": {
-      "$ref": "#/$defs/resource-sharing_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-sharing_recipient_id"
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/resource-sharing_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "resources": {
       "items": {
@@ -82,16 +55,16 @@ export const resource$$sharing_share_recipient_object: JsonSchema = {
 export const resource$$sharing_share_recipient_resource_object: JsonSchema = {
   "properties": {
     "error": {
-      "$ref": "#/$defs/resource-sharing_recipient_resource_error"
+      "type": "string"
     },
     "resource_id": {
-      "$ref": "#/$defs/resource-sharing_resource_resource_id"
+      "type": "string"
     },
     "resource_version": {
-      "$ref": "#/$defs/resource-sharing_resource_version"
+      "type": "integer"
     },
     "terminal": {
-      "$ref": "#/$defs/resource-sharing_recipient_resource_error_terminal"
+      "type": "boolean"
     }
   },
   "required": [

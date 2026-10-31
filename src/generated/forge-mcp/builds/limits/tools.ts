@@ -8,7 +8,6 @@ import {
   builds_ErrorResponse,
   builds_PaginationInfo,
 } from "../../outputs.js";
-import { builds_account_id } from "../../schemas.js";
 import { builds_GetAccountLimitResponse } from "./outputs.js";
 
 /**
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_limits_get",
     title: "Get build-minute availability",
-    description: "Return whether the account's build-minute allowance is exhausted and when it refreshes.",
+    description: "Return whether the account's build-minute allowance is exhausted and when it refreshes.\n\nGET /accounts/{account_id}/builds/account/limits",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

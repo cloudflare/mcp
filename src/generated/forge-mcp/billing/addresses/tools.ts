@@ -21,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_addresses_validate",
     title: "Validate Billing Address",
-    description: "Validates a billing address and returns validated address suggestions. Authentication is not enforced to support pre-signup address validation flows, so credentials are accepted but not required.",
+    description: "Validates a billing address and returns validated address suggestions. Authentication is not enforced to support pre-signup address validation flows, so credentials are accepted but not required.\n\nPOST /billing/address-validation",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +32,7 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "bill-subs-api_address_validation_request": bill$$subs$$api_address_validation_request,
       },

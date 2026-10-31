@@ -8,63 +8,27 @@ import {
   stream_api$$response$$single,
   stream_messages,
 } from "../outputs.js";
-import { stream_identifier$$2, stream_include_counts } from "../schemas.js";
 import {
   stream_input_rtmps,
-  stream_input_rtmps_stream_key,
-  stream_input_rtmps_url,
   stream_input_srt,
-  stream_input_srt_stream_id,
-  stream_input_srt_stream_passphrase,
-  stream_input_srt_url,
   stream_input_webrtc,
-  stream_input_webrtc_url,
   stream_live_input,
-  stream_live_input_created,
-  stream_live_input_enabled,
-  stream_live_input_identifier,
-  stream_live_input_keys_rotated_at,
   stream_live_input_metadata,
-  stream_live_input_modified,
   stream_live_input_object_without_url,
   stream_live_input_playback,
-  stream_live_input_prefer_low_latency,
   stream_live_input_recording_allowedOrigins,
-  stream_live_input_recording_deletion,
-  stream_live_input_recording_hideLiveViewerCount,
-  stream_live_input_recording_mode,
-  stream_live_input_recording_requireSignedURLs,
   stream_live_input_recording_settings,
-  stream_live_input_recording_timeoutSeconds,
   stream_live_input_response_collection,
   stream_live_input_response_single,
-  stream_live_input_status,
-  stream_playback_dash_url,
-  stream_playback_hls_url,
   stream_playback_rtmps,
-  stream_playback_rtmps_stream_key,
-  stream_playback_rtmps_url,
   stream_playback_srt,
-  stream_playback_srt_stream_id,
-  stream_playback_srt_stream_passphrase,
-  stream_playback_srt_url,
   stream_playback_webrtc,
-  stream_playback_webrtc_url,
 } from "./outputs.js";
 import {
   stream_create_input_request,
-  stream_live_input_default_creator,
-  stream_live_input_enabled as stream_live_input_enabled$,
-  stream_live_input_identifier as stream_live_input_identifier$,
   stream_live_input_metadata as stream_live_input_metadata$,
-  stream_live_input_prefer_low_latency as stream_live_input_prefer_low_latency$,
   stream_live_input_recording_allowedOrigins as stream_live_input_recording_allowedOrigins$,
-  stream_live_input_recording_deletion as stream_live_input_recording_deletion$,
-  stream_live_input_recording_hideLiveViewerCount as stream_live_input_recording_hideLiveViewerCount$,
-  stream_live_input_recording_mode as stream_live_input_recording_mode$,
-  stream_live_input_recording_requireSignedURLs as stream_live_input_recording_requireSignedURLs$,
   stream_live_input_recording_settings as stream_live_input_recording_settings$,
-  stream_live_input_recording_timeoutSeconds as stream_live_input_recording_timeoutSeconds$,
   stream_update_input_request,
 } from "./schemas.js";
 
@@ -75,7 +39,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_create",
     title: "Create a live input",
-    description: "Creates a live input, and returns credentials that you or your users can use to stream live video to Cloudflare Stream.",
+    description: "Creates a live input, and returns credentials that you or your users can use to stream live video to Cloudflare Stream.\n\nPOST /accounts/{account_id}/stream/live_inputs",
     inputSchema: {
       type: "object",
       properties: {
@@ -83,6 +47,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_create_input_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Idempotency-Key": {
               "description": "Prevents duplicate live inputs from being created when retrying this request. The key is scoped to the account, may contain up to 255 bytes, and expires six hours after the live input is created. Reusing a key for a deleted input before expiry returns a 409 Conflict response.",
@@ -92,10 +57,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -108,20 +74,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "stream_create_input_request": stream_create_input_request,
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_default_creator": stream_live_input_default_creator,
-        "stream_live_input_enabled": stream_live_input_enabled$,
         "stream_live_input_metadata": stream_live_input_metadata$,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency$,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins$,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion$,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount$,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode$,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs$,
         "stream_live_input_recording_settings": stream_live_input_recording_settings$,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds$,
       },
     },
     outputSchema: {
@@ -129,44 +87,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     annotations: {
@@ -196,44 +128,18 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     request: (args) => ({
@@ -247,19 +153,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_delete",
     title: "Delete a live input",
-    description: "Permanently delete a live input, making it inaccessible and blocking current and future broadcasts to it. Existing recordings will be retained.\n\nConfirm with the user before calling this tool. Permanently delete this live input? It cannot be recreated.",
+    description: "Permanently delete a live input, making it inaccessible and blocking current and future broadcasts to it. Existing recordings will be retained.\n\nConfirm with the user before calling this tool. Permanently delete this live input? It cannot be recreated.\n\nDELETE /accounts/{account_id}/stream/live_inputs/{live_input_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "live_input_identifier": {
-              "$ref": "#/$defs/stream_live_input_identifier",
-              "description": "A unique identifier for a live input."
+              "description": "A unique identifier for a live input.",
+              "type": "string"
             }
           },
           "required": [
@@ -272,10 +179,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_identifier": stream_live_input_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
     },
@@ -306,19 +210,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_disable",
     title: "Disable a live input",
-    description: "Prevents a live input from being streamed to and terminates any active broadcasts until re-enabled.\n\nConfirm with the user before calling this tool. Disable this live input? Active broadcasts will be terminated and future connections will be blocked until it is re-enabled.",
+    description: "Prevents a live input from being streamed to and terminates any active broadcasts until re-enabled.\n\nConfirm with the user before calling this tool. Disable this live input? Active broadcasts will be terminated and future connections will be blocked until it is re-enabled.\n\nPOST /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/disable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "live_input_identifier": {
-              "$ref": "#/$defs/stream_live_input_identifier",
-              "description": "A unique identifier for a live input."
+              "description": "A unique identifier for a live input.",
+              "type": "string"
             }
           },
           "required": [
@@ -331,54 +236,25 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_identifier": stream_live_input_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     annotations: {
@@ -403,44 +279,18 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     request: (args) => ({
@@ -450,19 +300,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_enable",
     title: "Enable a live input",
-    description: "Allows a disabled live input to start receiving broadcasts again.",
+    description: "Allows a disabled live input to start receiving broadcasts again.\n\nPOST /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/enable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "live_input_identifier": {
-              "$ref": "#/$defs/stream_live_input_identifier",
-              "description": "A unique identifier for a live input."
+              "description": "A unique identifier for a live input.",
+              "type": "string"
             }
           },
           "required": [
@@ -475,54 +326,25 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_identifier": stream_live_input_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     annotations: {
@@ -547,44 +369,18 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     request: (args) => ({
@@ -594,19 +390,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_get",
     title: "Retrieve a live input",
-    description: "Retrieves details of an existing live input.",
+    description: "Retrieves details of an existing live input.\n\nGET /accounts/{account_id}/stream/live_inputs/{live_input_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "live_input_identifier": {
-              "$ref": "#/$defs/stream_live_input_identifier",
-              "description": "A unique identifier for a live input."
+              "description": "A unique identifier for a live input.",
+              "type": "string"
             }
           },
           "required": [
@@ -619,54 +416,25 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_identifier": stream_live_input_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     annotations: {
@@ -697,44 +465,18 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     request: (args) => ({
@@ -744,15 +486,16 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_list",
     title: "List live inputs",
-    description: "Lists the live inputs created for an account. To get the credentials needed to stream to a specific live input, request a single live input.",
+    description: "Lists the live inputs created for an account. To get the credentials needed to stream to a specific live input, request a single live input.\n\nGET /accounts/{account_id}/stream/live_inputs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -761,11 +504,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_counts": {
-              "$ref": "#/$defs/stream_include_counts",
               "default": false,
-              "description": "Includes the total number of videos associated with the submitted query parameters."
+              "description": "Includes the total number of videos associated with the submitted query parameters.",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -774,22 +518,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_include_counts": stream_include_counts,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_collection",
       $defs: {
         "stream_api-response-common": stream_api$$response$$common,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_object_without_url": stream_live_input_object_without_url,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
         "stream_live_input_response_collection": stream_live_input_response_collection,
         "stream_messages": stream_messages,
       },
@@ -821,13 +557,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_object_without_url": stream_live_input_object_without_url,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
         "stream_live_input_response_collection": stream_live_input_response_collection,
         "stream_messages": stream_messages,
       },
@@ -842,19 +573,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_rotateKeys",
     title: "Rotate keys for a live input",
-    description: "Rotates the credentials for a live input without changing its identifier. Old credentials are revoked, broadcasts using stale credentials are automatically disconnected shortly after rotation, and the response returns refreshed credentials.\n\nConfirm with the user before calling this tool. Rotate keys for this live input? Active broadcasts will be terminated. New broadcasts cannot start with outdated credentials.",
+    description: "Rotates the credentials for a live input without changing its identifier. Old credentials are revoked, broadcasts using stale credentials are automatically disconnected shortly after rotation, and the response returns refreshed credentials.\n\nConfirm with the user before calling this tool. Rotate keys for this live input? Active broadcasts will be terminated. New broadcasts cannot start with outdated credentials.\n\nPOST /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/rotate_keys",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "live_input_identifier": {
-              "$ref": "#/$defs/stream_live_input_identifier",
-              "description": "A unique identifier for a live input."
+              "description": "A unique identifier for a live input.",
+              "type": "string"
             }
           },
           "required": [
@@ -867,54 +599,25 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_identifier": stream_live_input_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     annotations: {
@@ -939,44 +642,18 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     request: (args) => ({
@@ -986,7 +663,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_liveInputs_update",
     title: "Update a live input",
-    description: "Updates a specified live input.",
+    description: "Updates a specified live input.\n\nPUT /accounts/{account_id}/stream/live_inputs/{live_input_identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -994,14 +671,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_update_input_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "live_input_identifier": {
-              "$ref": "#/$defs/stream_live_input_identifier",
-              "description": "A unique identifier for a live input."
+              "description": "A unique identifier for a live input.",
+              "type": "string"
             }
           },
           "required": [
@@ -1015,20 +693,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_identifier-2": stream_identifier$$2,
-        "stream_live_input_default_creator": stream_live_input_default_creator,
-        "stream_live_input_enabled": stream_live_input_enabled$,
-        "stream_live_input_identifier": stream_live_input_identifier$,
         "stream_live_input_metadata": stream_live_input_metadata$,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency$,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins$,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion$,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount$,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode$,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs$,
         "stream_live_input_recording_settings": stream_live_input_recording_settings$,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds$,
         "stream_update_input_request": stream_update_input_request,
       },
     },
@@ -1037,44 +706,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     annotations: {
@@ -1104,44 +747,18 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
-        "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key,
-        "stream_input_rtmps_url": stream_input_rtmps_url,
         "stream_input_srt": stream_input_srt,
-        "stream_input_srt_stream_id": stream_input_srt_stream_id,
-        "stream_input_srt_stream_passphrase": stream_input_srt_stream_passphrase,
-        "stream_input_srt_url": stream_input_srt_url,
         "stream_input_webrtc": stream_input_webrtc,
-        "stream_input_webrtc_url": stream_input_webrtc_url,
         "stream_live_input": stream_live_input,
-        "stream_live_input_created": stream_live_input_created,
-        "stream_live_input_enabled": stream_live_input_enabled,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_live_input_keys_rotated_at": stream_live_input_keys_rotated_at,
         "stream_live_input_metadata": stream_live_input_metadata,
-        "stream_live_input_modified": stream_live_input_modified,
         "stream_live_input_playback": stream_live_input_playback,
-        "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
-        "stream_live_input_recording_deletion": stream_live_input_recording_deletion,
-        "stream_live_input_recording_hideLiveViewerCount": stream_live_input_recording_hideLiveViewerCount,
-        "stream_live_input_recording_mode": stream_live_input_recording_mode,
-        "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs,
         "stream_live_input_recording_settings": stream_live_input_recording_settings,
-        "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds,
         "stream_live_input_response_single": stream_live_input_response_single,
-        "stream_live_input_status": stream_live_input_status,
         "stream_messages": stream_messages,
-        "stream_playback_dash_url": stream_playback_dash_url,
-        "stream_playback_hls_url": stream_playback_hls_url,
         "stream_playback_rtmps": stream_playback_rtmps,
-        "stream_playback_rtmps_stream_key": stream_playback_rtmps_stream_key,
-        "stream_playback_rtmps_url": stream_playback_rtmps_url,
         "stream_playback_srt": stream_playback_srt,
-        "stream_playback_srt_stream_id": stream_playback_srt_stream_id,
-        "stream_playback_srt_stream_passphrase": stream_playback_srt_stream_passphrase,
-        "stream_playback_srt_url": stream_playback_srt_url,
         "stream_playback_webrtc": stream_playback_webrtc,
-        "stream_playback_webrtc_url": stream_playback_webrtc_url,
       },
     },
     request: (args) => ({

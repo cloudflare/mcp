@@ -28,10 +28,10 @@ export const lists_bulk$$operation$$response$$single: JsonSchema = {
 export const lists_bulk_operation_completed: JsonSchema = {
   "properties": {
     "completed": {
-      "$ref": "#/$defs/lists_completed"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/lists_operation_id"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -54,13 +54,13 @@ export const lists_bulk_operation_completed: JsonSchema = {
 export const lists_bulk_operation_failed: JsonSchema = {
   "properties": {
     "completed": {
-      "$ref": "#/$defs/lists_completed"
+      "type": "string"
     },
     "error": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/lists_operation_id"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -84,7 +84,7 @@ export const lists_bulk_operation_failed: JsonSchema = {
 export const lists_bulk_operation_pending_or_running: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/lists_operation_id"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -99,13 +99,6 @@ export const lists_bulk_operation_pending_or_running: JsonSchema = {
     "status"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `lists_completed` in responses.
- */
-export const lists_completed: JsonSchema = {
-  "type": "string"
 };
 
 /**

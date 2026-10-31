@@ -61,13 +61,6 @@ export const cloudforce$$one$$whois_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `cloudforce-one-whois_domain_name` in responses.
- */
-export const cloudforce$$one$$whois_domain_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `cloudforce-one-whois_messages` in responses.
  */
 export const cloudforce$$one$$whois_messages: JsonSchema = {
@@ -241,7 +234,7 @@ export const cloudforce$$one$$whois_whois: JsonSchema = {
       "type": "boolean"
     },
     "domain": {
-      "$ref": "#/$defs/cloudforce-one-whois_domain_name"
+      "type": "string"
     },
     "expiration_date": {
       "format": "date-time",

@@ -6,30 +6,23 @@ import {
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
-  zero$$trust$$gateway_read_only_timestamp,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier$$2 } from "../../schemas.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
-  zero$$trust$$gateway_uuid$$3,
 } from "../outputs.js";
-import { zero$$trust$$gateway_uuid$$3 as zero$$trust$$gateway_uuid$$3$ } from "../schemas.js";
 import {
   zero$$trust$$gateway_ips,
-  zero$$trust$$gateway_name$$6,
   zero$$trust$$gateway_proxy$$endpoint$$identity,
   zero$$trust$$gateway_proxy$$endpoint$$ip,
   zero$$trust$$gateway_proxy$$endpoints,
   zero$$trust$$gateway_response_collection$$9,
   zero$$trust$$gateway_single_response$$5,
-  zero$$trust$$gateway_subdomain$$2,
 } from "./outputs.js";
 import {
   zero$$trust$$gateway_ips as zero$$trust$$gateway_ips$,
-  zero$$trust$$gateway_name$$6 as zero$$trust$$gateway_name$$6$,
   zero$$trust$$gateway_proxy$$endpoint$$identity$$create,
   zero$$trust$$gateway_proxy$$endpoint$$ip$$create,
 } from "./schemas.js";
@@ -41,7 +34,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_proxyEndpoints_create",
     title: "Create a proxy endpoint",
-    description: "Create a new Zero Trust Gateway proxy endpoint.",
+    description: "Create a new Zero Trust Gateway proxy endpoint.\n\nPOST /accounts/{account_id}/gateway/proxy_endpoints",
     inputSchema: {
       type: "object",
       properties: {
@@ -74,10 +67,11 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -90,9 +84,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6$,
         "zero-trust-gateway_proxy-endpoint-identity-create": zero$$trust$$gateway_proxy$$endpoint$$identity$$create,
         "zero-trust-gateway_proxy-endpoint-ip-create": zero$$trust$$gateway_proxy$$endpoint$$ip$$create,
       },
@@ -103,14 +96,10 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-5": zero$$trust$$gateway_single_response$$5,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -143,14 +132,10 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-5": zero$$trust$$gateway_single_response$$5,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -161,18 +146,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_proxyEndpoints_delete",
     title: "Delete a proxy endpoint",
-    description: "Delete a configured Zero Trust Gateway proxy endpoint.",
+    description: "Delete a configured Zero Trust Gateway proxy endpoint.\n\nDELETE /accounts/{account_id}/gateway/proxy_endpoints/{proxy_endpoint_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "proxy_endpoint_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -185,10 +171,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
@@ -237,7 +220,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_proxyEndpoints_edit",
     title: "Update a proxy endpoint",
-    description: "Update a configured Zero Trust Gateway proxy endpoint.",
+    description: "Update a configured Zero Trust Gateway proxy endpoint.\n\nPATCH /accounts/{account_id}/gateway/proxy_endpoints/{proxy_endpoint_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -248,20 +231,21 @@ export const tools: readonly Tool[] = [
               "description": "Specify the list of CIDRs to restrict ingress connections."
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-6",
-              "description": "Specify the name of the proxy endpoint."
+              "description": "Specify the name of the proxy endpoint.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "proxy_endpoint_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -275,11 +259,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips$,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6$,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
       },
     },
     outputSchema: {
@@ -288,14 +270,10 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-5": zero$$trust$$gateway_single_response$$5,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -328,14 +306,10 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-5": zero$$trust$$gateway_single_response$$5,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -346,18 +320,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_proxyEndpoints_get",
     title: "Get a proxy endpoint",
-    description: "Get a single Zero Trust Gateway proxy endpoint.",
+    description: "Get a single Zero Trust Gateway proxy endpoint.\n\nGET /accounts/{account_id}/gateway/proxy_endpoints/{proxy_endpoint_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "proxy_endpoint_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -370,10 +345,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-5",
@@ -381,14 +353,10 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-5": zero$$trust$$gateway_single_response$$5,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -421,14 +389,10 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-5": zero$$trust$$gateway_single_response$$5,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -438,15 +402,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_proxyEndpoints_list",
     title: "List proxy endpoints",
-    description: "List all Zero Trust Gateway proxy endpoints for an account.",
+    description: "List all Zero Trust Gateway proxy endpoints for an account.\n\nGET /accounts/{account_id}/gateway/proxy_endpoints",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -455,6 +420,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Sort direction. Only takes effect when `order_by` is also provided; it\nis ignored otherwise. When `direction` is omitted the effective\ndirection is field-specific: `created_at` and `updated_at` default to\ndescending (newest first); `name` defaults to ascending.\n  * `asc` — ascending.\n  * `desc` — descending.",
@@ -491,9 +457,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-9",
@@ -502,15 +466,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-9": zero$$trust$$gateway_response_collection$$9,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -544,15 +504,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_ips": zero$$trust$$gateway_ips,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-6": zero$$trust$$gateway_name$$6,
         "zero-trust-gateway_proxy-endpoint-identity": zero$$trust$$gateway_proxy$$endpoint$$identity,
         "zero-trust-gateway_proxy-endpoint-ip": zero$$trust$$gateway_proxy$$endpoint$$ip,
         "zero-trust-gateway_proxy-endpoints": zero$$trust$$gateway_proxy$$endpoints,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-9": zero$$trust$$gateway_response_collection$$9,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_subdomain-2": zero$$trust$$gateway_subdomain$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({

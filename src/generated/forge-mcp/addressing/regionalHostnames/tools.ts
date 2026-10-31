@@ -6,19 +6,9 @@ import {
   dls_api$$response$$collection,
   dls_api$$response$$common,
   dls_api$$response$$common$$failure,
-  dls_hostname,
   dls_messages,
-  dls_region_key,
   dls_regional_hostname_response,
-  dls_routing,
-  dls_timestamp,
 } from "./outputs.js";
-import {
-  dls_hostname as dls_hostname$,
-  dls_identifier,
-  dls_region_key as dls_region_key$,
-  dls_routing as dls_routing$,
-} from "./schemas.js";
 
 /**
  * The tools of `addressing.regionalHostnames`.
@@ -27,24 +17,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_regionalHostnames_create",
     title: "Create Regional Hostname",
-    description: "Create a new Regional Hostname entry. Cloudflare will only use data centers that are physically located within the chosen region to decrypt and service HTTPS traffic. Learn more about [Regional Services](https://developers.cloudflare.com/data-localization/regional-services/get-started/).",
+    description: "Create a new Regional Hostname entry. Cloudflare will only use data centers that are physically located within the chosen region to decrypt and service HTTPS traffic. Learn more about [Regional Services](https://developers.cloudflare.com/data-localization/regional-services/get-started/).\n\nPOST /zones/{zone_id}/addressing/regional_hostnames",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "hostname": {
-              "$ref": "#/$defs/dls_hostname",
-              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"
+              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`",
+              "type": "string"
             },
             "region_key": {
-              "$ref": "#/$defs/dls_region_key",
-              "description": "Identifying key for the region"
+              "description": "Identifying key for the region",
+              "type": "string"
             },
             "routing": {
-              "$ref": "#/$defs/dls_routing",
               "default": "dns",
-              "description": "Configure which routing method to use for the regional hostname"
+              "description": "Configure which routing method to use for the regional hostname",
+              "type": "string"
             }
           },
           "required": [
@@ -54,10 +44,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dls_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -69,12 +60,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_hostname": dls_hostname$,
-        "dls_identifier": dls_identifier,
-        "dls_region_key": dls_region_key$,
-        "dls_routing": dls_routing$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -92,12 +78,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dls_api-response-common": dls_api$$response$$common,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     annotations: {
@@ -138,12 +120,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dls_api-response-common": dls_api$$response$$common,
         "dls_api-response-common-failure": dls_api$$response$$common$$failure,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     request: (args) => ({
@@ -154,19 +132,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_regionalHostnames_delete",
     title: "Delete Regional Hostname",
-    description: "Delete the region configuration for a specific Regional Hostname.",
+    description: "Delete the region configuration for a specific Regional Hostname.\n\nDELETE /zones/{zone_id}/addressing/regional_hostnames/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "hostname": {
-              "$ref": "#/$defs/dls_hostname",
-              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"
+              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dls_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -179,10 +158,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_hostname": dls_hostname$,
-        "dls_identifier": dls_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dls_api-response-common",
@@ -227,15 +203,15 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_regionalHostnames_edit",
     title: "Update Regional Hostname",
-    description: "Update the configuration for a specific Regional Hostname. Only the region_key of a hostname is mutable.",
+    description: "Update the configuration for a specific Regional Hostname. Only the region_key of a hostname is mutable.\n\nPATCH /zones/{zone_id}/addressing/regional_hostnames/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "region_key": {
-              "$ref": "#/$defs/dls_region_key",
-              "description": "Identifying key for the region"
+              "description": "Identifying key for the region",
+              "type": "string"
             }
           },
           "required": [
@@ -244,14 +220,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "hostname": {
-              "$ref": "#/$defs/dls_hostname",
-              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"
+              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dls_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -264,11 +241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_hostname": dls_hostname$,
-        "dls_identifier": dls_identifier,
-        "dls_region_key": dls_region_key$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -286,12 +259,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dls_api-response-common": dls_api$$response$$common,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     annotations: {
@@ -332,12 +301,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dls_api-response-common": dls_api$$response$$common,
         "dls_api-response-common-failure": dls_api$$response$$common$$failure,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     request: (args) => ({
@@ -348,19 +313,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_regionalHostnames_get",
     title: "Fetch Regional Hostname",
-    description: "Fetch the configuration for a specific Regional Hostname, within a zone.",
+    description: "Fetch the configuration for a specific Regional Hostname, within a zone.\n\nGET /zones/{zone_id}/addressing/regional_hostnames/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "hostname": {
-              "$ref": "#/$defs/dls_hostname",
-              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`"
+              "description": "DNS hostname to be regionalized, must be a subdomain of the zone. Wildcards are supported for one level, e.g `*.example.com`",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dls_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -373,10 +339,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_hostname": dls_hostname$,
-        "dls_identifier": dls_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -394,12 +357,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dls_api-response-common": dls_api$$response$$common,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     annotations: {
@@ -441,12 +400,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dls_api-response-common": dls_api$$response$$common,
         "dls_api-response-common-failure": dls_api$$response$$common$$failure,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     request: (args) => ({
@@ -456,15 +411,16 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_regionalHostnames_list",
     title: "List Regional Hostnames",
-    description: "List all Regional Hostnames within a zone.",
+    description: "List all Regional Hostnames within a zone.\n\nGET /zones/{zone_id}/addressing/regional_hostnames",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dls_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -476,9 +432,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_identifier": dls_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -500,12 +454,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dls_api-response-collection": dls_api$$response$$collection,
         "dls_api-response-common": dls_api$$response$$common,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     annotations: {
@@ -551,12 +501,8 @@ export const tools: readonly Tool[] = [
         "dls_api-response-collection": dls_api$$response$$collection,
         "dls_api-response-common": dls_api$$response$$common,
         "dls_api-response-common-failure": dls_api$$response$$common$$failure,
-        "dls_hostname": dls_hostname,
         "dls_messages": dls_messages,
-        "dls_region_key": dls_region_key,
         "dls_regional_hostname_response": dls_regional_hostname_response,
-        "dls_routing": dls_routing,
-        "dls_timestamp": dls_timestamp,
       },
     },
     request: (args) => ({

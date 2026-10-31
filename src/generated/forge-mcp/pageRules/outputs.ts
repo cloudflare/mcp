@@ -198,7 +198,7 @@ export const zones_api$$response$$single$$id$$2: JsonSchema = {
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/zones_identifier-2"
+                  "type": "string"
                 }
               },
               "required": [
@@ -550,14 +550,6 @@ export const zones_cache_ttl_by_status: JsonSchema = {
 };
 
 /**
- * The schema of `zones_created_on` in responses.
- */
-export const zones_created_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `zones_disable_apps` in responses.
  */
 export const zones_disable_apps: JsonSchema = {
@@ -772,14 +764,6 @@ export const zones_mirage: JsonSchema = {
 };
 
 /**
- * The schema of `zones_modified_on` in responses.
- */
-export const zones_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `zones_opportunistic_encryption` in responses.
  */
 export const zones_opportunistic_encryption: JsonSchema = {
@@ -832,19 +816,25 @@ export const zones_page_rule: JsonSchema = {
       "$ref": "#/$defs/zones_actions"
     },
     "created_on": {
-      "$ref": "#/$defs/zones_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zones_identifier-2"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/zones_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/zones_priority"
+      "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/zones_status"
+      "enum": [
+        "active",
+        "disabled"
+      ],
+      "type": "string"
     },
     "targets": {
       "$ref": "#/$defs/zones_targets"
@@ -883,13 +873,6 @@ export const zones_polish: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zones_priority` in responses.
- */
-export const zones_priority: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -1047,17 +1030,6 @@ export const zones_ssl: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zones_status` in responses.
- */
-export const zones_status: JsonSchema = {
-  "enum": [
-    "active",
-    "disabled"
-  ],
-  "type": "string"
 };
 
 /**

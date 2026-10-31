@@ -34,7 +34,7 @@ export const magic_cf1_site_ramp: JsonSchema = {
       "$ref": "#/$defs/magic_cf1_site_managed_ramp"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "ipsec": {
       "$ref": "#/$defs/magic_cf1_site_managed_ramp"
@@ -53,7 +53,14 @@ export const magic_cf1_site_ramp: JsonSchema = {
       "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/magic_cf1_site_ramp_type"
+      "enum": [
+        "gre",
+        "gre_interconnect",
+        "mpls_interconnect",
+        "mconn",
+        "ipsec"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -83,20 +90,6 @@ export const magic_cf1_site_ramp_single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic_cf1_site_ramp_type` in responses.
- */
-export const magic_cf1_site_ramp_type: JsonSchema = {
-  "enum": [
-    "gre",
-    "gre_interconnect",
-    "mpls_interconnect",
-    "mconn",
-    "ipsec"
-  ],
-  "type": "string"
 };
 
 /**

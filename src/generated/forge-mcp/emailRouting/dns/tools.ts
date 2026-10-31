@@ -10,24 +10,11 @@ import {
   email_dns_settings_response_collection,
   email_messages,
 } from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
 import {
-  email_email_setting_created,
-  email_email_setting_enabled,
-  email_email_setting_identifier,
-  email_email_setting_modified,
-  email_email_setting_name,
-  email_email_setting_skip$$wizard,
-  email_email_setting_status,
-  email_email_setting_support_subaddress,
-  email_email_setting_tag,
   email_email_settings_response_single,
   email_settings,
 } from "../outputs.js";
-import {
-  email_email_setting_dns_request_body,
-  email_email_setting_name as email_email_setting_name$,
-} from "../schemas.js";
+import { email_email_setting_dns_request_body } from "../schemas.js";
 
 /**
  * The tools of `emailRouting.dns`.
@@ -36,15 +23,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_dns_get",
     title: "Email Routing - DNS settings",
-    description: "Show the DNS records needed to configure your Email Routing zone.",
+    description: "Show the DNS records needed to configure your Email Routing zone.\n\nGET /zones/{zone_id}/email/routing/dns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,11 +41,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "subdomain": {
-              "$ref": "#/$defs/email_email_setting_name",
               "deprecated": true,
-              "description": "Deprecated. When supplied, the response shape differs from the documented default and is not modeled in generated SDKs. Do not rely on this parameter."
+              "description": "Deprecated. When supplied, the response shape differs from the documented default and is not modeled in generated SDKs. Do not rely on this parameter.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -66,10 +55,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_email_setting_name": email_email_setting_name$,
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_dns_settings_response_collection",
@@ -132,7 +118,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_dns_unlock",
     title: "Unlock Email Routing DNS records",
-    description: "Unlock MX Records previously locked by Email Routing.",
+    description: "Unlock MX Records previously locked by Email Routing.\n\nPATCH /zones/{zone_id}/email/routing/dns",
     inputSchema: {
       type: "object",
       properties: {
@@ -140,10 +126,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_email_setting_dns_request_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -155,25 +142,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "email_email_setting_dns_request_body": email_email_setting_dns_request_body,
-        "email_email_setting_name": email_email_setting_name$,
-        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_email_setting_created": email_email_setting_created,
-        "email_email_setting_enabled": email_email_setting_enabled,
-        "email_email_setting_identifier": email_email_setting_identifier,
-        "email_email_setting_modified": email_email_setting_modified,
-        "email_email_setting_name": email_email_setting_name,
-        "email_email_setting_skip-wizard": email_email_setting_skip$$wizard,
-        "email_email_setting_status": email_email_setting_status,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress,
-        "email_email_setting_tag": email_email_setting_tag,
         "email_email_settings_response_single": email_email_settings_response_single,
         "email_messages": email_messages,
         "email_settings": email_settings,
@@ -213,15 +190,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_email_setting_created": email_email_setting_created,
-        "email_email_setting_enabled": email_email_setting_enabled,
-        "email_email_setting_identifier": email_email_setting_identifier,
-        "email_email_setting_modified": email_email_setting_modified,
-        "email_email_setting_name": email_email_setting_name,
-        "email_email_setting_skip-wizard": email_email_setting_skip$$wizard,
-        "email_email_setting_status": email_email_setting_status,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress,
-        "email_email_setting_tag": email_email_setting_tag,
         "email_email_settings_response_single": email_email_settings_response_single,
         "email_messages": email_messages,
         "email_settings": email_settings,

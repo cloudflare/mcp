@@ -7,7 +7,6 @@ import {
   firewall_api$$response$$common$$failure,
   firewall_messages,
 } from "../../outputs.js";
-import { firewall_account_identifier } from "../schemas.js";
 import {
   firewall_payload_logging_key,
   firewall_payload_logging_key_response_single,
@@ -21,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_payloadLogging_delete",
     title: "Delete the payload logging key",
-    description: "Deletes the payload logging public key of the account or zone.\n\nThis method is beta.",
+    description: "Deletes the payload logging public key of the account or zone.\n\nThis method is beta.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/firewall/payload_logging/key",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -36,8 +36,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_payload_logging_key_response_single",
@@ -104,11 +102,12 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_payloadLogging_get",
     title: "Get the payload logging key",
-    description: "Fetches the public key that payload logging uses to encrypt matched payloads for the account or zone.\n\nThis method is beta.",
+    description: "Fetches the public key that payload logging uses to encrypt matched payloads for the account or zone.\n\nThis method is beta.\n\nGET /{account_or_zone}/{account_or_zone_id}/firewall/payload_logging/key",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -119,8 +118,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -133,9 +132,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_payload_logging_key_response_single",
@@ -187,7 +184,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_payloadLogging_update",
     title: "Set the payload logging key",
-    description: "Creates or replaces the public key that payload logging uses to encrypt matched payloads for the account or zone. It applies to every zone in the account or zone that has no zone key. Requires a plan that includes payload logging (Enterprise); otherwise it returns 403.\n\nThis method is beta.",
+    description: "Creates or replaces the public key that payload logging uses to encrypt matched payloads for the account or zone. It applies to every zone in the account or zone that has no zone key. Requires a plan that includes payload logging (Enterprise); otherwise it returns 403.\n\nThis method is beta.\n\nPUT /{account_or_zone}/{account_or_zone_id}/firewall/payload_logging/key",
     inputSchema: {
       type: "object",
       properties: {
@@ -195,6 +192,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/firewall_payload_logging_key"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -205,8 +203,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/firewall_account_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -220,8 +218,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "firewall_account_identifier": firewall_account_identifier,
         "firewall_payload_logging_key": firewall_payload_logging_key$,
       },
     },

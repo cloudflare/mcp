@@ -125,20 +125,6 @@ export const workers$$kv_api$$response$$common$$no$$result: JsonSchema = {
 };
 
 /**
- * The schema of `workers-kv_expiration` in responses.
- */
-export const workers$$kv_expiration: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `workers-kv_key_name` in responses.
- */
-export const workers$$kv_key_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_list_metadata` in responses.
  */
 export const workers$$kv_list_metadata: JsonSchema = {
@@ -165,11 +151,4 @@ export const workers$$kv_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `workers-kv_namespace_identifier` in responses.
- */
-export const workers$$kv_namespace_identifier: JsonSchema = {
-  "type": "string"
 };

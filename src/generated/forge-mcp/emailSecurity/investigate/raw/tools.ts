@@ -7,10 +7,6 @@ import {
   email$$security_api$$response$$common$$failure,
   email$$security_messages,
 } from "../../outputs.js";
-import {
-  email$$security_InvestigateId,
-  email$$security_identifier,
-} from "../../schemas.js";
 import { email$$security_MessageRaw } from "./outputs.js";
 
 /**
@@ -20,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_raw_get",
     title: "Get raw email content",
-    description: "Returns the raw EML content of any message with a detection.\n\nThis method is beta.",
+    description: "Returns the raw EML content of any message with a detection.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}/raw",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "investigate_id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -45,10 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

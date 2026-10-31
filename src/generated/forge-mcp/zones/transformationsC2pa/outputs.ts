@@ -20,21 +20,14 @@ export const speed_transformations_c2pa_response: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_transformations_c2pa_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_transformations_c2pa_value` in responses.
- */
-export const speed_transformations_c2pa_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };

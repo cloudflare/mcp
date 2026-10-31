@@ -131,13 +131,6 @@ export const advanced$$ddos$$protection_messages: JsonSchema = {
 };
 
 /**
- * The schema of `magic_account_app_id` in responses.
- */
-export const magic_account_app_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_api-response-common` in responses.
  */
 export const magic_api$$response$$common: JsonSchema = {
@@ -317,13 +310,6 @@ export const magic_apps$$response$$object: JsonSchema = {
 };
 
 /**
- * The schema of `magic_automatic_return_routing` in responses.
- */
-export const magic_automatic_return_routing: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_bgp_config` in responses.
  */
 export const magic_bgp_config: JsonSchema = {
@@ -398,13 +384,6 @@ export const magic_bgp_status_with_state: JsonSchema = {
 };
 
 /**
- * The schema of `magic_cidr` in responses.
- */
-export const magic_cidr: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_health_check_base` in responses.
  */
 export const magic_health_check_base: JsonSchema = {
@@ -457,34 +436,6 @@ export const magic_health_check_target: JsonSchema = {
 };
 
 /**
- * The schema of `magic_identifier` in responses.
- */
-export const magic_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_interface_address` in responses.
- */
-export const magic_interface_address: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_interface_address6` in responses.
- */
-export const magic_interface_address6: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_managed_app_id` in responses.
- */
-export const magic_managed_app_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_messages` in responses.
  */
 export const magic_messages: JsonSchema = {
@@ -504,29 +455,6 @@ export const magic_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic_schemas-created_on` in responses.
- */
-export const magic_schemas$$created_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_schemas-identifier` in responses.
- */
-export const magic_schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_schemas-modified_on` in responses.
- */
-export const magic_schemas$$modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**

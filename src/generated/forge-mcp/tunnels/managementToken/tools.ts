@@ -7,10 +7,7 @@ import {
   tunnel_api$$response$$common$$failure,
   tunnel_messages,
   tunnel_tunnel_response_token,
-  tunnel_tunnel_token,
 } from "../../outputs.js";
-import { tunnel_account_id, tunnel_tunnel_id } from "../../schemas.js";
-import { tunnel_management$$resources } from "./schemas.js";
 
 /**
  * The tools of `tunnels.managementToken`.
@@ -19,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnels_managementToken_create",
     title: "Get a Cloudflare Tunnel management token",
-    description: "Creates a short-lived management token for the requested Tunnel management resources, such as streaming logs. Treat the token as a secret.",
+    description: "Creates a short-lived management token for the requested Tunnel management resources, such as streaming logs. Treat the token as a secret.\n\nPOST /accounts/{account_id}/cfd_tunnel/{tunnel_id}/management",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,7 +24,11 @@ export const tools: readonly Tool[] = [
           "properties": {
             "resources": {
               "items": {
-                "$ref": "#/$defs/tunnel_management-resources"
+                "description": "Management resources the token will have access to.",
+                "enum": [
+                  "logs"
+                ],
+                "type": "string"
               },
               "type": "array"
             }
@@ -38,14 +39,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -59,11 +62,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_management-resources": tunnel_management$$resources,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_tunnel_response_token",
@@ -71,7 +70,6 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_messages": tunnel_messages,
         "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
-        "tunnel_tunnel_token": tunnel_tunnel_token,
       },
     },
     annotations: {
@@ -111,7 +109,6 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
         "tunnel_messages": tunnel_messages,
         "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
-        "tunnel_tunnel_token": tunnel_tunnel_token,
       },
     },
     request: (args) => ({

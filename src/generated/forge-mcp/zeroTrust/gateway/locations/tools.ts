@@ -6,27 +6,17 @@ import {
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
-  zero$$trust$$gateway_read_only_timestamp,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier$$2 } from "../../schemas.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
-  zero$$trust$$gateway_uuid$$3,
 } from "../outputs.js";
-import { zero$$trust$$gateway_uuid$$3 as zero$$trust$$gateway_uuid$$3$ } from "../schemas.js";
 import {
-  zero$$trust$$gateway_client$$default,
-  zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-  zero$$trust$$gateway_dns64$$enabled,
-  zero$$trust$$gateway_dns_destination_ipv6_block_id,
   zero$$trust$$gateway_doh_endpoint,
   zero$$trust$$gateway_dot_endpoint,
-  zero$$trust$$gateway_ecs$$support,
   zero$$trust$$gateway_endpoints,
-  zero$$trust$$gateway_ip,
   zero$$trust$$gateway_ip_network,
   zero$$trust$$gateway_ip_networks,
   zero$$trust$$gateway_ipv4_endpoint,
@@ -37,18 +27,12 @@ import {
   zero$$trust$$gateway_ipv6_networks,
   zero$$trust$$gateway_locations,
   zero$$trust$$gateway_max$$ttl,
-  zero$$trust$$gateway_name$$2,
   zero$$trust$$gateway_response_collection$$5,
   zero$$trust$$gateway_single_response$$3,
-  zero$$trust$$gateway_subdomain,
 } from "./outputs.js";
 import {
-  zero$$trust$$gateway_client$$default as zero$$trust$$gateway_client$$default$,
-  zero$$trust$$gateway_dns$$destination$$ips$$id$$write,
-  zero$$trust$$gateway_dns64$$enabled as zero$$trust$$gateway_dns64$$enabled$,
   zero$$trust$$gateway_doh_endpoint as zero$$trust$$gateway_doh_endpoint$,
   zero$$trust$$gateway_dot_endpoint as zero$$trust$$gateway_dot_endpoint$,
-  zero$$trust$$gateway_ecs$$support as zero$$trust$$gateway_ecs$$support$,
   zero$$trust$$gateway_endpoints as zero$$trust$$gateway_endpoints$,
   zero$$trust$$gateway_ip_network as zero$$trust$$gateway_ip_network$,
   zero$$trust$$gateway_ip_networks as zero$$trust$$gateway_ip_networks$,
@@ -59,7 +43,6 @@ import {
   zero$$trust$$gateway_ipv6_network as zero$$trust$$gateway_ipv6_network$,
   zero$$trust$$gateway_ipv6_networks as zero$$trust$$gateway_ipv6_networks$,
   zero$$trust$$gateway_max$$ttl as zero$$trust$$gateway_max$$ttl$,
-  zero$$trust$$gateway_name$$2 as zero$$trust$$gateway_name$$2$,
 } from "./schemas.js";
 
 /**
@@ -69,30 +52,30 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_locations_create",
     title: "Create a Zero Trust Gateway location",
-    description: "Create a new Zero Trust Gateway location.",
+    description: "Create a new Zero Trust Gateway location.\n\nPOST /accounts/{account_id}/gateway/locations",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "client_default": {
-              "$ref": "#/$defs/zero-trust-gateway_client-default",
               "default": false,
-              "description": "Indicate whether this location is the default location."
+              "description": "Indicate whether this location is the default location.",
+              "type": "boolean"
             },
             "dns64_enabled": {
-              "$ref": "#/$defs/zero-trust-gateway_dns64-enabled",
               "default": false,
-              "description": "Enable DNS64 synthesis for DNS queries matched to this location. When updating a location, omitting this field resets it to false."
+              "description": "Enable DNS64 synthesis for DNS queries matched to this location. When updating a location, omitting this field resets it to false.",
+              "type": "boolean"
             },
             "dns_destination_ips_id": {
-              "$ref": "#/$defs/zero-trust-gateway_dns-destination-ips-id-write",
-              "description": "Specify the identifier of the pair of IPv4 addresses assigned to this location. When creating a location, if this field is absent or set to null, the pair of shared IPv4 addresses (0e4a32c6-6fb8-4858-9296-98f51631e8e6) is auto-assigned. When updating a location, if this field is absent or set to null, the pre-assigned pair remains unchanged."
+              "description": "Specify the identifier of the pair of IPv4 addresses assigned to this location. When creating a location, if this field is absent or set to null, the pair of shared IPv4 addresses (0e4a32c6-6fb8-4858-9296-98f51631e8e6) is auto-assigned. When updating a location, if this field is absent or set to null, the pre-assigned pair remains unchanged.",
+              "type": "string"
             },
             "ecs_support": {
-              "$ref": "#/$defs/zero-trust-gateway_ecs-support",
               "default": false,
-              "description": "Indicate whether the location must resolve EDNS queries."
+              "description": "Indicate whether the location must resolve EDNS queries.",
+              "type": "boolean"
             },
             "endpoints": {
               "$ref": "#/$defs/zero-trust-gateway_endpoints",
@@ -106,8 +89,8 @@ export const tools: readonly Tool[] = [
               "description": "Controls how DNS response TTLs are capped for this location relative to the account `max_ttl_secs` setting. Omitting `max_ttl` on update resets it to `inherit`."
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-2",
-              "description": "Specify the location name."
+              "description": "Specify the location name.",
+              "type": "string"
             },
             "networks": {
               "$ref": "#/$defs/zero-trust-gateway_ipv4_networks",
@@ -120,10 +103,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -136,15 +120,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default$,
-        "zero-trust-gateway_dns-destination-ips-id-write": zero$$trust$$gateway_dns$$destination$$ips$$id$$write,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled$,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint$,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint$,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support$,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network$,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks$,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint$,
@@ -154,22 +134,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_ipv6_network": zero$$trust$$gateway_ipv6_network$,
         "zero-trust-gateway_ipv6_networks": zero$$trust$$gateway_ipv6_networks$,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl$,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-3",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -181,11 +154,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-3": zero$$trust$$gateway_single_response$$3,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -222,15 +191,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -242,11 +205,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-3": zero$$trust$$gateway_single_response$$3,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -257,18 +216,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_locations_delete",
     title: "Delete a Zero Trust Gateway location",
-    description: "Delete a configured Zero Trust Gateway location.",
+    description: "Delete a configured Zero Trust Gateway location.\n\nDELETE /accounts/{account_id}/gateway/locations/{location_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "location_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -281,10 +241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
@@ -339,18 +296,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_locations_get",
     title: "Get Zero Trust Gateway location details",
-    description: "Get a single Zero Trust Gateway location.",
+    description: "Get a single Zero Trust Gateway location.\n\nGET /accounts/{account_id}/gateway/locations/{location_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "location_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -363,24 +321,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-3",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -392,11 +341,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-3": zero$$trust$$gateway_single_response$$3,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -434,15 +379,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -454,11 +393,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-3": zero$$trust$$gateway_single_response$$3,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -468,15 +403,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_locations_list",
     title: "List Zero Trust Gateway locations",
-    description: "List Zero Trust Gateway locations for an account.",
+    description: "List Zero Trust Gateway locations for an account.\n\nGET /accounts/{account_id}/gateway/locations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -485,6 +421,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Sort direction. Only takes effect when `order_by` is also provided; it\nis ignored otherwise. When `direction` is omitted the effective\ndirection is field-specific: `created_at` and `updated_at` default to\ndescending (newest first); `name` defaults to ascending.\n  * `asc` — ascending.\n  * `desc` — descending.",
@@ -521,24 +458,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-5",
       $defs: {
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -550,12 +479,8 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-5": zero$$trust$$gateway_response_collection$$5,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -594,15 +519,9 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -614,12 +533,8 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-5": zero$$trust$$gateway_response_collection$$5,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -635,30 +550,30 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_locations_update",
     title: "Update a Zero Trust Gateway location",
-    description: "Update a configured Zero Trust Gateway location.",
+    description: "Update a configured Zero Trust Gateway location.\n\nPUT /accounts/{account_id}/gateway/locations/{location_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "client_default": {
-              "$ref": "#/$defs/zero-trust-gateway_client-default",
               "default": false,
-              "description": "Indicate whether this location is the default location."
+              "description": "Indicate whether this location is the default location.",
+              "type": "boolean"
             },
             "dns64_enabled": {
-              "$ref": "#/$defs/zero-trust-gateway_dns64-enabled",
               "default": false,
-              "description": "Enable DNS64 synthesis for DNS queries matched to this location. When updating a location, omitting this field resets it to false."
+              "description": "Enable DNS64 synthesis for DNS queries matched to this location. When updating a location, omitting this field resets it to false.",
+              "type": "boolean"
             },
             "dns_destination_ips_id": {
-              "$ref": "#/$defs/zero-trust-gateway_dns-destination-ips-id-write",
-              "description": "Specify the identifier of the pair of IPv4 addresses assigned to this location. When creating a location, if this field is absent or set to null, the pair of shared IPv4 addresses (0e4a32c6-6fb8-4858-9296-98f51631e8e6) is auto-assigned. When updating a location, if this field is absent or set to null, the pre-assigned pair remains unchanged."
+              "description": "Specify the identifier of the pair of IPv4 addresses assigned to this location. When creating a location, if this field is absent or set to null, the pair of shared IPv4 addresses (0e4a32c6-6fb8-4858-9296-98f51631e8e6) is auto-assigned. When updating a location, if this field is absent or set to null, the pre-assigned pair remains unchanged.",
+              "type": "string"
             },
             "ecs_support": {
-              "$ref": "#/$defs/zero-trust-gateway_ecs-support",
               "default": false,
-              "description": "Indicate whether the location must resolve EDNS queries."
+              "description": "Indicate whether the location must resolve EDNS queries.",
+              "type": "boolean"
             },
             "endpoints": {
               "$ref": "#/$defs/zero-trust-gateway_endpoints",
@@ -672,8 +587,8 @@ export const tools: readonly Tool[] = [
               "description": "Controls how DNS response TTLs are capped for this location relative to the account `max_ttl_secs` setting. Omitting `max_ttl` on update resets it to `inherit`."
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-2",
-              "description": "Specify the location name."
+              "description": "Specify the location name.",
+              "type": "string"
             },
             "networks": {
               "$ref": "#/$defs/zero-trust-gateway_ipv4_networks",
@@ -686,13 +601,14 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "location_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -706,15 +622,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default$,
-        "zero-trust-gateway_dns-destination-ips-id-write": zero$$trust$$gateway_dns$$destination$$ips$$id$$write,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled$,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint$,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint$,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support$,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network$,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks$,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint$,
@@ -724,23 +636,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_ipv6_network": zero$$trust$$gateway_ipv6_network$,
         "zero-trust-gateway_ipv6_networks": zero$$trust$$gateway_ipv6_networks$,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl$,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2$,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-3",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -752,11 +656,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-3": zero$$trust$$gateway_single_response$$3,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -793,15 +693,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_client-default": zero$$trust$$gateway_client$$default,
-        "zero-trust-gateway_dns-destination-ips-id-read": zero$$trust$$gateway_dns$$destination$$ips$$id$$read,
-        "zero-trust-gateway_dns64-enabled": zero$$trust$$gateway_dns64$$enabled,
-        "zero-trust-gateway_dns_destination_ipv6_block_id": zero$$trust$$gateway_dns_destination_ipv6_block_id,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
-        "zero-trust-gateway_ecs-support": zero$$trust$$gateway_ecs$$support,
         "zero-trust-gateway_endpoints": zero$$trust$$gateway_endpoints,
-        "zero-trust-gateway_ip": zero$$trust$$gateway_ip,
         "zero-trust-gateway_ip_network": zero$$trust$$gateway_ip_network,
         "zero-trust-gateway_ip_networks": zero$$trust$$gateway_ip_networks,
         "zero-trust-gateway_ipv4_endpoint": zero$$trust$$gateway_ipv4_endpoint,
@@ -813,11 +707,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_locations": zero$$trust$$gateway_locations,
         "zero-trust-gateway_max-ttl": zero$$trust$$gateway_max$$ttl,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-2": zero$$trust$$gateway_name$$2,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-3": zero$$trust$$gateway_single_response$$3,
-        "zero-trust-gateway_subdomain": zero$$trust$$gateway_subdomain,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({

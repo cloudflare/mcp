@@ -6,15 +6,7 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_timestamp,
 } from "../../../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_colo,
-  digital$$experience$$monitoring_timestamp as digital$$experience$$monitoring_timestamp$,
-} from "../../../schemas.js";
-import { digital$$experience$$monitoring_device_id } from "../../schemas.js";
-import { digital$$experience$$monitoring_uniqueDevicesTotal } from "../outputs.js";
 import {
   digital$$experience$$monitoring_fleet_status_over_time_response,
   digital$$experience$$monitoring_schemas$$aggregate_stat,
@@ -27,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_devices_aggregates_overTime_get",
     title: "Get over time aggregate details for devices by dimension",
-    description: "Get aggregate details for devices using WARP, up to 7 days.",
+    description: "Get aggregate details for devices using WARP, up to 7 days.\n\nGET /accounts/{account_id}/dex/fleet-status/over-time",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,22 +37,23 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "colo": {
-              "$ref": "#/$defs/digital-experience-monitoring_colo",
-              "description": "Cloudflare colo airport code."
+              "description": "Cloudflare colo airport code.",
+              "type": "string"
             },
             "device_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_device_id",
-              "description": "Device-specific ID, given as UUID."
+              "description": "Device-specific ID, given as UUID.",
+              "type": "string"
             },
             "from": {
-              "$ref": "#/$defs/digital-experience-monitoring_timestamp",
-              "description": "Start of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch."
+              "description": "Start of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
+              "type": "string"
             },
             "to": {
-              "$ref": "#/$defs/digital-experience-monitoring_timestamp",
-              "description": "End of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch."
+              "description": "End of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
+              "type": "string"
             }
           },
           "required": [
@@ -73,12 +67,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
-        "digital-experience-monitoring_device_id": digital$$experience$$monitoring_device_id,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_fleet_status_over_time_response",
@@ -87,8 +76,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_fleet_status_over_time_response": digital$$experience$$monitoring_fleet_status_over_time_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_schemas-aggregate_stat": digital$$experience$$monitoring_schemas$$aggregate_stat,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
-        "digital-experience-monitoring_uniqueDevicesTotal": digital$$experience$$monitoring_uniqueDevicesTotal,
       },
     },
     annotations: {
@@ -123,8 +110,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_fleet_status_over_time_response": digital$$experience$$monitoring_fleet_status_over_time_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_schemas-aggregate_stat": digital$$experience$$monitoring_schemas$$aggregate_stat,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
-        "digital-experience-monitoring_uniqueDevicesTotal": digital$$experience$$monitoring_uniqueDevicesTotal,
       },
     },
     request: (args) => ({

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_create",
     title: "Create a dynamic route",
-    description: "Creates a dynamic route on an AI Gateway from the specified routing elements. Clients call the route by using `dynamic/{name}` as the model name.\n\nThis method is beta.",
+    description: "Creates a dynamic route on an AI Gateway from the specified routing elements. Clients call the route by using `dynamic/{name}` as the model name.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes",
     inputSchema: {
       type: "object",
       properties: {
@@ -349,6 +349,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -367,6 +368,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1265,11 +1267,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_delete",
     title: "Delete a dynamic route",
-    description: "Deletes a dynamic route from an AI Gateway.\n\nThis method is beta.",
+    description: "Deletes a dynamic route from an AI Gateway.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1292,6 +1295,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2087,11 +2091,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_get",
     title: "Get a dynamic route",
-    description: "Retrieves a dynamic route with its routing elements, active version, and current deployment.\n\nThis method is beta.",
+    description: "Retrieves a dynamic route with its routing elements, active version, and current deployment.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2114,6 +2119,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3012,11 +3018,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_list",
     title: "List dynamic routes",
-    description: "Lists the dynamic routes configured on an AI Gateway.\n\nThis method is beta.",
+    description: "Lists the dynamic routes configured on an AI Gateway.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3032,6 +3039,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "description": "Page number",
@@ -3048,6 +3056,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4012,7 +4021,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_update",
     title: "Rename a dynamic route",
-    description: "Updates the name of a dynamic route. To change routing behaviour, create and deploy a new version.\n\nThis method is beta.",
+    description: "Updates the name of a dynamic route. To change routing behaviour, create and deploy a new version.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -4028,6 +4037,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -4050,6 +4060,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

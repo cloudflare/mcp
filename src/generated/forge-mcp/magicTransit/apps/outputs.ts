@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../_/tool.js";
 export const magic_account_app: JsonSchema = {
   "properties": {
     "account_app_id": {
-      "$ref": "#/$defs/magic_account_app_id"
+      "type": "string"
     },
     "hostnames": {
       "$ref": "#/$defs/magic_app_hostnames"
@@ -18,13 +18,13 @@ export const magic_account_app: JsonSchema = {
       "$ref": "#/$defs/magic_app_subnets"
     },
     "name": {
-      "$ref": "#/$defs/magic_app_name"
+      "type": "string"
     },
     "source_subnets": {
       "$ref": "#/$defs/magic_app_source_subnets"
     },
     "type": {
-      "$ref": "#/$defs/magic_app_type"
+      "type": "string"
     }
   },
   "required": [
@@ -58,13 +58,6 @@ export const magic_app_hostnames: JsonSchema = {
 };
 
 /**
- * The schema of `magic_app_name` in responses.
- */
-export const magic_app_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_app_single_response` in responses.
  */
 export const magic_app_single_response: JsonSchema = {
@@ -90,7 +83,7 @@ export const magic_app_source_subnets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/magic_cidr"
+        "type": "string"
       },
       {
         "type": "string"
@@ -107,7 +100,7 @@ export const magic_app_subnets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/magic_cidr"
+        "type": "string"
       },
       {
         "type": "string"
@@ -115,13 +108,6 @@ export const magic_app_subnets: JsonSchema = {
     ]
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic_app_type` in responses.
- */
-export const magic_app_type: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -158,16 +144,16 @@ export const magic_managed_app: JsonSchema = {
       "$ref": "#/$defs/magic_app_subnets"
     },
     "managed_app_id": {
-      "$ref": "#/$defs/magic_managed_app_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/magic_app_name"
+      "type": "string"
     },
     "source_subnets": {
       "$ref": "#/$defs/magic_app_source_subnets"
     },
     "type": {
-      "$ref": "#/$defs/magic_app_type"
+      "type": "string"
     }
   },
   "required": [

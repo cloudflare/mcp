@@ -7,7 +7,6 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../../schemas.js";
 import {
   tls$$certificates$$and$$hostnames_certificate_pack_quota_response,
   tls$$certificates$$and$$hostnames_quota,
@@ -20,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_certificatePacks_quota_get",
     title: "Get Certificate Pack Quotas",
-    description: "For a given zone, list certificate pack quotas.",
+    description: "For a given zone, list certificate pack quotas.\n\nGET /zones/{zone_id}/ssl/certificate_packs/quota",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -40,9 +40,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_quota_response",

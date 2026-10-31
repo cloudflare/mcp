@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_legacy_graphql",
     title: "Run a GraphQL aggregation over events (legacy)",
-    description: "Legacy. Use `threat-intel events graphql` (`POST /events/graphql`) instead. Both commands run the same query.",
+    description: "Legacy. Use `threat-intel events graphql` (`POST /events/graphql`) instead. Both commands run the same query.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/events/graphql",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

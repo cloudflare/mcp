@@ -19,16 +19,16 @@ export const alexandria_categories: JsonSchema = {
 export const alexandria_category: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/alexandria_category_created_at"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/alexandria_category_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/alexandria_category_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/alexandria_category_name"
+      "type": "string"
     }
   },
   "required": [
@@ -38,27 +38,6 @@ export const alexandria_category: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `alexandria_category_created_at` in responses.
- */
-export const alexandria_category_created_at: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_category_description` in responses.
- */
-export const alexandria_category_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_category_name` in responses.
- */
-export const alexandria_category_name: JsonSchema = {
-  "type": "string"
 };
 
 /**

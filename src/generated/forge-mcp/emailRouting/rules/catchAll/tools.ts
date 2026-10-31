@@ -6,27 +6,17 @@ import {
   email_api$$response$$single,
   email_messages,
 } from "../../../outputs.js";
-import { email_identifier } from "../../../schemas.js";
 import {
   email_rule_catchall$$action,
   email_rule_catchall$$actions,
   email_rule_catchall$$matcher,
   email_rule_catchall$$matchers,
-  email_rule_enabled,
-  email_rule_identifier,
-  email_rule_name,
-  email_rule_source,
-  email_rule_tag,
 } from "../outputs.js";
 import {
   email_rule_catchall$$action as email_rule_catchall$$action$,
   email_rule_catchall$$actions as email_rule_catchall$$actions$,
   email_rule_catchall$$matcher as email_rule_catchall$$matcher$,
   email_rule_catchall$$matchers as email_rule_catchall$$matchers$,
-  email_rule_enabled as email_rule_enabled$,
-  email_rule_name as email_rule_name$,
-  email_rule_owner_worker_tag,
-  email_rule_source as email_rule_source$,
 } from "../schemas.js";
 import {
   email_catch_all_rule,
@@ -41,15 +31,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_rules_catchAll_get",
     title: "Get catch-all rule",
-    description: "Get information on the default catch-all routing rule.",
+    description: "Get information on the default catch-all routing rule.\n\nGET /zones/{zone_id}/email/routing/rules/catch_all",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,9 +52,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_catch_all_rule_response_single",
@@ -76,11 +65,6 @@ export const tools: readonly Tool[] = [
         "email_rule_catchall-actions": email_rule_catchall$$actions,
         "email_rule_catchall-matcher": email_rule_catchall$$matcher,
         "email_rule_catchall-matchers": email_rule_catchall$$matchers,
-        "email_rule_enabled": email_rule_enabled,
-        "email_rule_identifier": email_rule_identifier,
-        "email_rule_name": email_rule_name,
-        "email_rule_source": email_rule_source,
-        "email_rule_tag": email_rule_tag,
       },
     },
     annotations: {
@@ -125,11 +109,6 @@ export const tools: readonly Tool[] = [
         "email_rule_catchall-actions": email_rule_catchall$$actions,
         "email_rule_catchall-matcher": email_rule_catchall$$matcher,
         "email_rule_catchall-matchers": email_rule_catchall$$matchers,
-        "email_rule_enabled": email_rule_enabled,
-        "email_rule_identifier": email_rule_identifier,
-        "email_rule_name": email_rule_name,
-        "email_rule_source": email_rule_source,
-        "email_rule_tag": email_rule_tag,
       },
     },
     request: (args) => ({
@@ -139,7 +118,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_rules_catchAll_update",
     title: "Update catch-all rule",
-    description: "Enable or disable catch-all routing rule, or change action to forward to a specific destination address. Forward actions require exactly one verified destination address.",
+    description: "Enable or disable catch-all routing rule, or change action to forward to a specific destination address. Forward actions require exactly one verified destination address.\n\nPUT /zones/{zone_id}/email/routing/rules/catch_all",
     inputSchema: {
       type: "object",
       properties: {
@@ -147,10 +126,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_update_catch_all_rule_properties"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -163,16 +143,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email_identifier": email_identifier,
         "email_rule_catchall-action": email_rule_catchall$$action$,
         "email_rule_catchall-actions": email_rule_catchall$$actions$,
         "email_rule_catchall-matcher": email_rule_catchall$$matcher$,
         "email_rule_catchall-matchers": email_rule_catchall$$matchers$,
-        "email_rule_enabled": email_rule_enabled$,
-        "email_rule_name": email_rule_name$,
-        "email_rule_owner_worker_tag": email_rule_owner_worker_tag,
-        "email_rule_source": email_rule_source$,
         "email_update_catch_all_rule_properties": email_update_catch_all_rule_properties,
       },
     },
@@ -187,11 +163,6 @@ export const tools: readonly Tool[] = [
         "email_rule_catchall-actions": email_rule_catchall$$actions,
         "email_rule_catchall-matcher": email_rule_catchall$$matcher,
         "email_rule_catchall-matchers": email_rule_catchall$$matchers,
-        "email_rule_enabled": email_rule_enabled,
-        "email_rule_identifier": email_rule_identifier,
-        "email_rule_name": email_rule_name,
-        "email_rule_source": email_rule_source,
-        "email_rule_tag": email_rule_tag,
       },
     },
     annotations: {
@@ -236,11 +207,6 @@ export const tools: readonly Tool[] = [
         "email_rule_catchall-actions": email_rule_catchall$$actions,
         "email_rule_catchall-matcher": email_rule_catchall$$matcher,
         "email_rule_catchall-matchers": email_rule_catchall$$matchers,
-        "email_rule_enabled": email_rule_enabled,
-        "email_rule_identifier": email_rule_identifier,
-        "email_rule_name": email_rule_name,
-        "email_rule_source": email_rule_source,
-        "email_rule_tag": email_rule_tag,
       },
     },
     request: (args) => ({

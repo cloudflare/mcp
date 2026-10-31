@@ -5,73 +5,32 @@ import { type Tool, param, pathParam } from "../_/tool.js";
 import {
   abuse$$reports_AbuseReport,
   abuse$$reports_AuthErrorResponse,
-  abuse$$reports_BadActError,
-  abuse$$reports_BadAddressError,
-  abuse$$reports_BadAgentNameError,
-  abuse$$reports_BadCityError,
-  abuse$$reports_BadCommentsError,
-  abuse$$reports_BadCountryError,
-  abuse$$reports_BadEmailError,
-  abuse$$reports_BadIPError,
-  abuse$$reports_BadJustError,
-  abuse$$reports_BadNameError,
-  abuse$$reports_BadPortsProtocolError,
-  abuse$$reports_BadStateError,
-  abuse$$reports_BadUrlsError,
   abuse$$reports_CloudflareAPIErrorResponse,
-  abuse$$reports_DBError,
-  abuse$$reports_DedupeError,
-  abuse$$reports_DiffEmailError,
-  abuse$$reports_EmailError,
-  abuse$$reports_ErrorCode,
   abuse$$reports_ErrorMessage,
-  abuse$$reports_InternalError,
-  abuse$$reports_InvalidNotifyError,
-  abuse$$reports_MaxIPsError,
   abuse$$reports_Message,
   abuse$$reports_MitigationSummary,
-  abuse$$reports_MustNotifyError,
-  abuse$$reports_NoAgreeError,
-  abuse$$reports_NoOriginalWorkError,
-  abuse$$reports_NoSigError,
-  abuse$$reports_PortsProtocolError,
-  abuse$$reports_RateLimitedError,
   abuse$$reports_RateLimitedErrorResponse,
   abuse$$reports_RegistrarWhoIsFields,
-  abuse$$reports_ReportStatus,
-  abuse$$reports_ReportType,
   abuse$$reports_ResultInfo,
-  abuse$$reports_SubmissionReportType,
   abuse$$reports_SubmitErrorResponse,
   abuse$$reports_SubmitReportResponse,
-  abuse$$reports_SubmittedAbuseReportDenialReason,
   abuse$$reports_SubmittedAbuseReportDetail,
   abuse$$reports_SubmittedAbuseReportDetailResponse,
   abuse$$reports_SubmittedAbuseReportListItem,
   abuse$$reports_SubmittedAbuseReportListResponse,
-  abuse$$reports_SubmittedAbuseReportStatus,
   abuse$$reports_SubmitterDetails,
   abuse$$reports_UnauthorizedErrorResponse,
-  abuse$$reports_UnexpectedActError,
-  abuse$$reports_UnknownError,
-  abuse$$reports_UrlNotOrangeError,
-  abuse$$reports_UrlNotvalidError,
 } from "./outputs.js";
 import {
   abuse$$reports_BaseReportFields,
   abuse$$reports_CSAMReport,
   abuse$$reports_DMCAReport,
   abuse$$reports_GeneralReport,
-  abuse$$reports_MitigationStatus,
   abuse$$reports_NCSEIReport,
   abuse$$reports_PhishingReport,
   abuse$$reports_RegistrarWhoIsFields as abuse$$reports_RegistrarWhoIsFields$,
   abuse$$reports_RegistrarWhoisReport,
-  abuse$$reports_ReportStatus as abuse$$reports_ReportStatus$,
-  abuse$$reports_ReportType as abuse$$reports_ReportType$,
-  abuse$$reports_SubmissionReportType as abuse$$reports_SubmissionReportType$,
   abuse$$reports_SubmitReportRequest,
-  abuse$$reports_SubmittedAbuseReportStatus as abuse$$reports_SubmittedAbuseReportStatus$,
   abuse$$reports_ThreatReport,
   abuse$$reports_TrademarkReport,
 } from "./schemas.js";
@@ -83,7 +42,7 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_create",
     title: "Submit an abuse report",
-    description: "Submit an abuse report of a particular type.\n\nRequires the abuse-reports entitlement on the account (Enterprise\naccounts have it by default; other accounts must request access) and an\nAPI token with the `Trust and Safety Write` permission. If the account\nis not entitled, the request is rejected with an HTTP `401` response\n(see below).\n\nDelegated reports: In limited circumstances, Cloudflare works with\nselect customers who have established abuse-handling programs. For\nthese customers, Cloudflare may forward abuse reports directly and in\nfull—including reporter contact information, comments, and supporting\nevidence—without redaction or preprocessing by Cloudflare. This allows\nthe customer to investigate and respond using their own policies and\nprocesses. For delegated reports, the report—including contact\ninformation and comments—will be forwarded to the customer in full\nregardless of the `host_notification` and `owner_notification` values.",
+    description: "Submit an abuse report of a particular type.\n\nRequires the abuse-reports entitlement on the account (Enterprise\naccounts have it by default; other accounts must request access) and an\nAPI token with the `Trust and Safety Write` permission. If the account\nis not entitled, the request is rejected with an HTTP `401` response\n(see below).\n\nDelegated reports: In limited circumstances, Cloudflare works with\nselect customers who have established abuse-handling programs. For\nthese customers, Cloudflare may forward abuse reports directly and in\nfull—including reporter contact information, comments, and supporting\nevidence—without redaction or preprocessing by Cloudflare. This allows\nthe customer to investigate and respond using their own policies and\nprocesses. For delegated reports, the report—including contact\ninformation and comments—will be forwarded to the customer in full\nregardless of the `host_notification` and `owner_notification` values.\n\nPOST /accounts/{account_id}/abuse-reports/{report_param}",
     inputSchema: {
       type: "object",
       properties: {
@@ -91,14 +50,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/abuse-reports_SubmitReportRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
               "type": "string"
             },
             "report_param": {
-              "$ref": "#/$defs/abuse-reports_SubmissionReportType",
-              "description": "The report type to be submitted. Example: abuse_general"
+              "description": "The report type to be submitted. Example: abuse_general",
+              "type": "string"
             }
           },
           "required": [
@@ -112,6 +72,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "abuse-reports_BaseReportFields": abuse$$reports_BaseReportFields,
         "abuse-reports_CSAMReport": abuse$$reports_CSAMReport,
@@ -121,7 +82,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_PhishingReport": abuse$$reports_PhishingReport,
         "abuse-reports_RegistrarWhoIsFields": abuse$$reports_RegistrarWhoIsFields$,
         "abuse-reports_RegistrarWhoisReport": abuse$$reports_RegistrarWhoisReport,
-        "abuse-reports_SubmissionReportType": abuse$$reports_SubmissionReportType$,
         "abuse-reports_SubmitReportRequest": abuse$$reports_SubmitReportRequest,
         "abuse-reports_ThreatReport": abuse$$reports_ThreatReport,
         "abuse-reports_TrademarkReport": abuse$$reports_TrademarkReport,
@@ -130,7 +90,6 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/abuse-reports_SubmitReportResponse",
       $defs: {
-        "abuse-reports_SubmissionReportType": abuse$$reports_SubmissionReportType,
         "abuse-reports_SubmitReportResponse": abuse$$reports_SubmitReportResponse,
       },
     },
@@ -171,45 +130,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "abuse-reports_AuthErrorResponse": abuse$$reports_AuthErrorResponse,
-        "abuse-reports_BadActError": abuse$$reports_BadActError,
-        "abuse-reports_BadAddressError": abuse$$reports_BadAddressError,
-        "abuse-reports_BadAgentNameError": abuse$$reports_BadAgentNameError,
-        "abuse-reports_BadCityError": abuse$$reports_BadCityError,
-        "abuse-reports_BadCommentsError": abuse$$reports_BadCommentsError,
-        "abuse-reports_BadCountryError": abuse$$reports_BadCountryError,
-        "abuse-reports_BadEmailError": abuse$$reports_BadEmailError,
-        "abuse-reports_BadIPError": abuse$$reports_BadIPError,
-        "abuse-reports_BadJustError": abuse$$reports_BadJustError,
-        "abuse-reports_BadNameError": abuse$$reports_BadNameError,
-        "abuse-reports_BadPortsProtocolError": abuse$$reports_BadPortsProtocolError,
-        "abuse-reports_BadStateError": abuse$$reports_BadStateError,
-        "abuse-reports_BadUrlsError": abuse$$reports_BadUrlsError,
         "abuse-reports_CloudflareAPIErrorResponse": abuse$$reports_CloudflareAPIErrorResponse,
-        "abuse-reports_DBError": abuse$$reports_DBError,
-        "abuse-reports_DedupeError": abuse$$reports_DedupeError,
-        "abuse-reports_DiffEmailError": abuse$$reports_DiffEmailError,
-        "abuse-reports_EmailError": abuse$$reports_EmailError,
-        "abuse-reports_ErrorCode": abuse$$reports_ErrorCode,
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
-        "abuse-reports_InternalError": abuse$$reports_InternalError,
-        "abuse-reports_InvalidNotifyError": abuse$$reports_InvalidNotifyError,
-        "abuse-reports_MaxIPsError": abuse$$reports_MaxIPsError,
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_MustNotifyError": abuse$$reports_MustNotifyError,
-        "abuse-reports_NoAgreeError": abuse$$reports_NoAgreeError,
-        "abuse-reports_NoOriginalWorkError": abuse$$reports_NoOriginalWorkError,
-        "abuse-reports_NoSigError": abuse$$reports_NoSigError,
-        "abuse-reports_PortsProtocolError": abuse$$reports_PortsProtocolError,
-        "abuse-reports_RateLimitedError": abuse$$reports_RateLimitedError,
         "abuse-reports_RateLimitedErrorResponse": abuse$$reports_RateLimitedErrorResponse,
-        "abuse-reports_SubmissionReportType": abuse$$reports_SubmissionReportType,
         "abuse-reports_SubmitErrorResponse": abuse$$reports_SubmitErrorResponse,
         "abuse-reports_SubmitReportResponse": abuse$$reports_SubmitReportResponse,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
-        "abuse-reports_UnexpectedActError": abuse$$reports_UnexpectedActError,
-        "abuse-reports_UnknownError": abuse$$reports_UnknownError,
-        "abuse-reports_UrlNotOrangeError": abuse$$reports_UrlNotOrangeError,
-        "abuse-reports_UrlNotvalidError": abuse$$reports_UrlNotvalidError,
       },
     },
     request: (args) => ({
@@ -220,11 +147,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_get",
     title: "Get an abuse report against the account",
-    description: "Retrieve the details of an abuse report made against a domain or other content associated with the account. To retrieve a report that the account submitted, use the submitted abuse report endpoint instead.",
+    description: "Retrieve the details of an abuse report made against a domain or other content associated with the account. To retrieve a report that the account submitted, use the submitted abuse report endpoint instead.\n\nGET /accounts/{account_id}/abuse-reports/{report_param}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -245,6 +173,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -277,8 +206,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
         "abuse-reports_MitigationSummary": abuse$$reports_MitigationSummary,
-        "abuse-reports_ReportStatus": abuse$$reports_ReportStatus,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
       },
     },
@@ -394,8 +321,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
         "abuse-reports_MitigationSummary": abuse$$reports_MitigationSummary,
-        "abuse-reports_ReportStatus": abuse$$reports_ReportStatus,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },
@@ -407,11 +332,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_getSubmitted",
     title: "Get a submitted abuse report",
-    description: "Retrieve a report submitted by the account.",
+    description: "Retrieve a report submitted by the account.\n\nGET /accounts/{account_id}/abuse-reports/submitted/{report_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -432,6 +358,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetailResponse",
@@ -439,12 +366,9 @@ export const tools: readonly Tool[] = [
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
         "abuse-reports_RegistrarWhoIsFields": abuse$$reports_RegistrarWhoIsFields,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
-        "abuse-reports_SubmittedAbuseReportDenialReason": abuse$$reports_SubmittedAbuseReportDenialReason,
         "abuse-reports_SubmittedAbuseReportDetail": abuse$$reports_SubmittedAbuseReportDetail,
         "abuse-reports_SubmittedAbuseReportDetailResponse": abuse$$reports_SubmittedAbuseReportDetailResponse,
         "abuse-reports_SubmittedAbuseReportListItem": abuse$$reports_SubmittedAbuseReportListItem,
-        "abuse-reports_SubmittedAbuseReportStatus": abuse$$reports_SubmittedAbuseReportStatus,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
       },
     },
@@ -484,12 +408,9 @@ export const tools: readonly Tool[] = [
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
         "abuse-reports_RegistrarWhoIsFields": abuse$$reports_RegistrarWhoIsFields,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
-        "abuse-reports_SubmittedAbuseReportDenialReason": abuse$$reports_SubmittedAbuseReportDenialReason,
         "abuse-reports_SubmittedAbuseReportDetail": abuse$$reports_SubmittedAbuseReportDetail,
         "abuse-reports_SubmittedAbuseReportDetailResponse": abuse$$reports_SubmittedAbuseReportDetailResponse,
         "abuse-reports_SubmittedAbuseReportListItem": abuse$$reports_SubmittedAbuseReportListItem,
-        "abuse-reports_SubmittedAbuseReportStatus": abuse$$reports_SubmittedAbuseReportStatus,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },
@@ -501,11 +422,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_list",
     title: "List abuse reports against the account",
-    description: "List abuse reports made against domains or other content associated with the account. To list reports that the account submitted, use the submitted abuse reports endpoint instead.",
+    description: "List abuse reports made against domains or other content associated with the account. To list reports that the account submitted, use the submitted abuse reports endpoint instead.\n\nGET /accounts/{account_id}/abuse-reports",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -518,6 +440,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "created_after": {
               "description": "Returns reports created after the specified date",
@@ -532,8 +455,15 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "mitigation_status": {
-              "$ref": "#/$defs/abuse-reports_MitigationStatus",
-              "description": "Filter reports that have any mitigations in the given status."
+              "description": "Filter reports that have any mitigations in the given status.",
+              "enum": [
+                "pending",
+                "active",
+                "in_review",
+                "cancelled",
+                "removed"
+              ],
+              "type": "string"
             },
             "page": {
               "description": "Where in pagination to start listing abuse reports",
@@ -552,12 +482,27 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/abuse-reports_ReportStatus",
-              "description": "Filter by the status of the report."
+              "description": "Filter by the status of the report.",
+              "enum": [
+                "accepted",
+                "in_review"
+              ],
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/abuse-reports_ReportType",
-              "description": "Filter by the type of the report."
+              "description": "Filter by the type of the report.",
+              "enum": [
+                "PHISH",
+                "GEN",
+                "THREAT",
+                "DMCA",
+                "EMER",
+                "TM",
+                "REG_WHO",
+                "NCSEI",
+                "NETWORK"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -566,11 +511,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "abuse-reports_MitigationStatus": abuse$$reports_MitigationStatus,
-        "abuse-reports_ReportStatus": abuse$$reports_ReportStatus$,
-        "abuse-reports_ReportType": abuse$$reports_ReportType$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -639,8 +580,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AbuseReport": abuse$$reports_AbuseReport,
         "abuse-reports_Message": abuse$$reports_Message,
         "abuse-reports_MitigationSummary": abuse$$reports_MitigationSummary,
-        "abuse-reports_ReportStatus": abuse$$reports_ReportStatus,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
       },
     },
@@ -763,8 +702,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
         "abuse-reports_MitigationSummary": abuse$$reports_MitigationSummary,
-        "abuse-reports_ReportStatus": abuse$$reports_ReportStatus,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },
@@ -788,11 +725,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_listSubmitted",
     title: "List submitted abuse reports",
-    description: "List abuse reports submitted by the account.",
+    description: "List abuse reports submitted by the account.\n\nGET /accounts/{account_id}/abuse-reports/submitted",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -805,6 +743,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "created_after": {
               "description": "Return reports submitted after this time.",
@@ -844,14 +783,32 @@ export const tools: readonly Tool[] = [
             "status": {
               "description": "Filter by submitter-facing status. This parameter can be specified multiple times.",
               "items": {
-                "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportStatus"
+                "description": "Status visible to the account that submitted the report.",
+                "enum": [
+                  "submitted",
+                  "accepted",
+                  "denied"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
             "type": {
               "description": "Filter by report type. This parameter can be specified multiple times.",
               "items": {
-                "$ref": "#/$defs/abuse-reports_ReportType"
+                "description": "The abuse report type",
+                "enum": [
+                  "PHISH",
+                  "GEN",
+                  "THREAT",
+                  "DMCA",
+                  "EMER",
+                  "TM",
+                  "REG_WHO",
+                  "NCSEI",
+                  "NETWORK"
+                ],
+                "type": "string"
               },
               "type": "array"
             }
@@ -862,22 +819,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "abuse-reports_ReportType": abuse$$reports_ReportType$,
-        "abuse-reports_SubmittedAbuseReportStatus": abuse$$reports_SubmittedAbuseReportStatus$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse",
       $defs: {
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
         "abuse-reports_ResultInfo": abuse$$reports_ResultInfo,
-        "abuse-reports_SubmittedAbuseReportDenialReason": abuse$$reports_SubmittedAbuseReportDenialReason,
         "abuse-reports_SubmittedAbuseReportListItem": abuse$$reports_SubmittedAbuseReportListItem,
         "abuse-reports_SubmittedAbuseReportListResponse": abuse$$reports_SubmittedAbuseReportListResponse,
-        "abuse-reports_SubmittedAbuseReportStatus": abuse$$reports_SubmittedAbuseReportStatus,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
       },
     },
@@ -915,12 +866,9 @@ export const tools: readonly Tool[] = [
         "abuse-reports_CloudflareAPIErrorResponse": abuse$$reports_CloudflareAPIErrorResponse,
         "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
         "abuse-reports_Message": abuse$$reports_Message,
-        "abuse-reports_ReportType": abuse$$reports_ReportType,
         "abuse-reports_ResultInfo": abuse$$reports_ResultInfo,
-        "abuse-reports_SubmittedAbuseReportDenialReason": abuse$$reports_SubmittedAbuseReportDenialReason,
         "abuse-reports_SubmittedAbuseReportListItem": abuse$$reports_SubmittedAbuseReportListItem,
         "abuse-reports_SubmittedAbuseReportListResponse": abuse$$reports_SubmittedAbuseReportListResponse,
-        "abuse-reports_SubmittedAbuseReportStatus": abuse$$reports_SubmittedAbuseReportStatus,
         "abuse-reports_SubmitterDetails": abuse$$reports_SubmitterDetails,
         "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },

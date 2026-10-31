@@ -7,38 +7,16 @@ import {
   addressing_api$$response$$common$$failure,
   addressing_api$$response$$single,
   addressing_messages,
-  addressing_timestamp,
 } from "../../outputs.js";
-import { addressing_account_identifier } from "../../schemas.js";
 import {
-  addressing_cidr,
-  addressing_modified_at_nullable,
-} from "../outputs.js";
-import {
-  addressing_cidr as addressing_cidr$,
-  addressing_prefix_identifier,
-} from "../schemas.js";
-import {
-  addressing_advertised$$2,
-  addressing_asn$$2,
-  addressing_asn_prepend_count,
-  addressing_auto_advertise_withdraw,
   addressing_bgp_on_demand,
-  addressing_bgp_prefix_identifier,
   addressing_bgp_signal_opts,
-  addressing_bgp_signaling_enabled,
-  addressing_bgp_signaling_modified_at,
   addressing_ipam$$bgp$$prefixes,
-  addressing_on_demand_enabled$$2,
-  addressing_on_demand_locked$$2,
   addressing_response_collection_bgp,
   addressing_single_response_bgp,
 } from "./outputs.js";
 import {
-  addressing_asn_prepend_count as addressing_asn_prepend_count$,
-  addressing_auto_advertise_withdraw as addressing_auto_advertise_withdraw$,
   addressing_bgp_prefix_create,
-  addressing_bgp_prefix_identifier as addressing_bgp_prefix_identifier$,
   addressing_bgp_prefix_update_advertisement,
 } from "./schemas.js";
 
@@ -49,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_bgpPrefixes_create",
     title: "Create BGP Prefix",
-    description: "Create a BGP prefix, controlling the BGP advertisement status of a specific subnet. When created, BGP prefixes are initially withdrawn, and can be advertised with the Update BGP Prefix API.",
+    description: "Create a BGP prefix, controlling the BGP advertisement status of a specific subnet. When created, BGP prefixes are initially withdrawn, and can be advertised with the Update BGP Prefix API.\n\nPOST /accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes",
     inputSchema: {
       type: "object",
       properties: {
@@ -57,14 +35,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/addressing_bgp_prefix_create"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -78,34 +57,20 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
         "addressing_bgp_prefix_create": addressing_bgp_prefix_create,
-        "addressing_cidr": addressing_cidr$,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response_bgp",
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_single_response_bgp": addressing_single_response_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -134,25 +99,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_single_response_bgp": addressing_single_response_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -163,23 +116,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_bgpPrefixes_delete",
     title: "Delete BGP Prefix",
-    description: "Delete a BGP Prefix associated with the specified IP Prefix. A BGP Prefix must be withdrawn before it can be deleted.",
+    description: "Delete a BGP Prefix associated with the specified IP Prefix. A BGP Prefix must be withdrawn before it can be deleted.\n\nDELETE /accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes/{bgp_prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "bgp_prefix_id": {
-              "$ref": "#/$defs/addressing_bgp_prefix_identifier",
-              "description": "Identifier of BGP Prefix."
+              "description": "Identifier of BGP Prefix.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -193,11 +147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-common",
@@ -237,7 +187,7 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_bgpPrefixes_edit",
     title: "Update BGP Prefix",
-    description: "Update the properties of a BGP Prefix, such as the on demand advertisement status (advertised or withdrawn).",
+    description: "Update the properties of a BGP Prefix, such as the on demand advertisement status (advertised or withdrawn).\n\nPATCH /accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes/{bgp_prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -245,18 +195,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/addressing_bgp_prefix_update_advertisement"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "bgp_prefix_id": {
-              "$ref": "#/$defs/addressing_bgp_prefix_identifier",
-              "description": "Identifier of BGP Prefix."
+              "description": "Identifier of BGP Prefix.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -271,36 +222,20 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count$,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw$,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier$,
         "addressing_bgp_prefix_update_advertisement": addressing_bgp_prefix_update_advertisement,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response_bgp",
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_single_response_bgp": addressing_single_response_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -336,25 +271,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_single_response_bgp": addressing_single_response_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -365,23 +288,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_bgpPrefixes_get",
     title: "Fetch BGP Prefix",
-    description: "Retrieve a single BGP Prefix according to its identifier",
+    description: "Retrieve a single BGP Prefix according to its identifier\n\nGET /accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes/{bgp_prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "bgp_prefix_id": {
-              "$ref": "#/$defs/addressing_bgp_prefix_identifier",
-              "description": "Identifier of BGP Prefix."
+              "description": "Identifier of BGP Prefix.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -395,33 +319,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response_bgp",
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_single_response_bgp": addressing_single_response_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -460,25 +368,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_single_response_bgp": addressing_single_response_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -488,19 +384,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_bgpPrefixes_list",
     title: "List BGP Prefixes",
-    description: "List all BGP Prefixes within the specified IP Prefix. BGP Prefixes are used to control which specific subnets are advertised to the Internet. It is possible to advertise subnets more specific than an IP Prefix by creating more specific BGP Prefixes.",
+    description: "List all BGP Prefixes within the specified IP Prefix. BGP Prefixes are used to control which specific subnets are advertised to the Internet. It is possible to advertise subnets more specific than an IP Prefix by creating more specific BGP Prefixes.\n\nGET /accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -513,32 +410,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection_bgp",
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_response_collection_bgp": addressing_response_collection_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -577,25 +459,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_advertised-2": addressing_advertised$$2,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_asn-2": addressing_asn$$2,
-        "addressing_asn_prepend_count": addressing_asn_prepend_count,
-        "addressing_auto_advertise_withdraw": addressing_auto_advertise_withdraw,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
-        "addressing_bgp_prefix_identifier": addressing_bgp_prefix_identifier,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
-        "addressing_bgp_signaling_enabled": addressing_bgp_signaling_enabled,
-        "addressing_bgp_signaling_modified_at": addressing_bgp_signaling_modified_at,
-        "addressing_cidr": addressing_cidr,
         "addressing_ipam-bgp-prefixes": addressing_ipam$$bgp$$prefixes,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at_nullable": addressing_modified_at_nullable,
-        "addressing_on_demand_enabled-2": addressing_on_demand_enabled$$2,
-        "addressing_on_demand_locked-2": addressing_on_demand_locked$$2,
         "addressing_response_collection_bgp": addressing_response_collection_bgp,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({

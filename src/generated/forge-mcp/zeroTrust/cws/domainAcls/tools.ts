@@ -29,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_domainAcls_create",
     title: "Create a new domain ACL",
-    description: "Creates a domain access control list with its default action and entries.\n\nThis method is beta.",
+    description: "Creates a domain access control list with its default action and entries.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/domain-acls",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,6 +37,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreateDomainACLInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -53,6 +54,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreateDomainACLInputBody": cws_CreateDomainACLInputBody,
         "cws_DomainACLEntry": cws_DomainACLEntry$,
@@ -109,11 +111,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_domainAcls_delete",
     title: "Delete a domain ACL",
-    description: "Deletes the domain ACL if it is not attached to a deployment.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this domain ACL?",
+    description: "Deletes the domain ACL if it is not attached to a deployment.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this domain ACL?\n\nDELETE /accounts/{account_id}/cws/domain-acls/{domain_acl_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -135,6 +138,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -184,11 +188,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_domainAcls_get",
     title: "Get a domain ACL by ID",
-    description: "Returns the domain access control list with the specified ID.\n\nThis method is beta.",
+    description: "Returns the domain access control list with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/domain-acls/{domain_acl_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -210,6 +215,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDomainACL",
@@ -261,11 +267,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_domainAcls_list",
     title: "List domain ACLs",
-    description: "Returns a paginated list of domain access control lists in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of domain access control lists in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/domain-acls",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -278,6 +285,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -323,6 +331,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseDomainACL",
@@ -384,7 +393,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_domainAcls_update",
     title: "Update a domain ACL and replace its entries",
-    description: "Replaces the domain access control list's name, default action, and entries.\n\nThis method is beta.",
+    description: "Replaces the domain access control list's name, default action, and entries.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/domain-acls/{domain_acl_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -392,6 +401,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_UpdateDomainACLInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -414,6 +424,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_DomainACLEntry": cws_DomainACLEntry$,
         "cws_UpdateDomainACLInputBody": cws_UpdateDomainACLInputBody,

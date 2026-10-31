@@ -24,7 +24,6 @@ import {
   zaraz_zaraz$$config$$response,
   zaraz_zaraz$$config$$return,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
 
 /**
  * The tools of `zaraz.default`.
@@ -33,15 +32,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_default_get",
     title: "Get default Zaraz configuration",
-    description: "Gets default Zaraz configuration for a zone.",
+    description: "Gets default Zaraz configuration for a zone.\n\nGET /zones/{zone_id}/settings/zaraz/default",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,9 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-config-response",

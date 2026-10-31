@@ -15,11 +15,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_tree_get",
     title: "Get folder tree structure",
-    description: "Get the folder tree structure for rules navigation.",
+    description: "Get the folder tree structure for rules navigation.\n\nGET /accounts/{account_id}/cloudforce-one/rules/tree",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_TreeResponse",

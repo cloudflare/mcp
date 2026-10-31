@@ -14,7 +14,15 @@ export const api$$shield_object$$with$$operation$$id: JsonSchema = {
           "type": "string"
         },
         {
-          "$ref": "#/$defs/api-shield_uuid-2"
+          "allOf": [
+            {
+              "type": "string"
+            },
+            {
+              "description": "UUID.",
+              "type": "string"
+            }
+          ]
         }
       ]
     }

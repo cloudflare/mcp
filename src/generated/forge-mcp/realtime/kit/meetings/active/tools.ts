@@ -7,10 +7,6 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
 import { realtimekit_SessionParticipant } from "./outputs.js";
 
 /**
@@ -20,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_get",
     title: "Fetch details of an active session",
-    description: "Returns details of an ongoing active session for the given meeting ID.\n\nThis method is beta.",
+    description: "Returns details of an ongoing active session for the given meeting ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting",
@@ -50,10 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -114,7 +108,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_kick",
     title: "Kick participants from an active session",
-    description: "Kicks one or more participants from an active session using user ID or custom participant ID.\n\nThis method is beta.",
+    description: "Kicks one or more participants from an active session using user ID or custom participant ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/kick",
     inputSchema: {
       type: "object",
       properties: {
@@ -140,14 +134,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting",
@@ -166,10 +161,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -253,19 +245,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_kickAll",
     title: "Kick all participants",
-    description: "Kicks all participants from an active session for the given meeting ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation disconnects every active participant immediately.",
+    description: "Kicks all participants from an active session for the given meeting ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation disconnects every active participant immediately.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/kick-all",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting",
@@ -283,10 +276,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -359,7 +349,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_mute",
     title: "Mute participants of an active session",
-    description: "Mutes one or more participants from an active session using user ID or custom participant ID.\n\nThis method is beta.",
+    description: "Mutes one or more participants from an active session using user ID or custom participant ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/mute",
     inputSchema: {
       type: "object",
       properties: {
@@ -384,14 +374,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting",
@@ -410,10 +401,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -497,7 +485,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_muteAll",
     title: "Mute all participants",
-    description: "Mutes all participants of an active session for the given meeting ID.\n\nThis method is beta.",
+    description: "Mutes all participants of an active session for the given meeting ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/mute-all",
     inputSchema: {
       type: "object",
       properties: {
@@ -513,14 +501,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting",
@@ -539,10 +528,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

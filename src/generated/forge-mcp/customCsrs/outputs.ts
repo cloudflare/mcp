@@ -28,7 +28,7 @@ export const tls$$certificates$$and$$hostnames_custom_csr$$2: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
+      "type": "string"
     },
     "key_type": {
       "enum": [
@@ -65,14 +65,6 @@ export const tls$$certificates$$and$$hostnames_custom_csr$$2: JsonSchema = {
     "key_type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_csr_identifier` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_csr_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -113,7 +105,7 @@ export const tls$$certificates$$and$$hostnames_custom_csr_response_id_only: Json
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
+              "type": "string"
             }
           },
           "type": "object"

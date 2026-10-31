@@ -143,6 +143,30 @@ export function pathParam(args: Args, name: string): string {
 }
 
 /**
+ * Throws {@link InvalidArguments} if `args` has an argument `tool` doesn't
+ * take, naming where it goes when it is a parameter passed in the wrong place,
+ * such as `per_page` at the top level instead of in `query`.
+ */
+function checkUnknownArguments(tool: Tool, args: Args): void {
+  const properties = tool.inputSchema.properties ?? {};
+  const unknown = Object.keys(args).filter((key) => !Object.hasOwn(properties, key));
+  if (unknown.length === 0) {
+    return;
+  }
+  const hints = unknown.map((key) => {
+    const place = Object.keys(properties).find((name) => {
+      const params = properties[name]?.['properties'];
+      return typeof params === 'object' && params !== null && Object.hasOwn(params, key);
+    });
+    return place ? `${key} goes in ${place}: { "${place}": { "${key}": … } }` : `${key} is not an argument`;
+  });
+  const takes = Object.keys(properties);
+  throw new InvalidArguments(
+    `Unknown arguments for ${tool.name}: ${hints.join('; ')}. It takes ${takes.length > 0 ? takes.join(', ') : 'no arguments'}.`,
+  );
+}
+
+/**
  * Returns the required arguments of `tool` that `args` leaves out: a
  * top-level argument such as `body`, or a parameter such as `query.page` in
  * a place `args` has.
@@ -170,6 +194,7 @@ function missingArguments(tool: Tool, args: Args): string[] {
  * Throws {@link InvalidArguments}.
  */
 export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpRequest {
+  checkUnknownArguments(tool, args);
   const missing = missingArguments(tool, args);
   if (missing.length > 0) {
     throw new InvalidArguments(`Missing required arguments: ${missing.join(', ')}`);

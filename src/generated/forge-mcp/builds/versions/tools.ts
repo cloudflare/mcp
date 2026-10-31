@@ -5,45 +5,17 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   builds_APIResponse,
   builds_ApiError,
-  builds_BuildOutcome,
   builds_BuildResponse,
-  builds_BuildStatus,
   builds_BuildTriggerMetadataResponse,
-  builds_BuildTriggerSource,
   builds_ErrorResponse,
   builds_PaginationInfo,
-  builds_SCMProviderType,
   builds_UpsertRepoConnectionResponse,
-  builds_branch,
   builds_branch_excludes,
   builds_branch_includes,
-  builds_build_caching_enabled,
-  builds_build_command,
-  builds_build_token_name,
-  builds_build_token_uuid,
-  builds_build_uuid,
-  builds_commit_hash,
-  builds_created_on,
-  builds_deleted_on,
-  builds_deploy_command,
-  builds_deploy_hook_name,
-  builds_external_script_id,
-  builds_modified_on,
   builds_path_excludes,
   builds_path_includes,
-  builds_provider_account_id,
-  builds_provider_account_name,
-  builds_repo_connection_uuid,
-  builds_repo_id,
-  builds_repo_name,
-  builds_root_directory,
-  builds_stopped_on,
-  builds_trigger_name,
-  builds_trigger_uuid,
 } from "../../outputs.js";
-import { builds_account_id } from "../../schemas.js";
 import { builds_BuildsByVersionResponse } from "./outputs.js";
-import { builds_version_ids } from "./schemas.js";
 
 /**
  * The tools of `builds.versions`.
@@ -52,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_versions_get",
     title: "Get builds by Worker version",
-    description: "Retrieve builds associated with one or more Worker version IDs.",
+    description: "Retrieve builds associated with one or more Worker version IDs.\n\nGET /accounts/{account_id}/builds/builds",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -69,10 +42,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "version_ids": {
-              "$ref": "#/$defs/builds_version_ids",
-              "description": "Comma-separated list of version UUIDs (max 20)."
+              "description": "Comma-separated list of version UUIDs (max 20).",
+              "type": "string"
             }
           },
           "required": [
@@ -85,10 +59,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_version_ids": builds_version_ids,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -107,41 +78,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
-        "builds_BuildOutcome": builds_BuildOutcome,
         "builds_BuildResponse": builds_BuildResponse,
-        "builds_BuildStatus": builds_BuildStatus,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
-        "builds_BuildTriggerSource": builds_BuildTriggerSource,
         "builds_BuildsByVersionResponse": builds_BuildsByVersionResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch": builds_branch,
         "builds_branch_excludes": builds_branch_excludes,
         "builds_branch_includes": builds_branch_includes,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_commit_hash": builds_commit_hash,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_modified_on": builds_modified_on,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
-        "builds_stopped_on": builds_stopped_on,
-        "builds_trigger_name": builds_trigger_name,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     annotations: {
@@ -183,42 +128,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
-        "builds_BuildOutcome": builds_BuildOutcome,
         "builds_BuildResponse": builds_BuildResponse,
-        "builds_BuildStatus": builds_BuildStatus,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
-        "builds_BuildTriggerSource": builds_BuildTriggerSource,
         "builds_BuildsByVersionResponse": builds_BuildsByVersionResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch": builds_branch,
         "builds_branch_excludes": builds_branch_excludes,
         "builds_branch_includes": builds_branch_includes,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_commit_hash": builds_commit_hash,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_modified_on": builds_modified_on,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
-        "builds_stopped_on": builds_stopped_on,
-        "builds_trigger_name": builds_trigger_name,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     request: (args) => ({

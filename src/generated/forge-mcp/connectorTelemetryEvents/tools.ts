@@ -6,7 +6,6 @@ import {
   mconn$$telemetry_coded_message,
   mconn$$telemetry_envelope,
 } from "../outputs.js";
-import { mconn$$telemetry_account_id } from "../schemas.js";
 import {
   mconn$$telemetry_customer_events_get_success,
   mconn$$telemetry_customer_events_list_result,
@@ -23,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "connectorTelemetryEvents_get",
     title: "Get Event",
-    description: "Gets Magic WAN Connector Telemetry Event",
+    description: "Gets Magic WAN Connector Telemetry Event\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}/telemetry/events/{event_t}.{event_n}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn-telemetry_account_id",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "connector_id": {
               "type": "string"
@@ -55,9 +55,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mconn-telemetry_account_id": mconn$$telemetry_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn-telemetry_customer_events_get_success",
@@ -129,15 +127,16 @@ export const tools: readonly Tool[] = [
   {
     name: "connectorTelemetryEvents_list",
     title: "List Events",
-    description: "Lists Magic WAN Connector Telemetry Events",
+    description: "Lists Magic WAN Connector Telemetry Events\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}/telemetry/events",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn-telemetry_account_id",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "connector_id": {
               "type": "string"
@@ -150,6 +149,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "type": "string"
@@ -179,9 +179,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "mconn-telemetry_account_id": mconn$$telemetry_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn-telemetry_customer_events_list_success",

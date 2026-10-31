@@ -5,38 +5,13 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   turnstile_api$$response$$common,
   turnstile_api$$response$$common$$failure,
-  turnstile_bot_fight_mode,
-  turnstile_clearance_level,
-  turnstile_created_on,
-  turnstile_deployed_via,
   turnstile_domains,
-  turnstile_ephemeral_id,
-  turnstile_last_modified_via,
   turnstile_messages,
-  turnstile_modified_on,
-  turnstile_name,
-  turnstile_offlabel,
-  turnstile_region,
   turnstile_result_info,
-  turnstile_secret,
-  turnstile_sitekey,
   turnstile_widget_detail,
   turnstile_widget_list,
-  turnstile_widget_mode,
 } from "./outputs.js";
-import {
-  turnstile_bot_fight_mode as turnstile_bot_fight_mode$,
-  turnstile_clearance_level as turnstile_clearance_level$,
-  turnstile_domains as turnstile_domains$,
-  turnstile_ephemeral_id as turnstile_ephemeral_id$,
-  turnstile_identifier,
-  turnstile_invalidate_immediately,
-  turnstile_name as turnstile_name$,
-  turnstile_offlabel as turnstile_offlabel$,
-  turnstile_region as turnstile_region$,
-  turnstile_sitekey as turnstile_sitekey$,
-  turnstile_widget_mode as turnstile_widget_mode$,
-} from "./schemas.js";
+import { turnstile_domains as turnstile_domains$ } from "./schemas.js";
 
 /**
  * The tools of `turnstile.widgets`.
@@ -45,42 +20,58 @@ export const tools: readonly Tool[] = [
   {
     name: "turnstile_widgets_create",
     title: "Create a Turnstile Widget",
-    description: "Creates a Turnstile widget for an account.",
+    description: "Creates a Turnstile widget for an account.\n\nPOST /accounts/{account_id}/challenges/widgets",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "bot_fight_mode": {
-              "$ref": "#/$defs/turnstile_bot_fight_mode",
-              "description": "If bot_fight_mode is set to `true`, Cloudflare issues computationally\nexpensive challenges in response to malicious bots (ENT only).\n"
+              "description": "If bot_fight_mode is set to `true`, Cloudflare issues computationally\nexpensive challenges in response to malicious bots (ENT only).",
+              "type": "boolean"
             },
             "clearance_level": {
-              "$ref": "#/$defs/turnstile_clearance_level",
-              "description": "If Turnstile is embedded on a Cloudflare site and the widget should grant challenge clearance,\nthis setting can determine the clearance level to be set\n"
+              "description": "If Turnstile is embedded on a Cloudflare site and the widget should grant challenge clearance,\nthis setting can determine the clearance level to be set",
+              "enum": [
+                "no_clearance",
+                "jschallenge",
+                "managed",
+                "interactive"
+              ],
+              "type": "string"
             },
             "domains": {
               "$ref": "#/$defs/turnstile_domains"
             },
             "ephemeral_id": {
-              "$ref": "#/$defs/turnstile_ephemeral_id",
-              "description": "Return the Ephemeral ID in /siteverify (ENT only).\n"
+              "description": "Return the Ephemeral ID in /siteverify (ENT only).",
+              "type": "boolean"
             },
             "mode": {
-              "$ref": "#/$defs/turnstile_widget_mode"
+              "description": "Widget Mode",
+              "enum": [
+                "non-interactive",
+                "invisible",
+                "managed"
+              ],
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/turnstile_name",
-              "description": "Human readable widget name. Not unique. Cloudflare suggests that you\nset this to a meaningful string to make it easier to identify your\nwidget, and where it is used.\n"
+              "description": "Human readable widget name. Not unique. Cloudflare suggests that you\nset this to a meaningful string to make it easier to identify your\nwidget, and where it is used.",
+              "type": "string"
             },
             "offlabel": {
-              "$ref": "#/$defs/turnstile_offlabel",
-              "description": "Do not show any Cloudflare branding on the widget (ENT only).\n"
+              "description": "Do not show any Cloudflare branding on the widget (ENT only).",
+              "type": "boolean"
             },
             "region": {
-              "$ref": "#/$defs/turnstile_region",
               "default": "world",
-              "description": "Region where this widget can be used. This cannot be changed after creation.\n"
+              "description": "Region where this widget can be used. This cannot be changed after creation.",
+              "enum": [
+                "world",
+                "china"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -91,10 +82,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/turnstile_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -103,6 +95,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Direction to order widgets.",
@@ -113,7 +106,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "filter": {
-              "description": "Filter widgets by field. The `name` field uses case-insensitive\nsubstring matching; `sitekey` uses exact matching.\nFormat: `field:value`\n\nSupported fields:\n- `name` - Filter by widget name (e.g., `filter=name:login-form`)\n- `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)\n\nReturns 400 Bad Request if the field is unsupported or format is invalid.\nAn empty filter value returns all results.\n",
+              "description": "Filter widgets by field. The `name` field uses case-insensitive\nsubstring matching; `sitekey` uses exact matching.\nFormat: `field:value`\n\nSupported fields:\n- `name` - Filter by widget name (e.g., `filter=name:login-form`)\n- `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)\n\nReturns 400 Bad Request if the field is unsupported or format is invalid.\nAn empty filter value returns all results.",
               "type": "string"
             },
             "order": {
@@ -145,16 +138,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode$,
-        "turnstile_clearance_level": turnstile_clearance_level$,
         "turnstile_domains": turnstile_domains$,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id$,
-        "turnstile_identifier": turnstile_identifier,
-        "turnstile_name": turnstile_name$,
-        "turnstile_offlabel": turnstile_offlabel$,
-        "turnstile_region": turnstile_region$,
-        "turnstile_widget_mode": turnstile_widget_mode$,
       },
     },
     outputSchema: {
@@ -181,23 +167,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
         "turnstile_result_info": turnstile_result_info,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     annotations: {
@@ -252,23 +225,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
         "turnstile_api-response-common-failure": turnstile_api$$response$$common$$failure,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
         "turnstile_result_info": turnstile_result_info,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     request: (args) => ({
@@ -286,19 +246,20 @@ export const tools: readonly Tool[] = [
   {
     name: "turnstile_widgets_delete",
     title: "Delete a Turnstile Widget",
-    description: "Deletes a Turnstile widget from an account.",
+    description: "Deletes a Turnstile widget from an account.\n\nDELETE /accounts/{account_id}/challenges/widgets/{sitekey}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/turnstile_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "sitekey": {
-              "$ref": "#/$defs/turnstile_sitekey",
-              "description": "Unique identifier for a Turnstile widget."
+              "description": "Unique identifier for a Turnstile widget.",
+              "type": "string"
             }
           },
           "required": [
@@ -311,10 +272,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "turnstile_identifier": turnstile_identifier,
-        "turnstile_sitekey": turnstile_sitekey$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -332,22 +290,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     annotations: {
@@ -389,22 +334,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
         "turnstile_api-response-common-failure": turnstile_api$$response$$common$$failure,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     request: (args) => ({
@@ -414,19 +346,20 @@ export const tools: readonly Tool[] = [
   {
     name: "turnstile_widgets_get",
     title: "Turnstile Widget Details",
-    description: "Returns the configuration of a Turnstile widget.",
+    description: "Returns the configuration of a Turnstile widget.\n\nGET /accounts/{account_id}/challenges/widgets/{sitekey}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/turnstile_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "sitekey": {
-              "$ref": "#/$defs/turnstile_sitekey",
-              "description": "Unique identifier for a Turnstile widget."
+              "description": "Unique identifier for a Turnstile widget.",
+              "type": "string"
             }
           },
           "required": [
@@ -439,10 +372,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "turnstile_identifier": turnstile_identifier,
-        "turnstile_sitekey": turnstile_sitekey$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -460,22 +390,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     annotations: {
@@ -519,22 +436,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
         "turnstile_api-response-common-failure": turnstile_api$$response$$common$$failure,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     request: (args) => ({
@@ -544,15 +448,16 @@ export const tools: readonly Tool[] = [
   {
     name: "turnstile_widgets_list",
     title: "List Turnstile Widgets",
-    description: "Lists Turnstile widgets for an account.",
+    description: "Lists Turnstile widgets for an account.\n\nGET /accounts/{account_id}/challenges/widgets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/turnstile_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -561,6 +466,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Direction to order widgets.",
@@ -571,7 +477,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "filter": {
-              "description": "Filter widgets by field. The `name` field uses case-insensitive\nsubstring matching; `sitekey` uses exact matching.\nFormat: `field:value`\n\nSupported fields:\n- `name` - Filter by widget name (e.g., `filter=name:login-form`)\n- `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)\n\nReturns 400 Bad Request if the field is unsupported or format is invalid.\nAn empty filter value returns all results.\n",
+              "description": "Filter widgets by field. The `name` field uses case-insensitive\nsubstring matching; `sitekey` uses exact matching.\nFormat: `field:value`\n\nSupported fields:\n- `name` - Filter by widget name (e.g., `filter=name:login-form`)\n- `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)\n\nReturns 400 Bad Request if the field is unsupported or format is invalid.\nAn empty filter value returns all results.",
               "type": "string"
             },
             "order": {
@@ -602,9 +508,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "turnstile_identifier": turnstile_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -633,22 +537,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
         "turnstile_result_info": turnstile_result_info,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_list": turnstile_widget_list,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     annotations: {
@@ -703,22 +595,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
         "turnstile_api-response-common-failure": turnstile_api$$response$$common$$failure,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
         "turnstile_result_info": turnstile_result_info,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_list": turnstile_widget_list,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     request: (args) => ({
@@ -735,29 +615,30 @@ export const tools: readonly Tool[] = [
   {
     name: "turnstile_widgets_rotateSecret",
     title: "Rotate Secret for a Turnstile Widget",
-    description: "Generates a new secret key for this widget. If `invalidate_immediately`\nis set to `false`, the previous secret remains valid for 2 hours.\n\nNote that secrets cannot be rotated again during the grace period.",
+    description: "Generates a new secret key for this widget. If `invalidate_immediately`\nis set to `false`, the previous secret remains valid for 2 hours.\n\nNote that secrets cannot be rotated again during the grace period.\n\nPOST /accounts/{account_id}/challenges/widgets/{sitekey}/rotate_secret",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "invalidate_immediately": {
-              "$ref": "#/$defs/turnstile_invalidate_immediately",
               "default": false,
-              "description": "If `invalidate_immediately` is set to `false`, the previous secret will\nremain valid for two hours. Otherwise, the secret is immediately\ninvalidated, and requests using it will be rejected.\n"
+              "description": "If `invalidate_immediately` is set to `false`, the previous secret will\nremain valid for two hours. Otherwise, the secret is immediately\ninvalidated, and requests using it will be rejected.",
+              "type": "boolean"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/turnstile_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "sitekey": {
-              "$ref": "#/$defs/turnstile_sitekey",
-              "description": "Unique identifier for a Turnstile widget."
+              "description": "Unique identifier for a Turnstile widget.",
+              "type": "string"
             }
           },
           "required": [
@@ -771,11 +652,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "turnstile_identifier": turnstile_identifier,
-        "turnstile_invalidate_immediately": turnstile_invalidate_immediately,
-        "turnstile_sitekey": turnstile_sitekey$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -793,22 +670,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     annotations: {
@@ -850,22 +714,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
         "turnstile_api-response-common-failure": turnstile_api$$response$$common$$failure,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     request: (args) => ({
@@ -876,42 +727,58 @@ export const tools: readonly Tool[] = [
   {
     name: "turnstile_widgets_update",
     title: "Update a Turnstile Widget",
-    description: "Updates the configuration of a Turnstile widget.",
+    description: "Updates the configuration of a Turnstile widget.\n\nPUT /accounts/{account_id}/challenges/widgets/{sitekey}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "bot_fight_mode": {
-              "$ref": "#/$defs/turnstile_bot_fight_mode",
-              "description": "If bot_fight_mode is set to `true`, Cloudflare issues computationally\nexpensive challenges in response to malicious bots (ENT only).\n"
+              "description": "If bot_fight_mode is set to `true`, Cloudflare issues computationally\nexpensive challenges in response to malicious bots (ENT only).",
+              "type": "boolean"
             },
             "clearance_level": {
-              "$ref": "#/$defs/turnstile_clearance_level",
-              "description": "If Turnstile is embedded on a Cloudflare site and the widget should grant challenge clearance,\nthis setting can determine the clearance level to be set\n"
+              "description": "If Turnstile is embedded on a Cloudflare site and the widget should grant challenge clearance,\nthis setting can determine the clearance level to be set",
+              "enum": [
+                "no_clearance",
+                "jschallenge",
+                "managed",
+                "interactive"
+              ],
+              "type": "string"
             },
             "domains": {
               "$ref": "#/$defs/turnstile_domains"
             },
             "ephemeral_id": {
-              "$ref": "#/$defs/turnstile_ephemeral_id",
-              "description": "Return the Ephemeral ID in /siteverify (ENT only).\n"
+              "description": "Return the Ephemeral ID in /siteverify (ENT only).",
+              "type": "boolean"
             },
             "mode": {
-              "$ref": "#/$defs/turnstile_widget_mode"
+              "description": "Widget Mode",
+              "enum": [
+                "non-interactive",
+                "invisible",
+                "managed"
+              ],
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/turnstile_name",
-              "description": "Human readable widget name. Not unique. Cloudflare suggests that you\nset this to a meaningful string to make it easier to identify your\nwidget, and where it is used.\n"
+              "description": "Human readable widget name. Not unique. Cloudflare suggests that you\nset this to a meaningful string to make it easier to identify your\nwidget, and where it is used.",
+              "type": "string"
             },
             "offlabel": {
-              "$ref": "#/$defs/turnstile_offlabel",
-              "description": "Do not show any Cloudflare branding on the widget (ENT only).\n"
+              "description": "Do not show any Cloudflare branding on the widget (ENT only).",
+              "type": "boolean"
             },
             "region": {
-              "$ref": "#/$defs/turnstile_region",
               "default": "world",
-              "description": "Region where this widget can be used. This cannot be changed after creation.\n"
+              "description": "Region where this widget can be used. This cannot be changed after creation.",
+              "enum": [
+                "world",
+                "china"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -922,14 +789,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/turnstile_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "sitekey": {
-              "$ref": "#/$defs/turnstile_sitekey",
-              "description": "Unique identifier for a Turnstile widget."
+              "description": "Unique identifier for a Turnstile widget.",
+              "type": "string"
             }
           },
           "required": [
@@ -943,17 +811,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode$,
-        "turnstile_clearance_level": turnstile_clearance_level$,
         "turnstile_domains": turnstile_domains$,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id$,
-        "turnstile_identifier": turnstile_identifier,
-        "turnstile_name": turnstile_name$,
-        "turnstile_offlabel": turnstile_offlabel$,
-        "turnstile_region": turnstile_region$,
-        "turnstile_sitekey": turnstile_sitekey$,
-        "turnstile_widget_mode": turnstile_widget_mode$,
       },
     },
     outputSchema: {
@@ -972,22 +832,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     annotations: {
@@ -1034,22 +881,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "turnstile_api-response-common": turnstile_api$$response$$common,
         "turnstile_api-response-common-failure": turnstile_api$$response$$common$$failure,
-        "turnstile_bot_fight_mode": turnstile_bot_fight_mode,
-        "turnstile_clearance_level": turnstile_clearance_level,
-        "turnstile_created_on": turnstile_created_on,
-        "turnstile_deployed_via": turnstile_deployed_via,
         "turnstile_domains": turnstile_domains,
-        "turnstile_ephemeral_id": turnstile_ephemeral_id,
-        "turnstile_last_modified_via": turnstile_last_modified_via,
         "turnstile_messages": turnstile_messages,
-        "turnstile_modified_on": turnstile_modified_on,
-        "turnstile_name": turnstile_name,
-        "turnstile_offlabel": turnstile_offlabel,
-        "turnstile_region": turnstile_region,
-        "turnstile_secret": turnstile_secret,
-        "turnstile_sitekey": turnstile_sitekey,
         "turnstile_widget_detail": turnstile_widget_detail,
-        "turnstile_widget_mode": turnstile_widget_mode,
       },
     },
     request: (args) => ({

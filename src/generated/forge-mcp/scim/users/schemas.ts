@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `iam_scim_patch_op_request`.
  */
 export const iam_scim_patch_op_request: JsonSchema = {
-  "description": "Request body for a SCIM PATCH operation on a User resource (RFC 7644 Section 3.5.2).\n",
+  "description": "Request body for a SCIM PATCH operation on a User resource (RFC 7644 Section 3.5.2).",
   "properties": {
     "Operations": {
       "description": "List of PATCH operations to apply.",
@@ -38,7 +38,7 @@ export const iam_scim_patch_operation: JsonSchema = {
   "description": "A single PATCH operation (RFC 7644 Section 3.5.2).",
   "properties": {
     "op": {
-      "description": "The operation to perform. Only `replace` is currently supported; `add` and `remove` are accepted without error but have no effect. Matched case-insensitively.\n",
+      "description": "The operation to perform. Only `replace` is currently supported; `add` and `remove` are accepted without error but have no effect. Matched case-insensitively.",
       "enum": [
         "add",
         "remove",
@@ -47,11 +47,11 @@ export const iam_scim_patch_operation: JsonSchema = {
       "type": "string"
     },
     "path": {
-      "description": "Attribute path targeted by this operation. When absent, `value` must be a singular complex attribute.\n",
+      "description": "Attribute path targeted by this operation. When absent, `value` must be a singular complex attribute.",
       "type": "string"
     },
     "value": {
-      "description": "The value(s) for the operation. For `replace` without a path, this should be an object of attribute name/value pairs. For member path operations, this should be an array of member value objects.\n"
+      "description": "The value(s) for the operation. For `replace` without a path, this should be an object of attribute name/value pairs. For member path operations, this should be an array of member value objects."
     }
   },
   "required": [
@@ -64,7 +64,7 @@ export const iam_scim_patch_operation: JsonSchema = {
  * The schema of `iam_scim_user_create_request`.
  */
 export const iam_scim_user_create_request: JsonSchema = {
-  "description": "Request body for creating a SCIM User (POST). The `emails` field is required with a primary email matching `userName`, and `active` must be `true`.\n",
+  "description": "Request body for creating a SCIM User (POST). The `emails` field is required with a primary email matching `userName`, and `active` must be `true`.",
   "properties": {
     "active": {
       "description": "A Boolean value indicating the user's administrative status. Must be `true` for user creation.",
@@ -136,14 +136,6 @@ export const iam_scim_user_email_object: JsonSchema = {
 };
 
 /**
- * The schema of `iam_scim_user_identifier`.
- */
-export const iam_scim_user_identifier: JsonSchema = {
-  "description": "The user tag identifying a SCIM User resource (account member).",
-  "type": "string"
-};
-
-/**
  * The schema of `iam_scim_user_name_object`.
  */
 export const iam_scim_user_name_object: JsonSchema = {
@@ -165,7 +157,7 @@ export const iam_scim_user_name_object: JsonSchema = {
  * The schema of `iam_scim_user_replace_request`.
  */
 export const iam_scim_user_replace_request: JsonSchema = {
-  "description": "Request body for replacing a SCIM User (PUT). Only `schemas` and `userName` are required; other fields are optional.\n",
+  "description": "Request body for replacing a SCIM User (PUT). Only `schemas` and `userName` are required; other fields are optional.",
   "properties": {
     "active": {
       "description": "A Boolean value indicating the user's administrative status. Optional; if omitted, the current value is preserved. Set to `false` to deprovision the user, removing their membership from the account.",

@@ -4,49 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_action`.
- */
-export const zero$$trust$$gateway_action: JsonSchema = {
-  "description": "Specify the action to perform when the associated traffic, identity, and device posture expressions either absent or evaluate to `true`.",
-  "enum": [
-    "on",
-    "off",
-    "allow",
-    "block",
-    "scan",
-    "noscan",
-    "safesearch",
-    "ytrestricted",
-    "isolate",
-    "noisolate",
-    "override",
-    "l4_override",
-    "egress",
-    "resolve",
-    "quarantine",
-    "redirect",
-    "forward"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description-2`.
- */
-export const zero$$trust$$gateway_description$$2: JsonSchema = {
-  "description": "Specify the rule description.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_device_posture`.
- */
-export const zero$$trust$$gateway_device_posture: JsonSchema = {
-  "description": "Specify the wirefilter expression used for device posture check. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_dns_resolver_settings_v4`.
  */
 export const zero$$trust$$gateway_dns_resolver_settings_v4: JsonSchema = {
@@ -103,14 +60,6 @@ export const zero$$trust$$gateway_dns_resolver_settings_v6: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_enabled`.
- */
-export const zero$$trust$$gateway_enabled: JsonSchema = {
-  "description": "Specify whether the rule is enabled.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_expiration`.
  */
 export const zero$$trust$$gateway_expiration: JsonSchema = {
@@ -125,7 +74,8 @@ export const zero$$trust$$gateway_expiration: JsonSchema = {
         "expires_at": {
           "allOf": [
             {
-              "$ref": "#/$defs/zero-trust-gateway_timestamp"
+              "format": "date-time",
+              "type": "string"
             },
             {
               "type": "string"
@@ -162,30 +112,6 @@ export const zero$$trust$$gateway_filters: JsonSchema = {
   "maxItems": 1,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of `zero-trust-gateway_identity`.
- */
-export const zero$$trust$$gateway_identity: JsonSchema = {
-  "description": "Specify the wirefilter expression used for identity matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-3`.
- */
-export const zero$$trust$$gateway_name$$3: JsonSchema = {
-  "description": "Specify the rule name.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_precedence`.
- */
-export const zero$$trust$$gateway_precedence: JsonSchema = {
-  "description": "Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform.",
-  "type": "integer"
 };
 
 /**
@@ -776,21 +702,4 @@ export const zero$$trust$$gateway_schedule: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_traffic`.
- */
-export const zero$$trust$$gateway_traffic: JsonSchema = {
-  "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-4`.
- */
-export const zero$$trust$$gateway_uuid$$4: JsonSchema = {
-  "description": "Identify the API resource with a UUID.",
-  "format": "uuid",
-  "type": "string"
 };

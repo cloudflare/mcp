@@ -6,15 +6,8 @@ import {
   load$$balancing_api$$response$$common,
   load$$balancing_api$$response$$common$$failure,
   load$$balancing_messages,
-  load$$balancing_monitor_group_id,
-  load$$balancing_monitor_id,
   load$$balancing_result_info,
 } from "../../outputs.js";
-import {
-  load$$balancing_monitor_id as load$$balancing_monitor_id$,
-  load$$balancing_schemas$$identifier,
-} from "../../schemas.js";
-import { load$$balancing_components$$schemas$$identifier } from "../schemas.js";
 import {
   load$$balancing_monitor$$group,
   load$$balancing_monitor$$group$$member,
@@ -33,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitorGroups_create",
     title: "Create Monitor Group",
-    description: "Create a new monitor group.",
+    description: "Create a new monitor group.\n\nPOST /accounts/{account_id}/load_balancers/monitor_groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-group"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,11 +51,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
         "load-balancing_monitor-group": load$$balancing_monitor$$group$,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member$,
-        "load-balancing_monitor_id": load$$balancing_monitor_id$,
       },
     },
     outputSchema: {
@@ -72,8 +65,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -104,8 +95,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -116,18 +105,19 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitorGroups_delete",
     title: "Delete Monitor Group",
-    description: "Delete a configured monitor group.",
+    description: "Delete a configured monitor group.\n\nDELETE /accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "monitor_group_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -140,10 +130,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
@@ -153,8 +140,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -185,8 +170,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -196,7 +179,7 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitorGroups_edit",
     title: "Patch Monitor Group",
-    description: "Apply changes to an existing monitor group, overwriting the supplied properties.",
+    description: "Apply changes to an existing monitor group, overwriting the supplied properties.\n\nPATCH /accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -204,13 +187,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-group"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "monitor_group_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -224,12 +208,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
         "load-balancing_monitor-group": load$$balancing_monitor$$group$,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member$,
-        "load-balancing_monitor_id": load$$balancing_monitor_id$,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
@@ -240,8 +222,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -272,8 +252,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -284,18 +262,19 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitorGroups_get",
     title: "Monitor Group Details",
-    description: "Fetch a single configured monitor group.",
+    description: "Fetch a single configured monitor group.\n\nGET /accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "monitor_group_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -308,10 +287,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
@@ -321,8 +297,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -350,8 +324,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -361,15 +333,16 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitorGroups_list",
     title: "List Monitor Groups",
-    description: "List configured monitor groups.",
+    description: "List configured monitor groups.\n\nGET /accounts/{account_id}/load_balancers/monitor_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -381,9 +354,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-response-collection",
@@ -393,8 +364,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-response-collection": load$$balancing_monitor$$group$$response$$collection,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
         "load-balancing_result_info": load$$balancing_result_info,
       },
     },
@@ -423,8 +392,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-response-collection": load$$balancing_monitor$$group$$response$$collection,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
         "load-balancing_result_info": load$$balancing_result_info,
       },
     },
@@ -435,7 +402,7 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_monitorGroups_update",
     title: "Update Monitor Group",
-    description: "Modify a configured monitor group.",
+    description: "Modify a configured monitor group.\n\nPUT /accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -443,13 +410,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-group"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "monitor_group_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -463,12 +431,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
         "load-balancing_monitor-group": load$$balancing_monitor$$group$,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member$,
-        "load-balancing_monitor_id": load$$balancing_monitor_id$,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
@@ -479,8 +445,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -511,8 +475,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_monitor-group": load$$balancing_monitor$$group,
         "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
         "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({

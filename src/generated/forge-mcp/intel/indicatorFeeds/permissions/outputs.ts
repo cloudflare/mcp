@@ -9,22 +9,22 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const custom$$indicator$$feeds_permission_list_item: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/custom-indicator-feeds_id"
+      "type": "integer"
     },
     "is_attributable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_attributable"
+      "type": "boolean"
     },
     "is_downloadable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_downloadable"
+      "type": "boolean"
     },
     "is_public": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_public"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name"
+      "type": "string"
     }
   },
   "type": "object"

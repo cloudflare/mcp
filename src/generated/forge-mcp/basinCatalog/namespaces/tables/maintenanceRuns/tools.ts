@@ -7,15 +7,10 @@ import {
   r2$$data$$catalog_api$$response$$errors,
   r2$$data$$catalog_api$$response$$messages,
   r2$$data$$catalog_api$$response$$single,
-  r2$$data$$catalog_api$$response$$success,
   r2$$data$$catalog_maintenance$$run$$operation,
   r2$$data$$catalog_maintenance$$run$$record,
   r2$$data$$catalog_maintenance$$runs$$response,
 } from "../../../../outputs.js";
-import {
-  r2$$data$$catalog_account$$id,
-  r2$$data$$catalog_bucket$$name,
-} from "../../../../schemas.js";
 
 /**
  * The tools of `basinCatalog.namespaces.tables.maintenanceRuns`.
@@ -24,19 +19,20 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_tables_maintenanceRuns_list",
     title: "List table maintenance runs",
-    description: "Retrieves recent table maintenance runs for the current table.",
+    description: "Retrieves recent table maintenance runs for the current table.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}/maintenance-runs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Use this to identify the account."
+              "description": "Use this to identify the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             },
             "namespace": {
               "type": "string"
@@ -54,6 +50,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_size": {
               "type": "integer"
@@ -68,10 +65,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -91,7 +85,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_maintenance-run-operation": r2$$data$$catalog_maintenance$$run$$operation,
         "r2-data-catalog_maintenance-run-record": r2$$data$$catalog_maintenance$$run$$record,
         "r2-data-catalog_maintenance-runs-response": r2$$data$$catalog_maintenance$$runs$$response,
@@ -141,7 +134,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_maintenance-run-operation": r2$$data$$catalog_maintenance$$run$$operation,
         "r2-data-catalog_maintenance-run-record": r2$$data$$catalog_maintenance$$run$$record,
         "r2-data-catalog_maintenance-runs-response": r2$$data$$catalog_maintenance$$runs$$response,

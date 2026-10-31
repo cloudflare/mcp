@@ -37,6 +37,19 @@ describe('planning a generated tool call', () => {
     ).toEqual({ kind: 'needs_account', argument: 'path.account_or_zone_id' })
   })
 
+  it('refuses an argument of the wrong type with its name, before the API sees it', async () => {
+    const result = await plan(
+      'd1_list',
+      { query: { per_page: 'two' } },
+      { sessionAccountId: ACCOUNT }
+    )
+
+    expect(result.kind).toBe('invalid')
+    expect(result.kind === 'invalid' && result.message).toMatch(
+      /^Invalid arguments for d1_list: query\.per_page: .*"string".*"number"/
+    )
+  })
+
   it('refuses parameters passed at the top level, and says where they go', async () => {
     const result = await plan(
       'd1_list',

@@ -98,7 +98,7 @@ export const spectrum$$analytics_zone_report: JsonSchema = {
       "type": "object"
     },
     "zone_id": {
-      "$ref": "#/$defs/spectrum-analytics_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -121,10 +121,26 @@ export const spectrum$$analytics_zones_report_response: JsonSchema = {
         "query": {
           "properties": {
             "since": {
-              "$ref": "#/$defs/spectrum-analytics_since"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             },
             "until": {
-              "$ref": "#/$defs/spectrum-analytics_until"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [

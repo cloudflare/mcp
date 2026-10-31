@@ -15,8 +15,9 @@ export const infra_BatchReplaceTargetTagsItem: JsonSchema = {
       "type": "object"
     },
     "target_id": {
-      "$ref": "#/$defs/infra_TargetId",
-      "description": "Target identifier"
+      "description": "Target identifier",
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [

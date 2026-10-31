@@ -73,19 +73,6 @@ export const r2$$slurper_GCSSourceSchema: JsonSchema = {
 };
 
 /**
- * The schema of `r2-slurper_Jurisdiction`.
- */
-export const r2$$slurper_Jurisdiction: JsonSchema = {
-  "enum": [
-    "default",
-    "eu",
-    "us",
-    "fedramp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2-slurper_R2SourceSchema`.
  */
 export const r2$$slurper_R2SourceSchema: JsonSchema = {
@@ -94,7 +81,13 @@ export const r2$$slurper_R2SourceSchema: JsonSchema = {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/r2-slurper_Jurisdiction"
+      "enum": [
+        "default",
+        "eu",
+        "us",
+        "fedramp"
+      ],
+      "type": "string"
     },
     "keys": {
       "oneOf": [
@@ -147,7 +140,13 @@ export const r2$$slurper_R2TargetSchema: JsonSchema = {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/r2-slurper_Jurisdiction"
+      "enum": [
+        "default",
+        "eu",
+        "us",
+        "fedramp"
+      ],
+      "type": "string"
     },
     "secret": {
       "$ref": "#/$defs/r2-slurper_S3LikeCredsSchema"

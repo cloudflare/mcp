@@ -19,11 +19,12 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_policies_get",
     title: "Get a reporting policy",
-    description: "Gets a reporting policy by identifier.",
+    description: "Gets a reporting policy by identifier.\n\nGET /accounts/{account_id}/reporting/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare public account ID (32-character hexadecimal string)",
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/reports_PolicySingleResponse",
@@ -91,11 +93,12 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_policies_list",
     title: "List reporting policies",
-    description: "Lists all reporting policies for an account.",
+    description: "Lists all reporting policies for an account.\n\nGET /accounts/{account_id}/reporting/policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare public account ID (32-character hexadecimal string)",
@@ -111,6 +114,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/reports_PoliciesListResponse",

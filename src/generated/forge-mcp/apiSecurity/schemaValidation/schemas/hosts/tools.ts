@@ -7,15 +7,7 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../../outputs.js";
-import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-} from "../../../../schemas.js";
 import { api$$shield_schema_hosts } from "./outputs.js";
 
 /**
@@ -25,14 +17,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_hosts_list",
     title: "List hosts covered by uploaded schemas",
-    description: "Lists all unique hosts found in uploaded OpenAPI schemas for the zone.",
+    description: "Lists all unique hosts found in uploaded OpenAPI schemas for the zone.\n\nGET /zones/{zone_id}/schema_validation/schemas/hosts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -41,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -59,10 +61,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -89,10 +88,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
         "api-shield_schema_hosts": api$$shield_schema_hosts,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -145,10 +140,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
         "api-shield_schema_hosts": api$$shield_schema_hosts,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

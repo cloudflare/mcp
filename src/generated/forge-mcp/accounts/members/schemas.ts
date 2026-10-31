@@ -10,8 +10,8 @@ export const iam_create$$member$$with$$policies: JsonSchema = {
   "description": "Add Member with Policies",
   "properties": {
     "email": {
-      "$ref": "#/$defs/iam_email",
-      "description": "The contact email address of the user."
+      "description": "The contact email address of the user.",
+      "type": "string"
     },
     "policies": {
       "description": "Array of policies associated with this member.",
@@ -21,8 +21,12 @@ export const iam_create$$member$$with$$policies: JsonSchema = {
       "type": "array"
     },
     "status": {
-      "$ref": "#/$defs/iam_member-invitation-status",
-      "description": "Status of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\n"
+      "description": "Status of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.",
+      "enum": [
+        "accepted",
+        "pending"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -39,19 +43,24 @@ export const iam_create$$member$$with$$roles: JsonSchema = {
   "description": "Add Member with Account Roles",
   "properties": {
     "email": {
-      "$ref": "#/$defs/iam_email",
-      "description": "The contact email address of the user."
+      "description": "The contact email address of the user.",
+      "type": "string"
     },
     "roles": {
       "description": "Array of roles associated with this member.",
       "items": {
-        "$ref": "#/$defs/iam_role_components-schemas-identifier"
+        "description": "Role identifier tag.",
+        "type": "string"
       },
       "type": "array"
     },
     "status": {
-      "$ref": "#/$defs/iam_member-invitation-status",
-      "description": "Status of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\n"
+      "description": "Status of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.",
+      "enum": [
+        "accepted",
+        "pending"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -68,8 +77,12 @@ export const iam_create_member_policy: JsonSchema = {
   "description": "create_member_policy",
   "properties": {
     "access": {
-      "$ref": "#/$defs/iam_access",
-      "description": "Allow or deny operations against the resources."
+      "description": "Allow or deny operations against the resources.",
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "permission_groups": {
       "$ref": "#/$defs/iam_member_permission_groups",
@@ -86,18 +99,6 @@ export const iam_create_member_policy: JsonSchema = {
     "resource_groups"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_member-invitation-status`.
- */
-export const iam_member$$invitation$$status: JsonSchema = {
-  "description": "Status of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\n",
-  "enum": [
-    "accepted",
-    "pending"
-  ],
-  "type": "string"
 };
 
 /**

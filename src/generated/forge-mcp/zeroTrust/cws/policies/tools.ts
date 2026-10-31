@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_policies_create",
     title: "Create a new policy",
-    description: "Creates a policy from inline Rego source, an entrypoint, and a filter expression.\n\nThis method is beta.",
+    description: "Creates a policy from inline Rego source, an entrypoint, and a filter expression.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/policies",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreatePolicyInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreatePolicyInputBody": cws_CreatePolicyInputBody,
       },
@@ -107,11 +109,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_policies_delete",
     title: "Delete a policy",
-    description: "Deletes the policy and cascades its policy-set membership rows. The policy sets remain.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this policy?",
+    description: "Deletes the policy and cascades its policy-set membership rows. The policy sets remain.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this policy?\n\nDELETE /accounts/{account_id}/cws/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -133,6 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -182,11 +186,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_policies_get",
     title: "Get a policy by ID",
-    description: "Returns the policy with the specified ID.\n\nThis method is beta.",
+    description: "Returns the policy with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -208,6 +213,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponsePolicy",
@@ -257,11 +263,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_policies_list",
     title: "List policies",
-    description: "Returns a paginated list of policies in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of policies in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -274,6 +281,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -323,6 +331,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponsePolicy",
@@ -383,7 +392,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_policies_update",
     title: "Update a policy",
-    description: "Replaces the policy's configuration. Omit tags or use {} to clear them.\n\nThis method is beta.",
+    description: "Replaces the policy's configuration. Omit tags or use {} to clear them.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -391,6 +400,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_UpdatePolicyInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -413,6 +423,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_UpdatePolicyInputBody": cws_UpdatePolicyInputBody,
       },

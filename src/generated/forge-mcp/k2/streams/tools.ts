@@ -9,9 +9,7 @@ import {
   cloudflare$$k2_K2StreamListResponse,
   cloudflare$$k2_K2StreamResponse,
   cloudflare$$k2_K2StreamWorkerBindingInput,
-  cloudflare$$k2_workers$$k2$$common$$success,
   cloudflare$$k2_workers$$k2$$messages,
-  cloudflare$$k2_workers$$k2$$stream$$id,
 } from "./outputs.js";
 import {
   cloudflare$$k2_CreateK2StreamRequest,
@@ -19,8 +17,6 @@ import {
   cloudflare$$k2_K2StreamHttpInput as cloudflare$$k2_K2StreamHttpInput$,
   cloudflare$$k2_K2StreamWorkerBindingInput as cloudflare$$k2_K2StreamWorkerBindingInput$,
   cloudflare$$k2_UpdateK2StreamRequest,
-  cloudflare$$k2_workers$$k2$$account$$id,
-  cloudflare$$k2_workers$$k2$$stream$$id as cloudflare$$k2_workers$$k2$$stream$$id$,
 } from "./schemas.js";
 
 /**
@@ -30,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_create",
     title: "Create K2 stream",
-    description: "Create a new K2 stream. HTTP is disabled when `http` is omitted. Enabled HTTP requires authentication and allows all origins unless `authentication` or `cors` say otherwise. At least one input must be enabled.\n\nThis method is beta.",
+    description: "Create a new K2 stream. HTTP is disabled when `http` is omitted. Enabled HTTP requires authentication and allows all origins unless `authentication` or `cors` say otherwise. At least one input must be enabled.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/k2/streams",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudflare-k2_CreateK2StreamRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,12 +51,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudflare-k2_CreateK2StreamRequest": cloudflare$$k2_CreateK2StreamRequest,
         "cloudflare-k2_K2StreamCorsOptions": cloudflare$$k2_K2StreamCorsOptions$,
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput$,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput$,
-        "cloudflare-k2_workers-k2-account-id": cloudflare$$k2_workers$$k2$$account$$id,
       },
     },
     outputSchema: {
@@ -70,9 +67,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamResponse": cloudflare$$k2_K2StreamResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     annotations: {
@@ -106,9 +101,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamResponse": cloudflare$$k2_K2StreamResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     request: (args) => ({
@@ -119,19 +112,20 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_delete",
     title: "Delete K2 stream",
-    description: "Delete a K2 stream in an account. Deleting a stream that does not exist also succeeds.\n\nThis method is beta.",
+    description: "Delete a K2 stream in an account. Deleting a stream that does not exist also succeeds.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/k2/streams/{stream_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "stream_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id",
-              "description": "Specifies the public ID of the K2 stream."
+              "description": "Specifies the public ID of the K2 stream.",
+              "type": "string"
             }
           },
           "required": [
@@ -144,10 +138,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-k2_workers-k2-account-id": cloudflare$$k2_workers$$k2$$account$$id,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -161,7 +152,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -172,7 +163,6 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
       },
     },
@@ -207,7 +197,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -222,7 +212,6 @@ export const tools: readonly Tool[] = [
         "5XX": null
       },
       $defs: {
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
       },
     },
@@ -233,19 +222,20 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_get",
     title: "Get K2 stream",
-    description: "Get K2 stream details.\n\nThis method is beta.",
+    description: "Get K2 stream details.\n\nThis method is beta.\n\nGET /accounts/{account_id}/k2/streams/{stream_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "stream_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id",
-              "description": "Specifies the public ID of the K2 stream."
+              "description": "Specifies the public ID of the K2 stream.",
+              "type": "string"
             }
           },
           "required": [
@@ -258,10 +248,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-k2_workers-k2-account-id": cloudflare$$k2_workers$$k2$$account$$id,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudflare-k2_K2StreamResponse",
@@ -271,9 +258,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamResponse": cloudflare$$k2_K2StreamResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     annotations: {
@@ -307,9 +292,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamResponse": cloudflare$$k2_K2StreamResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     request: (args) => ({
@@ -319,15 +302,16 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_list",
     title: "List K2 streams",
-    description: "List or filter K2 streams in an account.\n\nThis method is beta.",
+    description: "List or filter K2 streams in an account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/k2/streams",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -336,6 +320,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Filters K2 streams by name using a case-insensitive substring.",
@@ -356,9 +341,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-k2_workers-k2-account-id": cloudflare$$k2_workers$$k2$$account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudflare-k2_K2StreamListResponse",
@@ -368,9 +351,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamListResponse": cloudflare$$k2_K2StreamListResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     annotations: {
@@ -404,9 +385,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamListResponse": cloudflare$$k2_K2StreamListResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     request: (args) => ({
@@ -421,7 +400,7 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_update",
     title: "Update K2 stream",
-    description: "Update a K2 stream. Omitted `http` settings, such as `authentication` and `cors`, keep their current values. Disabling HTTP keeps them, so enabling HTTP again restores them. At least one input must remain enabled.\n\nThis method is beta.",
+    description: "Update a K2 stream. Omitted `http` settings, such as `authentication` and `cors`, keep their current values. Disabling HTTP keeps them, so enabling HTTP again restores them. At least one input must remain enabled.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/k2/streams/{stream_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -429,14 +408,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudflare-k2_UpdateK2StreamRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "stream_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id",
-              "description": "Specifies the public ID of the K2 stream."
+              "description": "Specifies the public ID of the K2 stream.",
+              "type": "string"
             }
           },
           "required": [
@@ -450,13 +430,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudflare-k2_K2StreamCorsOptions": cloudflare$$k2_K2StreamCorsOptions$,
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput$,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput$,
         "cloudflare-k2_UpdateK2StreamRequest": cloudflare$$k2_UpdateK2StreamRequest,
-        "cloudflare-k2_workers-k2-account-id": cloudflare$$k2_workers$$k2$$account$$id,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id$,
       },
     },
     outputSchema: {
@@ -467,9 +446,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamResponse": cloudflare$$k2_K2StreamResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     annotations: {
@@ -503,9 +480,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2StreamHttpInput": cloudflare$$k2_K2StreamHttpInput,
         "cloudflare-k2_K2StreamResponse": cloudflare$$k2_K2StreamResponse,
         "cloudflare-k2_K2StreamWorkerBindingInput": cloudflare$$k2_K2StreamWorkerBindingInput,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
       },
     },
     request: (args) => ({

@@ -4,54 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `aaa_components-schemas-name` in responses.
- */
-export const aaa_components$$schemas$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_components-schemas-type` in responses.
- */
-export const aaa_components$$schemas$$type: JsonSchema = {
-  "enum": [
-    "datadog",
-    "discord",
-    "feishu",
-    "gchat",
-    "generic",
-    "opsgenie",
-    "slack",
-    "splunk"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_created_at` in responses.
- */
-export const aaa_created_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_last_failure` in responses.
- */
-export const aaa_last_failure: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_last_success` in responses.
- */
-export const aaa_last_success: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_schemas-single_response` in responses.
  */
 export const aaa_schemas$$single_response: JsonSchema = {
@@ -71,54 +23,46 @@ export const aaa_schemas$$single_response: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_secret` in responses.
- */
-export const aaa_secret: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_url` in responses.
- */
-export const aaa_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_webhook-id` in responses.
- */
-export const aaa_webhook$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_webhooks` in responses.
  */
 export const aaa_webhooks: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/aaa_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_webhook-id"
+      "type": "string"
     },
     "last_failure": {
-      "$ref": "#/$defs/aaa_last_failure"
+      "format": "date-time",
+      "type": "string"
     },
     "last_success": {
-      "$ref": "#/$defs/aaa_last_success"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/aaa_components-schemas-name"
+      "type": "string"
     },
     "secret": {
-      "$ref": "#/$defs/aaa_secret"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/aaa_components-schemas-type"
+      "enum": [
+        "datadog",
+        "discord",
+        "feishu",
+        "gchat",
+        "generic",
+        "opsgenie",
+        "slack",
+        "splunk"
+      ],
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/aaa_url"
+      "type": "string"
     }
   },
   "type": "object"

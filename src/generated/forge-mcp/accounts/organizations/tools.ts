@@ -5,7 +5,6 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   organizations$$api_Organization,
   organizations$$api_OrganizationFlags,
-  organizations$$api_OrganizationID,
   organizations$$api_Profile,
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
@@ -18,11 +17,12 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_organizations_list",
     title: "List account organizations",
-    description: "Retrieve a list of the organizations that \"contain\" this account or are\nmanaging it.\n\nThe returned list will be in order from \"root\" to \"leaf\", where the \"leaf\"\nwill be the organization that _immediately_ contains the specified\naccount.",
+    description: "Retrieve a list of the organizations that \"contain\" this account or are\nmanaging it.\n\nThe returned list will be in order from \"root\" to \"leaf\", where the \"leaf\"\nwill be the organization that _immediately_ contains the specified\naccount.\n\nGET /accounts/{account_id}/organizations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -37,6 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -76,7 +77,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4Message": organizations$$api_V4Message,
       },
@@ -143,7 +143,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
         "organizations-api_V4Message": organizations$$api_V4Message,

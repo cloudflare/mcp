@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ai_markdownForAgents_summary",
     title: "Get AI markdown for agents reduction ratio summary",
-    description: "Retrieves the overall median HTML-to-markdown reduction ratio for AI agent requests over the given date range.",
+    description: "Retrieves the overall median HTML-to-markdown reduction ratio for AI agent requests over the given date range.\n\nGET /radar/ai/markdown_for_agents/summary",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`. When requesting comparison series, every series must resolve to the same duration as the main series. Each `dateStart`/`dateEnd` is floored to the nearest 15 minutes before evaluation, so windows whose durations match only before alignment may be rejected.",
@@ -58,6 +59,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -510,11 +512,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ai_markdownForAgents_timeseries",
     title: "Get AI markdown for agents reduction ratio time series",
-    description: "Retrieves the median HTML-to-markdown reduction ratio over time for AI agent requests.",
+    description: "Retrieves the median HTML-to-markdown reduction ratio over time for AI agent requests.\n\nGET /radar/ai/markdown_for_agents/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -568,6 +571,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -48,7 +48,15 @@ export const dlp_Dataset: JsonSchema = {
       "type": "boolean"
     },
     "status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",
@@ -102,7 +110,15 @@ export const dlp_DatasetColumn: JsonSchema = {
       "type": "integer"
     },
     "upload_status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -188,7 +204,15 @@ export const dlp_DatasetUpload: JsonSchema = {
       "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     },
     "version": {
       "type": "integer"

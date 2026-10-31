@@ -7,7 +7,6 @@ import {
   custom$$pages_api$$response$$single,
   custom$$pages_messages,
 } from "../../outputs.js";
-import { custom$$pages_identifier } from "../../schemas.js";
 import {
   custom$$pages_preview_token,
   custom$$pages_preview_token_result,
@@ -21,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "customPages_accountCustomPages_previewTokens_create",
     title: "Create a preview token",
-    description: "Creates a signed JWT for previewing an account or zone-level custom page before it is published.",
+    description: "Creates a signed JWT for previewing an account or zone-level custom page before it is published.\n\nPOST /{account_or_zone}/{account_or_zone_id}/custom_pages/preview_tokens",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,6 +28,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/custom-pages_preview_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -39,8 +39,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/custom-pages_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,8 +54,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "custom-pages_identifier": custom$$pages_identifier,
         "custom-pages_preview_request": custom$$pages_preview_request,
       },
     },

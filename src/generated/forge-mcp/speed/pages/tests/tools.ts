@@ -6,24 +6,11 @@ import {
   observatory_api$$response$$common$$failure,
   observatory_api$$response$$single,
   observatory_count$$response,
-  observatory_device_type,
   observatory_labeled_region,
-  observatory_lighthouse_error_code,
   observatory_lighthouse_report,
-  observatory_lighthouse_state,
   observatory_messages,
   observatory_page_test,
-  observatory_region,
-  observatory_schedule_frequency,
-  observatory_timestamp,
-  observatory_url,
-  observatory_uuid,
 } from "../../outputs.js";
-import {
-  observatory_identifier,
-  observatory_region as observatory_region$,
-  observatory_url as observatory_url$,
-} from "../../schemas.js";
 import { observatory_api$$response$$collection } from "../outputs.js";
 import {
   observatory_page$$test$$response$$collection,
@@ -38,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "speed_pages_tests_create",
     title: "Start page test",
-    description: "Starts a test for a specific webpage, in a specific region.",
+    description: "Starts a test for a specific webpage, in a specific region.\n\nPOST /zones/{zone_id}/speed_api/pages/{url}/tests",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,7 +34,31 @@ export const tools: readonly Tool[] = [
             "region": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/observatory_region"
+                  "description": "A test region.",
+                  "enum": [
+                    "asia-east1",
+                    "asia-northeast1",
+                    "asia-northeast2",
+                    "asia-south1",
+                    "asia-southeast1",
+                    "australia-southeast1",
+                    "europe-north1",
+                    "europe-southwest1",
+                    "europe-west1",
+                    "europe-west2",
+                    "europe-west3",
+                    "europe-west4",
+                    "europe-west8",
+                    "europe-west9",
+                    "me-west1",
+                    "southamerica-east1",
+                    "us-central1",
+                    "us-east1",
+                    "us-east4",
+                    "us-south1",
+                    "us-west1"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "string"
@@ -58,14 +69,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "url": {
-              "$ref": "#/$defs/observatory_url",
-              "description": "A URL."
+              "description": "A URL.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/observatory_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -78,29 +90,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "observatory_identifier": observatory_identifier,
-        "observatory_region": observatory_region$,
-        "observatory_url": observatory_url$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/observatory_page-test-response-single",
       $defs: {
         "observatory_api-response-single": observatory_api$$response$$single,
-        "observatory_device_type": observatory_device_type,
         "observatory_labeled_region": observatory_labeled_region,
-        "observatory_lighthouse_error_code": observatory_lighthouse_error_code,
         "observatory_lighthouse_report": observatory_lighthouse_report,
-        "observatory_lighthouse_state": observatory_lighthouse_state,
         "observatory_messages": observatory_messages,
         "observatory_page-test-response-single": observatory_page$$test$$response$$single,
         "observatory_page_test": observatory_page_test,
-        "observatory_region": observatory_region,
-        "observatory_schedule_frequency": observatory_schedule_frequency,
-        "observatory_timestamp": observatory_timestamp,
-        "observatory_url": observatory_url,
-        "observatory_uuid": observatory_uuid,
       },
     },
     annotations: {
@@ -135,19 +135,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "observatory_api-response-common-failure": observatory_api$$response$$common$$failure,
         "observatory_api-response-single": observatory_api$$response$$single,
-        "observatory_device_type": observatory_device_type,
         "observatory_labeled_region": observatory_labeled_region,
-        "observatory_lighthouse_error_code": observatory_lighthouse_error_code,
         "observatory_lighthouse_report": observatory_lighthouse_report,
-        "observatory_lighthouse_state": observatory_lighthouse_state,
         "observatory_messages": observatory_messages,
         "observatory_page-test-response-single": observatory_page$$test$$response$$single,
         "observatory_page_test": observatory_page_test,
-        "observatory_region": observatory_region,
-        "observatory_schedule_frequency": observatory_schedule_frequency,
-        "observatory_timestamp": observatory_timestamp,
-        "observatory_url": observatory_url,
-        "observatory_uuid": observatory_uuid,
       },
     },
     request: (args) => ({
@@ -158,19 +150,20 @@ export const tools: readonly Tool[] = [
   {
     name: "speed_pages_tests_delete",
     title: "Delete all page tests",
-    description: "Deletes all tests for a specific webpage from a specific region. Deleted tests are still counted as part of the quota.",
+    description: "Deletes all tests for a specific webpage from a specific region. Deleted tests are still counted as part of the quota.\n\nDELETE /zones/{zone_id}/speed_api/pages/{url}/tests",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "url": {
-              "$ref": "#/$defs/observatory_url",
-              "description": "A URL."
+              "description": "A URL.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/observatory_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -180,11 +173,36 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "region": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/observatory_region"
+                  "description": "A test region.",
+                  "enum": [
+                    "asia-east1",
+                    "asia-northeast1",
+                    "asia-northeast2",
+                    "asia-south1",
+                    "asia-southeast1",
+                    "australia-southeast1",
+                    "europe-north1",
+                    "europe-southwest1",
+                    "europe-west1",
+                    "europe-west2",
+                    "europe-west3",
+                    "europe-west4",
+                    "europe-west8",
+                    "europe-west9",
+                    "me-west1",
+                    "southamerica-east1",
+                    "us-central1",
+                    "us-east1",
+                    "us-east4",
+                    "us-south1",
+                    "us-west1"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "string"
@@ -198,11 +216,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "observatory_identifier": observatory_identifier,
-        "observatory_region": observatory_region$,
-        "observatory_url": observatory_url$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/observatory_count-response",
@@ -258,22 +272,23 @@ export const tools: readonly Tool[] = [
   {
     name: "speed_pages_tests_get",
     title: "Get a page test result",
-    description: "Retrieves the result of a specific test.",
+    description: "Retrieves the result of a specific test.\n\nGET /zones/{zone_id}/speed_api/pages/{url}/tests/{test_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "test_id": {
               "type": "string"
             },
             "url": {
-              "$ref": "#/$defs/observatory_url",
-              "description": "A URL."
+              "description": "A URL.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/observatory_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -287,28 +302,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "observatory_identifier": observatory_identifier,
-        "observatory_url": observatory_url$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/observatory_page-test-response-single",
       $defs: {
         "observatory_api-response-single": observatory_api$$response$$single,
-        "observatory_device_type": observatory_device_type,
         "observatory_labeled_region": observatory_labeled_region,
-        "observatory_lighthouse_error_code": observatory_lighthouse_error_code,
         "observatory_lighthouse_report": observatory_lighthouse_report,
-        "observatory_lighthouse_state": observatory_lighthouse_state,
         "observatory_messages": observatory_messages,
         "observatory_page-test-response-single": observatory_page$$test$$response$$single,
         "observatory_page_test": observatory_page_test,
-        "observatory_region": observatory_region,
-        "observatory_schedule_frequency": observatory_schedule_frequency,
-        "observatory_timestamp": observatory_timestamp,
-        "observatory_url": observatory_url,
-        "observatory_uuid": observatory_uuid,
       },
     },
     annotations: {
@@ -344,19 +348,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "observatory_api-response-common-failure": observatory_api$$response$$common$$failure,
         "observatory_api-response-single": observatory_api$$response$$single,
-        "observatory_device_type": observatory_device_type,
         "observatory_labeled_region": observatory_labeled_region,
-        "observatory_lighthouse_error_code": observatory_lighthouse_error_code,
         "observatory_lighthouse_report": observatory_lighthouse_report,
-        "observatory_lighthouse_state": observatory_lighthouse_state,
         "observatory_messages": observatory_messages,
         "observatory_page-test-response-single": observatory_page$$test$$response$$single,
         "observatory_page_test": observatory_page_test,
-        "observatory_region": observatory_region,
-        "observatory_schedule_frequency": observatory_schedule_frequency,
-        "observatory_timestamp": observatory_timestamp,
-        "observatory_url": observatory_url,
-        "observatory_uuid": observatory_uuid,
       },
     },
     request: (args) => ({
@@ -366,19 +362,20 @@ export const tools: readonly Tool[] = [
   {
     name: "speed_pages_tests_list",
     title: "List page test history",
-    description: "Test history (list of tests) for a specific webpage.",
+    description: "Test history (list of tests) for a specific webpage.\n\nGET /zones/{zone_id}/speed_api/pages/{url}/tests",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "url": {
-              "$ref": "#/$defs/observatory_url",
-              "description": "A URL."
+              "description": "A URL.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/observatory_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -388,6 +385,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -400,7 +398,31 @@ export const tools: readonly Tool[] = [
             "region": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/observatory_region"
+                  "description": "A test region.",
+                  "enum": [
+                    "asia-east1",
+                    "asia-northeast1",
+                    "asia-northeast2",
+                    "asia-south1",
+                    "asia-southeast1",
+                    "australia-southeast1",
+                    "europe-north1",
+                    "europe-southwest1",
+                    "europe-west1",
+                    "europe-west2",
+                    "europe-west3",
+                    "europe-west4",
+                    "europe-west8",
+                    "europe-west9",
+                    "me-west1",
+                    "southamerica-east1",
+                    "us-central1",
+                    "us-east1",
+                    "us-east4",
+                    "us-south1",
+                    "us-west1"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "string"
@@ -414,30 +436,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "observatory_identifier": observatory_identifier,
-        "observatory_region": observatory_region$,
-        "observatory_url": observatory_url$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/observatory_page-test-response-collection",
       $defs: {
         "observatory_api-response-collection": observatory_api$$response$$collection,
-        "observatory_device_type": observatory_device_type,
         "observatory_labeled_region": observatory_labeled_region,
-        "observatory_lighthouse_error_code": observatory_lighthouse_error_code,
         "observatory_lighthouse_report": observatory_lighthouse_report,
-        "observatory_lighthouse_state": observatory_lighthouse_state,
         "observatory_messages": observatory_messages,
         "observatory_page-test-response-collection": observatory_page$$test$$response$$collection,
         "observatory_page_test": observatory_page_test,
-        "observatory_region": observatory_region,
         "observatory_result_info": observatory_result_info,
-        "observatory_schedule_frequency": observatory_schedule_frequency,
-        "observatory_timestamp": observatory_timestamp,
-        "observatory_url": observatory_url,
-        "observatory_uuid": observatory_uuid,
       },
     },
     annotations: {
@@ -473,20 +483,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "observatory_api-response-collection": observatory_api$$response$$collection,
         "observatory_api-response-common-failure": observatory_api$$response$$common$$failure,
-        "observatory_device_type": observatory_device_type,
         "observatory_labeled_region": observatory_labeled_region,
-        "observatory_lighthouse_error_code": observatory_lighthouse_error_code,
         "observatory_lighthouse_report": observatory_lighthouse_report,
-        "observatory_lighthouse_state": observatory_lighthouse_state,
         "observatory_messages": observatory_messages,
         "observatory_page-test-response-collection": observatory_page$$test$$response$$collection,
         "observatory_page_test": observatory_page_test,
-        "observatory_region": observatory_region,
         "observatory_result_info": observatory_result_info,
-        "observatory_schedule_frequency": observatory_schedule_frequency,
-        "observatory_timestamp": observatory_timestamp,
-        "observatory_url": observatory_url,
-        "observatory_uuid": observatory_uuid,
       },
     },
     request: (args) => ({

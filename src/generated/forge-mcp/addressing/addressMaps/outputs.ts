@@ -9,28 +9,51 @@ import type { JsonSchema } from "../../_/tool.js";
 export const addressing_address$$maps: JsonSchema = {
   "properties": {
     "can_delete": {
-      "$ref": "#/$defs/addressing_can_delete"
+      "type": "boolean"
     },
     "can_modify_ips": {
-      "$ref": "#/$defs/addressing_can_modify_ips"
+      "type": "boolean"
     },
     "created_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "default_sni": {
-      "$ref": "#/$defs/addressing_default_sni"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/addressing_description-2"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "enabled": {
-      "$ref": "#/$defs/addressing_enabled"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "id": {
-      "$ref": "#/$defs/addressing_address_map_identifier"
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -42,10 +65,11 @@ export const addressing_address$$maps: JsonSchema = {
 export const addressing_address$$maps$$ip: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "ip": {
-      "$ref": "#/$defs/addressing_ip"
+      "type": "string"
     }
   },
   "type": "object"
@@ -57,89 +81,24 @@ export const addressing_address$$maps$$ip: JsonSchema = {
 export const addressing_address$$maps$$membership: JsonSchema = {
   "properties": {
     "can_delete": {
-      "$ref": "#/$defs/addressing_can_delete-2"
+      "type": "boolean"
     },
     "created_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "identifier": {
-      "$ref": "#/$defs/addressing_identifier"
+      "type": "string"
     },
     "kind": {
-      "$ref": "#/$defs/addressing_kind"
+      "enum": [
+        "zone",
+        "account"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `addressing_address_map_identifier` in responses.
- */
-export const addressing_address_map_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_can_delete` in responses.
- */
-export const addressing_can_delete: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_can_delete-2` in responses.
- */
-export const addressing_can_delete$$2: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_can_modify_ips` in responses.
- */
-export const addressing_can_modify_ips: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_default_sni` in responses.
- */
-export const addressing_default_sni: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_description-2` in responses.
- */
-export const addressing_description$$2: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_enabled` in responses.
- */
-export const addressing_enabled: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -177,20 +136,6 @@ export const addressing_full_response: JsonSchema = {
 };
 
 /**
- * The schema of `addressing_identifier` in responses.
- */
-export const addressing_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_ip` in responses.
- */
-export const addressing_ip: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_ips` in responses.
  */
 export const addressing_ips: JsonSchema = {
@@ -198,17 +143,6 @@ export const addressing_ips: JsonSchema = {
     "$ref": "#/$defs/addressing_address-maps-ip"
   },
   "type": "array"
-};
-
-/**
- * The schema of `addressing_kind` in responses.
- */
-export const addressing_kind: JsonSchema = {
-  "enum": [
-    "zone",
-    "account"
-  ],
-  "type": "string"
 };
 
 /**

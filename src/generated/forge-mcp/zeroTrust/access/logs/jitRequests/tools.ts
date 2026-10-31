@@ -8,19 +8,14 @@ import {
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
-  access_timestamp,
 } from "../../../outputs.js";
-import { access_identifier } from "../../../schemas.js";
 import {
   access_jit_request_event,
-  access_jit_request_event_type,
   access_jit_request_log,
   access_jit_request_log_detail,
-  access_jit_request_status,
   access_response_collection$$13,
   access_response_single,
 } from "./outputs.js";
-import { access_jit_request_status as access_jit_request_status$ } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.logs.jitRequests`.
@@ -29,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_logs_jitRequests_get",
     title: "Get an Access JIT request log",
-    description: "Gets an account-scoped Access JIT request summary and its lifecycle events in chronological order.",
+    description: "Gets an account-scoped Access JIT request summary and its lifecycle events in chronological order.\n\nGET /accounts/{account_id}/access/logs/jit_requests/{knock_request_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "knock_request_id": {
               "format": "uuid",
@@ -54,22 +50,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_single",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
         "access_jit_request_event": access_jit_request_event,
-        "access_jit_request_event_type": access_jit_request_event_type,
         "access_jit_request_log": access_jit_request_log,
         "access_jit_request_log_detail": access_jit_request_log_detail,
-        "access_jit_request_status": access_jit_request_status,
         "access_messages": access_messages,
         "access_response_single": access_response_single,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -97,13 +88,10 @@ export const tools: readonly Tool[] = [
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
         "access_jit_request_event": access_jit_request_event,
-        "access_jit_request_event_type": access_jit_request_event_type,
         "access_jit_request_log": access_jit_request_log,
         "access_jit_request_log_detail": access_jit_request_log_detail,
-        "access_jit_request_status": access_jit_request_status,
         "access_messages": access_messages,
         "access_response_single": access_response_single,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({
@@ -113,15 +101,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_logs_jitRequests_list",
     title: "List Access JIT request logs",
-    description: "Lists account-wide Access JIT request logs reconstructed from request lifecycle events.",
+    description: "Lists account-wide Access JIT request logs reconstructed from request lifecycle events.\n\nGET /accounts/{account_id}/access/logs/jit_requests",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -130,6 +119,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -151,8 +141,15 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/access_jit_request_status",
-              "description": "JIT request status. `SPENT` is deprecated and interpreted as `APPROVED`."
+              "description": "JIT request status. `SPENT` is deprecated and interpreted as `APPROVED`.",
+              "enum": [
+                "PENDING",
+                "APPROVED",
+                "DENIED",
+                "CANCELED",
+                "SPENT"
+              ],
+              "type": "string"
             },
             "until": {
               "description": "The latest request timestamp to query. Defaults to the current time.",
@@ -166,10 +163,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_jit_request_status": access_jit_request_status$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-13",
@@ -177,10 +171,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_jit_request_log": access_jit_request_log,
-        "access_jit_request_status": access_jit_request_status,
         "access_messages": access_messages,
         "access_response_collection-13": access_response_collection$$13,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -206,10 +198,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_jit_request_log": access_jit_request_log,
-        "access_jit_request_status": access_jit_request_status,
         "access_messages": access_messages,
         "access_response_collection-13": access_response_collection$$13,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({

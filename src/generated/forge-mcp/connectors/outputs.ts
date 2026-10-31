@@ -15,11 +15,20 @@ export const mconn_customer_connector: JsonSchema = {
       "$ref": "#/$defs/mconn_customer_device"
     },
     "id": {
-      "$ref": "#/$defs/mconn_uuid"
+      "type": "string"
     },
     "interrupt_window_days_of_week": {
       "items": {
-        "$ref": "#/$defs/mconn_day_of_week"
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -28,7 +37,7 @@ export const mconn_customer_connector: JsonSchema = {
     },
     "interrupt_window_embargo_dates": {
       "items": {
-        "$ref": "#/$defs/mconn_embargo_date"
+        "type": "string"
       },
       "maxItems": 100,
       "type": "array"
@@ -192,7 +201,7 @@ export const mconn_customer_connectors_update_response: JsonSchema = {
 export const mconn_customer_device: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/mconn_uuid"
+      "type": "string"
     },
     "serial_number": {
       "type": "string"
@@ -209,27 +218,4 @@ export const mconn_customer_device: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `mconn_day_of_week` in responses.
- */
-export const mconn_day_of_week: JsonSchema = {
-  "enum": [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `mconn_embargo_date` in responses.
- */
-export const mconn_embargo_date: JsonSchema = {
-  "type": "string"
 };

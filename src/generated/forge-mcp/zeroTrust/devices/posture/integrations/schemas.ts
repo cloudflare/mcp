@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_components-schemas-name`.
- */
-export const teams$$devices_components$$schemas$$name: JsonSchema = {
-  "description": "The name of the device posture integration.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_config_request`.
  */
 export const teams$$devices_config_request: JsonSchema = {
@@ -104,14 +96,6 @@ export const teams$$devices_custom_s2s_config_request: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_interval`.
- */
-export const teams$$devices_interval: JsonSchema = {
-  "description": "The interval between each posture check with the third-party API. Use `m` for minutes (e.g. `5m`) and `h` for hours (e.g. `12h`).",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_intune_config_request`.
  */
 export const teams$$devices_intune_config_request: JsonSchema = {
@@ -158,24 +142,6 @@ export const teams$$devices_kolide_config_request: JsonSchema = {
     "client_secret"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_schemas-type`.
- */
-export const teams$$devices_schemas$$type: JsonSchema = {
-  "description": "The type of device posture integration.",
-  "enum": [
-    "workspace_one",
-    "crowdstrike_s2s",
-    "uptycs",
-    "intune",
-    "kolide",
-    "tanium_s2s",
-    "sentinelone_s2s",
-    "custom_s2s"
-  ],
-  "type": "string"
 };
 
 /**

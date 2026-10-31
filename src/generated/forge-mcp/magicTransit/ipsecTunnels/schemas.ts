@@ -4,22 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_cloudflare_ipsec_endpoint`.
- */
-export const magic_cloudflare_ipsec_endpoint: JsonSchema = {
-  "description": "The IP address assigned to the Cloudflare side of the IPsec tunnel.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_components-schemas-description`.
- */
-export const magic_components$$schemas$$description: JsonSchema = {
-  "description": "An optional description forthe IPsec tunnel.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_custom_remote_identities`.
  */
 export const magic_custom_remote_identities: JsonSchema = {
@@ -33,64 +17,56 @@ export const magic_custom_remote_identities: JsonSchema = {
 };
 
 /**
- * The schema of `magic_customer_ipsec_endpoint`.
- */
-export const magic_customer_ipsec_endpoint: JsonSchema = {
-  "description": "The IP address assigned to the customer side of the IPsec tunnel. Not required, but must be set for proactive traceroutes to work.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_ipsec_tunnel_add_request`.
  */
 export const magic_ipsec_tunnel_add_request: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
-      "$ref": "#/$defs/magic_automatic_return_routing",
       "default": false,
-      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected."
+      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected.",
+      "type": "boolean"
     },
     "bgp": {
       "$ref": "#/$defs/magic_bgp_config"
     },
     "cloudflare_endpoint": {
-      "$ref": "#/$defs/magic_cloudflare_ipsec_endpoint",
-      "description": "The IP address assigned to the Cloudflare side of the IPsec tunnel."
+      "description": "The IP address assigned to the Cloudflare side of the IPsec tunnel.",
+      "type": "string"
     },
     "custom_remote_identities": {
       "$ref": "#/$defs/magic_custom_remote_identities"
     },
     "customer_endpoint": {
-      "$ref": "#/$defs/magic_customer_ipsec_endpoint",
-      "description": "The IP address assigned to the customer side of the IPsec tunnel. Not required, but must be set for proactive traceroutes to work."
+      "description": "The IP address assigned to the customer side of the IPsec tunnel. Not required, but must be set for proactive traceroutes to work.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_components-schemas-description",
-      "description": "An optional description forthe IPsec tunnel."
+      "description": "An optional description forthe IPsec tunnel.",
+      "type": "string"
     },
     "health_check": {
       "$ref": "#/$defs/magic_tunnel_health_check"
     },
     "interface_address": {
-      "$ref": "#/$defs/magic_interface_address",
-      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255."
+      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255.",
+      "type": "string"
     },
     "interface_address6": {
-      "$ref": "#/$defs/magic_interface_address6",
-      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127"
+      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/magic_ipsec_tunnel_name",
-      "description": "The name of the IPsec tunnel. The name cannot share a name with other tunnels."
+      "description": "The name of the IPsec tunnel. The name cannot share a name with other tunnels.",
+      "type": "string"
     },
     "psk": {
-      "$ref": "#/$defs/magic_psk",
-      "description": "A randomly generated or provided string for use in the IPsec tunnel."
+      "description": "A randomly generated or provided string for use in the IPsec tunnel.",
+      "type": "string"
     },
     "replay_protection": {
-      "$ref": "#/$defs/magic_replay_protection",
       "default": false,
-      "description": "If `true`, then IPsec replay protection will be supported in the Cloudflare-to-customer direction."
+      "description": "If `true`, then IPsec replay protection will be supported in the Cloudflare-to-customer direction.",
+      "type": "boolean"
     }
   },
   "required": [
@@ -107,51 +83,51 @@ export const magic_ipsec_tunnel_add_request: JsonSchema = {
 export const magic_ipsec_tunnel_add_single_request: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
-      "$ref": "#/$defs/magic_automatic_return_routing",
       "default": false,
-      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected."
+      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected.",
+      "type": "boolean"
     },
     "bgp": {
       "$ref": "#/$defs/magic_bgp_config"
     },
     "cloudflare_endpoint": {
-      "$ref": "#/$defs/magic_cloudflare_ipsec_endpoint",
-      "description": "The IP address assigned to the Cloudflare side of the IPsec tunnel."
+      "description": "The IP address assigned to the Cloudflare side of the IPsec tunnel.",
+      "type": "string"
     },
     "custom_remote_identities": {
       "$ref": "#/$defs/magic_custom_remote_identities"
     },
     "customer_endpoint": {
-      "$ref": "#/$defs/magic_customer_ipsec_endpoint",
-      "description": "The IP address assigned to the customer side of the IPsec tunnel. Not required, but must be set for proactive traceroutes to work."
+      "description": "The IP address assigned to the customer side of the IPsec tunnel. Not required, but must be set for proactive traceroutes to work.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_components-schemas-description",
-      "description": "An optional description forthe IPsec tunnel."
+      "description": "An optional description forthe IPsec tunnel.",
+      "type": "string"
     },
     "health_check": {
       "$ref": "#/$defs/magic_tunnel_health_check"
     },
     "interface_address": {
-      "$ref": "#/$defs/magic_interface_address",
-      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255."
+      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255.",
+      "type": "string"
     },
     "interface_address6": {
-      "$ref": "#/$defs/magic_interface_address6",
-      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127"
+      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/magic_ipsec_tunnel_name",
-      "description": "The name of the IPsec tunnel. The name cannot share a name with other tunnels."
+      "description": "The name of the IPsec tunnel. The name cannot share a name with other tunnels.",
+      "type": "string"
     },
     "psk": {
-      "$ref": "#/$defs/magic_psk",
-      "description": "A randomly generated or provided string for use in the IPsec tunnel."
+      "description": "A randomly generated or provided string for use in the IPsec tunnel.",
+      "type": "string"
     },
     "replay_protection": {
-      "$ref": "#/$defs/magic_replay_protection",
       "default": false,
-      "description": "If `true`, then IPsec replay protection will be supported in the Cloudflare-to-customer direction."
+      "description": "If `true`, then IPsec replay protection will be supported in the Cloudflare-to-customer direction.",
+      "type": "boolean"
     }
   },
   "required": [
@@ -163,26 +139,18 @@ export const magic_ipsec_tunnel_add_single_request: JsonSchema = {
 };
 
 /**
- * The schema of `magic_ipsec_tunnel_name`.
- */
-export const magic_ipsec_tunnel_name: JsonSchema = {
-  "description": "The name of the IPsec tunnel. The name cannot share a name with other tunnels.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_ipsec_tunnel_psk_entry`.
  */
 export const magic_ipsec_tunnel_psk_entry: JsonSchema = {
   "description": "A PSK entry for a specific IPsec tunnel.",
   "properties": {
     "id": {
-      "$ref": "#/$defs/magic_identifier",
-      "description": "The ID of the IPsec tunnel."
+      "description": "The ID of the IPsec tunnel.",
+      "type": "string"
     },
     "psk": {
-      "$ref": "#/$defs/magic_psk",
-      "description": "A randomly generated or provided string for use in the IPsec tunnel."
+      "description": "A randomly generated or provided string for use in the IPsec tunnel.",
+      "type": "string"
     }
   },
   "required": [
@@ -210,20 +178,4 @@ export const magic_ipsec_tunnels_psk_request: JsonSchema = {
     "psks"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_psk`.
- */
-export const magic_psk: JsonSchema = {
-  "description": "A randomly generated or provided string for use in the IPsec tunnel.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_replay_protection`.
- */
-export const magic_replay_protection: JsonSchema = {
-  "description": "If `true`, then IPsec replay protection will be supported in the Cloudflare-to-customer direction.",
-  "type": "boolean"
 };

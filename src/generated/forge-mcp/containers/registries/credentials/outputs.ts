@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const cc_ContainersAccountRegistryToken: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/cc_AccountID"
+      "type": "string"
     },
     "password": {
       "type": "string"

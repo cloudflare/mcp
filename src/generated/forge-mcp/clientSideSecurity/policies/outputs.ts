@@ -57,19 +57,24 @@ export const client$$side$$security_list$$zone$$policies$$response: JsonSchema =
 export const client$$side$$security_policy: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/client-side-security_policy-action"
+      "enum": [
+        "allow",
+        "log",
+        "add_reporting_directives"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/client-side-security_policy-description"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/client-side-security_policy-enabled"
+      "type": "boolean"
     },
     "expression": {
-      "$ref": "#/$defs/client-side-security_policy-expression"
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/client-side-security_policy-value"
+      "type": "string"
     }
   },
   "required": [
@@ -83,46 +88,6 @@ export const client$$side$$security_policy: JsonSchema = {
 };
 
 /**
- * The schema of `client-side-security_policy-action` in responses.
- */
-export const client$$side$$security_policy$$action: JsonSchema = {
-  "enum": [
-    "allow",
-    "log",
-    "add_reporting_directives"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_policy-description` in responses.
- */
-export const client$$side$$security_policy$$description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_policy-enabled` in responses.
- */
-export const client$$side$$security_policy$$enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `client-side-security_policy-expression` in responses.
- */
-export const client$$side$$security_policy$$expression: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_policy-value` in responses.
- */
-export const client$$side$$security_policy$$value: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `client-side-security_policy-with-id` in responses.
  */
 export const client$$side$$security_policy$$with$$id: JsonSchema = {
@@ -133,7 +98,7 @@ export const client$$side$$security_policy$$with$$id: JsonSchema = {
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/client-side-security_id"
+          "type": "string"
         }
       },
       "required": [

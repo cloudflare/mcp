@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTags_create",
     title: "Creates a new data tag.",
-    description: "Creates a data tag in a category.",
+    description: "Creates a data tag in a category.\n\nPOST /accounts/{account_id}/dlp/data_tag_categories/{category_id}/data_tags",
     inputSchema: {
       type: "object",
       properties: {
@@ -28,6 +28,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new data tag."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewDataTag": dlp_NewDataTag,
       },
@@ -122,11 +124,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTags_delete",
     title: "Delete a single data tag.",
-    description: "Deletes a data tag from a category.",
+    description: "Deletes a data tag from a category.\n\nDELETE /accounts/{account_id}/dlp/data_tag_categories/{category_id}/data_tags/{tag_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -151,6 +154,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -221,11 +225,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTags_get",
     title: "Retrieve a specific data tag.",
-    description: "Gets a data tag from a category.",
+    description: "Gets a data tag from a category.\n\nGET /accounts/{account_id}/dlp/data_tag_categories/{category_id}/data_tags/{tag_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -250,6 +255,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -321,11 +327,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTags_list",
     title: "Retrieve all data tags in a data tag category",
-    description: "Lists data tags in a category.",
+    description: "Lists data tags in a category.\n\nGET /accounts/{account_id}/dlp/data_tag_categories/{category_id}/data_tags",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -345,6 +352,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -418,7 +426,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTags_update",
     title: "Update the attributes of a single data tag.",
-    description: "Updates a data tag in a category.",
+    description: "Updates a data tag in a category.\n\nPUT /accounts/{account_id}/dlp/data_tag_categories/{category_id}/data_tags/{tag_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -427,6 +435,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the data tag to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -452,6 +461,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_DataTagUpdate": dlp_DataTagUpdate,
       },

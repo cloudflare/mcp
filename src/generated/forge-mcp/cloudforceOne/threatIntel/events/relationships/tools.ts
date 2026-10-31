@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_relationships_create",
     title: "Create event relationships",
-    description: "Creates directed relationships of type `relationshipType` from a parent event to one or more child events in the same dataset.",
+    description: "Creates directed relationships of type `relationshipType` from a parent event to one or more child events in the same dataset.\n\nPOST /accounts/{account_id}/cloudforce-one/events/relationships/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -53,6 +53,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -68,6 +69,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -296,11 +298,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_relationships_list",
     title: "List related events",
-    description: "Lists events related to an event by following its relationships. `datasetId` is required. Use `direction`, `maxDepth`, and `relationshipTypes` to control which relationships are followed.",
+    description: "Lists events related to an event by following its relationships. `datasetId` is required. Use `direction`, `maxDepth`, and `relationshipTypes` to control which relationships are followed.\n\nGET /accounts/{account_id}/cloudforce-one/events/by-id/{event_id}/relationships",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -318,6 +321,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetId": {
               "description": "The dataset ID to search within.",
@@ -380,6 +384,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

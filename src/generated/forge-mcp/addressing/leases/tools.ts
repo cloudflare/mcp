@@ -9,15 +9,9 @@ import {
   addressing_messages,
 } from "../outputs.js";
 import {
-  addressing_cidr$$2,
-  addressing_created_at,
   addressing_lease,
-  addressing_lease_id,
-  addressing_lease_owner_id,
-  addressing_modified_at,
   addressing_response_collection$$4,
 } from "./outputs.js";
-import { addressing_account_identifier$$2 } from "./schemas.js";
 
 /**
  * The tools of `addressing.leases`.
@@ -26,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_leases_list",
     title: "List Leases",
-    description: "List all leases owned by the account.",
+    description: "List all leases owned by the account.\n\nGET /accounts/{account_id}/addressing/leases",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier-2",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,22 +41,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier-2": addressing_account_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection-4",
       $defs: {
         "addressing_api-response-collection": addressing_api$$response$$collection,
         "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_cidr-2": addressing_cidr$$2,
-        "addressing_created_at": addressing_created_at,
         "addressing_lease": addressing_lease,
-        "addressing_lease_id": addressing_lease_id,
-        "addressing_lease_owner_id": addressing_lease_owner_id,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at": addressing_modified_at,
         "addressing_response_collection-4": addressing_response_collection$$4,
       },
     },
@@ -97,13 +85,8 @@ export const tools: readonly Tool[] = [
         "addressing_api-response-collection": addressing_api$$response$$collection,
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-        "addressing_cidr-2": addressing_cidr$$2,
-        "addressing_created_at": addressing_created_at,
         "addressing_lease": addressing_lease,
-        "addressing_lease_id": addressing_lease_id,
-        "addressing_lease_owner_id": addressing_lease_owner_id,
         "addressing_messages": addressing_messages,
-        "addressing_modified_at": addressing_modified_at,
         "addressing_response_collection-4": addressing_response_collection$$4,
       },
     },

@@ -9,10 +9,6 @@ import {
   advanced$$ddos$$protection_messages,
 } from "../../../../../outputs.js";
 import {
-  advanced$$ddos$$protection_identifier,
-  advanced$$ddos$$protection_uuid,
-} from "../../../../../schemas.js";
-import {
   advanced$$ddos$$protection_ExpressionFilter,
   advanced$$ddos$$protection_expression$$filter$$list$$response,
   advanced$$ddos$$protection_expression$$filter$$response,
@@ -30,15 +26,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_syn_protection_filters_bulkDelete",
     title: "Delete all SYN Protection filters.",
-    description: "Delete all SYN Protection filters for an account.",
+    description: "Delete all SYN Protection filters for an account.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/syn_protection/filters",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -97,7 +92,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_syn_protection_filters_create",
     title: "Create a SYN Protection filter.",
-    description: "Create a SYN Protection filter for an account.",
+    description: "Create a SYN Protection filter for an account.\n\nPOST /accounts/{account_id}/magic/advanced_tcp_protection/configs/syn_protection/filters",
     inputSchema: {
       type: "object",
       properties: {
@@ -106,10 +101,11 @@ export const tools: readonly Tool[] = [
           "description": "The new filter to create."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -122,9 +118,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_NewExpressionFilter": advanced$$ddos$$protection_NewExpressionFilter,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {
@@ -175,19 +171,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_syn_protection_filters_delete",
     title: "Delete SYN Protection filter.",
-    description: "Delete a SYN Protection filter specified by the given UUID.",
+    description: "Delete a SYN Protection filter specified by the given UUID.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/syn_protection/filters/{filter_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "filter_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the filter to delete."
+              "description": "The UUID of the filter to delete.",
+              "type": "string"
             }
           },
           "required": [
@@ -200,10 +197,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -248,19 +242,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_syn_protection_filters_get",
     title: "Get SYN Protection filter.",
-    description: "Get a SYN Protection filter specified by the given UUID.",
+    description: "Get a SYN Protection filter specified by the given UUID.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/syn_protection/filters/{filter_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "filter_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the filter to retrieve."
+              "description": "The UUID of the filter to retrieve.",
+              "type": "string"
             }
           },
           "required": [
@@ -273,10 +268,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_expression-filter-response",
@@ -326,15 +318,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_syn_protection_filters_list",
     title: "List all SYN Protection filters.",
-    description: "List all SYN Protection filters for an account.",
+    description: "List all SYN Protection filters for an account.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/syn_protection/filters",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -343,6 +336,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The direction of ordering (ASC or DESC). Defaults to 'ASC'.",
@@ -371,9 +365,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_expression-filter-list-response",
@@ -432,7 +424,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_syn_protection_filters_update",
     title: "Update SYN Protection filter.",
-    description: "Update a SYN Protection filter specified by the given UUID.",
+    description: "Update a SYN Protection filter specified by the given UUID.\n\nPATCH /accounts/{account_id}/magic/advanced_tcp_protection/configs/syn_protection/filters/{filter_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -441,14 +433,15 @@ export const tools: readonly Tool[] = [
           "description": "The updates to apply to the filter."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "filter_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the filter to update."
+              "description": "The UUID of the filter to update.",
+              "type": "string"
             }
           },
           "required": [
@@ -462,10 +455,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_ExpressionFilterUpdate": advanced$$ddos$$protection_ExpressionFilterUpdate,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
       },
     },
     outputSchema: {

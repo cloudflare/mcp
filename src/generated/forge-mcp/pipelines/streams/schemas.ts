@@ -53,11 +53,3 @@ export const cloudflare$$pipelines_Format: JsonSchema = {
     }
   ]
 };
-
-/**
- * The schema of `cloudflare-pipelines_workers-pipelines-stream-id`.
- */
-export const cloudflare$$pipelines_workers$$pipelines$$stream$$id: JsonSchema = {
-  "description": "Specifies the public ID of the stream.",
-  "type": "string"
-};

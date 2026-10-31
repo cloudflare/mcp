@@ -6,45 +6,13 @@ import {
   logpush_api$$response$$common,
   logpush_api$$response$$common$$failure,
   logpush_api$$response$$single,
-  logpush_dataset,
-  logpush_destination_conf,
-  logpush_enabled,
-  logpush_error_message,
-  logpush_filter_attack_traffic,
-  logpush_frequency,
-  logpush_id,
-  logpush_kind,
-  logpush_last_complete,
-  logpush_last_error,
-  logpush_logpull_options,
   logpush_logpush_job,
   logpush_logpush_job_response_collection,
-  logpush_max_upload_bytes,
-  logpush_max_upload_interval_seconds,
-  logpush_max_upload_records,
   logpush_messages,
-  logpush_name,
   logpush_output_options,
 } from "../outputs.js";
-import {
-  logpush_dataset as logpush_dataset$,
-  logpush_destination_conf as logpush_destination_conf$,
-  logpush_enabled as logpush_enabled$,
-  logpush_filter_attack_traffic as logpush_filter_attack_traffic$,
-  logpush_frequency as logpush_frequency$,
-  logpush_id as logpush_id$,
-  logpush_identifier,
-  logpush_kind as logpush_kind$,
-  logpush_logpull_options as logpush_logpull_options$,
-  logpush_max_upload_bytes as logpush_max_upload_bytes$,
-  logpush_max_upload_interval_seconds as logpush_max_upload_interval_seconds$,
-  logpush_max_upload_records as logpush_max_upload_records$,
-  logpush_name as logpush_name$,
-  logpush_output_options as logpush_output_options$,
-  logpush_ownership_challenge,
-} from "../schemas.js";
+import { logpush_output_options as logpush_output_options$ } from "../schemas.js";
 import { logpush_logpush_job_response_single } from "./outputs.js";
-import { logpush_filter } from "./schemas.js";
 
 /**
  * The tools of `logpush.accountJobs`.
@@ -53,72 +21,196 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountJobs_create",
     title: "Create Logpush job",
-    description: "Creates a new Logpush job for an account or zone.",
+    description: "Creates a new Logpush job for an account or zone.\n\nPOST /{account_or_zone}/{account_or_zone_id}/logpush/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "dataset": {
-              "$ref": "#/$defs/logpush_dataset",
               "default": "http_requests",
-              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/).",
+              "oneOf": [
+                {
+                  "enum": [
+                    "access_requests",
+                    "account_abuse_protection_events",
+                    "ai_gateway_events",
+                    "audit_logs",
+                    "audit_logs_v2",
+                    "biso_user_actions",
+                    "casb_findings",
+                    "device_posture_results",
+                    "dex_application_tests",
+                    "dex_device_state_events",
+                    "dlp_forensic_copies",
+                    "dns_firewall_logs",
+                    "dns_logs",
+                    "email_security_alerts",
+                    "email_security_post_delivery_events",
+                    "firewall_events",
+                    "gateway_dns",
+                    "gateway_http",
+                    "gateway_network",
+                    "http_requests",
+                    "ipsec_logs",
+                    "magic_bgp_logs",
+                    "magic_ids_detections",
+                    "mcp_portal_logs",
+                    "mnm_flow_logs",
+                    "nel_reports",
+                    "network_analytics_logs",
+                    "page_shield_events",
+                    "sinkhole_http_logs",
+                    "spectrum_events",
+                    "ssh_logs",
+                    "turnstile_events",
+                    "warp_config_changes",
+                    "warp_toggle_changes",
+                    "websocket_analytics",
+                    "workers_trace_events",
+                    "zaraz_events",
+                    "zero_trust_network_sessions"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "destination_conf": {
-              "$ref": "#/$defs/logpush_destination_conf",
-              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included."
+              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/logpush_enabled",
               "default": false,
-              "description": "Flag that indicates if the job is enabled."
+              "description": "Flag that indicates if the job is enabled.",
+              "type": "boolean"
             },
             "filter": {
-              "$ref": "#/$defs/logpush_filter",
-              "description": "The filters to select the events to include and/or remove from your logs. For more information, refer to [Filters](https://developers.cloudflare.com/logs/reference/filters/)."
+              "description": "The filters to select the events to include and/or remove from your logs. For more information, refer to [Filters](https://developers.cloudflare.com/logs/reference/filters/).",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "filter_attack_traffic": {
-              "$ref": "#/$defs/logpush_filter_attack_traffic",
               "default": false,
-              "description": "When true, excludes DDoS attack traffic from logs. This option is supported for the `http_requests`, `firewall_events`, and `network_analytics_logs` datasets."
+              "description": "When true, excludes DDoS attack traffic from logs. This option is supported for the `http_requests`, `firewall_events`, and `network_analytics_logs` datasets.",
+              "type": "boolean"
             },
             "frequency": {
-              "$ref": "#/$defs/logpush_frequency",
               "default": "high",
-              "description": "This field is deprecated. Please use `max_upload_*` parameters instead. . The frequency at which Cloudflare sends batches of logs to your destination. Setting frequency to high sends your logs in larger quantities of smaller files. Setting frequency to low sends logs in smaller quantities of larger files."
+              "deprecated": true,
+              "description": "This field is deprecated. Please use `max_upload_*` parameters instead. . The frequency at which Cloudflare sends batches of logs to your destination. Setting frequency to high sends your logs in larger quantities of smaller files. Setting frequency to low sends logs in smaller quantities of larger files.",
+              "oneOf": [
+                {
+                  "enum": [
+                    "high",
+                    "low"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "kind": {
-              "$ref": "#/$defs/logpush_kind",
               "default": "",
-              "description": "The kind parameter (optional) is used to differentiate between Logpush and Edge Log Delivery jobs (when supported by the dataset)."
+              "description": "The kind parameter (optional) is used to differentiate between Logpush and Edge Log Delivery jobs (when supported by the dataset).",
+              "enum": [
+                "",
+                "edge"
+              ],
+              "type": "string"
             },
             "logpull_options": {
-              "$ref": "#/$defs/logpush_logpull_options",
-              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately."
+              "deprecated": true,
+              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "max_upload_bytes": {
-              "$ref": "#/$defs/logpush_max_upload_bytes",
-              "description": "The maximum uncompressed file size of a batch of logs. This setting value must be between `5 MB` and `1 GB`, or `0` to disable it. Note that you cannot set a minimum file size; this means that log files may be much smaller than this batch size."
+              "description": "The maximum uncompressed file size of a batch of logs. This setting value must be between `5 MB` and `1 GB`, or `0` to disable it. Note that you cannot set a minimum file size; this means that log files may be much smaller than this batch size.",
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    0
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "max_upload_interval_seconds": {
-              "$ref": "#/$defs/logpush_max_upload_interval_seconds",
-              "description": "The maximum interval in seconds for log batches. This setting must be between 30 and 300 seconds (5 minutes), or `0` to disable it. Note that you cannot specify a minimum interval for log batches; this means that log files may be sent in shorter intervals than this."
+              "description": "The maximum interval in seconds for log batches. This setting must be between 30 and 300 seconds (5 minutes), or `0` to disable it. Note that you cannot specify a minimum interval for log batches; this means that log files may be sent in shorter intervals than this.",
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    0
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "max_upload_records": {
-              "$ref": "#/$defs/logpush_max_upload_records",
-              "description": "The maximum number of log lines per batch. This setting must be between 1000 and 1,000,000 lines, or `0` to disable it. Note that you cannot specify a minimum number of log lines per batch; this means that log files may contain many fewer lines than this."
+              "description": "The maximum number of log lines per batch. This setting must be between 1000 and 1,000,000 lines, or `0` to disable it. Note that you cannot specify a minimum number of log lines per batch; this means that log files may contain many fewer lines than this.",
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    0
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "name": {
-              "$ref": "#/$defs/logpush_name",
-              "description": "Optional human readable job name. Not unique. Cloudflare suggests. that you set this to a meaningful string, like the domain name, to make it easier to identify your job."
+              "description": "Optional human readable job name. Not unique. Cloudflare suggests. that you set this to a meaningful string, like the domain name, to make it easier to identify your job.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "output_options": {
               "$ref": "#/$defs/logpush_output_options",
               "description": "The structured replacement for `logpull_options`. When including this field, the `logpull_option` field will be ignored."
             },
             "ownership_challenge": {
-              "$ref": "#/$defs/logpush_ownership_challenge",
-              "description": "Ownership challenge token to prove destination ownership."
+              "description": "Ownership challenge token to prove destination ownership.",
+              "type": "string"
             }
           },
           "required": [
@@ -127,6 +219,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -137,8 +230,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -152,46 +245,18 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "logpush_dataset": logpush_dataset$,
-        "logpush_destination_conf": logpush_destination_conf$,
-        "logpush_enabled": logpush_enabled$,
-        "logpush_filter": logpush_filter,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic$,
-        "logpush_frequency": logpush_frequency$,
-        "logpush_identifier": logpush_identifier,
-        "logpush_kind": logpush_kind$,
-        "logpush_logpull_options": logpush_logpull_options$,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes$,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds$,
-        "logpush_max_upload_records": logpush_max_upload_records$,
-        "logpush_name": logpush_name$,
         "logpush_output_options": logpush_output_options$,
-        "logpush_ownership_challenge": logpush_ownership_challenge,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_job_response_single",
       $defs: {
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_single": logpush_logpush_job_response_single,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -232,24 +297,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_single": logpush_logpush_job_response_single,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -261,11 +311,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountJobs_delete",
     title: "Delete Logpush job",
-    description: "Deletes a Logpush job.\n\nConfirm with the user before calling this tool. This operation deletes the Logpush job.",
+    description: "Deletes a Logpush job.\n\nConfirm with the user before calling this tool. This operation deletes the Logpush job.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/logpush/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -276,12 +327,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/logpush_id",
-              "description": "Unique id of the job."
+              "description": "Unique id of the job.",
+              "type": "integer"
             }
           },
           "required": [
@@ -295,10 +346,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_id": logpush_id$,
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -310,7 +358,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/logpush_id"
+                  "type": "integer"
                 }
               },
               "type": "object"
@@ -321,7 +369,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
-        "logpush_id": logpush_id,
         "logpush_messages": logpush_messages,
       },
     },
@@ -362,7 +409,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/logpush_id"
+                      "type": "integer"
                     }
                   },
                   "type": "object"
@@ -379,7 +426,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
-        "logpush_id": logpush_id,
         "logpush_messages": logpush_messages,
       },
     },
@@ -390,11 +436,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountJobs_get",
     title: "Get Logpush job details",
-    description: "Gets the details of a Logpush job.",
+    description: "Gets the details of a Logpush job.\n\nGET /{account_or_zone}/{account_or_zone_id}/logpush/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -405,12 +452,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/logpush_id",
-              "description": "Unique id of the job."
+              "description": "Unique id of the job.",
+              "type": "integer"
             }
           },
           "required": [
@@ -424,33 +471,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_id": logpush_id$,
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_job_response_single",
       $defs: {
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_single": logpush_logpush_job_response_single,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -491,24 +520,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_single": logpush_logpush_job_response_single,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -519,11 +533,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountJobs_list",
     title: "List Logpush jobs",
-    description: "Lists Logpush jobs for an account or zone.",
+    description: "Lists Logpush jobs for an account or zone.\n\nGET /{account_or_zone}/{account_or_zone_id}/logpush/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -534,8 +549,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -548,32 +563,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_job_response_collection",
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -614,24 +612,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -642,72 +625,150 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountJobs_update",
     title: "Update Logpush job",
-    description: "Updates a Logpush job.",
+    description: "Updates a Logpush job.\n\nPUT /{account_or_zone}/{account_or_zone_id}/logpush/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "destination_conf": {
-              "$ref": "#/$defs/logpush_destination_conf",
-              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included."
+              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/logpush_enabled",
               "default": false,
-              "description": "Flag that indicates if the job is enabled."
+              "description": "Flag that indicates if the job is enabled.",
+              "type": "boolean"
             },
             "filter": {
-              "$ref": "#/$defs/logpush_filter",
-              "description": "The filters to select the events to include and/or remove from your logs. For more information, refer to [Filters](https://developers.cloudflare.com/logs/reference/filters/)."
+              "description": "The filters to select the events to include and/or remove from your logs. For more information, refer to [Filters](https://developers.cloudflare.com/logs/reference/filters/).",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "filter_attack_traffic": {
-              "$ref": "#/$defs/logpush_filter_attack_traffic",
               "default": false,
-              "description": "When true, excludes DDoS attack traffic from logs. This option is supported for the `http_requests`, `firewall_events`, and `network_analytics_logs` datasets."
+              "description": "When true, excludes DDoS attack traffic from logs. This option is supported for the `http_requests`, `firewall_events`, and `network_analytics_logs` datasets.",
+              "type": "boolean"
             },
             "frequency": {
-              "$ref": "#/$defs/logpush_frequency",
               "default": "high",
-              "description": "This field is deprecated. Please use `max_upload_*` parameters instead. . The frequency at which Cloudflare sends batches of logs to your destination. Setting frequency to high sends your logs in larger quantities of smaller files. Setting frequency to low sends logs in smaller quantities of larger files."
+              "deprecated": true,
+              "description": "This field is deprecated. Please use `max_upload_*` parameters instead. . The frequency at which Cloudflare sends batches of logs to your destination. Setting frequency to high sends your logs in larger quantities of smaller files. Setting frequency to low sends logs in smaller quantities of larger files.",
+              "oneOf": [
+                {
+                  "enum": [
+                    "high",
+                    "low"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "kind": {
-              "$ref": "#/$defs/logpush_kind",
               "default": "",
-              "description": "The kind parameter (optional) is used to differentiate between Logpush and Edge Log Delivery jobs (when supported by the dataset)."
+              "description": "The kind parameter (optional) is used to differentiate between Logpush and Edge Log Delivery jobs (when supported by the dataset).",
+              "enum": [
+                "",
+                "edge"
+              ],
+              "type": "string"
             },
             "logpull_options": {
-              "$ref": "#/$defs/logpush_logpull_options",
-              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately."
+              "deprecated": true,
+              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "max_upload_bytes": {
-              "$ref": "#/$defs/logpush_max_upload_bytes",
-              "description": "The maximum uncompressed file size of a batch of logs. This setting value must be between `5 MB` and `1 GB`, or `0` to disable it. Note that you cannot set a minimum file size; this means that log files may be much smaller than this batch size."
+              "description": "The maximum uncompressed file size of a batch of logs. This setting value must be between `5 MB` and `1 GB`, or `0` to disable it. Note that you cannot set a minimum file size; this means that log files may be much smaller than this batch size.",
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    0
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "max_upload_interval_seconds": {
-              "$ref": "#/$defs/logpush_max_upload_interval_seconds",
-              "description": "The maximum interval in seconds for log batches. This setting must be between 30 and 300 seconds (5 minutes), or `0` to disable it. Note that you cannot specify a minimum interval for log batches; this means that log files may be sent in shorter intervals than this."
+              "description": "The maximum interval in seconds for log batches. This setting must be between 30 and 300 seconds (5 minutes), or `0` to disable it. Note that you cannot specify a minimum interval for log batches; this means that log files may be sent in shorter intervals than this.",
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    0
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "max_upload_records": {
-              "$ref": "#/$defs/logpush_max_upload_records",
-              "description": "The maximum number of log lines per batch. This setting must be between 1000 and 1,000,000 lines, or `0` to disable it. Note that you cannot specify a minimum number of log lines per batch; this means that log files may contain many fewer lines than this."
+              "description": "The maximum number of log lines per batch. This setting must be between 1000 and 1,000,000 lines, or `0` to disable it. Note that you cannot specify a minimum number of log lines per batch; this means that log files may contain many fewer lines than this.",
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    0
+                  ],
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "name": {
-              "$ref": "#/$defs/logpush_name",
-              "description": "Optional human readable job name. Not unique. Cloudflare suggests. that you set this to a meaningful string, like the domain name, to make it easier to identify your job."
+              "description": "Optional human readable job name. Not unique. Cloudflare suggests. that you set this to a meaningful string, like the domain name, to make it easier to identify your job.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "output_options": {
               "$ref": "#/$defs/logpush_output_options",
               "description": "The structured replacement for `logpull_options`. When including this field, the `logpull_option` field will be ignored."
             },
             "ownership_challenge": {
-              "$ref": "#/$defs/logpush_ownership_challenge",
-              "description": "Ownership challenge token to prove destination ownership."
+              "description": "Ownership challenge token to prove destination ownership.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -718,12 +779,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/logpush_id",
-              "description": "Unique id of the job."
+              "description": "Unique id of the job.",
+              "type": "integer"
             }
           },
           "required": [
@@ -738,46 +799,18 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "logpush_destination_conf": logpush_destination_conf$,
-        "logpush_enabled": logpush_enabled$,
-        "logpush_filter": logpush_filter,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic$,
-        "logpush_frequency": logpush_frequency$,
-        "logpush_id": logpush_id$,
-        "logpush_identifier": logpush_identifier,
-        "logpush_kind": logpush_kind$,
-        "logpush_logpull_options": logpush_logpull_options$,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes$,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds$,
-        "logpush_max_upload_records": logpush_max_upload_records$,
-        "logpush_name": logpush_name$,
         "logpush_output_options": logpush_output_options$,
-        "logpush_ownership_challenge": logpush_ownership_challenge,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_job_response_single",
       $defs: {
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_single": logpush_logpush_job_response_single,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },
@@ -818,24 +851,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
         "logpush_api-response-single": logpush_api$$response$$single,
-        "logpush_dataset": logpush_dataset,
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_enabled": logpush_enabled,
-        "logpush_error_message": logpush_error_message,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
-        "logpush_frequency": logpush_frequency,
-        "logpush_id": logpush_id,
-        "logpush_kind": logpush_kind,
-        "logpush_last_complete": logpush_last_complete,
-        "logpush_last_error": logpush_last_error,
-        "logpush_logpull_options": logpush_logpull_options,
         "logpush_logpush_job": logpush_logpush_job,
         "logpush_logpush_job_response_single": logpush_logpush_job_response_single,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
-        "logpush_max_upload_records": logpush_max_upload_records,
         "logpush_messages": logpush_messages,
-        "logpush_name": logpush_name,
         "logpush_output_options": logpush_output_options,
       },
     },

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_annotations_outages_get",
     title: "Get latest Internet outages and anomalies",
-    description: "Retrieves the latest Internet outages and anomalies.",
+    description: "Retrieves the latest Internet outages and anomalies.\n\nGET /radar/annotations/outages",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify a single Autonomous System Number (ASN) as integer.",
@@ -256,6 +257,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -910,11 +912,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_annotations_outages_locations",
     title: "Get the number of outages by location",
-    description: "Retrieves the number of outages by location.",
+    description: "Retrieves the number of outages by location.\n\nGET /radar/annotations/outages/locations",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`.",
@@ -947,6 +950,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

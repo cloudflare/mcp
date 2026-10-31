@@ -16,7 +16,7 @@ export const waitingroom_preview_response: JsonSchema = {
         "result": {
           "properties": {
             "preview_url": {
-              "$ref": "#/$defs/waitingroom_preview_url"
+              "type": "string"
             }
           },
           "type": "object"
@@ -25,11 +25,4 @@ export const waitingroom_preview_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `waitingroom_preview_url` in responses.
- */
-export const waitingroom_preview_url: JsonSchema = {
-  "type": "string"
 };

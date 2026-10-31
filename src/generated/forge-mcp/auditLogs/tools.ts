@@ -7,10 +7,8 @@ import {
   aaa_api$$response$$common$$failure,
   aaa_audit$$logs,
   aaa_audit_logs_response_collection,
-  aaa_identifier,
   aaa_messages,
 } from "../outputs.js";
-import { aaa_identifier as aaa_identifier$ } from "../schemas.js";
 
 /**
  * The tools of `auditLogs`.
@@ -19,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "auditLogs_list",
     title: "Get account audit logs",
-    description: "Gets a list of audit logs for an account. Can be filtered by who made the change, on which zone, and the timeframe of the change.",
+    description: "Gets a list of audit logs for an account. Can be filtered by who made the change, on which zone, and the timeframe of the change.\n\nGET /accounts/{account_id}/audit_logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -36,6 +35,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "action.type": {
               "description": "Filters by the action type.",
@@ -116,9 +116,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_identifier": aaa_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_audit_logs_response_collection",
@@ -126,7 +124,6 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-common": aaa_api$$response$$common,
         "aaa_audit-logs": aaa_audit$$logs,
         "aaa_audit_logs_response_collection": aaa_audit_logs_response_collection,
-        "aaa_identifier": aaa_identifier,
         "aaa_messages": aaa_messages,
       },
     },
@@ -172,7 +169,6 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-common-failure": aaa_api$$response$$common$$failure,
         "aaa_audit-logs": aaa_audit$$logs,
         "aaa_audit_logs_response_collection": aaa_audit_logs_response_collection,
-        "aaa_identifier": aaa_identifier,
         "aaa_messages": aaa_messages,
       },
     },

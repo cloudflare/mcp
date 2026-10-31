@@ -3,45 +3,26 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  iam_access,
   iam_api$$response$$collection,
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_common_components$$schemas$$identifier,
   iam_messages$$2,
   iam_permission_group,
   iam_permission_groups,
-  iam_policy_identifier,
   iam_resource_group,
   iam_resource_groups,
   iam_result_info,
   iam_scope,
-  iam_scope_key,
   iam_scope_object,
-  iam_scope_object_key,
 } from "../../outputs.js";
-import {
-  iam_access as iam_access$,
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier as iam_common_components$$schemas$$identifier$,
-} from "../../schemas.js";
-import {
-  iam_permission_group_identifier,
-  iam_resource_group_identifier,
-} from "../schemas.js";
-import {
-  iam_user_group,
-  iam_user_group_identifier,
-  iam_user_groups,
-} from "./outputs.js";
+import { iam_user_group, iam_user_groups } from "./outputs.js";
 import {
   iam_create_user_group_body,
   iam_permission_group_ids,
   iam_resource_group_ids,
   iam_update_user_group_body,
-  iam_user_group_identifier as iam_user_group_identifier$,
   iam_user_group_policy_write_body,
 } from "./schemas.js";
 
@@ -52,7 +33,7 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_create",
     title: "Create User Group",
-    description: "Create a new user group under the specified account.",
+    description: "Create a new user group under the specified account.\n\nPOST /accounts/{account_id}/iam/user_groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -60,10 +41,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_create_user_group_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -76,14 +58,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_access": iam_access$,
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_create_user_group_body": iam_create_user_group_body,
-        "iam_permission_group_identifier": iam_permission_group_identifier,
         "iam_permission_group_ids": iam_permission_group_ids,
-        "iam_resource_group_identifier": iam_resource_group_identifier,
         "iam_resource_group_ids": iam_resource_group_ids,
         "iam_user_group_policy_write_body": iam_user_group_policy_write_body,
       },
@@ -103,21 +81,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
       },
     },
     annotations: {
@@ -168,22 +140,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
       },
     },
     request: (args) => ({
@@ -194,19 +160,20 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_delete",
     title: "Remove User Group",
-    description: "Remove a user group from an account.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Remove a user group from an account.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/iam/user_groups/{user_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -219,18 +186,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_user_group_identifier": iam_user_group_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -273,7 +235,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -284,19 +245,20 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_get",
     title: "User Group Details",
-    description: "Get information about a specific user group in an account.",
+    description: "Get information about a specific user group in an account.\n\nGET /accounts/{account_id}/iam/user_groups/{user_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -309,11 +271,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_user_group_identifier": iam_user_group_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -330,21 +288,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
       },
     },
     annotations: {
@@ -396,22 +348,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
       },
     },
     request: (args) => ({
@@ -421,15 +367,16 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_list",
     title: "List User Groups",
-    description: "List all the user groups for an account.",
+    description: "List all the user groups for an account.\n\nGET /accounts/{account_id}/iam/user_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -438,6 +385,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -453,8 +401,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "ID of the user group to be fetched."
+              "description": "ID of the user group to be fetched.",
+              "type": "string"
             },
             "name": {
               "description": "Name of the user group to be fetched.",
@@ -477,11 +425,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_user_group_identifier": iam_user_group_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -498,23 +442,17 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_result_info": iam_result_info,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
         "iam_user_groups": iam_user_groups,
       },
     },
@@ -567,24 +505,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_result_info": iam_result_info,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
         "iam_user_groups": iam_user_groups,
       },
     },
@@ -603,7 +535,7 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_update",
     title: "Update User Group",
-    description: "Modify an existing user group.",
+    description: "Modify an existing user group.\n\nPUT /accounts/{account_id}/iam/user_groups/{user_group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -611,14 +543,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_update_user_group_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -632,16 +565,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_access": iam_access$,
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_permission_group_identifier": iam_permission_group_identifier,
         "iam_permission_group_ids": iam_permission_group_ids,
-        "iam_resource_group_identifier": iam_resource_group_identifier,
         "iam_resource_group_ids": iam_resource_group_ids,
         "iam_update_user_group_body": iam_update_user_group_body,
-        "iam_user_group_identifier": iam_user_group_identifier$,
         "iam_user_group_policy_write_body": iam_user_group_policy_write_body,
       },
     },
@@ -660,21 +588,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
       },
     },
     annotations: {
@@ -725,22 +647,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_access": iam_access,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_resource_group": iam_resource_group,
         "iam_resource_groups": iam_resource_groups,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
         "iam_user_group": iam_user_group,
-        "iam_user_group_identifier": iam_user_group_identifier,
       },
     },
     request: (args) => ({

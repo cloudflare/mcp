@@ -55,12 +55,3 @@ export const email$$security_UpdateUrlIgnorePattern: JsonSchema = {
   },
   "type": "object"
 };
-
-/**
- * The schema of `email-security_UrlIgnorePatternId`.
- */
-export const email$$security_UrlIgnorePatternId: JsonSchema = {
-  "description": "URL ignore pattern identifier.",
-  "format": "uuid",
-  "type": "string"
-};

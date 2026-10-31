@@ -7,15 +7,7 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../outputs.js";
-import { access_identifier } from "../../schemas.js";
-import {
-  access_days_until_next_rotation,
-  access_key_config,
-  access_key_rotation_interval_days,
-  access_last_key_rotation_at,
-  access_single_response$$13,
-} from "./outputs.js";
-import { access_key_rotation_interval_days as access_key_rotation_interval_days$ } from "./schemas.js";
+import { access_key_config, access_single_response$$13 } from "./outputs.js";
 
 /**
  * The tools of `zeroTrust.access.signingKeys`.
@@ -24,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_signingKeys_get",
     title: "Get the Access key configuration",
-    description: "Gets the Access key rotation settings for an account.",
+    description: "Gets the Access key rotation settings for an account.\n\nGET /accounts/{account_id}/access/keys",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,18 +37,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_days_until_next_rotation": access_days_until_next_rotation,
         "access_key_config": access_key_config,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
-        "access_last_key_rotation_at": access_last_key_rotation_at,
         "access_messages": access_messages,
         "access_single_response-13": access_single_response$$13,
       },
@@ -87,10 +75,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_days_until_next_rotation": access_days_until_next_rotation,
         "access_key_config": access_key_config,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
-        "access_last_key_rotation_at": access_last_key_rotation_at,
         "access_messages": access_messages,
         "access_single_response-13": access_single_response$$13,
       },
@@ -102,15 +87,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_signingKeys_rotate",
     title: "Rotate Access keys",
-    description: "Perfoms a key rotation for an account.",
+    description: "Perfoms a key rotation for an account.\n\nPOST /accounts/{account_id}/access/keys/rotate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -122,18 +108,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_days_until_next_rotation": access_days_until_next_rotation,
         "access_key_config": access_key_config,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
-        "access_last_key_rotation_at": access_last_key_rotation_at,
         "access_messages": access_messages,
         "access_single_response-13": access_single_response$$13,
       },
@@ -164,10 +145,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_days_until_next_rotation": access_days_until_next_rotation,
         "access_key_config": access_key_config,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
-        "access_last_key_rotation_at": access_last_key_rotation_at,
         "access_messages": access_messages,
         "access_single_response-13": access_single_response$$13,
       },
@@ -179,15 +157,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_signingKeys_update",
     title: "Update the Access key configuration",
-    description: "Updates the Access key rotation settings for an account.",
+    description: "Updates the Access key rotation settings for an account.\n\nPUT /accounts/{account_id}/access/keys",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "key_rotation_interval_days": {
-              "$ref": "#/$defs/access_key_rotation_interval_days",
-              "description": "The number of days between key rotations."
+              "description": "The number of days between key rotations.",
+              "type": "number"
             }
           },
           "required": [
@@ -196,10 +174,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -212,19 +191,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_days_until_next_rotation": access_days_until_next_rotation,
         "access_key_config": access_key_config,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
-        "access_last_key_rotation_at": access_last_key_rotation_at,
         "access_messages": access_messages,
         "access_single_response-13": access_single_response$$13,
       },
@@ -255,10 +228,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_days_until_next_rotation": access_days_until_next_rotation,
         "access_key_config": access_key_config,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
-        "access_last_key_rotation_at": access_last_key_rotation_at,
         "access_messages": access_messages,
         "access_single_response-13": access_single_response$$13,
       },

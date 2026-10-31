@@ -86,13 +86,6 @@ export const stream_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `stream_creator` in responses.
- */
-export const stream_creator: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `stream_deleted_response` in responses.
  */
 export const stream_deleted_response: JsonSchema = {
@@ -109,27 +102,6 @@ export const stream_deleted_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `stream_downloadedFrom` in responses.
- */
-export const stream_downloadedFrom: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_height` in responses.
- */
-export const stream_height: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `stream_identifier-2` in responses.
- */
-export const stream_identifier$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -166,41 +138,6 @@ export const stream_messages: JsonSchema = {
 };
 
 /**
- * The schema of `stream_name` in responses.
- */
-export const stream_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_opacity` in responses.
- */
-export const stream_opacity: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_padding` in responses.
- */
-export const stream_padding: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_position` in responses.
- */
-export const stream_position: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_scale` in responses.
- */
-export const stream_scale: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `stream_storage_use_response` in responses.
  */
 export const stream_storage_use_response: JsonSchema = {
@@ -213,7 +150,7 @@ export const stream_storage_use_response: JsonSchema = {
         "result": {
           "properties": {
             "creator": {
-              "$ref": "#/$defs/stream_creator"
+              "type": "string"
             },
             "totalStorageMinutes": {
               "type": "number"
@@ -234,72 +171,44 @@ export const stream_storage_use_response: JsonSchema = {
 };
 
 /**
- * The schema of `stream_watermark_created` in responses.
- */
-export const stream_watermark_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_watermark_identifier` in responses.
- */
-export const stream_watermark_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_watermark_size` in responses.
- */
-export const stream_watermark_size: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `stream_watermarks` in responses.
  */
 export const stream_watermarks: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/stream_watermark_created"
+      "format": "date-time",
+      "type": "string"
     },
     "downloadedFrom": {
-      "$ref": "#/$defs/stream_downloadedFrom"
+      "type": "string"
     },
     "height": {
-      "$ref": "#/$defs/stream_height"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/stream_name"
+      "type": "string"
     },
     "opacity": {
-      "$ref": "#/$defs/stream_opacity"
+      "type": "number"
     },
     "padding": {
-      "$ref": "#/$defs/stream_padding"
+      "type": "number"
     },
     "position": {
-      "$ref": "#/$defs/stream_position"
+      "type": "string"
     },
     "scale": {
-      "$ref": "#/$defs/stream_scale"
+      "type": "number"
     },
     "size": {
-      "$ref": "#/$defs/stream_watermark_size"
+      "type": "number"
     },
     "uid": {
-      "$ref": "#/$defs/stream_watermark_identifier"
+      "type": "string"
     },
     "width": {
-      "$ref": "#/$defs/stream_width"
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_width` in responses.
- */
-export const stream_width: JsonSchema = {
-  "type": "integer"
 };

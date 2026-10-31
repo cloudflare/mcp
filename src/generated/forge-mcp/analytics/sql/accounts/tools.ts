@@ -25,11 +25,12 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_sql_accounts_get",
     title: "Query analytics datasets",
-    description: "Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.\n\nThis method is alpha.",
+    description: "Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.\n\nThis method is alpha.\n\nGET /accounts/{account_id}/analytics/sql",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account that authorizes and scopes the request.",
@@ -42,9 +43,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "query": {
-              "description": "SQL query to execute. A trailing FORMAT selects JSON, JSONEachRow, TabSeparated, or TSV output on any dataset.\n",
+              "description": "SQL query to execute. A trailing FORMAT selects JSON, JSONEachRow, TabSeparated, or TSV output on any dataset.",
               "type": "string"
             }
           },
@@ -58,6 +60,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "oneOf": [
@@ -147,7 +150,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_sql_accounts_post",
     title: "Query analytics datasets",
-    description: "Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.\n\nThis method is alpha.",
+    description: "Executes a SQL query scoped to the account in the request path. API Gateway preserves the account path, and SQL API requires it to match the signed JWT account, so an accountTag predicate or JSON scope is not required. Explicit account scope must match the path account. Any zone restrictions must belong to that account. Query parameters, time ranges, output formats, authorization, and responses follow the legacy query endpoint.\n\nThis method is alpha.\n\nPOST /accounts/{account_id}/analytics/sql",
     inputSchema: {
       type: "object",
       properties: {
@@ -155,6 +158,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/analytics-sql_SqlQueryRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account that authorizes and scopes the request.",
@@ -171,6 +175,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "analytics-sql_SqlQueryAccountScope": analytics$$sql_SqlQueryAccountScope,
         "analytics-sql_SqlQueryRequest": analytics$$sql_SqlQueryRequest,

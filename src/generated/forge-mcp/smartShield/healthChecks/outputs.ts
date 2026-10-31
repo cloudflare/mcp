@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `smartshield_address` in responses.
- */
-export const smartshield_address: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_api-response-collection` in responses.
  */
 export const smartshield_api$$response$$collection: JsonSchema = {
@@ -76,91 +69,71 @@ export const smartshield_check_regions: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_consecutive_fails` in responses.
- */
-export const smartshield_consecutive_fails: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_consecutive_successes` in responses.
- */
-export const smartshield_consecutive_successes: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_description` in responses.
- */
-export const smartshield_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `smartshield_failure_reason` in responses.
- */
-export const smartshield_failure_reason: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_healthchecks` in responses.
  */
 export const smartshield_healthchecks: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/smartshield_address"
+      "type": "string"
     },
     "check_regions": {
       "$ref": "#/$defs/smartshield_check_regions"
     },
     "consecutive_fails": {
-      "$ref": "#/$defs/smartshield_consecutive_fails"
+      "type": "integer"
     },
     "consecutive_successes": {
-      "$ref": "#/$defs/smartshield_consecutive_successes"
+      "type": "integer"
     },
     "created_on": {
-      "$ref": "#/$defs/smartshield_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/smartshield_description"
+      "type": "string"
     },
     "failure_reason": {
-      "$ref": "#/$defs/smartshield_failure_reason"
+      "type": "string"
     },
     "http_config": {
       "$ref": "#/$defs/smartshield_http_config"
     },
     "id": {
-      "$ref": "#/$defs/smartshield_identifier"
+      "type": "string"
     },
     "interval": {
-      "$ref": "#/$defs/smartshield_interval"
+      "type": "integer"
     },
     "modified_on": {
-      "$ref": "#/$defs/smartshield_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/smartshield_name"
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/smartshield_retries"
+      "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/smartshield_status"
+      "enum": [
+        "unknown",
+        "healthy",
+        "unhealthy",
+        "suspended"
+      ],
+      "type": "string"
     },
     "suspended": {
-      "$ref": "#/$defs/smartshield_suspended"
+      "type": "boolean"
     },
     "tcp_config": {
       "$ref": "#/$defs/smartshield_tcp_config"
     },
     "timeout": {
-      "$ref": "#/$defs/smartshield_timeout"
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/smartshield_type"
+      "type": "string"
     }
   },
   "type": "object"
@@ -234,20 +207,6 @@ export const smartshield_http_config: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_interval` in responses.
- */
-export const smartshield_interval: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_name` in responses.
- */
-export const smartshield_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_response_collection` in responses.
  */
 export const smartshield_response_collection: JsonSchema = {
@@ -291,13 +250,6 @@ export const smartshield_result_info: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_retries` in responses.
- */
-export const smartshield_retries: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `smartshield_single_hc_id_response` in responses.
  */
 export const smartshield_single_hc_id_response: JsonSchema = {
@@ -310,7 +262,7 @@ export const smartshield_single_hc_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/smartshield_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -341,26 +293,6 @@ export const smartshield_single_hc_response: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_status` in responses.
- */
-export const smartshield_status: JsonSchema = {
-  "enum": [
-    "unknown",
-    "healthy",
-    "unhealthy",
-    "suspended"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `smartshield_suspended` in responses.
- */
-export const smartshield_suspended: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `smartshield_tcp_config` in responses.
  */
 export const smartshield_tcp_config: JsonSchema = {
@@ -383,26 +315,4 @@ export const smartshield_tcp_config: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `smartshield_timeout` in responses.
- */
-export const smartshield_timeout: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_timestamp` in responses.
- */
-export const smartshield_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `smartshield_type` in responses.
- */
-export const smartshield_type: JsonSchema = {
-  "type": "string"
 };

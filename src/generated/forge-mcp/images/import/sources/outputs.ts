@@ -85,7 +85,11 @@ export const images_sourcingkit_source: JsonSchema = {
       "type": "string"
     },
     "vendor": {
-      "$ref": "#/$defs/images_sourcingkit_vendor"
+      "enum": [
+        "s3",
+        "r2"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -173,15 +177,4 @@ export const images_sourcingkit_source_update_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `images_sourcingkit_vendor` in responses.
- */
-export const images_sourcingkit_vendor: JsonSchema = {
-  "enum": [
-    "s3",
-    "r2"
-  ],
-  "type": "string"
 };

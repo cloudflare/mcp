@@ -11,11 +11,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_schema_get",
     title: "Get email rule schema",
-    description: "Get the field catalog for structured email rules.",
+    description: "Get the field catalog for structured email rules.\n\nGET /accounts/{account_id}/cloudforce-one/rules/structured/schema",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

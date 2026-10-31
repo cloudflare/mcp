@@ -2,10 +2,6 @@
 /* eslint-disable */
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
-import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier,
-} from "../../schemas.js";
 import { iam_scim_error_response } from "../outputs.js";
 import {
   iam_scim_user,
@@ -18,7 +14,6 @@ import {
   iam_scim_patch_operation,
   iam_scim_user_create_request,
   iam_scim_user_email_object as iam_scim_user_email_object$,
-  iam_scim_user_identifier,
   iam_scim_user_name_object as iam_scim_user_name_object$,
   iam_scim_user_replace_request,
 } from "./schemas.js";
@@ -30,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_users_create",
     title: "Create SCIM User",
-    description: "Provisions a new account member via SCIM. The `userName` field must be a valid email address and must match the primary email in `emails`. The account must be an Enterprise account with SCIM entitlements enabled.",
+    description: "Provisions a new account member via SCIM. The `userName` field must be a valid email address and must match the primary email in `emails`. The account must be an Enterprise account with SCIM entitlements enabled.\n\nPOST /accounts/{account_id}/scim/v2/Users",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,10 +33,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_scim_user_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,9 +50,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_scim_user_create_request": iam_scim_user_create_request,
         "iam_scim_user_email_object": iam_scim_user_email_object$,
         "iam_scim_user_name_object": iam_scim_user_name_object$,
@@ -120,19 +115,20 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_users_delete",
     title: "Delete SCIM User",
-    description: "Deprovisions a SCIM User by removing their membership from this account (RFC 7644 Section 3.6). This does not delete the global Cloudflare user.\n\nConfirm with the user before calling this tool. Are you sure you want to remove this user from the account?",
+    description: "Deprovisions a SCIM User by removing their membership from this account (RFC 7644 Section 3.6). This does not delete the global Cloudflare user.\n\nConfirm with the user before calling this tool. Are you sure you want to remove this user from the account?\n\nDELETE /accounts/{account_id}/scim/v2/Users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/iam_scim_user_identifier",
-              "description": "The user tag identifying a SCIM User resource (account member)."
+              "description": "The user tag identifying a SCIM User resource (account member).",
+              "type": "string"
             }
           },
           "required": [
@@ -145,11 +141,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_scim_user_identifier": iam_scim_user_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -195,7 +187,7 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_users_edit",
     title: "Patch SCIM User",
-    description: "Partially updates a SCIM User via PATCH operations (RFC 7644 Section 3.5.2). Supports updating `userName`, `name.givenName`, `name.familyName`, and `active`. Setting `active: false` deprovisions the user (removes them from the account). For IdP compatibility, `emails[type eq \"work\"].value` is also accepted as an alias for `userName`.",
+    description: "Partially updates a SCIM User via PATCH operations (RFC 7644 Section 3.5.2). Supports updating `userName`, `name.givenName`, `name.familyName`, and `active`. Setting `active: false` deprovisions the user (removes them from the account). For IdP compatibility, `emails[type eq \"work\"].value` is also accepted as an alias for `userName`.\n\nPATCH /accounts/{account_id}/scim/v2/Users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -203,14 +195,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_scim_patch_op_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/iam_scim_user_identifier",
-              "description": "The user tag identifying a SCIM User resource (account member)."
+              "description": "The user tag identifying a SCIM User resource (account member).",
+              "type": "string"
             }
           },
           "required": [
@@ -224,12 +217,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_scim_patch_op_request": iam_scim_patch_op_request,
         "iam_scim_patch_operation": iam_scim_patch_operation,
-        "iam_scim_user_identifier": iam_scim_user_identifier,
       },
     },
     outputSchema: {
@@ -290,19 +281,20 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_users_get",
     title: "Get SCIM User",
-    description: "Retrieves a single account member as a SCIM User resource by user tag.",
+    description: "Retrieves a single account member as a SCIM User resource by user tag.\n\nGET /accounts/{account_id}/scim/v2/Users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/iam_scim_user_identifier",
-              "description": "The user tag identifying a SCIM User resource (account member)."
+              "description": "The user tag identifying a SCIM User resource (account member).",
+              "type": "string"
             }
           },
           "required": [
@@ -315,11 +307,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_scim_user_identifier": iam_scim_user_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_user",
@@ -379,15 +367,16 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_users_list",
     title: "List SCIM Users",
-    description: "Lists account members as SCIM User resources. Supports optional filtering by `userName` (email) using the SCIM filter syntax (e.g. `userName eq \"user@example.com\"`). Pagination is controlled via `startIndex` and `count` query parameters per RFC 7644 Section 3.4.2.4.",
+    description: "Lists account members as SCIM User resources. Supports optional filtering by `userName` (email) using the SCIM filter syntax (e.g. `userName eq \"user@example.com\"`). Pagination is controlled via `startIndex` and `count` query parameters per RFC 7644 Section 3.4.2.4.\n\nGET /accounts/{account_id}/scim/v2/Users",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -396,18 +385,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "count": {
-              "description": "Specifies the desired maximum number of query results per page.\n",
+              "description": "Specifies the desired maximum number of query results per page.",
               "type": "integer"
             },
             "filter": {
-              "description": "SCIM filter expression (RFC 7644 Section 3.4.2.2). Only `userName eq \"value\"` is supported.\n",
+              "description": "SCIM filter expression (RFC 7644 Section 3.4.2.2). Only `userName eq \"value\"` is supported.",
               "type": "string"
             },
             "startIndex": {
               "default": 1,
-              "description": "The 1-based index of the first result in the current set of list results. Values less than 1 are treated as 1.\n",
+              "description": "The 1-based index of the first result in the current set of list results. Values less than 1 are treated as 1.",
               "type": "integer"
             }
           },
@@ -417,10 +407,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_user_list_response",
@@ -487,7 +474,7 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_users_update",
     title: "Replace SCIM User",
-    description: "Replaces a SCIM User resource (RFC 7644 Section 3.5.1). Fully replaces the mutable attributes of the user. Supports updating `userName`, `name`, `emails`, and `active`.",
+    description: "Replaces a SCIM User resource (RFC 7644 Section 3.5.1). Fully replaces the mutable attributes of the user. Supports updating `userName`, `name`, `emails`, and `active`.\n\nPUT /accounts/{account_id}/scim/v2/Users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -495,14 +482,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_scim_user_replace_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/iam_scim_user_identifier",
-              "description": "The user tag identifying a SCIM User resource (account member)."
+              "description": "The user tag identifying a SCIM User resource (account member).",
+              "type": "string"
             }
           },
           "required": [
@@ -516,11 +504,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_scim_user_email_object": iam_scim_user_email_object$,
-        "iam_scim_user_identifier": iam_scim_user_identifier,
         "iam_scim_user_name_object": iam_scim_user_name_object$,
         "iam_scim_user_replace_request": iam_scim_user_replace_request,
       },

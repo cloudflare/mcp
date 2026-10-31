@@ -20,23 +20,16 @@ export const speed_image_resizing_response: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_image_resizing_value"
+          "enum": [
+            "off",
+            "on",
+            "open",
+            "latest"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_image_resizing_value` in responses.
- */
-export const speed_image_resizing_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on",
-    "open",
-    "latest"
-  ],
-  "type": "string"
 };

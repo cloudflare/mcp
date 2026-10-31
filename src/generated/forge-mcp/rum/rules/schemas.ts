@@ -37,7 +37,8 @@ export const rum_modify$$rules$$request: JsonSchema = {
     "delete_rules": {
       "description": "A list of rule identifiers to delete.",
       "items": {
-        "$ref": "#/$defs/rum_rule_identifier"
+        "description": "The Web Analytics rule identifier.",
+        "type": "string"
       },
       "type": "array"
     },
@@ -49,8 +50,8 @@ export const rum_modify$$rules$$request: JsonSchema = {
             "type": "string"
           },
           "id": {
-            "$ref": "#/$defs/rum_rule_identifier",
-            "description": "The Web Analytics rule identifier."
+            "description": "The Web Analytics rule identifier.",
+            "type": "string"
           },
           "inclusive": {
             "type": "boolean"

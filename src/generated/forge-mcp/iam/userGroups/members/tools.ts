@@ -7,20 +7,13 @@ import {
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
-  iam_email,
   iam_messages$$2,
   iam_result_info,
 } from "../../../outputs.js";
 import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier,
-} from "../../../schemas.js";
-import { iam_user_group_identifier } from "../schemas.js";
-import {
   iam_user_group_member,
   iam_user_group_member_detailed,
 } from "./outputs.js";
-import { iam_user_group_member_identifier } from "./schemas.js";
 
 /**
  * The tools of `iam.userGroups.members`.
@@ -29,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_members_create",
     title: "Add User Group Members",
-    description: "Add members to a User Group.",
+    description: "Add members to a User Group.\n\nPOST /accounts/{account_id}/iam/user_groups/{user_group_id}/members",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,8 +30,8 @@ export const tools: readonly Tool[] = [
           "items": {
             "properties": {
               "id": {
-                "$ref": "#/$defs/iam_user_group_member_identifier",
-                "description": "The identifier of an existing account Member."
+                "description": "The identifier of an existing account Member.",
+                "type": "string"
               }
             },
             "required": [
@@ -49,14 +42,15 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -70,12 +64,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_user_group_identifier": iam_user_group_identifier,
-        "iam_user_group_member_identifier": iam_user_group_member_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -96,7 +85,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -154,7 +142,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -167,23 +154,24 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_members_delete",
     title: "Remove User Group Member",
-    description: "Remove a member from User Group\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Remove a member from User Group\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/iam/user_groups/{user_group_id}/members/{member_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "member_id": {
-              "$ref": "#/$defs/iam_user_group_member_identifier",
-              "description": "The identifier of an existing account Member."
+              "description": "The identifier of an existing account Member.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -197,12 +185,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_user_group_identifier": iam_user_group_identifier,
-        "iam_user_group_member_identifier": iam_user_group_member_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -220,7 +203,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -275,7 +257,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -287,23 +268,24 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_members_get",
     title: "Get User Group Member",
-    description: "Get details of a specific member in a user group.",
+    description: "Get details of a specific member in a user group.\n\nGET /accounts/{account_id}/iam/user_groups/{user_group_id}/members/{member_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "member_id": {
-              "$ref": "#/$defs/iam_user_group_member_identifier",
-              "description": "The identifier of an existing account Member."
+              "description": "The identifier of an existing account Member.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -317,12 +299,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_user_group_identifier": iam_user_group_identifier,
-        "iam_user_group_member_identifier": iam_user_group_member_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -340,7 +317,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member_detailed": iam_user_group_member_detailed,
       },
@@ -396,7 +372,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member_detailed": iam_user_group_member_detailed,
       },
@@ -408,19 +383,20 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_members_list",
     title: "List User Group Members",
-    description: "List all the members attached to a user group.",
+    description: "List all the members attached to a user group.\n\nGET /accounts/{account_id}/iam/user_groups/{user_group_id}/members",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -430,6 +406,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -461,11 +438,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_user_group_identifier": iam_user_group_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -487,7 +460,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_result_info": iam_result_info,
         "iam_user_group_member": iam_user_group_member,
@@ -548,7 +520,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_result_info": iam_result_info,
         "iam_user_group_member": iam_user_group_member,
@@ -567,7 +538,7 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_userGroups_members_update",
     title: "Update User Group Members",
-    description: "Replace the set of members attached to a User Group.",
+    description: "Replace the set of members attached to a User Group.\n\nPUT /accounts/{account_id}/iam/user_groups/{user_group_id}/members",
     inputSchema: {
       type: "object",
       properties: {
@@ -575,8 +546,8 @@ export const tools: readonly Tool[] = [
           "items": {
             "properties": {
               "id": {
-                "$ref": "#/$defs/iam_user_group_member_identifier",
-                "description": "The identifier of an existing account Member."
+                "description": "The identifier of an existing account Member.",
+                "type": "string"
               }
             },
             "required": [
@@ -587,14 +558,15 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "user_group_id": {
-              "$ref": "#/$defs/iam_user_group_identifier",
-              "description": "User Group identifier tag."
+              "description": "User Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -608,12 +580,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_user_group_identifier": iam_user_group_identifier,
-        "iam_user_group_member_identifier": iam_user_group_member_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -634,7 +601,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -687,7 +653,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_email": iam_email,
         "iam_messages-2": iam_messages$$2,
         "iam_user_group_member": iam_user_group_member,
       },

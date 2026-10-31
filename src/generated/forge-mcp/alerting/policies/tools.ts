@@ -9,36 +9,18 @@ import {
   aaa_api$$response$$single,
   aaa_id_response,
   aaa_messages$$3,
-  aaa_policy$$id,
   aaa_result_info$$2,
-  aaa_schemas$$name,
-  aaa_uuid,
 } from "../outputs.js";
 import {
-  aaa_account$$id,
-  aaa_policy$$id as aaa_policy$$id$,
-  aaa_schemas$$name as aaa_schemas$$name$,
-  aaa_uuid as aaa_uuid$,
-} from "../schemas.js";
-import {
-  aaa_alert_interval,
-  aaa_alert_type,
-  aaa_enabled,
   aaa_filters,
   aaa_mechanisms,
   aaa_policies,
   aaa_policies_components$$schemas$$response_collection,
-  aaa_schemas$$description,
   aaa_single_response,
-  aaa_timestamp,
 } from "./outputs.js";
 import {
-  aaa_alert_interval as aaa_alert_interval$,
-  aaa_alert_type as aaa_alert_type$,
-  aaa_enabled as aaa_enabled$,
   aaa_filters as aaa_filters$,
   aaa_mechanisms as aaa_mechanisms$,
-  aaa_schemas$$description as aaa_schemas$$description$,
 } from "./schemas.js";
 
 /**
@@ -48,28 +30,99 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_create",
     title: "Create a Notification policy",
-    description: "Creates a new Notification policy.",
+    description: "Creates a new Notification policy.\n\nPOST /accounts/{account_id}/alerting/v3/policies",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "alert_interval": {
-              "$ref": "#/$defs/aaa_alert_interval",
-              "description": "Optional specification of how often to re-alert from the same incident, not support on all alert types."
+              "description": "Optional specification of how often to re-alert from the same incident, not support on all alert types.",
+              "type": "string"
             },
             "alert_type": {
-              "$ref": "#/$defs/aaa_alert_type",
-              "description": "Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values."
+              "description": "Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values.",
+              "enum": [
+                "abuse_report_alert",
+                "access_custom_certificate_expiration_type",
+                "advanced_ddos_attack_l4_alert",
+                "advanced_ddos_attack_l7_alert",
+                "advanced_http_alert_error",
+                "bgp_hijack_notification",
+                "billing_usage_alert",
+                "block_notification_block_removed",
+                "block_notification_new_block",
+                "block_notification_review_rejected",
+                "bot_traffic_basic_alert",
+                "brand_protection_alert",
+                "brand_protection_digest",
+                "clickhouse_alert_fw_anomaly",
+                "clickhouse_alert_fw_ent_anomaly",
+                "cloudforce_one_request_notification",
+                "cni_maintenance_notification",
+                "custom_analytics",
+                "custom_bot_detection_alert",
+                "custom_ssl_certificate_event_type",
+                "dedicated_ssl_certificate_event_type",
+                "device_connectivity_anomaly_alert",
+                "dos_attack_l4",
+                "dos_attack_l7",
+                "expiring_service_token_alert",
+                "failing_logpush_job_disabled_alert",
+                "fbm_auto_advertisement",
+                "fbm_dosd_attack",
+                "fbm_volumetric_attack",
+                "health_check_status_notification",
+                "hostname_aop_custom_certificate_expiration_type",
+                "http_alert_edge_error",
+                "http_alert_origin_error",
+                "image_notification",
+                "image_resizing_notification",
+                "incident_alert",
+                "load_balancing_health_alert",
+                "load_balancing_pool_enablement_alert",
+                "logo_match_alert",
+                "magic_tunnel_health_check_event",
+                "magic_wan_tunnel_health",
+                "maintenance_event_notification",
+                "mtls_certificate_store_certificate_expiration_type",
+                "pages_event_alert",
+                "radar_notification",
+                "real_origin_monitoring",
+                "scriptmonitor_alert_new_code_change_detections",
+                "scriptmonitor_alert_new_hosts",
+                "scriptmonitor_alert_new_malicious_hosts",
+                "scriptmonitor_alert_new_malicious_scripts",
+                "scriptmonitor_alert_new_malicious_url",
+                "scriptmonitor_alert_new_max_length_resource_url",
+                "scriptmonitor_alert_new_resources",
+                "secondary_dns_all_primaries_failing",
+                "secondary_dns_primaries_failing",
+                "secondary_dns_warning",
+                "secondary_dns_zone_successfully_updated",
+                "secondary_dns_zone_validation_warning",
+                "security_insights_alert",
+                "sentinel_alert",
+                "stream_live_notifications",
+                "synthetic_test_latency_alert",
+                "synthetic_test_low_availability_alert",
+                "traffic_anomalies_alert",
+                "tunnel_health_event",
+                "tunnel_update_event",
+                "universal_ssl_event_type",
+                "web_analytics_metrics_update",
+                "zone_aop_custom_certificate_expiration_type"
+              ],
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/aaa_schemas-description",
-              "description": "Optional description for the Notification policy."
+              "description": "Optional description for the Notification policy.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/aaa_enabled",
               "default": true,
-              "description": "Whether or not the Notification policy is enabled."
+              "description": "Whether or not the Notification policy is enabled.",
+              "type": "boolean"
             },
             "filters": {
               "$ref": "#/$defs/aaa_filters",
@@ -80,8 +133,8 @@ export const tools: readonly Tool[] = [
               "description": "List of IDs that will be used when dispatching a notification. IDs for email type will be the email address."
             },
             "name": {
-              "$ref": "#/$defs/aaa_schemas-name",
-              "description": "Name of the policy."
+              "description": "Name of the policy.",
+              "type": "string"
             }
           },
           "required": [
@@ -93,10 +146,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             }
           },
           "required": [
@@ -109,16 +163,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "aaa_account-id": aaa_account$$id,
-        "aaa_alert_interval": aaa_alert_interval$,
-        "aaa_alert_type": aaa_alert_type$,
-        "aaa_enabled": aaa_enabled$,
         "aaa_filters": aaa_filters$,
         "aaa_mechanisms": aaa_mechanisms$,
-        "aaa_schemas-description": aaa_schemas$$description$,
-        "aaa_schemas-name": aaa_schemas$$name$,
-        "aaa_uuid": aaa_uuid$,
       },
     },
     outputSchema: {
@@ -127,7 +175,6 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -166,7 +213,6 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({
@@ -177,19 +223,20 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_delete",
     title: "Delete a Notification policy",
-    description: "Delete a Notification policy.\n\nConfirm with the user before calling this tool. This operation deletes the notification policy.",
+    description: "Delete a Notification policy.\n\nConfirm with the user before calling this tool. This operation deletes the notification policy.\n\nDELETE /accounts/{account_id}/alerting/v3/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/aaa_policy-id",
-              "description": "The unique identifier of a notification policy"
+              "description": "The unique identifier of a notification policy",
+              "type": "string"
             }
           },
           "required": [
@@ -202,10 +249,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id,
-        "aaa_policy-id": aaa_policy$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-collection",
@@ -262,19 +306,20 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_get",
     title: "Get a Notification policy",
-    description: "Get details for a single policy.",
+    description: "Get details for a single policy.\n\nGET /accounts/{account_id}/alerting/v3/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/aaa_policy-id",
-              "description": "The unique identifier of a notification policy"
+              "description": "The unique identifier of a notification policy",
+              "type": "string"
             }
           },
           "required": [
@@ -287,28 +332,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id,
-        "aaa_policy-id": aaa_policy$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_single_response",
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval,
-        "aaa_alert_type": aaa_alert_type,
         "aaa_api-response-single": aaa_api$$response$$single,
-        "aaa_enabled": aaa_enabled,
         "aaa_filters": aaa_filters,
         "aaa_mechanisms": aaa_mechanisms,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_policies": aaa_policies,
-        "aaa_policy-id": aaa_policy$$id,
-        "aaa_schemas-description": aaa_schemas$$description,
-        "aaa_schemas-name": aaa_schemas$$name,
         "aaa_single_response": aaa_single_response,
-        "aaa_timestamp": aaa_timestamp,
-        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -346,21 +380,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval,
-        "aaa_alert_type": aaa_alert_type,
         "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
         "aaa_api-response-single": aaa_api$$response$$single,
-        "aaa_enabled": aaa_enabled,
         "aaa_filters": aaa_filters,
         "aaa_mechanisms": aaa_mechanisms,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_policies": aaa_policies,
-        "aaa_policy-id": aaa_policy$$id,
-        "aaa_schemas-description": aaa_schemas$$description,
-        "aaa_schemas-name": aaa_schemas$$name,
         "aaa_single_response": aaa_single_response,
-        "aaa_timestamp": aaa_timestamp,
-        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({
@@ -370,15 +396,16 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_list",
     title: "List Notification policies",
-    description: "Get a list of all Notification policies.",
+    description: "Get a list of all Notification policies.\n\nGET /accounts/{account_id}/alerting/v3/policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             }
           },
           "required": [
@@ -390,27 +417,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_policies_components-schemas-response_collection",
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval,
-        "aaa_alert_type": aaa_alert_type,
         "aaa_api-response-common-2": aaa_api$$response$$common$$2,
-        "aaa_enabled": aaa_enabled,
         "aaa_filters": aaa_filters,
         "aaa_mechanisms": aaa_mechanisms,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_policies": aaa_policies,
         "aaa_policies_components-schemas-response_collection": aaa_policies_components$$schemas$$response_collection,
-        "aaa_policy-id": aaa_policy$$id,
-        "aaa_schemas-description": aaa_schemas$$description,
-        "aaa_schemas-name": aaa_schemas$$name,
-        "aaa_timestamp": aaa_timestamp,
-        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -441,21 +458,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval,
-        "aaa_alert_type": aaa_alert_type,
         "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
-        "aaa_enabled": aaa_enabled,
         "aaa_filters": aaa_filters,
         "aaa_mechanisms": aaa_mechanisms,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_policies": aaa_policies,
         "aaa_policies_components-schemas-response_collection": aaa_policies_components$$schemas$$response_collection,
-        "aaa_policy-id": aaa_policy$$id,
-        "aaa_schemas-description": aaa_schemas$$description,
-        "aaa_schemas-name": aaa_schemas$$name,
-        "aaa_timestamp": aaa_timestamp,
-        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({
@@ -465,7 +474,7 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_test",
     title: "Test a Notification policy",
-    description: "Send a test notification for a policy to verify delivery mechanisms are working as expected.",
+    description: "Send a test notification for a policy to verify delivery mechanisms are working as expected.\n\nPOST /accounts/{account_id}/alerting/v3/policies/{policy_id}/test",
     inputSchema: {
       type: "object",
       properties: {
@@ -504,14 +513,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/aaa_policy-id",
-              "description": "The unique identifier of a notification policy"
+              "description": "The unique identifier of a notification policy",
+              "type": "string"
             }
           },
           "required": [
@@ -524,10 +534,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id,
-        "aaa_policy-id": aaa_policy$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-common-2",
@@ -574,28 +581,99 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_update",
     title: "Update a Notification policy",
-    description: "Update a Notification policy.",
+    description: "Update a Notification policy.\n\nPUT /accounts/{account_id}/alerting/v3/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "alert_interval": {
-              "$ref": "#/$defs/aaa_alert_interval",
-              "description": "Optional specification of how often to re-alert from the same incident, not support on all alert types."
+              "description": "Optional specification of how often to re-alert from the same incident, not support on all alert types.",
+              "type": "string"
             },
             "alert_type": {
-              "$ref": "#/$defs/aaa_alert_type",
-              "description": "Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values."
+              "description": "Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values.",
+              "enum": [
+                "abuse_report_alert",
+                "access_custom_certificate_expiration_type",
+                "advanced_ddos_attack_l4_alert",
+                "advanced_ddos_attack_l7_alert",
+                "advanced_http_alert_error",
+                "bgp_hijack_notification",
+                "billing_usage_alert",
+                "block_notification_block_removed",
+                "block_notification_new_block",
+                "block_notification_review_rejected",
+                "bot_traffic_basic_alert",
+                "brand_protection_alert",
+                "brand_protection_digest",
+                "clickhouse_alert_fw_anomaly",
+                "clickhouse_alert_fw_ent_anomaly",
+                "cloudforce_one_request_notification",
+                "cni_maintenance_notification",
+                "custom_analytics",
+                "custom_bot_detection_alert",
+                "custom_ssl_certificate_event_type",
+                "dedicated_ssl_certificate_event_type",
+                "device_connectivity_anomaly_alert",
+                "dos_attack_l4",
+                "dos_attack_l7",
+                "expiring_service_token_alert",
+                "failing_logpush_job_disabled_alert",
+                "fbm_auto_advertisement",
+                "fbm_dosd_attack",
+                "fbm_volumetric_attack",
+                "health_check_status_notification",
+                "hostname_aop_custom_certificate_expiration_type",
+                "http_alert_edge_error",
+                "http_alert_origin_error",
+                "image_notification",
+                "image_resizing_notification",
+                "incident_alert",
+                "load_balancing_health_alert",
+                "load_balancing_pool_enablement_alert",
+                "logo_match_alert",
+                "magic_tunnel_health_check_event",
+                "magic_wan_tunnel_health",
+                "maintenance_event_notification",
+                "mtls_certificate_store_certificate_expiration_type",
+                "pages_event_alert",
+                "radar_notification",
+                "real_origin_monitoring",
+                "scriptmonitor_alert_new_code_change_detections",
+                "scriptmonitor_alert_new_hosts",
+                "scriptmonitor_alert_new_malicious_hosts",
+                "scriptmonitor_alert_new_malicious_scripts",
+                "scriptmonitor_alert_new_malicious_url",
+                "scriptmonitor_alert_new_max_length_resource_url",
+                "scriptmonitor_alert_new_resources",
+                "secondary_dns_all_primaries_failing",
+                "secondary_dns_primaries_failing",
+                "secondary_dns_warning",
+                "secondary_dns_zone_successfully_updated",
+                "secondary_dns_zone_validation_warning",
+                "security_insights_alert",
+                "sentinel_alert",
+                "stream_live_notifications",
+                "synthetic_test_latency_alert",
+                "synthetic_test_low_availability_alert",
+                "traffic_anomalies_alert",
+                "tunnel_health_event",
+                "tunnel_update_event",
+                "universal_ssl_event_type",
+                "web_analytics_metrics_update",
+                "zone_aop_custom_certificate_expiration_type"
+              ],
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/aaa_schemas-description",
-              "description": "Optional description for the Notification policy."
+              "description": "Optional description for the Notification policy.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/aaa_enabled",
               "default": true,
-              "description": "Whether or not the Notification policy is enabled."
+              "description": "Whether or not the Notification policy is enabled.",
+              "type": "boolean"
             },
             "filters": {
               "$ref": "#/$defs/aaa_filters",
@@ -606,21 +684,22 @@ export const tools: readonly Tool[] = [
               "description": "List of IDs that will be used when dispatching a notification. IDs for email type will be the email address."
             },
             "name": {
-              "$ref": "#/$defs/aaa_schemas-name",
-              "description": "Name of the policy."
+              "description": "Name of the policy.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/aaa_policy-id",
-              "description": "The unique identifier of a notification policy"
+              "description": "The unique identifier of a notification policy",
+              "type": "string"
             }
           },
           "required": [
@@ -634,17 +713,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "aaa_account-id": aaa_account$$id,
-        "aaa_alert_interval": aaa_alert_interval$,
-        "aaa_alert_type": aaa_alert_type$,
-        "aaa_enabled": aaa_enabled$,
         "aaa_filters": aaa_filters$,
         "aaa_mechanisms": aaa_mechanisms$,
-        "aaa_policy-id": aaa_policy$$id$,
-        "aaa_schemas-description": aaa_schemas$$description$,
-        "aaa_schemas-name": aaa_schemas$$name$,
-        "aaa_uuid": aaa_uuid$,
       },
     },
     outputSchema: {
@@ -653,7 +725,6 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -692,7 +763,6 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({

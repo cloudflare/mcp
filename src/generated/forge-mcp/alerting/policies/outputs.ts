@@ -4,98 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `aaa_alert_interval` in responses.
- */
-export const aaa_alert_interval: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_alert_type` in responses.
- */
-export const aaa_alert_type: JsonSchema = {
-  "enum": [
-    "abuse_report_alert",
-    "access_custom_certificate_expiration_type",
-    "advanced_ddos_attack_l4_alert",
-    "advanced_ddos_attack_l7_alert",
-    "advanced_http_alert_error",
-    "bgp_hijack_notification",
-    "billing_usage_alert",
-    "block_notification_block_removed",
-    "block_notification_new_block",
-    "block_notification_review_rejected",
-    "bot_traffic_basic_alert",
-    "brand_protection_alert",
-    "brand_protection_digest",
-    "clickhouse_alert_fw_anomaly",
-    "clickhouse_alert_fw_ent_anomaly",
-    "cloudforce_one_request_notification",
-    "cni_maintenance_notification",
-    "custom_analytics",
-    "custom_bot_detection_alert",
-    "custom_ssl_certificate_event_type",
-    "dedicated_ssl_certificate_event_type",
-    "device_connectivity_anomaly_alert",
-    "dos_attack_l4",
-    "dos_attack_l7",
-    "expiring_service_token_alert",
-    "failing_logpush_job_disabled_alert",
-    "fbm_auto_advertisement",
-    "fbm_dosd_attack",
-    "fbm_volumetric_attack",
-    "health_check_status_notification",
-    "hostname_aop_custom_certificate_expiration_type",
-    "http_alert_edge_error",
-    "http_alert_origin_error",
-    "image_notification",
-    "image_resizing_notification",
-    "incident_alert",
-    "load_balancing_health_alert",
-    "load_balancing_pool_enablement_alert",
-    "logo_match_alert",
-    "magic_tunnel_health_check_event",
-    "magic_wan_tunnel_health",
-    "maintenance_event_notification",
-    "mtls_certificate_store_certificate_expiration_type",
-    "pages_event_alert",
-    "radar_notification",
-    "real_origin_monitoring",
-    "scriptmonitor_alert_new_code_change_detections",
-    "scriptmonitor_alert_new_hosts",
-    "scriptmonitor_alert_new_malicious_hosts",
-    "scriptmonitor_alert_new_malicious_scripts",
-    "scriptmonitor_alert_new_malicious_url",
-    "scriptmonitor_alert_new_max_length_resource_url",
-    "scriptmonitor_alert_new_resources",
-    "secondary_dns_all_primaries_failing",
-    "secondary_dns_primaries_failing",
-    "secondary_dns_warning",
-    "secondary_dns_zone_successfully_updated",
-    "secondary_dns_zone_validation_warning",
-    "security_insights_alert",
-    "sentinel_alert",
-    "stream_live_notifications",
-    "synthetic_test_latency_alert",
-    "synthetic_test_low_availability_alert",
-    "traffic_anomalies_alert",
-    "tunnel_health_event",
-    "tunnel_update_event",
-    "universal_ssl_event_type",
-    "web_analytics_metrics_update",
-    "zone_aop_custom_certificate_expiration_type"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_enabled` in responses.
- */
-export const aaa_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `aaa_filters` in responses.
  */
 export const aaa_filters: JsonSchema = {
@@ -398,7 +306,7 @@ export const aaa_mechanisms: JsonSchema = {
       "items": {
         "properties": {
           "id": {
-            "$ref": "#/$defs/aaa_uuid"
+            "type": "string"
           }
         },
         "type": "object"
@@ -409,7 +317,7 @@ export const aaa_mechanisms: JsonSchema = {
       "items": {
         "properties": {
           "id": {
-            "$ref": "#/$defs/aaa_uuid"
+            "type": "string"
           }
         },
         "type": "object"
@@ -426,34 +334,107 @@ export const aaa_mechanisms: JsonSchema = {
 export const aaa_policies: JsonSchema = {
   "properties": {
     "alert_interval": {
-      "$ref": "#/$defs/aaa_alert_interval"
+      "type": "string"
     },
     "alert_type": {
-      "$ref": "#/$defs/aaa_alert_type"
+      "enum": [
+        "abuse_report_alert",
+        "access_custom_certificate_expiration_type",
+        "advanced_ddos_attack_l4_alert",
+        "advanced_ddos_attack_l7_alert",
+        "advanced_http_alert_error",
+        "bgp_hijack_notification",
+        "billing_usage_alert",
+        "block_notification_block_removed",
+        "block_notification_new_block",
+        "block_notification_review_rejected",
+        "bot_traffic_basic_alert",
+        "brand_protection_alert",
+        "brand_protection_digest",
+        "clickhouse_alert_fw_anomaly",
+        "clickhouse_alert_fw_ent_anomaly",
+        "cloudforce_one_request_notification",
+        "cni_maintenance_notification",
+        "custom_analytics",
+        "custom_bot_detection_alert",
+        "custom_ssl_certificate_event_type",
+        "dedicated_ssl_certificate_event_type",
+        "device_connectivity_anomaly_alert",
+        "dos_attack_l4",
+        "dos_attack_l7",
+        "expiring_service_token_alert",
+        "failing_logpush_job_disabled_alert",
+        "fbm_auto_advertisement",
+        "fbm_dosd_attack",
+        "fbm_volumetric_attack",
+        "health_check_status_notification",
+        "hostname_aop_custom_certificate_expiration_type",
+        "http_alert_edge_error",
+        "http_alert_origin_error",
+        "image_notification",
+        "image_resizing_notification",
+        "incident_alert",
+        "load_balancing_health_alert",
+        "load_balancing_pool_enablement_alert",
+        "logo_match_alert",
+        "magic_tunnel_health_check_event",
+        "magic_wan_tunnel_health",
+        "maintenance_event_notification",
+        "mtls_certificate_store_certificate_expiration_type",
+        "pages_event_alert",
+        "radar_notification",
+        "real_origin_monitoring",
+        "scriptmonitor_alert_new_code_change_detections",
+        "scriptmonitor_alert_new_hosts",
+        "scriptmonitor_alert_new_malicious_hosts",
+        "scriptmonitor_alert_new_malicious_scripts",
+        "scriptmonitor_alert_new_malicious_url",
+        "scriptmonitor_alert_new_max_length_resource_url",
+        "scriptmonitor_alert_new_resources",
+        "secondary_dns_all_primaries_failing",
+        "secondary_dns_primaries_failing",
+        "secondary_dns_warning",
+        "secondary_dns_zone_successfully_updated",
+        "secondary_dns_zone_validation_warning",
+        "security_insights_alert",
+        "sentinel_alert",
+        "stream_live_notifications",
+        "synthetic_test_latency_alert",
+        "synthetic_test_low_availability_alert",
+        "traffic_anomalies_alert",
+        "tunnel_health_event",
+        "tunnel_update_event",
+        "universal_ssl_event_type",
+        "web_analytics_metrics_update",
+        "zone_aop_custom_certificate_expiration_type"
+      ],
+      "type": "string"
     },
     "created": {
-      "$ref": "#/$defs/aaa_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/aaa_schemas-description"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/aaa_enabled"
+      "type": "boolean"
     },
     "filters": {
       "$ref": "#/$defs/aaa_filters"
     },
     "id": {
-      "$ref": "#/$defs/aaa_policy-id"
+      "type": "string"
     },
     "mechanisms": {
       "$ref": "#/$defs/aaa_mechanisms"
     },
     "modified": {
-      "$ref": "#/$defs/aaa_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/aaa_schemas-name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -483,13 +464,6 @@ export const aaa_policies_components$$schemas$$response_collection: JsonSchema =
 };
 
 /**
- * The schema of `aaa_schemas-description` in responses.
- */
-export const aaa_schemas$$description: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_single_response` in responses.
  */
 export const aaa_single_response: JsonSchema = {
@@ -506,12 +480,4 @@ export const aaa_single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `aaa_timestamp` in responses.
- */
-export const aaa_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

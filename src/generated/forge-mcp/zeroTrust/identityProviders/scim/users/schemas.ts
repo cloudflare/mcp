@@ -16,14 +16,6 @@ export const access_cf_resource_id$$2: JsonSchema = {
 };
 
 /**
- * The schema of `access_email`.
- */
-export const access_email: JsonSchema = {
-  "description": "The email address of the SCIM User resource.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_idp_resource_id-2`.
  */
 export const access_idp_resource_id$$2: JsonSchema = {
@@ -33,20 +25,4 @@ export const access_idp_resource_id$$2: JsonSchema = {
   },
   "maxItems": 50,
   "type": "array"
-};
-
-/**
- * The schema of `access_name-5`.
- */
-export const access_name$$5: JsonSchema = {
-  "description": "The name of the SCIM User resource.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_username`.
- */
-export const access_username: JsonSchema = {
-  "description": "The username of the SCIM User resource.",
-  "type": "string"
 };

@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `nsc_AccountTag` in responses.
- */
-export const nsc_AccountTag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `nsc_FacilityInfo` in responses.
  */
 export const nsc_FacilityInfo: JsonSchema = {

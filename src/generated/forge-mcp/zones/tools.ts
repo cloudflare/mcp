@@ -6,20 +6,11 @@ import {
   zones_api$$response$$common,
   zones_api$$response$$common$$failure,
   zones_api$$response$$single$$id,
-  zones_identifier,
   zones_messages,
-  zones_paused,
   zones_result_info,
-  zones_type,
   zones_zone,
 } from "./outputs.js";
-import {
-  zones_identifier as zones_identifier$,
-  zones_name,
-  zones_paused as zones_paused$,
-  zones_type as zones_type$,
-  zones_vanity_name_servers,
-} from "./schemas.js";
+import { zones_vanity_name_servers } from "./schemas.js";
 
 /**
  * The tools of `zones`.
@@ -28,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_create",
     title: "Create Zone",
-    description: "Creates a new zone (domain) in your Cloudflare account.\n\nThe zone is created in a pending state and must be activated by updating your domain's\nnameservers to point to Cloudflare, or by completing the verification process for partial\n(CNAME) setups.",
+    description: "Creates a new zone (domain) in your Cloudflare account.\n\nThe zone is created in a pending state and must be activated by updating your domain's\nnameservers to point to Cloudflare, or by completing the verification process for partial\n(CNAME) setups.\n\nPOST /zones",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,20 +28,26 @@ export const tools: readonly Tool[] = [
             "account": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/zones_identifier",
-                  "description": "Identifier"
+                  "description": "Identifier",
+                  "type": "string"
                 }
               },
               "type": "object"
             },
             "name": {
-              "$ref": "#/$defs/zones_name",
-              "description": "The domain name. Per [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4) the overall zone name can be up to 253 characters, with each segment (\"label\") not exceeding 63 characters."
+              "description": "The domain name. Per [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4) the overall zone name can be up to 253 characters, with each segment (\"label\") not exceeding 63 characters.",
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/zones_type",
               "default": "full",
-              "description": "A full zone implies that DNS is hosted with Cloudflare. A partial zone is\ntypically a partner-hosted zone or a CNAME setup.\n"
+              "description": "A full zone implies that DNS is hosted with Cloudflare. A partial zone is\ntypically a partner-hosted zone or a CNAME setup.",
+              "enum": [
+                "full",
+                "partial",
+                "secondary",
+                "internal"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -63,11 +60,7 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
-      $defs: {
-        "zones_identifier": zones_identifier$,
-        "zones_name": zones_name,
-        "zones_type": zones_type$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -85,10 +78,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -131,10 +121,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
         "zones_api-response-common-failure": zones_api$$response$$common$$failure,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -146,15 +133,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_delete",
     title: "Delete Zone",
-    description: "Deletes an existing zone.",
+    description: "Deletes an existing zone.\n\nDELETE /zones/{zone_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -166,16 +154,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier": zones_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zones_api-response-single-id",
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
         "zones_api-response-single-id": zones_api$$response$$single$$id,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
       },
     },
@@ -217,7 +202,6 @@ export const tools: readonly Tool[] = [
         "zones_api-response-common": zones_api$$response$$common,
         "zones_api-response-common-failure": zones_api$$response$$common$$failure,
         "zones_api-response-single-id": zones_api$$response$$single$$id,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
       },
     },
@@ -228,29 +212,29 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_edit",
     title: "Edit Zone",
-    description: "Edits a zone. Only one zone property can be changed at a time.",
+    description: "Edits a zone. Only one zone property can be changed at a time.\n\nPATCH /zones/{zone_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "paused": {
-              "$ref": "#/$defs/zones_paused",
               "default": false,
-              "description": "Indicates whether the zone is only using Cloudflare DNS services. A\ntrue value means the zone will not receive security or performance\nbenefits.\n"
+              "description": "Indicates whether the zone is only using Cloudflare DNS services. A\ntrue value means the zone will not receive security or performance\nbenefits.",
+              "type": "boolean"
             },
             "plan": {
-              "description": "(Deprecated) Please use the `/zones/{zone_id}/subscription` API\nto update a zone's plan. Changing this value will create/cancel\nassociated subscriptions. To view available plans for this zone,\nsee Zone Plans.\n",
+              "description": "(Deprecated) Please use the `/zones/{zone_id}/subscription` API\nto update a zone's plan. Changing this value will create/cancel\nassociated subscriptions. To view available plans for this zone,\nsee Zone Plans.",
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/zones_identifier",
-                  "description": "Identifier"
+                  "description": "Identifier",
+                  "type": "string"
                 }
               },
               "type": "object"
             },
             "type": {
-              "description": "A full zone implies that DNS is hosted with Cloudflare. A partial\nzone is typically a partner-hosted zone or a CNAME setup. This\nparameter is only available to Enterprise customers or if it has\nbeen explicitly enabled on a zone.\n",
+              "description": "A full zone implies that DNS is hosted with Cloudflare. A partial\nzone is typically a partner-hosted zone or a CNAME setup. This\nparameter is only available to Enterprise customers or if it has\nbeen explicitly enabled on a zone.",
               "enum": [
                 "full",
                 "partial",
@@ -268,10 +252,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -284,9 +269,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zones_identifier": zones_identifier$,
-        "zones_paused": zones_paused$,
         "zones_vanity_name_servers": zones_vanity_name_servers,
       },
     },
@@ -306,10 +290,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -357,10 +338,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
         "zones_api-response-common-failure": zones_api$$response$$common$$failure,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -372,15 +350,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_get",
     title: "Zone Details",
-    description: "Retrieves detailed information about a specific zone identified by its zone ID.\n\nReturns zone configuration, status, nameservers, and associated metadata.",
+    description: "Retrieves detailed information about a specific zone identified by its zone ID.\n\nReturns zone configuration, status, nameservers, and associated metadata.\n\nGET /zones/{zone_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -392,9 +371,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier": zones_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -412,10 +389,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -506,10 +480,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
         "zones_api-response-common-failure": zones_api$$response$$common$$failure,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -520,18 +491,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_list",
     title: "List Zones",
-    description: "Lists, searches, sorts, and filters your zones. Listing zones across more than 500 accounts\nis currently not allowed.",
+    description: "Lists, searches, sorts, and filters your zones. Listing zones across more than 500 accounts\nis currently not allowed.\n\nGET /zones",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "account.id": {
               "description": "Filter by an account ID.",
               "type": "string"
             },
             "account.name": {
-              "description": "An account Name. Optional filter operators can be provided to extend refine the search:\n  * `equal` (default)\n  * `not_equal`\n  * `starts_with`\n  * `ends_with`\n  * `contains`\n  * `starts_with_case_sensitive`\n  * `ends_with_case_sensitive`\n  * `contains_case_sensitive`\n",
+              "description": "An account Name. Optional filter operators can be provided to extend refine the search:\n  * `equal` (default)\n  * `not_equal`\n  * `starts_with`\n  * `ends_with`\n  * `contains`\n  * `starts_with_case_sensitive`\n  * `ends_with_case_sensitive`\n  * `contains_case_sensitive`",
               "type": "string"
             },
             "direction": {
@@ -552,7 +524,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "name": {
-              "description": "A domain name. Optional filter operators can be provided to extend refine the search:\n  * `equal` (default)\n  * `not_equal`\n  * `starts_with`\n  * `ends_with`\n  * `contains`\n  * `starts_with_case_sensitive`\n  * `ends_with_case_sensitive`\n  * `contains_case_sensitive`\n",
+              "description": "A domain name. Optional filter operators can be provided to extend refine the search:\n  * `equal` (default)\n  * `not_equal`\n  * `starts_with`\n  * `ends_with`\n  * `contains`\n  * `starts_with_case_sensitive`\n  * `ends_with_case_sensitive`\n  * `contains_case_sensitive`",
               "type": "string"
             },
             "order": {
@@ -603,6 +575,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -631,11 +604,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
         "zones_result_info": zones_result_info,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },
@@ -688,11 +658,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zones_api-response-common": zones_api$$response$$common,
         "zones_api-response-common-failure": zones_api$$response$$common$$failure,
-        "zones_identifier": zones_identifier,
         "zones_messages": zones_messages,
-        "zones_paused": zones_paused,
         "zones_result_info": zones_result_info,
-        "zones_type": zones_type,
         "zones_zone": zones_zone,
       },
     },

@@ -7,20 +7,9 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../outputs.js";
 import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid as api$$shield_uuid$,
-  api$$shield_uuid$$2 as api$$shield_uuid$$2$,
-} from "../../../schemas.js";
-import {
   api$$shield_TokenConfiguration,
-  api$$shield_cookie,
   api$$shield_credentials,
   api$$shield_credentials$$JWT$$Key$$EC$$ES256,
   api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -29,14 +18,9 @@ import {
   api$$shield_credentials$$JWT$$Key$$common,
   api$$shield_credentials$$JWT$$Key$$oct$$response,
   api$$shield_credentials$$JWT$$Key$$response,
-  api$$shield_description,
-  api$$shield_header,
-  api$$shield_title,
   api$$shield_token_sources,
-  api$$shield_token_type,
 } from "./outputs.js";
 import {
-  api$$shield_cookie as api$$shield_cookie$,
   api$$shield_credentials$$JWT$$Key$$EC$$ES256 as api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
   api$$shield_credentials$$JWT$$Key$$EC$$ES384 as api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
   api$$shield_credentials$$JWT$$Key$$EC$$common as api$$shield_credentials$$JWT$$Key$$EC$$common$,
@@ -45,11 +29,7 @@ import {
   api$$shield_credentials$$JWT$$Key$$oct$$request,
   api$$shield_credentials$$JWT$$Key$$request,
   api$$shield_credentials$$request,
-  api$$shield_description as api$$shield_description$,
-  api$$shield_header as api$$shield_header$,
-  api$$shield_title as api$$shield_title$,
   api$$shield_token_sources as api$$shield_token_sources$,
-  api$$shield_token_type as api$$shield_token_type$,
 } from "./schemas.js";
 
 /**
@@ -59,7 +39,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_create",
     title: "Create a token validation configuration",
-    description: "Creates a JWT validation configuration for the zone.",
+    description: "Creates a JWT validation configuration for the zone.\n\nPOST /zones/{zone_id}/token_validation/config",
     inputSchema: {
       type: "object",
       properties: {
@@ -70,16 +50,19 @@ export const tools: readonly Tool[] = [
               "description": "Request payload for create and PUT credentials operations. Provided keys define the complete stored key set. Key identities (`{alg,kid}`) must be unique."
             },
             "description": {
-              "$ref": "#/$defs/api-shield_description"
+              "type": "string"
             },
             "title": {
-              "$ref": "#/$defs/api-shield_title"
+              "type": "string"
             },
             "token_sources": {
               "$ref": "#/$defs/api-shield_token_sources"
             },
             "token_type": {
-              "$ref": "#/$defs/api-shield_token_type"
+              "enum": [
+                "JWT"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -92,9 +75,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -107,8 +99,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_cookie": api$$shield_cookie$,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
         "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common$,
@@ -117,13 +109,7 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-oct-request": api$$shield_credentials$$JWT$$Key$$oct$$request,
         "api-shield_credentials-JWT-Key-request": api$$shield_credentials$$JWT$$Key$$request,
         "api-shield_credentials-request": api$$shield_credentials$$request,
-        "api-shield_description": api$$shield_description$,
-        "api-shield_header": api$$shield_header$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_title": api$$shield_title$,
         "api-shield_token_sources": api$$shield_token_sources$,
-        "api-shield_token_type": api$$shield_token_type$,
       },
     },
     outputSchema: {
@@ -146,7 +132,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_TokenConfiguration": api$$shield_TokenConfiguration,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_cookie": api$$shield_cookie,
         "api-shield_credentials": api$$shield_credentials,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -155,16 +140,8 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
         "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
         "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_token_type": api$$shield_token_type,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -210,7 +187,6 @@ export const tools: readonly Tool[] = [
         "api-shield_TokenConfiguration": api$$shield_TokenConfiguration,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_cookie": api$$shield_cookie,
         "api-shield_credentials": api$$shield_credentials,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -219,16 +195,8 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
         "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
         "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_token_type": api$$shield_token_type,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -239,18 +207,35 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_delete",
     title: "Delete a token validation configuration",
-    description: "Deletes a JWT validation configuration from the zone.\n\nConfirm with the user before calling this tool. This operation deletes the token validation configuration. The request is rejected if rules, operations, or JWT authentication identifiers still reference it.",
+    description: "Deletes a JWT validation configuration from the zone.\n\nConfirm with the user before calling this tool. This operation deletes the token validation configuration. The request is rejected if rules, operations, or JWT authentication identifiers still reference it.\n\nDELETE /zones/{zone_id}/token_validation/config/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "config_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Configuration ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -263,12 +248,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -280,7 +260,14 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "type": "object"
@@ -295,8 +282,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -326,7 +311,14 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/api-shield_uuid-2"
+                      "allOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
                     }
                   },
                   "type": "object"
@@ -347,8 +339,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -358,17 +348,17 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_edit",
     title: "Edit a token validation configuration",
-    description: "Updates only the supplied fields on a JWT validation configuration.",
+    description: "Updates only the supplied fields on a JWT validation configuration.\n\nPATCH /zones/{zone_id}/token_validation/config/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "description": {
-              "$ref": "#/$defs/api-shield_description"
+              "type": "string"
             },
             "title": {
-              "$ref": "#/$defs/api-shield_title"
+              "type": "string"
             },
             "token_sources": {
               "$ref": "#/$defs/api-shield_token_sources"
@@ -377,13 +367,30 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "config_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Configuration ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -397,16 +404,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_cookie": api$$shield_cookie$,
-        "api-shield_description": api$$shield_description$,
-        "api-shield_header": api$$shield_header$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_title": api$$shield_title$,
         "api-shield_token_sources": api$$shield_token_sources$,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
       },
     },
     outputSchema: {
@@ -419,13 +419,20 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "description": {
-                  "$ref": "#/$defs/api-shield_description"
+                  "type": "string"
                 },
                 "id": {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "title": {
-                  "$ref": "#/$defs/api-shield_title"
+                  "type": "string"
                 },
                 "token_sources": {
                   "$ref": "#/$defs/api-shield_token_sources"
@@ -442,14 +449,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_cookie": api$$shield_cookie,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -479,13 +480,20 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "description": {
-                      "$ref": "#/$defs/api-shield_description"
+                      "type": "string"
                     },
                     "id": {
-                      "$ref": "#/$defs/api-shield_uuid-2"
+                      "allOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
                     },
                     "title": {
-                      "$ref": "#/$defs/api-shield_title"
+                      "type": "string"
                     },
                     "token_sources": {
                       "$ref": "#/$defs/api-shield_token_sources"
@@ -508,14 +516,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_cookie": api$$shield_cookie,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -526,18 +528,35 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_get",
     title: "Get a token validation configuration",
-    description: "Returns a JWT validation configuration by ID.",
+    description: "Returns a JWT validation configuration by ID.\n\nGET /zones/{zone_id}/token_validation/config/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "config_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Configuration ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -550,12 +569,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -577,7 +591,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_TokenConfiguration": api$$shield_TokenConfiguration,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_cookie": api$$shield_cookie,
         "api-shield_credentials": api$$shield_credentials,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -586,16 +599,8 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
         "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
         "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_token_type": api$$shield_token_type,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -643,7 +648,6 @@ export const tools: readonly Tool[] = [
         "api-shield_TokenConfiguration": api$$shield_TokenConfiguration,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_cookie": api$$shield_cookie,
         "api-shield_credentials": api$$shield_credentials,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -652,16 +656,8 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
         "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
         "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_token_type": api$$shield_token_type,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -671,14 +667,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_list",
     title: "List token validation configurations",
-    description: "Lists the JWT validation configurations defined for the zone.",
+    description: "Lists the JWT validation configurations defined for the zone.\n\nGET /zones/{zone_id}/token_validation/config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -687,6 +692,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -705,10 +711,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -734,7 +737,6 @@ export const tools: readonly Tool[] = [
         "api-shield_TokenConfiguration": api$$shield_TokenConfiguration,
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_cookie": api$$shield_cookie,
         "api-shield_credentials": api$$shield_credentials,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -743,16 +745,8 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
         "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
         "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_token_type": api$$shield_token_type,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -804,7 +798,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_cookie": api$$shield_cookie,
         "api-shield_credentials": api$$shield_credentials,
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -813,16 +806,8 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
         "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
         "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
-        "api-shield_description": api$$shield_description,
-        "api-shield_header": api$$shield_header,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_title": api$$shield_title,
         "api-shield_token_sources": api$$shield_token_sources,
-        "api-shield_token_type": api$$shield_token_type,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

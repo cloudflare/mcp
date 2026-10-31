@@ -3,13 +3,10 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cc_ISO8601Timestamp,
-  cc_Image,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
 } from "../../outputs.js";
-import { cc_Image as cc_Image$ } from "../../schemas.js";
 import {
   cc_ApplicationHealth,
   cc_ApplicationHealthError,
@@ -19,33 +16,18 @@ import {
   cc_DeploymentObservability,
   cc_Entrypoint,
   cc_EnvironmentVariable,
-  cc_EnvironmentVariableName,
-  cc_EnvironmentVariableValue,
-  cc_EventName,
-  cc_EventType,
-  cc_ExecFormParam,
-  cc_InstanceID,
-  cc_InstanceType,
   cc_ModifyUserDeploymentConfiguration,
   cc_ObservabilityLogs,
   cc_PlacementEvent,
-  cc_RolloutID,
-  cc_SSHPublicKey,
   cc_UserSSHPublicKey,
 } from "../outputs.js";
 import {
-  cc_ApplicationID,
   cc_Command as cc_Command$,
   cc_DeploymentObservability as cc_DeploymentObservability$,
   cc_Entrypoint as cc_Entrypoint$,
   cc_EnvironmentVariable as cc_EnvironmentVariable$,
-  cc_EnvironmentVariableName as cc_EnvironmentVariableName$,
-  cc_EnvironmentVariableValue as cc_EnvironmentVariableValue$,
-  cc_ExecFormParam as cc_ExecFormParam$,
-  cc_InstanceType as cc_InstanceType$,
   cc_ModifyUserDeploymentConfiguration as cc_ModifyUserDeploymentConfiguration$,
   cc_ObservabilityLogs as cc_ObservabilityLogs$,
-  cc_SSHPublicKey as cc_SSHPublicKey$,
   cc_UserSSHPublicKey as cc_UserSSHPublicKey$,
 } from "../schemas.js";
 import {
@@ -65,7 +47,7 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_rollouts_create",
     title: "Create a new rollout for an application",
-    description: "Creates a rollout to update the application's configuration across instances\nwith minimal downtime. Rollouts apply only to scheduler-backed applications\nwith `scheduling_policy: \"default\"`. Versions and rollouts do not apply to\napplications with `scheduling_policy: \"durable_object\"`.",
+    description: "Creates a rollout to update the application's configuration across instances\nwith minimal downtime. Rollouts apply only to scheduler-backed applications\nwith `scheduling_policy: \"default\"`. Versions and rollouts do not apply to\napplications with `scheduling_policy: \"durable_object\"`.\n\nPOST /accounts/{account_id}/containers/applications/{application_id}/rollouts",
     inputSchema: {
       type: "object",
       properties: {
@@ -73,14 +55,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cc_ContainersCreateApplicationRolloutRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             }
           },
           "required": [
@@ -94,22 +77,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cc_ApplicationID": cc_ApplicationID,
         "cc_Command": cc_Command$,
         "cc_ContainersCreateApplicationRolloutRequest": cc_ContainersCreateApplicationRolloutRequest,
         "cc_DeploymentObservability": cc_DeploymentObservability$,
         "cc_Entrypoint": cc_Entrypoint$,
         "cc_EnvironmentVariable": cc_EnvironmentVariable$,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName$,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue$,
-        "cc_ExecFormParam": cc_ExecFormParam$,
-        "cc_Image": cc_Image$,
-        "cc_InstanceType": cc_InstanceType$,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration$,
         "cc_ObservabilityLogs": cc_ObservabilityLogs$,
         "cc_RolloutStepRequest": cc_RolloutStepRequest,
-        "cc_SSHPublicKey": cc_SSHPublicKey$,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey$,
       },
     },
@@ -141,22 +118,11 @@ export const tools: readonly Tool[] = [
         "cc_DeploymentObservability": cc_DeploymentObservability,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_RolloutID": cc_RolloutID,
         "cc_RolloutStep": cc_RolloutStep,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -217,22 +183,11 @@ export const tools: readonly Tool[] = [
         "cc_DeploymentObservability": cc_DeploymentObservability,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_EventName": cc_EventName,
-        "cc_EventType": cc_EventType,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_InstanceID": cc_InstanceID,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_PlacementEvent": cc_PlacementEvent,
-        "cc_RolloutID": cc_RolloutID,
         "cc_RolloutStep": cc_RolloutStep,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,

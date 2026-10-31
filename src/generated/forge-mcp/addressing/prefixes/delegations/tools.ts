@@ -8,26 +8,13 @@ import {
   addressing_api$$response$$common$$failure,
   addressing_api$$response$$single,
   addressing_messages,
-  addressing_timestamp,
 } from "../../outputs.js";
-import { addressing_account_identifier } from "../../schemas.js";
-import { addressing_cidr, addressing_prefix_identifier } from "../outputs.js";
 import {
-  addressing_cidr as addressing_cidr$,
-  addressing_prefix_identifier as addressing_prefix_identifier$,
-} from "../schemas.js";
-import {
-  addressing_delegated_account_identifier,
-  addressing_delegation_identifier,
   addressing_id_response,
   addressing_ipam$$delegations,
   addressing_response_collection$$2,
   addressing_single_response$$2,
 } from "./outputs.js";
-import {
-  addressing_delegated_account_identifier as addressing_delegated_account_identifier$,
-  addressing_delegation_identifier as addressing_delegation_identifier$,
-} from "./schemas.js";
 
 /**
  * The tools of `addressing.prefixes.delegations`.
@@ -36,19 +23,19 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_delegations_create",
     title: "Create Prefix Delegation",
-    description: "Create a new account delegation for a given IP prefix.",
+    description: "Create a new account delegation for a given IP prefix.\n\nPOST /accounts/{account_id}/addressing/prefixes/{prefix_id}/delegations",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "cidr": {
-              "$ref": "#/$defs/addressing_cidr",
-              "description": "IP Prefix in Classless Inter-Domain Routing format."
+              "description": "IP Prefix in Classless Inter-Domain Routing format.",
+              "type": "string"
             },
             "delegated_account_id": {
-              "$ref": "#/$defs/addressing_delegated_account_identifier",
-              "description": "Account identifier for the account to which prefix is being delegated."
+              "description": "Account identifier for the account to which prefix is being delegated.",
+              "type": "string"
             }
           },
           "required": [
@@ -58,14 +45,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -79,25 +67,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_cidr": addressing_cidr$,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response-2",
       $defs: {
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
         "addressing_ipam-delegations": addressing_ipam$$delegations,
         "addressing_messages": addressing_messages,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response-2": addressing_single_response$$2,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -133,14 +111,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
         "addressing_ipam-delegations": addressing_ipam$$delegations,
         "addressing_messages": addressing_messages,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response-2": addressing_single_response$$2,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -151,23 +124,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_delegations_delete",
     title: "Delete Prefix Delegation",
-    description: "Delete an account delegation for a given IP prefix.",
+    description: "Delete an account delegation for a given IP prefix.\n\nDELETE /accounts/{account_id}/addressing/prefixes/{prefix_id}/delegations/{delegation_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "delegation_id": {
-              "$ref": "#/$defs/addressing_delegation_identifier",
-              "description": "Identifier of a Delegation."
+              "description": "Identifier of a Delegation.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -181,17 +155,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_delegation_identifier": addressing_delegation_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_id_response",
       $defs: {
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
         "addressing_id_response": addressing_id_response,
         "addressing_messages": addressing_messages,
       },
@@ -229,7 +198,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
         "addressing_id_response": addressing_id_response,
         "addressing_messages": addressing_messages,
       },
@@ -241,19 +209,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_delegations_list",
     title: "List Prefix Delegations",
-    description: "List all delegations for a given account IP prefix.",
+    description: "List all delegations for a given account IP prefix.\n\nGET /accounts/{account_id}/addressing/prefixes/{prefix_id}/delegations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -266,24 +235,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection-2",
       $defs: {
         "addressing_api-response-collection": addressing_api$$response$$collection,
         "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
         "addressing_ipam-delegations": addressing_ipam$$delegations,
         "addressing_messages": addressing_messages,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_response_collection-2": addressing_response_collection$$2,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -315,14 +276,9 @@ export const tools: readonly Tool[] = [
         "addressing_api-response-collection": addressing_api$$response$$collection,
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
         "addressing_ipam-delegations": addressing_ipam$$delegations,
         "addressing_messages": addressing_messages,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_response_collection-2": addressing_response_collection$$2,
-        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({

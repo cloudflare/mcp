@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `healthchecks_address`.
- */
-export const healthchecks_address: JsonSchema = {
-  "description": "The hostname or IP address of the origin server to run health checks on.",
-  "type": "string"
-};
-
-/**
  * The schema of `healthchecks_check_regions`.
  */
 export const healthchecks_check_regions: JsonSchema = {
@@ -43,30 +35,6 @@ export const healthchecks_check_regions: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `healthchecks_consecutive_fails`.
- */
-export const healthchecks_consecutive_fails: JsonSchema = {
-  "description": "The number of consecutive fails required from a health check before changing the health to unhealthy.",
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_consecutive_successes`.
- */
-export const healthchecks_consecutive_successes: JsonSchema = {
-  "description": "The number of consecutive successes required from a health check before changing the health to healthy.",
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_description`.
- */
-export const healthchecks_description: JsonSchema = {
-  "description": "A human-readable description of the health check.",
-  "type": "string"
 };
 
 /**
@@ -155,92 +123,68 @@ export const healthchecks_http_config: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_identifier`.
- */
-export const healthchecks_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
-};
-
-/**
- * The schema of `healthchecks_interval`.
- */
-export const healthchecks_interval: JsonSchema = {
-  "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations.",
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_name`.
- */
-export const healthchecks_name: JsonSchema = {
-  "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed.",
-  "type": "string"
-};
-
-/**
  * The schema of `healthchecks_query_healthcheck`.
  */
 export const healthchecks_query_healthcheck: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/healthchecks_address",
-      "description": "The hostname or IP address of the origin server to run health checks on."
+      "description": "The hostname or IP address of the origin server to run health checks on.",
+      "type": "string"
     },
     "check_regions": {
       "$ref": "#/$defs/healthchecks_check_regions",
       "description": "A list of regions from which to run health checks. Null means Cloudflare will pick a default region."
     },
     "consecutive_fails": {
-      "$ref": "#/$defs/healthchecks_consecutive_fails",
       "default": 1,
-      "description": "The number of consecutive fails required from a health check before changing the health to unhealthy."
+      "description": "The number of consecutive fails required from a health check before changing the health to unhealthy.",
+      "type": "integer"
     },
     "consecutive_successes": {
-      "$ref": "#/$defs/healthchecks_consecutive_successes",
       "default": 1,
-      "description": "The number of consecutive successes required from a health check before changing the health to healthy."
+      "description": "The number of consecutive successes required from a health check before changing the health to healthy.",
+      "type": "integer"
     },
     "description": {
-      "$ref": "#/$defs/healthchecks_description",
-      "description": "A human-readable description of the health check."
+      "description": "A human-readable description of the health check.",
+      "type": "string"
     },
     "http_config": {
       "$ref": "#/$defs/healthchecks_http_config",
       "description": "Parameters specific to an HTTP or HTTPS health check."
     },
     "interval": {
-      "$ref": "#/$defs/healthchecks_interval",
       "default": 60,
-      "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations."
+      "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations.",
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/healthchecks_name",
-      "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed."
+      "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed.",
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/healthchecks_retries",
       "default": 2,
-      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."
+      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
+      "type": "integer"
     },
     "suspended": {
-      "$ref": "#/$defs/healthchecks_suspended",
       "default": false,
-      "description": "If suspended, no health checks are sent to the origin."
+      "description": "If suspended, no health checks are sent to the origin.",
+      "type": "boolean"
     },
     "tcp_config": {
       "$ref": "#/$defs/healthchecks_tcp_config",
       "description": "Parameters specific to TCP health check."
     },
     "timeout": {
-      "$ref": "#/$defs/healthchecks_timeout",
       "default": 5,
-      "description": "The timeout (in seconds) before marking the health check as failed."
+      "description": "The timeout (in seconds) before marking the health check as failed.",
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/healthchecks_type",
       "default": "HTTP",
-      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'."
+      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'.",
+      "type": "string"
     }
   },
   "required": [
@@ -248,22 +192,6 @@ export const healthchecks_query_healthcheck: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `healthchecks_retries`.
- */
-export const healthchecks_retries: JsonSchema = {
-  "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_suspended`.
- */
-export const healthchecks_suspended: JsonSchema = {
-  "description": "If suspended, no health checks are sent to the origin.",
-  "type": "boolean"
 };
 
 /**
@@ -294,20 +222,4 @@ export const healthchecks_tcp_config: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `healthchecks_timeout`.
- */
-export const healthchecks_timeout: JsonSchema = {
-  "description": "The timeout (in seconds) before marking the health check as failed.",
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_type`.
- */
-export const healthchecks_type: JsonSchema = {
-  "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'.",
-  "type": "string"
 };

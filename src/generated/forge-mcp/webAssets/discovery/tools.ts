@@ -6,13 +6,7 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
 } from "../../outputs.js";
-import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-} from "../../schemas.js";
 import {
   api$$shield_openapi,
   api$$shield_schema_response_discovery,
@@ -25,14 +19,23 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_discovery_get",
     title: "Export discovered API operations as OpenAPI schemas",
-    description: "Returns the latest API operations discovered from zone traffic, rendered as OpenAPI schemas.",
+    description: "Returns the latest API operations discovered from zone traffic, rendered as OpenAPI schemas.\n\nGET /zones/{zone_id}/api_gateway/discovery",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -44,10 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_schema_response_discovery",
@@ -56,8 +56,6 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api$$shield_messages,
         "api-shield_openapi": api$$shield_openapi,
         "api-shield_schema_response_discovery": api$$shield_schema_response_discovery,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
       },
     },
     annotations: {
@@ -99,8 +97,6 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api$$shield_messages,
         "api-shield_openapi": api$$shield_openapi,
         "api-shield_schema_response_discovery": api$$shield_schema_response_discovery,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
       },
     },
     request: (args) => ({

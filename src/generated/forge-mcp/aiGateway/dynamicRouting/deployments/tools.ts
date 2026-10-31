@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_deployments_create",
     title: "Deploy a dynamic route version",
-    description: "Deploys the specified version of a dynamic route so that it serves traffic. Deploy an earlier version to roll back.\n\nThis method is beta.",
+    description: "Deploys the specified version of a dynamic route so that it serves traffic. Deploy an earlier version to roll back.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/deployments",
     inputSchema: {
       type: "object",
       properties: {
@@ -26,6 +26,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -844,11 +846,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_deployments_list",
     title: "List dynamic route deployments",
-    description: "Lists the deployment history of a dynamic route.\n\nThis method is beta.",
+    description: "Lists the deployment history of a dynamic route.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/deployments",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -871,6 +874,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

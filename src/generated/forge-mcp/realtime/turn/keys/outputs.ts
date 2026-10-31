@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `calls_turn_key` in responses.
- */
-export const calls_turn_key: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `calls_turn_key_collection` in responses.
  */
 export const calls_turn_key_collection: JsonSchema = {
@@ -33,28 +26,23 @@ export const calls_turn_key_collection: JsonSchema = {
 };
 
 /**
- * The schema of `calls_turn_key_name` in responses.
- */
-export const calls_turn_key_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `calls_turn_key_object` in responses.
  */
 export const calls_turn_key_object: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/calls_created"
+      "format": "date-time",
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/calls_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/calls_name"
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/calls_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -110,19 +98,21 @@ export const calls_turn_key_single_with_secret: JsonSchema = {
 export const calls_turn_key_with_key: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/calls_created"
+      "format": "date-time",
+      "type": "string"
     },
     "key": {
-      "$ref": "#/$defs/calls_turn_key"
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/calls_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/calls_turn_key_name"
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/calls_identifier"
+      "type": "string"
     }
   },
   "required": [

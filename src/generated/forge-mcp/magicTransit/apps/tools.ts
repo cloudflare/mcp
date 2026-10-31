@@ -3,34 +3,26 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_account_app_id,
   magic_api$$response$$common$$failure,
   magic_apps$$response$$array,
   magic_apps$$response$$object,
-  magic_cidr,
-  magic_managed_app_id,
   magic_messages,
 } from "../outputs.js";
-import { magic_cidr as magic_cidr$, magic_identifier } from "../schemas.js";
 import {
   magic_account_app,
   magic_app,
   magic_app_hostnames,
-  magic_app_name,
   magic_app_single_response,
   magic_app_source_subnets,
   magic_app_subnets,
-  magic_app_type,
   magic_apps_collection_response,
   magic_managed_app,
 } from "./outputs.js";
 import {
   magic_app_add_single_request,
   magic_app_hostnames as magic_app_hostnames$,
-  magic_app_name as magic_app_name$,
   magic_app_source_subnets as magic_app_source_subnets$,
   magic_app_subnets as magic_app_subnets$,
-  magic_app_type as magic_app_type$,
   magic_app_update_request,
 } from "./schemas.js";
 
@@ -41,7 +33,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_apps_create",
     title: "Create a new App",
-    description: "Creates a new App for an account",
+    description: "Creates a new App for an account\n\nPOST /accounts/{account_id}/magic/apps",
     inputSchema: {
       type: "object",
       properties: {
@@ -49,10 +41,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_app_add_single_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -65,30 +58,23 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_app_add_single_request": magic_app_add_single_request,
         "magic_app_hostnames": magic_app_hostnames$,
-        "magic_app_name": magic_app_name$,
         "magic_app_source_subnets": magic_app_source_subnets$,
         "magic_app_subnets": magic_app_subnets$,
-        "magic_app_type": magic_app_type$,
-        "magic_cidr": magic_cidr$,
-        "magic_identifier": magic_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_app_single_response",
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_single_response": magic_app_single_response,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-object": magic_apps$$response$$object,
-        "magic_cidr": magic_cidr,
         "magic_messages": magic_messages,
       },
     },
@@ -124,16 +110,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_single_response": magic_app_single_response,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-object": magic_apps$$response$$object,
-        "magic_cidr": magic_cidr,
         "magic_messages": magic_messages,
       },
     },
@@ -145,19 +127,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_apps_delete",
     title: "Delete Account App",
-    description: "Deletes specific Account App.",
+    description: "Deletes specific Account App.\n\nDELETE /accounts/{account_id}/magic/apps/{account_app_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_app_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -170,23 +153,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_app_single_response",
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_single_response": magic_app_single_response,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-object": magic_apps$$response$$object,
-        "magic_cidr": magic_cidr,
         "magic_messages": magic_messages,
       },
     },
@@ -222,16 +199,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_single_response": magic_app_single_response,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-object": magic_apps$$response$$object,
-        "magic_cidr": magic_cidr,
         "magic_messages": magic_messages,
       },
     },
@@ -242,15 +215,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_apps_list",
     title: "List Apps",
-    description: "Lists Apps associated with an account.",
+    description: "Lists Apps associated with an account.\n\nGET /accounts/{account_id}/magic/apps",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -262,26 +236,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_apps_collection_response",
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_app": magic_app,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-array": magic_apps$$response$$array,
         "magic_apps_collection_response": magic_apps_collection_response,
-        "magic_cidr": magic_cidr,
         "magic_managed_app": magic_managed_app,
-        "magic_managed_app_id": magic_managed_app_id,
         "magic_messages": magic_messages,
       },
     },
@@ -319,19 +286,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_app": magic_app,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-array": magic_apps$$response$$array,
         "magic_apps_collection_response": magic_apps_collection_response,
-        "magic_cidr": magic_cidr,
         "magic_managed_app": magic_managed_app,
-        "magic_managed_app_id": magic_managed_app_id,
         "magic_messages": magic_messages,
       },
     },
@@ -342,7 +304,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_apps_update",
     title: "Update an App",
-    description: "Updates an Account App",
+    description: "Updates an Account App\n\nPUT /accounts/{account_id}/magic/apps/{account_app_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -350,14 +312,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_app_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_app_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -371,30 +334,23 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_app_hostnames": magic_app_hostnames$,
-        "magic_app_name": magic_app_name$,
         "magic_app_source_subnets": magic_app_source_subnets$,
         "magic_app_subnets": magic_app_subnets$,
-        "magic_app_type": magic_app_type$,
         "magic_app_update_request": magic_app_update_request,
-        "magic_cidr": magic_cidr$,
-        "magic_identifier": magic_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_app_single_response",
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_single_response": magic_app_single_response,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-object": magic_apps$$response$$object,
-        "magic_cidr": magic_cidr,
         "magic_messages": magic_messages,
       },
     },
@@ -430,16 +386,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "magic_account_app": magic_account_app,
-        "magic_account_app_id": magic_account_app_id,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_app_hostnames": magic_app_hostnames,
-        "magic_app_name": magic_app_name,
         "magic_app_single_response": magic_app_single_response,
         "magic_app_source_subnets": magic_app_source_subnets,
         "magic_app_subnets": magic_app_subnets,
-        "magic_app_type": magic_app_type,
         "magic_apps-response-object": magic_apps$$response$$object,
-        "magic_cidr": magic_cidr,
         "magic_messages": magic_messages,
       },
     },

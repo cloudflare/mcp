@@ -8,7 +8,6 @@ import {
   builds_ErrorResponse,
   builds_PaginationInfo,
 } from "../../../outputs.js";
-import { builds_account_id, builds_trigger_uuid } from "../../../schemas.js";
 
 /**
  * The tools of `builds.triggers.cache`.
@@ -17,19 +16,21 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_triggers_cache_purge",
     title: "Purge a trigger's build cache",
-    description: "Delete cached dependencies and build artifacts associated with a trigger.\n\nConfirm with the user before calling this tool. This operation purges the build cache for a Workers Builds trigger.",
+    description: "Delete cached dependencies and build artifacts associated with a trigger.\n\nConfirm with the user before calling this tool. This operation purges the build cache for a Workers Builds trigger.\n\nPOST /accounts/{account_id}/builds/triggers/{trigger_uuid}/purge_build_cache",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "trigger_uuid": {
-              "$ref": "#/$defs/builds_trigger_uuid",
-              "description": "Trigger UUID."
+              "description": "Trigger UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -42,10 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_trigger_uuid": builds_trigger_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/builds_APIResponse",

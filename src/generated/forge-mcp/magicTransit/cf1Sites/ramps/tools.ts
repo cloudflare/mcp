@@ -6,21 +6,15 @@ import {
   magic_api$$response$$common,
   magic_api$$response$$common$$failure,
   magic_api$$response$$single,
-  magic_identifier,
   magic_messages,
 } from "../../outputs.js";
-import { magic_identifier as magic_identifier$ } from "../../schemas.js";
 import {
   magic_cf1_site_managed_ramp,
   magic_cf1_site_ramp,
   magic_cf1_site_ramp_single_response,
-  magic_cf1_site_ramp_type,
   magic_cf1_site_ramps_collection_response,
 } from "./outputs.js";
-import {
-  magic_cf1_site_ramp_body,
-  magic_cf1_site_ramp_type as magic_cf1_site_ramp_type$,
-} from "./schemas.js";
+import { magic_cf1_site_ramp_body } from "./schemas.js";
 
 /**
  * The tools of `magicTransit.cf1Sites.ramps`.
@@ -29,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cf1Sites_ramps_create",
     title: "Create CF1 Site Ramps",
-    description: "Creates ramps (network connections) for a CF1 Site.",
+    description: "Creates ramps (network connections) for a CF1 Site.\n\nPOST /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}/ramps",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,14 +35,15 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "cf1_site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -62,10 +57,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_cf1_site_ramp_body": magic_cf1_site_ramp_body,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type$,
-        "magic_identifier": magic_identifier$,
       },
     },
     outputSchema: {
@@ -75,9 +69,7 @@ export const tools: readonly Tool[] = [
         "magic_api-response-single": magic_api$$response$$single,
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
         "magic_cf1_site_ramps_collection_response": magic_cf1_site_ramps_collection_response,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -113,9 +105,7 @@ export const tools: readonly Tool[] = [
         "magic_api-response-single": magic_api$$response$$single,
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
         "magic_cf1_site_ramps_collection_response": magic_cf1_site_ramps_collection_response,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -127,23 +117,24 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cf1Sites_ramps_delete",
     title: "Delete CF1 Site Ramp",
-    description: "Deletes a specific ramp from a CF1 Site.",
+    description: "Deletes a specific ramp from a CF1 Site.\n\nDELETE /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}/ramps/{ramp_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "cf1_site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "ramp_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -157,9 +148,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_site_ramp_single_response",
@@ -169,8 +158,6 @@ export const tools: readonly Tool[] = [
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
         "magic_cf1_site_ramp_single_response": magic_cf1_site_ramp_single_response,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -211,8 +198,6 @@ export const tools: readonly Tool[] = [
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
         "magic_cf1_site_ramp_single_response": magic_cf1_site_ramp_single_response,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -223,23 +208,24 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cf1Sites_ramps_get",
     title: "Get CF1 Site Ramp",
-    description: "Gets a specific ramp for a CF1 Site.",
+    description: "Gets a specific ramp for a CF1 Site.\n\nGET /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}/ramps/{ramp_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "cf1_site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "ramp_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -253,9 +239,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_site_ramp_single_response",
@@ -265,8 +249,6 @@ export const tools: readonly Tool[] = [
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
         "magic_cf1_site_ramp_single_response": magic_cf1_site_ramp_single_response,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -309,8 +291,6 @@ export const tools: readonly Tool[] = [
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
         "magic_cf1_site_ramp_single_response": magic_cf1_site_ramp_single_response,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -321,19 +301,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_cf1Sites_ramps_list",
     title: "List CF1 Site Ramps",
-    description: "Lists ramps (network connections) associated with a CF1 Site. Ramps represent GRE tunnels, IPsec tunnels, interconnects, or MCONN links.",
+    description: "Lists ramps (network connections) associated with a CF1 Site. Ramps represent GRE tunnels, IPsec tunnels, interconnects, or MCONN links.\n\nGET /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}/ramps",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "cf1_site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -346,9 +327,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_site_ramps_collection_response",
@@ -357,9 +336,7 @@ export const tools: readonly Tool[] = [
         "magic_api-response-single": magic_api$$response$$single,
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
         "magic_cf1_site_ramps_collection_response": magic_cf1_site_ramps_collection_response,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },
@@ -401,9 +378,7 @@ export const tools: readonly Tool[] = [
         "magic_api-response-single": magic_api$$response$$single,
         "magic_cf1_site_managed_ramp": magic_cf1_site_managed_ramp,
         "magic_cf1_site_ramp": magic_cf1_site_ramp,
-        "magic_cf1_site_ramp_type": magic_cf1_site_ramp_type,
         "magic_cf1_site_ramps_collection_response": magic_cf1_site_ramps_collection_response,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
       },
     },

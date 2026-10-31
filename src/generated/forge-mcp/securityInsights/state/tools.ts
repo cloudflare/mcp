@@ -7,7 +7,6 @@ import {
   security$$center_api$$response$$common$$failure,
   security$$center_messages,
 } from "../../outputs.js";
-import { security$$center_identifier } from "../../schemas.js";
 import { security$$center_accountStateResponse } from "./outputs.js";
 import { security$$center_updateAccountStateRequest } from "./schemas.js";
 
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_state_get",
     title: "Retrieves Account State",
-    description: "Returns account-level Security Center state: whether scans are enabled for the account and whether the account was recently reactivated from a dormant state.",
+    description: "Returns account-level Security Center state: whether scans are enabled for the account and whether the account was recently reactivated from a dormant state.\n\nGET /accounts/{account_id}/security-center/state",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -106,7 +104,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_state_update",
     title: "Updates Account State",
-    description: "Updates account-level Security Center state. Currently supports enabling or disabling scans for the account. Returns the account's state after the update.",
+    description: "Updates account-level Security Center state. Currently supports enabling or disabling scans for the account. Returns the account's state after the update.\n\nPUT /accounts/{account_id}/security-center/state",
     inputSchema: {
       type: "object",
       properties: {
@@ -114,10 +112,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_updateAccountStateRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -130,8 +129,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security$$center_identifier,
         "security-center_updateAccountStateRequest": security$$center_updateAccountStateRequest,
       },
     },

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_versions_get",
     title: "Get Workflow version details",
-    description: "Retrieves details for a specific deployed workflow version.",
+    description: "Retrieves details for a specific deployed workflow version.\n\nGET /accounts/{account_id}/workflows/{workflow_name}/versions/{version_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -38,6 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -470,11 +472,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_versions_graph",
     title: "Get Workflow version graph",
-    description: "Retrieves the graph visualization of a workflow version.",
+    description: "Retrieves the graph visualization of a workflow version.\n\nGET /accounts/{account_id}/workflows/{workflow_name}/versions/{version_id}/graph",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -498,6 +501,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2354,11 +2358,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_versions_list",
     title: "List deployed Workflow versions",
-    description: "Lists all deployed versions of a workflow.",
+    description: "Lists all deployed versions of a workflow.\n\nGET /accounts/{account_id}/workflows/{workflow_name}/versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2374,6 +2379,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -2390,6 +2396,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -7,42 +7,20 @@ import {
   magic$$transit_api$$response$$common$$failure,
   magic$$transit_messages,
 } from "../outputs.js";
-import { magic$$transit_identifier } from "../schemas.js";
 import {
-  magic$$transit_asn,
   magic$$transit_colo,
-  magic$$transit_colo_city,
-  magic$$transit_colo_name,
   magic$$transit_colo_result,
-  magic$$transit_error,
   magic$$transit_hop_result,
-  magic$$transit_ip,
   magic$$transit_labels,
-  magic$$transit_max_rtt_ms,
-  magic$$transit_mean_rtt_ms,
-  magic$$transit_min_rtt_ms,
-  magic$$transit_name,
   magic$$transit_node_result,
-  magic$$transit_packet_count,
-  magic$$transit_packets_lost,
-  magic$$transit_packets_sent,
-  magic$$transit_packets_ttl,
-  magic$$transit_std_dev_rtt_ms,
-  magic$$transit_target,
   magic$$transit_target_result,
   magic$$transit_target_summary,
   magic$$transit_traceroute_response_collection,
-  magic$$transit_traceroute_time_ms,
 } from "./outputs.js";
 import {
   magic$$transit_colos,
-  magic$$transit_max_ttl,
   magic$$transit_options,
-  magic$$transit_packet_type,
-  magic$$transit_packets_per_ttl,
-  magic$$transit_port,
   magic$$transit_targets,
-  magic$$transit_wait_time,
 } from "./schemas.js";
 
 /**
@@ -52,7 +30,7 @@ export const tools: readonly Tool[] = [
   {
     name: "diagnostics_traceroutes_create",
     title: "Traceroute",
-    description: "Run traceroutes from Cloudflare colos.",
+    description: "Run traceroutes from Cloudflare colos.\n\nPOST /accounts/{account_id}/diagnostics/traceroute",
     inputSchema: {
       type: "object",
       properties: {
@@ -75,10 +53,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-transit_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -91,47 +70,26 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic-transit_colos": magic$$transit_colos,
-        "magic-transit_identifier": magic$$transit_identifier,
-        "magic-transit_max_ttl": magic$$transit_max_ttl,
         "magic-transit_options": magic$$transit_options,
-        "magic-transit_packet_type": magic$$transit_packet_type,
-        "magic-transit_packets_per_ttl": magic$$transit_packets_per_ttl,
-        "magic-transit_port": magic$$transit_port,
         "magic-transit_targets": magic$$transit_targets,
-        "magic-transit_wait_time": magic$$transit_wait_time,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-transit_traceroute_response_collection",
       $defs: {
         "magic-transit_api-response-common": magic$$transit_api$$response$$common,
-        "magic-transit_asn": magic$$transit_asn,
         "magic-transit_colo": magic$$transit_colo,
-        "magic-transit_colo_city": magic$$transit_colo_city,
-        "magic-transit_colo_name": magic$$transit_colo_name,
         "magic-transit_colo_result": magic$$transit_colo_result,
-        "magic-transit_error": magic$$transit_error,
         "magic-transit_hop_result": magic$$transit_hop_result,
-        "magic-transit_ip": magic$$transit_ip,
         "magic-transit_labels": magic$$transit_labels,
-        "magic-transit_max_rtt_ms": magic$$transit_max_rtt_ms,
-        "magic-transit_mean_rtt_ms": magic$$transit_mean_rtt_ms,
         "magic-transit_messages": magic$$transit_messages,
-        "magic-transit_min_rtt_ms": magic$$transit_min_rtt_ms,
-        "magic-transit_name": magic$$transit_name,
         "magic-transit_node_result": magic$$transit_node_result,
-        "magic-transit_packet_count": magic$$transit_packet_count,
-        "magic-transit_packets_lost": magic$$transit_packets_lost,
-        "magic-transit_packets_sent": magic$$transit_packets_sent,
-        "magic-transit_packets_ttl": magic$$transit_packets_ttl,
-        "magic-transit_std_dev_rtt_ms": magic$$transit_std_dev_rtt_ms,
-        "magic-transit_target": magic$$transit_target,
         "magic-transit_target_result": magic$$transit_target_result,
         "magic-transit_target_summary": magic$$transit_target_summary,
         "magic-transit_traceroute_response_collection": magic$$transit_traceroute_response_collection,
-        "magic-transit_traceroute_time_ms": magic$$transit_traceroute_time_ms,
       },
     },
     annotations: {
@@ -166,31 +124,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic-transit_api-response-common": magic$$transit_api$$response$$common,
         "magic-transit_api-response-common-failure": magic$$transit_api$$response$$common$$failure,
-        "magic-transit_asn": magic$$transit_asn,
         "magic-transit_colo": magic$$transit_colo,
-        "magic-transit_colo_city": magic$$transit_colo_city,
-        "magic-transit_colo_name": magic$$transit_colo_name,
         "magic-transit_colo_result": magic$$transit_colo_result,
-        "magic-transit_error": magic$$transit_error,
         "magic-transit_hop_result": magic$$transit_hop_result,
-        "magic-transit_ip": magic$$transit_ip,
         "magic-transit_labels": magic$$transit_labels,
-        "magic-transit_max_rtt_ms": magic$$transit_max_rtt_ms,
-        "magic-transit_mean_rtt_ms": magic$$transit_mean_rtt_ms,
         "magic-transit_messages": magic$$transit_messages,
-        "magic-transit_min_rtt_ms": magic$$transit_min_rtt_ms,
-        "magic-transit_name": magic$$transit_name,
         "magic-transit_node_result": magic$$transit_node_result,
-        "magic-transit_packet_count": magic$$transit_packet_count,
-        "magic-transit_packets_lost": magic$$transit_packets_lost,
-        "magic-transit_packets_sent": magic$$transit_packets_sent,
-        "magic-transit_packets_ttl": magic$$transit_packets_ttl,
-        "magic-transit_std_dev_rtt_ms": magic$$transit_std_dev_rtt_ms,
-        "magic-transit_target": magic$$transit_target,
         "magic-transit_target_result": magic$$transit_target_result,
         "magic-transit_target_summary": magic$$transit_target_summary,
         "magic-transit_traceroute_response_collection": magic$$transit_traceroute_response_collection,
-        "magic-transit_traceroute_time_ms": magic$$transit_traceroute_time_ms,
       },
     },
     request: (args) => ({

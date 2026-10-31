@@ -3,16 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cc_AccountID,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
 } from "../../outputs.js";
 import { cc_ContainersAccountRegistryToken } from "./outputs.js";
-import {
-  cc_ImageRegistryCredentialsConfiguration,
-  cc_ImageRegistryPermissions,
-} from "./schemas.js";
+import { cc_ImageRegistryCredentialsConfiguration } from "./schemas.js";
 
 /**
  * The tools of `containers.registries.credentials`.
@@ -21,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_registries_credentials_generate",
     title: "Generate a JWT to interact with the specified image registry.",
-    description: "Generates credentials for accessing a configured container image registry.",
+    description: "Generates credentials for accessing a configured container image registry.\n\nPOST /accounts/{account_id}/containers/registries/{domain}/credentials",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,6 +25,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cc_ImageRegistryCredentialsConfiguration"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -50,9 +47,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cc_ImageRegistryCredentialsConfiguration": cc_ImageRegistryCredentialsConfiguration,
-        "cc_ImageRegistryPermissions": cc_ImageRegistryPermissions,
       },
     },
     outputSchema: {
@@ -73,7 +70,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken,
         "cc_Messages": cc_Messages,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -125,7 +121,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID,
         "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken,
         "cc_Messages": cc_Messages,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,

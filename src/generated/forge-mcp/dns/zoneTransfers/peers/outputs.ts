@@ -4,48 +4,27 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `secondary-dns_ip` in responses.
- */
-export const secondary$$dns_ip: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_ixfr_enable` in responses.
- */
-export const secondary$$dns_ixfr_enable: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `secondary-dns_name-3` in responses.
- */
-export const secondary$$dns_name$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_peer` in responses.
  */
 export const secondary$$dns_peer: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/secondary-dns_identifier-3"
+      "type": "string"
     },
     "ip": {
-      "$ref": "#/$defs/secondary-dns_ip"
+      "type": "string"
     },
     "ixfr_enable": {
-      "$ref": "#/$defs/secondary-dns_ixfr_enable"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-3"
+      "type": "string"
     },
     "port": {
-      "$ref": "#/$defs/secondary-dns_port"
+      "type": "number"
     },
     "tsig_id": {
-      "$ref": "#/$defs/secondary-dns_tsig_id"
+      "type": "string"
     }
   },
   "required": [
@@ -53,13 +32,6 @@ export const secondary$$dns_peer: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_port` in responses.
- */
-export const secondary$$dns_port: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -101,11 +73,4 @@ export const secondary$$dns_single_response$$2: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secondary-dns_tsig_id` in responses.
- */
-export const secondary$$dns_tsig_id: JsonSchema = {
-  "type": "string"
 };

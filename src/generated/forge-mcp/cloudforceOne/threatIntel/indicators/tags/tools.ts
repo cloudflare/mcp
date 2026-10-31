@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_tags_list",
     title: "List tags on a dataset's indicators",
-    description: "Lists the tags applied to indicators in a dataset. Results are not paginated.",
+    description: "Lists the tags applied to indicators in a dataset. Results are not paginated.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/tags",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

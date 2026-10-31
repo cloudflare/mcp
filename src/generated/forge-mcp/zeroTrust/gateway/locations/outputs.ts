@@ -4,42 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_client-default` in responses.
- */
-export const zero$$trust$$gateway_client$$default: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `zero-trust-gateway_dns-destination-ips-id-read` in responses.
- */
-export const zero$$trust$$gateway_dns$$destination$$ips$$id$$read: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_dns64-enabled` in responses.
- */
-export const zero$$trust$$gateway_dns64$$enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `zero-trust-gateway_dns_destination_ipv6_block_id` in
- * responses.
- */
-export const zero$$trust$$gateway_dns_destination_ipv6_block_id: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `zero-trust-gateway_doh_endpoint` in responses.
  */
 export const zero$$trust$$gateway_doh_endpoint: JsonSchema = {
@@ -70,13 +34,6 @@ export const zero$$trust$$gateway_dot_endpoint: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_ecs-support` in responses.
- */
-export const zero$$trust$$gateway_ecs$$support: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -111,13 +68,6 @@ export const zero$$trust$$gateway_endpoints: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_ip` in responses.
- */
-export const zero$$trust$$gateway_ip: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -249,34 +199,42 @@ export const zero$$trust$$gateway_ipv6_networks: JsonSchema = {
 export const zero$$trust$$gateway_locations: JsonSchema = {
   "properties": {
     "client_default": {
-      "$ref": "#/$defs/zero-trust-gateway_client-default"
+      "type": "boolean"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "dns64_enabled": {
-      "$ref": "#/$defs/zero-trust-gateway_dns64-enabled"
+      "type": "boolean"
     },
     "dns_destination_ips_id": {
-      "$ref": "#/$defs/zero-trust-gateway_dns-destination-ips-id-read"
+      "type": "string"
     },
     "dns_destination_ipv6_block_id": {
-      "$ref": "#/$defs/zero-trust-gateway_dns_destination_ipv6_block_id"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "doh_subdomain": {
-      "$ref": "#/$defs/zero-trust-gateway_subdomain"
+      "type": "string"
     },
     "ecs_support": {
-      "$ref": "#/$defs/zero-trust-gateway_ecs-support"
+      "type": "boolean"
     },
     "endpoints": {
       "$ref": "#/$defs/zero-trust-gateway_endpoints"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+      "type": "string"
     },
     "ip": {
-      "$ref": "#/$defs/zero-trust-gateway_ip"
+      "type": "string"
     },
     "ipv4_destination": {
       "type": "string"
@@ -288,13 +246,14 @@ export const zero$$trust$$gateway_locations: JsonSchema = {
       "$ref": "#/$defs/zero-trust-gateway_max-ttl"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-2"
+      "type": "string"
     },
     "networks": {
       "$ref": "#/$defs/zero-trust-gateway_ipv4_networks"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -338,13 +297,6 @@ export const zero$$trust$$gateway_max$$ttl: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_name-2` in responses.
- */
-export const zero$$trust$$gateway_name$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_response_collection-5` in responses.
  */
 export const zero$$trust$$gateway_response_collection$$5: JsonSchema = {
@@ -383,11 +335,4 @@ export const zero$$trust$$gateway_single_response$$3: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_subdomain` in responses.
- */
-export const zero$$trust$$gateway_subdomain: JsonSchema = {
-  "type": "string"
 };

@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_sharedQueries_create",
     title: "Create a sharable link to a query result",
-    description: "Shared queries store the results of a previously run query, allowing you to share the results with others.",
+    description: "Shared queries store the results of a previously run query, allowing you to share the results with others.\n\nPOST /accounts/{account_id}/workers/observability/shared/query",
     inputSchema: {
       type: "object",
       properties: {
@@ -439,6 +439,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -455,6 +456,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,
@@ -799,11 +801,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_sharedQueries_get",
     title: "View a query that has been shared",
-    description: "Shared queries store the results of a previously run query, allowing you to share the results with others.",
+    description: "Shared queries store the results of a previously run query, allowing you to share the results with others.\n\nGET /accounts/{account_id}/workers/observability/shared/query/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -821,6 +824,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "view": {
               "description": "Select the view of the query result to return, defaults to events.",
@@ -838,6 +842,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

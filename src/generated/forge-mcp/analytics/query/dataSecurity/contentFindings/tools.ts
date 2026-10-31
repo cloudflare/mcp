@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_dataSecurity_contentFindings_topN",
     title: "Top integrations by content findings",
-    description: "Returns the top N integrations ranked by total content findings.\n\nThis method is beta.",
+    description: "Returns the top N integrations ranked by total content findings.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/data-security/content-findings/top-n",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,6 +27,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/art_DataSecurityContentFindingsTopNQuery"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -43,6 +44,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_DataSecurityContentFindingsTopNQuery": art_DataSecurityContentFindingsTopNQuery,
         "art_Filter": art_Filter,

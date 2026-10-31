@@ -8,12 +8,7 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_transformations_c2pa_response,
-  speed_transformations_c2pa_value,
-} from "./outputs.js";
-import { speed_transformations_c2pa_value as speed_transformations_c2pa_value$ } from "./schemas.js";
+import { speed_transformations_c2pa_response } from "./outputs.js";
 
 /**
  * The tools of `zones.transformationsC2pa`.
@@ -22,15 +17,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_transformationsC2pa_edit",
     title: "Change Image Transformations C2PA setting",
-    description: "C2PA (Coalition for Content Provenance and Authenticity) signing adds cryptographic metadata\nto images processed through Cloudflare Image Transformations, enabling verification of image\nauthenticity and provenance.",
+    description: "C2PA (Coalition for Content Provenance and Authenticity) signing adds cryptographic metadata\nto images processed through Cloudflare Image Transformations, enabling verification of image\nauthenticity and provenance.\n\nPATCH /zones/{zone_id}/settings/transformations_c2pa",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_transformations_c2pa_value",
-              "description": "Whether C2PA signing is enabled for image transformations."
+              "description": "Whether C2PA signing is enabled for image transformations.",
+              "enum": [
+                "off",
+                "on"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -39,10 +38,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +55,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-        "speed_transformations_c2pa_value": speed_transformations_c2pa_value$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -79,7 +76,6 @@ export const tools: readonly Tool[] = [
         "speed_base": speed_base,
         "speed_messages": speed_messages,
         "speed_transformations_c2pa_response": speed_transformations_c2pa_response,
-        "speed_transformations_c2pa_value": speed_transformations_c2pa_value,
       },
     },
     annotations: {
@@ -129,7 +125,6 @@ export const tools: readonly Tool[] = [
         "speed_base": speed_base,
         "speed_messages": speed_messages,
         "speed_transformations_c2pa_response": speed_transformations_c2pa_response,
-        "speed_transformations_c2pa_value": speed_transformations_c2pa_value,
       },
     },
     request: (args) => ({
@@ -140,15 +135,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_transformationsC2pa_get",
     title: "Get Image Transformations C2PA setting",
-    description: "C2PA (Coalition for Content Provenance and Authenticity) signing adds cryptographic metadata\nto images processed through Cloudflare Image Transformations, enabling verification of image\nauthenticity and provenance.",
+    description: "C2PA (Coalition for Content Provenance and Authenticity) signing adds cryptographic metadata\nto images processed through Cloudflare Image Transformations, enabling verification of image\nauthenticity and provenance.\n\nGET /zones/{zone_id}/settings/transformations_c2pa",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -160,9 +156,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -183,7 +177,6 @@ export const tools: readonly Tool[] = [
         "speed_base": speed_base,
         "speed_messages": speed_messages,
         "speed_transformations_c2pa_response": speed_transformations_c2pa_response,
-        "speed_transformations_c2pa_value": speed_transformations_c2pa_value,
       },
     },
     annotations: {
@@ -234,7 +227,6 @@ export const tools: readonly Tool[] = [
         "speed_base": speed_base,
         "speed_messages": speed_messages,
         "speed_transformations_c2pa_response": speed_transformations_c2pa_response,
-        "speed_transformations_c2pa_value": speed_transformations_c2pa_value,
       },
     },
     request: (args) => ({

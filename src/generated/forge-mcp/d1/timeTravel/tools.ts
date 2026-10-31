@@ -7,15 +7,7 @@ import {
   d1_api$$response$$common$$failure,
   d1_messages,
 } from "../outputs.js";
-import { d1_account$$identifier, d1_database$$identifier } from "../schemas.js";
-import {
-  d1_time$$travel$$bookmark,
-  d1_time$$travel$$restore$$response,
-} from "./outputs.js";
-import {
-  d1_time$$travel$$bookmark as d1_time$$travel$$bookmark$,
-  d1_time$$travel$$timestamp,
-} from "./schemas.js";
+import { d1_time$$travel$$restore$$response } from "./outputs.js";
 
 /**
  * The tools of `d1.timeTravel`.
@@ -24,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_timeTravel_getBookmark",
     title: "Get D1 database bookmark",
-    description: "Retrieve the current bookmark, or the nearest bookmark at or before a provided timestamp.\nBookmarks can be used with the restore endpoint to revert the database to a previous point in time.",
+    description: "Retrieve the current bookmark, or the nearest bookmark at or before a provided timestamp.\nBookmarks can be used with the restore endpoint to revert the database to a previous point in time.\n\nGET /accounts/{account_id}/d1/database/{database_id}/time_travel/bookmark",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -46,10 +39,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "timestamp": {
-              "$ref": "#/$defs/d1_time-travel-timestamp",
-              "description": "An optional ISO 8601 timestamp. If provided, returns the nearest available bookmark at or before this timestamp. If omitted, returns the current bookmark."
+              "description": "An optional ISO 8601 timestamp. If provided, returns the nearest available bookmark at or before this timestamp. If omitted, returns the current bookmark.",
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
@@ -58,11 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_time-travel-timestamp": d1_time$$travel$$timestamp,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -74,7 +65,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "bookmark": {
-                  "$ref": "#/$defs/d1_time-travel-bookmark"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -86,7 +77,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_messages": d1_messages,
-        "d1_time-travel-bookmark": d1_time$$travel$$bookmark,
       },
     },
     annotations: {
@@ -117,7 +107,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "bookmark": {
-                      "$ref": "#/$defs/d1_time-travel-bookmark"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -135,7 +125,6 @@ export const tools: readonly Tool[] = [
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
         "d1_messages": d1_messages,
-        "d1_time-travel-bookmark": d1_time$$travel$$bookmark,
       },
     },
     request: (args) => ({
@@ -148,19 +137,20 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_timeTravel_restore",
     title: "Restore D1 Database to a bookmark or point in time",
-    description: "Restore a D1 database to a previous point in time either via a bookmark or a timestamp.\n\nConfirm with the user before calling this tool. This reverts the D1 database to a previous point in time. Data written after the bookmark will be lost.",
+    description: "Restore a D1 database to a previous point in time either via a bookmark or a timestamp.\n\nConfirm with the user before calling this tool. This reverts the D1 database to a previous point in time. Data written after the bookmark will be lost.\n\nPOST /accounts/{account_id}/d1/database/{database_id}/time_travel/restore",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -170,14 +160,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "bookmark": {
-              "$ref": "#/$defs/d1_time-travel-bookmark",
-              "description": "A bookmark to restore the database to. Required if `timestamp` is not provided."
+              "description": "A bookmark to restore the database to. Required if `timestamp` is not provided.",
+              "type": "string"
             },
             "timestamp": {
-              "$ref": "#/$defs/d1_time-travel-timestamp",
-              "description": "An ISO 8601 timestamp to restore the database to. Required if `bookmark` is not provided."
+              "description": "An ISO 8601 timestamp to restore the database to. Required if `bookmark` is not provided.",
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
@@ -186,12 +178,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_time-travel-bookmark": d1_time$$travel$$bookmark$,
-        "d1_time-travel-timestamp": d1_time$$travel$$timestamp,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -210,7 +197,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_messages": d1_messages,
-        "d1_time-travel-bookmark": d1_time$$travel$$bookmark,
         "d1_time-travel-restore-response": d1_time$$travel$$restore$$response,
       },
     },
@@ -251,7 +237,6 @@ export const tools: readonly Tool[] = [
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
         "d1_messages": d1_messages,
-        "d1_time-travel-bookmark": d1_time$$travel$$bookmark,
         "d1_time-travel-restore-response": d1_time$$travel$$restore$$response,
       },
     },

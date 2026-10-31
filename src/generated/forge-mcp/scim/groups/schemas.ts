@@ -7,10 +7,10 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `iam_scim_group_create_request`.
  */
 export const iam_scim_group_create_request: JsonSchema = {
-  "description": "Request body for creating a SCIM Group. The `displayName` must not be empty and must not begin with `CF` (reserved for system groups).\n",
+  "description": "Request body for creating a SCIM Group. The `displayName` must not be empty and must not begin with `CF` (reserved for system groups).",
   "properties": {
     "displayName": {
-      "description": "A human-readable name for the Group. REQUIRED. Must not start with `CF` (reserved prefix for Cloudflare-managed virtual groups).\n",
+      "description": "A human-readable name for the Group. REQUIRED. Must not start with `CF` (reserved prefix for Cloudflare-managed virtual groups).",
       "type": "string"
     },
     "externalId": {
@@ -22,14 +22,6 @@ export const iam_scim_group_create_request: JsonSchema = {
     "displayName"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_scim_group_identifier`.
- */
-export const iam_scim_group_identifier: JsonSchema = {
-  "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n",
-  "type": "string"
 };
 
 /**
@@ -50,7 +42,7 @@ export const iam_scim_group_patch_member_value: JsonSchema = {
  * The schema of `iam_scim_group_patch_op_request`.
  */
 export const iam_scim_group_patch_op_request: JsonSchema = {
-  "description": "Request body for a SCIM PATCH operation on a Group resource (RFC 7644 Section 3.5.2).\n",
+  "description": "Request body for a SCIM PATCH operation on a Group resource (RFC 7644 Section 3.5.2).",
   "properties": {
     "Operations": {
       "description": "List of PATCH operations to apply.",
@@ -77,7 +69,7 @@ export const iam_scim_group_patch_op_request: JsonSchema = {
  * The schema of `iam_scim_group_patch_operation`.
  */
 export const iam_scim_group_patch_operation: JsonSchema = {
-  "description": "A single PATCH operation for a Group resource. Supports `add`, `remove`, and `replace` on `members`, `displayName`, and `externalId`.\n",
+  "description": "A single PATCH operation for a Group resource. Supports `add`, `remove`, and `replace` on `members`, `displayName`, and `externalId`.",
   "properties": {
     "op": {
       "description": "The operation to perform.",
@@ -89,11 +81,11 @@ export const iam_scim_group_patch_operation: JsonSchema = {
       "type": "string"
     },
     "path": {
-      "description": "Attribute path targeted by this operation. Use `members` to modify group membership. May also include a filter expression to target specific members, e.g. `members[value eq \"userTag\"]`.\n",
+      "description": "Attribute path targeted by this operation. Use `members` to modify group membership. May also include a filter expression to target specific members, e.g. `members[value eq \"userTag\"]`.",
       "type": "string"
     },
     "value": {
-      "description": "The value(s) for the operation. For member add/replace operations, an array of member value objects. For `displayName` or `externalId` updates, a string value.\n",
+      "description": "The value(s) for the operation. For member add/replace operations, an array of member value objects. For `displayName` or `externalId` updates, a string value.",
       "oneOf": [
         {
           "items": {
@@ -124,11 +116,11 @@ export const iam_scim_group_replace_request: JsonSchema = {
       "type": "string"
     },
     "externalId": {
-      "description": "Identifier for the Group as defined by the provisioning client (IdP). Omission clears the existing value.\n",
+      "description": "Identifier for the Group as defined by the provisioning client (IdP). Omission clears the existing value.",
       "type": "string"
     },
     "members": {
-      "description": "The complete replacement member set. Omission is treated as an empty list.\n",
+      "description": "The complete replacement member set. Omission is treated as an empty list.",
       "items": {
         "$ref": "#/$defs/iam_scim_group_patch_member_value"
       },

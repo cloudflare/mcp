@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_robotsTxt_top_domainCategories",
     title: "Get top domain categories by robots.txt files parsed",
-    description: "Retrieves the top domain categories by the number of robots.txt files parsed.",
+    description: "Retrieves the top domain categories by the number of robots.txt files parsed.\n\nGET /radar/robots_txt/top/domain_categories",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
               "description": "Filters results by the specified array of dates.",
@@ -56,6 +57,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

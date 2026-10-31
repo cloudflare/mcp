@@ -9,10 +9,6 @@ import {
   email$$security_messages,
 } from "../../outputs.js";
 import {
-  email$$security_InvestigateId,
-  email$$security_identifier,
-} from "../../schemas.js";
-import {
   email$$security_ActionEntry,
   email$$security_ActionEntryProperties,
 } from "./outputs.js";
@@ -24,19 +20,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_actionLog_list",
     title: "List post-delivery actions for a message",
-    description: "Returns the list of post-delivery actions (moves, quarantine releases, previews, etc.) that have been applied to a specific email message.\n\nThis method is beta.",
+    description: "Returns the list of post-delivery actions (moves, quarantine releases, previews, etc.) that have been applied to a specific email message.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}/action_log",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "investigate_id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,6 +43,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -64,10 +62,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

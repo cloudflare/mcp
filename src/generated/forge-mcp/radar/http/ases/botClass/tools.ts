@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_ases_botClass_get",
     title: "Get top ASes by HTTP requests for a bot class",
-    description: "Retrieves the top autonomous systems, by HTTP requests, of the requested bot class.",
+    description: "Retrieves the top autonomous systems, by HTTP requests, of the requested bot class.\n\nGET /radar/http/top/ases/bot_class/{bot_class}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "bot_class": {
               "description": "Bot class. Refer to [Bot classes](https://developers.cloudflare.com/radar/concepts/bot-classes/).",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -199,6 +201,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -9,7 +9,6 @@ import {
   argo$$analytics_messages,
   argo$$analytics_response_single,
 } from "../outputs.js";
-import { argo$$analytics_identifier } from "../schemas.js";
 
 /**
  * The tools of `analytics.latency.colos`.
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_latency_colos_get",
     title: "Argo Analytics for a zone at different PoPs",
-    description: "Retrieves Argo Smart Routing analytics broken down by geographic points of presence (PoPs). Shows latency improvements and routing efficiency per location.",
+    description: "Retrieves Argo Smart Routing analytics broken down by geographic points of presence (PoPs). Shows latency improvements and routing efficiency per location.\n\nGET /zones/{zone_id}/analytics/latency/colos",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/argo-analytics_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "argo-analytics_identifier": argo$$analytics_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/argo-analytics_response_single",

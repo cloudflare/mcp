@@ -9,19 +9,19 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const teams$$devices_deployment_group: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/teams-devices_deployment_group_created_at"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/teams-devices_deployment_group_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_deployment_group_name"
+      "type": "string"
     },
     "policy_ids": {
       "$ref": "#/$defs/teams-devices_deployment_group_policy_ids"
     },
     "updated_at": {
-      "$ref": "#/$defs/teams-devices_deployment_group_updated_at"
+      "type": "string"
     },
     "version_config": {
       "items": {
@@ -41,27 +41,6 @@ export const teams$$devices_deployment_group: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_deployment_group_created_at` in responses.
- */
-export const teams$$devices_deployment_group_created_at: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_deployment_group_id` in responses.
- */
-export const teams$$devices_deployment_group_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_deployment_group_name` in responses.
- */
-export const teams$$devices_deployment_group_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_deployment_group_policy_ids` in responses.
  */
 export const teams$$devices_deployment_group_policy_ids: JsonSchema = {
@@ -76,13 +55,6 @@ export const teams$$devices_deployment_group_policy_ids: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `teams-devices_deployment_group_updated_at` in responses.
- */
-export const teams$$devices_deployment_group_updated_at: JsonSchema = {
-  "type": "string"
 };
 
 /**

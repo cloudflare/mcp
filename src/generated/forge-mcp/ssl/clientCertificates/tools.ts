@@ -9,35 +9,12 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_certificate$$7,
   tls$$certificates$$and$$hostnames_certificate_authority$$4,
   tls$$certificates$$and$$hostnames_client_certificate,
-  tls$$certificates$$and$$hostnames_client_certificate_identifier,
   tls$$certificates$$and$$hostnames_client_certificate_response_collection,
   tls$$certificates$$and$$hostnames_client_certificate_response_single,
-  tls$$certificates$$and$$hostnames_common_name,
-  tls$$certificates$$and$$hostnames_country,
-  tls$$certificates$$and$$hostnames_csr$$2,
-  tls$$certificates$$and$$hostnames_expired_on,
-  tls$$certificates$$and$$hostnames_fingerprint_sha256,
-  tls$$certificates$$and$$hostnames_issued_on,
-  tls$$certificates$$and$$hostnames_location,
-  tls$$certificates$$and$$hostnames_organization,
-  tls$$certificates$$and$$hostnames_organizational_unit,
-  tls$$certificates$$and$$hostnames_serial_number$$3,
-  tls$$certificates$$and$$hostnames_signature$$3,
-  tls$$certificates$$and$$hostnames_ski,
-  tls$$certificates$$and$$hostnames_state,
-  tls$$certificates$$and$$hostnames_status$$11,
-  tls$$certificates$$and$$hostnames_validity_days$$2,
 } from "./outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_client_certificate_identifier as tls$$certificates$$and$$hostnames_client_certificate_identifier$,
-  tls$$certificates$$and$$hostnames_csr$$2 as tls$$certificates$$and$$hostnames_csr$$2$,
-  tls$$certificates$$and$$hostnames_validity_days$$2 as tls$$certificates$$and$$hostnames_validity_days$$2$,
-} from "./schemas.js";
 
 /**
  * The tools of `ssl.clientCertificates`.
@@ -46,19 +23,19 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_clientCertificates_create",
     title: "Create Client Certificate",
-    description: "Create a new API Shield mTLS Client Certificate.",
+    description: "Create a new API Shield mTLS Client Certificate.\n\nPOST /zones/{zone_id}/client_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "csr": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_csr-2",
-              "description": "The Certificate Signing Request (CSR). Must be newline-encoded."
+              "description": "The Certificate Signing Request (CSR). Must be newline-encoded.",
+              "type": "string"
             },
             "validity_days": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_validity_days-2",
-              "description": "The number of days the Client Certificate will be valid after the issued_on date."
+              "description": "The number of days the Client Certificate will be valid after the issued_on date.",
+              "type": "integer"
             }
           },
           "required": [
@@ -68,10 +45,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -84,37 +62,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_response_single",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     annotations: {
@@ -161,27 +118,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     request: (args) => ({
@@ -192,19 +132,20 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_clientCertificates_delete",
     title: "Revoke Client Certificate",
-    description: "Set a API Shield mTLS Client Certificate to pending_revocation status for processing to revoked status.",
+    description: "Set a API Shield mTLS Client Certificate to pending_revocation status for processing to revoked status.\n\nDELETE /zones/{zone_id}/client_certificates/{client_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "client_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_identifier",
-              "description": "Client Certificate Tag"
+              "description": "Client Certificate Tag",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -217,36 +158,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_response_single",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     annotations: {
@@ -286,27 +207,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     request: (args) => ({
@@ -316,7 +220,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_clientCertificates_edit",
     title: "Reactivate Client Certificate",
-    description: "If a API Shield mTLS Client Certificate is in a pending_revocation state, you may reactivate it with this endpoint.",
+    description: "If a API Shield mTLS Client Certificate is in a pending_revocation state, you may reactivate it with this endpoint.\n\nPATCH /zones/{zone_id}/client_certificates/{client_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -329,14 +233,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "client_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_identifier",
-              "description": "Client Certificate Tag"
+              "description": "Client Certificate Tag",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -350,36 +255,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_response_single",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     annotations: {
@@ -419,27 +304,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     request: (args) => ({
@@ -450,19 +318,20 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_clientCertificates_get",
     title: "Client Certificate Details",
-    description: "Get Details for a single mTLS API Shield Client Certificate.",
+    description: "Get Details for a single mTLS API Shield Client Certificate.\n\nGET /zones/{zone_id}/client_certificates/{client_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "client_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_identifier",
-              "description": "Client Certificate Tag"
+              "description": "Client Certificate Tag",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -475,36 +344,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_response_single",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     annotations: {
@@ -545,27 +394,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_single": tls$$certificates$$and$$hostnames_client_certificate_response_single,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     request: (args) => ({
@@ -575,15 +407,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_clientCertificates_list",
     title: "List Client Certificates",
-    description: "List all of your Zone's API Shield mTLS Client Certificates by Status and/or using Pagination.",
+    description: "List all of your Zone's API Shield mTLS Client Certificates by Status and/or using Pagination.\n\nGET /zones/{zone_id}/client_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -592,6 +425,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "description": "Limit to the number of records returned.",
@@ -629,36 +463,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_response_collection",
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_collection": tls$$certificates$$and$$hostnames_client_certificate_response_collection,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     annotations: {
@@ -700,27 +515,10 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_certificate-7": tls$$certificates$$and$$hostnames_certificate$$7,
         "tls-certificates-and-hostnames_certificate_authority-4": tls$$certificates$$and$$hostnames_certificate_authority$$4,
         "tls-certificates-and-hostnames_client_certificate": tls$$certificates$$and$$hostnames_client_certificate,
-        "tls-certificates-and-hostnames_client_certificate_identifier": tls$$certificates$$and$$hostnames_client_certificate_identifier,
         "tls-certificates-and-hostnames_client_certificate_response_collection": tls$$certificates$$and$$hostnames_client_certificate_response_collection,
-        "tls-certificates-and-hostnames_common_name": tls$$certificates$$and$$hostnames_common_name,
-        "tls-certificates-and-hostnames_country": tls$$certificates$$and$$hostnames_country,
-        "tls-certificates-and-hostnames_csr-2": tls$$certificates$$and$$hostnames_csr$$2,
-        "tls-certificates-and-hostnames_expired_on": tls$$certificates$$and$$hostnames_expired_on,
-        "tls-certificates-and-hostnames_fingerprint_sha256": tls$$certificates$$and$$hostnames_fingerprint_sha256,
-        "tls-certificates-and-hostnames_issued_on": tls$$certificates$$and$$hostnames_issued_on,
-        "tls-certificates-and-hostnames_location": tls$$certificates$$and$$hostnames_location,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_organization": tls$$certificates$$and$$hostnames_organization,
-        "tls-certificates-and-hostnames_organizational_unit": tls$$certificates$$and$$hostnames_organizational_unit,
-        "tls-certificates-and-hostnames_serial_number-3": tls$$certificates$$and$$hostnames_serial_number$$3,
-        "tls-certificates-and-hostnames_signature-3": tls$$certificates$$and$$hostnames_signature$$3,
-        "tls-certificates-and-hostnames_ski": tls$$certificates$$and$$hostnames_ski,
-        "tls-certificates-and-hostnames_state": tls$$certificates$$and$$hostnames_state,
-        "tls-certificates-and-hostnames_status-11": tls$$certificates$$and$$hostnames_status$$11,
-        "tls-certificates-and-hostnames_validity_days-2": tls$$certificates$$and$$hostnames_validity_days$$2,
       },
     },
     request: (args) => ({

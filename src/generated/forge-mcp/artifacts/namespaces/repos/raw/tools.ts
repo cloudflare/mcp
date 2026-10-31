@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_raw_get",
     title: "Read a raw file with content type",
-    description: "Returns file bytes resolved by ref and path, with a sniffed content type and browser-safe response headers.\n\nThis method is beta.",
+    description: "Returns file bytes resolved by ref and path, with a sniffed content type and browser-safe response headers.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/raw/{ref}/{path}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -50,6 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "string",

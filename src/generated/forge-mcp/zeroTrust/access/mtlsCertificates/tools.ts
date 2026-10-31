@@ -7,29 +7,16 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_created_at,
   access_messages,
-  access_timestamp,
-  access_updated_at,
-  access_uuid,
 } from "../../outputs.js";
-import {
-  access_identifier,
-  access_uuid as access_uuid$,
-} from "../../schemas.js";
 import { access_id_response$$3 } from "../outputs.js";
 import {
   access_associated_hostnames,
   access_certificates,
-  access_fingerprint,
-  access_name$$7,
   access_response_collection$$6,
   access_single_response$$7,
 } from "./outputs.js";
-import {
-  access_associated_hostnames as access_associated_hostnames$,
-  access_name$$7 as access_name$$7$,
-} from "./schemas.js";
+import { access_associated_hostnames as access_associated_hostnames$ } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.mtlsCertificates`.
@@ -38,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_create",
     title: "Add an mTLS certificate",
-    description: "Adds a new mTLS root certificate to Access.",
+    description: "Adds a new mTLS root certificate to Access.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/certificates",
     inputSchema: {
       type: "object",
       properties: {
@@ -53,8 +40,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/access_name-7",
-              "description": "The name of the certificate."
+              "description": "The name of the certificate.",
+              "type": "string"
             }
           },
           "required": [
@@ -64,6 +51,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -74,8 +62,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -89,10 +77,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_associated_hostnames": access_associated_hostnames$,
-        "access_identifier": access_identifier,
-        "access_name-7": access_name$$7$,
       },
     },
     outputSchema: {
@@ -101,13 +88,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_single_response-7": access_single_response$$7,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -138,13 +120,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_single_response-7": access_single_response$$7,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -155,11 +132,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_delete",
     title: "Delete an mTLS certificate",
-    description: "Deletes an mTLS certificate.",
+    description: "Deletes an mTLS certificate.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/access/certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -170,12 +148,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "certificate_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -189,10 +167,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response-3",
@@ -200,7 +175,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-common": access_api$$response$$common,
         "access_id_response-3": access_id_response$$3,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -231,7 +205,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_id_response-3": access_id_response$$3,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -241,11 +214,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_get",
     title: "Get an mTLS certificate",
-    description: "Fetches a single mTLS certificate.",
+    description: "Fetches a single mTLS certificate.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -256,12 +230,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "certificate_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -275,10 +249,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-7",
@@ -286,13 +257,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_single_response-7": access_single_response$$7,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -324,13 +290,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_single_response-7": access_single_response$$7,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -340,11 +301,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_list",
     title: "List mTLS certificates",
-    description: "Lists all mTLS root certificates.",
+    description: "Lists all mTLS root certificates.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/certificates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -355,8 +317,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -366,6 +328,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -384,9 +347,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-6",
@@ -395,13 +356,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-common": access_api$$response$$common,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_response_collection-6": access_response_collection$$6,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -434,13 +390,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_response_collection-6": access_response_collection$$6,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({
@@ -454,7 +405,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mtlsCertificates_update",
     title: "Update an mTLS certificate",
-    description: "Updates a configured mTLS certificate.",
+    description: "Updates a configured mTLS certificate.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -465,8 +416,8 @@ export const tools: readonly Tool[] = [
               "description": "The hostnames of the applications that will use this certificate."
             },
             "name": {
-              "$ref": "#/$defs/access_name-7",
-              "description": "The name of the certificate."
+              "description": "The name of the certificate.",
+              "type": "string"
             }
           },
           "required": [
@@ -475,6 +426,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -485,12 +437,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "certificate_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -505,11 +457,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_associated_hostnames": access_associated_hostnames$,
-        "access_identifier": access_identifier,
-        "access_name-7": access_name$$7$,
-        "access_uuid": access_uuid$,
       },
     },
     outputSchema: {
@@ -518,13 +468,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_single_response-7": access_single_response$$7,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     annotations: {
@@ -555,13 +500,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_associated_hostnames": access_associated_hostnames,
         "access_certificates": access_certificates,
-        "access_created_at": access_created_at,
-        "access_fingerprint": access_fingerprint,
         "access_messages": access_messages,
-        "access_name-7": access_name$$7,
         "access_single_response-7": access_single_response$$7,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
       },
     },
     request: (args) => ({

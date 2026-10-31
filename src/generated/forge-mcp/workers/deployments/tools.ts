@@ -9,11 +9,7 @@ import {
   workers_code_update_strategy,
   workers_messages,
 } from "../../outputs.js";
-import {
-  workers_code_update_strategy as workers_code_update_strategy$,
-  workers_identifier,
-  workers_script_name,
-} from "../../schemas.js";
+import { workers_code_update_strategy as workers_code_update_strategy$ } from "../../schemas.js";
 import { workers_deployment } from "./outputs.js";
 import { workers_deployment as workers_deployment$ } from "./schemas.js";
 
@@ -24,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_deployments_create",
     title: "Create Worker Deployment",
-    description: "Deployments configure how [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions) are deployed to traffic. A deployment can consist of multiple versions of a Worker.",
+    description: "Deployments configure how [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions) are deployed to traffic. A deployment can consist of multiple versions of a Worker.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/deployments",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,14 +28,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_deployment"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,6 +46,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "description": "If set to true, the deployment will be created even if normally blocked by something such rolling back to an older version when a secret has changed.",
@@ -62,11 +60,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_code_update_strategy": workers_code_update_strategy$,
         "workers_deployment": workers_deployment$,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
       },
     },
     outputSchema: {
@@ -154,23 +151,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_deployments_delete",
     title: "Delete Worker Deployment",
-    description: "Delete a Worker Deployment. The latest deployment, which is actively serving traffic, cannot be deleted. All other deployments can be deleted.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker deployment.",
+    description: "Delete a Worker Deployment. The latest deployment, which is actively serving traffic, cannot be deleted. All other deployments can be deleted.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker deployment.\n\nDELETE /accounts/{account_id}/workers/scripts/{script_name}/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
               "format": "uuid",
               "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -184,10 +182,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -235,23 +230,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_deployments_get",
     title: "Get Worker Deployment",
-    description: "Get information about a Worker Deployment.",
+    description: "Get information about a Worker Deployment.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
               "format": "uuid",
               "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -265,10 +261,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -357,19 +350,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_deployments_list",
     title: "List Worker Deployments",
-    description: "List Worker deployments. The first deployment in the list is the latest deployment actively serving traffic.",
+    description: "List Worker deployments. The first deployment in the list is the latest deployment actively serving traffic.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/deployments",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -379,6 +373,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -407,10 +402,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

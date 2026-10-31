@@ -14,7 +14,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_relationships_create",
     title: "Create an indicator relationship",
-    description: "Creates a relationship from an indicator to an event or tag (`targetType`). Relationships between two indicators are not supported.",
+    description: "Creates a relationship from an indicator to an event or tag (`targetType`). Relationships between two indicators are not supported.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}/relationships",
     inputSchema: {
       type: "object",
       properties: {
@@ -53,6 +53,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -79,6 +80,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -193,11 +195,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_relationships_delete",
     title: "Delete an indicator relationship",
-    description: "Deletes an indicator relationship by its UUID. Returns `deleted: false` if the relationship doesn't exist.",
+    description: "Deletes an indicator relationship by its UUID. Returns `deleted: false` if the relationship doesn't exist.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}/relationships/{rel_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -230,6 +233,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -318,11 +322,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_relationships_list",
     title: "List indicator relationships",
-    description: "Lists the relationships that start at an indicator. Use `search` to filter them and `expand` to include the related entities in the response.",
+    description: "Lists the relationships that start at an indicator. Use `search` to filter them and `expand` to include the related entities in the response.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}/relationships",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -346,6 +351,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Keyset cursor from a previous page.",
@@ -433,6 +439,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -592,7 +599,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_relationships_update",
     title: "Update an indicator relationship",
-    description: "Updates the given fields of an indicator relationship and leaves the other fields unchanged.",
+    description: "Updates the given fields of an indicator relationship and leaves the other fields unchanged.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}/relationships/{rel_uuid}",
     inputSchema: {
       type: "object",
       properties: {
@@ -628,6 +635,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -660,6 +668,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -32,11 +32,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_changelog_list",
     title: "List flag changelog entries",
-    description: "Returns the audit history for a flag, newest first. Each entry includes the event type and full flag state after the change; `update` entries include a field-level diff. Capped at 200 entries per flag.\n\nThis method is beta.",
+    description: "Returns the audit history for a flag, newest first. Each entry includes the event type and full flag state after the change; `update` entries include a field-level diff. Capped at 200 entries per flag.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}/flags/{flag_key}/changelog",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -59,6 +60,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from a previous response.",
@@ -75,6 +77,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_usage",
     title: "Get event count",
-    description: "Event counts and sizes broken down by dataset and service, bucketed by day, for up to 90 days. The top-level events field is the sum of all breakdown counts.",
+    description: "Event counts and sizes broken down by dataset and service, bucketed by day, for up to 90 days. The top-level events field is the sum of all breakdown counts.\n\nGET /accounts/{account_id}/workers/observability/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "from": {
               "description": "Unix timestamp in milliseconds for the start of the range.",
@@ -52,6 +54,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

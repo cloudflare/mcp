@@ -8,9 +8,7 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../../outputs.js";
-import { workers_identifier } from "../../../schemas.js";
-import { workers_schemas$$id } from "../schemas.js";
-import { workers_cursor, workers_object } from "./outputs.js";
+import { workers_object } from "./outputs.js";
 
 /**
  * The tools of `durableObjects.namespaces.objects`.
@@ -19,19 +17,20 @@ export const tools: readonly Tool[] = [
   {
     name: "durableObjects_namespaces_objects_list",
     title: "List Objects in a Durable Object namespace",
-    description: "Returns the Durable Objects in a given Durable Object namespace.",
+    description: "Returns the Durable Objects in a given Durable Object namespace.\n\nGET /accounts/{account_id}/workers/durable_objects/namespaces/{id}/objects",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/workers_schemas-id",
-              "description": "ID of the namespace."
+              "description": "ID of the namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,6 +40,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque token indicating the position from which to continue when requesting the next set of records. A valid value for the cursor can be obtained from the cursors object in the result_info structure.",
@@ -58,10 +58,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_schemas-id": workers_schemas$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -82,7 +79,7 @@ export const tools: readonly Tool[] = [
                   "type": "number"
                 },
                 "cursor": {
-                  "$ref": "#/$defs/workers_cursor"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -94,7 +91,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-collection": workers_api$$response$$collection,
         "workers_api-response-common": workers_api$$response$$common,
-        "workers_cursor": workers_cursor,
         "workers_messages": workers_messages,
         "workers_object": workers_object,
       },
@@ -143,7 +139,7 @@ export const tools: readonly Tool[] = [
                       "type": "number"
                     },
                     "cursor": {
-                      "$ref": "#/$defs/workers_cursor"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -172,7 +168,7 @@ export const tools: readonly Tool[] = [
                       "type": "number"
                     },
                     "cursor": {
-                      "$ref": "#/$defs/workers_cursor"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -190,7 +186,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-collection": workers_api$$response$$collection,
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
-        "workers_cursor": workers_cursor,
         "workers_messages": workers_messages,
         "workers_object": workers_object,
       },

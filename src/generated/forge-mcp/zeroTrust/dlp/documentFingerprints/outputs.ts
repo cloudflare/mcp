@@ -40,7 +40,15 @@ export const dlp_DocumentFingerprint: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",

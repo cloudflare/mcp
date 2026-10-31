@@ -12,19 +12,12 @@ import {
   pages_messages,
   pages_plain_text_env_var,
   pages_project,
-  pages_project_name,
   pages_secret_text_env_var,
   pages_source,
   pages_source_config,
-  pages_source_type,
   pages_stage,
 } from "../outputs.js";
-import {
-  pages_identifier,
-  pages_project_name as pages_project_name$,
-  pages_source_config as pages_source_config$,
-  pages_source_type as pages_source_type$,
-} from "../schemas.js";
+import { pages_source_config as pages_source_config$ } from "../schemas.js";
 import { pages_source_connect_request } from "./schemas.js";
 
 /**
@@ -34,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_source_connect",
     title: "Connect a Git repository",
-    description: "Connect a GitHub or GitLab repository to a Cloudflare Pages project to enable Git-based deployments.",
+    description: "Connect a GitHub or GitLab repository to a Cloudflare Pages project to enable Git-based deployments.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/source",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,14 +35,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/pages_source_connect_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -63,12 +57,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
         "pages_source_config": pages_source_config$,
         "pages_source_connect_request": pages_source_connect_request,
-        "pages_source_type": pages_source_type$,
       },
     },
     outputSchema: {
@@ -97,11 +89,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -153,11 +143,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -169,19 +157,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_source_disconnect",
     title: "Disconnect a Git repository",
-    description: "Disconnect the Git repository from a Cloudflare Pages project to stop Git-based deployments.",
+    description: "Disconnect the Git repository from a Cloudflare Pages project to stop Git-based deployments.\n\nDELETE /accounts/{account_id}/pages/projects/{project_name}/source",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -194,10 +183,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -225,11 +211,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -281,11 +265,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },

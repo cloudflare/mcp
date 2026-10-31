@@ -32,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_create",
     title: "Creates a new sensitivity group.",
-    description: "Creates a sensitivity group, optionally from a template.",
+    description: "Creates a sensitivity group, optionally from a template.\n\nPOST /accounts/{account_id}/dlp/sensitivity_groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,6 +41,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new sensitivity group."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -56,6 +57,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewSensitivityGroup": dlp_NewSensitivityGroup,
         "dlp_NewSensitivityLevel": dlp_NewSensitivityLevel,
@@ -133,11 +135,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_delete",
     title: "Delete a single sensitivity group.",
-    description: "Deletes a sensitivity group and its levels.",
+    description: "Deletes a sensitivity group and its levels.\n\nDELETE /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -157,6 +160,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -227,11 +231,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_get",
     title: "Retrieve a specific sensitivity group.",
-    description: "Gets a sensitivity group and its levels.",
+    description: "Gets a sensitivity group and its levels.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -251,6 +256,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -324,11 +330,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_getLevelOrder",
     title: "Retrieve the ordered list of level IDs for a sensitivity group.",
-    description: "Gets the current order of sensitivity levels in a group.",
+    description: "Gets the current order of sensitivity levels in a group.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/level_order",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -348,6 +355,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -419,11 +427,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_list",
     title: "Retrieve all sensitivity groups in an account",
-    description: "Lists sensitivity groups configured for the account.",
+    description: "Lists sensitivity groups configured for the account.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -438,6 +447,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -513,7 +523,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_update",
     title: "Update the attributes of a single sensitivity group.",
-    description: "Updates a sensitivity group and its levels.",
+    description: "Updates a sensitivity group and its levels.\n\nPUT /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -522,6 +532,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the sensitivity group to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -542,6 +553,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_SensitivityGroupLevelUpdate": dlp_SensitivityGroupLevelUpdate,
         "dlp_SensitivityGroupUpdate": dlp_SensitivityGroupUpdate,
@@ -620,7 +632,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroups_updateLevelOrder",
     title: "Set the ordering of levels within a sensitivity group.",
-    description: "Updates the order of sensitivity levels in a group.",
+    description: "Updates the order of sensitivity levels in a group.\n\nPUT /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/level_order",
     inputSchema: {
       type: "object",
       properties: {
@@ -629,6 +641,7 @@ export const tools: readonly Tool[] = [
           "description": "Desired ordered list of level IDs."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -649,6 +662,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder$,
       },

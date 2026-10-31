@@ -7,11 +7,6 @@ import {
   botnet$$feed$$api_api$$response$$common$$failure,
   botnet$$feed$$api_messages,
 } from "../outputs.js";
-import {
-  botnet$$feed$$api_asn,
-  botnet$$feed$$api_identifier,
-} from "../schemas.js";
-import { botnet$$feed$$api_timestamp } from "./schemas.js";
 
 /**
  * The tools of `botnetFeed.asn`.
@@ -20,18 +15,19 @@ export const tools: readonly Tool[] = [
   {
     name: "botnetFeed_asn_dayReport",
     title: "Get daily report",
-    description: "Gets all the data the botnet tracking database has for a given ASN registered to user account for given date. If no date is given, it will return results for the previous day.",
+    description: "Gets all the data the botnet tracking database has for a given ASN registered to user account for given date. If no date is given, it will return results for the previous day.\n\nGET /accounts/{account_id}/botnet_feed/asn/{asn_id}/day_report",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/botnet-feed-api_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "asn_id": {
-              "$ref": "#/$defs/botnet-feed-api_asn"
+              "type": "integer"
             }
           },
           "required": [
@@ -41,9 +37,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
-              "$ref": "#/$defs/botnet-feed-api_timestamp"
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
@@ -52,11 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "botnet-feed-api_asn": botnet$$feed$$api_asn,
-        "botnet-feed-api_identifier": botnet$$feed$$api_identifier,
-        "botnet-feed-api_timestamp": botnet$$feed$$api_timestamp,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -153,18 +147,19 @@ export const tools: readonly Tool[] = [
   {
     name: "botnetFeed_asn_fullReport",
     title: "Get full report",
-    description: "Gets all the data the botnet threat feed tracking database has for a given ASN registered to user account.",
+    description: "Gets all the data the botnet threat feed tracking database has for a given ASN registered to user account.\n\nGET /accounts/{account_id}/botnet_feed/asn/{asn_id}/full_report",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/botnet-feed-api_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "asn_id": {
-              "$ref": "#/$defs/botnet-feed-api_asn"
+              "type": "integer"
             }
           },
           "required": [
@@ -177,10 +172,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "botnet-feed-api_asn": botnet$$feed$$api_asn,
-        "botnet-feed-api_identifier": botnet$$feed$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

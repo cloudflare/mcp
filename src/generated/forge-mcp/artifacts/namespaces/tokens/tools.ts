@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_tokens_create",
     title: "Create a repository token",
-    description: "Creates a scoped Git token for a repository.\n\nThis method is beta.",
+    description: "Creates a scoped Git token for a repository.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/artifacts/namespaces/{namespace}/tokens",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -57,6 +58,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -907,11 +909,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_tokens_revoke",
     title: "Revoke a token",
-    description: "Revokes an Artifacts repository token. Token IDs are resolved through an eventually consistent index, so revoking a token within about a second of creating it can return 404; retry after a short delay.\n\nThis method is beta.",
+    description: "Revokes an Artifacts repository token. Token IDs are resolved through an eventually consistent index, so revoking a token within about a second of creating it can return 404; retry after a short delay.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/artifacts/namespaces/{namespace}/tokens/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -937,6 +940,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

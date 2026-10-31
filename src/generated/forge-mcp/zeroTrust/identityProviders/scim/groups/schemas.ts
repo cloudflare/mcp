@@ -26,11 +26,3 @@ export const access_idp_resource_id: JsonSchema = {
   "maxItems": 50,
   "type": "array"
 };
-
-/**
- * The schema of `access_name-4`.
- */
-export const access_name$$4: JsonSchema = {
-  "description": "The display name of the SCIM Group resource.",
-  "type": "string"
-};

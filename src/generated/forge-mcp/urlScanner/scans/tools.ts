@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_bulkCreate",
     title: "Bulk create URL Scans",
-    description: "Submit URLs to scan. Check limits at https://developers.cloudflare.com/security-center/investigate/scan-limits/ and take into account scans submitted in bulk have lower priority and may take longer to finish.",
+    description: "Submit URLs to scan. Check limits at https://developers.cloudflare.com/security-center/investigate/scan-limits/ and take into account scans submitted in bulk have lower priority and may take longer to finish.\n\nPOST /accounts/{account_id}/urlscanner/v2/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -70,6 +70,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -85,6 +86,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -284,7 +286,7 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_create",
     title: "Create URL Scan",
-    description: "Submit a URL to scan. Check limits at https://developers.cloudflare.com/security-center/investigate/scan-limits/.",
+    description: "Submit a URL to scan. Check limits at https://developers.cloudflare.com/security-center/investigate/scan-limits/.\n\nPOST /accounts/{account_id}/urlscanner/v2/scan",
     inputSchema: {
       type: "object",
       properties: {
@@ -487,6 +489,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -502,6 +505,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -744,11 +748,12 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_dom",
     title: "Get URL scan's DOM",
-    description: "Returns a plain text response, with the scan's DOM content as rendered by Chrome.",
+    description: "Returns a plain text response, with the scan's DOM content as rendered by Chrome.\n\nGET /accounts/{account_id}/urlscanner/v2/dom/{scan_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -770,6 +775,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -908,11 +914,12 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_get",
     title: "Get URL scan",
-    description: "Get URL scan by uuid",
+    description: "Get URL scan by uuid\n\nGET /accounts/{account_id}/urlscanner/v2/result/{scan_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -934,6 +941,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -10323,11 +10331,12 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_har",
     title: "Get URL scan's HAR",
-    description: "Get a URL scan's HAR file. See HAR spec at http://www.softwareishard.com/blog/har-12-spec/.",
+    description: "Get a URL scan's HAR file. See HAR spec at http://www.softwareishard.com/blog/har-12-spec/.\n\nGET /accounts/{account_id}/urlscanner/v2/har/{scan_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -10349,6 +10358,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -11002,11 +11012,12 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_list",
     title: "Search URL scans",
-    description: "Use a subset of ElasticSearch Query syntax to filter scans. Some example queries:<br/> <br/>- 'path:\"/bundles/jquery.js\"': Searches for scans who requested resources with the given path.<br/>- 'page.asn:AS24940 AND hash:xxx': Websites hosted in AS24940 where a resource with the given hash was downloaded.<br/>- 'page.domain:microsoft* AND verdicts.malicious:true AND NOT page.domain:microsoft.com': malicious scans whose hostname starts with \"microsoft\".<br/>- 'apikey:me AND date:[2025-01 TO 2025-02]': my scans from 2025 January to 2025 February.",
+    description: "Use a subset of ElasticSearch Query syntax to filter scans. Some example queries:<br/> <br/>- 'path:\"/bundles/jquery.js\"': Searches for scans who requested resources with the given path.<br/>- 'page.asn:AS24940 AND hash:xxx': Websites hosted in AS24940 where a resource with the given hash was downloaded.<br/>- 'page.domain:microsoft* AND verdicts.malicious:true AND NOT page.domain:microsoft.com': malicious scans whose hostname starts with \"microsoft\".<br/>- 'apikey:me AND date:[2025-01 TO 2025-02]': my scans from 2025 January to 2025 February.\n\nGET /accounts/{account_id}/urlscanner/v2/search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -11019,6 +11030,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "q": {
               "description": "Filter scans",
@@ -11035,6 +11047,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -11330,11 +11343,12 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_scans_screenshot",
     title: "Get screenshot",
-    description: "Get scan's screenshot by resolution (desktop/mobile/tablet).",
+    description: "Get scan's screenshot by resolution (desktop/mobile/tablet).\n\nGET /accounts/{account_id}/urlscanner/v2/screenshots/{scan_id}.png",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -11353,6 +11367,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "resolution": {
               "default": "desktop",
@@ -11371,6 +11386,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

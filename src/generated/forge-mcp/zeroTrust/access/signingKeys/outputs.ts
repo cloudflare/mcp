@@ -4,43 +4,22 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_days_until_next_rotation` in responses.
- */
-export const access_days_until_next_rotation: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `access_key_config` in responses.
  */
 export const access_key_config: JsonSchema = {
   "properties": {
     "days_until_next_rotation": {
-      "$ref": "#/$defs/access_days_until_next_rotation"
+      "type": "number"
     },
     "key_rotation_interval_days": {
-      "$ref": "#/$defs/access_key_rotation_interval_days"
+      "type": "number"
     },
     "last_key_rotation_at": {
-      "$ref": "#/$defs/access_last_key_rotation_at"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_key_rotation_interval_days` in responses.
- */
-export const access_key_rotation_interval_days: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `access_last_key_rotation_at` in responses.
- */
-export const access_last_key_rotation_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**

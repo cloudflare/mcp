@@ -20,21 +20,13 @@ export const email_create_sending_subdomain_properties: JsonSchema = {
 };
 
 /**
- * The schema of `email_sending_subdomain_identifier`.
- */
-export const email_sending_subdomain_identifier: JsonSchema = {
-  "description": "Sending subdomain identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `email_update_sending_subdomain_properties`.
  */
 export const email_update_sending_subdomain_properties: JsonSchema = {
-  "description": "At least one of `preview_enabled` or `drop_suppressed_recipients` must\nbe provided. A field omitted from the request body is left unchanged.\n",
+  "description": "At least one of `preview_enabled` or `drop_suppressed_recipients` must\nbe provided. A field omitted from the request body is left unchanged.",
   "properties": {
     "drop_suppressed_recipients": {
-      "description": "Whether a send request that includes a recipient suppressed on\nthis subdomain drops that recipient and still delivers to the\nrest, instead of failing the entire request.\n",
+      "description": "Whether a send request that includes a recipient suppressed on\nthis subdomain drops that recipient and still delivers to the\nrest, instead of failing the entire request.",
       "type": "boolean"
     },
     "preview_enabled": {

@@ -11,10 +11,11 @@ export const tools: readonly Tool[] = [
   {
     name: "live_get",
     title: "Run liveness checks",
-    description: "Return a success message after running liveness checks.",
+    description: "Return a success message after running liveness checks.\n\nGET /live",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

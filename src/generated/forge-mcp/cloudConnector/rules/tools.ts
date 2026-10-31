@@ -6,15 +6,10 @@ import {
   cloud$$connector_api$$response$$common,
   cloud$$connector_api$$response$$common$$failure,
   cloud$$connector_messages,
-  cloud$$connector_provider,
   cloud$$connector_rule,
   cloud$$connector_rules,
 } from "./outputs.js";
-import {
-  cloud$$connector_identifier,
-  cloud$$connector_provider as cloud$$connector_provider$,
-  cloud$$connector_rule as cloud$$connector_rule$,
-} from "./schemas.js";
+import { cloud$$connector_rule as cloud$$connector_rule$ } from "./schemas.js";
 
 /**
  * The tools of `cloudConnector.rules`.
@@ -23,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudConnector_rules_list",
     title: "Rules",
-    description: "Retrieves the Cloud Connector rules configured for a zone. Rules define how traffic is routed to cloud services.",
+    description: "Retrieves the Cloud Connector rules configured for a zone. Rules define how traffic is routed to cloud services.\n\nGET /zones/{zone_id}/cloud_connector/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cloud-connector_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloud-connector_identifier": cloud$$connector_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -64,7 +58,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
         "cloud-connector_messages": cloud$$connector_messages,
-        "cloud-connector_provider": cloud$$connector_provider,
         "cloud-connector_rule": cloud$$connector_rule,
         "cloud-connector_rules": cloud$$connector_rules,
       },
@@ -118,7 +111,6 @@ export const tools: readonly Tool[] = [
         "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
         "cloud-connector_api-response-common-failure": cloud$$connector_api$$response$$common$$failure,
         "cloud-connector_messages": cloud$$connector_messages,
-        "cloud-connector_provider": cloud$$connector_provider,
         "cloud-connector_rule": cloud$$connector_rule,
         "cloud-connector_rules": cloud$$connector_rules,
       },
@@ -130,7 +122,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudConnector_rules_update",
     title: "Put Rules",
-    description: "Updates Cloud Connector rules for a zone, replacing the existing rule configuration.",
+    description: "Updates Cloud Connector rules for a zone, replacing the existing rule configuration.\n\nPUT /zones/{zone_id}/cloud_connector/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -141,10 +133,11 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cloud-connector_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -157,9 +150,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloud-connector_identifier": cloud$$connector_identifier,
-        "cloud-connector_provider": cloud$$connector_provider$,
         "cloud-connector_rule": cloud$$connector_rule$,
       },
     },
@@ -180,7 +172,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
         "cloud-connector_messages": cloud$$connector_messages,
-        "cloud-connector_provider": cloud$$connector_provider,
         "cloud-connector_rule": cloud$$connector_rule,
         "cloud-connector_rules": cloud$$connector_rules,
       },
@@ -233,7 +224,6 @@ export const tools: readonly Tool[] = [
         "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
         "cloud-connector_api-response-common-failure": cloud$$connector_api$$response$$common$$failure,
         "cloud-connector_messages": cloud$$connector_messages,
-        "cloud-connector_provider": cloud$$connector_provider,
         "cloud-connector_rule": cloud$$connector_rule,
         "cloud-connector_rules": cloud$$connector_rules,
       },

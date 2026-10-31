@@ -9,12 +9,7 @@ import {
   access_api$$response$$single,
   access_id_response,
   access_messages,
-  access_uuid,
 } from "../../../outputs.js";
-import {
-  access_identifier,
-  access_uuid as access_uuid$,
-} from "../../../schemas.js";
 import {
   access_certificates$$2,
   access_response_collection$$7,
@@ -28,15 +23,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_infrastructure_sshCa_create",
     title: "Add a new SSH Certificate Authority (CA)",
-    description: "Adds a new SSH Certificate Authority (CA).",
+    description: "Adds a new SSH Certificate Authority (CA).\n\nPOST /accounts/{account_id}/access/gateway_ca",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,9 +44,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-8",
@@ -99,19 +93,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_infrastructure_sshCa_delete",
     title: "Delete an SSH Certificate Authority (CA)",
-    description: "Deletes an SSH Certificate Authority.",
+    description: "Deletes an SSH Certificate Authority.\n\nDELETE /accounts/{account_id}/access/gateway_ca/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "certificate_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -124,10 +119,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response",
@@ -135,7 +127,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -166,7 +157,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -176,15 +166,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_infrastructure_sshCa_list",
     title: "List SSH Certificate Authorities (CA)",
-    description: "Lists SSH Certificate Authorities (CA).",
+    description: "Lists SSH Certificate Authorities (CA).\n\nGET /accounts/{account_id}/access/gateway_ca",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -196,9 +187,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-7",

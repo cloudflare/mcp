@@ -26,22 +26,15 @@ export const aaa_components$$schemas$$response_collection: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_name` in responses.
- */
-export const aaa_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_pagerduty` in responses.
  */
 export const aaa_pagerduty: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/aaa_uuid"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/aaa_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -60,7 +53,7 @@ export const aaa_sensitive_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/aaa_token"
+              "type": "string"
             }
           },
           "type": "object"
@@ -69,11 +62,4 @@ export const aaa_sensitive_id_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `aaa_token` in responses.
- */
-export const aaa_token: JsonSchema = {
-  "type": "string"
 };

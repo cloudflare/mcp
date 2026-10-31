@@ -8,11 +8,6 @@ import {
   resource$$tagging_cursor_result_info,
   resource$$tagging_messages,
 } from "../outputs.js";
-import {
-  resource$$tagging_account_id,
-  resource$$tagging_identifier,
-  resource$$tagging_resource_type,
-} from "../schemas.js";
 import { resource$$tagging_tag_values_response_collection } from "./outputs.js";
 
 /**
@@ -22,14 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "tags_values_list",
     title: "List tag values",
-    description: "Lists all distinct values for a given tag key, optionally filtered by resource type.\n\nThis method is beta.",
+    description: "Lists all distinct values for a given tag key, optionally filtered by resource type.\n\nThis method is beta.\n\nGET /accounts/{account_id}/tags/values/{tag_key}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-tagging_account_id"
+              "description": "Identifier.",
+              "type": "string"
             },
             "tag_key": {
               "description": "The tag key to retrieve values for.",
@@ -43,14 +40,63 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Cursor for pagination.",
               "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/resource-tagging_resource_type",
-              "description": "Filter by resource type."
+              "description": "Filter by resource type.",
+              "enum": [
+                "access_application",
+                "access_application_policy",
+                "access_group",
+                "access_service_token",
+                "account",
+                "account_ruleset",
+                "ai_gateway",
+                "ai_search_instance",
+                "ai_search_namespace",
+                "alerting_policy",
+                "alerting_webhook",
+                "api_gateway_operation",
+                "cloudflared_tunnel",
+                "custom_certificate",
+                "custom_hostname",
+                "cws_deployment",
+                "cws_policy",
+                "cws_policy_set",
+                "cws_workload",
+                "d1_database",
+                "device",
+                "dns_record",
+                "durable_object_namespace",
+                "gateway_list",
+                "gateway_rule",
+                "healthcheck",
+                "image",
+                "infrastructure_target",
+                "kv_namespace",
+                "load_balancer",
+                "load_balancer_monitor",
+                "load_balancer_pool",
+                "managed_client_certificate",
+                "namespace_worker",
+                "pages_project",
+                "queue",
+                "r2_bucket",
+                "resource_share",
+                "stream_live_input",
+                "stream_video",
+                "vectorize_index",
+                "worker",
+                "worker_route",
+                "worker_version",
+                "zone",
+                "zone_ruleset"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -59,11 +105,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-tagging_account_id": resource$$tagging_account_id,
-        "resource-tagging_identifier": resource$$tagging_identifier,
-        "resource-tagging_resource_type": resource$$tagging_resource_type,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-tagging_tag_values_response_collection",

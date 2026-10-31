@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
 import { r2_sippy } from "./outputs.js";
 import {
   r2_enable_sippy_aws,
@@ -24,11 +23,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_sippy_delete",
     title: "Disable Sippy",
-    description: "Disables Sippy on-demand migration for an R2 bucket. Requests no longer fetch missing objects from the source storage provider. Objects already copied to R2 remain in the bucket.\n\nConfirm with the user before calling this tool. This disables Sippy on-demand migration for the R2 bucket. Objects already copied to R2 remain in the bucket.",
+    description: "Disables Sippy on-demand migration for an R2 bucket. Requests no longer fetch missing objects from the source storage provider. Objects already copied to R2 remain in the bucket.\n\nConfirm with the user before calling this tool. This disables Sippy on-demand migration for the R2 bucket. Objects already copied to R2 remain in the bucket.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -46,14 +46,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -66,10 +67,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -159,11 +157,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_sippy_get",
     title: "Get Sippy Configuration",
-    description: "Gets configuration for Sippy for an existing R2 bucket.",
+    description: "Gets configuration for Sippy for an existing R2 bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -181,14 +180,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -201,10 +201,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -282,7 +279,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_sippy_update",
     title: "Enable Sippy",
-    description: "Configures and enables Sippy on-demand migration for an R2 bucket. When a requested object is missing from R2, Sippy serves it from the configured source storage provider and copies it to R2.",
+    description: "Configures and enables Sippy on-demand migration for an R2 bucket. When a requested object is missing from R2, Sippy serves it from the configured source storage provider and copies it to R2.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
     inputSchema: {
       type: "object",
       properties: {
@@ -303,6 +300,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -320,14 +318,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -341,9 +340,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
         "r2_enable_sippy_aws": r2_enable_sippy_aws,
         "r2_enable_sippy_azure": r2_enable_sippy_azure,
         "r2_enable_sippy_gcs": r2_enable_sippy_gcs,

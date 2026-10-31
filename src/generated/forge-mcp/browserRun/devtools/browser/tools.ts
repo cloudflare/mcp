@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_create",
     title: "Get a browser session ID.",
-    description: "Acquires a browser and returns its session ID and websocket URL. Optionally accepts a JSON body with session guardrails to restrict outbound HTTP/S traffic.",
+    description: "Acquires a browser and returns its session ID and websocket URL. Optionally accepts a JSON body with session guardrails to restrict outbound HTTP/S traffic.\n\nPOST /accounts/{account_id}/browser-rendering/devtools/browser",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -53,6 +54,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "keep_alive": {
               "default": 60000,
@@ -85,6 +87,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -188,11 +191,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_delete",
     title: "Close browser session.",
-    description: "Closes an existing browser session.",
+    description: "Closes an existing browser session.\n\nDELETE /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -214,6 +218,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -280,11 +285,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_protocol",
     title: "Get Chrome DevTools Protocol schema.",
-    description: "Returns the complete Chrome DevTools Protocol schema including all domains, commands, events, and types. This schema describes the entire CDP API surface.",
+    description: "Returns the complete Chrome DevTools Protocol schema including all domains, commands, events, and types. This schema describes the entire CDP API surface.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/protocol",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -306,6 +312,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -591,11 +598,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_version",
     title: "Get browser version metadata.",
-    description: "Get browser version metadata.",
+    description: "Get browser version metadata.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/version",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -617,6 +625,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

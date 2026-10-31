@@ -19,16 +19,23 @@ export const tls$$certificates$$and$$hostnames_config: JsonSchema = {
 export const tls$$certificates$$and$$hostnames_hostname_certid_input: JsonSchema = {
   "properties": {
     "cert_id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_cert_id",
-      "description": "Certificate identifier tag."
+      "description": "Certificate identifier tag.",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-5",
-      "description": "Indicates whether hostname-level authenticated origin pulls is enabled. A null value voids the association."
+      "description": "Indicates whether hostname-level authenticated origin pulls is enabled. A null value voids the association.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "hostname": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-2",
-      "description": "The hostname on the origin for which the client certificate uploaded will be used."
+      "description": "The hostname on the origin for which the client certificate uploaded will be used.",
+      "type": "string"
     }
   },
   "type": "object"

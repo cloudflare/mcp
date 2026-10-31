@@ -81,17 +81,6 @@ export const observatory_count$$response: JsonSchema = {
 };
 
 /**
- * The schema of `observatory_device_type` in responses.
- */
-export const observatory_device_type: JsonSchema = {
-  "enum": [
-    "DESKTOP",
-    "MOBILE"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `observatory_labeled_region` in responses.
  */
 export const observatory_labeled_region: JsonSchema = {
@@ -100,24 +89,33 @@ export const observatory_labeled_region: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/observatory_region"
+      "enum": [
+        "asia-east1",
+        "asia-northeast1",
+        "asia-northeast2",
+        "asia-south1",
+        "asia-southeast1",
+        "australia-southeast1",
+        "europe-north1",
+        "europe-southwest1",
+        "europe-west1",
+        "europe-west2",
+        "europe-west3",
+        "europe-west4",
+        "europe-west8",
+        "europe-west9",
+        "me-west1",
+        "southamerica-east1",
+        "us-central1",
+        "us-east1",
+        "us-east4",
+        "us-south1",
+        "us-west1"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `observatory_lighthouse_error_code` in responses.
- */
-export const observatory_lighthouse_error_code: JsonSchema = {
-  "enum": [
-    "NOT_REACHABLE",
-    "DNS_FAILURE",
-    "NOT_HTML",
-    "LIGHTHOUSE_TIMEOUT",
-    "UNKNOWN"
-  ],
-  "type": "string"
 };
 
 /**
@@ -129,12 +127,23 @@ export const observatory_lighthouse_report: JsonSchema = {
       "type": "number"
     },
     "deviceType": {
-      "$ref": "#/$defs/observatory_device_type"
+      "enum": [
+        "DESKTOP",
+        "MOBILE"
+      ],
+      "type": "string"
     },
     "error": {
       "properties": {
         "code": {
-          "$ref": "#/$defs/observatory_lighthouse_error_code"
+          "enum": [
+            "NOT_REACHABLE",
+            "DNS_FAILURE",
+            "NOT_HTML",
+            "LIGHTHOUSE_TIMEOUT",
+            "UNKNOWN"
+          ],
+          "type": "string"
         },
         "detail": {
           "type": "string"
@@ -161,7 +170,12 @@ export const observatory_lighthouse_report: JsonSchema = {
       "type": "number"
     },
     "state": {
-      "$ref": "#/$defs/observatory_lighthouse_state"
+      "enum": [
+        "RUNNING",
+        "COMPLETE",
+        "FAILED"
+      ],
+      "type": "string"
     },
     "tbt": {
       "type": "number"
@@ -174,18 +188,6 @@ export const observatory_lighthouse_report: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `observatory_lighthouse_state` in responses.
- */
-export const observatory_lighthouse_state: JsonSchema = {
-  "enum": [
-    "RUNNING",
-    "COMPLETE",
-    "FAILED"
-  ],
-  "type": "string"
 };
 
 /**
@@ -216,13 +218,14 @@ export const observatory_messages: JsonSchema = {
 export const observatory_page_test: JsonSchema = {
   "properties": {
     "date": {
-      "$ref": "#/$defs/observatory_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "desktopReport": {
       "$ref": "#/$defs/observatory_lighthouse_report"
     },
     "id": {
-      "$ref": "#/$defs/observatory_uuid"
+      "type": "string"
     },
     "mobileReport": {
       "$ref": "#/$defs/observatory_lighthouse_report"
@@ -231,74 +234,15 @@ export const observatory_page_test: JsonSchema = {
       "$ref": "#/$defs/observatory_labeled_region"
     },
     "scheduleFrequency": {
-      "$ref": "#/$defs/observatory_schedule_frequency"
+      "enum": [
+        "DAILY",
+        "WEEKLY"
+      ],
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/observatory_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `observatory_region` in responses.
- */
-export const observatory_region: JsonSchema = {
-  "enum": [
-    "asia-east1",
-    "asia-northeast1",
-    "asia-northeast2",
-    "asia-south1",
-    "asia-southeast1",
-    "australia-southeast1",
-    "europe-north1",
-    "europe-southwest1",
-    "europe-west1",
-    "europe-west2",
-    "europe-west3",
-    "europe-west4",
-    "europe-west8",
-    "europe-west9",
-    "me-west1",
-    "southamerica-east1",
-    "us-central1",
-    "us-east1",
-    "us-east4",
-    "us-south1",
-    "us-west1"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `observatory_schedule_frequency` in responses.
- */
-export const observatory_schedule_frequency: JsonSchema = {
-  "enum": [
-    "DAILY",
-    "WEEKLY"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `observatory_timestamp` in responses.
- */
-export const observatory_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `observatory_url` in responses.
- */
-export const observatory_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `observatory_uuid` in responses.
- */
-export const observatory_uuid: JsonSchema = {
-  "type": "string"
 };

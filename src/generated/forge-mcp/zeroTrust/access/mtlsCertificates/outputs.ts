@@ -22,39 +22,42 @@ export const access_certificates: JsonSchema = {
       "$ref": "#/$defs/access_associated_hostnames"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "expires_on": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "fingerprint": {
-      "$ref": "#/$defs/access_fingerprint"
+      "type": "string"
     },
     "id": {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-7"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_fingerprint` in responses.
- */
-export const access_fingerprint: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_name-7` in responses.
- */
-export const access_name$$7: JsonSchema = {
-  "type": "string"
 };
 
 /**

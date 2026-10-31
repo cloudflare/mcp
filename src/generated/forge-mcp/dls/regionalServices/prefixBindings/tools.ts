@@ -9,7 +9,6 @@ import {
   dls_none,
   dls_response,
 } from "../../outputs.js";
-import { dls_account_identifier } from "../../schemas.js";
 import {
   dls_PrefixBinding,
   dls_PrefixBindingPaginatedListResponse,
@@ -27,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regionalServices_prefixBindings_create",
     title: "Create a DLS prefix binding",
-    description: "Bind a CIDR from a BYOIP prefix to a region.\n\nThis requires the **IP Prefixes Write** permission in addition to **DLS Write**, because the binding is created against a BYOIP prefix in Addressing.",
+    description: "Bind a CIDR from a BYOIP prefix to a region.\n\nThis requires the **IP Prefixes Write** permission in addition to **DLS Write**, because the binding is created against a BYOIP prefix in Addressing.\n\nPOST /accounts/{account_id}/dls/regional_services/prefix_bindings",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dls_CreatePrefixBindingInput"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,9 +51,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dls_CreatePrefixBindingInput": dls_CreatePrefixBindingInput,
-        "dls_account_identifier": dls_account_identifier,
       },
     },
     outputSchema: {
@@ -120,15 +120,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regionalServices_prefixBindings_delete",
     title: "Delete a DLS prefix binding",
-    description: "Delete a BYOIP prefix binding.\n\nLike creating a binding, this requires **IP Prefixes Write** in addition to **DLS Write**.",
+    description: "Delete a BYOIP prefix binding.\n\nLike creating a binding, this requires **IP Prefixes Write** in addition to **DLS Write**.\n\nDELETE /accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "binding_id": {
               "description": "Unique identifier for the prefix binding.",
@@ -145,9 +146,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_account_identifier": dls_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dls_good_response",
@@ -205,7 +204,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regionalServices_prefixBindings_edit",
     title: "Update a DLS prefix binding",
-    description: "Update the region of an existing BYOIP prefix binding.\n\nLike creating a binding, this requires **IP Prefixes Write** in addition to **DLS Write**.",
+    description: "Update the region of an existing BYOIP prefix binding.\n\nLike creating a binding, this requires **IP Prefixes Write** in addition to **DLS Write**.\n\nPATCH /accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -213,10 +212,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dls_UpdatePrefixBindingInput"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "binding_id": {
               "description": "Unique identifier for the prefix binding.",
@@ -234,9 +234,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dls_UpdatePrefixBindingInput": dls_UpdatePrefixBindingInput,
-        "dls_account_identifier": dls_account_identifier,
       },
     },
     outputSchema: {
@@ -303,15 +303,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regionalServices_prefixBindings_get",
     title: "Get a DLS prefix binding",
-    description: "Retrieve a single BYOIP prefix binding by ID.",
+    description: "Retrieve a single BYOIP prefix binding by ID.\n\nGET /accounts/{account_id}/dls/regional_services/prefix_bindings/{binding_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "binding_id": {
               "description": "Unique identifier for the prefix binding.",
@@ -328,9 +329,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_account_identifier": dls_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dls_PrefixBindingResponse",
@@ -392,15 +391,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regionalServices_prefixBindings_list",
     title: "List DLS prefix bindings for an account",
-    description: "List the BYOIP prefix bindings configured for an account.",
+    description: "List the BYOIP prefix bindings configured for an account.\n\nGET /accounts/{account_id}/dls/regional_services/prefix_bindings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -409,6 +409,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque token for cursor-based pagination. Omit for the first page. Pass the value from a previous response to fetch the next page.",
@@ -425,9 +426,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_account_identifier": dls_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse",

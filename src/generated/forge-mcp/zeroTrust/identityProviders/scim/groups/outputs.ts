@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `access_externalId` in responses.
- */
-export const access_externalId: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_group_details` in responses.
  */
 export const access_group_details: JsonSchema = {
@@ -19,10 +12,10 @@ export const access_group_details: JsonSchema = {
       "type": "string"
     },
     "externalId": {
-      "$ref": "#/$defs/access_externalId"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_id"
+      "type": "string"
     },
     "members": {
       "items": {
@@ -73,10 +66,10 @@ export const access_groups: JsonSchema = {
       "type": "string"
     },
     "externalId": {
-      "$ref": "#/$defs/access_externalId"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_id"
+      "type": "string"
     },
     "meta": {
       "$ref": "#/$defs/access_meta"

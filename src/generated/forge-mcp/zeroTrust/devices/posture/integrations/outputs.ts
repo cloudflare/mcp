@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_components-schemas-name` in responses.
- */
-export const teams$$devices_components$$schemas$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_config_response` in responses.
  */
 export const teams$$devices_config_response: JsonSchema = {
@@ -26,26 +19,29 @@ export const teams$$devices_device$$posture$$integrations: JsonSchema = {
       "$ref": "#/$defs/teams-devices_config_response"
     },
     "id": {
-      "$ref": "#/$defs/teams-devices_uuid"
+      "type": "string"
     },
     "interval": {
-      "$ref": "#/$defs/teams-devices_interval"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_components-schemas-name"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/teams-devices_schemas-type"
+      "enum": [
+        "workspace_one",
+        "crowdstrike_s2s",
+        "uptycs",
+        "intune",
+        "kolide",
+        "tanium_s2s",
+        "sentinelone_s2s",
+        "custom_s2s"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_interval` in responses.
- */
-export const teams$$devices_interval: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -113,23 +109,6 @@ export const teams$$devices_schemas$$single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `teams-devices_schemas-type` in responses.
- */
-export const teams$$devices_schemas$$type: JsonSchema = {
-  "enum": [
-    "workspace_one",
-    "crowdstrike_s2s",
-    "uptycs",
-    "intune",
-    "kolide",
-    "tanium_s2s",
-    "sentinelone_s2s",
-    "custom_s2s"
-  ],
-  "type": "string"
 };
 
 /**

@@ -102,90 +102,6 @@ export const email$$security_CursorResultInfo: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_DispositionLabel` in responses.
- */
-export const email$$security_DispositionLabel: JsonSchema = {
-  "enum": [
-    "MALICIOUS",
-    "MALICIOUS-BEC",
-    "SUSPICIOUS",
-    "SPOOF",
-    "SPAM",
-    "BULK",
-    "ENCRYPTED",
-    "EXTERNAL",
-    "UNKNOWN",
-    "NONE"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_InvestigateId` in responses.
- */
-export const email$$security_InvestigateId: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_MailboxDestination` in responses.
- */
-export const email$$security_MailboxDestination: JsonSchema = {
-  "enum": [
-    "Inbox",
-    "JunkEmail",
-    "DeletedItems",
-    "RecoverableItemsDeletions",
-    "RecoverableItemsPurges"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_MessageDeliveryMode` in responses.
- */
-export const email$$security_MessageDeliveryMode: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "DIRECT",
-        "BCC",
-        "JOURNAL",
-        "REVIEW_SUBMISSION",
-        "DMARC_UNVERIFIED",
-        "DMARC_FAILURE_REPORT",
-        "DMARC_AGGREGATE_REPORT",
-        "THREAT_INTEL_SUBMISSION",
-        "SIMULATION_SUBMISSION",
-        "API",
-        "RETRO_SCAN"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `email-security_MessageDeliveryStatus` in responses.
- */
-export const email$$security_MessageDeliveryStatus: JsonSchema = {
-  "enum": [
-    "delivered",
-    "moved",
-    "quarantined",
-    "rejected",
-    "deferred",
-    "bounced",
-    "queued",
-    "move_failed"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_MessageDetails` in responses.
  */
 export const email$$security_MessageDetails: JsonSchema = {
@@ -215,7 +131,27 @@ export const email$$security_MessageDetails: JsonSchema = {
     "delivery_mode": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_MessageDeliveryMode"
+          "oneOf": [
+            {
+              "enum": [
+                "DIRECT",
+                "BCC",
+                "JOURNAL",
+                "REVIEW_SUBMISSION",
+                "DMARC_UNVERIFIED",
+                "DMARC_FAILURE_REPORT",
+                "DMARC_AGGREGATE_REPORT",
+                "THREAT_INTEL_SUBMISSION",
+                "SIMULATION_SUBMISSION",
+                "API",
+                "RETRO_SCAN"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         {
           "type": "null"
@@ -226,7 +162,17 @@ export const email$$security_MessageDetails: JsonSchema = {
       "oneOf": [
         {
           "items": {
-            "$ref": "#/$defs/email-security_MessageDeliveryStatus"
+            "enum": [
+              "delivered",
+              "moved",
+              "quarantined",
+              "rejected",
+              "deferred",
+              "bounced",
+              "queued",
+              "move_failed"
+            ],
+            "type": "string"
           },
           "type": "array"
         },
@@ -277,7 +223,19 @@ export const email$$security_MessageDetails: JsonSchema = {
     "final_disposition": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -312,7 +270,19 @@ export const email$$security_MessageDetails: JsonSchema = {
               "detection": {
                 "oneOf": [
                   {
-                    "$ref": "#/$defs/email-security_DispositionLabel"
+                    "enum": [
+                      "MALICIOUS",
+                      "MALICIOUS-BEC",
+                      "SUSPICIOUS",
+                      "SPOOF",
+                      "SPAM",
+                      "BULK",
+                      "ENCRYPTED",
+                      "EXTERNAL",
+                      "UNKNOWN",
+                      "NONE"
+                    ],
+                    "type": "string"
                   },
                   {
                     "type": "null"
@@ -420,7 +390,7 @@ export const email$$security_MessageDetails: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_InvestigateId"
+      "type": "string"
     },
     "is_phish_submission": {
       "type": "boolean"
@@ -458,7 +428,7 @@ export const email$$security_MessageDetails: JsonSchema = {
       ]
     },
     "postfix_id": {
-      "$ref": "#/$defs/email-security_PostfixId"
+      "type": "string"
     },
     "postfix_id_outbound": {
       "oneOf": [
@@ -695,26 +665,6 @@ export const email$$security_MessageDetails: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_PatternType` in responses.
- */
-export const email$$security_PatternType: JsonSchema = {
-  "enum": [
-    "EMAIL",
-    "DOMAIN",
-    "IP",
-    "UNKNOWN"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_PostfixId` in responses.
- */
-export const email$$security_PostfixId: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_Validation` in responses.
  */
 export const email$$security_Validation: JsonSchema = {
@@ -732,7 +682,21 @@ export const email$$security_Validation: JsonSchema = {
     "dkim": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_ValidationStatus"
+          "oneOf": [
+            {
+              "enum": [
+                "pass",
+                "neutral",
+                "fail",
+                "error",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         {
           "type": "null"
@@ -742,7 +706,21 @@ export const email$$security_Validation: JsonSchema = {
     "dmarc": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_ValidationStatus"
+          "oneOf": [
+            {
+              "enum": [
+                "pass",
+                "neutral",
+                "fail",
+                "error",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         {
           "type": "null"
@@ -752,7 +730,21 @@ export const email$$security_Validation: JsonSchema = {
     "spf": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_ValidationStatus"
+          "oneOf": [
+            {
+              "enum": [
+                "pass",
+                "neutral",
+                "fail",
+                "error",
+                "none"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         {
           "type": "null"
@@ -761,27 +753,6 @@ export const email$$security_Validation: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `email-security_ValidationStatus` in responses.
- */
-export const email$$security_ValidationStatus: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "pass",
-        "neutral",
-        "fail",
-        "error",
-        "none"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -930,12 +901,4 @@ export const email$$security_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `email-security_timestamp` in responses.
- */
-export const email$$security_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

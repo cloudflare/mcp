@@ -8,41 +8,16 @@ import {
   builds_EnvironmentVariablesResponse,
   builds_ErrorResponse,
   builds_PaginationInfo,
-  builds_SCMProviderType,
   builds_WorkerBuildSettings,
   builds_WorkerGitRepository,
   builds_WorkerResponse,
-  builds_build_caching_enabled,
-  builds_build_command,
-  builds_build_token_uuid,
-  builds_created_on,
-  builds_deploy_command,
-  builds_external_script_id,
-  builds_is_secret,
   builds_path_excludes,
   builds_path_includes,
-  builds_provider_account_id,
-  builds_provider_account_name,
-  builds_repo_id,
-  builds_repo_name,
-  builds_root_directory,
 } from "../../outputs.js";
 import {
   builds_UpdateWorkerBuildSettingsInput,
-  builds_account_id,
-  builds_build_caching_enabled as builds_build_caching_enabled$,
-  builds_build_command as builds_build_command$,
-  builds_build_token_uuid as builds_build_token_uuid$,
-  builds_deploy_command as builds_deploy_command$,
-  builds_external_script_id as builds_external_script_id$,
-  builds_is_secret as builds_is_secret$,
   builds_path_excludes as builds_path_excludes$,
   builds_path_includes as builds_path_includes$,
-  builds_provider_account_id as builds_provider_account_id$,
-  builds_provider_account_name as builds_provider_account_name$,
-  builds_repo_id as builds_repo_id$,
-  builds_repo_name as builds_repo_name$,
-  builds_root_directory as builds_root_directory$,
 } from "../../schemas.js";
 import { builds_EnvironmentVariablesRequest } from "../schemas.js";
 import {
@@ -61,7 +36,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_workers_create",
     title: "Create Worker build configuration",
-    description: "Connect a Worker tag to a repository and production build settings.",
+    description: "Connect a Worker tag to a repository and production build settings.\n\nPOST /accounts/{account_id}/builds/workers",
     inputSchema: {
       type: "object",
       properties: {
@@ -69,10 +44,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_CreateWorkerRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -85,6 +61,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_CreateWorkerBuildSettingsInput": builds_CreateWorkerBuildSettingsInput,
         "builds_CreateWorkerGitRepositoryFunfettiInput": builds_CreateWorkerGitRepositoryFunfettiInput,
@@ -92,19 +69,8 @@ export const tools: readonly Tool[] = [
         "builds_CreateWorkerGitRepositoryInput": builds_CreateWorkerGitRepositoryInput,
         "builds_CreateWorkerRequest": builds_CreateWorkerRequest,
         "builds_EnvironmentVariablesRequest": builds_EnvironmentVariablesRequest,
-        "builds_account_id": builds_account_id,
-        "builds_build_command": builds_build_command$,
-        "builds_build_token_uuid": builds_build_token_uuid$,
-        "builds_deploy_command": builds_deploy_command$,
-        "builds_external_script_id": builds_external_script_id$,
-        "builds_is_secret": builds_is_secret$,
         "builds_path_excludes": builds_path_excludes$,
         "builds_path_includes": builds_path_includes$,
-        "builds_provider_account_id": builds_provider_account_id$,
-        "builds_provider_account_name": builds_provider_account_name$,
-        "builds_repo_id": builds_repo_id$,
-        "builds_repo_name": builds_repo_name$,
-        "builds_root_directory": builds_root_directory$,
       },
     },
     outputSchema: {
@@ -126,24 +92,11 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     annotations: {
@@ -196,24 +149,11 @@ export const tools: readonly Tool[] = [
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     request: (args) => ({
@@ -224,19 +164,20 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_workers_delete",
     title: "Delete Worker build configuration",
-    description: "Delete build settings and triggers for a Worker tag and cancel unfinished builds. The Worker is not deleted.\n\nConfirm with the user before calling this tool. This operation deletes the Worker build configuration and its triggers, and cancels unfinished builds. The Worker is not deleted.",
+    description: "Delete build settings and triggers for a Worker tag and cancel unfinished builds. The Worker is not deleted.\n\nConfirm with the user before calling this tool. This operation deletes the Worker build configuration and its triggers, and cancels unfinished builds. The Worker is not deleted.\n\nDELETE /accounts/{account_id}/builds/workers/{script_tag}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -249,10 +190,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_external_script_id": builds_external_script_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -326,19 +264,20 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_workers_get",
     title: "Get Worker build configuration",
-    description: "Retrieve the repository and production build settings associated with a Worker tag.",
+    description: "Retrieve the repository and production build settings associated with a Worker tag.\n\nGET /accounts/{account_id}/builds/workers/{script_tag}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -351,10 +290,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_external_script_id": builds_external_script_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -375,24 +311,11 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     annotations: {
@@ -440,24 +363,11 @@ export const tools: readonly Tool[] = [
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     request: (args) => ({
@@ -467,7 +377,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_workers_update",
     title: "Update Worker build configuration",
-    description: "Update the build configuration for a Worker script. Supports partial updates to git repository settings, production build settings, and Preview settings.",
+    description: "Update the build configuration for a Worker script. Supports partial updates to git repository settings, production build settings, and Preview settings.\n\nPATCH /accounts/{account_id}/builds/workers/{script_tag}",
     inputSchema: {
       type: "object",
       properties: {
@@ -475,14 +385,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_UpdateWorkerRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -492,6 +403,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "patch_existing_previews": {
               "default": "false",
@@ -510,19 +422,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_UpdateWorkerBuildSettingsInput": builds_UpdateWorkerBuildSettingsInput,
         "builds_UpdateWorkerRequest": builds_UpdateWorkerRequest,
-        "builds_account_id": builds_account_id,
-        "builds_build_caching_enabled": builds_build_caching_enabled$,
-        "builds_build_command": builds_build_command$,
-        "builds_build_token_uuid": builds_build_token_uuid$,
-        "builds_deploy_command": builds_deploy_command$,
-        "builds_external_script_id": builds_external_script_id$,
-        "builds_is_secret": builds_is_secret$,
         "builds_path_excludes": builds_path_excludes$,
         "builds_path_includes": builds_path_includes$,
-        "builds_root_directory": builds_root_directory$,
       },
     },
     outputSchema: {
@@ -544,24 +449,11 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     annotations: {
@@ -611,24 +503,11 @@ export const tools: readonly Tool[] = [
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     request: (args) => ({

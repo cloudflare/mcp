@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_matches_aggregate",
     title: "Count a priority intelligence requirement's matched events",
-    description: "Counts the PIR's matches by tag, attacker, attacker country, target industry, primary indicator, or indicator type: the top values, the number of distinct values, and the matches without a value. Covers the same matches as the matches list, in datasets the account can read now. Tags are grouped case-insensitively and shown with their most common spelling; an event counts once for each of its tags. `indicator` is the first indicator each event was created with. Field values are copied when an event matches; matches still being copied are reported in `matches.pending` and not counted, and matches whose event was already gone when its fields were copied in `matches.missing`. Counts keep the copied values, so an event deleted later stays counted. Requires the Threat Events entitlement.",
+    description: "Counts the PIR's matches by tag, attacker, attacker country, target industry, primary indicator, or indicator type: the top values, the number of distinct values, and the matches without a value. Covers the same matches as the matches list, in datasets the account can read now. Tags are grouped case-insensitively and shown with their most common spelling; an event counts once for each of its tags. `indicator` is the first indicator each event was created with. Field values are copied when an event matches; matches still being copied are reported in `matches.pending` and not counted, and matches whose event was already gone when its fields were copied in `matches.missing`. Counts keep the copied values, so an event deleted later stays counted. Requires the Threat Events entitlement.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}/matches/aggregate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggregate_by": {
               "description": "Comma-separated fields to count: tags, attacker, attacker_country, target_industry, indicator, indicator_type. `indicator` is each event's primary indicator, the first one it was created with.",
@@ -75,6 +77,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -594,11 +597,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_matches_aggregateAll",
     title: "Count matched events across the account's priority intelligence requirements",
-    description: "Returns each active PIR's match counts, with the same fields and filters as a single PIR's aggregate, and the number of distinct values of each field across all of them, each value counted once. Counts are not summed across PIRs: an event can match several PIRs. Drafts are left out; PIRs the matcher paused are included. A PIR whose matches cannot be counted is returned with `error` and left out of `combined`. Requires the Threat Events entitlement.",
+    description: "Returns each active PIR's match counts, with the same fields and filters as a single PIR's aggregate, and the number of distinct values of each field across all of them, each value counted once. Counts are not summed across PIRs: an event can match several PIRs. Drafts are left out; PIRs the matcher paused are included. A PIR whose matches cannot be counted is returned with `error` and left out of `combined`. Requires the Threat Events entitlement.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/matches/aggregate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -610,6 +614,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggregate_by": {
               "description": "Comma-separated fields to count: tags, attacker, attacker_country, target_industry, indicator, indicator_type. `indicator` is each event's primary indicator, the first one it was created with.",
@@ -654,6 +659,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1556,11 +1562,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_matches_list",
     title: "List a priority intelligence requirement's matched events",
-    description: "Returns the events matched by the PIR's query, newest match first. Each item has the Event List event fields plus the match fields. Only datasets the account can read now are included, and deleted events are left out, so a page can hold fewer items than `per_page` while `result_info.cursor` is still set. `backfill` matches came from the 30 days before the PIR was activated or its query changed and are never notified. `delivered` matches were included in a digest that the notification service accepted; who receives it depends on the account's notification policies for the PIR. Requires the Threat Events entitlement.",
+    description: "Returns the events matched by the PIR's query, newest match first. Each item has the Event List event fields plus the match fields. Only datasets the account can read now are included, and deleted events are left out, so a page can hold fewer items than `per_page` while `result_info.cursor` is still set. `backfill` matches came from the 30 days before the PIR was activated or its query changed and are never notified. `delivered` matches were included in a digest that the notification service accepted; who receives it depends on the account's notification policies for the PIR. Requires the Threat Events entitlement.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}/matches",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1577,6 +1584,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "`result_info.cursor` from the previous page. Omit for the newest matches.",
@@ -1603,6 +1611,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -1639,11 +1648,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_matches_series",
     title: "Count a priority intelligence requirement's matched events per day",
-    description: "Returns the PIR's matches per UTC day of when each matched event was added to its dataset, over the same matches as the matches list, in datasets the account can read now. Every day in the range is listed, including days with no matches. The range defaults to the last 30 days and is at most 90 days, because matches are kept for 90 days. Days before the PIR was activated hold only the most recent backfill matches. Requires the Threat Events entitlement.",
+    description: "Returns the PIR's matches per UTC day of when each matched event was added to its dataset, over the same matches as the matches list, in datasets the account can read now. Every day in the range is listed, including days with no matches. The range defaults to the last 30 days and is at most 90 days, because matches are kept for 90 days. Days before the PIR was activated hold only the most recent backfill matches. Requires the Threat Events entitlement.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}/matches/series",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1660,6 +1670,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_backfill": {
               "default": "true",
@@ -1696,6 +1707,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1834,7 +1846,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_matches_update",
     title: "Triage a priority intelligence requirement's matched events",
-    description: "Sets `triage_state` (`new`, `relevant`, or `not_relevant`) on up to 100 matches. Matches that do not exist, or are in datasets the account can no longer read, are returned in `not_found`. Setting `new` clears `triaged_at` and `triaged_by`. Requires the Threat Events entitlement.",
+    description: "Sets `triage_state` (`new`, `relevant`, or `not_relevant`) on up to 100 matches. Matches that do not exist, or are in datasets the account can no longer read, are returned in `not_found`. Setting `new` clears `triaged_at` and `triaged_by`. Requires the Threat Events entitlement.\n\nPATCH /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}/matches",
     inputSchema: {
       type: "object",
       properties: {
@@ -1881,6 +1893,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1900,6 +1913,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

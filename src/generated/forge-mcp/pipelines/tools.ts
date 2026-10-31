@@ -6,12 +6,7 @@ import {
   cloudflare$$pipelines_PipelineEdge,
   cloudflare$$pipelines_PipelineGraph,
   cloudflare$$pipelines_PipelineNode,
-  cloudflare$$pipelines_worker$$pipelines$$common$$success,
 } from "./outputs.js";
-import {
-  cloudflare$$pipelines_workers$$pipelines$$account$$id,
-  cloudflare$$pipelines_workers$$pipelines$$pipeline$$id,
-} from "./schemas.js";
 
 /**
  * The tools of `pipelines`.
@@ -20,7 +15,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_create",
     title: "Create Pipeline",
-    description: "Create a new Pipeline.",
+    description: "Create a new Pipeline.\n\nPOST /accounts/{account_id}/pipelines/v1/pipelines",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,10 +37,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,9 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -95,7 +89,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -103,9 +97,6 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     annotations: {
       "destructiveHint": false,
@@ -163,7 +154,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -174,9 +165,6 @@ export const tools: readonly Tool[] = [
         },
         "4XX": null
       },
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines`,
@@ -186,19 +174,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_delete",
     title: "Delete Pipeline",
-    description: "Delete Pipeline in Account.",
+    description: "Delete Pipeline in Account.\n\nDELETE /accounts/{account_id}/pipelines/v1/pipelines/{pipeline_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "pipeline_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-pipeline-id",
-              "description": "Specifies the public ID of the pipeline."
+              "description": "Specifies the public ID of the pipeline.",
+              "type": "string"
             }
           },
           "required": [
@@ -211,10 +200,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-        "cloudflare-pipelines_workers-pipelines-pipeline-id": cloudflare$$pipelines_workers$$pipelines$$pipeline$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -222,7 +208,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -230,9 +216,6 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -259,7 +242,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -270,9 +253,6 @@ export const tools: readonly Tool[] = [
         },
         "4XX": null
       },
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines/${pathParam(args, "pipeline_id")}`,
@@ -281,19 +261,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_get",
     title: "Get Pipeline Details",
-    description: "Get Pipeline details.",
+    description: "Get Pipeline details.\n\nGET /accounts/{account_id}/pipelines/v1/pipelines/{pipeline_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "pipeline_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-pipeline-id",
-              "description": "Specifies the public ID of the pipeline."
+              "description": "Specifies the public ID of the pipeline.",
+              "type": "string"
             }
           },
           "required": [
@@ -306,10 +287,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-        "cloudflare-pipelines_workers-pipelines-pipeline-id": cloudflare$$pipelines_workers$$pipelines$$pipeline$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -383,7 +361,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -391,9 +369,6 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     annotations: {
       "destructiveHint": false,
@@ -490,7 +465,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -501,9 +476,6 @@ export const tools: readonly Tool[] = [
         },
         "4XX": null
       },
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/pipelines/${pathParam(args, "pipeline_id")}`,
@@ -512,15 +484,16 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_list",
     title: "List Pipelines",
-    description: "List/Filter Pipelines in Account.",
+    description: "List/Filter Pipelines in Account.\n\nGET /accounts/{account_id}/pipelines/v1/pipelines",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -529,6 +502,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Filters pipelines by name (case-insensitive substring).",
@@ -548,9 +522,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -612,7 +584,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -621,9 +593,6 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     annotations: {
       "destructiveHint": false,
@@ -708,7 +677,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -719,9 +688,6 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": null
-      },
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     request: (args) => ({
@@ -736,7 +702,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_validateSql",
     title: "Validate SQL",
-    description: "Validates that the Pipelines SQL is correct.",
+    description: "Validates that the Pipelines SQL is correct.\n\nPOST /accounts/{account_id}/pipelines/v1/validate_sql",
     inputSchema: {
       type: "object",
       properties: {
@@ -753,10 +719,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -768,9 +735,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -812,7 +777,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -824,7 +789,6 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_PipelineEdge": cloudflare$$pipelines_PipelineEdge,
         "cloudflare-pipelines_PipelineGraph": cloudflare$$pipelines_PipelineGraph,
         "cloudflare-pipelines_PipelineNode": cloudflare$$pipelines_PipelineNode,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     annotations: {
@@ -889,7 +853,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -1009,7 +973,6 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_PipelineEdge": cloudflare$$pipelines_PipelineEdge,
         "cloudflare-pipelines_PipelineGraph": cloudflare$$pipelines_PipelineGraph,
         "cloudflare-pipelines_PipelineNode": cloudflare$$pipelines_PipelineNode,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     request: (args) => ({

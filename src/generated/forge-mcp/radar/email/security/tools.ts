@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_email_security_summaryV2",
     title: "Get email security summary by dimension",
-    description: "Retrieves the distribution of email security metrics by the specified dimension.",
+    description: "Retrieves the distribution of email security metrics by the specified dimension.\n\nGET /radar/email/security/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -38,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "arc": {
               "description": "Filters results by ARC (Authenticated Received Chain) validation.",
@@ -149,6 +151,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -597,11 +600,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_email_security_timeseriesGroupsV2",
     title: "Get email security time series grouped by dimension",
-    description: "Retrieves the distribution of email security metrics grouped by dimension over time.",
+    description: "Retrieves the distribution of email security metrics grouped by dimension over time.\n\nGET /radar/email/security/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -625,6 +629,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -746,6 +751,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

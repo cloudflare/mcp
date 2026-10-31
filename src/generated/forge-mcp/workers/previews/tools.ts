@@ -8,7 +8,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
 import { workers_Preview } from "./outputs.js";
 import { workers_Preview as workers_Preview$ } from "./schemas.js";
 
@@ -19,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_previews_create",
     title: "Create Preview",
-    description: "Create a new Preview for a Worker.\n\nThis method is beta.",
+    description: "Create a new Preview for a Worker.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/workers/workers/{worker_id}/previews",
     inputSchema: {
       type: "object",
       properties: {
@@ -174,10 +173,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -191,6 +191,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "ignore_base_config": {
               "description": "If true, preview base config from the parent Worker is ignored.",
@@ -208,9 +209,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -292,7 +291,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_previews_edit",
     title: "Edit Preview",
-    description: "Perform a partial update on a Preview, where omitted properties are left unchanged.\n\nThis method is beta.",
+    description: "Perform a partial update on a Preview, where omitted properties are left unchanged.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/workers/workers/{worker_id}/previews/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -301,10 +300,11 @@ export const tools: readonly Tool[] = [
           "description": "Preview partial update parameters."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "preview_id": {
               "description": "Identifier for the Preview, which can be ID, slug, or URL-encoded name.",
@@ -327,9 +327,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_Preview": workers_Preview$,
-        "workers_identifier": workers_identifier,
       },
     },
     outputSchema: {
@@ -408,15 +408,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_previews_get",
     title: "Get Preview",
-    description: "Get details about a specific Preview.\n\nThis method is beta.",
+    description: "Get details about a specific Preview.\n\nThis method is beta.\n\nGET /accounts/{account_id}/workers/workers/{worker_id}/previews/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "preview_id": {
               "description": "Identifier for the Preview, which can be ID, slug, or URL-encoded name.",
@@ -438,9 +439,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -522,15 +521,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_previews_list",
     title: "List Previews",
-    description: "List all Previews for a Worker.\n\nThis method is beta.",
+    description: "List all Previews for a Worker.\n\nThis method is beta.\n\nGET /accounts/{account_id}/workers/workers/{worker_id}/previews",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -544,6 +544,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Partial-match filter on preview name.",
@@ -591,9 +592,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -691,7 +690,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_previews_update",
     title: "Update Preview",
-    description: "Perform a complete replacement of a Preview, where omitted properties are set to defaults.\n\nThis method is beta.",
+    description: "Perform a complete replacement of a Preview, where omitted properties are set to defaults.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/workers/workers/{worker_id}/previews/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -846,10 +845,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "preview_id": {
               "description": "Identifier for the Preview, which can be ID, slug, or URL-encoded name.",
@@ -868,6 +868,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "ignore_base_config": {
               "description": "If true, preview base config from the parent Worker is ignored.",
@@ -885,9 +886,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

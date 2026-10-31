@@ -4,25 +4,17 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-transit_check_type`.
- */
-export const magic$$transit_check_type: JsonSchema = {
-  "description": "type of check to perform",
-  "enum": [
-    "icmp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `magic-transit_endpoint_health_check`.
  */
 export const magic$$transit_endpoint_health_check: JsonSchema = {
   "properties": {
     "check_type": {
-      "$ref": "#/$defs/magic-transit_check_type",
       "default": "icmp",
-      "description": "type of check to perform"
+      "description": "type of check to perform",
+      "enum": [
+        "icmp"
+      ],
+      "type": "string"
     },
     "endpoint": {
       "description": "the IP address of the host to perform checks against",
@@ -38,12 +30,4 @@ export const magic$$transit_endpoint_health_check: JsonSchema = {
     "endpoint"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic-transit_uuid`.
- */
-export const magic$$transit_uuid: JsonSchema = {
-  "description": "UUID.",
-  "type": "string"
 };

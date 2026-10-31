@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_tenantStructures_create",
     title: "Create a tenant structure",
-    description: "Creates an empty tenant hierarchy for the selected cloud application.\n\nThis method is beta.",
+    description: "Creates an empty tenant hierarchy for the selected cloud application.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/tenant-structures",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreateTenantStructureInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreateTenantStructureInputBody": cws_CreateTenantStructureInputBody,
       },
@@ -104,11 +106,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_tenantStructures_delete",
     title: "Delete a tenant structure",
-    description: "Deletes the tenant structure and all nodes in its hierarchy.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this tenant structure?",
+    description: "Deletes the tenant structure and all nodes in its hierarchy.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this tenant structure?\n\nDELETE /accounts/{account_id}/cws/tenant-structures/{structure_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -130,6 +133,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -179,11 +183,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_tenantStructures_get",
     title: "Get a tenant structure by ID",
-    description: "Returns the tenant structure with the specified ID.\n\nThis method is beta.",
+    description: "Returns the tenant structure with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/tenant-structures/{structure_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -205,6 +210,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseTenantStructure",
@@ -254,11 +260,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_tenantStructures_list",
     title: "List tenant structures for an account",
-    description: "Returns a paginated list of tenant structures in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of tenant structures in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/tenant-structures",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -271,6 +278,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -315,6 +323,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseTenantStructure",
@@ -374,7 +383,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_tenantStructures_update",
     title: "Update a tenant structure",
-    description: "Updates the tenant structure's name and import path; its application remains immutable.\n\nThis method is beta.",
+    description: "Updates the tenant structure's name and import path; its application remains immutable.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/tenant-structures/{structure_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -382,6 +391,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_UpdateTenantStructureInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -404,6 +414,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_UpdateTenantStructureInputBody": cws_UpdateTenantStructureInputBody,
       },

@@ -4,17 +4,8 @@
 import { type Tool, param } from "../../../../_/tool.js";
 import {
   spectrum$$analytics_api$$response$$common$$failure,
-  spectrum$$analytics_identifier,
   spectrum$$analytics_messages,
-  spectrum$$analytics_since,
-  spectrum$$analytics_timestamp,
-  spectrum$$analytics_until,
 } from "../../outputs.js";
-import {
-  spectrum$$analytics_since as spectrum$$analytics_since$,
-  spectrum$$analytics_timestamp as spectrum$$analytics_timestamp$,
-  spectrum$$analytics_until as spectrum$$analytics_until$,
-} from "../../schemas.js";
 import {
   spectrum$$analytics_api$$response$$collection,
   spectrum$$analytics_api$$response$$common,
@@ -29,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_analytics_zones_report_get",
     title: "Get zones bandwidth report",
-    description: "Retrieves a list of total bandwidth by zone over a given time period.",
+    description: "Retrieves a list of total bandwidth by zone over a given time period.\n\nGET /user/spectrum_analytics/zones/report",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cdn_traffic": {
               "default": true,
@@ -41,31 +33,39 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "since": {
-              "$ref": "#/$defs/spectrum-analytics_since"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             },
             "until": {
-              "$ref": "#/$defs/spectrum-analytics_until"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             }
           },
           "type": "object"
         }
       },
-      $defs: {
-        "spectrum-analytics_since": spectrum$$analytics_since$,
-        "spectrum-analytics_timestamp": spectrum$$analytics_timestamp$,
-        "spectrum-analytics_until": spectrum$$analytics_until$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-analytics_zones_report_response",
       $defs: {
         "spectrum-analytics_api-response-collection": spectrum$$analytics_api$$response$$collection,
         "spectrum-analytics_api-response-common": spectrum$$analytics_api$$response$$common,
-        "spectrum-analytics_identifier": spectrum$$analytics_identifier,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
-        "spectrum-analytics_since": spectrum$$analytics_since,
-        "spectrum-analytics_timestamp": spectrum$$analytics_timestamp,
-        "spectrum-analytics_until": spectrum$$analytics_until,
         "spectrum-analytics_zone_report": spectrum$$analytics_zone_report,
         "spectrum-analytics_zones_report_response": spectrum$$analytics_zones_report_response,
       },
@@ -98,11 +98,7 @@ export const tools: readonly Tool[] = [
         "spectrum-analytics_api-response-collection": spectrum$$analytics_api$$response$$collection,
         "spectrum-analytics_api-response-common": spectrum$$analytics_api$$response$$common,
         "spectrum-analytics_api-response-common-failure": spectrum$$analytics_api$$response$$common$$failure,
-        "spectrum-analytics_identifier": spectrum$$analytics_identifier,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
-        "spectrum-analytics_since": spectrum$$analytics_since,
-        "spectrum-analytics_timestamp": spectrum$$analytics_timestamp,
-        "spectrum-analytics_until": spectrum$$analytics_until,
         "spectrum-analytics_zone_report": spectrum$$analytics_zone_report,
         "spectrum-analytics_zones_report_response": spectrum$$analytics_zones_report_response,
       },

@@ -9,10 +9,6 @@ import {
   digital$$experience$$monitoring_messages,
 } from "../outputs.js";
 import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_uuid,
-} from "../schemas.js";
-import {
   digital$$experience$$monitoring_device_isp,
   digital$$experience$$monitoring_device_isps_response,
   digital$$experience$$monitoring_ip_info,
@@ -26,19 +22,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_isps_list",
     title: "List device ISPs",
-    description: "List ISP information observed for a specific device during traceroute tests.",
+    description: "List ISP information observed for a specific device during traceroute tests.\n\nGET /accounts/{account_id}/dex/devices/{device_id}/isps",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "device_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Device-specific ID, given as UUID."
+              "description": "Device-specific ID, given as UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,6 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Cursor for cursor-based pagination. Mutually exclusive with page.",
@@ -100,10 +98,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

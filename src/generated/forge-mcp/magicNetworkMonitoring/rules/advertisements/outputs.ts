@@ -12,7 +12,14 @@ export const magic$$visibility$$mnm_mnm_rule_advertisable_response: JsonSchema =
     {
       "properties": {
         "automatic_advertisement": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_automatic_advertisement"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [

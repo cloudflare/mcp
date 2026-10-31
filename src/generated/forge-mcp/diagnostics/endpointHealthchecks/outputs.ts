@@ -4,22 +4,15 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-transit_check_type` in responses.
- */
-export const magic$$transit_check_type: JsonSchema = {
-  "enum": [
-    "icmp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `magic-transit_endpoint_health_check` in responses.
  */
 export const magic$$transit_endpoint_health_check: JsonSchema = {
   "properties": {
     "check_type": {
-      "$ref": "#/$defs/magic-transit_check_type"
+      "enum": [
+        "icmp"
+      ],
+      "type": "string"
     },
     "endpoint": {
       "type": "string"
@@ -46,7 +39,7 @@ export const magic$$transit_endpoint_health_check_response: JsonSchema = {
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/magic-transit_uuid"
+          "type": "string"
         }
       },
       "type": "object"
@@ -95,11 +88,4 @@ export const magic$$transit_endpoint_health_check_response_single: JsonSchema = 
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic-transit_uuid` in responses.
- */
-export const magic$$transit_uuid: JsonSchema = {
-  "type": "string"
 };

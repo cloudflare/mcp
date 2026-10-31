@@ -148,7 +148,7 @@ export const web3_api$$response$$single$$id: JsonSchema = {
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/web3_identifier"
+                  "type": "string"
                 }
               },
               "required": [
@@ -190,27 +190,6 @@ export const web3_collection_response: JsonSchema = {
 };
 
 /**
- * The schema of `web3_description` in responses.
- */
-export const web3_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `web3_dnslink` in responses.
- */
-export const web3_dnslink: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `web3_identifier` in responses.
- */
-export const web3_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `web3_messages` in responses.
  */
 export const web3_messages: JsonSchema = {
@@ -230,13 +209,6 @@ export const web3_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `web3_name` in responses.
- */
-export const web3_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -280,66 +252,46 @@ export const web3_single_response: JsonSchema = {
 };
 
 /**
- * The schema of `web3_status` in responses.
- */
-export const web3_status: JsonSchema = {
-  "enum": [
-    "active",
-    "pending",
-    "deleting",
-    "error"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `web3_target` in responses.
- */
-export const web3_target: JsonSchema = {
-  "enum": [
-    "ethereum",
-    "ipfs",
-    "ipfs_universal_path"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `web3_timestamp` in responses.
- */
-export const web3_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `web3_web3-hostname` in responses.
  */
 export const web3_web3$$hostname: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/web3_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/web3_description"
+      "type": "string"
     },
     "dnslink": {
-      "$ref": "#/$defs/web3_dnslink"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/web3_identifier"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/web3_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/web3_name"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/web3_status"
+      "enum": [
+        "active",
+        "pending",
+        "deleting",
+        "error"
+      ],
+      "type": "string"
     },
     "target": {
-      "$ref": "#/$defs/web3_target"
+      "enum": [
+        "ethereum",
+        "ipfs",
+        "ipfs_universal_path"
+      ],
+      "type": "string"
     }
   },
   "type": "object"

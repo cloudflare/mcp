@@ -86,21 +86,6 @@ export const calls_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `calls_created` in responses.
- */
-export const calls_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `calls_identifier` in responses.
- */
-export const calls_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `calls_messages` in responses.
  */
 export const calls_messages: JsonSchema = {
@@ -131,19 +116,4 @@ export const calls_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `calls_modified` in responses.
- */
-export const calls_modified: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `calls_name` in responses.
- */
-export const calls_name: JsonSchema = {
-  "type": "string"
 };

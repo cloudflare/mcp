@@ -4,47 +4,49 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `addressing_auto_generated` in responses.
- */
-export const addressing_auto_generated: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_filename` in responses.
- */
-export const addressing_filename: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_loa_document` in responses.
  */
 export const addressing_loa_document: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/addressing_account_identifier"
+      "type": "string"
     },
     "auto_generated": {
-      "$ref": "#/$defs/addressing_auto_generated"
+      "type": "boolean"
     },
     "created": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "filename": {
-      "$ref": "#/$defs/addressing_filename"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_loa_document_identifier"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "size_bytes": {
-      "$ref": "#/$defs/addressing_size_bytes"
+      "type": "integer"
     },
     "verified": {
-      "$ref": "#/$defs/addressing_verified"
+      "type": "boolean"
     },
     "verified_at": {
-      "$ref": "#/$defs/addressing_verified_at"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
@@ -68,35 +70,6 @@ export const addressing_loa_document_collection: JsonSchema = {
         }
       },
       "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_size_bytes` in responses.
- */
-export const addressing_size_bytes: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `addressing_verified` in responses.
- */
-export const addressing_verified: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_verified_at` in responses.
- */
-export const addressing_verified_at: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
     }
   ]
 };

@@ -4,41 +4,45 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate-3` in responses.
- */
-export const tls$$certificates$$and$$hostnames_certificate$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_custom-trust-store` in
  * responses.
  */
 export const tls$$certificates$$and$$hostnames_custom$$trust$$store: JsonSchema = {
   "properties": {
     "certificate": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-3"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on-2"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier"
+      "type": "string"
     },
     "issuer": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issuer"
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-7"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "active",
+        "pending_deletion",
+        "deleted",
+        "expired"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-2"
+      "format": "date-time",
+      "type": "string"
     },
     "uploaded_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uploaded_on"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -52,14 +56,6 @@ export const tls$$certificates$$and$$hostnames_custom$$trust$$store: JsonSchema 
     "uploaded_on"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_trust_store_identifier`
- * in responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_trust_store_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -101,7 +97,7 @@ export const tls$$certificates$$and$$hostnames_custom_trust_store_response_id_on
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -131,27 +127,4 @@ export const tls$$certificates$$and$$hostnames_custom_trust_store_response_singl
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-7` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status$$7: JsonSchema = {
-  "enum": [
-    "initializing",
-    "pending_deployment",
-    "active",
-    "pending_deletion",
-    "deleted",
-    "expired"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_updated_at-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_updated_at$$2: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

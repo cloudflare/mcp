@@ -7,21 +7,14 @@ import {
   magic$$visibility$$pcaps_api$$response$$common,
   magic$$visibility$$pcaps_api$$response$$common$$failure,
   magic$$visibility$$pcaps_messages,
-  magic$$visibility$$pcaps_pcaps_destination_conf,
   magic$$visibility$$pcaps_result_info,
 } from "../outputs.js";
 import {
-  magic$$visibility$$pcaps_identifier,
-  magic$$visibility$$pcaps_pcaps_destination_conf as magic$$visibility$$pcaps_pcaps_destination_conf$,
-} from "../schemas.js";
-import {
-  magic$$visibility$$pcaps_pcaps_ownership_challenge,
   magic$$visibility$$pcaps_pcaps_ownership_collection,
   magic$$visibility$$pcaps_pcaps_ownership_response,
   magic$$visibility$$pcaps_pcaps_ownership_single_response,
 } from "./outputs.js";
 import {
-  magic$$visibility$$pcaps_pcaps_ownership_challenge as magic$$visibility$$pcaps_pcaps_ownership_challenge$,
   magic$$visibility$$pcaps_pcaps_ownership_request,
   magic$$visibility$$pcaps_pcaps_ownership_validate_request,
 } from "./schemas.js";
@@ -33,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_pcaps_ownership_create",
     title: "Add buckets for full packet captures",
-    description: "Adds an AWS or GCP bucket to use with full packet captures.",
+    description: "Adds an AWS or GCP bucket to use with full packet captures.\n\nPOST /accounts/{account_id}/pcaps/ownership",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,9 +51,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf$,
         "magic-visibility-pcaps_pcaps_ownership_request": magic$$visibility$$pcaps_pcaps_ownership_request,
       },
     },
@@ -68,8 +61,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
         "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
         "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
@@ -110,8 +101,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
         "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
         "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
         "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
@@ -124,19 +113,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_pcaps_ownership_delete",
     title: "Delete buckets for full packet captures",
-    description: "Deletes buckets added to the packet captures API.",
+    description: "Deletes buckets added to the packet captures API.\n\nDELETE /accounts/{account_id}/pcaps/ownership/{ownership_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "ownership_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -149,9 +139,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -195,15 +183,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_pcaps_ownership_get",
     title: "List PCAPs Bucket Ownership",
-    description: "List all buckets configured for use with PCAPs API.",
+    description: "List all buckets configured for use with PCAPs API.\n\nGET /accounts/{account_id}/pcaps/ownership",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -215,9 +204,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_collection",
@@ -225,8 +212,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_api-response-collection": magic$$visibility$$pcaps_api$$response$$collection,
         "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
         "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_collection": magic$$visibility$$pcaps_pcaps_ownership_collection,
         "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
         "magic-visibility-pcaps_result_info": magic$$visibility$$pcaps_result_info,
@@ -270,8 +255,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
         "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
         "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_collection": magic$$visibility$$pcaps_pcaps_ownership_collection,
         "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
         "magic-visibility-pcaps_result_info": magic$$visibility$$pcaps_result_info,
@@ -284,7 +267,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_pcaps_ownership_validate",
     title: "Validate buckets for full packet captures",
-    description: "Validates buckets added to the packet captures API.",
+    description: "Validates buckets added to the packet captures API.\n\nPOST /accounts/{account_id}/pcaps/ownership/validate",
     inputSchema: {
       type: "object",
       properties: {
@@ -292,10 +275,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_validate_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -308,10 +292,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf$,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge$,
         "magic-visibility-pcaps_pcaps_ownership_validate_request": magic$$visibility$$pcaps_pcaps_ownership_validate_request,
       },
     },
@@ -320,8 +302,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
         "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
         "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
@@ -362,8 +342,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
         "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
         "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
         "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },

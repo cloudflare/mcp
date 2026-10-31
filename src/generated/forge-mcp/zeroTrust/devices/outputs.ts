@@ -138,13 +138,6 @@ export const teams$$devices_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_components-schemas-uuid` in responses.
- */
-export const teams$$devices_components$$schemas$$uuid: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_cursor_result_info` in responses.
  */
 export const teams$$devices_cursor_result_info: JsonSchema = {
@@ -175,13 +168,6 @@ export const teams$$devices_cursor_result_info: JsonSchema = {
     "per_page"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_email` in responses.
- */
-export const teams$$devices_email: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -483,17 +469,6 @@ export const teams$$devices_registration_details: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_registration_type` in responses.
- */
-export const teams$$devices_registration_type: JsonSchema = {
-  "enum": [
-    "warp",
-    "browser_extension"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_result_info` in responses.
  */
 export const teams$$devices_result_info: JsonSchema = {
@@ -520,23 +495,16 @@ export const teams$$devices_result_info: JsonSchema = {
 export const teams$$devices_user: JsonSchema = {
   "properties": {
     "email": {
-      "$ref": "#/$defs/teams-devices_email"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/teams-devices_components-schemas-uuid"
+      "type": "string"
     },
     "name": {
       "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_uuid` in responses.
- */
-export const teams$$devices_uuid: JsonSchema = {
-  "type": "string"
 };
 
 /**

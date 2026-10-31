@@ -2,10 +2,6 @@
 /* eslint-disable */
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
-import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier,
-} from "../../schemas.js";
 import { iam_scim_error_response } from "../outputs.js";
 import {
   iam_scim_group,
@@ -15,7 +11,6 @@ import {
 } from "./outputs.js";
 import {
   iam_scim_group_create_request,
-  iam_scim_group_identifier,
   iam_scim_group_patch_member_value,
   iam_scim_group_patch_op_request,
   iam_scim_group_patch_operation,
@@ -29,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_groups_create",
     title: "Create SCIM Group",
-    description: "Creates a new SCIM Group (user group) for the account. The `displayName` must not be empty and must not begin with `CF` (reserved for system groups).",
+    description: "Creates a new SCIM Group (user group) for the account. The `displayName` must not be empty and must not begin with `CF` (reserved for system groups).\n\nPOST /accounts/{account_id}/scim/v2/Groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,10 +32,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_scim_group_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,9 +49,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_scim_group_create_request": iam_scim_group_create_request,
       },
     },
@@ -115,19 +110,20 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_groups_delete",
     title: "Delete SCIM Group",
-    description: "Deletes a SCIM Group (custom user groups only). System groups backed by Cloudflare permission groups cannot be deleted via SCIM. Returns 204 No Content on success.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Deletes a SCIM Group (custom user groups only). System groups backed by Cloudflare permission groups cannot be deleted via SCIM. Returns 204 No Content on success.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/scim/v2/Groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/iam_scim_group_identifier",
-              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
+              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -140,11 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_scim_group_identifier": iam_scim_group_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -190,7 +182,7 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_groups_edit",
     title: "Patch SCIM Group",
-    description: "Partially updates a SCIM Group via PATCH operations (RFC 7644 Section 3.5.2). Supports add, remove, and replace operations on `members`, `displayName`, and `externalId`. For system groups (prefixed `cloudflare-v1-`), only member management operations are supported.",
+    description: "Partially updates a SCIM Group via PATCH operations (RFC 7644 Section 3.5.2). Supports add, remove, and replace operations on `members`, `displayName`, and `externalId`. For system groups (prefixed `cloudflare-v1-`), only member management operations are supported.\n\nPATCH /accounts/{account_id}/scim/v2/Groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -198,14 +190,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_scim_group_patch_op_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/iam_scim_group_identifier",
-              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
+              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -219,10 +212,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_scim_group_identifier": iam_scim_group_identifier,
         "iam_scim_group_patch_member_value": iam_scim_group_patch_member_value,
         "iam_scim_group_patch_op_request": iam_scim_group_patch_op_request,
         "iam_scim_group_patch_operation": iam_scim_group_patch_operation,
@@ -284,19 +275,20 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_groups_get",
     title: "Get SCIM Group",
-    description: "Retrieves a single SCIM Group resource by group ID.",
+    description: "Retrieves a single SCIM Group resource by group ID.\n\nGET /accounts/{account_id}/scim/v2/Groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/iam_scim_group_identifier",
-              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
+              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -309,11 +301,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_scim_group_identifier": iam_scim_group_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_group",
@@ -371,15 +359,16 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_groups_list",
     title: "List SCIM Groups",
-    description: "Lists SCIM Group resources for the account. Returns both system groups (backed by Cloudflare permission groups, prefixed `cloudflare-v1-`) and custom user groups. Supports filtering by `displayName` using SCIM filter syntax.",
+    description: "Lists SCIM Group resources for the account. Returns both system groups (backed by Cloudflare permission groups, prefixed `cloudflare-v1-`) and custom user groups. Supports filtering by `displayName` using SCIM filter syntax.\n\nGET /accounts/{account_id}/scim/v2/Groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -388,18 +377,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "count": {
-              "description": "Specifies the desired maximum number of query results per page.\n",
+              "description": "Specifies the desired maximum number of query results per page.",
               "type": "integer"
             },
             "filter": {
-              "description": "SCIM filter expression (RFC 7644 Section 3.4.2.2). Only `displayName eq \"value\"` is supported.\n",
+              "description": "SCIM filter expression (RFC 7644 Section 3.4.2.2). Only `displayName eq \"value\"` is supported.",
               "type": "string"
             },
             "startIndex": {
               "default": 1,
-              "description": "The 1-based index of the first result in the current set of list results. Values less than 1 are treated as 1.\n",
+              "description": "The 1-based index of the first result in the current set of list results. Values less than 1 are treated as 1.",
               "type": "integer"
             }
           },
@@ -409,10 +399,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_group_list_response",
@@ -477,7 +464,7 @@ export const tools: readonly Tool[] = [
   {
     name: "scim_groups_update",
     title: "Replace SCIM Group",
-    description: "Replaces the mutable attributes of a SCIM Group (RFC 7644 Section 3.5.1), including its complete member set. Omitting `externalId` clears it, and omitting `members` replaces the member set with an empty list. For system groups (prefixed `cloudflare-v1-`), only the member set is replaced.",
+    description: "Replaces the mutable attributes of a SCIM Group (RFC 7644 Section 3.5.1), including its complete member set. Omitting `externalId` clears it, and omitting `members` replaces the member set with an empty list. For system groups (prefixed `cloudflare-v1-`), only the member set is replaced.\n\nPUT /accounts/{account_id}/scim/v2/Groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -485,14 +472,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_scim_group_replace_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/iam_scim_group_identifier",
-              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
+              "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -506,10 +494,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_scim_group_identifier": iam_scim_group_identifier,
         "iam_scim_group_patch_member_value": iam_scim_group_patch_member_value,
         "iam_scim_group_replace_request": iam_scim_group_replace_request,
       },

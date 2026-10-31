@@ -20,7 +20,7 @@ export const cache$$settings_origin_h2_max_streams: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/cache-settings_origin_h2_max_streams_value"
+          "type": "integer"
         }
       },
       "type": "object"
@@ -46,11 +46,4 @@ export const cache$$settings_origin_h2_max_streams_response_value: JsonSchema = 
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `cache-settings_origin_h2_max_streams_value` in responses.
- */
-export const cache$$settings_origin_h2_max_streams_value: JsonSchema = {
-  "type": "integer"
 };

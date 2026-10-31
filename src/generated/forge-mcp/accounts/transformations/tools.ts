@@ -7,7 +7,6 @@ import {
   speed_api$$response$$common$$failure,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
 import { speed_zone_config_item } from "./outputs.js";
 
 /**
@@ -17,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_transformations_list",
     title: "List Image Resizing configurations for account",
-    description: "Returns a list of Image Resizing configurations across all zones for the account.\nThis endpoint is useful for retrieving the transformations (image_resizing) state\nfor all zones belonging to an account.",
+    description: "Returns a list of Image Resizing configurations across all zones for the account.\nThis endpoint is useful for retrieving the transformations (image_resizing) state\nfor all zones belonging to an account.\n\nGET /accounts/{account_id}/settings/transformations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -37,9 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

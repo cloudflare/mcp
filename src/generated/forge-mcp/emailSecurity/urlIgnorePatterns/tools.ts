@@ -9,16 +9,13 @@ import {
   email$$security_api$$response$$single,
   email$$security_messages,
 } from "../outputs.js";
-import { email$$security_identifier } from "../schemas.js";
 import {
   email$$security_DeletedUrlIgnorePattern,
   email$$security_UrlIgnorePattern,
-  email$$security_UrlIgnorePatternId,
 } from "./outputs.js";
 import {
   email$$security_CreateUrlIgnorePattern,
   email$$security_UpdateUrlIgnorePattern,
-  email$$security_UrlIgnorePatternId as email$$security_UrlIgnorePatternId$,
 } from "./schemas.js";
 
 /**
@@ -28,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_urlIgnorePatterns_batch",
     title: "Batch URL ignore pattern operations",
-    description: "Executes multiple operations atomically. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected URL rewrite ignore patterns and cause matching URLs to be rewritten again.",
+    description: "Executes multiple operations atomically. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected URL rewrite ignore patterns and cause matching URLs to be rewritten again.\n\nPOST /accounts/{account_id}/email-security/settings/url_ignore_patterns/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,8 +36,9 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/email-security_UrlIgnorePatternId",
-                    "description": "URL ignore pattern identifier."
+                    "description": "URL ignore pattern identifier.",
+                    "format": "uuid",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -61,7 +59,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_UrlIgnorePatternId"
+                        "description": "URL ignore pattern identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -92,7 +92,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_UrlIgnorePatternId"
+                        "description": "URL ignore pattern identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -115,10 +117,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -131,11 +134,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateUrlIgnorePattern": email$$security_CreateUrlIgnorePattern,
         "email-security_UpdateUrlIgnorePattern": email$$security_UpdateUrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -190,7 +192,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_DeletedUrlIgnorePattern": email$$security_DeletedUrlIgnorePattern,
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
       },
@@ -269,7 +270,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_DeletedUrlIgnorePattern": email$$security_DeletedUrlIgnorePattern,
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
@@ -283,7 +283,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_urlIgnorePatterns_create",
     title: "Create a URL ignore pattern",
-    description: "Creates a new URL rewrite ignore pattern. URLs matching this pattern will not be rewritten.\n\nThis method is beta.",
+    description: "Creates a new URL rewrite ignore pattern. URLs matching this pattern will not be rewritten.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/url_ignore_patterns",
     inputSchema: {
       type: "object",
       properties: {
@@ -291,10 +291,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateUrlIgnorePattern"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -307,9 +308,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateUrlIgnorePattern": email$$security_CreateUrlIgnorePattern,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -328,7 +329,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -371,7 +371,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -385,19 +384,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_urlIgnorePatterns_delete",
     title: "Delete a URL ignore pattern",
-    description: "Removes a URL rewrite ignore pattern. After deletion, URLs matching this pattern will be rewritten again.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the URL rewrite ignore pattern and causes matching URLs to be rewritten again.",
+    description: "Removes a URL rewrite ignore pattern. After deletion, URLs matching this pattern will be rewritten again.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the URL rewrite ignore pattern and causes matching URLs to be rewritten again.\n\nDELETE /accounts/{account_id}/email-security/settings/url_ignore_patterns/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_UrlIgnorePatternId",
-              "description": "URL ignore pattern identifier."
+              "description": "URL ignore pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -410,10 +411,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -431,7 +429,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedUrlIgnorePattern": email$$security_DeletedUrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -474,7 +471,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_DeletedUrlIgnorePattern": email$$security_DeletedUrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -487,7 +483,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_urlIgnorePatterns_edit",
     title: "Update a URL ignore pattern",
-    description: "Updates an existing URL rewrite ignore pattern. Only provided fields will be modified.\n\nThis method is beta.",
+    description: "Updates an existing URL rewrite ignore pattern. Only provided fields will be modified.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/url_ignore_patterns/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -495,14 +491,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateUrlIgnorePattern"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_UrlIgnorePatternId",
-              "description": "URL ignore pattern identifier."
+              "description": "URL ignore pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -516,10 +514,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_UpdateUrlIgnorePattern": email$$security_UpdateUrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -538,7 +535,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -581,7 +577,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -595,19 +590,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_urlIgnorePatterns_get",
     title: "Get a URL ignore pattern",
-    description: "Returns a single URL rewrite ignore pattern by its identifier.\n\nThis method is beta.",
+    description: "Returns a single URL rewrite ignore pattern by its identifier.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/url_ignore_patterns/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_UrlIgnorePatternId",
-              "description": "URL ignore pattern identifier."
+              "description": "URL ignore pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -620,10 +617,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -641,7 +635,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -685,7 +678,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -698,15 +690,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_urlIgnorePatterns_list",
     title: "List URL ignore patterns",
-    description: "Returns a paginated list of URL rewrite ignore patterns for the account. URLs matching these patterns will not be rewritten.\n\nThis method is beta.",
+    description: "Returns a paginated list of URL rewrite ignore patterns for the account. URLs matching these patterns will not be rewritten.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/url_ignore_patterns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -715,6 +708,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -733,9 +727,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -756,7 +748,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
@@ -804,7 +795,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_UrlIgnorePattern": email$$security_UrlIgnorePattern,
-        "email-security_UrlIgnorePatternId": email$$security_UrlIgnorePatternId,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,

@@ -9,7 +9,6 @@ import {
   infra_api$$response$$single,
   infra_messages,
 } from "../../outputs.js";
-import { infra_AccountTag } from "../../schemas.js";
 import {
   infra_ApiTlsSettings,
   infra_ConnectivityServiceArray,
@@ -23,7 +22,6 @@ import {
   infra_ServiceCommon,
   infra_ServiceConfig,
   infra_ServiceHost,
-  infra_ServiceType,
   infra_TcpServiceConfig,
 } from "./outputs.js";
 import {
@@ -38,7 +36,6 @@ import {
   infra_ServiceCommon as infra_ServiceCommon$,
   infra_ServiceConfig as infra_ServiceConfig$,
   infra_ServiceHost as infra_ServiceHost$,
-  infra_ServiceType as infra_ServiceType$,
   infra_TcpServiceConfig as infra_TcpServiceConfig$,
 } from "./schemas.js";
 
@@ -49,7 +46,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersVpc_services_create",
     title: "Create Workers VPC connectivity service",
-    description: "Creates a new Workers VPC connectivity service in the account.\n\nThis method is beta.",
+    description: "Creates a new Workers VPC connectivity service in the account.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/connectivity/directory/services",
     inputSchema: {
       type: "object",
       properties: {
@@ -57,10 +54,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/infra_ServiceConfig"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -73,8 +71,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "infra_AccountTag": infra_AccountTag,
         "infra_ApiTlsSettings": infra_ApiTlsSettings$,
         "infra_DualStackHost": infra_DualStackHost$,
         "infra_HostnameHost": infra_HostnameHost$,
@@ -86,7 +84,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon$,
         "infra_ServiceConfig": infra_ServiceConfig$,
         "infra_ServiceHost": infra_ServiceHost$,
-        "infra_ServiceType": infra_ServiceType$,
         "infra_TcpServiceConfig": infra_TcpServiceConfig$,
       },
     },
@@ -116,7 +113,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
@@ -164,7 +160,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
         "infra_api-response-single": infra_api$$response$$single,
@@ -179,11 +174,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workersVpc_services_delete",
     title: "Delete Workers VPC connectivity service",
-    description: "Removes a single Workers VPC connectivity service by its ID. Any Worker\nbindings referencing this service will stop working.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes a Workers VPC connectivity service.",
+    description: "Removes a single Workers VPC connectivity service by its ID. Any Worker\nbindings referencing this service will stop working.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes a Workers VPC connectivity service.\n\nDELETE /accounts/{account_id}/connectivity/directory/services/{service_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -203,6 +199,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -232,11 +229,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workersVpc_services_get",
     title: "Get Workers VPC connectivity service",
-    description: "Fetches a single Workers VPC connectivity service by its ID.\n\nThis method is beta.",
+    description: "Fetches a single Workers VPC connectivity service by its ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/connectivity/directory/services/{service_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -256,6 +254,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -283,7 +282,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
@@ -331,7 +329,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
         "infra_api-response-single": infra_api$$response$$single,
@@ -345,15 +342,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workersVpc_services_list",
     title: "List Workers VPC connectivity services",
-    description: "Lists the Workers VPC connectivity services in the account.\n\nThis method is beta.",
+    description: "Lists the Workers VPC connectivity services in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/connectivity/directory/services",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -362,6 +360,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -376,7 +375,11 @@ export const tools: readonly Tool[] = [
             "type": {
               "oneOf": [
                 {
-                  "$ref": "#/$defs/infra_ServiceType"
+                  "enum": [
+                    "tcp",
+                    "http"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "null"
@@ -390,10 +393,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "infra_AccountTag": infra_AccountTag,
-        "infra_ServiceType": infra_ServiceType$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -422,7 +422,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-collection": infra_api$$response$$collection,
         "infra_api-response-common": infra_api$$response$$common,
@@ -472,7 +471,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-collection": infra_api$$response$$collection,
         "infra_api-response-common": infra_api$$response$$common,
@@ -492,7 +490,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersVpc_services_update",
     title: "Update Workers VPC connectivity service",
-    description: "Updates an existing Workers VPC connectivity service by its ID.\n\nThis method is beta.",
+    description: "Updates an existing Workers VPC connectivity service by its ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/connectivity/directory/services/{service_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -500,6 +498,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/infra_ServiceConfig"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -520,6 +519,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "infra_ApiTlsSettings": infra_ApiTlsSettings$,
         "infra_DualStackHost": infra_DualStackHost$,
@@ -532,7 +532,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon$,
         "infra_ServiceConfig": infra_ServiceConfig$,
         "infra_ServiceHost": infra_ServiceHost$,
-        "infra_ServiceType": infra_ServiceType$,
         "infra_TcpServiceConfig": infra_TcpServiceConfig$,
       },
     },
@@ -562,7 +561,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
@@ -610,7 +608,6 @@ export const tools: readonly Tool[] = [
         "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
-        "infra_ServiceType": infra_ServiceType,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
         "infra_api-response-single": infra_api$$response$$single,

@@ -95,25 +95,25 @@ export const intel_domain: JsonSchema = {
       "$ref": "#/$defs/intel_content_categories"
     },
     "domain": {
-      "$ref": "#/$defs/intel_domain_name"
+      "type": "string"
     },
     "inherited_content_categories": {
       "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
     },
     "inherited_from": {
-      "$ref": "#/$defs/intel_inherited_from"
+      "type": "string"
     },
     "inherited_risk_types": {
       "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
     },
     "popularity_rank": {
-      "$ref": "#/$defs/intel_popularity_rank"
+      "type": "integer"
     },
     "resolves_to_refs": {
       "$ref": "#/$defs/intel_resolves_to_refs"
     },
     "risk_score": {
-      "$ref": "#/$defs/intel_risk_score"
+      "type": "number"
     },
     "risk_types": {
       "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
@@ -123,26 +123,12 @@ export const intel_domain: JsonSchema = {
 };
 
 /**
- * The schema of `intel_inherited_from` in responses.
- */
-export const intel_inherited_from: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `intel_popularity_rank` in responses.
- */
-export const intel_popularity_rank: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `intel_resolves_to_ref` in responses.
  */
 export const intel_resolves_to_ref: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/intel_stix_identifier"
+      "type": "string"
     },
     "value": {
       "type": "string"
@@ -162,13 +148,6 @@ export const intel_resolves_to_refs: JsonSchema = {
 };
 
 /**
- * The schema of `intel_risk_score` in responses.
- */
-export const intel_risk_score: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `intel_single_response` in responses.
  */
 export const intel_single_response: JsonSchema = {
@@ -185,11 +164,4 @@ export const intel_single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `intel_stix_identifier` in responses.
- */
-export const intel_stix_identifier: JsonSchema = {
-  "type": "string"
 };

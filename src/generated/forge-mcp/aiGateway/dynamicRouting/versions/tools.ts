@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_versions_create",
     title: "Create a dynamic route version",
-    description: "Creates a new version of a dynamic route from the specified routing elements. The version does not serve traffic until you deploy it.\n\nThis method is beta.",
+    description: "Creates a new version of a dynamic route from the specified routing elements. The version does not serve traffic until you deploy it.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
     inputSchema: {
       type: "object",
       properties: {
@@ -345,6 +345,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -367,6 +368,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1163,11 +1165,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_versions_get",
     title: "Get a dynamic route version",
-    description: "Retrieves a saved version of a dynamic route, including its routing elements.\n\nThis method is beta.",
+    description: "Retrieves a saved version of a dynamic route, including its routing elements.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions/{version_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1194,6 +1197,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2026,11 +2030,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_dynamicRouting_versions_list",
     title: "List dynamic route versions",
-    description: "Lists the saved versions of a dynamic route.\n\nThis method is beta.",
+    description: "Lists the saved versions of a dynamic route.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2053,6 +2058,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -8,9 +8,6 @@ import {
   magic$$visibility$$mnm_api$$response$$single,
   magic$$visibility$$mnm_messages,
 } from "../../outputs.js";
-import { magic$$visibility$$mnm_account_identifier } from "../../schemas.js";
-import { magic$$visibility$$mnm_mnm_rule_automatic_advertisement } from "../outputs.js";
-import { magic$$visibility$$mnm_rule_identifier } from "../schemas.js";
 import {
   magic$$visibility$$mnm_mnm_rule_advertisable_response,
   magic$$visibility$$mnm_mnm_rule_advertisement_single_response,
@@ -23,18 +20,19 @@ export const tools: readonly Tool[] = [
   {
     name: "magicNetworkMonitoring_rules_advertisements_edit",
     title: "Update advertisement for rule",
-    description: "Update advertisement for rule.",
+    description: "Update advertisement for rule.\n\nPATCH /accounts/{account_id}/mnm/rules/{rule_id}/advertisement",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/magic-visibility-mnm_rule_identifier",
-              "description": "The id of the rule. Must be unique."
+              "description": "The id of the rule. Must be unique.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,10 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
-        "magic-visibility-mnm_rule_identifier": magic$$visibility$$mnm_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisement_single_response",
@@ -60,7 +55,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
         "magic-visibility-mnm_mnm_rule_advertisable_response": magic$$visibility$$mnm_mnm_rule_advertisable_response,
         "magic-visibility-mnm_mnm_rule_advertisement_single_response": magic$$visibility$$mnm_mnm_rule_advertisement_single_response,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic$$visibility$$mnm_mnm_rule_automatic_advertisement,
       },
     },
     annotations: {
@@ -101,7 +95,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
         "magic-visibility-mnm_mnm_rule_advertisable_response": magic$$visibility$$mnm_mnm_rule_advertisable_response,
         "magic-visibility-mnm_mnm_rule_advertisement_single_response": magic$$visibility$$mnm_mnm_rule_advertisement_single_response,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic$$visibility$$mnm_mnm_rule_automatic_advertisement,
       },
     },
     request: (args) => ({

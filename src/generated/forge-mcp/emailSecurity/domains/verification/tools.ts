@@ -7,9 +7,6 @@ import {
   email$$security_api$$response$$single,
   email$$security_messages,
 } from "../../outputs.js";
-import { email$$security_identifier } from "../../schemas.js";
-import { email$$security_DomainStatus } from "../outputs.js";
-import { email$$security_DomainId } from "../schemas.js";
 import { email$$security_DomainVerificationInfo } from "./outputs.js";
 
 /**
@@ -19,19 +16,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_domains_verification_get",
     title: "Get domain verification details",
-    description: "Returns the DNS TXT record information when the domain ownership isn't\nverified through Cloudflare zone ownership or CASB integration.\n\nThis method is beta.",
+    description: "Returns the DNS TXT record information when the domain ownership isn't\nverified through Cloudflare zone ownership or CASB integration.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/domains/{domain_id}/verification",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "domain_id": {
-              "$ref": "#/$defs/email-security_DomainId",
-              "description": "Domain identifier."
+              "description": "Domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -44,10 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_DomainId": email$$security_DomainId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -64,7 +60,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_DomainVerificationInfo": email$$security_DomainVerificationInfo,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -108,7 +103,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DomainStatus": email$$security_DomainStatus,
         "email-security_DomainVerificationInfo": email$$security_DomainVerificationInfo,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,

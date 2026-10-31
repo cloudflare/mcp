@@ -9,7 +9,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
   access_device_posture_check,
   access_device_posture_rule$$2,
@@ -22,7 +21,6 @@ import {
   access_active_session_response,
   access_active_sessions_response,
 } from "./outputs.js";
-import { access_nonce } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.users.activeSessions`.
@@ -31,22 +29,23 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_activeSessions_get",
     title: "Get single active session",
-    description: "Get an active session for a single user.",
+    description: "Get an active session for a single user.\n\nGET /accounts/{account_id}/access/users/{user_id}/active_sessions/{nonce}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "nonce": {
-              "$ref": "#/$defs/access_nonce"
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -60,11 +59,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_nonce": access_nonce,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_active_session_response",
@@ -123,19 +118,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_activeSessions_list",
     title: "Get active sessions",
-    description: "Get active sessions for a single user.",
+    description: "Get active sessions for a single user.\n\nGET /accounts/{account_id}/access/users/{user_id}/active_sessions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -148,10 +144,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_active_sessions_response",

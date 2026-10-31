@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const iam_user_group_member: JsonSchema = {
   "properties": {
     "email": {
-      "$ref": "#/$defs/iam_email"
+      "type": "string"
     },
     "id": {
       "type": "string"
@@ -38,7 +38,7 @@ export const iam_user_group_member_detailed: JsonSchema = {
       "type": "string"
     },
     "email": {
-      "$ref": "#/$defs/iam_email"
+      "type": "string"
     },
     "id": {
       "type": "string"
@@ -53,7 +53,7 @@ export const iam_user_group_member_detailed: JsonSchema = {
     "user": {
       "properties": {
         "email": {
-          "$ref": "#/$defs/iam_email"
+          "type": "string"
         },
         "first_name": {
           "type": "string"

@@ -9,18 +9,8 @@ import {
   infra_api$$response$$single,
   infra_messages,
 } from "../../../outputs.js";
-import { infra_AccountTag } from "../../../schemas.js";
-import {
-  infra_IPInfo,
-  infra_Target,
-  infra_TargetArray,
-  infra_TargetId,
-} from "./outputs.js";
-import {
-  infra_IPInfo as infra_IPInfo$,
-  infra_SortingDirection,
-  infra_TargetId as infra_TargetId$,
-} from "./schemas.js";
+import { infra_IPInfo, infra_Target, infra_TargetArray } from "./outputs.js";
+import { infra_IPInfo as infra_IPInfo$ } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.targets`.
@@ -29,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_targets_create",
     title: "Create new target",
-    description: "Creates a new infrastructure access target in the account.",
+    description: "Creates a new infrastructure access target in the account.\n\nPOST /accounts/{account_id}/infrastructure/targets",
     inputSchema: {
       type: "object",
       properties: {
@@ -65,10 +55,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -81,8 +72,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "infra_AccountTag": infra_AccountTag,
         "infra_IPInfo": infra_IPInfo$,
       },
     },
@@ -103,7 +94,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -141,7 +131,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
@@ -155,19 +144,21 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_targets_delete",
     title: "Delete target",
-    description: "Removes a single infrastructure access target by its ID.",
+    description: "Removes a single infrastructure access target by its ID.\n\nDELETE /accounts/{account_id}/infrastructure/targets/{target_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "target_id": {
-              "$ref": "#/$defs/infra_TargetId",
-              "description": "Target identifier"
+              "description": "Target identifier",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -180,10 +171,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "infra_AccountTag": infra_AccountTag,
-        "infra_TargetId": infra_TargetId$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -213,19 +201,21 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_targets_get",
     title: "Get target",
-    description: "Fetches a single infrastructure access target by its ID.",
+    description: "Fetches a single infrastructure access target by its ID.\n\nGET /accounts/{account_id}/infrastructure/targets/{target_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "target_id": {
-              "$ref": "#/$defs/infra_TargetId",
-              "description": "Target identifier"
+              "description": "Target identifier",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -238,10 +228,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "infra_AccountTag": infra_AccountTag,
-        "infra_TargetId": infra_TargetId$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -260,7 +247,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -298,7 +284,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
@@ -311,15 +296,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_targets_list",
     title: "List all targets",
-    description: "Lists and sorts an account's targets. Filters are optional and are ANDed\ntogether.",
+    description: "Lists and sorts an account's targets. Filters are optional and are ANDed\ntogether.\n\nGET /accounts/{account_id}/infrastructure/targets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -328,6 +314,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "created_after": {
               "description": "Date and time at which the target was created after (inclusive)",
@@ -354,8 +341,12 @@ export const tools: readonly Tool[] = [
               ]
             },
             "direction": {
-              "$ref": "#/$defs/infra_SortingDirection",
-              "description": "The sorting direction."
+              "description": "The sorting direction.",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
             },
             "hostname": {
               "description": "Hostname of a target",
@@ -539,10 +530,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "infra_AccountTag": infra_AccountTag,
-        "infra_SortingDirection": infra_SortingDirection,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -562,7 +550,6 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
         "infra_TargetArray": infra_TargetArray,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-collection": infra_api$$response$$collection,
         "infra_api-response-common": infra_api$$response$$common,
         "infra_messages": infra_messages,
@@ -602,7 +589,6 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
         "infra_TargetArray": infra_TargetArray,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-collection": infra_api$$response$$collection,
         "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
@@ -639,7 +625,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_targets_update",
     title: "Update target",
-    description: "Updates an existing infrastructure access target by its ID.",
+    description: "Updates an existing infrastructure access target by its ID.\n\nPUT /accounts/{account_id}/infrastructure/targets/{target_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -675,14 +661,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/infra_AccountTag",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "target_id": {
-              "$ref": "#/$defs/infra_TargetId",
-              "description": "Target identifier"
+              "description": "Target identifier",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -696,10 +684,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "infra_AccountTag": infra_AccountTag,
         "infra_IPInfo": infra_IPInfo$,
-        "infra_TargetId": infra_TargetId$,
       },
     },
     outputSchema: {
@@ -719,7 +706,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -757,7 +743,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
-        "infra_TargetId": infra_TargetId,
         "infra_api-response-common-failure": infra_api$$response$$common$$failure,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,

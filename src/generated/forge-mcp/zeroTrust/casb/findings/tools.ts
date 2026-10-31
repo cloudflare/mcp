@@ -4,18 +4,10 @@
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   posture$$api_BaseFindingType,
-  posture$$api_CredentialHealthStatusEnum,
   posture$$api_ExportJob,
-  posture$$api_ExportJobTypeEnum,
   posture$$api_FindingCategory,
-  posture$$api_FindingCategoryTypeEnum,
-  posture$$api_FindingTypeVendorsEnum,
   posture$$api_IntegrationPolicy,
   posture$$api_IntegrationSummary,
-  posture$$api_ObservationEnum,
-  posture$$api_ProductEnum,
-  posture$$api_SeverityEnum,
-  posture$$api_StatusEnum,
   posture$$api_Vendor,
   posture$$api_ZeroTrustProduct,
   posture$$api_api$$response$$collection,
@@ -25,10 +17,6 @@ import {
   posture$$api_messages,
   posture$$api_result$$info,
 } from "../outputs.js";
-import {
-  posture$$api_DirectionEnum,
-  posture$$api_VendorsEnum,
-} from "../schemas.js";
 import {
   posture$$api_Finding,
   posture$$api_FindingRemediation,
@@ -41,7 +29,6 @@ import {
   posture$$api_FindingBulkActionRequest,
   posture$$api_FindingExportFilterRequest,
   posture$$api_FindingExportOrderFilterRequest,
-  posture$$api_SeveritiesEnum,
   posture$$api_TuneFindingSeverityRequest,
 } from "./schemas.js";
 
@@ -52,7 +39,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_export",
     title: "Create new findings export request",
-    description: "Creates a CSV export for findings and accepts optional filters in the payload.",
+    description: "Creates a CSV export for findings and accepts optional filters in the payload.\n\nPOST /accounts/{account_id}/data-security/posture/findings/export",
     inputSchema: {
       type: "object",
       properties: {
@@ -60,6 +47,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_FindingExportFilterRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -75,20 +63,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_DirectionEnum": posture$$api_DirectionEnum,
         "posture-api_FindingExportFilterRequest": posture$$api_FindingExportFilterRequest,
         "posture-api_FindingExportOrderFilterRequest": posture$$api_FindingExportOrderFilterRequest,
-        "posture-api_SeveritiesEnum": posture$$api_SeveritiesEnum,
-        "posture-api_VendorsEnum": posture$$api_VendorsEnum,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -121,8 +105,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -136,11 +118,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_get",
     title: "Get a posture finding",
-    description: "Gets a security Finding that has been identified as being problematic.",
+    description: "Gets a security Finding that has been identified as being problematic.\n\nGET /accounts/{account_id}/data-security/posture/findings/{finding_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -162,24 +145,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -225,19 +203,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -253,7 +225,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_ignore",
     title: "Mark a finding as ignored",
-    description: "Given a list of findings, mark as ignored. Does nothing if Finding is already ignored.",
+    description: "Given a list of findings, mark as ignored. Does nothing if Finding is already ignored.\n\nPOST /accounts/{account_id}/data-security/posture/findings/ignore",
     inputSchema: {
       type: "object",
       properties: {
@@ -261,6 +233,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_FindingBulkActionRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -277,6 +250,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_FindingBulkActionRequest": posture$$api_FindingBulkActionRequest,
       },
@@ -285,19 +259,13 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -331,19 +299,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -359,11 +321,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_list",
     title: "List posture findings",
-    description: "List all security findings that have been identified as being problematic. \nThis will return a list of findings regardless if they have been ignored or not.",
+    description: "List all security findings that have been identified as being problematic. \nThis will return a list of findings regardless if they have been ignored or not.\n\nGET /accounts/{account_id}/data-security/posture/findings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -376,6 +339,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "A cursor for pagination. Obtained from the `result_info.cursor` field of a previous response.",
@@ -472,8 +436,27 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "vendor": {
-              "$ref": "#/$defs/posture-api_VendorsEnum",
-              "description": "Filter by vendor"
+              "description": "Filter by vendor",
+              "enum": [
+                "ANTHROPIC",
+                "AWS",
+                "BITBUCKET",
+                "BOX",
+                "CONFLUENCE",
+                "DROPBOX",
+                "GITHUB",
+                "GOOGLE_CLOUD_PLATFORM",
+                "GOOGLE_WORKSPACE",
+                "JIRA",
+                "MICROSOFT",
+                "MICROSOFT_INTERNAL",
+                "OPENAI",
+                "SALESFORCE",
+                "SERVICENOW",
+                "SLACK",
+                "ZOOM"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -482,27 +465,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "posture-api_VendorsEnum": posture$$api_VendorsEnum,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_paginated-finding-list",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
@@ -546,19 +521,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
@@ -594,11 +563,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_resetSeverity",
     title: "Reset severity for a finding back to the default",
-    description: "If a Finding's severity has been changed, reset it back to default value.\nDoes nothing if no override exists.",
+    description: "If a Finding's severity has been changed, reset it back to default value.\nDoes nothing if no override exists.\n\nPOST /accounts/{account_id}/data-security/posture/findings/{finding_id}/reset_finding_severity",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -620,24 +590,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -675,19 +640,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -703,7 +662,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_tuneSeverity",
     title: "Update the severity for a finding",
-    description: "Update the severity of a Finding.\nThis will update the `severity_override` field on the Finding payload with the new severity value.",
+    description: "Update the severity of a Finding.\nThis will update the `severity_override` field on the Finding payload with the new severity value.\n\nPOST /accounts/{account_id}/data-security/posture/findings/{finding_id}/tune_finding_severity",
     inputSchema: {
       type: "object",
       properties: {
@@ -711,6 +670,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_TuneFindingSeverityRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -733,6 +693,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_TuneFindingSeverityRequest": posture$$api_TuneFindingSeverityRequest,
       },
@@ -741,19 +702,13 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -791,19 +746,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -820,7 +769,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_unignore",
     title: "Remove ignore marker from a finding",
-    description: "Ability to un-ignore a Finding if it's previously been ignored. Does nothing if the Finding is not ignored.",
+    description: "Ability to un-ignore a Finding if it's previously been ignored. Does nothing if the Finding is not ignored.\n\nPOST /accounts/{account_id}/data-security/posture/findings/unignore",
     inputSchema: {
       type: "object",
       properties: {
@@ -828,6 +777,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_FindingBulkActionRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -844,6 +794,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_FindingBulkActionRequest": posture$$api_FindingBulkActionRequest,
       },
@@ -852,19 +803,13 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -898,19 +843,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_Finding": posture$$api_Finding,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
         "posture-api_FindingRemediation": posture$$api_FindingRemediation,
         "posture-api_FindingSeverityOverride": posture$$api_FindingSeverityOverride,
         "posture-api_FindingType": posture$$api_FindingType,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_Vendor": posture$$api_Vendor,
         "posture-api_ZeroTrustProduct": posture$$api_ZeroTrustProduct,
         "posture-api_api-response-common": posture$$api_api$$response$$common,

@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `secrets-store_quota` in responses.
- */
-export const secrets$$store_quota: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `secrets-store_quota_response` in responses.
  */
 export const secrets$$store_quota_response: JsonSchema = {
@@ -45,22 +38,15 @@ export const secrets$$store_secretsUsageObject: JsonSchema = {
 };
 
 /**
- * The schema of `secrets-store_usage` in responses.
- */
-export const secrets$$store_usage: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `secrets-store_usageQuotaObject` in responses.
  */
 export const secrets$$store_usageQuotaObject: JsonSchema = {
   "properties": {
     "quota": {
-      "$ref": "#/$defs/secrets-store_quota"
+      "type": "number"
     },
     "usage": {
-      "$ref": "#/$defs/secrets-store_usage"
+      "type": "number"
     }
   },
   "required": [

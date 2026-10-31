@@ -4,52 +4,21 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `secondary-dns_algo`.
- */
-export const secondary$$dns_algo: JsonSchema = {
-  "description": "TSIG algorithm.",
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_identifier-2`.
- */
-export const secondary$$dns_identifier$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_name-2`.
- */
-export const secondary$$dns_name$$2: JsonSchema = {
-  "description": "TSIG key name.",
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_secret`.
- */
-export const secondary$$dns_secret: JsonSchema = {
-  "description": "TSIG secret.",
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_tsig`.
  */
 export const secondary$$dns_tsig: JsonSchema = {
   "properties": {
     "algo": {
-      "$ref": "#/$defs/secondary-dns_algo",
-      "description": "TSIG algorithm."
+      "description": "TSIG algorithm.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-2",
-      "description": "TSIG key name."
+      "description": "TSIG key name.",
+      "type": "string"
     },
     "secret": {
-      "$ref": "#/$defs/secondary-dns_secret",
-      "description": "TSIG secret."
+      "description": "TSIG secret.",
+      "type": "string"
     }
   },
   "required": [

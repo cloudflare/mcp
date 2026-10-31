@@ -7,10 +7,6 @@ import {
   email$$security_api$$response$$common$$failure,
   email$$security_messages,
 } from "../../outputs.js";
-import {
-  email$$security_InvestigateId,
-  email$$security_identifier,
-} from "../../schemas.js";
 import { email$$security_MessagePreview } from "./outputs.js";
 
 /**
@@ -20,15 +16,15 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_preview_generate",
     title: "Generate preview for a non-detection message",
-    description: "Generates a preview image for a message that was not flagged as a detection. The message is rendered from the copy in the recipient's mailbox, so this requires an active integration and only works while the message is still in the recipient's inbox. Returns a base64-encoded PNG screenshot of the email body. For messages with a detection, use the detection preview endpoint instead.\n\nThis method is beta.",
+    description: "Generates a preview image for a message that was not flagged as a detection. The message is rendered from the copy in the recipient's mailbox, so this requires an active integration and only works while the message is still in the recipient's inbox. Returns a base64-encoded PNG screenshot of the email body. For messages with a detection, use the detection preview endpoint instead.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/investigate/preview",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -37,10 +33,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,10 +50,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -135,19 +129,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_preview_get",
     title: "Get preview for a detection",
-    description: "Returns a preview of the message body as a base64-encoded PNG image for any message with a detection. For messages without a detection, use the non-detection preview endpoint instead.\n\nThis method is beta.",
+    description: "Returns a preview of the message body as a base64-encoded PNG image for any message with a detection. For messages without a detection, use the non-detection preview endpoint instead.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}/preview",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "investigate_id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -160,10 +155,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

@@ -4,48 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `client-side-security_cryptomining_score` in responses.
- */
-export const client$$side$$security_cryptomining_score: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `client-side-security_dataflow_score` in responses.
- */
-export const client$$side$$security_dataflow_score: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `client-side-security_fetched_at` in responses.
- */
-export const client$$side$$security_fetched_at: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `client-side-security_get-zone-script-response` in responses.
  */
 export const client$$side$$security_get$$zone$$script$$response: JsonSchema = {
@@ -90,34 +48,6 @@ export const client$$side$$security_get$$zone$$script$$response: JsonSchema = {
 };
 
 /**
- * The schema of `client-side-security_hash` in responses.
- */
-export const client$$side$$security_hash: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `client-side-security_js_integrity_score` in responses.
- */
-export const client$$side$$security_js_integrity_score: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `client-side-security_list-zone-scripts-response` in responses.
  */
 export const client$$side$$security_list$$zone$$scripts$$response: JsonSchema = {
@@ -143,48 +73,6 @@ export const client$$side$$security_list$$zone$$scripts$$response: JsonSchema = 
 };
 
 /**
- * The schema of `client-side-security_magecart_score` in responses.
- */
-export const client$$side$$security_magecart_score: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `client-side-security_malware_score` in responses.
- */
-export const client$$side$$security_malware_score: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `client-side-security_obfuscation_score` in responses.
- */
-export const client$$side$$security_obfuscation_score: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `client-side-security_script` in responses.
  */
 export const client$$side$$security_script: JsonSchema = {
@@ -194,16 +82,37 @@ export const client$$side$$security_script: JsonSchema = {
       "type": "string"
     },
     "cryptomining_score": {
-      "$ref": "#/$defs/client-side-security_cryptomining_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "dataflow_score": {
-      "$ref": "#/$defs/client-side-security_dataflow_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "domain_reported_malicious": {
       "type": "boolean"
     },
     "fetched_at": {
-      "$ref": "#/$defs/client-side-security_fetched_at"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "first_page_url": {
       "type": "string"
@@ -213,23 +122,44 @@ export const client$$side$$security_script: JsonSchema = {
       "type": "string"
     },
     "hash": {
-      "$ref": "#/$defs/client-side-security_hash"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "host": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/client-side-security_id"
+      "type": "string"
     },
     "js_integrity_score": {
-      "$ref": "#/$defs/client-side-security_js_integrity_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "last_seen_at": {
       "format": "date-time",
       "type": "string"
     },
     "magecart_score": {
-      "$ref": "#/$defs/client-side-security_magecart_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "malicious_domain_categories": {
       "items": {
@@ -244,10 +174,24 @@ export const client$$side$$security_script: JsonSchema = {
       "type": "array"
     },
     "malware_score": {
-      "$ref": "#/$defs/client-side-security_malware_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "obfuscation_score": {
-      "$ref": "#/$defs/client-side-security_obfuscation_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "page_urls": {
       "items": {
@@ -283,28 +227,84 @@ export const client$$side$$security_script: JsonSchema = {
 export const client$$side$$security_version: JsonSchema = {
   "properties": {
     "cryptomining_score": {
-      "$ref": "#/$defs/client-side-security_cryptomining_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "dataflow_score": {
-      "$ref": "#/$defs/client-side-security_dataflow_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "fetched_at": {
-      "$ref": "#/$defs/client-side-security_fetched_at"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "hash": {
-      "$ref": "#/$defs/client-side-security_hash"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "js_integrity_score": {
-      "$ref": "#/$defs/client-side-security_js_integrity_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "magecart_score": {
-      "$ref": "#/$defs/client-side-security_magecart_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "malware_score": {
-      "$ref": "#/$defs/client-side-security_malware_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "obfuscation_score": {
-      "$ref": "#/$defs/client-side-security_obfuscation_score"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"

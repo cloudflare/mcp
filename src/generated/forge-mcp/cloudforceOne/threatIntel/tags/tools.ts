@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_create",
     title: "Create a tag",
-    description: "Creates a tag in the account and returns the complete tag.",
+    description: "Creates a tag in the account and returns the complete tag.\n\nPOST /accounts/{account_id}/cloudforce-one/events/tags/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -459,6 +459,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -474,6 +475,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1638,11 +1640,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_delete",
     title: "Delete a tag",
-    description: "Deletes a tag by its UUID.",
+    description: "Deletes a tag by its UUID.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1663,6 +1666,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1771,11 +1775,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_get",
     title: "Get a tag",
-    description: "Returns a tag by its UUID, including its custom fields (`properties`). Tags marked TLP:PURPLE are visible only to Cloudforce One.",
+    description: "Returns a tag by its UUID, including its custom fields (`properties`). Tags marked TLP:PURPLE are visible only to Cloudforce One.\n\nGET /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1796,6 +1801,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2929,11 +2935,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_list",
     title: "List tags",
-    description: "Lists the account's tags. Use `search` to match tag values, `categoryUuid` to limit results to one category, and `filters` (a JSON array) to filter by fields such as `originCountryISO`, `actorCategory`, `motive`, or `priority`. Country filters accept alpha-2 or alpha-3 codes, names, or common aliases. Tags marked TLP:PURPLE are visible only to Cloudforce One.",
+    description: "Lists the account's tags. Use `search` to match tag values, `categoryUuid` to limit results to one category, and `filters` (a JSON array) to filter by fields such as `originCountryISO`, `actorCategory`, `motive`, or `priority`. Country filters accept alpha-2 or alpha-3 codes, names, or common aliases. Tags marked TLP:PURPLE are visible only to Cloudforce One.\n\nGET /accounts/{account_id}/cloudforce-one/events/tags",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -2946,6 +2953,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cache": {
               "description": "Cache strategy. 'from-graph' serves results from the graph-node KV cache when all requested UUIDs are cached; falls back to normal path on partial/zero hit.",
@@ -3033,6 +3041,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4244,7 +4253,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_update",
     title: "Update a tag",
-    description: "Updates the given fields of a tag and returns the complete tag.",
+    description: "Updates the given fields of a tag and returns the complete tag.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}",
     inputSchema: {
       type: "object",
       properties: {
@@ -4690,6 +4699,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -4710,6 +4720,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

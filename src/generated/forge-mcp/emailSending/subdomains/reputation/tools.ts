@@ -6,8 +6,6 @@ import {
   email_api$$response$$single,
   email_messages,
 } from "../../../outputs.js";
-import { email_identifier } from "../../../schemas.js";
-import { email_sending_subdomain_identifier } from "../schemas.js";
 import {
   email_sending_subdomain_reputation_complaints,
   email_sending_subdomain_reputation_complaints_response,
@@ -20,19 +18,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_reputation_getComplaints",
     title: "Get sending subdomain complaint count",
-    description: "Returns the matched complaint count for a sending subdomain in a half-open time window of up to seven days.",
+    description: "Returns the matched complaint count for a sending subdomain in a half-open time window of up to seven days.\n\nGET /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/reputation/complaints",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "end_at": {
               "format": "date-time",
@@ -63,10 +63,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_reputation_complaints_response",

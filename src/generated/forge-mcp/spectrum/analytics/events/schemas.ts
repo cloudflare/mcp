@@ -21,14 +21,6 @@ export const spectrum$$analytics_dimensions: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-analytics_filters`.
- */
-export const spectrum$$analytics_filters: JsonSchema = {
-  "description": "Used to filter rows by one or more dimensions. Filters can be combined using OR and AND boolean logic. AND takes precedence over OR in all the expressions. The OR operator is defined using a comma (,) or OR keyword surrounded by whitespace. The AND operator is defined using a semicolon (;) or AND keyword surrounded by whitespace. Note that the semicolon is a reserved character in URLs (rfc1738) and needs to be percent-encoded as %3B. Comparison options are:\n\nOperator                  | Name                            | URL Encoded\n--------------------------|---------------------------------|--------------------------\n==                        | Equals                          | %3D%3D\n!=                        | Does not equals                 | !%3D\n\\>                        | Greater Than                    | %3E\n\\<                        | Less Than                       | %3C\n\\>=                       | Greater than or equal to        | %3E%3D\n\\<=                       | Less than or equal to           | %3C%3D\n\nUse the above to construct filters.",
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-analytics_metrics`.
  */
 export const spectrum$$analytics_metrics: JsonSchema = {

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ai_bots_timeseries",
     title: "Get AI bots HTTP requests time series",
-    description: "Retrieves AI bots HTTP request volume over time.",
+    description: "Retrieves AI bots HTTP request volume over time.\n\nGET /radar/ai/bots/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -167,6 +168,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -673,11 +675,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ai_bots_timeseriesGroups",
     title: "Get time series distribution of AI bots HTTP requests by dimension.",
-    description: "Retrieves the distribution of HTTP requests from AI bots, grouped by the specified dimension over time.",
+    description: "Retrieves the distribution of HTTP requests from AI bots, grouped by the specified dimension over time.\n\nGET /radar/ai/bots/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -699,6 +702,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -864,6 +868,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

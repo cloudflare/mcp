@@ -16,23 +16,16 @@ export const cc_ImageRegistryCredentialsConfiguration: JsonSchema = {
     "permissions": {
       "description": "The permissions for Cloudflare managed registry credentials. Required for managed registries. Cloudflare ignores this value for external registries.",
       "items": {
-        "$ref": "#/$defs/cc_ImageRegistryPermissions"
+        "description": "Specifies what permissions the credentials carry.",
+        "enum": [
+          "pull",
+          "push",
+          "list"
+        ],
+        "type": "string"
       },
       "type": "array"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cc_ImageRegistryPermissions`.
- */
-export const cc_ImageRegistryPermissions: JsonSchema = {
-  "description": "Specifies what permissions the credentials carry.",
-  "enum": [
-    "pull",
-    "push",
-    "list"
-  ],
-  "type": "string"
 };

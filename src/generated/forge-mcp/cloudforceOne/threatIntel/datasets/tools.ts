@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_create",
     title: "Create a dataset",
-    description: "Creates a dataset for grouping events. Set `isPublic` to true to let anyone search it; otherwise only the account can.",
+    description: "Creates a dataset for grouping events. Set `isPublic` to true to let anyone search it; otherwise only the account can.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -47,6 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -151,11 +153,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_delete",
     title: "Delete a dataset",
-    description: "Deletes a dataset. To see deleted datasets, use `threat-intel datasets list` with `includeDeleted`.",
+    description: "Deletes a dataset. To see deleted datasets, use `threat-intel datasets list` with `includeDeleted`.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -176,6 +179,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -292,11 +296,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_get",
     title: "Get a dataset",
-    description: "Returns a dataset by its ID.",
+    description: "Returns a dataset by its ID.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -318,6 +323,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -451,11 +457,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_list",
     title: "List datasets",
-    description: "Lists the account's datasets. Set `includeDeleted` to include deleted datasets.",
+    description: "Lists the account's datasets. Set `includeDeleted` to include deleted datasets.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -468,6 +475,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "includeDeleted": {
               "description": "When true, include soft-deleted datasets in the response. Each item includes a `deletedAt` field (ISO 8601 or null). Default: false.",
@@ -480,6 +488,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -616,11 +625,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_populate",
     title: "Rebuild dataset lookup lists",
-    description: "Rebuilds the lists of attackers, categories, indicator types, and target industries for the account's datasets from their existing events. Datasets are processed in batches.",
+    description: "Rebuilds the lists of attackers, categories, indicator types, and target industries for the account's datasets from their existing events. Datasets are processed in batches.\n\nPOST /accounts/{account_id}/cloudforce-one/events/datasets/populate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -636,6 +646,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1739,7 +1750,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_update",
     title: "Update a dataset",
-    description: "Updates a dataset's `name` and `isPublic` setting. Both fields are required.",
+    description: "Updates a dataset's `name` and `isPublic` setting. Both fields are required.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1761,6 +1772,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1782,6 +1794,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

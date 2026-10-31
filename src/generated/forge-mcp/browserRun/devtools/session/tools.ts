@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_session_get",
     title: "Get session details.",
-    description: "Get details for a specific browser session.",
+    description: "Get details for a specific browser session.\n\nGET /accounts/{account_id}/browser-rendering/devtools/session/{session_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -36,6 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "oneOf": [
@@ -174,11 +176,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_session_list",
     title: "List sessions.",
-    description: "List active browser sessions.",
+    description: "List active browser sessions.\n\nGET /accounts/{account_id}/browser-rendering/devtools/session",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -191,6 +194,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 200,
@@ -207,6 +211,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

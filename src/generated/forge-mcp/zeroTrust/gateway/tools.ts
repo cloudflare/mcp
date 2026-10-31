@@ -7,13 +7,7 @@ import {
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
 } from "../outputs.js";
-import {
-  zero$$trust$$gateway_cf_account_id,
-  zero$$trust$$gateway_gateway_account,
-  zero$$trust$$gateway_gateway_tag,
-  zero$$trust$$gateway_provider_name,
-} from "./outputs.js";
-import { zero$$trust$$gateway_identifier } from "./schemas.js";
+import { zero$$trust$$gateway_gateway_account } from "./outputs.js";
 
 /**
  * The tools of `zeroTrust.gateway`.
@@ -22,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_create",
     title: "Create Zero Trust account",
-    description: "Create a Zero Trust account for an existing Cloudflare account.",
+    description: "Create a Zero Trust account for an existing Cloudflare account.\n\nPOST /accounts/{account_id}/gateway",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,19 +37,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_gateway_account",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_cf_account_id": zero$$trust$$gateway_cf_account_id,
         "zero-trust-gateway_gateway_account": zero$$trust$$gateway_gateway_account,
-        "zero-trust-gateway_gateway_tag": zero$$trust$$gateway_gateway_tag,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_provider_name": zero$$trust$$gateway_provider_name,
       },
     },
     annotations: {
@@ -90,11 +80,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_cf_account_id": zero$$trust$$gateway_cf_account_id,
         "zero-trust-gateway_gateway_account": zero$$trust$$gateway_gateway_account,
-        "zero-trust-gateway_gateway_tag": zero$$trust$$gateway_gateway_tag,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_provider_name": zero$$trust$$gateway_provider_name,
       },
     },
     request: (args) => ({
@@ -104,15 +91,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_list",
     title: "Get Zero Trust account information",
-    description: "Retrieve information about the current Zero Trust account.",
+    description: "Retrieve information about the current Zero Trust account.\n\nGET /accounts/{account_id}/gateway",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -124,19 +112,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_gateway_account",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_cf_account_id": zero$$trust$$gateway_cf_account_id,
         "zero-trust-gateway_gateway_account": zero$$trust$$gateway_gateway_account,
-        "zero-trust-gateway_gateway_tag": zero$$trust$$gateway_gateway_tag,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_provider_name": zero$$trust$$gateway_provider_name,
       },
     },
     annotations: {
@@ -173,11 +156,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_cf_account_id": zero$$trust$$gateway_cf_account_id,
         "zero-trust-gateway_gateway_account": zero$$trust$$gateway_gateway_account,
-        "zero-trust-gateway_gateway_tag": zero$$trust$$gateway_gateway_tag,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_provider_name": zero$$trust$$gateway_provider_name,
       },
     },
     request: (args) => ({

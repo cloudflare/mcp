@@ -61,7 +61,14 @@ export const r2_storage_class_migration_job: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/r2_r2_bucket_job_status"
+      "enum": [
+        "ENQUEUED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "type": "string"
     },
     "storageClassMigration": {
       "properties": {

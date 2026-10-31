@@ -9,10 +9,6 @@ import {
   advanced$$ddos$$protection_messages,
 } from "../../../../../../outputs.js";
 import {
-  advanced$$ddos$$protection_identifier,
-  advanced$$ddos$$protection_uuid,
-} from "../../../../../../schemas.js";
-import {
   advanced$$ddos$$protection_TcpFlowProtectionRule,
   advanced$$ddos$$protection_tcp$$flow$$protection$$rule$$list$$response,
   advanced$$ddos$$protection_tcp$$flow$$protection$$rule$$response,
@@ -30,15 +26,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_flow_protection_rules_bulkDelete",
     title: "Delete all TCP Flow Protection rules.",
-    description: "Delete all TCP Flow Protection rules for an account.",
+    description: "Delete all TCP Flow Protection rules for an account.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_flow_protection/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -97,7 +92,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_flow_protection_rules_create",
     title: "Create TCP Flow Protection rule.",
-    description: "Create a TCP Flow Protection rule for an account.",
+    description: "Create a TCP Flow Protection rule for an account.\n\nPOST /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_flow_protection/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -106,10 +101,11 @@ export const tools: readonly Tool[] = [
           "description": "The new TCP Flow Protection rule."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -122,9 +118,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_NewTcpFlowProtectionRule": advanced$$ddos$$protection_NewTcpFlowProtectionRule,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {
@@ -175,19 +171,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_flow_protection_rules_delete",
     title: "Delete TCP Flow Protection rule.",
-    description: "Delete a TCP Flow Protection rule specified by the given UUID.",
+    description: "Delete a TCP Flow Protection rule specified by the given UUID.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_flow_protection/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the TCP Flow Protection rule to delete."
+              "description": "The UUID of the TCP Flow Protection rule to delete.",
+              "type": "string"
             }
           },
           "required": [
@@ -200,10 +197,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -248,19 +242,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_flow_protection_rules_get",
     title: "Get TCP Flow Protection rule.",
-    description: "Get a TCP Flow Protection rule specified by the given UUID.",
+    description: "Get a TCP Flow Protection rule specified by the given UUID.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_flow_protection/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the TCP Flow Protection rule."
+              "description": "The UUID of the TCP Flow Protection rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -273,10 +268,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_tcp-flow-protection-rule-response",
@@ -326,15 +318,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_flow_protection_rules_list",
     title: "List all TCP Flow Protection rules.",
-    description: "List all TCP Flow Protection rules for an account.",
+    description: "List all TCP Flow Protection rules for an account.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_flow_protection/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -343,6 +336,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The direction of ordering (ASC or DESC). Defaults to 'ASC'.",
@@ -367,9 +361,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_tcp-flow-protection-rule-list-response",
@@ -427,7 +419,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_tcp_flow_protection_rules_update",
     title: "Update TCP Flow Protection rule.",
-    description: "Update a TCP Flow Protection rule specified by the given UUID.",
+    description: "Update a TCP Flow Protection rule specified by the given UUID.\n\nPATCH /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_flow_protection/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -436,14 +428,15 @@ export const tools: readonly Tool[] = [
           "description": "The updates to apply to the TCP Flow Protection rule."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_uuid",
-              "description": "The UUID of the TCP Flow Protection rule to update."
+              "description": "The UUID of the TCP Flow Protection rule to update.",
+              "type": "string"
             }
           },
           "required": [
@@ -457,10 +450,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_TcpFlowProtectionRuleUpdate": advanced$$ddos$$protection_TcpFlowProtectionRuleUpdate,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
       },
     },
     outputSchema: {

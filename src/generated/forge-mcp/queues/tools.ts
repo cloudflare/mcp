@@ -7,30 +7,17 @@ import {
   mq_api$$v4$$failure,
   mq_api$$v4$$message,
   mq_api$$v4$$success,
-  mq_batch$$size,
   mq_consumer$$response,
   mq_http$$consumer$$response,
-  mq_identifier,
-  mq_jurisdiction,
-  mq_max$$concurrency,
-  mq_max$$retries,
-  mq_max$$wait$$time,
   mq_producer,
   mq_queue,
-  mq_queue$$name,
   mq_queue$$settings,
   mq_r2$$producer,
-  mq_retry$$delay,
-  mq_script$$name,
-  mq_visibility$$timeout,
   mq_worker$$consumer$$response,
   mq_worker$$producer,
 } from "./outputs.js";
 import {
-  mq_identifier as mq_identifier$,
-  mq_jurisdiction as mq_jurisdiction$,
   mq_queue as mq_queue$,
-  mq_queue$$name as mq_queue$$name$,
   mq_queue$$settings as mq_queue$$settings$,
 } from "./schemas.js";
 
@@ -41,17 +28,22 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_create",
     title: "Create Queue",
-    description: "Creates a Queue in the account.",
+    description: "Creates a Queue in the account.\n\nPOST /accounts/{account_id}/queues",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "jurisdiction": {
-              "$ref": "#/$defs/mq_jurisdiction"
+              "enum": [
+                "eu",
+                "us",
+                "fedramp"
+              ],
+              "type": "string"
             },
             "queue_name": {
-              "$ref": "#/$defs/mq_queue-name"
+              "type": "string"
             }
           },
           "required": [
@@ -60,10 +52,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -75,11 +68,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier$,
-        "mq_jurisdiction": mq_jurisdiction$,
-        "mq_queue-name": mq_queue$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -99,22 +88,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api$$v4$$error,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -165,22 +144,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-failure": mq_api$$v4$$failure,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -193,19 +162,20 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_delete",
     title: "Delete Queue",
-    description: "Deletes a Queue.",
+    description: "Deletes a Queue.\n\nDELETE /accounts/{account_id}/queues/{queue_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -218,9 +188,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mq_api-v4-success",
@@ -273,7 +241,7 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_edit",
     title: "Update Queue",
-    description: "Updates part of a Queue's configuration.",
+    description: "Updates part of a Queue's configuration.\n\nPATCH /accounts/{account_id}/queues/{queue_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -281,14 +249,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/mq_queue"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -301,11 +270,9 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "mq_identifier": mq_identifier$,
-        "mq_jurisdiction": mq_jurisdiction$,
         "mq_queue": mq_queue$,
-        "mq_queue-name": mq_queue$$name$,
         "mq_queue-settings": mq_queue$$settings$,
       },
     },
@@ -327,22 +294,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api$$v4$$error,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -393,22 +350,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-failure": mq_api$$v4$$failure,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -421,19 +368,20 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_get",
     title: "Get Queue",
-    description: "Returns details about a specific Queue.",
+    description: "Returns details about a specific Queue.\n\nGET /accounts/{account_id}/queues/{queue_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -446,9 +394,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -468,22 +414,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api$$v4$$error,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -536,22 +472,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-failure": mq_api$$v4$$failure,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -563,15 +489,16 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_list",
     title: "List Queues",
-    description: "Returns the queues owned by an account.",
+    description: "Returns the queues owned by an account.\n\nGET /accounts/{account_id}/queues",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -583,9 +510,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -628,22 +553,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api$$v4$$error,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },
@@ -719,22 +634,12 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-failure": mq_api$$v4$$failure,
         "mq_api-v4-message": mq_api$$v4$$message,
         "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_batch-size": mq_batch$$size,
         "mq_consumer-response": mq_consumer$$response,
         "mq_http-consumer-response": mq_http$$consumer$$response,
-        "mq_identifier": mq_identifier,
-        "mq_jurisdiction": mq_jurisdiction,
-        "mq_max-concurrency": mq_max$$concurrency,
-        "mq_max-retries": mq_max$$retries,
-        "mq_max-wait-time": mq_max$$wait$$time,
         "mq_producer": mq_producer,
         "mq_queue": mq_queue,
-        "mq_queue-name": mq_queue$$name,
         "mq_queue-settings": mq_queue$$settings,
         "mq_r2-producer": mq_r2$$producer,
-        "mq_retry-delay": mq_retry$$delay,
-        "mq_script-name": mq_script$$name,
-        "mq_visibility-timeout": mq_visibility$$timeout,
         "mq_worker-consumer-response": mq_worker$$consumer$$response,
         "mq_worker-producer": mq_worker$$producer,
       },

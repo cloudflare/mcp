@@ -6,11 +6,7 @@ import {
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../../outputs.js";
-import { organizations$$api_OrganizationID } from "../../schemas.js";
-import {
-  organizations$$api_MemberID,
-  organizations$$api_MemberSubjectUser,
-} from "../outputs.js";
+import { organizations$$api_MemberSubjectUser } from "../outputs.js";
 import { organizations$$api_OrganizationInviteMember } from "./outputs.js";
 import { organizations$$api_HandleOrganizationInviteRequest } from "./schemas.js";
 
@@ -21,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_invite_update",
     title: "Handle organization invite",
-    description: "Accept or reject an invitation to a specific organization.\n\nThe credential must belong to the invited user. No additional API token permission is\nrequired.",
+    description: "Accept or reject an invitation to a specific organization.\n\nThe credential must belong to the invited user. No additional API token permission is\nrequired.\n\nPUT /organizations/{organization_id}/invites/{member_code}",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,14 +26,15 @@ export const tools: readonly Tool[] = [
           "description": "The invitation action. Use `accept` to join the organization or `reject` to decline the invitation."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "member_code": {
               "description": "The invitation code to accept or reject.",
               "type": "string"
             },
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID",
-              "description": "The ID of the organization associated with the invitation."
+              "description": "The ID of the organization associated with the invitation.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,9 +48,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "organizations-api_HandleOrganizationInviteRequest": organizations$$api_HandleOrganizationInviteRequest,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
       },
     },
     outputSchema: {
@@ -89,7 +86,6 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberSubjectUser": organizations$$api_MemberSubjectUser,
         "organizations-api_OrganizationInviteMember": organizations$$api_OrganizationInviteMember,
         "organizations-api_V4Message": organizations$$api_V4Message,
@@ -147,7 +143,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_MemberID": organizations$$api_MemberID,
         "organizations-api_MemberSubjectUser": organizations$$api_MemberSubjectUser,
         "organizations-api_OrganizationInviteMember": organizations$$api_OrganizationInviteMember,
         "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,

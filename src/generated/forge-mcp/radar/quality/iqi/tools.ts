@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_quality_iqi_summary",
     title: "Get Internet Quality Index (IQI) summary",
-    description: "Retrieves a summary (percentiles) of bandwidth, latency, or DNS response time from the Radar Internet Quality Index (IQI).",
+    description: "Retrieves a summary (percentiles) of bandwidth, latency, or DNS response time from the Radar Internet Quality Index (IQI).\n\nGET /radar/quality/iqi/summary",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -94,6 +95,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -566,11 +568,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_quality_iqi_timeseriesGroups",
     title: "Get Internet Quality Index (IQI) time series",
-    description: "Retrieves a time series (percentiles) of bandwidth, latency, or DNS response time from the Radar Internet Quality Index (IQI).",
+    description: "Retrieves a time series (percentiles) of bandwidth, latency, or DNS response time from the Radar Internet Quality Index (IQI).\n\nGET /radar/quality/iqi/timeseries_groups",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -664,6 +667,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

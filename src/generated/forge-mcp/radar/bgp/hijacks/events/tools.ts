@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_hijacks_events_list",
     title: "Get BGP hijack events",
-    description: "Retrieves the BGP hijack events.",
+    description: "Retrieves the BGP hijack events.\n\nGET /radar/bgp/hijacks/events",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`.",
@@ -100,6 +101,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

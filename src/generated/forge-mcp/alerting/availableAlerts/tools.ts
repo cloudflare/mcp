@@ -7,14 +7,10 @@ import {
   aaa_api$$response$$common$$failure$$3,
   aaa_messages$$3,
 } from "../outputs.js";
-import { aaa_account$$id } from "../schemas.js";
 import {
   aaa_alert$$types,
   aaa_alerts$$response_collection,
-  aaa_description,
-  aaa_display_name,
   aaa_filter_options,
-  aaa_type,
 } from "./outputs.js";
 
 /**
@@ -24,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_availableAlerts_list",
     title: "Get Alert Types",
-    description: "Gets a list of all alert types for which an account is eligible.",
+    description: "Gets a list of all alert types for which an account is eligible.\n\nGET /accounts/{account_id}/alerting/v3/available_alerts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             }
           },
           "required": [
@@ -44,9 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_alerts-response_collection",
@@ -54,11 +49,8 @@ export const tools: readonly Tool[] = [
         "aaa_alert-types": aaa_alert$$types,
         "aaa_alerts-response_collection": aaa_alerts$$response_collection,
         "aaa_api-response-common-2": aaa_api$$response$$common$$2,
-        "aaa_description": aaa_description,
-        "aaa_display_name": aaa_display_name,
         "aaa_filter_options": aaa_filter_options,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_type": aaa_type,
       },
     },
     annotations: {
@@ -93,11 +85,8 @@ export const tools: readonly Tool[] = [
         "aaa_alerts-response_collection": aaa_alerts$$response_collection,
         "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
-        "aaa_description": aaa_description,
-        "aaa_display_name": aaa_display_name,
         "aaa_filter_options": aaa_filter_options,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_type": aaa_type,
       },
     },
     request: (args) => ({

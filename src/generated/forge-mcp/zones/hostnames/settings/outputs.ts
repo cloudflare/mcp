@@ -4,21 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_created_at-4` in responses.
- */
-export const tls$$certificates$$and$$hostnames_created_at$$4: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_hostname-3` in responses.
- */
-export const tls$$certificates$$and$$hostnames_hostname$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_per_hostname_settings_response`
  * in responses.
  */
@@ -44,37 +29,24 @@ export const tls$$certificates$$and$$hostnames_per_hostname_settings_response: J
 export const tls$$certificates$$and$$hostnames_settingObject: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-4"
+      "format": "date-time",
+      "type": "string"
     },
     "hostname": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-3"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-12"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-5"
+      "format": "date-time",
+      "type": "string"
     },
     "value": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_value"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-12` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status$$12: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_updated_at-5` in responses.
- */
-export const tls$$certificates$$and$$hostnames_updated_at$$5: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**

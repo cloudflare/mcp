@@ -3,23 +3,15 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$sharing_account_id,
   resource$$sharing_api$$response$$collection,
   resource$$sharing_api$$response$$collection$$info,
   resource$$sharing_api$$response$$common,
   resource$$sharing_api$$response$$common$$failure,
-  resource$$sharing_created,
-  resource$$sharing_modified,
   resource$$sharing_result_info,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../../outputs.js";
 import {
-  resource$$sharing_account_id as resource$$sharing_account_id$,
-  resource$$sharing_share_id,
-} from "../../schemas.js";
-import {
-  resource$$sharing_excluded_recipient_id,
   resource$$sharing_share_excluded_recipient_object,
   resource$$sharing_share_excluded_recipient_response_collection,
   resource$$sharing_share_excluded_recipient_response_collection_result,
@@ -28,7 +20,6 @@ import {
 } from "./outputs.js";
 import {
   resource$$sharing_create_share_excluded_recipient_request,
-  resource$$sharing_excluded_recipient_id as resource$$sharing_excluded_recipient_id$,
   resource$$sharing_update_share_excluded_recipients_request,
 } from "./schemas.js";
 
@@ -39,7 +30,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_excludedRecipients_create",
     title: "Trigger an account exclusion from a share",
-    description: "Excludes a single account from an organization-targeted share. The share continues to target the entire organization, but the excluded account is skipped during reconciliation.",
+    description: "Excludes a single account from an organization-targeted share. The share continues to target the entire organization, but the excluded account is skipped during reconciliation.\n\nPOST /accounts/{account_id}/shares/{share_id}/excluded-recipients",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,14 +38,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_create_share_excluded_recipient_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -68,20 +60,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
         "resource-sharing_create_share_excluded_recipient_request": resource$$sharing_create_share_excluded_recipient_request,
-        "resource-sharing_share_id": resource$$sharing_share_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_single": resource$$sharing_share_excluded_recipient_response_single,
         "resource-sharing_share_excluded_recipient_response_single_result": resource$$sharing_share_excluded_recipient_response_single_result,
@@ -120,12 +107,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_single": resource$$sharing_share_excluded_recipient_response_single,
         "resource-sharing_share_excluded_recipient_response_single_result": resource$$sharing_share_excluded_recipient_response_single_result,
@@ -141,23 +124,24 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_excludedRecipients_delete",
     title: "Trigger an account un-exclusion from a share",
-    description: "Removes a single account from a share's excluded-recipient list. The account becomes eligible to receive the share again on the next reconciliation cycle.",
+    description: "Removes a single account from a share's excluded-recipient list. The account becomes eligible to receive the share again on the next reconciliation cycle.\n\nDELETE /accounts/{account_id}/shares/{share_id}/excluded-recipients/{excluded_recipient_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "excluded_recipient_id": {
-              "$ref": "#/$defs/resource-sharing_excluded_recipient_id",
-              "description": "Share Excluded Recipient identifier tag."
+              "description": "Share Excluded Recipient identifier tag.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -171,20 +155,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_single": resource$$sharing_share_excluded_recipient_response_single,
         "resource-sharing_share_excluded_recipient_response_single_result": resource$$sharing_share_excluded_recipient_response_single_result,
@@ -223,12 +199,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_single": resource$$sharing_share_excluded_recipient_response_single,
         "resource-sharing_share_excluded_recipient_response_single_result": resource$$sharing_share_excluded_recipient_response_single_result,
@@ -243,23 +215,24 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_excludedRecipients_get",
     title: "Get share excluded recipient by ID",
-    description: "Gets a single excluded recipient of a share by its identifier tag.",
+    description: "Gets a single excluded recipient of a share by its identifier tag.\n\nGET /accounts/{account_id}/shares/{share_id}/excluded-recipients/{excluded_recipient_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "excluded_recipient_id": {
-              "$ref": "#/$defs/resource-sharing_excluded_recipient_id",
-              "description": "Share Excluded Recipient identifier tag."
+              "description": "Share Excluded Recipient identifier tag.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -273,20 +246,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_single": resource$$sharing_share_excluded_recipient_response_single,
         "resource-sharing_share_excluded_recipient_response_single_result": resource$$sharing_share_excluded_recipient_response_single_result,
@@ -325,12 +290,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_single": resource$$sharing_share_excluded_recipient_response_single,
         "resource-sharing_share_excluded_recipient_response_single_result": resource$$sharing_share_excluded_recipient_response_single_result,
@@ -345,19 +306,20 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_excludedRecipients_list",
     title: "List share excluded recipients by share ID",
-    description: "Lists the accounts excluded from an organization-targeted share. Only valid for shares with `target_type=organization`.",
+    description: "Lists the accounts excluded from an organization-targeted share. Only valid for shares with `target_type=organization`.\n\nGET /accounts/{account_id}/shares/{share_id}/excluded-recipients",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -367,6 +329,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -385,21 +348,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_collection",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_collection": resource$$sharing_share_excluded_recipient_response_collection,
@@ -439,14 +395,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_excluded_recipient_id": resource$$sharing_excluded_recipient_id,
-        "resource-sharing_modified": resource$$sharing_modified,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_excluded_recipient_object": resource$$sharing_share_excluded_recipient_object,
         "resource-sharing_share_excluded_recipient_response_collection": resource$$sharing_share_excluded_recipient_response_collection,
@@ -466,7 +418,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_excludedRecipients_update",
     title: "Trigger excluded-account reconciliation on a share",
-    description: "Reconciles a share's excluded recipients to match the given list. Only valid for shares with `target_type=organization`.",
+    description: "Reconciles a share's excluded recipients to match the given list. Only valid for shares with `target_type=organization`.\n\nPUT /accounts/{account_id}/shares/{share_id}/excluded-recipients",
     inputSchema: {
       type: "object",
       properties: {
@@ -474,14 +426,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_update_share_excluded_recipients_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -495,10 +448,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
         "resource-sharing_create_share_excluded_recipient_request": resource$$sharing_create_share_excluded_recipient_request,
-        "resource-sharing_share_id": resource$$sharing_share_id,
         "resource-sharing_update_share_excluded_recipients_request": resource$$sharing_update_share_excluded_recipients_request,
       },
     },

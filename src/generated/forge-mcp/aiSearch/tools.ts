@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_chatCompletions",
     title: "Chat Completions",
-    description: "Performs a chat completion request against an AI Search instance, using indexed content as context for generating responses.\n\nThis method is beta.",
+    description: "Performs a chat completion request against an AI Search instance, using indexed content as context for generating responses.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/chat/completions",
     inputSchema: {
       type: "object",
       properties: {
@@ -290,6 +290,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -315,6 +316,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1030,7 +1032,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_create",
     title: "Create an AI Search instance.",
-    description: "Create a new AI Search instance with the given configuration. If type is omitted or null, a non-blank HTTP(S) source infers web-crawler and any other source infers r2; r2 sources must name an existing bucket. A missing or blank source without a type creates a managed upload-only instance.\n\nThis method is beta.",
+    description: "Create a new AI Search instance with the given configuration. If type is omitted or null, a non-blank HTTP(S) source infers web-crawler and any other source infers r2; r2 sources must name an existing bucket. A missing or blank source without a type creates a managed upload-only instance.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{namespace}/instances",
     inputSchema: {
       type: "object",
       properties: {
@@ -1590,6 +1592,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1610,6 +1613,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2977,11 +2981,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_delete",
     title: "Delete an AI Search instance.",
-    description: "Deletes an AI Search instance and all its indexed data permanently.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the AI Search instance and all its indexed data.",
+    description: "Deletes an AI Search instance and all its indexed data permanently.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the AI Search instance and all its indexed data.\n\nDELETE /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3006,6 +3011,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4253,11 +4259,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_get",
     title: "Get an AI Search instance.",
-    description: "Retrieve the configuration and status of an AI Search instance.\n\nThis method is beta.",
+    description: "Retrieve the configuration and status of an AI Search instance.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -4282,6 +4289,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -5496,11 +5504,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_list",
     title: "List AI Search instances.",
-    description: "Lists all AI Search instances in the account.\n\nThis method is beta.",
+    description: "Lists all AI Search instances in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -5518,6 +5527,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "hostname": {
               "description": "Return only instances with this exact Search for Agents hostname (case-insensitive).",
@@ -5561,6 +5571,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -7143,7 +7154,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_move",
     title: "Move an instance to a different namespace.",
-    description: "Moves an instance from its current namespace to the specified target namespace. Use 'default' with --destination-namespace to move the instance back to the default namespace. Fails with 400 if the target namespace already has an instance with the same id (ids must be unique within a namespace — the same id can exist in different namespaces).",
+    description: "Moves an instance from its current namespace to the specified target namespace. Use 'default' with --destination-namespace to move the instance back to the default namespace. Fails with 400 if the target namespace already has an instance with the same id (ids must be unique within a namespace — the same id can exist in different namespaces).\n\nPATCH /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -7160,6 +7171,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -7184,6 +7196,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -7391,7 +7404,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_multiChatCompletions",
     title: "Multi-Instance Chat Completions",
-    description: "Performs a chat completion request against multiple AI Search instances in parallel, merging retrieved content as context for generating a response.\n\nThis method is beta.",
+    description: "Performs a chat completion request against multiple AI Search instances in parallel, merging retrieved content as context for generating a response.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{name}/chat/completions",
     inputSchema: {
       type: "object",
       properties: {
@@ -7682,6 +7695,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -7701,6 +7715,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -8457,7 +8472,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_multiSearch",
     title: "Multi-Instance Search",
-    description: "Performs a semantic search query against multiple AI Search instances in parallel, merging the retrieved results into a single ranked response.\n\nThis method is beta.",
+    description: "Performs a semantic search query against multiple AI Search instances in parallel, merging the retrieved results into a single ranked response.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{name}/search",
     inputSchema: {
       type: "object",
       properties: {
@@ -8745,6 +8760,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -8764,6 +8780,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -9265,11 +9282,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_purgeCache",
     title: "Purge search cache.",
-    description: "Purges all cached search results for an AI Search instance. A new internal cache key is generated, immediately orphaning all prior cached entries.\n\nThis method is beta.",
+    description: "Purges all cached search results for an AI Search instance. A new internal cache key is generated, immediately orphaning all prior cached entries.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/purge_cache",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -9295,6 +9313,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -9426,7 +9445,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_search",
     title: "Search",
-    description: "Executes a semantic search query against an AI Search instance to find relevant indexed content.\n\nThis method is beta.",
+    description: "Executes a semantic search query against an AI Search instance to find relevant indexed content.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/search",
     inputSchema: {
       type: "object",
       properties: {
@@ -9701,6 +9720,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -9726,6 +9746,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -10186,11 +10207,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_stats",
     title: "Get instance statistics.",
-    description: "Retrieve usage and indexing statistics for an AI Search instance.\n\nThis method is beta.",
+    description: "Retrieve usage and indexing statistics for an AI Search instance.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/stats",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -10216,6 +10238,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -10466,7 +10489,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_update",
     title: "Update an AI Search instance.",
-    description: "Updates the configuration of an AI Search instance.\n\nThis method is beta.",
+    description: "Updates the configuration of an AI Search instance.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -11046,6 +11069,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -11070,6 +11094,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -15,11 +15,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_clientVersions_targetEnvironments_list",
     title: "List available target environments",
-    description: "Retrieves a list of all available target environments with their display names. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Retrieves a list of all available target environments with their display names. This endpoint is in Beta.\n\nThis method is beta.\n\nGET /accounts/{account_id}/devices/client-versions/target-environments",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -34,6 +35,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

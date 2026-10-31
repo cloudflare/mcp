@@ -9,39 +9,17 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_enabled,
-  tls$$certificates$$and$$hostnames_host,
   tls$$certificates$$and$$hostnames_keyless$$certificate,
-  tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-  tls$$certificates$$and$$hostnames_keyless_private_ip,
   tls$$certificates$$and$$hostnames_keyless_tunnel,
-  tls$$certificates$$and$$hostnames_keyless_vnet_id,
-  tls$$certificates$$and$$hostnames_name,
-  tls$$certificates$$and$$hostnames_port,
-  tls$$certificates$$and$$hostnames_status$$2,
 } from "../outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_bundle_method,
-  tls$$certificates$$and$$hostnames_host as tls$$certificates$$and$$hostnames_host$,
-  tls$$certificates$$and$$hostnames_keyless_certificate_identifier as tls$$certificates$$and$$hostnames_keyless_certificate_identifier$,
-  tls$$certificates$$and$$hostnames_keyless_private_ip as tls$$certificates$$and$$hostnames_keyless_private_ip$,
-  tls$$certificates$$and$$hostnames_keyless_tunnel as tls$$certificates$$and$$hostnames_keyless_tunnel$,
-  tls$$certificates$$and$$hostnames_keyless_vnet_id as tls$$certificates$$and$$hostnames_keyless_vnet_id$,
-  tls$$certificates$$and$$hostnames_port as tls$$certificates$$and$$hostnames_port$,
-} from "../schemas.js";
+import { tls$$certificates$$and$$hostnames_keyless_tunnel as tls$$certificates$$and$$hostnames_keyless_tunnel$ } from "../schemas.js";
 import {
   tls$$certificates$$and$$hostnames_base,
   tls$$certificates$$and$$hostnames_keyless_response_collection,
   tls$$certificates$$and$$hostnames_keyless_response_single,
   tls$$certificates$$and$$hostnames_keyless_response_single_id,
 } from "./outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_certificate$$2,
-  tls$$certificates$$and$$hostnames_enabled_write,
-  tls$$certificates$$and$$hostnames_name_write,
-} from "./schemas.js";
 
 /**
  * The tools of `ssl.keylessCertificates`.
@@ -50,33 +28,38 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_keylessCertificates_create",
     title: "Create Keyless SSL Configuration",
-    description: "Creates a Keyless SSL configuration that allows SSL/TLS termination without exposing private keys to Cloudflare. Keys remain on your infrastructure.",
+    description: "Creates a Keyless SSL configuration that allows SSL/TLS termination without exposing private keys to Cloudflare. Keys remain on your infrastructure.\n\nPOST /zones/{zone_id}/keyless_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "bundle_method": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_bundle_method",
               "default": "ubiquitous",
-              "description": "A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it."
+              "description": "A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it.",
+              "enum": [
+                "ubiquitous",
+                "optimal",
+                "force"
+              ],
+              "type": "string"
             },
             "certificate": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-2",
-              "description": "The zone's SSL certificate or SSL certificate and intermediate(s)."
+              "description": "The zone's SSL certificate or SSL certificate and intermediate(s).",
+              "type": "string"
             },
             "host": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_host",
-              "description": "The keyless SSL name."
+              "description": "The keyless SSL name.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_name_write",
-              "description": "The keyless SSL name."
+              "description": "The keyless SSL name.",
+              "type": "string"
             },
             "port": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_port",
               "default": 24008,
-              "description": "The keyless SSL port used to communicate between Cloudflare and the client's Keyless SSL server."
+              "description": "The keyless SSL port used to communicate between Cloudflare and the client's Keyless SSL server.",
+              "type": "number"
             },
             "tunnel": {
               "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_tunnel",
@@ -91,10 +74,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -107,16 +91,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "tls-certificates-and-hostnames_bundle_method": tls$$certificates$$and$$hostnames_bundle_method,
-        "tls-certificates-and-hostnames_certificate-2": tls$$certificates$$and$$hostnames_certificate$$2,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip$,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel$,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id$,
-        "tls-certificates-and-hostnames_name_write": tls$$certificates$$and$$hostnames_name_write,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port$,
       },
     },
     outputSchema: {
@@ -124,17 +101,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_single": tls$$certificates$$and$$hostnames_keyless_response_single,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     annotations: {
@@ -182,17 +151,9 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_single": tls$$certificates$$and$$hostnames_keyless_response_single,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     request: (args) => ({
@@ -203,19 +164,20 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_keylessCertificates_delete",
     title: "Delete Keyless SSL Configuration",
-    description: "Removes a Keyless SSL configuration. SSL connections will no longer use the keyless server for cryptographic operations.",
+    description: "Removes a Keyless SSL configuration. SSL connections will no longer use the keyless server for cryptographic operations.\n\nDELETE /zones/{zone_id}/keyless_certificates/{keyless_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "keyless_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier",
-              "description": "Keyless certificate identifier tag."
+              "description": "Keyless certificate identifier tag.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -228,16 +190,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_response_single_id",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
         "tls-certificates-and-hostnames_keyless_response_single_id": tls$$certificates$$and$$hostnames_keyless_response_single_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
@@ -286,7 +244,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
         "tls-certificates-and-hostnames_keyless_response_single_id": tls$$certificates$$and$$hostnames_keyless_response_single_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
@@ -298,28 +255,29 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_keylessCertificates_edit",
     title: "Edit Keyless SSL Configuration",
-    description: "This will update attributes of a Keyless SSL. Consists of one or more of the following:  host,name,port.",
+    description: "This will update attributes of a Keyless SSL. Consists of one or more of the following:  host,name,port.\n\nPATCH /zones/{zone_id}/keyless_certificates/{keyless_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "enabled": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled_write",
-              "description": "Whether or not the Keyless SSL is on or off."
+              "deprecated": true,
+              "description": "Whether or not the Keyless SSL is on or off.",
+              "type": "boolean"
             },
             "host": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_host",
-              "description": "The keyless SSL name."
+              "description": "The keyless SSL name.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_name_write",
-              "description": "The keyless SSL name."
+              "description": "The keyless SSL name.",
+              "type": "string"
             },
             "port": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_port",
               "default": 24008,
-              "description": "The keyless SSL port used to communicate between Cloudflare and the client's Keyless SSL server."
+              "description": "The keyless SSL port used to communicate between Cloudflare and the client's Keyless SSL server.",
+              "type": "number"
             },
             "tunnel": {
               "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_tunnel",
@@ -329,14 +287,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "keyless_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier",
-              "description": "Keyless certificate identifier tag."
+              "description": "Keyless certificate identifier tag.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -350,16 +309,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "tls-certificates-and-hostnames_enabled_write": tls$$certificates$$and$$hostnames_enabled_write,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier$,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip$,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel$,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id$,
-        "tls-certificates-and-hostnames_name_write": tls$$certificates$$and$$hostnames_name_write,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port$,
       },
     },
     outputSchema: {
@@ -367,17 +319,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_single": tls$$certificates$$and$$hostnames_keyless_response_single,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     annotations: {
@@ -425,17 +369,9 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_single": tls$$certificates$$and$$hostnames_keyless_response_single,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     request: (args) => ({
@@ -446,19 +382,20 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_keylessCertificates_get",
     title: "Get Keyless SSL Configuration",
-    description: "Get details for one Keyless SSL configuration.",
+    description: "Get details for one Keyless SSL configuration.\n\nGET /zones/{zone_id}/keyless_certificates/{keyless_certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "keyless_certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier",
-              "description": "Keyless certificate identifier tag."
+              "description": "Keyless certificate identifier tag.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -471,27 +408,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_response_single",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_single": tls$$certificates$$and$$hostnames_keyless_response_single,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     annotations: {
@@ -577,17 +503,9 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_single": tls$$certificates$$and$$hostnames_keyless_response_single,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     request: (args) => ({
@@ -597,15 +515,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_keylessCertificates_list",
     title: "List Keyless SSL Configurations",
-    description: "List all Keyless SSL configurations for a given zone.",
+    description: "List all Keyless SSL configurations for a given zone.\n\nGET /zones/{zone_id}/keyless_certificates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -617,27 +536,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_response_collection",
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
         "tls-certificates-and-hostnames_keyless-certificate": tls$$certificates$$and$$hostnames_keyless$$certificate,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_collection": tls$$certificates$$and$$hostnames_keyless_response_collection,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     annotations: {
@@ -686,18 +595,10 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_enabled": tls$$certificates$$and$$hostnames_enabled,
-        "tls-certificates-and-hostnames_host": tls$$certificates$$and$$hostnames_host,
         "tls-certificates-and-hostnames_keyless-certificate": tls$$certificates$$and$$hostnames_keyless$$certificate,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls$$certificates$$and$$hostnames_keyless_certificate_identifier,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls$$certificates$$and$$hostnames_keyless_private_ip,
         "tls-certificates-and-hostnames_keyless_response_collection": tls$$certificates$$and$$hostnames_keyless_response_collection,
         "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls$$certificates$$and$$hostnames_keyless_vnet_id,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_name": tls$$certificates$$and$$hostnames_name,
-        "tls-certificates-and-hostnames_port": tls$$certificates$$and$$hostnames_port,
-        "tls-certificates-and-hostnames_status-2": tls$$certificates$$and$$hostnames_status$$2,
       },
     },
     request: (args) => ({

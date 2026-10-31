@@ -6,25 +6,14 @@ import {
   secondary$$dns_api$$response$$common$$failure,
   secondary$$dns_api$$response$$single,
   secondary$$dns_id_response,
-  secondary$$dns_identifier,
   secondary$$dns_messages,
-  secondary$$dns_name,
   secondary$$dns_peers,
-  secondary$$dns_soa_serial,
-  secondary$$dns_time,
 } from "../outputs.js";
-import {
-  secondary$$dns_identifier as secondary$$dns_identifier$,
-  secondary$$dns_name as secondary$$dns_name$,
-  secondary$$dns_peers as secondary$$dns_peers$,
-} from "../schemas.js";
+import { secondary$$dns_peers as secondary$$dns_peers$ } from "../schemas.js";
 import {
   secondary$$dns_disable_transfer_response,
-  secondary$$dns_disable_transfer_result,
   secondary$$dns_enable_transfer_response,
-  secondary$$dns_enable_transfer_result,
   secondary$$dns_force_response$$2,
-  secondary$$dns_force_result$$2,
   secondary$$dns_single_response_outgoing,
 } from "./outputs.js";
 import { secondary$$dns_single_request_outgoing } from "./schemas.js";
@@ -36,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_create",
     title: "Create Primary Zone Configuration",
-    description: "Create primary zone configuration for outgoing zone transfers.",
+    description: "Create primary zone configuration for outgoing zone transfers.\n\nPOST /zones/{zone_id}/secondary_dns/outgoing",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,9 +33,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_single_request_outgoing"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -59,9 +49,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-        "secondary-dns_name": secondary$$dns_name$,
         "secondary-dns_peers": secondary$$dns_peers$,
         "secondary-dns_single_request_outgoing": secondary$$dns_single_request_outgoing,
       },
@@ -70,13 +59,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/secondary-dns_single_response_outgoing",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_outgoing": secondary$$dns_single_response_outgoing,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     annotations: {
@@ -120,13 +105,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_outgoing": secondary$$dns_single_response_outgoing,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     request: (args) => ({
@@ -137,14 +118,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_delete",
     title: "Delete Primary Zone Configuration",
-    description: "Delete primary zone configuration for outgoing zone transfers.",
+    description: "Delete primary zone configuration for outgoing zone transfers.\n\nDELETE /zones/{zone_id}/secondary_dns/outgoing",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -156,16 +138,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_id_response",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response": secondary$$dns_id_response,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -211,7 +190,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response": secondary$$dns_id_response,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -222,14 +200,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_disable",
     title: "Disable Outgoing Zone Transfers",
-    description: "Disable outgoing zone transfers for primary zone and clears IXFR backlog of primary zone.\n\nConfirm with the user before calling this tool. This operation turns off outgoing zone transfers for the primary zone, which means secondary zones will stop receiving updates.",
+    description: "Disable outgoing zone transfers for primary zone and clears IXFR backlog of primary zone.\n\nConfirm with the user before calling this tool. This operation turns off outgoing zone transfers for the primary zone, which means secondary zones will stop receiving updates.\n\nPOST /zones/{zone_id}/secondary_dns/outgoing/disable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -241,16 +220,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_disable_transfer_response",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_disable_transfer_response": secondary$$dns_disable_transfer_response,
-        "secondary-dns_disable_transfer_result": secondary$$dns_disable_transfer_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -296,7 +272,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_disable_transfer_response": secondary$$dns_disable_transfer_response,
-        "secondary-dns_disable_transfer_result": secondary$$dns_disable_transfer_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -307,14 +282,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_enable",
     title: "Enable Outgoing Zone Transfers",
-    description: "Enable outgoing zone transfers for primary zone.",
+    description: "Enable outgoing zone transfers for primary zone.\n\nPOST /zones/{zone_id}/secondary_dns/outgoing/enable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -326,16 +302,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_enable_transfer_response",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
-        "secondary-dns_enable_transfer_result": secondary$$dns_enable_transfer_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -381,7 +354,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
-        "secondary-dns_enable_transfer_result": secondary$$dns_enable_transfer_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -392,14 +364,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_forceNotify",
     title: "Force DNS NOTIFY",
-    description: "Notifies the secondary nameserver(s) and clears IXFR backlog of primary zone.",
+    description: "Notifies the secondary nameserver(s) and clears IXFR backlog of primary zone.\n\nPOST /zones/{zone_id}/secondary_dns/outgoing/force_notify",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -411,16 +384,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_force_response-2",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_force_response-2": secondary$$dns_force_response$$2,
-        "secondary-dns_force_result-2": secondary$$dns_force_result$$2,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -466,7 +436,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_force_response-2": secondary$$dns_force_response$$2,
-        "secondary-dns_force_result-2": secondary$$dns_force_result$$2,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -477,14 +446,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_get",
     title: "Primary Zone Configuration Details",
-    description: "Get primary zone configuration for outgoing zone transfers.",
+    description: "Get primary zone configuration for outgoing zone transfers.\n\nGET /zones/{zone_id}/secondary_dns/outgoing",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -496,21 +466,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response_outgoing",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_outgoing": secondary$$dns_single_response_outgoing,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     annotations: {
@@ -556,13 +520,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_outgoing": secondary$$dns_single_response_outgoing,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     request: (args) => ({
@@ -572,7 +532,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_outgoing_update",
     title: "Update Primary Zone Configuration",
-    description: "Update primary zone configuration for outgoing zone transfers.",
+    description: "Update primary zone configuration for outgoing zone transfers.\n\nPUT /zones/{zone_id}/secondary_dns/outgoing",
     inputSchema: {
       type: "object",
       properties: {
@@ -580,9 +540,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_single_request_outgoing"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -595,9 +556,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-        "secondary-dns_name": secondary$$dns_name$,
         "secondary-dns_peers": secondary$$dns_peers$,
         "secondary-dns_single_request_outgoing": secondary$$dns_single_request_outgoing,
       },
@@ -606,13 +566,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/secondary-dns_single_response_outgoing",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_outgoing": secondary$$dns_single_response_outgoing,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     annotations: {
@@ -656,13 +612,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_outgoing": secondary$$dns_single_response_outgoing,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     request: (args) => ({

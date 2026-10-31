@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_legacy_references_create",
     title: "Add event references (legacy)",
-    description: "Legacy. Use `threat-intel events relationships create` (`POST /events/relationships/create`) instead.",
+    description: "Legacy. Use `threat-intel events relationships create` (`POST /events/relationships/create`) instead.\n\nPOST /accounts/{account_id}/cloudforce-one/events/relate/{event_id}/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,6 +29,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -153,7 +155,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_legacy_references_delete",
     title: "Remove event references (legacy)",
-    description: "Legacy. Removes references created with `threat-intel events legacy references create`. Use `threat-intel events relationships` for new event links.",
+    description: "Legacy. Removes references created with `threat-intel events legacy references create`. Use `threat-intel events relationships` for new event links.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/relate/{event_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -172,6 +174,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -192,6 +195,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

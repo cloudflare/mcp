@@ -75,14 +75,41 @@ export const posture$$api_FindingExportFilterRequest: JsonSchema = {
     "severities": {
       "description": "Filter by severity levels.",
       "items": {
-        "$ref": "#/$defs/posture-api_SeveritiesEnum"
+        "description": "The severity level for export filters.",
+        "enum": [
+          "CRITICAL",
+          "HIGH",
+          "MEDIUM",
+          "LOW"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
     "vendors": {
       "description": "Filter by vendor types.",
       "items": {
-        "$ref": "#/$defs/posture-api_VendorsEnum"
+        "description": "Supported vendor types for integrations.",
+        "enum": [
+          "ANTHROPIC",
+          "AWS",
+          "BITBUCKET",
+          "BOX",
+          "CONFLUENCE",
+          "DROPBOX",
+          "GITHUB",
+          "GOOGLE_CLOUD_PLATFORM",
+          "GOOGLE_WORKSPACE",
+          "JIRA",
+          "MICROSOFT",
+          "MICROSOFT_INTERNAL",
+          "OPENAI",
+          "SALESFORCE",
+          "SERVICENOW",
+          "SLACK",
+          "ZOOM"
+        ],
+        "type": "string"
       },
       "type": "array"
     }
@@ -97,8 +124,12 @@ export const posture$$api_FindingExportOrderFilterRequest: JsonSchema = {
   "description": "Order specification for finding exports.",
   "properties": {
     "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+      "description": "Sort direction.",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Which field to use when ordering the findings.",
@@ -117,20 +148,6 @@ export const posture$$api_FindingExportOrderFilterRequest: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_SeveritiesEnum`.
- */
-export const posture$$api_SeveritiesEnum: JsonSchema = {
-  "description": "The severity level for export filters.",
-  "enum": [
-    "CRITICAL",
-    "HIGH",
-    "MEDIUM",
-    "LOW"
-  ],
-  "type": "string"
 };
 
 /**

@@ -6,7 +6,6 @@ import {
   logshare_api$$response$$common$$failure,
   logshare_messages,
 } from "../../outputs.js";
-import { logshare_zone_identifier } from "../../schemas.js";
 import { logshare_fields_response } from "./outputs.js";
 
 /**
@@ -16,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_received_fields_get",
     title: "List fields",
-    description: "Lists all fields available. The response is json object with key-value pairs, where keys are field names, and values are descriptions.",
+    description: "Lists all fields available. The response is json object with key-value pairs, where keys are field names, and values are descriptions.\n\nGET /zones/{zone_id}/logs/received/fields",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/logshare_zone_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -36,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logshare_zone_identifier": logshare_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logshare_fields_response",

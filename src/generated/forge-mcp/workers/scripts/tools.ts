@@ -6,13 +6,8 @@ import {
   workers_api$$response$$collection,
   workers_api$$response$$common,
   workers_api$$response$$common$$failure,
-  workers_created_on,
-  workers_identifier,
   workers_messages,
-  workers_modified_on,
-  workers_script_name,
 } from "../../outputs.js";
-import { workers_identifier as workers_identifier$ } from "../../schemas.js";
 
 /**
  * The tools of `workers.scripts`.
@@ -21,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_scripts_search",
     title: "Search Worker Scripts",
-    description: "Search for Worker scripts in an account.",
+    description: "Search for Worker scripts in an account.\n\nGET /accounts/{account_id}/workers/scripts-search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "Worker ID (also called tag) to search for. Only exact matches are returned.",
@@ -74,9 +71,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -89,7 +84,8 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "created_on": {
-                    "$ref": "#/$defs/workers_created_on"
+                    "format": "date-time",
+                    "type": "string"
                   },
                   "environment_is_default": {
                     "type": "boolean"
@@ -98,13 +94,14 @@ export const tools: readonly Tool[] = [
                     "type": "string"
                   },
                   "id": {
-                    "$ref": "#/$defs/workers_identifier"
+                    "type": "string"
                   },
                   "modified_on": {
-                    "$ref": "#/$defs/workers_modified_on"
+                    "format": "date-time",
+                    "type": "string"
                   },
                   "script_name": {
-                    "$ref": "#/$defs/workers_script_name"
+                    "type": "string"
                   },
                   "service_name": {
                     "type": "string"
@@ -130,11 +127,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-collection": workers_api$$response$$collection,
         "workers_api-response-common": workers_api$$response$$common,
-        "workers_created_on": workers_created_on,
-        "workers_identifier": workers_identifier,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
-        "workers_script_name": workers_script_name,
       },
     },
     annotations: {
@@ -174,7 +167,8 @@ export const tools: readonly Tool[] = [
                   "items": {
                     "properties": {
                       "created_on": {
-                        "$ref": "#/$defs/workers_created_on"
+                        "format": "date-time",
+                        "type": "string"
                       },
                       "environment_is_default": {
                         "type": "boolean"
@@ -183,13 +177,14 @@ export const tools: readonly Tool[] = [
                         "type": "string"
                       },
                       "id": {
-                        "$ref": "#/$defs/workers_identifier"
+                        "type": "string"
                       },
                       "modified_on": {
-                        "$ref": "#/$defs/workers_modified_on"
+                        "format": "date-time",
+                        "type": "string"
                       },
                       "script_name": {
-                        "$ref": "#/$defs/workers_script_name"
+                        "type": "string"
                       },
                       "service_name": {
                         "type": "string"
@@ -221,11 +216,7 @@ export const tools: readonly Tool[] = [
         "workers_api-response-collection": workers_api$$response$$collection,
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
-        "workers_created_on": workers_created_on,
-        "workers_identifier": workers_identifier,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
-        "workers_script_name": workers_script_name,
       },
     },
     request: (args) => ({

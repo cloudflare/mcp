@@ -20,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroupTemplates_get",
     title: "Retrieve a specific sensitivity group template.",
-    description: "Gets an available sensitivity group template.",
+    description: "Gets an available sensitivity group template.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/templates/{template_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -120,11 +122,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityGroupTemplates_list",
     title: "Retrieve all sensitivity group templates in an account",
-    description: "Lists available sensitivity group templates.",
+    description: "Lists available sensitivity group templates.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/templates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -139,6 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

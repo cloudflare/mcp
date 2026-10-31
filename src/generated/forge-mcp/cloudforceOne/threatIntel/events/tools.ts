@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_aggregate",
     title: "Aggregate events",
-    description: "Counts events grouped by one or more columns, such as `attacker` or `targetIndustry`. Optionally filter by date range and group the counts by day.",
+    description: "Counts events grouped by one or more columns, such as `attacker` or `targetIndustry`. Optionally filter by date range and group the counts by day.\n\nGET /accounts/{account_id}/cloudforce-one/events/aggregate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggregateBy": {
               "description": "Column(s) to aggregate by - single column or comma-separated list (e.g., 'attacker', 'targetIndustry', 'attacker,targetIndustry'). With `tags`, an event counts once for each of its tags, in the bucket counts and in `total`, and events without tags count as `Unknown`; `tags` is not supported for analytics datasets.",
@@ -67,6 +69,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -254,7 +257,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_bulkCreate",
     title: "Create events in bulk",
-    description: "Creates multiple events in one dataset. `datasetId` is required; to find dataset IDs, use `threat-intel datasets list`. Set `includeCreatedEvents` to return the UUIDs of the created events.",
+    description: "Creates multiple events in one dataset. `datasetId` is required; to find dataset IDs, use `threat-intel datasets list`. Set `includeCreatedEvents` to return the UUIDs of the created events.\n\nPOST /accounts/{account_id}/cloudforce-one/events/create/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -388,6 +391,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -403,6 +407,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -597,7 +602,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_bulkUpdate",
     title: "Update events in bulk",
-    description: "Applies the same field values to up to 100 events in one dataset. The `date` field can't be changed in bulk.",
+    description: "Applies the same field values to up to 100 events in one dataset. The `date` field can't be changed in bulk.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/update/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -693,6 +698,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -708,6 +714,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -831,7 +838,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_copy",
     title: "Copy events to another dataset",
-    description: "Copies events to the dataset given by `destDatasetId` and leaves the originals in place. Raw event data is copied only when `keepRawData` is true.",
+    description: "Copies events to the dataset given by `destDatasetId` and leaves the originals in place. Raw event data is copied only when `keepRawData` is true.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/copy",
     inputSchema: {
       type: "object",
       properties: {
@@ -854,6 +861,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -872,6 +880,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "keepRawData": {
               "description": "If true, copies raw data to the destination dataset. Default is false (raw data is stripped/not copied).",
@@ -884,6 +893,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1019,7 +1029,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_create",
     title: "Create an event",
-    description: "Creates an event. Without `datasetId`, the event is created in the default Cloudforce One Threat Events dataset. To create a dataset, use `threat-intel datasets create`.",
+    description: "Creates an event. Without `datasetId`, the event is created in the default Cloudforce One Threat Events dataset. To create a dataset, use `threat-intel datasets create`.\n\nPOST /accounts/{account_id}/cloudforce-one/events/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -1172,6 +1182,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1187,6 +1198,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1529,11 +1541,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_delete",
     title: "Delete events",
-    description: "Deletes one or more events from a dataset. Pass the event UUIDs in `eventIds`.",
+    description: "Deletes one or more events from a dataset. Pass the event UUIDs in `eventIds`.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/datasets/{dataset_id}/events",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1552,6 +1565,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "eventIds": {
               "description": "Array of Event IDs to delete.",
@@ -1571,6 +1585,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "number",
@@ -1636,11 +1651,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_get",
     title: "Get an event",
-    description: "Returns an event from a dataset by its UUID.",
+    description: "Returns an event from a dataset by its UUID.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/events/{event_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1666,6 +1682,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2007,11 +2024,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_graphql",
     title: "Run a GraphQL aggregation over events",
-    description: "Runs a GraphQL aggregation query over events. Supports grouping by multiple fields, date range filters, and aggregation across datasets.",
+    description: "Runs a GraphQL aggregation query over events. Supports grouping by multiple fields, date range filters, and aggregation across datasets.\n\nPOST /accounts/{account_id}/cloudforce-one/events/graphql",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -2027,6 +2045,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2140,11 +2159,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_list",
     title: "List events",
-    description: "Lists events, with filters passed as query parameters. `datasetId` accepts dataset UUIDs or one scope value used alone: `all` (or `*`) and `operational` select the intelligence datasets you can read, and `analytics` selects the analytics datasets you can read. A scope value covers at most 50 datasets. Without `datasetId`, the default Cloudforce One Threat Events dataset is used. To send filters in a JSON body instead, use `threat-intel events search`.",
+    description: "Lists events, with filters passed as query parameters. `datasetId` accepts dataset UUIDs or one scope value used alone: `all` (or `*`) and `operational` select the intelligence datasets you can read, and `analytics` selects the analytics datasets you can read. A scope value covers at most 50 datasets. Without `datasetId`, the default Cloudforce One Threat Events dataset is used. To send filters in a JSON body instead, use `threat-intel events search`.\n\nGET /accounts/{account_id}/cloudforce-one/events",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -2157,6 +2177,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cache": {
               "description": "Cache strategy. 'from-graph' serves results from the graph-node KV cache when all requested UUIDs are cached; falls back to normal path on partial/zero hit.",
@@ -2746,6 +2767,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -3106,7 +3128,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_move",
     title: "Move events to another dataset",
-    description: "Moves events to the dataset given by `destDatasetId` and removes them from the source dataset. Raw event data is always removed from the source and is kept only when `keepRawData` is true.",
+    description: "Moves events to the dataset given by `destDatasetId` and removes them from the source dataset. Raw event data is always removed from the source and is kept only when `keepRawData` is true.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/move",
     inputSchema: {
       type: "object",
       properties: {
@@ -3129,6 +3151,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -3147,6 +3170,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "keepRawData": {
               "description": "If true, copies raw data to the destination dataset. Default is false (raw data is stripped/not copied). Raw data is always deleted from the source.",
@@ -3159,6 +3183,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3330,7 +3355,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_search",
     title: "Search events",
-    description: "Lists events, with filters sent in a JSON request body. Accepts the same filters as `threat-intel events list` and suits long or complex `search` filters. `datasetId` accepts dataset UUIDs or one scope value used alone: `all` (or `*`) and `operational` select the intelligence datasets you can read, and `analytics` selects the analytics datasets you can read. A scope value covers at most 50 datasets. Without `datasetId`, the default Cloudforce One Threat Events dataset is used.",
+    description: "Lists events, with filters sent in a JSON request body. Accepts the same filters as `threat-intel events list` and suits long or complex `search` filters. `datasetId` accepts dataset UUIDs or one scope value used alone: `all` (or `*`) and `operational` select the intelligence datasets you can read, and `analytics` selects the analytics datasets you can read. A scope value covers at most 50 datasets. Without `datasetId`, the default Cloudforce One Threat Events dataset is used.\n\nPOST /accounts/{account_id}/cloudforce-one/events",
     inputSchema: {
       type: "object",
       properties: {
@@ -3902,6 +3927,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -3914,6 +3940,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cache": {
               "description": "Cache strategy. 'from-graph' serves results from the graph-node KV cache when all requested UUIDs are cached; falls back to normal path on partial/zero hit.",
@@ -3941,6 +3968,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -4294,7 +4322,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_update",
     title: "Update an event",
-    description: "Updates the given fields of an event and leaves the other fields unchanged. `datasetId` is required.",
+    description: "Updates the given fields of an event and leaves the other fields unchanged. `datasetId` is required.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/{event_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -4377,6 +4405,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -4397,6 +4426,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

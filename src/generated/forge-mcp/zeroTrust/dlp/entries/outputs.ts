@@ -59,7 +59,15 @@ export const dlp_EntryWithUploadStatus: JsonSchema = {
     {
       "properties": {
         "upload_status": {
-          "$ref": "#/$defs/dlp_DatasetUploadStatus"
+          "enum": [
+            "empty",
+            "uploading",
+            "pending",
+            "processing",
+            "failed",
+            "complete"
+          ],
+          "type": "string"
         }
       },
       "type": "object"

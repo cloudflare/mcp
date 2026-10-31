@@ -19,16 +19,18 @@ export const tls$$certificates$$and$$hostnames_per_hostname_settings_response_co
           "items": {
             "properties": {
               "created_at": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-4"
+                "format": "date-time",
+                "type": "string"
               },
               "hostname": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-3"
+                "type": "string"
               },
               "status": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_status-12"
+                "type": "string"
               },
               "updated_at": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-5"
+                "format": "date-time",
+                "type": "string"
               },
               "value": {
                 "$ref": "#/$defs/tls-certificates-and-hostnames_value"
@@ -97,16 +99,18 @@ export const tls$$certificates$$and$$hostnames_per_hostname_settings_response_de
 export const tls$$certificates$$and$$hostnames_settingObjectDelete: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-4"
+      "format": "date-time",
+      "type": "string"
     },
     "hostname": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-3"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-12"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-5"
+      "format": "date-time",
+      "type": "string"
     },
     "value": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_value"

@@ -7,20 +7,20 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `resource-sharing_create_share_recipient_request`.
  */
 export const resource$$sharing_create_share_recipient_request: JsonSchema = {
-  "description": "Optionally specify `recipient_account_id` to target a specific account, or `organization_id` to target the caller's whole organization. If neither is provided, the caller's organization is used.\nThe legacy field `account_id` is accepted as a synonym for `recipient_account_id` during the deprecation period (see `x-sunset` on that field).\n",
+  "description": "Optionally specify `recipient_account_id` to target a specific account, or `organization_id` to target the caller's whole organization. If neither is provided, the caller's organization is used.\nThe legacy field `account_id` is accepted as a synonym for `recipient_account_id` during the deprecation period (see `x-sunset` on that field).",
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id",
       "deprecated": true,
-      "description": "Deprecated alias for `recipient_account_id`. Use `recipient_account_id` instead.\nThe body field collided with the URL path parameter of the same name, which prevented SDK generators from distinguishing the source account (in the URL) from the recipient account (in the body). Both names will continue to be accepted until 2027-05-26 (see `x-sunset`).\n"
+      "description": "Deprecated alias for `recipient_account_id`. Use `recipient_account_id` instead.\nThe body field collided with the URL path parameter of the same name, which prevented SDK generators from distinguishing the source account (in the URL) from the recipient account (in the body). Both names will continue to be accepted until 2027-05-26 (see `x-sunset`).",
+      "type": "string"
     },
     "organization_id": {
-      "$ref": "#/$defs/resource-sharing_organization_id",
-      "description": "Organization identifier."
+      "description": "Organization identifier.",
+      "type": "string"
     },
     "recipient_account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id",
-      "description": "The account that will receive the share."
+      "description": "The account that will receive the share.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -32,8 +32,8 @@ export const resource$$sharing_create_share_recipient_request: JsonSchema = {
 export const resource$$sharing_create_share_request: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/resource-sharing_share_name",
-      "description": "The name of the share."
+      "description": "The name of the share.",
+      "type": "string"
     },
     "recipients": {
       "items": {
@@ -66,16 +66,25 @@ export const resource$$sharing_create_share_resource_request: JsonSchema = {
       "description": "Resource Metadata."
     },
     "resource_account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id",
-      "description": "Account identifier."
+      "description": "Account identifier.",
+      "type": "string"
     },
     "resource_id": {
-      "$ref": "#/$defs/resource-sharing_resource_resource_id",
-      "description": "Share Resource identifier."
+      "description": "Share Resource identifier.",
+      "type": "string"
     },
     "resource_type": {
-      "$ref": "#/$defs/resource-sharing_resource_type",
-      "description": "Resource Type."
+      "description": "Resource Type.",
+      "enum": [
+        "custom-ruleset",
+        "gateway-policy",
+        "gateway-destination-ip",
+        "gateway-block-page-settings",
+        "gateway-extended-email-matching",
+        "idp-federation-grant",
+        "trust-grant"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -91,11 +100,11 @@ export const resource$$sharing_create_share_resource_request: JsonSchema = {
  * The schema of `resource-sharing_update_share_request`.
  */
 export const resource$$sharing_update_share_request: JsonSchema = {
-  "description": "Request body for `PUT /accounts/{account_id}/shares/{share_id}`. The\nshare's display `name` and `tags` can be updated via this endpoint. To\nmodify recipients, use the\n`/accounts/{account_id}/shares/{share_id}/recipients` subresource\nendpoints (POST, PUT, DELETE).\n",
+  "description": "Request body for `PUT /accounts/{account_id}/shares/{share_id}`. The\nshare's display `name` and `tags` can be updated via this endpoint. To\nmodify recipients, use the\n`/accounts/{account_id}/shares/{share_id}/recipients` subresource\nendpoints (POST, PUT, DELETE).",
   "properties": {
     "name": {
-      "$ref": "#/$defs/resource-sharing_share_name",
-      "description": "The name of the share."
+      "description": "The name of the share.",
+      "type": "string"
     }
   },
   "required": [

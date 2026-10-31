@@ -30,11 +30,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_zones_getCanBeEnabled",
     title: "Get pay-per-crawl zone eligibility",
-    description: "Gets whether pay-per-crawl can be enabled for a zone.",
+    description: "Gets whether pay-per-crawl can be enabled for a zone.\n\nGET /zones/{zone_id}/pay-per-crawl/can_be_enabled",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
               "description": "zone id",
@@ -50,6 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getZoneCanBeEnabledResponse",
@@ -103,7 +105,7 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_zones_queryCanBeEnabled",
     title: "Gets the can_be_enabled zone setting",
-    description: "Provided a list of pay-per-crawl configured zones this method will return whether they can enable PPC or not.",
+    description: "Provided a list of pay-per-crawl configured zones this method will return whether they can enable PPC or not.\n\nPOST /accounts/{account_id}/pay-per-crawl/zones_can_be_enabled/query",
     inputSchema: {
       type: "object",
       properties: {
@@ -112,6 +114,7 @@ export const tools: readonly Tool[] = [
           "description": "Zone IDs to check for pay-per-crawl eligibility"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -128,6 +131,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "pay-per-crawl_ZonesCanBeEnabledQueryPayload": pay$$per$$crawl_ZonesCanBeEnabledQueryPayload,
       },
@@ -214,7 +218,7 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_zones_setCanBeEnabled",
     title: "Set can_be_enabled setting on zones",
-    description: "Allows an account admin to set the can_be_enabled setting on a list of zones. An omitted can_be_enabled value leaves that zone unchanged.",
+    description: "Allows an account admin to set the can_be_enabled setting on a list of zones. An omitted can_be_enabled value leaves that zone unchanged.\n\nPATCH /accounts/{account_id}/pay-per-crawl/zones_can_be_enabled",
     inputSchema: {
       type: "object",
       properties: {
@@ -223,6 +227,7 @@ export const tools: readonly Tool[] = [
           "description": "Data for setting flag on zones"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -239,6 +244,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "pay-per-crawl_DaricZoneCanBeEnabledUpdate": pay$$per$$crawl_DaricZoneCanBeEnabledUpdate,
         "pay-per-crawl_ZonesCanBeEnabledUpdatePayload": pay$$per$$crawl_ZonesCanBeEnabledUpdatePayload,

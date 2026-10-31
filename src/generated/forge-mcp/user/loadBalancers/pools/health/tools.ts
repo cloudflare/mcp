@@ -10,7 +10,6 @@ import {
   load$$balancing_messages,
   load$$balancing_origin$$health,
 } from "../../../../outputs.js";
-import { load$$balancing_schemas$$identifier } from "../../../../schemas.js";
 
 /**
  * The tools of `user.loadBalancers.pools.health`.
@@ -19,14 +18,15 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_health_get",
     title: "Pool Health Details",
-    description: "Fetch the latest pool health status for a single pool.",
+    description: "Fetch the latest pool health status for a single pool.\n\nGET /user/load_balancers/pools/{pool_id}/health",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_health_details",

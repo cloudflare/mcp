@@ -9,9 +9,7 @@ import {
   access_api$$response$$single,
   access_id_response,
   access_messages,
-  access_uuid,
 } from "../outputs.js";
-import { access_identifier, access_uuid as access_uuid$ } from "../schemas.js";
 import {
   access_azureAD,
   access_centrify,
@@ -26,7 +24,6 @@ import {
   access_identity$$provider,
   access_identity$$providers,
   access_linkedin,
-  access_name$$3,
   access_oidc,
   access_okta,
   access_onelogin,
@@ -54,7 +51,6 @@ import {
   access_identity$$provider as access_identity$$provider$,
   access_identity$$providers as access_identity$$providers$,
   access_linkedin as access_linkedin$,
-  access_name$$3 as access_name$$3$,
   access_oidc as access_oidc$,
   access_okta as access_okta$,
   access_onelogin as access_onelogin$,
@@ -72,7 +68,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_create",
     title: "Add an Access identity provider",
-    description: "Adds a new identity provider to Access.",
+    description: "Adds a new identity provider to Access.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/identity_providers",
     inputSchema: {
       type: "object",
       properties: {
@@ -80,6 +76,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_identity-providers"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -90,8 +87,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -105,6 +102,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_azureAD": access_azureAD$,
         "access_centrify": access_centrify$,
@@ -116,11 +114,9 @@ export const tools: readonly Tool[] = [
         "access_github": access_github$,
         "access_google": access_google$,
         "access_google-apps": access_google$$apps$,
-        "access_identifier": access_identifier,
         "access_identity-provider": access_identity$$provider$,
         "access_identity-providers": access_identity$$providers$,
         "access_linkedin": access_linkedin$,
-        "access_name-3": access_name$$3$,
         "access_oidc": access_oidc$,
         "access_okta": access_okta$,
         "access_onelogin": access_onelogin$,
@@ -128,7 +124,6 @@ export const tools: readonly Tool[] = [
         "access_passkeys": access_passkeys$,
         "access_pingone": access_pingone$,
         "access_saml": access_saml$,
-        "access_uuid": access_uuid$,
         "access_yandex": access_yandex$,
       },
     },
@@ -150,7 +145,6 @@ export const tools: readonly Tool[] = [
         "access_identity-providers": access_identity$$providers,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -161,7 +155,6 @@ export const tools: readonly Tool[] = [
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
         "access_single_response-3": access_single_response$$3,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -205,7 +198,6 @@ export const tools: readonly Tool[] = [
         "access_identity-providers": access_identity$$providers,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -216,7 +208,6 @@ export const tools: readonly Tool[] = [
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
         "access_single_response-3": access_single_response$$3,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -228,11 +219,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_delete",
     title: "Delete an Access identity provider",
-    description: "Deletes an identity provider from Access.",
+    description: "Deletes an identity provider from Access.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/access/identity_providers/{identity_provider_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -243,12 +235,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -262,10 +254,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response",
@@ -273,7 +262,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -304,7 +292,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -314,11 +301,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_get",
     title: "Get an Access identity provider",
-    description: "Fetches a configured identity provider.",
+    description: "Fetches a configured identity provider.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/identity_providers/{identity_provider_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -329,12 +317,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -348,10 +336,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-3",
@@ -371,7 +356,6 @@ export const tools: readonly Tool[] = [
         "access_identity-providers": access_identity$$providers,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -382,7 +366,6 @@ export const tools: readonly Tool[] = [
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
         "access_single_response-3": access_single_response$$3,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -427,7 +410,6 @@ export const tools: readonly Tool[] = [
         "access_identity-providers": access_identity$$providers,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -438,7 +420,6 @@ export const tools: readonly Tool[] = [
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
         "access_single_response-3": access_single_response$$3,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -449,11 +430,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_list",
     title: "List Access identity providers",
-    description: "Lists all configured identity providers.",
+    description: "Lists all configured identity providers.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/identity_providers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -464,8 +446,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -475,6 +457,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -497,9 +480,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection",
@@ -519,7 +500,6 @@ export const tools: readonly Tool[] = [
         "access_identity-provider": access_identity$$provider,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -530,7 +510,6 @@ export const tools: readonly Tool[] = [
         "access_saml": access_saml,
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -575,7 +554,6 @@ export const tools: readonly Tool[] = [
         "access_identity-provider": access_identity$$provider,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -586,7 +564,6 @@ export const tools: readonly Tool[] = [
         "access_saml": access_saml,
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -602,7 +579,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_update",
     title: "Update an Access identity provider",
-    description: "Updates a configured identity provider.",
+    description: "Updates a configured identity provider.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/identity_providers/{identity_provider_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -610,6 +587,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_identity-providers"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -620,12 +598,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -640,6 +618,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_azureAD": access_azureAD$,
         "access_centrify": access_centrify$,
@@ -651,11 +630,9 @@ export const tools: readonly Tool[] = [
         "access_github": access_github$,
         "access_google": access_google$,
         "access_google-apps": access_google$$apps$,
-        "access_identifier": access_identifier,
         "access_identity-provider": access_identity$$provider$,
         "access_identity-providers": access_identity$$providers$,
         "access_linkedin": access_linkedin$,
-        "access_name-3": access_name$$3$,
         "access_oidc": access_oidc$,
         "access_okta": access_okta$,
         "access_onelogin": access_onelogin$,
@@ -663,7 +640,6 @@ export const tools: readonly Tool[] = [
         "access_passkeys": access_passkeys$,
         "access_pingone": access_pingone$,
         "access_saml": access_saml$,
-        "access_uuid": access_uuid$,
         "access_yandex": access_yandex$,
       },
     },
@@ -685,7 +661,6 @@ export const tools: readonly Tool[] = [
         "access_identity-providers": access_identity$$providers,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -696,7 +671,6 @@ export const tools: readonly Tool[] = [
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
         "access_single_response-3": access_single_response$$3,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },
@@ -740,7 +714,6 @@ export const tools: readonly Tool[] = [
         "access_identity-providers": access_identity$$providers,
         "access_linkedin": access_linkedin,
         "access_messages": access_messages,
-        "access_name-3": access_name$$3,
         "access_oidc": access_oidc,
         "access_okta": access_okta,
         "access_onelogin": access_onelogin,
@@ -751,7 +724,6 @@ export const tools: readonly Tool[] = [
         "access_saml_certificate": access_saml_certificate,
         "access_saml_certificate_set": access_saml_certificate_set,
         "access_single_response-3": access_single_response$$3,
-        "access_uuid": access_uuid,
         "access_yandex": access_yandex,
       },
     },

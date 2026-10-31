@@ -3,10 +3,7 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import { nsc_FacilityInfo } from "../outputs.js";
-import { nsc_AccountTag } from "../schemas.js";
 import {
-  nsc_ApiBandwidth,
-  nsc_CloudflareSite,
   nsc_DefaultNameResponse,
   nsc_Interconnect,
   nsc_InterconnectList,
@@ -15,7 +12,6 @@ import {
   nsc_StatusInfo,
 } from "./outputs.js";
 import {
-  nsc_ApiBandwidth as nsc_ApiBandwidth$,
   nsc_InterconnectCreate,
   nsc_InterconnectCreate_GcpPartner_Body,
   nsc_InterconnectCreate_Physical_Body,
@@ -28,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_create",
     title: "Create a new interconnect",
-    description: "Creates a new network interconnect for connecting Cloudflare's network to external networks.\nInterconnects provide dedicated bandwidth and reduced latency for traffic exchange.",
+    description: "Creates a new network interconnect for connecting Cloudflare's network to external networks.\nInterconnects provide dedicated bandwidth and reduced latency for traffic exchange.\n\nPOST /accounts/{account_id}/cni/interconnects",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,10 +32,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/nsc_InterconnectCreate"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             }
           },
           "required": [
@@ -52,9 +49,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-        "nsc_ApiBandwidth": nsc_ApiBandwidth$,
         "nsc_InterconnectCreate": nsc_InterconnectCreate,
         "nsc_InterconnectCreate_GcpPartner_Body": nsc_InterconnectCreate_GcpPartner_Body,
         "nsc_InterconnectCreate_Physical_Body": nsc_InterconnectCreate_Physical_Body,
@@ -63,8 +59,6 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/nsc_Interconnect",
       $defs: {
-        "nsc_ApiBandwidth": nsc_ApiBandwidth,
-        "nsc_CloudflareSite": nsc_CloudflareSite,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_Interconnect": nsc_Interconnect,
         "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body,
@@ -95,8 +89,6 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_ApiBandwidth": nsc_ApiBandwidth,
-        "nsc_CloudflareSite": nsc_CloudflareSite,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_Interconnect": nsc_Interconnect,
         "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body,
@@ -111,15 +103,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_delete",
     title: "Delete an interconnect object",
-    description: "Permanently removes a network interconnect configuration. The physical or virtual connection\nwill be terminated.",
+    description: "Permanently removes a network interconnect configuration. The physical or virtual connection\nwill be terminated.\n\nDELETE /accounts/{account_id}/cni/interconnects/{icon}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "icon": {
               "description": "Interconnect name to retrieve information about",
@@ -136,9 +129,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -170,15 +161,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_get",
     title: "Get information about an interconnect object",
-    description: "Retrieves configuration and status details for a specific network interconnect.",
+    description: "Retrieves configuration and status details for a specific network interconnect.\n\nGET /accounts/{account_id}/cni/interconnects/{icon}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "icon": {
               "description": "Interconnect name to retrieve information about",
@@ -195,15 +187,11 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_Interconnect",
       $defs: {
-        "nsc_ApiBandwidth": nsc_ApiBandwidth,
-        "nsc_CloudflareSite": nsc_CloudflareSite,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_Interconnect": nsc_Interconnect,
         "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body,
@@ -237,8 +225,6 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_ApiBandwidth": nsc_ApiBandwidth,
-        "nsc_CloudflareSite": nsc_CloudflareSite,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_Interconnect": nsc_Interconnect,
         "nsc_Interconnect_GcpPartner_Body": nsc_Interconnect_GcpPartner_Body,
@@ -252,15 +238,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_list",
     title: "List existing interconnects",
-    description: "Lists all network interconnects configured for the account, including physical and virtual\nconnections.",
+    description: "Lists all network interconnects configured for the account, including physical and virtual\nconnections.\n\nGET /accounts/{account_id}/cni/interconnects",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             }
           },
           "required": [
@@ -269,6 +256,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "oneOf": [
@@ -319,15 +307,11 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_InterconnectList",
       $defs: {
-        "nsc_ApiBandwidth": nsc_ApiBandwidth,
-        "nsc_CloudflareSite": nsc_CloudflareSite,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_Interconnect": nsc_Interconnect,
         "nsc_InterconnectList": nsc_InterconnectList,
@@ -361,8 +345,6 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_ApiBandwidth": nsc_ApiBandwidth,
-        "nsc_CloudflareSite": nsc_CloudflareSite,
         "nsc_FacilityInfo": nsc_FacilityInfo,
         "nsc_Interconnect": nsc_Interconnect,
         "nsc_InterconnectList": nsc_InterconnectList,
@@ -383,15 +365,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_loa",
     title: "Generate the Letter of Authorization (LOA) for a given interconnect",
-    description: "Downloads the Letter of Authorization (LOA) for a network interconnect, required for\nphysical cross-connect provisioning.",
+    description: "Downloads the Letter of Authorization (LOA) for a network interconnect, required for\nphysical cross-connect provisioning.\n\nGET /accounts/{account_id}/cni/interconnects/{icon}/loa",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "icon": {
               "description": "Interconnect name to retrieve information about",
@@ -405,6 +388,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Custom name to use in the LOA instead of the account name (200 Character limit)",
@@ -424,9 +408,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -463,15 +445,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_loaDefaultName",
     title: "Get the default customer name for LOA generation",
-    description: "Retrieves the default customer name that will be used in the LOA if no name is provided to the\n`/accounts/{account_id}/cni/interconnects/{icon}/loa` endpoint.",
+    description: "Retrieves the default customer name that will be used in the LOA if no name is provided to the\n`/accounts/{account_id}/cni/interconnects/{icon}/loa` endpoint.\n\nGET /accounts/{account_id}/cni/interconnects/{icon}/loa/default",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "icon": {
               "description": "Interconnect name to retrieve information about",
@@ -488,9 +471,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_DefaultNameResponse",
@@ -535,15 +516,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_status",
     title: "Get the current status of an interconnect object",
-    description: "Gets the current operational status of a network interconnect, including link state and\ntraffic metrics.",
+    description: "Gets the current operational status of a network interconnect, including link state and\ntraffic metrics.\n\nGET /accounts/{account_id}/cni/interconnects/{icon}/status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "icon": {
               "description": "Interconnect name to retrieve information about",
@@ -560,9 +542,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_StatusInfo",

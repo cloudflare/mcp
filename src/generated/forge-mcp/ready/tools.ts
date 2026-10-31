@@ -11,10 +11,11 @@ export const tools: readonly Tool[] = [
   {
     name: "ready_get",
     title: "Run readiness checks",
-    description: "Return a success message after running readiness checks.",
+    description: "Return a success message after running readiness checks.\n\nGET /ready",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

@@ -4,46 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_advanced_type`.
- */
-export const tls$$certificates$$and$$hostnames_advanced_type: JsonSchema = {
-  "description": "Type of certificate pack.",
-  "enum": [
-    "advanced"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_certificate_authority-2`.
- */
-export const tls$$certificates$$and$$hostnames_certificate_authority$$2: JsonSchema = {
-  "description": "Certificate Authority selected for the order.  For information on any certificate authority specific details or restrictions [see this page for more details](https://developers.cloudflare.com/ssl/reference/certificate-authorities).",
-  "enum": [
-    "google",
-    "lets_encrypt",
-    "ssl_com"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_certificate_pack_identifier`.
- */
-export const tls$$certificates$$and$$hostnames_certificate_pack_identifier: JsonSchema = {
-  "description": "The unique identifier for a certificate_pack.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_cloudflare_branding`.
- */
-export const tls$$certificates$$and$$hostnames_cloudflare_branding: JsonSchema = {
-  "description": "Whether or not to add Cloudflare Branding for the order.  This will add a subdomain of sni.cloudflaressl.com as the Common Name if set to true.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_hosts-2`.
  */
 export const tls$$certificates$$and$$hostnames_hosts$$2: JsonSchema = {
@@ -52,31 +12,4 @@ export const tls$$certificates$$and$$hostnames_hosts$$2: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validation_method`.
- */
-export const tls$$certificates$$and$$hostnames_validation_method: JsonSchema = {
-  "description": "Validation Method selected for the order.",
-  "enum": [
-    "txt",
-    "http",
-    "email"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validity_days`.
- */
-export const tls$$certificates$$and$$hostnames_validity_days: JsonSchema = {
-  "description": "Validity Days selected for the order.",
-  "enum": [
-    14,
-    30,
-    90,
-    365
-  ],
-  "type": "integer"
 };

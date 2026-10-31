@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_summaryV2",
     title: "Get AS112 summary by dimension",
-    description: "Retrieves the distribution of AS112 queries by the specified dimension.",
+    description: "Retrieves the distribution of AS112 queries by the specified dimension.\n\nGET /radar/as112/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continent": {
               "description": "Filters results by continent. Specify a comma-separated list of alpha-2 codes. Prefix with `-` to exclude continents from results. For example, `-EU,NA` excludes results from EU, but includes results from NA.",
@@ -244,6 +246,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -692,11 +695,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_timeseries",
     title: "Get AS112 DNS queries time series",
-    description: "Retrieves the AS112 DNS queries over time.",
+    description: "Retrieves the AS112 DNS queries over time.\n\nGET /radar/as112/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -909,6 +913,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1409,11 +1414,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_timeseriesGroupsV2",
     title: "Get AS112 time series grouped by dimension",
-    description: "Retrieves the distribution of AS112 queries grouped by dimension over time.",
+    description: "Retrieves the distribution of AS112 queries grouped by dimension over time.\n\nGET /radar/as112/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -1434,6 +1440,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1653,6 +1660,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

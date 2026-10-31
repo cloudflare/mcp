@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_search",
     title: "Search Threat Signals articles using AI Search",
-    description: "Searches the account's Threat Signals articles using keyword and semantic retrieval.",
+    description: "Searches the account's Threat Signals articles using keyword and semantic retrieval.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "feed_id": {
               "description": "Optional feed UUID that restricts results to articles from that feed.",
@@ -51,6 +53,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

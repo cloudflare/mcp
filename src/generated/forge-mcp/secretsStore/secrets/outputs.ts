@@ -4,18 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `secrets-store_SecretStatus` in responses.
- */
-export const secrets$$store_SecretStatus: JsonSchema = {
-  "enum": [
-    "pending",
-    "active",
-    "deleted"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `secrets-store_api-response-single` in responses.
  */
 export const secrets$$store_api$$response$$single: JsonSchema = {
@@ -42,13 +30,6 @@ export const secrets$$store_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `secrets-store_comment` in responses.
- */
-export const secrets$$store_comment: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secrets-store_delete_response` in responses.
  */
 export const secrets$$store_delete_response: JsonSchema = {
@@ -72,13 +53,6 @@ export const secrets$$store_delete_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secrets-store_identifier` in responses.
- */
-export const secrets$$store_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -112,28 +86,35 @@ export const secrets$$store_inheritable_scopes: JsonSchema = {
 export const secrets$$store_secretObject: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/secrets-store_comment"
+      "type": "string"
     },
     "created": {
-      "$ref": "#/$defs/secrets-store_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/secrets-store_identifier"
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/secrets-store_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secrets-store_secret_name"
+      "type": "string"
     },
     "scopes": {
       "$ref": "#/$defs/secrets-store_inheritable_scopes"
     },
     "status": {
-      "$ref": "#/$defs/secrets-store_SecretStatus"
+      "enum": [
+        "pending",
+        "active",
+        "deleted"
+      ],
+      "type": "string"
     },
     "store_id": {
-      "$ref": "#/$defs/secrets-store_store_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -145,13 +126,6 @@ export const secrets$$store_secretObject: JsonSchema = {
     "store_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `secrets-store_secret_name` in responses.
- */
-export const secrets$$store_secret_name: JsonSchema = {
-  "type": "string"
 };
 
 /**

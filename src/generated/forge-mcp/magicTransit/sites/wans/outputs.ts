@@ -17,7 +17,7 @@ export const magic_wan: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "load_balance_inner_flows": {
       "type": "boolean"
@@ -26,7 +26,7 @@ export const magic_wan: JsonSchema = {
       "type": "string"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "priority": {
       "type": "integer"
@@ -38,13 +38,13 @@ export const magic_wan: JsonSchema = {
       "type": "integer"
     },
     "site_id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "static_addressing": {
       "$ref": "#/$defs/magic_wan_static_addressing"
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag"
+      "type": "integer"
     }
   },
   "type": "object"
@@ -113,13 +113,13 @@ export const magic_wan_single_response: JsonSchema = {
 export const magic_wan_static_addressing: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "gateway_address": {
-      "$ref": "#/$defs/magic_ip-address"
+      "type": "string"
     },
     "secondary_address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "secondary_gateway_address": {
       "type": "string"

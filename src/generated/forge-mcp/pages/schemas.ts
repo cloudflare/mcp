@@ -390,14 +390,6 @@ export const pages_deployment_config_values_request: JsonSchema = {
 };
 
 /**
- * The schema of `pages_identifier`.
- */
-export const pages_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `pages_plain_text_env_var`.
  */
 export const pages_plain_text_env_var: JsonSchema = {
@@ -426,14 +418,6 @@ export const pages_plain_text_env_var: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `pages_project_name`.
- */
-export const pages_project_name: JsonSchema = {
-  "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-  "type": "string"
 };
 
 /**
@@ -474,7 +458,7 @@ export const pages_source_config: JsonSchema = {
   "properties": {
     "deployments_enabled": {
       "deprecated": true,
-      "description": "Whether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically.\n",
+      "description": "Whether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically.",
       "type": "boolean"
     },
     "owner": {
@@ -559,16 +543,4 @@ export const pages_source_config: JsonSchema = {
     "repo_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `pages_source_type`.
- */
-export const pages_source_type: JsonSchema = {
-  "description": "The source control management provider.",
-  "enum": [
-    "github",
-    "gitlab"
-  ],
-  "type": "string"
 };

@@ -6,21 +6,14 @@ import {
   cache$$settings_api$$response$$common,
   cache$$settings_api$$response$$common$$failure,
   cache$$settings_base,
-  cache$$settings_editable,
   cache$$settings_messages,
-  cache$$settings_modified_on,
   cache$$settings_result$$object,
-  cache$$settings_setting_id,
-  cache$$settings_setting_value,
   cache$$settings_zone_cache_settings_response_single,
 } from "../../outputs.js";
-import { cache$$settings_identifier } from "../../schemas.js";
 import {
   cache$$settings_origin_max_http_version,
   cache$$settings_origin_max_http_version_response_value,
-  cache$$settings_origin_max_http_version_value,
 } from "./outputs.js";
-import { cache$$settings_origin_max_http_version_value as cache$$settings_origin_max_http_version_value$ } from "./schemas.js";
 
 /**
  * The tools of `zones.originMaxHttpVersion`.
@@ -29,15 +22,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_originMaxHttpVersion_edit",
     title: "Change Origin Max HTTP Version Setting",
-    description: "Origin Max HTTP Setting Version sets the highest HTTP version Cloudflare will attempt to use with your origin. This setting allows Cloudflare to make HTTP/2 requests to your origin. (Refer to [Enable HTTP/2 to Origin](https://developers.cloudflare.com/cache/how-to/enable-http2-to-origin/), for more information.). The default value is \"2\" for all plan types except Enterprise where it is \"1\".",
+    description: "Origin Max HTTP Setting Version sets the highest HTTP version Cloudflare will attempt to use with your origin. This setting allows Cloudflare to make HTTP/2 requests to your origin. (Refer to [Enable HTTP/2 to Origin](https://developers.cloudflare.com/cache/how-to/enable-http2-to-origin/), for more information.). The default value is \"2\" for all plan types except Enterprise where it is \"1\".\n\nPATCH /zones/{zone_id}/settings/origin_max_http_version",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/cache-settings_origin_max_http_version_value",
-              "description": "Value of the Origin Max HTTP Version Setting."
+              "description": "Value of the Origin Max HTTP Version Setting.",
+              "enum": [
+                "2",
+                "1"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -46,10 +43,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,10 +60,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -79,15 +74,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
         "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
-        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -137,15 +127,10 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
         "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
-        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -157,15 +142,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_originMaxHttpVersion_get",
     title: "Get Origin Max HTTP Version Setting",
-    description: "Origin Max HTTP Setting Version sets the highest HTTP version Cloudflare will attempt to use with your origin. This setting allows Cloudflare to make HTTP/2 requests to your origin. (Refer to [Enable HTTP/2 to Origin](https://developers.cloudflare.com/cache/how-to/enable-http2-to-origin/), for more information.). The default value is \"2\" for all plan types except Enterprise where it is \"1\".",
+    description: "Origin Max HTTP Setting Version sets the highest HTTP version Cloudflare will attempt to use with your origin. This setting allows Cloudflare to make HTTP/2 requests to your origin. (Refer to [Enable HTTP/2 to Origin](https://developers.cloudflare.com/cache/how-to/enable-http2-to-origin/), for more information.). The default value is \"2\" for all plan types except Enterprise where it is \"1\".\n\nGET /zones/{zone_id}/settings/origin_max_http_version",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -177,9 +163,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -193,15 +177,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
         "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
-        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -253,15 +232,10 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
         "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
-        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },

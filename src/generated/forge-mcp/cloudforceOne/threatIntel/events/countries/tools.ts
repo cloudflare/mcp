@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_countries_list",
     title: "List countries",
-    description: "Lists the countries used in threat intelligence data, such as attacker and target countries.",
+    description: "Lists the countries used in threat intelligence data, such as attacker and target countries.\n\nGET /accounts/{account_id}/cloudforce-one/events/countries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

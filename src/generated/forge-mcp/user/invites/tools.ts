@@ -12,16 +12,10 @@ import {
 } from "../../outputs.js";
 import { iam_role_names } from "../outputs.js";
 import {
-  iam_invite_components$$schemas$$identifier,
-  iam_invited_by,
-  iam_invited_member_email,
-  iam_invited_on,
   iam_schemas$$collection_invite_response,
-  iam_schemas$$expires_on,
   iam_single_invite_response,
   iam_user_invite,
 } from "./outputs.js";
-import { iam_invite_components$$schemas$$identifier as iam_invite_components$$schemas$$identifier$ } from "./schemas.js";
 
 /**
  * The tools of `user.invites`.
@@ -30,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "user_invites_get",
     title: "Invitation Details",
-    description: "Gets the details of an invitation.",
+    description: "Gets the details of an invitation.\n\nGET /user/invites/{invite_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "invite_id": {
-              "$ref": "#/$defs/iam_invite_components-schemas-identifier",
-              "description": "Invite identifier tag."
+              "description": "Invite identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,21 +45,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
-        "iam_invited_by": iam_invited_by,
-        "iam_invited_member_email": iam_invited_member_email,
-        "iam_invited_on": iam_invited_on,
         "iam_messages-2": iam_messages$$2,
         "iam_role_names": iam_role_names,
-        "iam_schemas-expires_on": iam_schemas$$expires_on,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
       },
@@ -102,13 +90,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
-        "iam_invited_by": iam_invited_by,
-        "iam_invited_member_email": iam_invited_member_email,
-        "iam_invited_on": iam_invited_on,
         "iam_messages-2": iam_messages$$2,
         "iam_role_names": iam_role_names,
-        "iam_schemas-expires_on": iam_schemas$$expires_on,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
       },
@@ -120,25 +103,21 @@ export const tools: readonly Tool[] = [
   {
     name: "user_invites_list",
     title: "List Invitations",
-    description: "Lists all invitations associated with my user.",
+    description: "Lists all invitations associated with my user.\n\nGET /user/invites",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_schemas-collection_invite_response",
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
-        "iam_invited_by": iam_invited_by,
-        "iam_invited_member_email": iam_invited_member_email,
-        "iam_invited_on": iam_invited_on,
         "iam_messages-2": iam_messages$$2,
         "iam_result_info": iam_result_info,
         "iam_role_names": iam_role_names,
         "iam_schemas-collection_invite_response": iam_schemas$$collection_invite_response,
-        "iam_schemas-expires_on": iam_schemas$$expires_on,
         "iam_user_invite": iam_user_invite,
       },
     },
@@ -176,15 +155,10 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
-        "iam_invited_by": iam_invited_by,
-        "iam_invited_member_email": iam_invited_member_email,
-        "iam_invited_on": iam_invited_on,
         "iam_messages-2": iam_messages$$2,
         "iam_result_info": iam_result_info,
         "iam_role_names": iam_role_names,
         "iam_schemas-collection_invite_response": iam_schemas$$collection_invite_response,
-        "iam_schemas-expires_on": iam_schemas$$expires_on,
         "iam_user_invite": iam_user_invite,
       },
     },
@@ -195,7 +169,7 @@ export const tools: readonly Tool[] = [
   {
     name: "user_invites_respond",
     title: "Respond to Invitation",
-    description: "Responds to an invitation.",
+    description: "Responds to an invitation.\n\nPATCH /user/invites/{invite_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -216,10 +190,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "invite_id": {
-              "$ref": "#/$defs/iam_invite_components-schemas-identifier",
-              "description": "Invite identifier tag."
+              "description": "Invite identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -232,21 +207,14 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
-        "iam_invited_by": iam_invited_by,
-        "iam_invited_member_email": iam_invited_member_email,
-        "iam_invited_on": iam_invited_on,
         "iam_messages-2": iam_messages$$2,
         "iam_role_names": iam_role_names,
-        "iam_schemas-expires_on": iam_schemas$$expires_on,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
       },
@@ -283,13 +251,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
-        "iam_invited_by": iam_invited_by,
-        "iam_invited_member_email": iam_invited_member_email,
-        "iam_invited_on": iam_invited_on,
         "iam_messages-2": iam_messages$$2,
         "iam_role_names": iam_role_names,
-        "iam_schemas-expires_on": iam_schemas$$expires_on,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
       },

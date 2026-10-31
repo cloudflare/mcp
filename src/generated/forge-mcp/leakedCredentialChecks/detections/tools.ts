@@ -5,22 +5,16 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   waf$$product$$api$$bundle_api$$response$$common,
   waf$$product$$api$$bundle_api$$response$$single,
-  waf$$product$$api$$bundle_identifier,
   waf$$product$$api$$bundle_messages,
 } from "../../outputs.js";
-import { waf$$product$$api$$bundle_identifier as waf$$product$$api$$bundle_identifier$ } from "../../schemas.js";
 import { waf$$product$$api$$bundle_api$$response$$common$$failure } from "../outputs.js";
 import {
   waf$$product$$api$$bundle_api$$response$$collection,
   waf$$product$$api$$bundle_custom$$detection,
-  waf$$product$$api$$bundle_detection$$id,
   waf$$product$$api$$bundle_response$$custom$$detection,
   waf$$product$$api$$bundle_response$$custom$$detection$$collection,
 } from "./outputs.js";
-import {
-  waf$$product$$api$$bundle_custom$$detection as waf$$product$$api$$bundle_custom$$detection$,
-  waf$$product$$api$$bundle_detection$$id as waf$$product$$api$$bundle_detection$$id$,
-} from "./schemas.js";
+import { waf$$product$$api$$bundle_custom$$detection as waf$$product$$api$$bundle_custom$$detection$ } from "./schemas.js";
 
 /**
  * The tools of `leakedCredentialChecks.detections`.
@@ -29,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_detections_create",
     title: "Create a custom detection location for a zone.",
-    description: "Create a detection location for credentials that the default scan locations do not cover, using Rules language expressions such as `lookup_json_string(http.request.body.raw, \"user\")`. Only the username expression is required, and Leaked Credential Checks must be enabled on the zone.",
+    description: "Create a detection location for credentials that the default scan locations do not cover, using Rules language expressions such as `lookup_json_string(http.request.body.raw, \"user\")`. Only the username expression is required, and Leaked Credential Checks must be enabled on the zone.\n\nPOST /zones/{zone_id}/leaked-credential-checks/detections",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,10 +31,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,10 +48,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection$,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
       },
     },
     outputSchema: {
@@ -65,8 +59,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
         "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection": waf$$product$$api$$bundle_response$$custom$$detection,
       },
@@ -107,8 +99,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-failure": waf$$product$$api$$bundle_api$$response$$common$$failure,
         "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection": waf$$product$$api$$bundle_response$$custom$$detection,
       },
@@ -121,19 +111,20 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_detections_delete",
     title: "Delete a custom detection location from a zone.",
-    description: "Delete a user-defined detection location, identified by its detection ID. Incoming requests are then scanned using only the default scan locations and the detection locations that remain.\n\nConfirm with the user before calling this tool. This operation deletes a Leaked Credential Checks custom detection location.",
+    description: "Delete a user-defined detection location, identified by its detection ID. Incoming requests are then scanned using only the default scan locations and the detection locations that remain.\n\nConfirm with the user before calling this tool. This operation deletes a Leaked Credential Checks custom detection location.\n\nDELETE /zones/{zone_id}/leaked-credential-checks/detections/{detection_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "detection_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_detection-id",
-              "description": "Defines the unique ID for this custom detection."
+              "description": "Defines the unique ID for this custom detection.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -146,10 +137,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-common",
@@ -195,19 +183,20 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_detections_get",
     title: "Get a custom detection location of a zone.",
-    description: "Get the username and password expressions of a single user-defined detection location, identified by its detection ID.",
+    description: "Get the username and password expressions of a single user-defined detection location, identified by its detection ID.\n\nGET /zones/{zone_id}/leaked-credential-checks/detections/{detection_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "detection_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_detection-id",
-              "description": "Defines the unique ID for this custom detection."
+              "description": "Defines the unique ID for this custom detection.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -220,10 +209,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection",
@@ -231,8 +217,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
         "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection": waf$$product$$api$$bundle_response$$custom$$detection,
       },
@@ -275,8 +259,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-failure": waf$$product$$api$$bundle_api$$response$$common$$failure,
         "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection": waf$$product$$api$$bundle_response$$custom$$detection,
       },
@@ -288,15 +270,16 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_detections_list",
     title: "List the custom detection locations of a zone.",
-    description: "List the user-defined detection locations configured for Leaked Credential Checks, each with its own identifier. A custom detection location tells the WAF where to find the username and password in requests to your application.",
+    description: "List the user-defined detection locations configured for Leaked Credential Checks, each with its own identifier. A custom detection location tells the WAF where to find the username and password in requests to your application.\n\nGET /zones/{zone_id}/leaked-credential-checks/detections",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -308,9 +291,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection-collection",
@@ -318,8 +299,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-collection": waf$$product$$api$$bundle_api$$response$$collection,
         "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection-collection": waf$$product$$api$$bundle_response$$custom$$detection$$collection,
       },
@@ -362,8 +341,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
         "waf-product-api-bundle_api-response-common-failure": waf$$product$$api$$bundle_api$$response$$common$$failure,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection-collection": waf$$product$$api$$bundle_response$$custom$$detection$$collection,
       },
@@ -375,7 +352,7 @@ export const tools: readonly Tool[] = [
   {
     name: "leakedCredentialChecks_detections_update",
     title: "Update a custom detection location of a zone.",
-    description: "Update the username and password expressions of an existing detection location, identified by its detection ID. Both expressions are overwritten, so omitting the password expression clears it.",
+    description: "Update the username and password expressions of an existing detection location, identified by its detection ID. Both expressions are overwritten, so omitting the password expression clears it.\n\nPUT /zones/{zone_id}/leaked-credential-checks/detections/{detection_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -383,14 +360,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "detection_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_detection-id",
-              "description": "Defines the unique ID for this custom detection."
+              "description": "Defines the unique ID for this custom detection.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -404,10 +382,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection$,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id$,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier$,
       },
     },
     outputSchema: {
@@ -416,8 +393,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
         "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection": waf$$product$$api$$bundle_response$$custom$$detection,
       },
@@ -458,8 +433,6 @@ export const tools: readonly Tool[] = [
         "waf-product-api-bundle_api-response-common-failure": waf$$product$$api$$bundle_api$$response$$common$$failure,
         "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
         "waf-product-api-bundle_custom-detection": waf$$product$$api$$bundle_custom$$detection,
-        "waf-product-api-bundle_detection-id": waf$$product$$api$$bundle_detection$$id,
-        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
         "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
         "waf-product-api-bundle_response-custom-detection": waf$$product$$api$$bundle_response$$custom$$detection,
       },

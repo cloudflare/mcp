@@ -7,7 +7,6 @@ import {
   security$$center_api$$response$$common$$failure,
   security$$center_messages,
 } from "../../outputs.js";
-import { security$$center_identifier } from "../../schemas.js";
 
 /**
  * The tools of `securityInsights.context`.
@@ -16,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_context_get",
     title: "Retrieves Security Center Insight Context",
-    description: "Returns the full context payload for an insight. This endpoint is used for insights with large payloads that are not included inline in the list response.",
+    description: "Returns the full context payload for an insight. This endpoint is used for insights with large payloads that are not included inline in the list response.\n\nGET /accounts/{account_id}/security-center/insights/{issue_id}/context",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "issue_id": {
               "type": "string"
@@ -40,9 +40,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

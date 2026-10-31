@@ -76,7 +76,7 @@ export const access_users: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_id"
+      "type": "string"
     },
     "meta": {
       "$ref": "#/$defs/access_meta"

@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier } from "../../schemas.js";
 import {
   r2_account_level_metrics,
   r2_class_based_metrics,
@@ -22,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_metrics_list",
     title: "Get Account-Level Metrics",
-    description: "Get Storage/Object Count Metrics across all buckets in your account. Note that Account-Level Metrics may not immediately reflect the latest data.",
+    description: "Get Storage/Object Count Metrics across all buckets in your account. Note that Account-Level Metrics may not immediately reflect the latest data.\n\nGET /accounts/{account_id}/r2/metrics",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,9 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

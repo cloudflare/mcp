@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_crawl_create",
     title: "Crawl websites.",
-    description: "Starts a crawl job for the provided URL and its children. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.",
+    description: "Starts a crawl job for the provided URL and its children. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.\n\nPOST /accounts/{account_id}/browser-rendering/crawl",
     inputSchema: {
       type: "object",
       properties: {
@@ -701,6 +701,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -713,6 +714,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cacheTTL": {
               "default": 5,
@@ -727,6 +729,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -922,11 +925,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_crawl_delete",
     title: "Cancel a crawl job.",
-    description: "Cancels an ongoing crawl job by setting its status to cancelled and stopping all queued URLs.",
+    description: "Cancels an ongoing crawl job by setting its status to cancelled and stopping all queued URLs.\n\nDELETE /accounts/{account_id}/browser-rendering/crawl/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -947,6 +951,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1159,11 +1164,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_crawl_get",
     title: "Get crawl result.",
-    description: "Returns the result of a crawl job.",
+    description: "Returns the result of a crawl job.\n\nGET /accounts/{account_id}/browser-rendering/crawl/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1181,6 +1187,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cacheTTL": {
               "default": 5,
@@ -1216,6 +1223,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

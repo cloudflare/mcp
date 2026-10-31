@@ -7,20 +7,11 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_created_at$$4,
-  tls$$certificates$$and$$hostnames_hostname$$3,
   tls$$certificates$$and$$hostnames_per_hostname_settings_response,
   tls$$certificates$$and$$hostnames_settingObject,
-  tls$$certificates$$and$$hostnames_status$$12,
-  tls$$certificates$$and$$hostnames_updated_at$$5,
   tls$$certificates$$and$$hostnames_value,
 } from "../outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_hostname$$3 as tls$$certificates$$and$$hostnames_hostname$$3$,
-  tls$$certificates$$and$$hostnames_setting_id,
-} from "../schemas.js";
 
 /**
  * The tools of `zones.hostnames.settings.tlsSingle`.
@@ -29,23 +20,29 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_hostnames_settings_tlsSingle_get",
     title: "Get TLS setting for hostname",
-    description: "Get the requested TLS setting for the hostname.",
+    description: "Get the requested TLS setting for the hostname.\n\nGET /zones/{zone_id}/hostnames/settings/{setting_id}/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "hostname": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-3",
-              "description": "The hostname for which the tls settings are set."
+              "description": "The hostname for which the tls settings are set.",
+              "type": "string"
             },
             "setting_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_setting_id",
-              "description": "The TLS Setting name.\nThe value type depends on the setting:\n- `ciphers`: value is an array of cipher suite strings (e.g., `[\"ECDHE-RSA-AES128-GCM-SHA256\", \"AES128-GCM-SHA256\"]`).\n- `min_tls_version`: value is a TLS version string (`\"1.0\"`, `\"1.1\"`, `\"1.2\"`, or `\"1.3\"`).\n- `http2`: value is `\"on\"` or `\"off\"`."
+              "description": "The TLS Setting name.\nThe value type depends on the setting:\n- `ciphers`: value is an array of cipher suite strings (e.g., `[\"ECDHE-RSA-AES128-GCM-SHA256\", \"AES128-GCM-SHA256\"]`).\n- `min_tls_version`: value is a TLS version string (`\"1.0\"`, `\"1.1\"`, `\"1.2\"`, or `\"1.3\"`).\n- `http2`: value is `\"on\"` or `\"off\"`.",
+              "enum": [
+                "ciphers",
+                "min_tls_version",
+                "http2"
+              ],
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,23 +56,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_hostname-3": tls$$certificates$$and$$hostnames_hostname$$3$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-        "tls-certificates-and-hostnames_setting_id": tls$$certificates$$and$$hostnames_setting_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_per_hostname_settings_response",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_created_at-4": tls$$certificates$$and$$hostnames_created_at$$4,
-        "tls-certificates-and-hostnames_hostname-3": tls$$certificates$$and$$hostnames_hostname$$3,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_per_hostname_settings_response": tls$$certificates$$and$$hostnames_per_hostname_settings_response,
         "tls-certificates-and-hostnames_settingObject": tls$$certificates$$and$$hostnames_settingObject,
-        "tls-certificates-and-hostnames_status-12": tls$$certificates$$and$$hostnames_status$$12,
-        "tls-certificates-and-hostnames_updated_at-5": tls$$certificates$$and$$hostnames_updated_at$$5,
         "tls-certificates-and-hostnames_value": tls$$certificates$$and$$hostnames_value,
       },
     },
@@ -115,13 +104,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_created_at-4": tls$$certificates$$and$$hostnames_created_at$$4,
-        "tls-certificates-and-hostnames_hostname-3": tls$$certificates$$and$$hostnames_hostname$$3,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_per_hostname_settings_response": tls$$certificates$$and$$hostnames_per_hostname_settings_response,
         "tls-certificates-and-hostnames_settingObject": tls$$certificates$$and$$hostnames_settingObject,
-        "tls-certificates-and-hostnames_status-12": tls$$certificates$$and$$hostnames_status$$12,
-        "tls-certificates-and-hostnames_updated_at-5": tls$$certificates$$and$$hostnames_updated_at$$5,
         "tls-certificates-and-hostnames_value": tls$$certificates$$and$$hostnames_value,
       },
     },

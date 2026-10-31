@@ -8,18 +8,7 @@ import {
   waitingroom_api$$response$$single,
   waitingroom_messages,
 } from "../outputs.js";
-import {
-  waitingroom_identifier,
-  waitingroom_waiting_room_id,
-} from "../schemas.js";
-import {
-  waitingroom_estimated_queued_users,
-  waitingroom_estimated_total_active_users,
-  waitingroom_max_estimated_time_minutes,
-  waitingroom_status,
-  waitingroom_status_event_id,
-  waitingroom_status_response,
-} from "./outputs.js";
+import { waitingroom_status_response } from "./outputs.js";
 
 /**
  * The tools of `waitingRooms.statuses`.
@@ -28,18 +17,19 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_statuses_get",
     title: "Get waiting room status",
-    description: "Fetches the status of a configured waiting room. Response fields include:\n1. `status`: String indicating the status of the waiting room. The possible status are:\n\t- **not_queueing** indicates that the configured thresholds have not been met and all users are going through to the origin.\n\t- **queueing** indicates that the thresholds have been met and some users are held in the waiting room.\n\t- **event_prequeueing** indicates that an event is active and is currently prequeueing users before it starts.\n\t- **suspended** indicates that the room is suspended.\n2. `event_id`: String of the current event's `id` if an event is active, otherwise an empty string.\n3. `estimated_queued_users`: Integer of the estimated number of users currently waiting in the queue.\n4. `estimated_total_active_users`: Integer of the estimated number of users currently active on the origin.\n5. `max_estimated_time_minutes`: Integer of the maximum estimated time currently presented to the users.",
+    description: "Fetches the status of a configured waiting room. Response fields include:\n1. `status`: String indicating the status of the waiting room. The possible status are:\n\t- **not_queueing** indicates that the configured thresholds have not been met and all users are going through to the origin.\n\t- **queueing** indicates that the thresholds have been met and some users are held in the waiting room.\n\t- **event_prequeueing** indicates that an event is active and is currently prequeueing users before it starts.\n\t- **suspended** indicates that the room is suspended.\n2. `event_id`: String of the current event's `id` if an event is active, otherwise an empty string.\n3. `estimated_queued_users`: Integer of the estimated number of users currently waiting in the queue.\n4. `estimated_total_active_users`: Integer of the estimated number of users currently active on the origin.\n5. `max_estimated_time_minutes`: Integer of the maximum estimated time currently presented to the users.\n\nGET /zones/{zone_id}/waiting_rooms/{waiting_room_id}/status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -52,22 +42,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_status_response",
       $defs: {
         "waitingroom_api-response-common": waitingroom_api$$response$$common,
         "waitingroom_api-response-single": waitingroom_api$$response$$single,
-        "waitingroom_estimated_queued_users": waitingroom_estimated_queued_users,
-        "waitingroom_estimated_total_active_users": waitingroom_estimated_total_active_users,
-        "waitingroom_max_estimated_time_minutes": waitingroom_max_estimated_time_minutes,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_status": waitingroom_status,
-        "waitingroom_status_event_id": waitingroom_status_event_id,
         "waitingroom_status_response": waitingroom_status_response,
       },
     },
@@ -112,12 +94,7 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common": waitingroom_api$$response$$common,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_api-response-single": waitingroom_api$$response$$single,
-        "waitingroom_estimated_queued_users": waitingroom_estimated_queued_users,
-        "waitingroom_estimated_total_active_users": waitingroom_estimated_total_active_users,
-        "waitingroom_max_estimated_time_minutes": waitingroom_max_estimated_time_minutes,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_status": waitingroom_status,
-        "waitingroom_status_event_id": waitingroom_status_event_id,
         "waitingroom_status_response": waitingroom_status_response,
       },
     },

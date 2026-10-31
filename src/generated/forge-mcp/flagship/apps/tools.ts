@@ -16,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_create",
     title: "Create app",
-    description: "Creates an app. The returned `id` is used in all subsequent flag, changelog, and evaluation requests.\n\nThis method is beta.",
+    description: "Creates an app. The returned `id` is used in all subsequent flag, changelog, and evaluation requests.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/flagship/apps",
     inputSchema: {
       type: "object",
       properties: {
@@ -33,6 +33,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -203,11 +205,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_delete",
     title: "Delete app",
-    description: "Deletes an app and all its flags and changelog history. Returns 409 if any Worker still references this app via a Flagship binding.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Flagship app, all of its flags, and all changelog history? This action cannot be undone.",
+    description: "Deletes an app and all its flags and changelog history. Returns 409 if any Worker still references this app via a Flagship binding.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Flagship app, all of its flags, and all changelog history? This action cannot be undone.\n\nDELETE /accounts/{account_id}/flagship/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -228,6 +231,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -384,11 +388,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_get",
     title: "Get app",
-    description: "Returns an app's name and audit fields. Flag definitions are not included.\n\nThis method is beta.",
+    description: "Returns an app's name and audit fields. Flag definitions are not included.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -409,6 +414,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -563,11 +569,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_list",
     title: "List apps",
-    description: "Lists all Flagship apps in the account. Returns identity and audit fields only; flag definitions are not included.\n\nThis method is beta.",
+    description: "Lists all Flagship apps in the account. Returns identity and audit fields only; flag definitions are not included.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -583,6 +590,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -743,7 +751,7 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_update",
     title: "Update app",
-    description: "Updates an app. Only `name` is mutable.\n\nThis method is beta.",
+    description: "Updates an app. Only `name` is mutable.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/flagship/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -757,6 +765,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -778,6 +787,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

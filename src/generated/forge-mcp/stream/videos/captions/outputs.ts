@@ -4,57 +4,29 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `stream_caption_status` in responses.
- */
-export const stream_caption_status: JsonSchema = {
-  "enum": [
-    "ready",
-    "inprogress",
-    "error"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `stream_captions` in responses.
  */
 export const stream_captions: JsonSchema = {
   "properties": {
     "generated": {
-      "$ref": "#/$defs/stream_generated_caption"
+      "type": "boolean"
     },
     "label": {
-      "$ref": "#/$defs/stream_label"
+      "type": "string"
     },
     "language": {
-      "$ref": "#/$defs/stream_language"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/stream_caption_status"
+      "enum": [
+        "ready",
+        "inprogress",
+        "error"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_generated_caption` in responses.
- */
-export const stream_generated_caption: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_label` in responses.
- */
-export const stream_label: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_language` in responses.
- */
-export const stream_language: JsonSchema = {
-  "type": "string"
 };
 
 /**

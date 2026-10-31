@@ -7,9 +7,6 @@ import {
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
 } from "../../../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../../../schemas.js";
-import { digital$$experience$$monitoring_since_minutes } from "../../schemas.js";
-import { digital$$experience$$monitoring_uniqueDevicesTotal } from "../outputs.js";
 import {
   digital$$experience$$monitoring_fleet_status_live_response,
   digital$$experience$$monitoring_live_stat,
@@ -22,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_devices_aggregates_live_get",
     title: "Get live aggregate device details by dimension",
-    description: "Get details for live (up to 60 minutes) devices using WARP.",
+    description: "Get details for live (up to 60 minutes) devices using WARP.\n\nGET /accounts/{account_id}/dex/fleet-status/live",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,11 +37,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "since_minutes": {
-              "$ref": "#/$defs/digital-experience-monitoring_since_minutes",
               "default": 10,
-              "description": "Number of minutes before current time."
+              "description": "Number of minutes before current time.",
+              "type": "number"
             }
           },
           "required": [
@@ -56,10 +55,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_since_minutes": digital$$experience$$monitoring_since_minutes,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_fleet_status_live_response",
@@ -68,7 +64,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_fleet_status_live_response": digital$$experience$$monitoring_fleet_status_live_response,
         "digital-experience-monitoring_live_stat": digital$$experience$$monitoring_live_stat,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uniqueDevicesTotal": digital$$experience$$monitoring_uniqueDevicesTotal,
       },
     },
     annotations: {
@@ -103,7 +98,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_fleet_status_live_response": digital$$experience$$monitoring_fleet_status_live_response,
         "digital-experience-monitoring_live_stat": digital$$experience$$monitoring_live_stat,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uniqueDevicesTotal": digital$$experience$$monitoring_uniqueDevicesTotal,
       },
     },
     request: (args) => ({

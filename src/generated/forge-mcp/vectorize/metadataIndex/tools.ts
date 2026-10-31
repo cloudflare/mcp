@@ -7,9 +7,7 @@ import {
   vectorize_api$$response$$common$$failure,
   vectorize_api$$response$$single,
   vectorize_messages,
-  vectorize_mutation$$uuid,
 } from "../outputs.js";
-import { vectorize_identifier, vectorize_index$$name } from "../schemas.js";
 import {
   vectorize_create$$metadata$$index$$response,
   vectorize_delete$$metadata$$index$$response,
@@ -27,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_metadataIndex_create",
     title: "Create Metadata Index",
-    description: "Enable metadata filtering based on metadata property. Limited to 10 properties.",
+    description: "Enable metadata filtering based on metadata property. Limited to 10 properties.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/metadata_index/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,13 +33,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/vectorize_create-metadata-index-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +54,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "vectorize_create-metadata-index-request": vectorize_create$$metadata$$index$$request,
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name,
       },
     },
     outputSchema: {
@@ -80,7 +78,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_create-metadata-index-response": vectorize_create$$metadata$$index$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     annotations: {
@@ -129,7 +126,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_create-metadata-index-response": vectorize_create$$metadata$$index$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     request: (args) => ({
@@ -140,7 +136,7 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_metadataIndex_delete",
     title: "Delete Metadata Index",
-    description: "Allow Vectorize to delete the specified metadata index.\n\nConfirm with the user before calling this tool. This operation deletes a metadata index destructively.",
+    description: "Allow Vectorize to delete the specified metadata index.\n\nConfirm with the user before calling this tool. This operation deletes a metadata index destructively.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/metadata_index/delete",
     inputSchema: {
       type: "object",
       properties: {
@@ -148,13 +144,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/vectorize_delete-metadata-index-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -168,10 +165,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "vectorize_delete-metadata-index-request": vectorize_delete$$metadata$$index$$request,
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name,
       },
     },
     outputSchema: {
@@ -193,7 +189,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_delete-metadata-index-response": vectorize_delete$$metadata$$index$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     annotations: {
@@ -242,7 +237,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_delete-metadata-index-response": vectorize_delete$$metadata$$index$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     request: (args) => ({
@@ -253,18 +247,19 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_metadataIndex_list",
     title: "List Metadata Indexes",
-    description: "List Metadata Indexes for the specified Vectorize Index.",
+    description: "List Metadata Indexes for the specified Vectorize Index.\n\nGET /accounts/{account_id}/vectorize/v2/indexes/{index_name}/metadata_index/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -277,10 +272,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

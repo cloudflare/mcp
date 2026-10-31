@@ -9,27 +9,13 @@ import type { JsonSchema } from "../../_/tool.js";
 export const stream_input_rtmps: JsonSchema = {
   "properties": {
     "streamKey": {
-      "$ref": "#/$defs/stream_input_rtmps_stream_key"
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_input_rtmps_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_input_rtmps_stream_key` in responses.
- */
-export const stream_input_rtmps_stream_key: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_input_rtmps_url` in responses.
- */
-export const stream_input_rtmps_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -38,37 +24,16 @@ export const stream_input_rtmps_url: JsonSchema = {
 export const stream_input_srt: JsonSchema = {
   "properties": {
     "passphrase": {
-      "$ref": "#/$defs/stream_input_srt_stream_passphrase"
+      "type": "string"
     },
     "streamId": {
-      "$ref": "#/$defs/stream_input_srt_stream_id"
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_input_srt_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_input_srt_stream_id` in responses.
- */
-export const stream_input_srt_stream_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_input_srt_stream_passphrase` in responses.
- */
-export const stream_input_srt_stream_passphrase: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_input_srt_url` in responses.
- */
-export const stream_input_srt_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -77,17 +42,10 @@ export const stream_input_srt_url: JsonSchema = {
 export const stream_input_webrtc: JsonSchema = {
   "properties": {
     "url": {
-      "$ref": "#/$defs/stream_input_webrtc_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_input_webrtc_url` in responses.
- */
-export const stream_input_webrtc_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -96,28 +54,38 @@ export const stream_input_webrtc_url: JsonSchema = {
 export const stream_live_input: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/stream_live_input_created"
+      "format": "date-time",
+      "type": "string"
     },
     "deleteRecordingAfterDays": {
-      "$ref": "#/$defs/stream_live_input_recording_deletion"
+      "type": "number"
     },
     "enabled": {
-      "$ref": "#/$defs/stream_live_input_enabled"
+      "type": "boolean"
     },
     "keysRotatedAt": {
-      "$ref": "#/$defs/stream_live_input_keys_rotated_at"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "meta": {
       "$ref": "#/$defs/stream_live_input_metadata"
     },
     "modified": {
-      "$ref": "#/$defs/stream_live_input_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "playback": {
       "$ref": "#/$defs/stream_live_input_playback"
     },
     "preferLowLatency": {
-      "$ref": "#/$defs/stream_live_input_prefer_low_latency"
+      "type": "boolean"
     },
     "recording": {
       "$ref": "#/$defs/stream_live_input_recording_settings"
@@ -135,10 +103,27 @@ export const stream_live_input: JsonSchema = {
       "$ref": "#/$defs/stream_playback_srt"
     },
     "status": {
-      "$ref": "#/$defs/stream_live_input_status"
+      "oneOf": [
+        {
+          "enum": [
+            "connected",
+            "reconnected",
+            "reconnecting",
+            "client_disconnect",
+            "ttl_exceeded",
+            "failed_to_connect",
+            "failed_to_reconnect",
+            "new_configuration_accepted"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "uid": {
-      "$ref": "#/$defs/stream_live_input_identifier"
+      "type": "string"
     },
     "webRTC": {
       "$ref": "#/$defs/stream_input_webrtc"
@@ -151,55 +136,10 @@ export const stream_live_input: JsonSchema = {
 };
 
 /**
- * The schema of `stream_live_input_created` in responses.
- */
-export const stream_live_input_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_live_input_enabled` in responses.
- */
-export const stream_live_input_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_live_input_identifier` in responses.
- */
-export const stream_live_input_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_live_input_keys_rotated_at` in responses.
- */
-export const stream_live_input_keys_rotated_at: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `stream_live_input_metadata` in responses.
  */
 export const stream_live_input_metadata: JsonSchema = {
   "type": "object"
-};
-
-/**
- * The schema of `stream_live_input_modified` in responses.
- */
-export const stream_live_input_modified: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -208,22 +148,24 @@ export const stream_live_input_modified: JsonSchema = {
 export const stream_live_input_object_without_url: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/stream_live_input_created"
+      "format": "date-time",
+      "type": "string"
     },
     "deleteRecordingAfterDays": {
-      "$ref": "#/$defs/stream_live_input_recording_deletion"
+      "type": "number"
     },
     "enabled": {
-      "$ref": "#/$defs/stream_live_input_enabled"
+      "type": "boolean"
     },
     "meta": {
       "$ref": "#/$defs/stream_live_input_metadata"
     },
     "modified": {
-      "$ref": "#/$defs/stream_live_input_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/stream_live_input_identifier"
+      "type": "string"
     }
   },
   "type": "object"
@@ -235,10 +177,10 @@ export const stream_live_input_object_without_url: JsonSchema = {
 export const stream_live_input_playback: JsonSchema = {
   "properties": {
     "dash": {
-      "$ref": "#/$defs/stream_playback_dash_url"
+      "type": "string"
     },
     "hls": {
-      "$ref": "#/$defs/stream_playback_hls_url"
+      "type": "string"
     }
   },
   "required": [
@@ -246,13 +188,6 @@ export const stream_live_input_playback: JsonSchema = {
     "hls"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `stream_live_input_prefer_low_latency` in responses.
- */
-export const stream_live_input_prefer_low_latency: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -266,38 +201,6 @@ export const stream_live_input_recording_allowedOrigins: JsonSchema = {
 };
 
 /**
- * The schema of `stream_live_input_recording_deletion` in responses.
- */
-export const stream_live_input_recording_deletion: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_live_input_recording_hideLiveViewerCount` in responses.
- */
-export const stream_live_input_recording_hideLiveViewerCount: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_live_input_recording_mode` in responses.
- */
-export const stream_live_input_recording_mode: JsonSchema = {
-  "enum": [
-    "off",
-    "automatic"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `stream_live_input_recording_requireSignedURLs` in responses.
- */
-export const stream_live_input_recording_requireSignedURLs: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `stream_live_input_recording_settings` in responses.
  */
 export const stream_live_input_recording_settings: JsonSchema = {
@@ -306,26 +209,23 @@ export const stream_live_input_recording_settings: JsonSchema = {
       "$ref": "#/$defs/stream_live_input_recording_allowedOrigins"
     },
     "hideLiveViewerCount": {
-      "$ref": "#/$defs/stream_live_input_recording_hideLiveViewerCount"
+      "type": "boolean"
     },
     "mode": {
-      "$ref": "#/$defs/stream_live_input_recording_mode"
+      "enum": [
+        "off",
+        "automatic"
+      ],
+      "type": "string"
     },
     "requireSignedURLs": {
-      "$ref": "#/$defs/stream_live_input_recording_requireSignedURLs"
+      "type": "boolean"
     },
     "timeoutSeconds": {
-      "$ref": "#/$defs/stream_live_input_recording_timeoutSeconds"
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_live_input_recording_timeoutSeconds` in responses.
- */
-export const stream_live_input_recording_timeoutSeconds: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -381,70 +281,18 @@ export const stream_live_input_response_single: JsonSchema = {
 };
 
 /**
- * The schema of `stream_live_input_status` in responses.
- */
-export const stream_live_input_status: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "connected",
-        "reconnected",
-        "reconnecting",
-        "client_disconnect",
-        "ttl_exceeded",
-        "failed_to_connect",
-        "failed_to_reconnect",
-        "new_configuration_accepted"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `stream_playback_dash_url` in responses.
- */
-export const stream_playback_dash_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_playback_hls_url` in responses.
- */
-export const stream_playback_hls_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `stream_playback_rtmps` in responses.
  */
 export const stream_playback_rtmps: JsonSchema = {
   "properties": {
     "streamKey": {
-      "$ref": "#/$defs/stream_playback_rtmps_stream_key"
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_playback_rtmps_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_playback_rtmps_stream_key` in responses.
- */
-export const stream_playback_rtmps_stream_key: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_playback_rtmps_url` in responses.
- */
-export const stream_playback_rtmps_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -453,37 +301,16 @@ export const stream_playback_rtmps_url: JsonSchema = {
 export const stream_playback_srt: JsonSchema = {
   "properties": {
     "passphrase": {
-      "$ref": "#/$defs/stream_playback_srt_stream_passphrase"
+      "type": "string"
     },
     "streamId": {
-      "$ref": "#/$defs/stream_playback_srt_stream_id"
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_playback_srt_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_playback_srt_stream_id` in responses.
- */
-export const stream_playback_srt_stream_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_playback_srt_stream_passphrase` in responses.
- */
-export const stream_playback_srt_stream_passphrase: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_playback_srt_url` in responses.
- */
-export const stream_playback_srt_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -492,15 +319,8 @@ export const stream_playback_srt_url: JsonSchema = {
 export const stream_playback_webrtc: JsonSchema = {
   "properties": {
     "url": {
-      "$ref": "#/$defs/stream_playback_webrtc_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_playback_webrtc_url` in responses.
- */
-export const stream_playback_webrtc_url: JsonSchema = {
-  "type": "string"
 };

@@ -9,7 +9,6 @@ import {
   load$$balancing_messages,
   load$$balancing_result_info,
 } from "../../outputs.js";
-import { load$$balancing_components$$schemas$$identifier } from "../schemas.js";
 import {
   load$$balancing_resource_reference,
   load$$balancing_search,
@@ -23,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_searches_list",
     title: "Search Resources",
-    description: "Search for Load Balancing resources.",
+    description: "Search for Load Balancing resources.\n\nGET /accounts/{account_id}/load_balancers/search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -40,6 +40,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "type": "number"
@@ -71,9 +72,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

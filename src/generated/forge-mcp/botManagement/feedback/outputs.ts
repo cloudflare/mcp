@@ -42,7 +42,11 @@ export const bot$$management_feedback_report: JsonSchema = {
       "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/bot-management_feedback_type"
+      "enum": [
+        "false_positive",
+        "false_negative"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -57,17 +61,6 @@ export const bot$$management_feedback_report: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `bot-management_feedback_type` in responses.
- */
-export const bot$$management_feedback_type: JsonSchema = {
-  "enum": [
-    "false_positive",
-    "false_negative"
-  ],
-  "type": "string"
 };
 
 /**

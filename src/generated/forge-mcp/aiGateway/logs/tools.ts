@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_logs_delete",
     title: "Delete Gateway Logs",
-    description: "Deletes gateway log entries matching the specified criteria.\n\nConfirm with the user before calling this tool. This permanently deletes every stored log entry on the gateway that matches the filters. Deleted logs cannot be recovered.",
+    description: "Deletes gateway log entries matching the specified criteria.\n\nConfirm with the user before calling this tool. This permanently deletes every stored log entry on the gateway that matches the filters. Deleted logs cannot be recovered.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "filters": {
               "items": {
@@ -140,6 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -235,11 +238,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_logs_get",
     title: "Get Gateway Log Detail",
-    description: "Retrieves detailed information for a specific AI Gateway log entry.",
+    description: "Retrieves detailed information for a specific AI Gateway log entry.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -263,6 +267,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -597,11 +602,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_logs_getRequest",
     title: "Get Gateway Log Request",
-    description: "Retrieves the original request payload for an AI Gateway log entry.",
+    description: "Retrieves the original request payload for an AI Gateway log entry.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs/{id}/request",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -625,6 +631,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "object",
@@ -699,11 +706,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_logs_getResponse",
     title: "Get Gateway Log Response",
-    description: "Retrieves the response payload for an AI Gateway log entry.",
+    description: "Retrieves the response payload for an AI Gateway log entry.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs/{id}/response",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -727,6 +735,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "object",
@@ -801,11 +810,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_logs_list",
     title: "List Gateway Logs",
-    description: "Lists request/response log entries for the AI gateway with filtering and pagination.",
+    description: "Lists request/response log entries for the AI gateway with filtering and pagination.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -822,6 +832,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cached": {
               "type": "boolean"
@@ -1012,6 +1023,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1414,7 +1426,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_logs_update",
     title: "Patch Gateway Log",
-    description: "Updates metadata for an AI Gateway log entry.",
+    description: "Updates metadata for an AI Gateway log entry.\n\nPATCH /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1467,6 +1479,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1490,6 +1503,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

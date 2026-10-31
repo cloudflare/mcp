@@ -12,10 +12,6 @@ import {
   usage$$analytics_error_response,
 } from "../../outputs.js";
 import {
-  billable$$usage$$api_identifier,
-  usage$$analytics_identifier,
-} from "../../schemas.js";
-import {
   billable$$usage$$api_usage_info_response,
   billable$$usage$$api_usage_record,
   billable$$usage$$api_usage_response,
@@ -41,15 +37,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_usage_get",
     title: "Get account billing usage",
-    description: "Retrieve billing usage analytics for an account. Returns time-series data for all billable product metrics including Stream, Media (Images), Rate Limiting, Load Balancing, Argo, Workers, Workers KV, Image Resizing, and Spectrum.\n\nThis method is deprecated.",
+    description: "Retrieve billing usage analytics for an account. Returns time-series data for all billable product metrics including Stream, Media (Images), Rate Limiting, Load Balancing, Argo, Workers, Workers KV, Image Resizing, and Spectrum.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/billing/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/usage-analytics_identifier",
-              "description": "Standard Cloudflare hex account identifier. The API gateway translates this to an internal numeric ID before forwarding to the backend service.\n"
+              "description": "Standard Cloudflare hex account identifier. The API gateway translates this to an internal numeric ID before forwarding to the backend service.",
+              "type": "string"
             }
           },
           "required": [
@@ -58,28 +55,29 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "filters": {
-              "description": "Filter expressions to apply to the query. Format: field==value. Multiple filters can be combined.\n",
+              "description": "Filter expressions to apply to the query. Format: field==value. Multiple filters can be combined.",
               "type": "string"
             },
             "limit": {
               "default": 100,
-              "description": "Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.\n",
+              "description": "Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.",
               "type": "integer"
             },
             "metrics": {
-              "description": "Comma-separated list of metrics to include in the response. Available metrics depend on the endpoint. Billing usage supports: streamMinutesViewed, rateLimitingRequestsAllowed, loadBalancingQueries, argoAcceleratedBytes, workersRequests, workersKVReads, imageResizingRequests, spectrumBytesTransferred, mediaUniqueTransformations. Stream/media usage supports: streamMinutesViewed.\n",
+              "description": "Comma-separated list of metrics to include in the response. Available metrics depend on the endpoint. Billing usage supports: streamMinutesViewed, rateLimitingRequestsAllowed, loadBalancingQueries, argoAcceleratedBytes, workersRequests, workersKVReads, imageResizingRequests, spectrumBytesTransferred, mediaUniqueTransformations. Stream/media usage supports: streamMinutesViewed.",
               "type": "string"
             },
             "since": {
-              "description": "Start of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to 6 hours before the current time.\n",
+              "description": "Start of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to 6 hours before the current time.",
               "format": "date-time",
               "type": "string"
             },
             "time_delta": {
               "default": "hour",
-              "description": "Time unit to aggregate usage observations into. Data retention is approximately 18 months. The effective number of data points returned depends on the time range and granularity selected. For example, requesting hourly granularity over 18 months could produce up to ~13,000 data points; use the limit parameter to cap results and be aware that responses may be truncated.\n",
+              "description": "Time unit to aggregate usage observations into. Data retention is approximately 18 months. The effective number of data points returned depends on the time range and granularity selected. For example, requesting hourly granularity over 18 months could produce up to ~13,000 data points; use the limit parameter to cap results and be aware that responses may be truncated.",
               "enum": [
                 "hour",
                 "day",
@@ -91,7 +89,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "until": {
-              "description": "End of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to the current time.\n",
+              "description": "End of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to the current time.",
               "format": "date-time",
               "type": "string"
             }
@@ -102,9 +100,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "usage-analytics_identifier": usage$$analytics_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/usage-analytics_billing_usage_response",
@@ -167,15 +163,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_usage_getAccountBillableMetrics",
     title: "List Account Billable Metrics (Version 2, Alpha, Restricted)",
-    description: "Lists billable metrics available to the account through contracts and\nsubscriptions that overlap the requested period. Results are\ndeduplicated and ordered. If no qualifying contract exists, the\nresult is an empty array.\n\nWhen `from` and `to` are omitted, the period defaults to the start of\nthe current month through today. The maximum date range is 31 days.",
+    description: "Lists billable metrics available to the account through contracts and\nsubscriptions that overlap the requested period. Results are\ndeduplicated and ordered. If no qualifying contract exists, the\nresult is an empty array.\n\nWhen `from` and `to` are omitted, the period defaults to the start of\nthe current month through today. The maximum date range is 31 days.\n\nGET /accounts/{account_id}/billable/usage/billable-metrics",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billable-usage-api_identifier",
-              "description": "Identifies the Cloudflare account."
+              "description": "Identifies the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -184,6 +181,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "from": {
               "description": "Start date for the usage query (ISO 8601). Required if `to` is set. When omitted along with `to`, defaults to the start of the current month. Filters by charge period (when consumption happened), not billing period. The maximum date range is 31 days.",
@@ -202,9 +200,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billable-usage-api_identifier": billable$$usage$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billable-usage-api_v2_account_billable_metrics_response",
@@ -262,15 +258,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_usage_getAccountUsageV2",
     title: "Get Account Usage (Version 2, Alpha, Restricted)",
-    description: "Returns cost and usage data for a single Cloudflare account, aligned\nwith the [FinOps FOCUS v1.3](https://focus.finops.org/focus-specification/v1-3/)\nCost and Usage dataset specification.\n\nEach record represents one billable metric for one account on one day.\nThis includes all metered usage, including usage that falls within\nfree-tier allowances and may result in zero cost.\n\n**Note:** This endpoint serves `usage` records only; cost and pricing\nfields are absent from responses. To retrieve rated costs, use `POST`\non the same path with `Metric: cost`.\n\nWhen `from` and `to` are omitted, defaults to the start of the current\nmonth through today. The maximum date range is 31 days.",
+    description: "Returns cost and usage data for a single Cloudflare account, aligned\nwith the [FinOps FOCUS v1.3](https://focus.finops.org/focus-specification/v1-3/)\nCost and Usage dataset specification.\n\nEach record represents one billable metric for one account on one day.\nThis includes all metered usage, including usage that falls within\nfree-tier allowances and may result in zero cost.\n\n**Note:** This endpoint serves `usage` records only; cost and pricing\nfields are absent from responses. To retrieve rated costs, use `POST`\non the same path with `Metric: cost`.\n\nWhen `from` and `to` are omitted, defaults to the start of the current\nmonth through today. The maximum date range is 31 days.\n\nGET /accounts/{account_id}/billable/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billable-usage-api_identifier",
-              "description": "Identifies the Cloudflare account."
+              "description": "Identifies the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -279,6 +276,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "from": {
               "description": "Start date for the usage query (ISO 8601). Required if `to` is set. When omitted along with `to`, defaults to the start of the current month. Filters by charge period (when consumption happened), not billing period. The maximum date range is 31 days.",
@@ -297,9 +295,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billable-usage-api_identifier": billable$$usage$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billable-usage-api_v2_usage_response",
@@ -353,15 +349,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_usage_getInfoV1",
     title: "Get Account Billable Usage Info (Version 1, Alpha)",
-    description: "Returns high-level usage information for the account, including coverage,\nand subscription metadata.",
+    description: "Returns high-level usage information for the account, including coverage,\nand subscription metadata.\n\nGET /accounts/{account_id}/billable-usage/info",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billable-usage-api_identifier",
-              "description": "Identifies the Cloudflare account."
+              "description": "Identifies the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -373,9 +370,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billable-usage-api_identifier": billable$$usage$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billable-usage-api_usage_info_response",
@@ -423,15 +418,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_usage_getV1",
     title: "Get Account Billable Usage (Version 1, Alpha)",
-    description: "Returns billable usage data for the account.\nWhen no query parameters are provided, returns usage for the current\nbilling period.",
+    description: "Returns billable usage data for the account.\nWhen no query parameters are provided, returns usage for the current\nbilling period.\n\nGET /accounts/{account_id}/billable-usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billable-usage-api_identifier",
-              "description": "Identifies the Cloudflare account."
+              "description": "Identifies the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -440,6 +436,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "from": {
               "description": "Start date for the usage query (ISO 8601). The provided time range must include the subscription billing cycle anchor day, otherwise no usage data is returned. Use the info endpoint to retrieve the subscription anchor day.",
@@ -458,9 +455,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billable-usage-api_identifier": billable$$usage$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billable-usage-api_usage_response",
@@ -514,7 +509,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_usage_query",
     title: "Query Account Usage (Version 2, Alpha, Restricted)",
-    description: "Returns cost and usage data for a single Cloudflare account, aligned\nwith the [FinOps FOCUS v1.3](https://focus.finops.org/focus-specification/v1-3/)\nCost and Usage dataset specification.\n\nThis is the filterable counterpart to `GET` on the same path. It is a\nread-only operation and requires only the `#billing:read` permission;\n`POST` is used so that filter criteria can be supplied in a request body\nrather than in the query string.\n\nEach record represents one billable metric for one account on one day.\nThis includes all metered usage, including usage that falls within\nfree-tier allowances and may result in zero cost.\n\n**Note:** Cost and pricing fields are populated only when `Metric`\nis `cost`; otherwise they are absent from responses.\n\nThe request body is optional. When it is omitted, or when `TimePeriod`\nis omitted, the range defaults to the start of the current month through\ntoday. The maximum date range is 31 days.\n\nFilters of different kinds are combined with AND. Values within one tag\nfilter are combined with OR. Filter values that do not match usage\nproduce an empty result set.\n\nResults can be grouped by up to two groups, in any combination of\ndimension keys and resource-tag keys. Tag groups are returned in the\n`Tags` field. Usage without a requested tag remains in an untagged\ngroup, with that key omitted from `Tags`.\n\nRequests that use tag filtering or tag grouping return HTTP 400 when the\nunderlying usage data source does not support tags.\n\nRequests that use dimension grouping return HTTP 400 when the\nunderlying usage data source does not support dimensions.",
+    description: "Returns cost and usage data for a single Cloudflare account, aligned\nwith the [FinOps FOCUS v1.3](https://focus.finops.org/focus-specification/v1-3/)\nCost and Usage dataset specification.\n\nThis is the filterable counterpart to `GET` on the same path. It is a\nread-only operation and requires only the `#billing:read` permission;\n`POST` is used so that filter criteria can be supplied in a request body\nrather than in the query string.\n\nEach record represents one billable metric for one account on one day.\nThis includes all metered usage, including usage that falls within\nfree-tier allowances and may result in zero cost.\n\n**Note:** Cost and pricing fields are populated only when `Metric`\nis `cost`; otherwise they are absent from responses.\n\nThe request body is optional. When it is omitted, or when `TimePeriod`\nis omitted, the range defaults to the start of the current month through\ntoday. The maximum date range is 31 days.\n\nFilters of different kinds are combined with AND. Values within one tag\nfilter are combined with OR. Filter values that do not match usage\nproduce an empty result set.\n\nResults can be grouped by up to two groups, in any combination of\ndimension keys and resource-tag keys. Tag groups are returned in the\n`Tags` field. Usage without a requested tag remains in an untagged\ngroup, with that key omitted from `Tags`.\n\nRequests that use tag filtering or tag grouping return HTTP 400 when the\nunderlying usage data source does not support tags.\n\nRequests that use dimension grouping return HTTP 400 when the\nunderlying usage data source does not support dimensions.\n\nPOST /accounts/{account_id}/billable/usage",
     inputSchema: {
       type: "object",
       properties: {
@@ -522,10 +517,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/billable-usage-api_v2_usage_query"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billable-usage-api_identifier",
-              "description": "Identifies the Cloudflare account."
+              "description": "Identifies the Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -537,8 +533,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "billable-usage-api_identifier": billable$$usage$$api_identifier,
         "billable-usage-api_v2_filter_by": billable$$usage$$api_v2_filter_by,
         "billable-usage-api_v2_group_by": billable$$usage$$api_v2_group_by,
         "billable-usage-api_v2_tag_filter": billable$$usage$$api_v2_tag_filter,

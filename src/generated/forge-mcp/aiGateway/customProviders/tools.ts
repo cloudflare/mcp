@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customProviders_create",
     title: "Create a custom provider",
-    description: "Creates an account-level custom provider that forwards AI Gateway requests to the HTTPS base URL you supply. Requests reference the provider as `custom-{slug}`, so the slug must be unique within the account.",
+    description: "Creates an account-level custom provider that forwards AI Gateway requests to the HTTPS base URL you supply. Requests reference the provider as `custom-{slug}`, so the slug must be unique within the account.\n\nPOST /accounts/{account_id}/ai-gateway/custom-providers",
     inputSchema: {
       type: "object",
       properties: {
@@ -59,6 +59,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -73,6 +74,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -311,11 +313,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customProviders_delete",
     title: "Delete a custom provider",
-    description: "Deletes a custom provider and every pricing rule that belongs to it.\n\nConfirm with the user before calling this tool. This permanently deletes the custom provider and all of its pricing rules. Gateway requests that use `custom-{slug}` for this provider will stop routing.",
+    description: "Deletes a custom provider and every pricing rule that belongs to it.\n\nConfirm with the user before calling this tool. This permanently deletes the custom provider and all of its pricing rules. Gateway requests that use `custom-{slug}` for this provider will stop routing.\n\nDELETE /accounts/{account_id}/ai-gateway/custom-providers/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -335,6 +338,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -548,11 +552,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customProviders_get",
     title: "Get a custom provider",
-    description: "Retrieves a custom provider, including its slug, base URL, and custom headers.",
+    description: "Retrieves a custom provider, including its slug, base URL, and custom headers.\n\nGET /accounts/{account_id}/ai-gateway/custom-providers/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -572,6 +577,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -786,11 +792,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customProviders_list",
     title: "List custom providers",
-    description: "Lists the custom providers configured for the account, ordered by position and then name.",
+    description: "Lists the custom providers configured for the account, ordered by position and then name.\n\nGET /accounts/{account_id}/ai-gateway/custom-providers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -802,6 +809,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "beta": {
               "type": "boolean"
@@ -828,6 +836,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1055,7 +1064,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_customProviders_update",
     title: "Update a custom provider",
-    description: "Updates the specified fields of a custom provider. Changes clear cached entries for the provider.",
+    description: "Updates the specified fields of a custom provider. Changes clear cached entries for the provider.\n\nPATCH /accounts/{account_id}/ai-gateway/custom-providers/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1102,6 +1111,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1121,6 +1131,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

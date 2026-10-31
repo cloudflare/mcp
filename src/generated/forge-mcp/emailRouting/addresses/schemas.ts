@@ -9,30 +9,14 @@ import type { JsonSchema } from "../../_/tool.js";
 export const email_create_destination_address_properties: JsonSchema = {
   "properties": {
     "email": {
-      "$ref": "#/$defs/email_email",
-      "description": "The contact email address of the user."
+      "description": "The contact email address of the user.",
+      "type": "string"
     }
   },
   "required": [
     "email"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email_destination_address_identifier`.
- */
-export const email_destination_address_identifier: JsonSchema = {
-  "description": "Destination address identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `email_email`.
- */
-export const email_email: JsonSchema = {
-  "description": "The contact email address of the user.",
-  "type": "string"
 };
 
 /**

@@ -5,24 +5,9 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_created_at,
-  tunnel_deleted_at,
   tunnel_messages,
-  tunnel_tunnel_id,
-  tunnel_tunnel_name,
-  tunnel_tunnel_type,
 } from "../../outputs.js";
-import { tunnel_account_id, tunnel_ip } from "../../schemas.js";
-import { tunnel_virtual_network_name } from "../outputs.js";
-import { tunnel_virtual_network_id } from "../schemas.js";
-import {
-  tunnel_ip_network,
-  tunnel_route_comment,
-  tunnel_route_id,
-  tunnel_teamnet,
-  tunnel_teamnet_response_single,
-  tunnel_virtual_network_id_computed_optional,
-} from "./outputs.js";
+import { tunnel_teamnet, tunnel_teamnet_response_single } from "./outputs.js";
 
 /**
  * The tools of `network.routes`.
@@ -31,18 +16,19 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_resolve",
     title: "Get tunnel route by IP",
-    description: "Fetches routes that contain the given IP address.",
+    description: "Fetches routes that contain the given IP address.\n\nGET /accounts/{account_id}/teamnet/routes/ip/{ip}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "ip": {
-              "$ref": "#/$defs/tunnel_ip"
+              "type": "string"
             }
           },
           "required": [
@@ -52,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "default_virtual_network_fallback": {
               "default": true,
@@ -59,8 +46,9 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "virtual_network_id": {
-              "$ref": "#/$defs/tunnel_virtual_network_id",
-              "description": "UUID of the virtual network."
+              "description": "UUID of the virtual network.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
@@ -69,29 +57,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_ip": tunnel_ip,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_teamnet_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_teamnet": tunnel_teamnet,
         "tunnel_teamnet_response_single": tunnel_teamnet_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_tunnel_name": tunnel_tunnel_name,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
-        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional,
-        "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     annotations: {
@@ -130,19 +104,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_teamnet": tunnel_teamnet,
         "tunnel_teamnet_response_single": tunnel_teamnet_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_tunnel_name": tunnel_tunnel_name,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
-        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional,
-        "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     request: (args) => ({

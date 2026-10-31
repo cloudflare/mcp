@@ -19,30 +19,6 @@ export const load$$balancing_adaptive_routing: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_components-schemas-description`.
- */
-export const load$$balancing_components$$schemas$$description: JsonSchema = {
-  "description": "Object description.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_components-schemas-enabled`.
- */
-export const load$$balancing_components$$schemas$$enabled: JsonSchema = {
-  "description": "Whether to enable (the default) this load balancer.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `load-balancing_components-schemas-name`.
- */
-export const load$$balancing_components$$schemas$$name: JsonSchema = {
-  "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used.",
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_country_pools`.
  */
 export const load$$balancing_country_pools: JsonSchema = {
@@ -65,14 +41,6 @@ export const load$$balancing_default_pools: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_fallback_pool`.
- */
-export const load$$balancing_fallback_pool: JsonSchema = {
-  "description": "The pool ID to use when all other pools are detected as unhealthy.",
-  "type": "string"
 };
 
 /**
@@ -120,25 +88,25 @@ export const load$$balancing_load$$balancer$$editable: JsonSchema = {
       "description": "A list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."
     },
     "description": {
-      "$ref": "#/$defs/load-balancing_components-schemas-description",
-      "description": "Object description."
+      "description": "Object description.",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/load-balancing_components-schemas-enabled",
       "default": true,
-      "description": "Whether to enable (the default) this load balancer."
+      "description": "Whether to enable (the default) this load balancer.",
+      "type": "boolean"
     },
     "fallback_pool": {
-      "$ref": "#/$defs/load-balancing_fallback_pool",
-      "description": "The pool ID to use when all other pools are detected as unhealthy."
+      "description": "The pool ID to use when all other pools are detected as unhealthy.",
+      "type": "string"
     },
     "location_strategy": {
       "$ref": "#/$defs/load-balancing_location_strategy",
       "description": "Controls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."
     },
     "name": {
-      "$ref": "#/$defs/load-balancing_components-schemas-name",
-      "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used."
+      "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used.",
+      "type": "string"
     },
     "networks": {
       "$ref": "#/$defs/load-balancing_networks",
@@ -149,9 +117,9 @@ export const load$$balancing_load$$balancer$$editable: JsonSchema = {
       "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."
     },
     "proxied": {
-      "$ref": "#/$defs/load-balancing_proxied",
       "default": false,
-      "description": "Whether the hostname should be gray clouded (false) or orange clouded (true)."
+      "description": "Whether the hostname should be gray clouded (false) or orange clouded (true).",
+      "type": "boolean"
     },
     "random_steering": {
       "$ref": "#/$defs/load-balancing_random_steering",
@@ -166,36 +134,45 @@ export const load$$balancing_load$$balancer$$editable: JsonSchema = {
       "description": "BETA Field Not General Access: A list of rules for this load balancer to execute."
     },
     "session_affinity": {
-      "$ref": "#/$defs/load-balancing_session_affinity",
       "default": "none",
-      "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration."
+      "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.",
+      "enum": [
+        "none",
+        "cookie",
+        "ip_cookie",
+        "header"
+      ],
+      "type": "string"
     },
     "session_affinity_attributes": {
       "$ref": "#/$defs/load-balancing_session_affinity_attributes",
       "description": "Configures attributes for session affinity."
     },
     "session_affinity_ttl": {
-      "$ref": "#/$defs/load-balancing_session_affinity_ttl",
-      "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."
+      "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified.",
+      "type": "number"
     },
     "steering_policy": {
-      "$ref": "#/$defs/load-balancing_steering_policy",
       "default": "",
-      "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`."
+      "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.",
+      "enum": [
+        "off",
+        "geo",
+        "random",
+        "dynamic_latency",
+        "proximity",
+        "least_outstanding_requests",
+        "least_connections",
+        ""
+      ],
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/load-balancing_ttl",
-      "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."
+      "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers.",
+      "type": "number"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_load-balancer_components-schemas-identifier`.
- */
-export const load$$balancing_load$$balancer_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -226,14 +203,6 @@ export const load$$balancing_location_strategy: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_pool_default_weight`.
- */
-export const load$$balancing_pool_default_weight: JsonSchema = {
-  "description": "The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`.",
-  "type": "number"
 };
 
 /**
@@ -270,14 +239,6 @@ export const load$$balancing_pop_pools: JsonSchema = {
   },
   "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools.",
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_proxied`.
- */
-export const load$$balancing_proxied: JsonSchema = {
-  "description": "Whether the hostname should be gray clouded (false) or orange clouded (true).",
-  "type": "boolean"
 };
 
 /**
@@ -335,16 +296,16 @@ export const load$$balancing_rule_overrides: JsonSchema = {
       "description": "A list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."
     },
     "fallback_pool": {
-      "$ref": "#/$defs/load-balancing_fallback_pool",
-      "description": "The pool ID to use when all other pools are detected as unhealthy."
+      "description": "The pool ID to use when all other pools are detected as unhealthy.",
+      "type": "string"
     },
     "location_strategy": {
       "$ref": "#/$defs/load-balancing_location_strategy",
       "description": "Controls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."
     },
     "pool_default_weight": {
-      "$ref": "#/$defs/load-balancing_pool_default_weight",
-      "description": "The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`."
+      "description": "The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`.",
+      "type": "number"
     },
     "pool_weights": {
       "$ref": "#/$defs/load-balancing_pool_weights",
@@ -367,26 +328,42 @@ export const load$$balancing_rule_overrides: JsonSchema = {
       "description": "A mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools."
     },
     "session_affinity": {
-      "$ref": "#/$defs/load-balancing_session_affinity",
       "default": "none",
-      "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration."
+      "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.",
+      "enum": [
+        "none",
+        "cookie",
+        "ip_cookie",
+        "header"
+      ],
+      "type": "string"
     },
     "session_affinity_attributes": {
       "$ref": "#/$defs/load-balancing_session_affinity_attributes",
       "description": "Configures attributes for session affinity."
     },
     "session_affinity_ttl": {
-      "$ref": "#/$defs/load-balancing_session_affinity_ttl",
-      "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."
+      "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified.",
+      "type": "number"
     },
     "steering_policy": {
-      "$ref": "#/$defs/load-balancing_steering_policy",
       "default": "",
-      "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`."
+      "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.",
+      "enum": [
+        "off",
+        "geo",
+        "random",
+        "dynamic_latency",
+        "proximity",
+        "least_outstanding_requests",
+        "least_connections",
+        ""
+      ],
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/load-balancing_ttl",
-      "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."
+      "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers.",
+      "type": "number"
     }
   },
   "type": "object"
@@ -433,20 +410,6 @@ export const load$$balancing_rules: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_session_affinity`.
- */
-export const load$$balancing_session_affinity: JsonSchema = {
-  "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.",
-  "enum": [
-    "none",
-    "cookie",
-    "ip_cookie",
-    "header"
-  ],
-  "type": "string"
 };
 
 /**
@@ -505,38 +468,4 @@ export const load$$balancing_session_affinity_attributes: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_session_affinity_ttl`.
- */
-export const load$$balancing_session_affinity_ttl: JsonSchema = {
-  "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified.",
-  "type": "number"
-};
-
-/**
- * The schema of `load-balancing_steering_policy`.
- */
-export const load$$balancing_steering_policy: JsonSchema = {
-  "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.",
-  "enum": [
-    "off",
-    "geo",
-    "random",
-    "dynamic_latency",
-    "proximity",
-    "least_outstanding_requests",
-    "least_connections",
-    ""
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_ttl`.
- */
-export const load$$balancing_ttl: JsonSchema = {
-  "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers.",
-  "type": "number"
 };

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_routes_ases",
     title: "List ASes from global routing tables",
-    description: "Retrieves all ASes in the current global routing tables with routing statistics.",
+    description: "Retrieves all ASes in the current global routing tables with routing statistics.\n\nGET /radar/bgp/routes/ases",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -58,6 +59,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -308,11 +310,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_routes_moas",
     title: "Get Multi-Origin AS (MOAS) prefixes",
-    description: "Retrieves all Multi-Origin AS (MOAS) prefixes in the global routing tables.",
+    description: "Retrieves all Multi-Origin AS (MOAS) prefixes in the global routing tables.\n\nGET /radar/bgp/routes/moas",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -337,6 +340,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -560,11 +564,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_routes_pfx2as",
     title: "Get prefix-to-ASN mapping",
-    description: "Retrieves the prefix-to-ASN mapping from global routing tables.",
+    description: "Retrieves the prefix-to-ASN mapping from global routing tables.\n\nGET /radar/bgp/routes/pfx2as",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -598,6 +603,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -800,11 +806,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_routes_realtime",
     title: "Get real-time BGP routes for a prefix",
-    description: "Retrieves real-time BGP routes for a prefix, using public real-time data collectors (RouteViews and RIPE RIS).",
+    description: "Retrieves real-time BGP routes for a prefix, using public real-time data collectors (RouteViews and RIPE RIS).\n\nGET /radar/bgp/routes/realtime",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -821,6 +828,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1242,11 +1250,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_routes_stats",
     title: "Get BGP routing table stats",
-    description: "Retrieves the BGP routing table stats.",
+    description: "Retrieves the BGP routing table stats.\n\nGET /radar/bgp/routes/stats",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify a single Autonomous System Number (ASN) as integer.",
@@ -1268,6 +1277,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

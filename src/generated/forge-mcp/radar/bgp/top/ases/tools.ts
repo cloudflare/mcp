@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_top_ases_get",
     title: "Get top ASes by BGP updates",
-    description: "Retrieves the top autonomous systems by BGP updates (announcements only).",
+    description: "Retrieves the top autonomous systems by BGP updates (announcements only).\n\nGET /radar/bgp/top/ases",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -88,6 +89,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -304,11 +306,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_top_ases_prefixes",
     title: "Get top ASes by prefix count",
-    description: "Retrieves the full list of autonomous systems on the global routing table ordered by announced prefixes count. The data comes from public BGP MRT data archives and updates every 2 hours.",
+    description: "Retrieves the full list of autonomous systems on the global routing table ordered by announced prefixes count. The data comes from public BGP MRT data archives and updates every 2 hours.\n\nGET /radar/bgp/top/ases/prefixes",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "country": {
               "description": "Alpha-2 country code.",
@@ -330,6 +333,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

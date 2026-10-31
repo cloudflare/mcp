@@ -33,7 +33,7 @@ export const digital$$experience$$monitoring_traceroute_details_response: JsonSc
                 "type": "boolean"
               },
               "id": {
-                "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                "type": "string"
               },
               "name": {
                 "type": "string"

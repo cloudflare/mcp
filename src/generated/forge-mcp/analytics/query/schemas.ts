@@ -62,7 +62,7 @@ export const art_Filter: JsonSchema = {
       "type": "string"
     },
     "op": {
-      "description": "Filter operator. Common values: `eq`, `neq`, `in`, `not_in`, `gt`, `lt`, `gte`, `lte`.\n",
+      "description": "Filter operator. Common values: `eq`, `neq`, `in`, `not_in`, `gt`, `lt`, `gte`, `lte`.",
       "type": "string"
     },
     "values": {
@@ -152,7 +152,7 @@ export const art_QueryTimeseries: JsonSchema = {
     {
       "properties": {
         "resolution": {
-          "description": "Time bucket size for grouping results. Controls the granularity of the returned time slots.\n",
+          "description": "Time bucket size for grouping results. Controls the granularity of the returned time slots.",
           "type": "string"
         }
       },

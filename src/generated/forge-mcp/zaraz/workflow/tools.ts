@@ -7,12 +7,7 @@ import {
   zaraz_api$$response$$common$$failure,
   zaraz_messages,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
-import {
-  zaraz_zaraz$$workflow,
-  zaraz_zaraz$$workflow$$response,
-} from "./outputs.js";
-import { zaraz_zaraz$$workflow as zaraz_zaraz$$workflow$ } from "./schemas.js";
+import { zaraz_zaraz$$workflow$$response } from "./outputs.js";
 
 /**
  * The tools of `zaraz.workflow`.
@@ -21,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_workflow_get",
     title: "Get Zaraz workflow",
-    description: "Gets Zaraz workflow for a zone.",
+    description: "Gets Zaraz workflow for a zone.\n\nGET /zones/{zone_id}/settings/zaraz/workflow",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,16 +37,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-workflow-response",
       $defs: {
         "zaraz_api-response-common": zaraz_api$$response$$common,
         "zaraz_messages": zaraz_messages,
-        "zaraz_zaraz-workflow": zaraz_zaraz$$workflow,
         "zaraz_zaraz-workflow-response": zaraz_zaraz$$workflow$$response,
       },
     },
@@ -83,7 +76,6 @@ export const tools: readonly Tool[] = [
         "zaraz_api-response-common": zaraz_api$$response$$common,
         "zaraz_api-response-common-failure": zaraz_api$$response$$common$$failure,
         "zaraz_messages": zaraz_messages,
-        "zaraz_zaraz-workflow": zaraz_zaraz$$workflow,
         "zaraz_zaraz-workflow-response": zaraz_zaraz$$workflow$$response,
       },
     },
@@ -94,18 +86,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_workflow_update",
     title: "Update Zaraz workflow",
-    description: "Updates Zaraz workflow for a zone.",
+    description: "Updates Zaraz workflow for a zone.\n\nPUT /zones/{zone_id}/settings/zaraz/workflow",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/zaraz_zaraz-workflow"
+          "description": "Zaraz workflow.",
+          "enum": [
+            "realtime",
+            "preview"
+          ],
+          "type": "string"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -118,17 +116,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-        "zaraz_zaraz-workflow": zaraz_zaraz$$workflow$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-workflow-response",
       $defs: {
         "zaraz_api-response-common": zaraz_api$$response$$common,
         "zaraz_messages": zaraz_messages,
-        "zaraz_zaraz-workflow": zaraz_zaraz$$workflow,
         "zaraz_zaraz-workflow-response": zaraz_zaraz$$workflow$$response,
       },
     },
@@ -160,7 +154,6 @@ export const tools: readonly Tool[] = [
         "zaraz_api-response-common": zaraz_api$$response$$common,
         "zaraz_api-response-common-failure": zaraz_api$$response$$common$$failure,
         "zaraz_messages": zaraz_messages,
-        "zaraz_zaraz-workflow": zaraz_zaraz$$workflow,
         "zaraz_zaraz-workflow-response": zaraz_zaraz$$workflow$$response,
       },
     },

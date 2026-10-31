@@ -37,8 +37,8 @@ export const load$$balancing_monitor$$group$$member: JsonSchema = {
       "type": "boolean"
     },
     "monitor_id": {
-      "$ref": "#/$defs/load-balancing_monitor_id",
-      "description": "The ID of the Monitor to use for checking the health of origins within this pool."
+      "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
+      "type": "string"
     },
     "monitoring_only": {
       "description": "Whether this monitor is used for monitoring only (does not affect pool health)",

@@ -26,7 +26,7 @@ export const client$$side$$security_cookie: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/client-side-security_id"
+      "type": "string"
     },
     "last_seen_at": {
       "format": "date-time",

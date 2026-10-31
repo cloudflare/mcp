@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_attacks_layer7_summaryV2",
     title: "Get layer 7 attacks summary by dimension",
-    description: "Retrieves the distribution of layer 7 attacks by the specified dimension.",
+    description: "Retrieves the distribution of layer 7 attacks by the specified dimension.\n\nGET /radar/attacks/layer7/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -36,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -201,6 +203,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -651,11 +654,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_attacks_layer7_timeseries",
     title: "Get layer 7 attacks time series",
-    description: "Retrieves layer 7 attacks over time.",
+    description: "Retrieves layer 7 attacks over time.\n\nGET /radar/attacks/layer7/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -832,6 +836,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1337,11 +1342,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_attacks_layer7_timeseriesGroupsV2",
     title: "Get layer 7 attacks time series grouped by dimension",
-    description: "Retrieves the distribution of layer 7 attacks grouped by dimension over time.",
+    description: "Retrieves the distribution of layer 7 attacks grouped by dimension over time.\n\nGET /radar/attacks/layer7/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -1363,6 +1369,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1547,6 +1554,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -2,8 +2,6 @@
 /* eslint-disable */
 
 import { type Tool, param, pathParam } from "../_/tool.js";
-import { email_identifier } from "../outputs.js";
-import { email_identifier as email_identifier$ } from "../schemas.js";
 import {
   email_email_domain,
   email_email_domain_capability,
@@ -26,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailDomains_changes",
     title: "List Email Domain changes",
-    description: "Returns retained domain-specific state changes and completed-removal tombstones in a transaction-safe opaque order. The top-level platform field is the current shared gate and must be combined with each domain's state. Store next_cursor after processing every response, and continue immediately while has_more is true. To take a checkpoint, request this operation with modified_since set to the current time, follow has_more to the end, and save the final next_cursor; it replays every change committed after the first of those requests. Initial bootstrap and error 2086 recovery take a checkpoint, list the full inventory, then replay from the saved checkpoint, so changes made during the inventory are not lost. Only a tombstone proves that a domain was removed. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    description: "Returns retained domain-specific state changes and completed-removal tombstones in a transaction-safe opaque order. The top-level platform field is the current shared gate and must be combined with each domain's state. Store next_cursor after processing every response, and continue immediately while has_more is true. To take a checkpoint, request this operation with modified_since set to the current time, follow has_more to the end, and save the final next_cursor; it replays every change committed after the first of those requests. Initial bootstrap and error 2086 recovery take a checkpoint, list the full inventory, then replay from the saved checkpoint, so changes made during the inventory are not lost. Only a tombstone proves that a domain was removed. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.\n\nGET /accounts/{account_id}/email/domain-changes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque cursor returned by the previous change page. Omit it for the first page.",
@@ -65,9 +65,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_domain_change_collection_response",
@@ -80,7 +78,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_platform_status": email_email_domain_platform_status,
         "email_email_domain_tombstone": email_email_domain_tombstone,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     annotations: {
@@ -133,7 +130,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_platform_status": email_email_domain_platform_status,
         "email_email_domain_tombstone": email_email_domain_tombstone,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     request: (args) => ({
@@ -148,7 +144,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailDomains_create",
     title: "Create an Email Domain",
-    description: "Creates a candidate and four DNS instructions. Rejects hostnames with more than 16 labels or whose assigned Return-Path exceeds 201 ASCII characters; error 2077 names the hostname rule that failed. Creation follows read-only checks of the saved provider bundle and published exclusion. Hostnames inside an active full Cloudflare DNS zone, including zones under a PSL private suffix such as workers.dev, or held by another enrollment, return the generic hostname conflict error 2083. While an earlier enrollment of this account with the same hostname or client_reference is being deleted, create returns error 2084 with Retry-After set to the expected completion time. No per-domain provider DNS writes occur. Customer DNS observations remain pending and mail remains inactive. Unverified candidates may share a hostname. Supply an account-unique client_reference to retry the same enrollment safely; reuse with a different hostname returns error 2089. A full domain quota returns error 2081 and frees only when domains are deleted or candidates expire, so it is not retryable; the create rate limit returns 429 with error 2088 and Retry-After. Requests rejected before the Cloudflare zone check do not count toward the rate limit. Final public-DNS, namespace protection and runtime readiness are separate gates. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    description: "Creates a candidate and four DNS instructions. Rejects hostnames with more than 16 labels or whose assigned Return-Path exceeds 201 ASCII characters; error 2077 names the hostname rule that failed. Creation follows read-only checks of the saved provider bundle and published exclusion. Hostnames inside an active full Cloudflare DNS zone, including zones under a PSL private suffix such as workers.dev, or held by another enrollment, return the generic hostname conflict error 2083. While an earlier enrollment of this account with the same hostname or client_reference is being deleted, create returns error 2084 with Retry-After set to the expected completion time. No per-domain provider DNS writes occur. Customer DNS observations remain pending and mail remains inactive. Unverified candidates may share a hostname. Supply an account-unique client_reference to retry the same enrollment safely; reuse with a different hostname returns error 2089. A full domain quota returns error 2081 and frees only when domains are deleted or candidates expire, so it is not retryable; the create rate limit returns 429 with error 2088 and Retry-After. Requests rejected before the Cloudflare zone check do not count toward the rate limit. Final public-DNS, namespace protection and runtime readiness are separate gates. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.\n\nPOST /accounts/{account_id}/email/domains",
     inputSchema: {
       type: "object",
       properties: {
@@ -156,10 +152,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_email_domain_create"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -172,9 +169,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email_email_domain_create": email_email_domain_create,
-        "email_identifier": email_identifier$,
       },
     },
     outputSchema: {
@@ -185,7 +182,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_dns_record": email_email_domain_dns_record,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     annotations: {
@@ -238,7 +234,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_error_response": email_email_domain_error_response,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     request: (args) => ({
@@ -249,15 +244,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailDomains_delete",
     title: "Delete an Email Domain",
-    description: "Requires an empty body. Unclaimed, unpublished candidates are removed immediately after token retirement. Acquired or published resources retain deleting state and claims until the deletion worker acknowledges safe revocation and token retirement: deletion completes after the last authorization FWDR may still hold has expired, up to about 31 minutes after the request. Until then the hostname and client_reference cannot be enrolled again. Repeated requests while deleting are idempotent. Retry-After is the expected time until GET returns 404; follow the Location header after it. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    description: "Requires an empty body. Unclaimed, unpublished candidates are removed immediately after token retirement. Acquired or published resources retain deleting state and claims until the deletion worker acknowledges safe revocation and token retirement: deletion completes after the last authorization FWDR may still hold has expired, up to about 31 minutes after the request. Until then the hostname and client_reference cannot be enrolled again. Repeated requests while deleting are idempotent. Retry-After is the expected time until GET returns 404; follow the Location header after it. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.\n\nDELETE /accounts/{account_id}/email/domains/{email_domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "email_domain_id": {
               "format": "uuid",
@@ -274,9 +270,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_domain_response",
@@ -286,7 +280,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_dns_record": email_email_domain_dns_record,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     annotations: {
@@ -336,7 +329,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_error_response": email_email_domain_error_response,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     request: (args) => ({
@@ -346,15 +338,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailDomains_get",
     title: "Get an Email Domain",
-    description: "Returns domain status and its four assigned DNS records. Shared provider health is reported by the capability states rather than duplicated on each DNS record. Expired unclaimed candidates and completed deletions return 404. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    description: "Returns domain status and its four assigned DNS records. Shared provider health is reported by the capability states rather than duplicated on each DNS record. Expired unclaimed candidates and completed deletions return 404. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.\n\nGET /accounts/{account_id}/email/domains/{email_domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "email_domain_id": {
               "format": "uuid",
@@ -371,9 +364,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_domain_response",
@@ -383,7 +374,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_dns_record": email_email_domain_dns_record,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     annotations: {
@@ -430,7 +420,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_error_response": email_email_domain_error_response,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     request: (args) => ({
@@ -440,15 +429,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailDomains_list",
     title: "List Email Domains",
-    description: "Returns account-scoped domain status. DNS records are omitted unless requested; exact hostname filtering may return several candidates; retain the EmailDomain ID for each enrollment. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    description: "Returns account-scoped domain status. DNS records are omitted unless requested; exact hostname filtering may return several candidates; retain the EmailDomain ID for each enrollment. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.\n\nGET /accounts/{account_id}/email/domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -457,6 +447,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque cursor returned by the previous page. Omit it for the first page.",
@@ -484,9 +475,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_domain_collection_response",
@@ -496,7 +485,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_collection_response": email_email_domain_collection_response,
         "email_email_domain_dns_record": email_email_domain_dns_record,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     annotations: {
@@ -543,7 +531,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_dns_record": email_email_domain_dns_record,
         "email_email_domain_error_response": email_email_domain_error_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     request: (args) => ({
@@ -559,15 +546,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailDomains_verify",
     title: "Verify an Email Domain",
-    description: "Requires an empty body. Schedules an expedited check and coalesces queued or leased work. It does not accept verification results, bypass activation gates, or perform customer DNS checks synchronously. Follow the Location header after Retry-After seconds until verification.observed_at appears or advances beyond the value in this 202 response; status may remain unchanged. Candidate expiry returns 404. A repeat within 30 seconds returns error 2082 with the remaining cooldown in Retry-After. Only a request that schedules a check counts toward the account rate limit, error 2088. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    description: "Requires an empty body. Schedules an expedited check and coalesces queued or leased work. It does not accept verification results, bypass activation gates, or perform customer DNS checks synchronously. Follow the Location header after Retry-After seconds until verification.observed_at appears or advances beyond the value in this 202 response; status may remain unchanged. Candidate expiry returns 404. A repeat within 30 seconds returns error 2082 with the remaining cooldown in Retry-After. Only a request that schedules a check counts toward the account rate limit, error 2088. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.\n\nPOST /accounts/{account_id}/email/domains/{email_domain_id}/verify",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "email_domain_id": {
               "format": "uuid",
@@ -584,9 +572,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_domain_response",
@@ -596,7 +582,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_dns_record": email_email_domain_dns_record,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     annotations: {
@@ -649,7 +634,6 @@ export const tools: readonly Tool[] = [
         "email_email_domain_error_response": email_email_domain_error_response,
         "email_email_domain_response": email_email_domain_response,
         "email_email_domain_verification": email_email_domain_verification,
-        "email_identifier": email_identifier,
       },
     },
     request: (args) => ({

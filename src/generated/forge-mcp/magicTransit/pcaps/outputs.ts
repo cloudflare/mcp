@@ -157,13 +157,6 @@ export const magic$$visibility$$pcaps_messages: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_byte_limit` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_byte_limit: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_collection_response` in
  * responses.
  */
@@ -194,27 +187,6 @@ export const magic$$visibility$$pcaps_pcaps_collection_response: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_colo_name` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_colo_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_destination_conf` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_destination_conf: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_error_message` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_error_message: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_filter_v1` in responses.
  */
 export const magic$$visibility$$pcaps_pcaps_filter_v1: JsonSchema = {
@@ -239,70 +211,66 @@ export const magic$$visibility$$pcaps_pcaps_filter_v1: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_id` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_offset_time` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_offset_time: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_packets_captured` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_packets_captured: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_response_full` in responses.
  */
 export const magic$$visibility$$pcaps_pcaps_response_full: JsonSchema = {
   "properties": {
     "byte_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_byte_limit"
+      "type": "number"
     },
     "colo_name": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_colo_name"
+      "type": "string"
     },
     "destination_conf": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf"
+      "type": "string"
     },
     "error_message": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_error_message"
+      "type": "string"
     },
     "filter_v1": {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_filter_v1"
     },
     "id": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_id"
+      "type": "string"
     },
     "packets_captured": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_packets_captured"
+      "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_status"
+      "enum": [
+        "unknown",
+        "success",
+        "pending",
+        "running",
+        "conversion_pending",
+        "conversion_running",
+        "complete",
+        "failed"
+      ],
+      "type": "string"
     },
     "stop_requested": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_stop_requested"
+      "format": "date-time",
+      "type": "string"
     },
     "submitted": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_submitted"
+      "type": "string"
     },
     "system": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_system"
+      "enum": [
+        "magic-transit"
+      ],
+      "type": "string"
     },
     "time_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_time_limit_full"
+      "type": "number"
     },
     "type": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_type"
+      "enum": [
+        "simple",
+        "full"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -317,25 +285,43 @@ export const magic$$visibility$$pcaps_pcaps_response_simple: JsonSchema = {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_filter_v1"
     },
     "id": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_id"
+      "type": "string"
     },
     "offset_time": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_offset_time"
+      "format": "date-time",
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_status"
+      "enum": [
+        "unknown",
+        "success",
+        "pending",
+        "running",
+        "conversion_pending",
+        "conversion_running",
+        "complete",
+        "failed"
+      ],
+      "type": "string"
     },
     "submitted": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_submitted"
+      "type": "string"
     },
     "system": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_system"
+      "enum": [
+        "magic-transit"
+      ],
+      "type": "string"
     },
     "time_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_time_limit_sampled"
+      "type": "number"
     },
     "type": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_type"
+      "enum": [
+        "simple",
+        "full"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -365,73 +351,6 @@ export const magic$$visibility$$pcaps_pcaps_single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_status` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_status: JsonSchema = {
-  "enum": [
-    "unknown",
-    "success",
-    "pending",
-    "running",
-    "conversion_pending",
-    "conversion_running",
-    "complete",
-    "failed"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_stop_requested` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_stop_requested: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_submitted` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_submitted: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_system` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_system: JsonSchema = {
-  "enum": [
-    "magic-transit"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_time_limit_full` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_time_limit_full: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_time_limit_sampled` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_time_limit_sampled: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_type` in responses.
- */
-export const magic$$visibility$$pcaps_pcaps_type: JsonSchema = {
-  "enum": [
-    "simple",
-    "full"
-  ],
-  "type": "string"
 };
 
 /**

@@ -6,9 +6,7 @@ import {
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
-  zero$$trust$$gateway_read_only_timestamp,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier$$2 } from "../../schemas.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
   zero$$trust$$gateway_api$$response$$common,
@@ -16,28 +14,13 @@ import {
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
 import {
-  zero$$trust$$gateway_count,
-  zero$$trust$$gateway_description,
-  zero$$trust$$gateway_description_item,
   zero$$trust$$gateway_items,
   zero$$trust$$gateway_list_single_response,
   zero$$trust$$gateway_lists,
-  zero$$trust$$gateway_name,
   zero$$trust$$gateway_response_collection$$3,
   zero$$trust$$gateway_single_response_with_list_items,
-  zero$$trust$$gateway_type$$2,
-  zero$$trust$$gateway_uuid$$2,
-  zero$$trust$$gateway_value,
 } from "./outputs.js";
-import {
-  zero$$trust$$gateway_description as zero$$trust$$gateway_description$,
-  zero$$trust$$gateway_description_item as zero$$trust$$gateway_description_item$,
-  zero$$trust$$gateway_items$$input,
-  zero$$trust$$gateway_name as zero$$trust$$gateway_name$,
-  zero$$trust$$gateway_type$$2 as zero$$trust$$gateway_type$$2$,
-  zero$$trust$$gateway_uuid$$2 as zero$$trust$$gateway_uuid$$2$,
-  zero$$trust$$gateway_value as zero$$trust$$gateway_value$,
-} from "./schemas.js";
+import { zero$$trust$$gateway_items$$input } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.gateway.lists`.
@@ -46,27 +29,38 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_lists_create",
     title: "Create Zero Trust list",
-    description: "Creates a new Zero Trust list.",
+    description: "Creates a new Zero Trust list.\n\nPOST /accounts/{account_id}/gateway/lists",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description",
-              "description": "Provide the list description."
+              "description": "Provide the list description.",
+              "type": "string"
             },
             "items": {
               "$ref": "#/$defs/zero-trust-gateway_items-input",
               "description": "Add items to the list."
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name",
-              "description": "Specify the list name."
+              "description": "Specify the list name.",
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/zero-trust-gateway_type-2",
-              "description": "Specify the list type."
+              "description": "Specify the list type.",
+              "enum": [
+                "SERIAL",
+                "URL",
+                "DOMAIN",
+                "EMAIL",
+                "IP",
+                "CATEGORY",
+                "LOCATION",
+                "DEVICE",
+                "AAGUID"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -76,10 +70,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -92,30 +87,18 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_description": zero$$trust$$gateway_description$,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
         "zero-trust-gateway_items-input": zero$$trust$$gateway_items$$input,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name$,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2$,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response_with_list_items",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response_with_list_items": zero$$trust$$gateway_single_response_with_list_items,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     annotations: {
@@ -146,16 +129,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response_with_list_items": zero$$trust$$gateway_single_response_with_list_items,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     request: (args) => ({
@@ -166,19 +142,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_lists_delete",
     title: "Delete Zero Trust list",
-    description: "Deletes a Zero Trust list.",
+    description: "Deletes a Zero Trust list.\n\nDELETE /accounts/{account_id}/gateway/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-2",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -191,10 +168,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
@@ -243,7 +217,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_lists_edit",
     title: "Patch Zero Trust list.",
-    description: "Appends or removes an item from a configured Zero Trust list.",
+    description: "Appends or removes an item from a configured Zero Trust list.\n\nPATCH /accounts/{account_id}/gateway/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -256,7 +230,8 @@ export const tools: readonly Tool[] = [
             "remove": {
               "description": "Lists of item values you want to remove.",
               "items": {
-                "$ref": "#/$defs/zero-trust-gateway_value"
+                "description": "Specify the item value.",
+                "type": "string"
               },
               "type": "array"
             }
@@ -264,14 +239,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-2",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -285,30 +261,19 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
         "zero-trust-gateway_items-input": zero$$trust$$gateway_items$$input,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2$,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_list_single_response",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     annotations: {
@@ -339,18 +304,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     request: (args) => ({
@@ -361,19 +318,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_lists_get",
     title: "Get Zero Trust list details",
-    description: "Fetch a single Zero Trust list.",
+    description: "Fetch a single Zero Trust list.\n\nGET /accounts/{account_id}/gateway/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-2",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -386,27 +344,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_list_single_response",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     annotations: {
@@ -437,18 +384,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     request: (args) => ({
@@ -458,15 +397,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_lists_list",
     title: "List Zero Trust lists",
-    description: "Fetch all Zero Trust lists for an account.",
+    description: "Fetch all Zero Trust lists for an account.\n\nGET /accounts/{account_id}/gateway/lists",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -475,6 +415,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Sort direction. Applies to the field named in `order_by`; when `order_by`\nis omitted it applies to the default `created_at` ordering. When\n`direction` is omitted the default is field-specific: explicitly choosing\n`created_at` or `updated_at` defaults to descending (newest first); `name`\nand `item_count` default to ascending; and the default `created_at`\nordering used when `order_by` is omitted is ascending (for backwards\ncompatibility).\n  * `asc` — ascending.\n  * `desc` — descending.",
@@ -506,9 +447,20 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/zero-trust-gateway_type-2",
               "deprecated": true,
-              "description": "Specify the list type."
+              "description": "Specify the list type.",
+              "enum": [
+                "SERIAL",
+                "URL",
+                "DOMAIN",
+                "EMAIL",
+                "IP",
+                "CATEGORY",
+                "LOCATION",
+                "DEVICE",
+                "AAGUID"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -517,29 +469,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-3",
       $defs: {
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-3": zero$$trust$$gateway_response_collection$$3,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     annotations: {
@@ -571,19 +512,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-3": zero$$trust$$gateway_response_collection$$3,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     request: (args) => ({
@@ -600,23 +533,23 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_lists_update",
     title: "Update Zero Trust list",
-    description: "Updates a configured Zero Trust list. Skips updating list items if not included in the payload. A non empty list items will overwrite the existing list.",
+    description: "Updates a configured Zero Trust list. Skips updating list items if not included in the payload. A non empty list items will overwrite the existing list.\n\nPUT /accounts/{account_id}/gateway/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description",
-              "description": "Provide the list description."
+              "description": "Provide the list description.",
+              "type": "string"
             },
             "items": {
               "$ref": "#/$defs/zero-trust-gateway_items-input",
               "description": "Add items to the list."
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name",
-              "description": "Specify the list name."
+              "description": "Specify the list name.",
+              "type": "string"
             }
           },
           "required": [
@@ -625,14 +558,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-2",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -646,32 +580,19 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_description": zero$$trust$$gateway_description$,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
         "zero-trust-gateway_items-input": zero$$trust$$gateway_items$$input,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name$,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2$,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_list_single_response",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     annotations: {
@@ -702,18 +623,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_count": zero$$trust$$gateway_count,
-        "zero-trust-gateway_description": zero$$trust$$gateway_description,
-        "zero-trust-gateway_description_item": zero$$trust$$gateway_description_item,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
         "zero-trust-gateway_lists": zero$$trust$$gateway_lists,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name": zero$$trust$$gateway_name,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
-        "zero-trust-gateway_type-2": zero$$trust$$gateway_type$$2,
-        "zero-trust-gateway_uuid-2": zero$$trust$$gateway_uuid$$2,
-        "zero-trust-gateway_value": zero$$trust$$gateway_value,
       },
     },
     request: (args) => ({

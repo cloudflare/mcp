@@ -6,21 +6,15 @@ import {
   cache$$settings_api$$response$$common,
   cache$$settings_api$$response$$common$$failure,
   cache$$settings_base,
-  cache$$settings_editable,
   cache$$settings_messages,
-  cache$$settings_modified_on,
   cache$$settings_result$$object,
   cache$$settings_result$$object$$delete,
-  cache$$settings_setting_id,
-  cache$$settings_setting_value,
   cache$$settings_zone_cache_settings_delete_response_single,
   cache$$settings_zone_cache_settings_response_single,
 } from "../../../outputs.js";
-import { cache$$settings_identifier } from "../../../schemas.js";
 import {
   cache$$settings_smart_tiered_cache,
   cache$$settings_smart_tiered_cache_response_value,
-  cache$$settings_smart_tiered_cache_value,
 } from "./outputs.js";
 import { cache$$settings_smart_tiered_cache_patch } from "./schemas.js";
 
@@ -31,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_smartTieredCache_create",
     title: "Create Smart Tiered Cache setting",
-    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website's origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.",
+    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website's origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.\n\nPOST /zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,10 +33,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache-settings_smart_tiered_cache_patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,8 +50,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
         "cache-settings_smart_tiered_cache_patch": cache$$settings_smart_tiered_cache_patch,
       },
     },
@@ -72,15 +67,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_smart_tiered_cache_response_value": cache$$settings_smart_tiered_cache_response_value,
-        "cache-settings_smart_tiered_cache_value": cache$$settings_smart_tiered_cache_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -131,15 +121,10 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_smart_tiered_cache_response_value": cache$$settings_smart_tiered_cache_response_value,
-        "cache-settings_smart_tiered_cache_value": cache$$settings_smart_tiered_cache_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -151,15 +136,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_smartTieredCache_delete",
     title: "Delete Smart Tiered Cache setting",
-    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website’s origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.",
+    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website’s origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.\n\nDELETE /zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -171,9 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -192,11 +176,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
-        "cache-settings_setting_id": cache$$settings_setting_id,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
@@ -252,11 +233,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
-        "cache-settings_setting_id": cache$$settings_setting_id,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
@@ -268,7 +246,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_smartTieredCache_edit",
     title: "Patch Smart Tiered Cache setting",
-    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website’s origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.",
+    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website’s origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.\n\nPATCH /zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
     inputSchema: {
       type: "object",
       properties: {
@@ -276,10 +254,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache-settings_smart_tiered_cache_patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -292,8 +271,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
         "cache-settings_smart_tiered_cache_patch": cache$$settings_smart_tiered_cache_patch,
       },
     },
@@ -309,15 +288,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_smart_tiered_cache_response_value": cache$$settings_smart_tiered_cache_response_value,
-        "cache-settings_smart_tiered_cache_value": cache$$settings_smart_tiered_cache_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -368,15 +342,10 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_smart_tiered_cache_response_value": cache$$settings_smart_tiered_cache_response_value,
-        "cache-settings_smart_tiered_cache_value": cache$$settings_smart_tiered_cache_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -388,15 +357,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_smartTieredCache_get",
     title: "Get Smart Tiered Cache setting",
-    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website’s origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.",
+    description: "Smart Tiered Cache dynamically selects the single closest upper tier for each of your website’s origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.\n\nGET /zones/{zone_id}/cache/tiered_cache_smart_topology_enable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -408,9 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -424,15 +392,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_smart_tiered_cache_response_value": cache$$settings_smart_tiered_cache_response_value,
-        "cache-settings_smart_tiered_cache_value": cache$$settings_smart_tiered_cache_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -484,15 +447,10 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_smart_tiered_cache": cache$$settings_smart_tiered_cache,
         "cache-settings_smart_tiered_cache_response_value": cache$$settings_smart_tiered_cache_response_value,
-        "cache-settings_smart_tiered_cache_value": cache$$settings_smart_tiered_cache_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },

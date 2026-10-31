@@ -3,43 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  addressing_account_identifier,
   addressing_api$$response$$collection,
   addressing_api$$response$$common,
   addressing_api$$response$$common$$failure,
   addressing_api$$response$$single,
-  addressing_loa_document_identifier,
   addressing_messages,
-  addressing_timestamp,
 } from "../outputs.js";
 import {
-  addressing_account_identifier as addressing_account_identifier$,
-  addressing_loa_document_identifier as addressing_loa_document_identifier$,
-} from "../schemas.js";
-import {
-  addressing_advertised,
-  addressing_advertised_modified_at_nullable,
-  addressing_approved,
-  addressing_asn,
-  addressing_cidr,
-  addressing_delegate_loa_creation,
-  addressing_description,
   addressing_ipam$$prefixes,
-  addressing_on_demand_enabled,
-  addressing_on_demand_locked,
-  addressing_ownership_validation_token,
-  addressing_prefix_identifier,
   addressing_response_collection,
   addressing_single_response,
-  addressing_validation_state,
 } from "./outputs.js";
-import {
-  addressing_asn as addressing_asn$,
-  addressing_cidr as addressing_cidr$,
-  addressing_delegate_loa_creation as addressing_delegate_loa_creation$,
-  addressing_description as addressing_description$,
-  addressing_prefix_identifier as addressing_prefix_identifier$,
-} from "./schemas.js";
 
 /**
  * The tools of `addressing.prefixes`.
@@ -48,32 +22,39 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_create",
     title: "Add Prefix",
-    description: "Add a new prefix under the account.",
+    description: "Add a new prefix under the account.\n\nPOST /accounts/{account_id}/addressing/prefixes",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "asn": {
-              "$ref": "#/$defs/addressing_asn",
-              "description": "Autonomous System Number (ASN) the prefix will be advertised under."
+              "description": "Autonomous System Number (ASN) the prefix will be advertised under.",
+              "type": "integer"
             },
             "cidr": {
-              "$ref": "#/$defs/addressing_cidr",
-              "description": "IP Prefix in Classless Inter-Domain Routing format."
+              "description": "IP Prefix in Classless Inter-Domain Routing format.",
+              "type": "string"
             },
             "delegate_loa_creation": {
-              "$ref": "#/$defs/addressing_delegate_loa_creation",
               "default": false,
-              "description": "Whether Cloudflare is allowed to generate the LOA document on behalf of the prefix owner."
+              "description": "Whether Cloudflare is allowed to generate the LOA document on behalf of the prefix owner.",
+              "type": "boolean"
             },
             "description": {
-              "$ref": "#/$defs/addressing_description",
-              "description": "Description of the prefix."
+              "description": "Description of the prefix.",
+              "type": "string"
             },
             "loa_document_id": {
-              "$ref": "#/$defs/addressing_loa_document_identifier",
-              "description": "Identifier for the uploaded LOA document."
+              "description": "Identifier for the uploaded LOA document.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -83,10 +64,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -99,37 +81,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-        "addressing_asn": addressing_asn$,
-        "addressing_cidr": addressing_cidr$,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation$,
-        "addressing_description": addressing_description$,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     annotations: {
@@ -161,26 +121,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     request: (args) => ({
@@ -191,19 +136,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_delete",
     title: "Delete Prefix",
-    description: "Delete an unapproved prefix owned by the account.",
+    description: "Delete an unapproved prefix owned by the account.\n\nDELETE /accounts/{account_id}/addressing/prefixes/{prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -216,10 +162,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-single",
@@ -273,15 +216,15 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_edit",
     title: "Update Prefix Description",
-    description: "Modify the description for a prefix owned by the account.",
+    description: "Modify the description for a prefix owned by the account.\n\nPATCH /accounts/{account_id}/addressing/prefixes/{prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "description": {
-              "$ref": "#/$defs/addressing_description",
-              "description": "Description of the prefix."
+              "description": "Description of the prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -290,14 +233,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -311,34 +255,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-        "addressing_description": addressing_description$,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     annotations: {
@@ -373,26 +298,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     request: (args) => ({
@@ -403,19 +313,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_get",
     title: "Prefix Details",
-    description: "List a particular prefix owned by the account.",
+    description: "List a particular prefix owned by the account.\n\nGET /accounts/{account_id}/addressing/prefixes/{prefix_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -428,33 +339,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     annotations: {
@@ -493,26 +386,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     request: (args) => ({
@@ -522,15 +400,16 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_list",
     title: "List Prefixes",
-    description: "List all prefixes owned by the account.",
+    description: "List all prefixes owned by the account.\n\nGET /accounts/{account_id}/addressing/prefixes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -542,32 +421,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_response_collection": addressing_response_collection,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     annotations: {
@@ -606,26 +468,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_response_collection": addressing_response_collection,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     request: (args) => ({

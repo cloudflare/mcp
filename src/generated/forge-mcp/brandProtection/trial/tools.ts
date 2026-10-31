@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_trial_create",
     title: "Analyze domains for brand impersonation",
-    description: "Uses AI to scan all domains in the lookback table and identify potential phishing or impersonation attempts against the given brand string.",
+    description: "Uses AI to scan all domains in the lookback table and identify potential phishing or impersonation attempts against the given brand string.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/trial",
     inputSchema: {
       type: "object",
       properties: {
@@ -26,6 +26,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -40,6 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

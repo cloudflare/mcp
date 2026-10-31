@@ -16,7 +16,16 @@ export const dlp_AttachedEntry: JsonSchema = {
       "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/dlp_EntryType"
+      "enum": [
+        "custom",
+        "custom_prompt_topic",
+        "predefined",
+        "integration",
+        "exact_data",
+        "document_fingerprint",
+        "word_list"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -28,40 +37,17 @@ export const dlp_AttachedEntry: JsonSchema = {
 };
 
 /**
- * The schema of `dlp_EntryType` in responses.
- */
-export const dlp_EntryType: JsonSchema = {
-  "enum": [
-    "custom",
-    "custom_prompt_topic",
-    "predefined",
-    "integration",
-    "exact_data",
-    "document_fingerprint",
-    "word_list"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `dlp_ProximityWeight` in responses.
- */
-export const dlp_ProximityWeight: JsonSchema = {
-  "enum": [
-    "strong",
-    "moderate",
-    "weak"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_ProximityWord` in responses.
  */
 export const dlp_ProximityWord: JsonSchema = {
   "properties": {
     "weight": {
-      "$ref": "#/$defs/dlp_ProximityWeight"
+      "enum": [
+        "strong",
+        "moderate",
+        "weak"
+      ],
+      "type": "string"
     },
     "word": {
       "type": "string"
@@ -198,23 +184,6 @@ export const dlp_ValidatorReferences: JsonSchema = {
 };
 
 /**
- * The schema of `dlp_WorkerDefault` in responses.
- */
-export const dlp_WorkerDefault: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "enum": [
-        "veto"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
  * The schema of `dlp_WorkerValidator` in responses.
  */
 export const dlp_WorkerValidator: JsonSchema = {
@@ -224,7 +193,17 @@ export const dlp_WorkerValidator: JsonSchema = {
       "type": "string"
     },
     "default": {
-      "$ref": "#/$defs/dlp_WorkerDefault"
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            "veto"
+          ],
+          "type": "string"
+        }
+      ]
     },
     "id": {
       "format": "uuid",

@@ -4,32 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `posture-api_FindingTypeOriginEnum`.
- */
-export const posture$$api_FindingTypeOriginEnum: JsonSchema = {
-  "description": "Finding type origins for list filters.",
-  "enum": [
-    "custom",
-    "system"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_FindingTypeSeverityEnum`.
- */
-export const posture$$api_FindingTypeSeverityEnum: JsonSchema = {
-  "description": "Finding type severities for list filters.",
-  "enum": [
-    "critical",
-    "high",
-    "medium",
-    "low"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `posture-api_create-finding-type-request`.
  */
 export const posture$$api_create$$finding$$type$$request: JsonSchema = {
@@ -45,7 +19,26 @@ export const posture$$api_create$$finding$$type$$request: JsonSchema = {
     "asset_vendor": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+          "description": "Vendors whose assets a finding type can evaluate.",
+          "enum": [
+            "ANTHROPIC",
+            "AWS",
+            "BITBUCKET",
+            "BOX",
+            "CONFLUENCE",
+            "DROPBOX",
+            "GITHUB",
+            "GOOGLE_CLOUD_PLATFORM",
+            "GOOGLE_WORKSPACE",
+            "JIRA",
+            "MICROSOFT",
+            "OPENAI",
+            "SALESFORCE",
+            "SERVICENOW",
+            "SLACK",
+            "ZOOM"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -75,7 +68,14 @@ export const posture$$api_create$$finding$$type$$request: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "description": "The severity level of a finding.",
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -123,7 +123,14 @@ export const posture$$api_update$$finding$$type$$request: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "description": "The severity level of a finding.",
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"

@@ -5,10 +5,8 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   dns$$records_api$$response$$common$$failure,
   dns$$records_api$$response$$single,
-  dns$$records_identifier,
   dns$$records_messages,
 } from "../outputs.js";
-import { dns$$records_identifier as dns$$records_identifier$ } from "../schemas.js";
 import {
   dns$$records_AAAARecord,
   dns$$records_ARecord,
@@ -33,7 +31,6 @@ import {
   dns$$records_URIRecord,
   dns$$records_api$$response$$collection,
   dns$$records_api$$response$$common,
-  dns$$records_comment,
   dns$$records_dns$$record$$response,
   dns$$records_dns$$record$$shared$$fields,
   dns$$records_dns$$record$$with$$data,
@@ -45,12 +42,8 @@ import {
   dns$$records_dns_response_review_scan,
   dns$$records_dns_response_single,
   dns$$records_dns_response_trigger_scan,
-  dns$$records_name,
-  dns$$records_priority,
-  dns$$records_proxied,
   dns$$records_settings,
   dns$$records_tags,
-  dns$$records_ttl,
 } from "./outputs.js";
 import {
   dns$$records_AAAARecord as dns$$records_AAAARecord$,
@@ -74,8 +67,6 @@ import {
   dns$$records_TLSARecord as dns$$records_TLSARecord$,
   dns$$records_TXTRecord as dns$$records_TXTRecord$,
   dns$$records_URIRecord as dns$$records_URIRecord$,
-  dns$$records_comment as dns$$records_comment$,
-  dns$$records_direction,
   dns$$records_dns$$record$$batch$$delete,
   dns$$records_dns$$record$$batch$$patch,
   dns$$records_dns$$record$$batch$$post,
@@ -89,19 +80,8 @@ import {
   dns$$records_dns$$record$$without$$data as dns$$records_dns$$record$$without$$data$,
   dns$$records_dns$$request$$batch$$object,
   dns$$records_dns$$request$$review$$scan$$object,
-  dns$$records_match,
-  dns$$records_name as dns$$records_name$,
-  dns$$records_order,
-  dns$$records_page,
-  dns$$records_per_page,
-  dns$$records_priority as dns$$records_priority$,
-  dns$$records_proxied as dns$$records_proxied$,
-  dns$$records_search,
   dns$$records_settings as dns$$records_settings$,
-  dns$$records_tag_match,
   dns$$records_tags as dns$$records_tags$,
-  dns$$records_ttl as dns$$records_ttl$,
-  dns$$records_type,
 } from "./schemas.js";
 
 /**
@@ -111,7 +91,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_batch",
     title: "Batch DNS Records",
-    description: "Send a Batch of DNS Record API calls to be executed together.\n\nNotes:\n- Although Cloudflare will execute the batched operations in a single database transaction, Cloudflare's distributed KV store must treat each record change as a single key-value pair. This means that the propagation of changes is not atomic. See [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/batch-record-changes/ \"Batch DNS records\") for more information.\n- The operations you specify within the /batch request body are always executed in the following order:\n\n    - Deletes\n    - Patches\n    - Puts\n    - Posts",
+    description: "Send a Batch of DNS Record API calls to be executed together.\n\nNotes:\n- Although Cloudflare will execute the batched operations in a single database transaction, Cloudflare's distributed KV store must treat each record change as a single key-value pair. This means that the propagation of changes is not atomic. See [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/batch-record-changes/ \"Batch DNS records\") for more information.\n- The operations you specify within the /batch request body are always executed in the following order:\n\n    - Deletes\n    - Patches\n    - Puts\n    - Posts\n\nPOST /zones/{zone_id}/dns_records/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -119,10 +99,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-request-batch-object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -131,10 +112,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_shadow_metadata": {
               "default": false,
-              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "boolean"
             }
           },
@@ -145,6 +127,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-records_AAAARecord": dns$$records_AAAARecord$,
         "dns-records_ARecord": dns$$records_ARecord$,
@@ -167,7 +150,6 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord$,
         "dns-records_TXTRecord": dns$$records_TXTRecord$,
         "dns-records_URIRecord": dns$$records_URIRecord$,
-        "dns-records_comment": dns$$records_comment$,
         "dns-records_dns-record-batch-delete": dns$$records_dns$$record$$batch$$delete,
         "dns-records_dns-record-batch-patch": dns$$records_dns$$record$$batch$$patch,
         "dns-records_dns-record-batch-post": dns$$records_dns$$record$$batch$$post,
@@ -178,13 +160,8 @@ export const tools: readonly Tool[] = [
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data$,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data$,
         "dns-records_dns-request-batch-object": dns$$records_dns$$request$$batch$$object,
-        "dns-records_identifier": dns$$records_identifier$,
-        "dns-records_name": dns$$records_name$,
-        "dns-records_priority": dns$$records_priority$,
-        "dns-records_proxied": dns$$records_proxied$,
         "dns-records_settings": dns$$records_settings$,
         "dns-records_tags": dns$$records_tags$,
-        "dns-records_ttl": dns$$records_ttl$,
       },
     },
     outputSchema: {
@@ -212,21 +189,15 @@ export const tools: readonly Tool[] = [
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns-response-batch-object": dns$$records_dns$$response$$batch$$object,
         "dns-records_dns_response_batch": dns$$records_dns_response_batch,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -287,21 +258,15 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns-response-batch-object": dns$$records_dns$$response$$batch$$object,
         "dns-records_dns_response_batch": dns$$records_dns_response_batch,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -315,7 +280,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_create",
     title: "Create DNS Record",
-    description: "Create a new DNS record for a zone.\n\nNotes:\n- A/AAAA records cannot exist on the same name as CNAME records.\n- NS records cannot exist on the same name as any other record type.\n- Domain names are always represented in Punycode, even if Unicode\n  characters were used when creating the record.",
+    description: "Create a new DNS record for a zone.\n\nNotes:\n- A/AAAA records cannot exist on the same name as CNAME records.\n- NS records cannot exist on the same name as any other record type.\n- Domain names are always represented in Punycode, even if Unicode\n  characters were used when creating the record.\n\nPOST /zones/{zone_id}/dns_records",
     inputSchema: {
       type: "object",
       properties: {
@@ -323,10 +288,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-record-post"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -335,10 +301,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_shadow_metadata": {
               "default": false,
-              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "boolean"
             }
           },
@@ -349,6 +316,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-records_AAAARecord": dns$$records_AAAARecord$,
         "dns-records_ARecord": dns$$records_ARecord$,
@@ -371,18 +339,12 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord$,
         "dns-records_TXTRecord": dns$$records_TXTRecord$,
         "dns-records_URIRecord": dns$$records_URIRecord$,
-        "dns-records_comment": dns$$records_comment$,
         "dns-records_dns-record-post": dns$$records_dns$$record$$post,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields$,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data$,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data$,
-        "dns-records_identifier": dns$$records_identifier$,
-        "dns-records_name": dns$$records_name$,
-        "dns-records_priority": dns$$records_priority$,
-        "dns-records_proxied": dns$$records_proxied$,
         "dns-records_settings": dns$$records_settings$,
         "dns-records_tags": dns$$records_tags$,
-        "dns-records_ttl": dns$$records_ttl$,
       },
     },
     outputSchema: {
@@ -410,20 +372,14 @@ export const tools: readonly Tool[] = [
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -484,20 +440,14 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -511,19 +461,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_delete",
     title: "Delete DNS Record",
-    description: "Permanently removes a DNS record from the zone.",
+    description: "Permanently removes a DNS record from the zone.\n\nDELETE /zones/{zone_id}/dns_records/{dns_record_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dns_record_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -536,25 +487,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/dns-records_identifier"
+              "type": "string"
             }
           },
           "type": "object"
         }
       },
       "type": "object",
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -588,7 +534,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/dns-records_identifier"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -603,7 +549,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/dns-records_identifier"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -619,7 +565,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
       },
     },
@@ -630,7 +575,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_edit",
     title: "Update DNS Record",
-    description: "Update an existing DNS record.\n\nNotes:\n- A/AAAA records cannot exist on the same name as CNAME records.\n- NS records cannot exist on the same name as any other record type.\n- Domain names are always represented in Punycode, even if Unicode\n  characters were used when creating the record.",
+    description: "Update an existing DNS record.\n\nNotes:\n- A/AAAA records cannot exist on the same name as CNAME records.\n- NS records cannot exist on the same name as any other record type.\n- Domain names are always represented in Punycode, even if Unicode\n  characters were used when creating the record.\n\nPATCH /zones/{zone_id}/dns_records/{dns_record_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -638,14 +583,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-record-patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dns_record_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -655,10 +601,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_shadow_metadata": {
               "default": false,
-              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "boolean"
             }
           },
@@ -669,6 +616,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-records_AAAARecord": dns$$records_AAAARecord$,
         "dns-records_ARecord": dns$$records_ARecord$,
@@ -691,18 +639,12 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord$,
         "dns-records_TXTRecord": dns$$records_TXTRecord$,
         "dns-records_URIRecord": dns$$records_URIRecord$,
-        "dns-records_comment": dns$$records_comment$,
         "dns-records_dns-record-patch": dns$$records_dns$$record$$patch,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields$,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data$,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data$,
-        "dns-records_identifier": dns$$records_identifier$,
-        "dns-records_name": dns$$records_name$,
-        "dns-records_priority": dns$$records_priority$,
-        "dns-records_proxied": dns$$records_proxied$,
         "dns-records_settings": dns$$records_settings$,
         "dns-records_tags": dns$$records_tags$,
-        "dns-records_ttl": dns$$records_ttl$,
       },
     },
     outputSchema: {
@@ -730,20 +672,14 @@ export const tools: readonly Tool[] = [
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -804,20 +740,14 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -831,15 +761,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_export",
     title: "Export DNS Records",
-    description: "You can export your [BIND config](https://en.wikipedia.org/wiki/Zone_file \"Zone file\") through this endpoint.\n\nSee [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/import-and-export/ \"Import and export records\") for more information.",
+    description: "You can export your [BIND config](https://en.wikipedia.org/wiki/Zone_file \"Zone file\") through this endpoint.\n\nSee [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/import-and-export/ \"Import and export records\") for more information.\n\nGET /zones/{zone_id}/dns_records/export",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -851,9 +782,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -900,19 +829,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_get",
     title: "DNS Record Details",
-    description: "Retrieves details for a specific DNS record in the zone.",
+    description: "Retrieves details for a specific DNS record in the zone.\n\nGET /zones/{zone_id}/dns_records/{dns_record_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dns_record_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -922,10 +852,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_shadow_metadata": {
               "default": false,
-              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "boolean"
             }
           },
@@ -935,9 +866,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_single",
@@ -964,20 +893,14 @@ export const tools: readonly Tool[] = [
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -1039,20 +962,14 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -1065,15 +982,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_list",
     title: "List DNS Records",
-    description: "List, search, sort, and filter a zones' DNS records.",
+    description: "List, search, sort, and filter a zones' DNS records.\n\nGET /zones/{zone_id}/dns_records",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1082,158 +1000,201 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "comment": {
-              "description": "Exact value of the DNS record comment. This is a convenience alias for `comment.exact`.\n",
+              "description": "Exact value of the DNS record comment. This is a convenience alias for `comment.exact`.",
               "type": "string"
             },
             "comment.absent": {
-              "description": "If this parameter is present, only records *without* a comment are returned.\n",
+              "description": "If this parameter is present, only records *without* a comment are returned.",
               "type": "string"
             },
             "comment.contains": {
-              "description": "Substring of the DNS record comment. Comment filters are case-insensitive.\n",
+              "description": "Substring of the DNS record comment. Comment filters are case-insensitive.",
               "type": "string"
             },
             "comment.endswith": {
-              "description": "Suffix of the DNS record comment. Comment filters are case-insensitive.\n",
+              "description": "Suffix of the DNS record comment. Comment filters are case-insensitive.",
               "type": "string"
             },
             "comment.exact": {
-              "description": "Exact value of the DNS record comment. Comment filters are case-insensitive.\n",
+              "description": "Exact value of the DNS record comment. Comment filters are case-insensitive.",
               "type": "string"
             },
             "comment.present": {
-              "description": "If this parameter is present, only records *with* a comment are returned.\n",
+              "description": "If this parameter is present, only records *with* a comment are returned.",
               "type": "string"
             },
             "comment.startswith": {
-              "description": "Prefix of the DNS record comment. Comment filters are case-insensitive.\n",
+              "description": "Prefix of the DNS record comment. Comment filters are case-insensitive.",
               "type": "string"
             },
             "content": {
-              "description": "Exact value of the DNS record content. This is a convenience alias for `content.exact`.\n",
+              "description": "Exact value of the DNS record content. This is a convenience alias for `content.exact`.",
               "type": "string"
             },
             "content.contains": {
-              "description": "Substring of the DNS record content. Content filters are case-insensitive.\n",
+              "description": "Substring of the DNS record content. Content filters are case-insensitive.",
               "type": "string"
             },
             "content.endswith": {
-              "description": "Suffix of the DNS record content. Content filters are case-insensitive.\n",
+              "description": "Suffix of the DNS record content. Content filters are case-insensitive.",
               "type": "string"
             },
             "content.exact": {
-              "description": "Exact value of the DNS record content. Content filters are case-insensitive.\n",
+              "description": "Exact value of the DNS record content. Content filters are case-insensitive.",
               "type": "string"
             },
             "content.startswith": {
-              "description": "Prefix of the DNS record content. Content filters are case-insensitive.\n",
+              "description": "Prefix of the DNS record content. Content filters are case-insensitive.",
               "type": "string"
             },
             "direction": {
-              "$ref": "#/$defs/dns-records_direction",
               "default": "asc",
-              "description": "Direction to order DNS records in."
+              "description": "Direction to order DNS records in.",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
             },
             "include_shadow_metadata": {
               "default": false,
-              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "boolean"
             },
             "match": {
-              "$ref": "#/$defs/dns-records_match",
               "default": "all",
-              "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead. Note that the interaction between tag filters is controlled by the `tag-match` parameter instead.\n"
+              "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead. Note that the interaction between tag filters is controlled by the `tag-match` parameter instead.",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "type": "string"
             },
             "name": {
-              "description": "Exact value of the DNS record name. This is a convenience alias for `name.exact`.\n",
+              "description": "Exact value of the DNS record name. This is a convenience alias for `name.exact`.",
               "type": "string"
             },
             "name.contains": {
-              "description": "Substring of the DNS record name. Name filters are case-insensitive.\n",
+              "description": "Substring of the DNS record name. Name filters are case-insensitive.",
               "type": "string"
             },
             "name.endswith": {
-              "description": "Suffix of the DNS record name. Name filters are case-insensitive.\n",
+              "description": "Suffix of the DNS record name. Name filters are case-insensitive.",
               "type": "string"
             },
             "name.exact": {
-              "description": "Exact value of the DNS record name. Name filters are case-insensitive.\n",
+              "description": "Exact value of the DNS record name. Name filters are case-insensitive.",
               "type": "string"
             },
             "name.startswith": {
-              "description": "Prefix of the DNS record name. Name filters are case-insensitive.\n",
+              "description": "Prefix of the DNS record name. Name filters are case-insensitive.",
               "type": "string"
             },
             "order": {
-              "$ref": "#/$defs/dns-records_order",
               "default": "type",
-              "description": "Field to order DNS records by."
+              "description": "Field to order DNS records by.",
+              "enum": [
+                "type",
+                "name",
+                "content",
+                "ttl",
+                "proxied"
+              ],
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/dns-records_page",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/dns-records_per_page",
               "default": 100,
-              "description": "Number of DNS records per page."
+              "description": "Number of DNS records per page.",
+              "type": "number"
             },
             "proxied": {
-              "$ref": "#/$defs/dns-records_proxied",
               "default": false,
-              "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
+              "description": "Whether the record is receiving the performance and security benefits of Cloudflare.",
+              "type": "boolean"
             },
             "search": {
-              "$ref": "#/$defs/dns-records_search",
-              "description": "Allows searching in multiple properties of a DNS record simultaneously. This parameter is intended for human users, not automation. Its exact behavior is intentionally left unspecified and is subject to change in the future. This parameter works independently of the `match` setting. For automated searches, please use the other available parameters.\n"
+              "description": "Allows searching in multiple properties of a DNS record simultaneously. This parameter is intended for human users, not automation. Its exact behavior is intentionally left unspecified and is subject to change in the future. This parameter works independently of the `match` setting. For automated searches, please use the other available parameters.",
+              "type": "string"
             },
             "shadowed_by_name": {
-              "description": "Filters the response to records at or below the specified NS delegation name. NS, DS, and NSEC records at the delegation name are excluded because they are not shadowed by that delegation. Those record types are included only when they exist below the delegation. The value must be a non-apex subdomain of the zone. Requires `include_shadow_metadata=true`. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Filters the response to records at or below the specified NS delegation name. NS, DS, and NSEC records at the delegation name are excluded because they are not shadowed by that delegation. Those record types are included only when they exist below the delegation. The value must be a non-apex subdomain of the zone. Requires `include_shadow_metadata=true`. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "string"
             },
             "shadowing_name": {
-              "description": "Returns NS records that shadow the given name, searching at the name itself and each of its ancestor names within the zone, excluding the zone apex. The value must be a subdomain of the zone; the zone apex is not accepted. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Returns NS records that shadow the given name, searching at the name itself and each of its ancestor names within the zone, excluding the zone apex. The value must be a subdomain of the zone; the zone apex is not accepted. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "string"
             },
             "tag": {
-              "description": "Condition on the DNS record tag.\n\nParameter values can be of the form `<tag-name>:<tag-value>` to search for an exact `name:value` pair, or just `<tag-name>` to search for records with a specific tag name regardless of its value.\n\nThis is a convenience shorthand for the more powerful `tag.<predicate>` parameters.\nExamples:\n- `tag=important` is equivalent to `tag.present=important`\n- `tag=team:DNS` is equivalent to `tag.exact=team:DNS`\n",
+              "description": "Condition on the DNS record tag.\n\nParameter values can be of the form `<tag-name>:<tag-value>` to search for an exact `name:value` pair, or just `<tag-name>` to search for records with a specific tag name regardless of its value.\n\nThis is a convenience shorthand for the more powerful `tag.<predicate>` parameters.\nExamples:\n- `tag=important` is equivalent to `tag.present=important`\n- `tag=team:DNS` is equivalent to `tag.exact=team:DNS`",
               "type": "string"
             },
             "tag.absent": {
-              "description": "Name of a tag which must *not* be present on the DNS record. Tag filters are case-insensitive.\n",
+              "description": "Name of a tag which must *not* be present on the DNS record. Tag filters are case-insensitive.",
               "type": "string"
             },
             "tag.contains": {
-              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value contains `<tag-value>`. Tag filters are case-insensitive.\n",
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value contains `<tag-value>`. Tag filters are case-insensitive.",
               "type": "string"
             },
             "tag.endswith": {
-              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value ends with `<tag-value>`. Tag filters are case-insensitive.\n",
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value ends with `<tag-value>`. Tag filters are case-insensitive.",
               "type": "string"
             },
             "tag.exact": {
-              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value is `<tag-value>`. Tag filters are case-insensitive.\n",
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value is `<tag-value>`. Tag filters are case-insensitive.",
               "type": "string"
             },
             "tag.present": {
-              "description": "Name of a tag which must be present on the DNS record. Tag filters are case-insensitive.\n",
+              "description": "Name of a tag which must be present on the DNS record. Tag filters are case-insensitive.",
               "type": "string"
             },
             "tag.startswith": {
-              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value starts with `<tag-value>`. Tag filters are case-insensitive.\n",
+              "description": "A tag and value, of the form `<tag-name>:<tag-value>`. The API will only return DNS records that have a tag named `<tag-name>` whose value starts with `<tag-value>`. Tag filters are case-insensitive.",
               "type": "string"
             },
             "tag_match": {
-              "$ref": "#/$defs/dns-records_tag_match",
               "default": "all",
-              "description": "Whether to match all tag search requirements or at least one (any). If set to `all`, acts like a logical AND between tag filters. If set to `any`, acts like a logical OR instead. Note that the regular `match` parameter is still used to combine the resulting condition with other filters that aren't related to tags.\n"
+              "description": "Whether to match all tag search requirements or at least one (any). If set to `all`, acts like a logical AND between tag filters. If set to `any`, acts like a logical OR instead. Note that the regular `match` parameter is still used to combine the resulting condition with other filters that aren't related to tags.",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/dns-records_type",
-              "description": "Record type."
+              "description": "Record type.",
+              "enum": [
+                "A",
+                "AAAA",
+                "CAA",
+                "CERT",
+                "CNAME",
+                "DNSKEY",
+                "DS",
+                "HTTPS",
+                "LOC",
+                "MX",
+                "NAPTR",
+                "NS",
+                "OPENPGPKEY",
+                "PTR",
+                "SMIMEA",
+                "SRV",
+                "SSHFP",
+                "SVCB",
+                "TLSA",
+                "TXT",
+                "URI"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -1242,18 +1203,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_direction": dns$$records_direction,
-        "dns-records_identifier": dns$$records_identifier$,
-        "dns-records_match": dns$$records_match,
-        "dns-records_order": dns$$records_order,
-        "dns-records_page": dns$$records_page,
-        "dns-records_per_page": dns$$records_per_page,
-        "dns-records_proxied": dns$$records_proxied$,
-        "dns-records_search": dns$$records_search,
-        "dns-records_tag_match": dns$$records_tag_match,
-        "dns-records_type": dns$$records_type,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_collection",
@@ -1281,20 +1231,14 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-collection": dns$$records_api$$response$$collection,
         "dns-records_api-response-common": dns$$records_api$$response$$common,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_collection": dns$$records_dns_response_collection,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -1362,20 +1306,14 @@ export const tools: readonly Tool[] = [
         "dns-records_api-response-collection": dns$$records_api$$response$$collection,
         "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_collection": dns$$records_dns_response_collection,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -1423,15 +1361,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_scanList",
     title: "List Scanned DNS Records",
-    description: "Retrieves the list of DNS records discovered up to this point by the asynchronous scan. These records are temporary until explicitly accepted or rejected via `POST /scan/review`. Additional records may be discovered by the scan later.",
+    description: "Retrieves the list of DNS records discovered up to this point by the asynchronous scan. These records are temporary until explicitly accepted or rejected via `POST /scan/review`. Additional records may be discovered by the scan later.\n\nGET /zones/{zone_id}/dns_records/scan/review",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1443,9 +1382,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_collection",
@@ -1473,20 +1410,14 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-collection": dns$$records_api$$response$$collection,
         "dns-records_api-response-common": dns$$records_api$$response$$common,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_collection": dns$$records_dns_response_collection,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -1549,20 +1480,14 @@ export const tools: readonly Tool[] = [
         "dns-records_api-response-collection": dns$$records_api$$response$$collection,
         "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_collection": dns$$records_dns_response_collection,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -1572,7 +1497,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_scanReview",
     title: "Review Scanned DNS Records",
-    description: "Accept or reject DNS records found by the DNS records scan. Accepted records will be permanently added to the zone, while rejected records will be permanently deleted.",
+    description: "Accept or reject DNS records found by the DNS records scan. Accepted records will be permanently added to the zone, while rejected records will be permanently deleted.\n\nPOST /zones/{zone_id}/dns_records/scan/review",
     inputSchema: {
       type: "object",
       properties: {
@@ -1580,10 +1505,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-request-review-scan-object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1596,6 +1522,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-records_AAAARecord": dns$$records_AAAARecord$,
         "dns-records_ARecord": dns$$records_ARecord$,
@@ -1618,7 +1545,6 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord$,
         "dns-records_TXTRecord": dns$$records_TXTRecord$,
         "dns-records_URIRecord": dns$$records_URIRecord$,
-        "dns-records_comment": dns$$records_comment$,
         "dns-records_dns-record-patch": dns$$records_dns$$record$$patch,
         "dns-records_dns-record-scan-batch-accept": dns$$records_dns$$record$$scan$$batch$$accept,
         "dns-records_dns-record-scan-batch-reject": dns$$records_dns$$record$$scan$$batch$$reject,
@@ -1626,13 +1552,8 @@ export const tools: readonly Tool[] = [
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data$,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data$,
         "dns-records_dns-request-review-scan-object": dns$$records_dns$$request$$review$$scan$$object,
-        "dns-records_identifier": dns$$records_identifier$,
-        "dns-records_name": dns$$records_name$,
-        "dns-records_priority": dns$$records_priority$,
-        "dns-records_proxied": dns$$records_proxied$,
         "dns-records_settings": dns$$records_settings$,
         "dns-records_tags": dns$$records_tags$,
-        "dns-records_ttl": dns$$records_ttl$,
       },
     },
     outputSchema: {
@@ -1660,21 +1581,15 @@ export const tools: readonly Tool[] = [
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns-response-review-scan-object": dns$$records_dns$$response$$review$$scan$$object,
         "dns-records_dns_response_review_scan": dns$$records_dns_response_review_scan,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -1735,21 +1650,15 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns-response-review-scan-object": dns$$records_dns$$response$$review$$scan$$object,
         "dns-records_dns_response_review_scan": dns$$records_dns_response_review_scan,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({
@@ -1760,15 +1669,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_scanTrigger",
     title: "Trigger DNS Record Scan",
-    description: "Initiates an asynchronous scan for common DNS records on your domain. Note that this **does not** automatically add records to your zone. The scan runs in the background, and results can be reviewed later using the `/scan/review` endpoints. Useful if you haven't updated your nameservers yet.",
+    description: "Initiates an asynchronous scan for common DNS records on your domain. Note that this **does not** automatically add records to your zone. The scan runs in the background, and results can be reviewed later using the `/scan/review` endpoints. Useful if you haven't updated your nameservers yet.\n\nPOST /zones/{zone_id}/dns_records/scan/trigger",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1780,9 +1690,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_trigger_scan",
@@ -1838,7 +1746,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_records_update",
     title: "Overwrite DNS Record",
-    description: "Overwrite an existing DNS record.\n\nNotes:\n- A/AAAA records cannot exist on the same name as CNAME records.\n- NS records cannot exist on the same name as any other record type.\n- Domain names are always represented in Punycode, even if Unicode\n  characters were used when creating the record.",
+    description: "Overwrite an existing DNS record.\n\nNotes:\n- A/AAAA records cannot exist on the same name as CNAME records.\n- NS records cannot exist on the same name as any other record type.\n- Domain names are always represented in Punycode, even if Unicode\n  characters were used when creating the record.\n\nPUT /zones/{zone_id}/dns_records/{dns_record_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1846,14 +1754,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-record-post"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dns_record_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1863,10 +1772,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_shadow_metadata": {
               "default": false,
-              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).\n",
+              "description": "Whether to include shadow metadata in the `meta` field of each record in the response. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).",
               "type": "boolean"
             }
           },
@@ -1877,6 +1787,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-records_AAAARecord": dns$$records_AAAARecord$,
         "dns-records_ARecord": dns$$records_ARecord$,
@@ -1899,18 +1810,12 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord$,
         "dns-records_TXTRecord": dns$$records_TXTRecord$,
         "dns-records_URIRecord": dns$$records_URIRecord$,
-        "dns-records_comment": dns$$records_comment$,
         "dns-records_dns-record-post": dns$$records_dns$$record$$post,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields$,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data$,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data$,
-        "dns-records_identifier": dns$$records_identifier$,
-        "dns-records_name": dns$$records_name$,
-        "dns-records_priority": dns$$records_priority$,
-        "dns-records_proxied": dns$$records_proxied$,
         "dns-records_settings": dns$$records_settings$,
         "dns-records_tags": dns$$records_tags$,
-        "dns-records_ttl": dns$$records_ttl$,
       },
     },
     outputSchema: {
@@ -1938,20 +1843,14 @@ export const tools: readonly Tool[] = [
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     annotations: {
@@ -2012,20 +1911,14 @@ export const tools: readonly Tool[] = [
         "dns-records_URIRecord": dns$$records_URIRecord,
         "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
-        "dns-records_comment": dns$$records_comment,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
         "dns-records_dns-record-with-data": dns$$records_dns$$record$$with$$data,
         "dns-records_dns-record-without-data": dns$$records_dns$$record$$without$$data,
         "dns-records_dns_response_single": dns$$records_dns_response_single,
-        "dns-records_identifier": dns$$records_identifier,
         "dns-records_messages": dns$$records_messages,
-        "dns-records_name": dns$$records_name,
-        "dns-records_priority": dns$$records_priority,
-        "dns-records_proxied": dns$$records_proxied,
         "dns-records_settings": dns$$records_settings,
         "dns-records_tags": dns$$records_tags,
-        "dns-records_ttl": dns$$records_ttl,
       },
     },
     request: (args) => ({

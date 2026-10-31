@@ -2,14 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import {
-  cloudflare$$k2_workers$$k2$$common$$success,
-  cloudflare$$k2_workers$$k2$$messages,
-} from "../outputs.js";
-import {
-  cloudflare$$k2_workers$$k2$$account$$id,
-  cloudflare$$k2_workers$$k2$$stream$$id,
-} from "../schemas.js";
+import { cloudflare$$k2_workers$$k2$$messages } from "../outputs.js";
 import {
   cloudflare$$k2_K2ConsumerLag,
   cloudflare$$k2_K2MonitoredSubscription,
@@ -23,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_subscriptions_list",
     title: "List subscriptions with consumer lag",
-    description: "Lists every subscription on one stream, oldest first. Lag uses committed positions, not reserved read positions. A failed tail observation preserves subscription metadata and returns unavailable lag.\n\nThis method is beta.",
+    description: "Lists every subscription on one stream, oldest first. Lag uses committed positions, not reserved read positions. A failed tail observation preserves subscription metadata and returns unavailable lag.\n\nThis method is beta.\n\nGET /accounts/{account_id}/k2/streams/{stream_id}/subscriptions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "stream_id": {
-              "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id",
-              "description": "Specifies the public ID of the K2 stream."
+              "description": "Specifies the public ID of the K2 stream.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,10 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-k2_workers-k2-account-id": cloudflare$$k2_workers$$k2$$account$$id,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare$$k2_workers$$k2$$stream$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscriptionListResponse",
@@ -59,7 +50,6 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2ConsumerLag": cloudflare$$k2_K2ConsumerLag,
         "cloudflare-k2_K2MonitoredSubscription": cloudflare$$k2_K2MonitoredSubscription,
         "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare$$k2_K2MonitoredSubscriptionListResponse,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
       },
     },
@@ -92,7 +82,6 @@ export const tools: readonly Tool[] = [
         "cloudflare-k2_K2ConsumerLag": cloudflare$$k2_K2ConsumerLag,
         "cloudflare-k2_K2MonitoredSubscription": cloudflare$$k2_K2MonitoredSubscription,
         "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare$$k2_K2MonitoredSubscriptionListResponse,
-        "cloudflare-k2_workers-k2-common-success": cloudflare$$k2_workers$$k2$$common$$success,
         "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
       },
     },

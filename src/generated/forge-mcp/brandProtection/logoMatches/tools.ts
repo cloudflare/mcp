@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logoMatches_get",
     title: "List logo matches",
-    description: "Get paginated list of logo matches for a specific brand protection logo query",
+    description: "Get paginated list of logo matches for a specific brand protection logo query\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/matches",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "download": {
               "type": "string"
@@ -70,6 +72,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

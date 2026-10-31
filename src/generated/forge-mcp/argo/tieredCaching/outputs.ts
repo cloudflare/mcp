@@ -38,7 +38,11 @@ export const cache$$settings_tiered_cache_response_value: JsonSchema = {
         {
           "properties": {
             "value": {
-              "$ref": "#/$defs/cache-settings_tiered_cache_value"
+              "enum": [
+                "on",
+                "off"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -50,15 +54,4 @@ export const cache$$settings_tiered_cache_response_value: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cache-settings_tiered_cache_value` in responses.
- */
-export const cache$$settings_tiered_cache_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

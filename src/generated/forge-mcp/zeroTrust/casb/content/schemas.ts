@@ -56,7 +56,27 @@ export const posture$$api_ContentExportRequest: JsonSchema = {
     "vendors": {
       "description": "Filter by vendor types.",
       "items": {
-        "$ref": "#/$defs/posture-api_VendorsEnum"
+        "description": "Supported vendor types for integrations.",
+        "enum": [
+          "ANTHROPIC",
+          "AWS",
+          "BITBUCKET",
+          "BOX",
+          "CONFLUENCE",
+          "DROPBOX",
+          "GITHUB",
+          "GOOGLE_CLOUD_PLATFORM",
+          "GOOGLE_WORKSPACE",
+          "JIRA",
+          "MICROSOFT",
+          "MICROSOFT_INTERNAL",
+          "OPENAI",
+          "SALESFORCE",
+          "SERVICENOW",
+          "SLACK",
+          "ZOOM"
+        ],
+        "type": "string"
       },
       "type": "array"
     }
@@ -163,8 +183,12 @@ export const posture$$api_Order: JsonSchema = {
   "description": "Generic ordering specification.",
   "properties": {
     "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+      "description": "Sort direction.",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Field name to order by.",

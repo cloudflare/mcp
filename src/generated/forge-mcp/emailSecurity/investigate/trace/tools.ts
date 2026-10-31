@@ -8,10 +8,6 @@ import {
   email$$security_messages,
 } from "../../outputs.js";
 import {
-  email$$security_InvestigateId,
-  email$$security_identifier,
-} from "../../schemas.js";
-import {
   email$$security_MessageTrace,
   email$$security_TraceLine,
 } from "./outputs.js";
@@ -23,19 +19,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_trace_get",
     title: "Get email trace",
-    description: "Retrieves delivery and processing trace information for an email message. Shows the delivery path, retraction history, and move operations performed on the message. Useful for debugging delivery issues.\n\nThis method is beta.",
+    description: "Retrieves delivery and processing trace information for an email message. Shows the delivery path, retraction history, and move operations performed on the message. Useful for debugging delivery issues.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}/trace",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "investigate_id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,10 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

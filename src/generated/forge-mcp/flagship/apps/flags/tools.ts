@@ -50,7 +50,7 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_create",
     title: "Create flag",
-    description: "Creates a flag. Returns 409 if the key already exists. `type` is always inferred from variation values; legacy request-side values are ignored. Optional `metadata` can be attached at creation.\n\nThis method is beta.",
+    description: "Creates a flag. Returns 409 if the key already exists. `type` is always inferred from variation values; legacy request-side values are ignored. Optional `metadata` can be attached at creation.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/flagship/apps/{app_id}/flags",
     inputSchema: {
       type: "object",
       properties: {
@@ -139,6 +139,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -160,6 +161,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "flagship_BaseCondition": flagship_BaseCondition$,
         "flagship_Condition": flagship_Condition$,
@@ -355,11 +357,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_delete",
     title: "Delete flag",
-    description: "Deletes a flag permanently. After deletion propagates, direct evaluations return not found; typed binding accessors may return the caller-supplied default. Cannot be undone.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this feature flag? After the deletion propagates, evaluation requests can no longer resolve it. This action cannot be undone.",
+    description: "Deletes a flag permanently. After deletion propagates, direct evaluations return not found; typed binding accessors may return the caller-supplied default. Cannot be undone.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this feature flag? After the deletion propagates, evaluation requests can no longer resolve it. This action cannot be undone.\n\nDELETE /accounts/{account_id}/flagship/apps/{app_id}/flags/{flag_key}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -385,6 +388,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -538,7 +542,7 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_evaluate",
     title: "Evaluate flag with JSON context",
-    description: "Evaluates a flag against the provided context, passed as a JSON request body (OFREP-shaped) rather than query parameters. Returns the same response shape as the GET variant.\n\nThis method is beta.",
+    description: "Evaluates a flag against the provided context, passed as a JSON request body (OFREP-shaped) rather than query parameters. Returns the same response shape as the GET variant.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/flagship/apps/{app_id}/evaluate",
     inputSchema: {
       type: "object",
       properties: {
@@ -563,6 +567,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -584,6 +589,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "flagship_JsonValue": flagship_JsonValue$,
       },
@@ -662,11 +668,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_get",
     title: "Get flag",
-    description: "Returns the full flag definition including rules, variations, metadata, and audit fields.\n\nThis method is beta.",
+    description: "Returns the full flag definition including rules, variations, metadata, and audit fields.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}/flags/{flag_key}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -692,6 +699,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -872,11 +880,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_list",
     title: "List flags",
-    description: "Lists an app's flags ordered by key. Pass `cursor` from `result_info` to page forward; a null cursor indicates the last page.\n\nThis method is beta.",
+    description: "Lists an app's flags ordered by key. Pass `cursor` from `result_info` to page forward; a null cursor indicates the last page.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}/flags",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -894,6 +903,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from a previous response.",
@@ -910,6 +920,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1106,7 +1117,7 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_patch",
     title: "Partially update flag",
-    description: "Applies a partial update to lightweight flag fields: `enabled`, `description`, `metadata`, and `default_variation`. Only fields present in the request body are modified; omitted fields are preserved. `metadata: null` or an empty object clears metadata. `default_variation` must exist in the current `variations`. Structural changes to `variations` and `rules` use PUT. A changelog entry is appended when the flag content actually changes.\n\nThis method is beta.",
+    description: "Applies a partial update to lightweight flag fields: `enabled`, `description`, `metadata`, and `default_variation`. Only fields present in the request body are modified; omitted fields are preserved. `metadata: null` or an empty object clears metadata. `default_variation` must exist in the current `variations`. Structural changes to `variations` and `rules` use PUT. A changelog entry is appended when the flag content actually changes.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/flagship/apps/{app_id}/flags/{flag_key}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1159,6 +1170,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -1185,6 +1197,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1365,7 +1378,7 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_flags_update",
     title: "Update flag",
-    description: "Replaces the entire flag definition. Omitted fields are cleared, not preserved — read before writing. The path key identifies the flag and cannot be renamed by changing the body `key`. A changelog entry is appended when the flag content actually changes; identical updates are no-ops.\n\nThis method is beta.",
+    description: "Replaces the entire flag definition. Omitted fields are cleared, not preserved — read before writing. The path key identifies the flag and cannot be renamed by changing the body `key`. A changelog entry is appended when the flag content actually changes; identical updates are no-ops.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/flagship/apps/{app_id}/flags/{flag_key}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1454,6 +1467,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -1480,6 +1494,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "flagship_BaseCondition": flagship_BaseCondition$,
         "flagship_Condition": flagship_Condition$,

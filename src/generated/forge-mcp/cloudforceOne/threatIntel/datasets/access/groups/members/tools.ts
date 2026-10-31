@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_members_create",
     title: "Add an account to a group",
-    description: "Adds an account to an account group. Identify the account by `accountId` or `accountTag`.",
+    description: "Adds an account to an account group. Identify the account by `accountId` or `accountTag`.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/-/groups/{group_id}/members",
     inputSchema: {
       type: "object",
       properties: {
@@ -26,6 +26,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -155,11 +157,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_members_delete",
     title: "Remove an account from a group",
-    description: "Removes an account from an account group.",
+    description: "Removes an account from an account group.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/-/groups/{group_id}/members/{member_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -183,6 +186,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -261,11 +265,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_members_list",
     title: "List group members",
-    description: "Lists the accounts in an account group.",
+    description: "Lists the accounts in an account group.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/-/groups/{group_id}/members",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -285,6 +290,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

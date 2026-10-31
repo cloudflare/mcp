@@ -21,7 +21,8 @@ export const access_responses: JsonSchema = {
       "type": "string"
     },
     "logged_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "request_body": {
       "type": "string"

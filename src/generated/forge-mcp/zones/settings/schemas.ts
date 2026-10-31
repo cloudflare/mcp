@@ -4,66 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `zones_0rtt_value`.
- */
-export const zones_0rtt_value: JsonSchema = {
-  "description": "Value of the 0-RTT setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_advanced_ddos_value`.
- */
-export const zones_advanced_ddos_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Defaults to on for Business+ plans",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_always_online_value`.
- */
-export const zones_always_online_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_always_use_https_value`.
- */
-export const zones_always_use_https_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_automatic_https_rewrites_value`.
- */
-export const zones_automatic_https_rewrites_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zones_automatic_platform_optimization`.
  */
 export const zones_automatic_platform_optimization: JsonSchema = {
@@ -112,38 +52,6 @@ export const zones_automatic_platform_optimization: JsonSchema = {
 };
 
 /**
- * The schema of `zones_brotli_value`.
- */
-export const zones_brotli_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_browser_cache_ttl_value`.
- */
-export const zones_browser_cache_ttl_value: JsonSchema = {
-  "description": "Value of the zone setting in seconds.\nMinimum values by plan:\n- Free: 1 second\n- Pro: 1 second\n- Business: 1 second\n- Enterprise: 1 second\nSetting a TTL of 0 is equivalent to selecting `Respect Existing Headers` and is allowed for all plans.",
-  "type": "integer"
-};
-
-/**
- * The schema of `zones_browser_check_value`.
- */
-export const zones_browser_check_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zones_cache-rules_aegis_value`.
  */
 export const zones_cache$$rules_aegis_value: JsonSchema = {
@@ -162,75 +70,6 @@ export const zones_cache$$rules_aegis_value: JsonSchema = {
 };
 
 /**
- * The schema of `zones_cache-rules_origin_h2_max_streams_value`.
- */
-export const zones_cache$$rules_origin_h2_max_streams_value: JsonSchema = {
-  "description": "Value of the Origin H2 Max Streams Setting.",
-  "type": "integer"
-};
-
-/**
- * The schema of `zones_cache-rules_origin_max_http_version_value`.
- */
-export const zones_cache$$rules_origin_max_http_version_value: JsonSchema = {
-  "description": "Value of the Origin Max HTTP Version Setting.",
-  "enum": [
-    "2",
-    "1"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_cache_level_value`.
- */
-export const zones_cache_level_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "aggressive",
-    "basic",
-    "simplified"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_challenge_ttl_value`.
- */
-export const zones_challenge_ttl_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    300,
-    900,
-    1800,
-    2700,
-    3600,
-    7200,
-    10800,
-    14400,
-    28800,
-    57600,
-    86400,
-    604800,
-    2592000,
-    31536000
-  ],
-  "type": "integer"
-};
-
-/**
- * The schema of `zones_china_network_enabled_value`.
- */
-export const zones_china_network_enabled_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zones_ciphers_value`.
  */
 export const zones_ciphers_value: JsonSchema = {
@@ -239,247 +78,6 @@ export const zones_ciphers_value: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `zones_cname_flattening_value`.
- */
-export const zones_cname_flattening_value: JsonSchema = {
-  "deprecated": true,
-  "description": "Value of the cname flattening setting.",
-  "enum": [
-    "flatten_at_root",
-    "flatten_all"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_content_converter_value`.
- */
-export const zones_content_converter_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_development_mode_value`.
- */
-export const zones_development_mode_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_early_hints_value`.
- */
-export const zones_early_hints_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_edge_cache_ttl_value`.
- */
-export const zones_edge_cache_ttl_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: The minimum TTL available depends on the plan level of the zone. (Enterprise = 30, Business = 1800, Pro = 3600, Free = 7200)",
-  "enum": [
-    30,
-    60,
-    300,
-    1200,
-    1800,
-    3600,
-    7200,
-    10800,
-    14400,
-    18000,
-    28800,
-    43200,
-    57600,
-    72000,
-    86400,
-    172800,
-    259200,
-    345600,
-    432000,
-    518400,
-    604800
-  ],
-  "type": "integer"
-};
-
-/**
- * The schema of `zones_email_obfuscation_value`.
- */
-export const zones_email_obfuscation_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_h2_prioritization_value`.
- */
-export const zones_h2_prioritization_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off",
-    "custom"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_hotlink_protection_value`.
- */
-export const zones_hotlink_protection_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_http2_value`.
- */
-export const zones_http2_value: JsonSchema = {
-  "description": "Value of the HTTP2 setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_http3_value`.
- */
-export const zones_http3_value: JsonSchema = {
-  "description": "Value of the HTTP3 setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_image_resizing_value`.
- */
-export const zones_image_resizing_value: JsonSchema = {
-  "description": "Whether the feature is enabled, disabled, or enabled in `open proxy` mode.",
-  "enum": [
-    "on",
-    "off",
-    "open"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_ip_geolocation_value`.
- */
-export const zones_ip_geolocation_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_ipv6_value`.
- */
-export const zones_ipv6_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_max_upload_value`.
- */
-export const zones_max_upload_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: The size depends on the plan level of the zone. (Enterprise = 5000, Business = 200, Pro = 100, Free = 100)",
-  "enum": [
-    100,
-    125,
-    150,
-    175,
-    200,
-    225,
-    250,
-    275,
-    300,
-    325,
-    350,
-    375,
-    400,
-    425,
-    450,
-    475,
-    500,
-    1000,
-    1500,
-    2000,
-    2500,
-    3000,
-    3500,
-    4000,
-    4500,
-    5000
-  ],
-  "type": "integer"
-};
-
-/**
- * The schema of `zones_min_tls_version_value`.
- */
-export const zones_min_tls_version_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "1.0",
-    "1.1",
-    "1.2",
-    "1.3"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_mirage_value`.
- */
-export const zones_mirage_value: JsonSchema = {
-  "deprecated": true,
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -494,186 +92,6 @@ export const zones_nel_value: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zones_opportunistic_encryption_value`.
- */
-export const zones_opportunistic_encryption_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_opportunistic_onion_value`.
- */
-export const zones_opportunistic_onion_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_orange_to_orange_value`.
- */
-export const zones_orange_to_orange_value: JsonSchema = {
-  "deprecated": true,
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_origin_error_page_pass_thru_value`.
- */
-export const zones_origin_error_page_pass_thru_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_polish_value`.
- */
-export const zones_polish_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "lossless",
-    "lossy"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_pre_render_value`.
- */
-export const zones_pre_render_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_prefetch_preload_value`.
- */
-export const zones_prefetch_preload_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_privacy_pass_value`.
- */
-export const zones_privacy_pass_value: JsonSchema = {
-  "deprecated": true,
-  "description": "Value of the Privacy Pass v1 (deprecated) zone setting",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_proxy_read_timeout_value`.
- */
-export const zones_proxy_read_timeout_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Value must be between 1 and 6000",
-  "type": "number"
-};
-
-/**
- * The schema of `zones_pseudo_ipv4_value`.
- */
-export const zones_pseudo_ipv4_value: JsonSchema = {
-  "description": "Value of the Pseudo IPv4 setting.",
-  "enum": [
-    "off",
-    "add_header",
-    "overwrite_header"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_redirects_for_ai_training_value`.
- */
-export const zones_redirects_for_ai_training_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_replace_insecure_js_value`.
- */
-export const zones_replace_insecure_js_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_response_buffering_value`.
- */
-export const zones_response_buffering_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_rocket_loader_value`.
- */
-export const zones_rocket_loader_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_search_for_agents_value`.
- */
-export const zones_search_for_agents_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -712,398 +130,551 @@ export const zones_security_header_value: JsonSchema = {
 };
 
 /**
- * The schema of `zones_security_level_value`.
- */
-export const zones_security_level_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "essentially_off",
-    "low",
-    "medium",
-    "high",
-    "under_attack"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_server_side_exclude_value`.
- */
-export const zones_server_side_exclude_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_setting_name`.
- */
-export const zones_setting_name: JsonSchema = {
-  "description": "Setting name",
-  "type": "string"
-};
-
-/**
  * The schema of `zones_setting_value`.
  */
 export const zones_setting_value: JsonSchema = {
   "oneOf": [
     {
-      "$ref": "#/$defs/zones_0rtt_value"
+      "description": "Value of the 0-RTT setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_advanced_ddos_value"
+      "description": "Value of the zone setting.\nNotes: Defaults to on for Business+ plans",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
       "$ref": "#/$defs/zones_cache-rules_aegis_value"
     },
     {
-      "$ref": "#/$defs/zones_always_online_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_always_use_https_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_automatic_https_rewrites_value"
+      "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_brotli_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_browser_cache_ttl_value"
+      "description": "Value of the zone setting in seconds.\nMinimum values by plan:\n- Free: 1 second\n- Pro: 1 second\n- Business: 1 second\n- Enterprise: 1 second\nSetting a TTL of 0 is equivalent to selecting `Respect Existing Headers` and is allowed for all plans.",
+      "type": "integer"
     },
     {
-      "$ref": "#/$defs/zones_browser_check_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_cache_level_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "aggressive",
+        "basic",
+        "simplified"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_challenge_ttl_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        300,
+        900,
+        1800,
+        2700,
+        3600,
+        7200,
+        10800,
+        14400,
+        28800,
+        57600,
+        86400,
+        604800,
+        2592000,
+        31536000
+      ],
+      "type": "integer"
     },
     {
-      "$ref": "#/$defs/zones_china_network_enabled_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_content_converter_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
       "$ref": "#/$defs/zones_ciphers_value"
     },
     {
-      "$ref": "#/$defs/zones_cname_flattening_value"
+      "deprecated": true,
+      "description": "Value of the cname flattening setting.",
+      "enum": [
+        "flatten_at_root",
+        "flatten_all"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_development_mode_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_early_hints_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_edge_cache_ttl_value"
+      "description": "Value of the zone setting.\nNotes: The minimum TTL available depends on the plan level of the zone. (Enterprise = 30, Business = 1800, Pro = 3600, Free = 7200)",
+      "enum": [
+        30,
+        60,
+        300,
+        1200,
+        1800,
+        3600,
+        7200,
+        10800,
+        14400,
+        18000,
+        28800,
+        43200,
+        57600,
+        72000,
+        86400,
+        172800,
+        259200,
+        345600,
+        432000,
+        518400,
+        604800
+      ],
+      "type": "integer"
     },
     {
-      "$ref": "#/$defs/zones_email_obfuscation_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_h2_prioritization_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off",
+        "custom"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_hotlink_protection_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_http2_value"
+      "description": "Value of the HTTP2 setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_http3_value"
+      "description": "Value of the HTTP3 setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_image_resizing_value"
+      "description": "Whether the feature is enabled, disabled, or enabled in `open proxy` mode.",
+      "enum": [
+        "on",
+        "off",
+        "open"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_ip_geolocation_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_ipv6_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_max_upload_value"
+      "description": "Value of the zone setting.\nNotes: The size depends on the plan level of the zone. (Enterprise = 5000, Business = 200, Pro = 100, Free = 100)",
+      "enum": [
+        100,
+        125,
+        150,
+        175,
+        200,
+        225,
+        250,
+        275,
+        300,
+        325,
+        350,
+        375,
+        400,
+        425,
+        450,
+        475,
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        3500,
+        4000,
+        4500,
+        5000
+      ],
+      "type": "integer"
     },
     {
-      "$ref": "#/$defs/zones_min_tls_version_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "1.0",
+        "1.1",
+        "1.2",
+        "1.3"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_mirage_value"
+      "deprecated": true,
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
       "$ref": "#/$defs/zones_nel_value"
     },
     {
-      "$ref": "#/$defs/zones_opportunistic_encryption_value"
+      "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_opportunistic_onion_value"
+      "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_orange_to_orange_value"
+      "deprecated": true,
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_origin_error_page_pass_thru_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_cache-rules_origin_h2_max_streams_value"
+      "description": "Value of the Origin H2 Max Streams Setting.",
+      "type": "integer"
     },
     {
-      "$ref": "#/$defs/zones_cache-rules_origin_max_http_version_value"
+      "description": "Value of the Origin Max HTTP Version Setting.",
+      "enum": [
+        "2",
+        "1"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_polish_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "lossless",
+        "lossy"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_prefetch_preload_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_pre_render_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_privacy_pass_value"
+      "deprecated": true,
+      "description": "Value of the Privacy Pass v1 (deprecated) zone setting",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_proxy_read_timeout_value"
+      "description": "Value of the zone setting.\nNotes: Value must be between 1 and 6000",
+      "type": "number"
     },
     {
-      "$ref": "#/$defs/zones_pseudo_ipv4_value"
+      "description": "Value of the Pseudo IPv4 setting.",
+      "enum": [
+        "off",
+        "add_header",
+        "overwrite_header"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_redirects_for_ai_training_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_replace_insecure_js_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_response_buffering_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_rocket_loader_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
       "$ref": "#/$defs/zones_automatic_platform_optimization"
     },
     {
-      "$ref": "#/$defs/zones_search_for_agents_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
       "$ref": "#/$defs/zones_security_header_value"
     },
     {
-      "$ref": "#/$defs/zones_security_level_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "essentially_off",
+        "low",
+        "medium",
+        "high",
+        "under_attack"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_server_side_exclude_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_sha1_support_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_sort_query_string_for_cache_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_ssl_value"
+      "description": "Value of the zone setting.\nNotes: Depends on the zone's plan level",
+      "enum": [
+        "off",
+        "flexible",
+        "full",
+        "strict"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_tls_1_2_only_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_tls_1_3_value"
+      "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
+      "enum": [
+        "on",
+        "off",
+        "zrt"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_tls_client_auth_value"
+      "description": "value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_true_client_ip_header_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_waf_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_webmcp_enabled_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_webmcp_mcp_url_value"
+      "description": "Root-relative path (with optional query string) of this zone's MCP\nendpoint, for example \"/api/mcp\". Surfaced to the injected bridge as the\ndata-mcp-url attribute. Absolute and protocol-relative URLs, fragments,\nand characters outside RFC 3986 paths and queries are rejected. An empty\nvalue clears the override so the bridge uses /mcp.",
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_webmcp_packs_value"
+      "description": "Comma-separated list of WebMCP tool-pack names to activate for this\nzone (for example, \"c2pa,mcp-server-client\"), surfaced to the injected\nbridge as the data-packs attribute. An empty value clears the override\nso the bridge uses its built-in default pack set.",
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_webp_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     },
     {
-      "$ref": "#/$defs/zones_websockets_value"
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
+      "type": "string"
     }
   ]
-};
-
-/**
- * The schema of `zones_sha1_support_value`.
- */
-export const zones_sha1_support_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_sort_query_string_for_cache_value`.
- */
-export const zones_sort_query_string_for_cache_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_ssl_recommender_enabled`.
- */
-export const zones_ssl_recommender_enabled: JsonSchema = {
-  "description": "ssl-recommender enrollment setting.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `zones_ssl_value`.
- */
-export const zones_ssl_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Depends on the zone's plan level",
-  "enum": [
-    "off",
-    "flexible",
-    "full",
-    "strict"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_tls_1_2_only_value`.
- */
-export const zones_tls_1_2_only_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_tls_1_3_value`.
- */
-export const zones_tls_1_3_value: JsonSchema = {
-  "description": "Value of the zone setting.\nNotes: Default value depends on the zone's plan level.",
-  "enum": [
-    "on",
-    "off",
-    "zrt"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_tls_client_auth_value`.
- */
-export const zones_tls_client_auth_value: JsonSchema = {
-  "description": "value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_true_client_ip_header_value`.
- */
-export const zones_true_client_ip_header_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_waf_value`.
- */
-export const zones_waf_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_webmcp_enabled_value`.
- */
-export const zones_webmcp_enabled_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_webmcp_mcp_url_value`.
- */
-export const zones_webmcp_mcp_url_value: JsonSchema = {
-  "description": "Root-relative path (with optional query string) of this zone's MCP\nendpoint, for example \"/api/mcp\". Surfaced to the injected bridge as the\ndata-mcp-url attribute. Absolute and protocol-relative URLs, fragments,\nand characters outside RFC 3986 paths and queries are rejected. An empty\nvalue clears the override so the bridge uses /mcp.",
-  "type": "string"
-};
-
-/**
- * The schema of `zones_webmcp_packs_value`.
- */
-export const zones_webmcp_packs_value: JsonSchema = {
-  "description": "Comma-separated list of WebMCP tool-pack names to activate for this\nzone (for example, \"c2pa,mcp-server-client\"), surfaced to the injected\nbridge as the data-packs attribute. An empty value clears the override\nso the bridge uses its built-in default pack set.",
-  "type": "string"
-};
-
-/**
- * The schema of `zones_webp_value`.
- */
-export const zones_webp_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zones_websockets_value`.
- */
-export const zones_websockets_value: JsonSchema = {
-  "description": "Value of the zone setting.",
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1114,9 +685,9 @@ export const zones_zone_settings_single_request: JsonSchema = {
     {
       "properties": {
         "enabled": {
-          "$ref": "#/$defs/zones_ssl_recommender_enabled",
           "default": false,
-          "description": "ssl-recommender enrollment setting."
+          "description": "ssl-recommender enrollment setting.",
+          "type": "boolean"
         }
       },
       "type": "object"

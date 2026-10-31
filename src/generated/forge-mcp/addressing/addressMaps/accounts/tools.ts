@@ -8,8 +8,6 @@ import {
   addressing_api$$response$$common$$failure,
   addressing_messages,
 } from "../../outputs.js";
-import { addressing_account_identifier } from "../../schemas.js";
-import { addressing_address_map_identifier } from "../schemas.js";
 
 /**
  * The tools of `addressing.addressMaps.accounts`.
@@ -18,23 +16,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_addressMaps_accounts_delete",
     title: "Remove an account membership from an Address Map",
-    description: "Remove an account as a member of a particular address map.",
+    description: "Remove an account as a member of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "address_map_id": {
-              "$ref": "#/$defs/addressing_address_map_identifier",
-              "description": "Identifier of an Address Map."
+              "description": "Identifier of an Address Map.",
+              "type": "string"
             },
             "member_account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,10 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
@@ -105,23 +101,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_addressMaps_accounts_update",
     title: "Add an account membership to an Address Map",
-    description: "Add an account as a member of a particular address map.",
+    description: "Add an account as a member of a particular address map.\n\nPUT /accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "address_map_id": {
-              "$ref": "#/$defs/addressing_address_map_identifier",
-              "description": "Identifier of an Address Map."
+              "description": "Identifier of an Address Map.",
+              "type": "string"
             },
             "member_account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -135,10 +132,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",

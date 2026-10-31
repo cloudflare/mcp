@@ -11,7 +11,6 @@ import {
 import {
   r2$$slurper_GCSLikeCredsSchema,
   r2$$slurper_GCSSourceSchema,
-  r2$$slurper_Jurisdiction,
   r2$$slurper_R2SourceSchema,
   r2$$slurper_R2TargetSchema,
   r2$$slurper_S3LikeCredsSchema,
@@ -27,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_connectivityPrecheck_source",
     title: "Check source connectivity",
-    description: "Check whether tokens are valid against the source bucket",
+    description: "Check whether tokens are valid against the source bucket\n\nPUT /accounts/{account_id}/slurper/source/connectivity-precheck",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +34,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2-slurper_SourceJobSchema"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -50,10 +50,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "r2-slurper_GCSLikeCredsSchema": r2$$slurper_GCSLikeCredsSchema,
         "r2-slurper_GCSSourceSchema": r2$$slurper_GCSSourceSchema,
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
         "r2-slurper_R2SourceSchema": r2$$slurper_R2SourceSchema,
         "r2-slurper_S3LikeCredsSchema": r2$$slurper_S3LikeCredsSchema,
         "r2-slurper_S3SourceSchema": r2$$slurper_S3SourceSchema,
@@ -127,7 +127,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_connectivityPrecheck_target",
     title: "Check target connectivity",
-    description: "Check whether tokens are valid against the target bucket",
+    description: "Check whether tokens are valid against the target bucket\n\nPUT /accounts/{account_id}/slurper/target/connectivity-precheck",
     inputSchema: {
       type: "object",
       properties: {
@@ -135,6 +135,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2-slurper_R2TargetSchema"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -150,8 +151,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
         "r2-slurper_R2TargetSchema": r2$$slurper_R2TargetSchema,
         "r2-slurper_S3LikeCredsSchema": r2$$slurper_S3LikeCredsSchema,
       },

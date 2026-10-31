@@ -4,61 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_action` in responses.
- */
-export const zero$$trust$$gateway_action: JsonSchema = {
-  "enum": [
-    "on",
-    "off",
-    "allow",
-    "block",
-    "scan",
-    "noscan",
-    "safesearch",
-    "ytrestricted",
-    "isolate",
-    "noisolate",
-    "override",
-    "l4_override",
-    "egress",
-    "resolve",
-    "quarantine",
-    "redirect",
-    "forward"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_deleted_at` in responses.
- */
-export const zero$$trust$$gateway_deleted_at: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_description-2` in responses.
- */
-export const zero$$trust$$gateway_description$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_device_posture` in responses.
- */
-export const zero$$trust$$gateway_device_posture: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_dns_resolver_settings_v4` in responses.
  */
 export const zero$$trust$$gateway_dns_resolver_settings_v4: JsonSchema = {
@@ -107,13 +52,6 @@ export const zero$$trust$$gateway_dns_resolver_settings_v6: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_enabled` in responses.
- */
-export const zero$$trust$$gateway_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_expiration` in responses.
  */
 export const zero$$trust$$gateway_expiration: JsonSchema = {
@@ -129,7 +67,8 @@ export const zero$$trust$$gateway_expiration: JsonSchema = {
         "expires_at": {
           "allOf": [
             {
-              "$ref": "#/$defs/zero-trust-gateway_timestamp"
+              "format": "date-time",
+              "type": "string"
             },
             {
               "type": "string"
@@ -165,34 +104,6 @@ export const zero$$trust$$gateway_filters: JsonSchema = {
   "maxItems": 1,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of `zero-trust-gateway_identity` in responses.
- */
-export const zero$$trust$$gateway_identity: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-3` in responses.
- */
-export const zero$$trust$$gateway_name$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_precedence` in responses.
- */
-export const zero$$trust$$gateway_precedence: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `zero-trust-gateway_read_only` in responses.
- */
-export const zero$$trust$$gateway_read_only: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -698,22 +609,50 @@ export const zero$$trust$$gateway_rule$$settings: JsonSchema = {
 export const zero$$trust$$gateway_rules: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/zero-trust-gateway_action"
+      "enum": [
+        "on",
+        "off",
+        "allow",
+        "block",
+        "scan",
+        "noscan",
+        "safesearch",
+        "ytrestricted",
+        "isolate",
+        "noisolate",
+        "override",
+        "l4_override",
+        "egress",
+        "resolve",
+        "quarantine",
+        "redirect",
+        "forward"
+      ],
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/zero-trust-gateway_deleted_at"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description-2"
+      "type": "string"
     },
     "device_posture": {
-      "$ref": "#/$defs/zero-trust-gateway_device_posture"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/zero-trust-gateway_enabled"
+      "type": "boolean"
     },
     "expiration": {
       "$ref": "#/$defs/zero-trust-gateway_expiration"
@@ -722,19 +661,20 @@ export const zero$$trust$$gateway_rules: JsonSchema = {
       "$ref": "#/$defs/zero-trust-gateway_filters"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-4"
+      "format": "uuid",
+      "type": "string"
     },
     "identity": {
-      "$ref": "#/$defs/zero-trust-gateway_identity"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-3"
+      "type": "string"
     },
     "precedence": {
-      "$ref": "#/$defs/zero-trust-gateway_precedence"
+      "type": "integer"
     },
     "read_only": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only"
+      "type": "boolean"
     },
     "rule_settings": {
       "$ref": "#/$defs/zero-trust-gateway_rule-settings"
@@ -743,22 +683,30 @@ export const zero$$trust$$gateway_rules: JsonSchema = {
       "$ref": "#/$defs/zero-trust-gateway_schedule"
     },
     "sharable": {
-      "$ref": "#/$defs/zero-trust-gateway_sharable"
+      "type": "boolean"
     },
     "source_account": {
-      "$ref": "#/$defs/zero-trust-gateway_source_account"
+      "type": "string"
     },
     "traffic": {
-      "$ref": "#/$defs/zero-trust-gateway_traffic"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/zero-trust-gateway_version"
+      "type": "integer"
     },
     "warning_status": {
-      "$ref": "#/$defs/zero-trust-gateway_warning_status"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
@@ -813,13 +761,6 @@ export const zero$$trust$$gateway_schedule: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_sharable` in responses.
- */
-export const zero$$trust$$gateway_sharable: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_single_response-4` in responses.
  */
 export const zero$$trust$$gateway_single_response$$4: JsonSchema = {
@@ -834,49 +775,6 @@ export const zero$$trust$$gateway_single_response$$4: JsonSchema = {
         }
       },
       "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_source_account` in responses.
- */
-export const zero$$trust$$gateway_source_account: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_traffic` in responses.
- */
-export const zero$$trust$$gateway_traffic: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-4` in responses.
- */
-export const zero$$trust$$gateway_uuid$$4: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_version` in responses.
- */
-export const zero$$trust$$gateway_version: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `zero-trust-gateway_warning_status` in responses.
- */
-export const zero$$trust$$gateway_warning_status: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
     }
   ]
 };

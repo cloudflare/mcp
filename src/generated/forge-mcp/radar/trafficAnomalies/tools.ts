@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_trafficAnomalies_get",
     title: "Get latest Internet traffic anomalies",
-    description: "Retrieves the latest Internet traffic anomalies, which are signals that might indicate an outage. These alerts are automatically detected by Radar and manually verified by our team.",
+    description: "Retrieves the latest Internet traffic anomalies, which are signals that might indicate an outage. These alerts are automatically detected by Radar and manually verified by our team.\n\nGET /radar/traffic_anomalies",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify a single Autonomous System Number (ASN) as integer.",
@@ -113,6 +114,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -570,11 +572,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_trafficAnomalies_getById",
     title: "Get traffic anomaly by UUID",
-    description: "Retrieves a single Internet traffic anomaly by UUID.",
+    description: "Retrieves a single Internet traffic anomaly by UUID.\n\nGET /radar/traffic_anomalies/{uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "uuid": {
               "description": "Traffic anomaly UUID.",
@@ -587,6 +590,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -603,6 +607,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -9,20 +9,14 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
-import { access_id, access_meta } from "../outputs.js";
+import { access_meta } from "../outputs.js";
 import {
-  access_externalId,
   access_group_details,
   access_groups,
   access_scim_group_response,
   access_scim_groups_response,
 } from "./outputs.js";
-import {
-  access_cf_resource_id,
-  access_idp_resource_id,
-  access_name$$4,
-} from "./schemas.js";
+import { access_cf_resource_id, access_idp_resource_id } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.identityProviders.scim.groups`.
@@ -31,23 +25,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_scim_groups_delete",
     title: "Delete a SCIM Group resource",
-    description: "Deletes a SCIM Group resource from the identity provider's SCIM population.",
+    description: "Deletes a SCIM Group resource from the identity provider's SCIM population.\n\nDELETE /accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,10 +56,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -99,23 +91,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_scim_groups_get",
     title: "Get a SCIM Group resource",
-    description: "Returns a SCIM Group resource, including its direct members, synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).",
+    description: "Returns a SCIM Group resource, including its direct members, synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).\n\nGET /accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -129,18 +122,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_scim_group_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_externalId": access_externalId,
         "access_group_details": access_group_details,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_group_response": access_scim_group_response,
@@ -173,9 +161,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_externalId": access_externalId,
         "access_group_details": access_group_details,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_group_response": access_scim_group_response,
@@ -188,19 +174,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_scim_groups_list",
     title: "List SCIM Group resources",
-    description: "Lists SCIM Group resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).",
+    description: "Lists SCIM Group resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).\n\nGET /accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -210,6 +197,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cf_resource_id": {
               "$ref": "#/$defs/access_cf_resource_id",
@@ -220,8 +208,8 @@ export const tools: readonly Tool[] = [
               "description": "The IdP-generated Id of the SCIM Group resource; also known as the \"external Id\".\nPass once for a single lookup (`?idp_resource_id=A`) or repeat the parameter\n(`?idp_resource_id=A&idp_resource_id=B`) to look up multiple groups in one request,\nup to 50 values. Mutually exclusive with `cf_resource_id`, `name`,\n`search_contains`, and `search_starts_with`."
             },
             "name": {
-              "$ref": "#/$defs/access_name-4",
-              "description": "The display name of the SCIM Group resource."
+              "description": "The display name of the SCIM Group resource.",
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -240,12 +228,10 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "access_cf_resource_id": access_cf_resource_id,
-        "access_identifier": access_identifier,
         "access_idp_resource_id": access_idp_resource_id,
-        "access_name-4": access_name$$4,
-        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
@@ -253,9 +239,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_externalId": access_externalId,
         "access_groups": access_groups,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_groups_response": access_scim_groups_response,
@@ -289,9 +273,7 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_externalId": access_externalId,
         "access_groups": access_groups,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_groups_response": access_scim_groups_response,

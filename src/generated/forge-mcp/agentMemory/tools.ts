@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_createNamespace",
     title: "Create a namespace",
-    description: "Creates a new memory namespace owned by the account.\n\nThis method is beta.",
+    description: "Creates a new memory namespace owned by the account.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/agent-memory/namespaces",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -43,6 +44,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -350,11 +352,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_deleteMemory",
     title: "Delete a memory",
-    description: "Deletes a memory by ID. Removes the memory and any source messages linked to it. Returns the deleted memory.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the memory and any source messages linked to it.",
+    description: "Deletes a memory by ID. Removes the memory and any source messages linked to it. Returns the deleted memory.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the memory and any source messages linked to it.\n\nDELETE /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories/{memory_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -385,6 +388,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -741,11 +745,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_deleteNamespace",
     title: "Delete a namespace",
-    description: "Deletes a namespace.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the namespace along with all memory profiles, memories, and sessions it contains.",
+    description: "Deletes a namespace.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the namespace along with all memory profiles, memories, and sessions it contains.\n\nDELETE /accounts/{account_id}/agent-memory/namespaces/{namespace_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -766,6 +771,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1042,11 +1048,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_deleteProfile",
     title: "Delete a profile",
-    description: "Marks a profile for deletion.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the profile along with all of its memories and messages.",
+    description: "Marks a profile for deletion.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the profile along with all of its memories and messages.\n\nDELETE /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -1072,6 +1079,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1348,11 +1356,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_deleteSession",
     title: "Delete a session",
-    description: "Marks all memories and messages in a profile that are tagged with the given session ID for deletion.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes all memories and messages tagged with this session ID.",
+    description: "Marks all memories and messages in a profile that are tagged with the given session ID for deletion.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes all memories and messages tagged with this session ID.\n\nDELETE /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/sessions/{session_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -1383,6 +1392,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1659,11 +1669,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_getMemory",
     title: "Get a memory",
-    description: "Retrieves a memory by ID.\n\nThis method is beta.",
+    description: "Retrieves a memory by ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories/{memory_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -1694,6 +1705,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2050,11 +2062,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_getNamespace",
     title: "Get a namespace",
-    description: "Gets a namespace by name.\n\nThis method is beta.",
+    description: "Gets a namespace by name.\n\nThis method is beta.\n\nGET /accounts/{account_id}/agent-memory/namespaces/{namespace_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -2075,6 +2088,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2381,7 +2395,7 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_ingest",
     title: "Ingest messages",
-    description: "Processes a conversation and extracts structured memories from it. Agent Memory identifies facts, events, instructions, and tasks automatically.\n\nThis method is beta.",
+    description: "Processes a conversation and extracts structured memories from it. Agent Memory identifies facts, events, instructions, and tasks automatically.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/ingest",
     inputSchema: {
       type: "object",
       properties: {
@@ -2436,6 +2450,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -2462,6 +2477,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2739,11 +2755,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_listMemories",
     title: "List memories",
-    description: "List memories stored in a profile.\n\nThis method is beta.",
+    description: "List memories stored in a profile.\n\nThis method is beta.\n\nGET /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -2766,6 +2783,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Continuation cursor for paginated results.",
@@ -2796,6 +2814,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3184,11 +3203,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_listNamespaces",
     title: "List namespaces",
-    description: "Lists all namespaces for the given account. Results are paginated.\n\nThis method is beta.",
+    description: "Lists all namespaces for the given account. Results are paginated.\n\nThis method is beta.\n\nGET /accounts/{account_id}/agent-memory/namespaces",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -3201,6 +3221,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor returned by a previous list response.",
@@ -3233,6 +3254,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3579,11 +3601,12 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_listProfiles",
     title: "List profiles",
-    description: "Lists the profiles of a namespace, ordered by name. A profile appears once it has been used.\n\nThis method is beta.",
+    description: "Lists the profiles of a namespace, ordered by name. A profile appears once it has been used.\n\nThis method is beta.\n\nGET /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -3601,6 +3624,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque continuation cursor returned by a previous list response.",
@@ -3617,6 +3641,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3943,7 +3968,7 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_recall",
     title: "Recall memories",
-    description: "Retrieves memories relevant to the query and returns a synthesized answer.\n\nThis method is beta.",
+    description: "Retrieves memories relevant to the query and returns a synthesized answer.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/recall",
     inputSchema: {
       type: "object",
       properties: {
@@ -3982,6 +4007,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -4008,6 +4034,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4361,7 +4388,7 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_remember",
     title: "Remember a memory",
-    description: "Stores a single memory explicitly.\n\nThis method is beta.",
+    description: "Stores a single memory explicitly.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/remember",
     inputSchema: {
       type: "object",
       properties: {
@@ -4389,6 +4416,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -4415,6 +4443,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4772,7 +4801,7 @@ export const tools: readonly Tool[] = [
   {
     name: "agentMemory_summary",
     title: "Get a profile summary",
-    description: "Generates a paste-ready prompt block summarizing everything stored in a memory profile.\n\nThis method is beta.",
+    description: "Generates a paste-ready prompt block summarizing everything stored in a memory profile.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/summary",
     inputSchema: {
       type: "object",
       properties: {
@@ -4793,6 +4822,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID.",
@@ -4819,6 +4849,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

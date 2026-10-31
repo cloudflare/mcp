@@ -7,10 +7,6 @@ import {
   r2$$data$$catalog_api$$response$$errors,
   r2$$data$$catalog_api$$response$$messages,
   r2$$data$$catalog_api$$response$$single,
-  r2$$data$$catalog_api$$response$$success,
-  r2$$data$$catalog_catalog$$maintenance$$state,
-  r2$$data$$catalog_catalog$$target$$file$$size,
-  r2$$data$$catalog_maintenance$$interval,
   r2$$data$$catalog_queue$$maintenance$$response,
   r2$$data$$catalog_table$$compaction$$config,
   r2$$data$$catalog_table$$maintenance$$config,
@@ -18,10 +14,6 @@ import {
   r2$$data$$catalog_table$$snapshot$$expiration$$config,
 } from "../../../../outputs.js";
 import {
-  r2$$data$$catalog_account$$id,
-  r2$$data$$catalog_bucket$$name,
-  r2$$data$$catalog_catalog$$maintenance$$state as r2$$data$$catalog_catalog$$maintenance$$state$,
-  r2$$data$$catalog_catalog$$target$$file$$size as r2$$data$$catalog_catalog$$target$$file$$size$,
   r2$$data$$catalog_queue$$maintenance$$request,
   r2$$data$$catalog_snapshot$$expiration$$update$$params,
   r2$$data$$catalog_table$$compaction$$update$$params,
@@ -35,19 +27,20 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_tables_maintenanceConfigs_get",
     title: "Get table maintenance configuration",
-    description: "Retrieve the maintenance configuration for a specific table,\nincluding compaction settings.",
+    description: "Retrieve the maintenance configuration for a specific table,\nincluding compaction settings.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}/maintenance-configs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             },
             "namespace": {
               "description": "The namespace identifier (use %1F as separator for nested namespaces).",
@@ -70,10 +63,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -93,10 +83,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_table-compaction-config": r2$$data$$catalog_table$$compaction$$config,
         "r2-data-catalog_table-maintenance-config": r2$$data$$catalog_table$$maintenance$$config,
         "r2-data-catalog_table-maintenance-config-response": r2$$data$$catalog_table$$maintenance$$config$$response,
@@ -156,10 +142,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_table-compaction-config": r2$$data$$catalog_table$$compaction$$config,
         "r2-data-catalog_table-maintenance-config": r2$$data$$catalog_table$$maintenance$$config,
         "r2-data-catalog_table-maintenance-config-response": r2$$data$$catalog_table$$maintenance$$config$$response,
@@ -173,7 +155,7 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_tables_maintenanceConfigs_queue",
     title: "Queue table maintenance",
-    description: "Queue maintenance for normal polling. This request does not start a run.",
+    description: "Queue maintenance for normal polling. This request does not start a run.\n\nPOST /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}/maintenance-configs/{configuration_type}/queue",
     inputSchema: {
       type: "object",
       properties: {
@@ -181,14 +163,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2-data-catalog_queue-maintenance-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Use this to identify the account."
+              "description": "Use this to identify the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             },
             "configuration_type": {
               "enum": [
@@ -218,9 +201,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
         "r2-data-catalog_queue-maintenance-request": r2$$data$$catalog_queue$$maintenance$$request,
       },
     },
@@ -242,7 +224,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_queue-maintenance-response": r2$$data$$catalog_queue$$maintenance$$response,
       },
     },
@@ -293,7 +274,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_queue-maintenance-response": r2$$data$$catalog_queue$$maintenance$$response,
       },
     },
@@ -305,7 +285,7 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_namespaces_tables_maintenanceConfigs_update",
     title: "Update table maintenance configuration",
-    description: "Update the maintenance configuration for a specific table. This allows you to\nenable or disable compaction and adjust target file sizes for optimization.",
+    description: "Update the maintenance configuration for a specific table. This allows you to\nenable or disable compaction and adjust target file sizes for optimization.\n\nPOST /accounts/{account_id}/basin-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}/maintenance-configs",
     inputSchema: {
       type: "object",
       properties: {
@@ -313,14 +293,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2-data-catalog_table-maintenance-update-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             },
             "namespace": {
               "description": "The namespace identifier (use %1F as separator for nested namespaces).",
@@ -344,11 +325,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state$,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size$,
         "r2-data-catalog_snapshot-expiration-update-params": r2$$data$$catalog_snapshot$$expiration$$update$$params,
         "r2-data-catalog_table-compaction-update-params": r2$$data$$catalog_table$$compaction$$update$$params,
         "r2-data-catalog_table-maintenance-update-request": r2$$data$$catalog_table$$maintenance$$update$$request,
@@ -372,10 +350,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_table-compaction-config": r2$$data$$catalog_table$$compaction$$config,
         "r2-data-catalog_table-maintenance-config": r2$$data$$catalog_table$$maintenance$$config,
         "r2-data-catalog_table-snapshot-expiration-config": r2$$data$$catalog_table$$snapshot$$expiration$$config,
@@ -433,10 +407,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_table-compaction-config": r2$$data$$catalog_table$$compaction$$config,
         "r2-data-catalog_table-maintenance-config": r2$$data$$catalog_table$$maintenance$$config,
         "r2-data-catalog_table-snapshot-expiration-config": r2$$data$$catalog_table$$snapshot$$expiration$$config,

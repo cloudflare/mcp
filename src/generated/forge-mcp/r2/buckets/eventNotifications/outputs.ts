@@ -61,27 +61,20 @@ export const r2_queues$$config: JsonSchema = {
 };
 
 /**
- * The schema of `r2_r2-action` in responses.
- */
-export const r2_r2$$action: JsonSchema = {
-  "enum": [
-    "PutObject",
-    "CopyObject",
-    "DeleteObject",
-    "CompleteMultipartUpload",
-    "LifecycleDeletion"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2_rule` in responses.
  */
 export const r2_rule: JsonSchema = {
   "properties": {
     "actions": {
       "items": {
-        "$ref": "#/$defs/r2_r2-action"
+        "enum": [
+          "PutObject",
+          "CopyObject",
+          "DeleteObject",
+          "CompleteMultipartUpload",
+          "LifecycleDeletion"
+        ],
+        "type": "string"
       },
       "type": "array"
     },

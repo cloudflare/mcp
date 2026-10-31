@@ -20,7 +20,11 @@ export const cache$$settings_origin_max_http_version: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/cache-settings_origin_max_http_version_value"
+          "enum": [
+            "2",
+            "1"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -39,15 +43,4 @@ export const cache$$settings_origin_max_http_version_response_value: JsonSchema 
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cache-settings_origin_max_http_version_value` in responses.
- */
-export const cache$$settings_origin_max_http_version_value: JsonSchema = {
-  "enum": [
-    "2",
-    "1"
-  ],
-  "type": "string"
 };

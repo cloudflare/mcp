@@ -4,28 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `nsc_ApiBandwidth`.
- */
-export const nsc_ApiBandwidth: JsonSchema = {
-  "description": "Bandwidth structure as visible through the customer-facing API.",
-  "enum": [
-    "50M",
-    "100M",
-    "200M",
-    "300M",
-    "400M",
-    "500M",
-    "1G",
-    "2G",
-    "5G",
-    "10G",
-    "20G",
-    "50G"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `nsc_InterconnectCreate`.
  */
 export const nsc_InterconnectCreate: JsonSchema = {
@@ -62,8 +40,22 @@ export const nsc_InterconnectCreate_GcpPartner_Body: JsonSchema = {
     {
       "properties": {
         "bandwidth": {
-          "$ref": "#/$defs/nsc_ApiBandwidth",
-          "description": "Bandwidth structure as visible through the customer-facing API."
+          "description": "Bandwidth structure as visible through the customer-facing API.",
+          "enum": [
+            "50M",
+            "100M",
+            "200M",
+            "300M",
+            "400M",
+            "500M",
+            "1G",
+            "2G",
+            "5G",
+            "10G",
+            "20G",
+            "50G"
+          ],
+          "type": "string"
         },
         "pairing_key": {
           "description": "Pairing key provided by GCP",

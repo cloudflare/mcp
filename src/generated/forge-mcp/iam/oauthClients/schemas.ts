@@ -69,8 +69,13 @@ export const iam_oauth_client_common: JsonSchema = {
       "type": "array"
     },
     "token_endpoint_auth_method": {
-      "$ref": "#/$defs/iam_oauth_client_token_endpoint_auth_method",
-      "description": "The authentication method the client uses at the token endpoint."
+      "description": "The authentication method the client uses at the token endpoint.",
+      "enum": [
+        "none",
+        "client_secret_basic",
+        "client_secret_post"
+      ],
+      "type": "string"
     },
     "tos_uri": {
       "description": "URL that points to a terms of service document.",
@@ -146,8 +151,13 @@ export const iam_oauth_client_create_request: JsonSchema = {
       "type": "array"
     },
     "token_endpoint_auth_method": {
-      "$ref": "#/$defs/iam_oauth_client_token_endpoint_auth_method",
-      "description": "The authentication method the client uses at the token endpoint."
+      "description": "The authentication method the client uses at the token endpoint.",
+      "enum": [
+        "none",
+        "client_secret_basic",
+        "client_secret_post"
+      ],
+      "type": "string"
     },
     "tos_uri": {
       "description": "URL that points to a terms of service document.",
@@ -181,14 +191,6 @@ export const iam_oauth_client_grant_types: JsonSchema = {
 };
 
 /**
- * The schema of `iam_oauth_client_identifier`.
- */
-export const iam_oauth_client_identifier: JsonSchema = {
-  "description": "The unique identifier for an OAuth client.",
-  "type": "string"
-};
-
-/**
  * The schema of `iam_oauth_client_response_types`.
  */
 export const iam_oauth_client_response_types: JsonSchema = {
@@ -202,19 +204,6 @@ export const iam_oauth_client_response_types: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `iam_oauth_client_token_endpoint_auth_method`.
- */
-export const iam_oauth_client_token_endpoint_auth_method: JsonSchema = {
-  "description": "The authentication method the client uses at the token endpoint.",
-  "enum": [
-    "none",
-    "client_secret_basic",
-    "client_secret_post"
-  ],
-  "type": "string"
 };
 
 /**

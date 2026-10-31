@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_tokens_create",
     title: "Create a token",
-    description: "Create a stored Cloudflare credential for an AI Search instance to access its data source.\n\nThis method is beta.",
+    description: "Create a stored Cloudflare credential for an AI Search instance to access its data source.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/tokens",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -52,6 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -277,11 +279,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_tokens_delete",
     title: "Delete a token",
-    description: "Deletes a stored AI Search credential permanently. Credentials in use by an instance cannot be deleted.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the stored credential.",
+    description: "Deletes a stored AI Search credential permanently. Credentials in use by an instance cannot be deleted.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the stored credential.\n\nDELETE /accounts/{account_id}/ai-search/tokens/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -301,6 +304,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -482,11 +486,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_tokens_get",
     title: "Get a token",
-    description: "Retrieve a stored AI Search credential without exposing its secret.\n\nThis method is beta.",
+    description: "Retrieve a stored AI Search credential without exposing its secret.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/tokens/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -506,6 +511,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -760,11 +766,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_tokens_list",
     title: "List tokens",
-    description: "Lists stored AI Search credentials in the account without exposing their secrets.\n\nThis method is beta.",
+    description: "Lists stored AI Search credentials in the account without exposing their secrets.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/tokens",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -776,6 +783,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -798,6 +806,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1073,7 +1082,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_tokens_update",
     title: "Update a token",
-    description: "Replace a stored AI Search credential and invalidate cached credentials for instances that use it.\n\nThis method is beta.",
+    description: "Replace a stored AI Search credential and invalidate cached credentials for instances that use it.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/ai-search/tokens/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1101,6 +1110,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1120,6 +1130,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

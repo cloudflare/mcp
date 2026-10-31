@@ -7,26 +7,8 @@ import {
   builds_ApiError,
   builds_ErrorResponse,
   builds_PaginationInfo,
-  builds_SCMProviderType,
   builds_UpsertRepoConnectionResponse,
-  builds_created_on,
-  builds_deleted_on,
-  builds_modified_on,
-  builds_provider_account_id,
-  builds_provider_account_name,
-  builds_repo_connection_uuid,
-  builds_repo_id,
-  builds_repo_name,
 } from "../../../outputs.js";
-import {
-  builds_SCMProviderType as builds_SCMProviderType$,
-  builds_account_id,
-  builds_provider_account_id as builds_provider_account_id$,
-  builds_provider_account_name as builds_provider_account_name$,
-  builds_repo_connection_uuid as builds_repo_connection_uuid$,
-  builds_repo_id as builds_repo_id$,
-  builds_repo_name as builds_repo_name$,
-} from "../../../schemas.js";
 import { builds_UpsertRepoConnectionRequest } from "./schemas.js";
 
 /**
@@ -36,19 +18,21 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_repos_connections_delete",
     title: "Delete a repository connection",
-    description: "Delete a saved repository connection.",
+    description: "Delete a saved repository connection.\n\nDELETE /accounts/{account_id}/builds/repos/connections/{repo_connection_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "repo_connection_uuid": {
-              "$ref": "#/$defs/builds_repo_connection_uuid",
-              "description": "Repository connection UUID."
+              "description": "Repository connection UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -61,10 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/builds_APIResponse",
@@ -114,7 +95,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_repos_connections_upsert",
     title: "Create or update a repository connection",
-    description: "Save the repository connection required by build triggers.",
+    description: "Save the repository connection required by build triggers.\n\nPUT /accounts/{account_id}/builds/repos/connections",
     inputSchema: {
       type: "object",
       properties: {
@@ -122,10 +103,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_UpsertRepoConnectionRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -138,14 +120,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "builds_SCMProviderType": builds_SCMProviderType$,
         "builds_UpsertRepoConnectionRequest": builds_UpsertRepoConnectionRequest,
-        "builds_account_id": builds_account_id,
-        "builds_provider_account_id": builds_provider_account_id$,
-        "builds_provider_account_name": builds_provider_account_name$,
-        "builds_repo_id": builds_repo_id$,
-        "builds_repo_name": builds_repo_name$,
       },
     },
     outputSchema: {
@@ -166,16 +143,7 @@ export const tools: readonly Tool[] = [
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_modified_on": builds_modified_on,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
       },
     },
     annotations: {
@@ -218,16 +186,7 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_modified_on": builds_modified_on,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
       },
     },
     request: (args) => ({

@@ -4,47 +4,55 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_app_count-2` in responses.
- */
-export const access_app_count$$2: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `access_contract_version` in responses.
- */
-export const access_contract_version: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `access_custom_page` in responses.
  */
 export const access_custom_page: JsonSchema = {
   "properties": {
     "app_count": {
-      "$ref": "#/$defs/access_app_count-2"
+      "type": "integer"
     },
     "contract_version": {
-      "$ref": "#/$defs/access_contract_version"
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_html": {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-11"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_type-2"
+      "enum": [
+        "identity_denied",
+        "forbidden",
+        "login",
+        "interstitial"
+      ],
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "required": [
@@ -61,25 +69,47 @@ export const access_custom_page: JsonSchema = {
 export const access_custom_page_without_html: JsonSchema = {
   "properties": {
     "app_count": {
-      "$ref": "#/$defs/access_app_count-2"
+      "type": "integer"
     },
     "contract_version": {
-      "$ref": "#/$defs/access_contract_version"
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "name": {
-      "$ref": "#/$defs/access_name-11"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_type-2"
+      "enum": [
+        "identity_denied",
+        "forbidden",
+        "login",
+        "interstitial"
+      ],
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "warnings": {
       "items": {
@@ -93,13 +123,6 @@ export const access_custom_page_without_html: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_name-11` in responses.
- */
-export const access_name$$11: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -185,19 +208,6 @@ export const access_template_violation: JsonSchema = {
 };
 
 /**
- * The schema of `access_type-2` in responses.
- */
-export const access_type$$2: JsonSchema = {
-  "enum": [
-    "identity_denied",
-    "forbidden",
-    "login",
-    "interstitial"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `access_validate_response` in responses.
  */
 export const access_validate_response: JsonSchema = {
@@ -228,7 +238,13 @@ export const access_validation_result: JsonSchema = {
       "type": "array"
     },
     "page_type": {
-      "$ref": "#/$defs/access_type-2"
+      "enum": [
+        "identity_denied",
+        "forbidden",
+        "login",
+        "interstitial"
+      ],
+      "type": "string"
     },
     "version": {
       "type": "integer"

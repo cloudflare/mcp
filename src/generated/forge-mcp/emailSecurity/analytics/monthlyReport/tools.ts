@@ -7,7 +7,6 @@ import {
   email$$security_api$$response$$single,
   email$$security_messages,
 } from "../../outputs.js";
-import { email$$security_identifier } from "../../schemas.js";
 
 /**
  * The tools of `emailSecurity.analytics.monthlyReport`.
@@ -16,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_analytics_monthlyReport_get",
     title: "Get monthly report",
-    description: "Returns an aggregated monthly email security report including detections, dispositions, and policy activity for the trailing 12 months.\n\nThis method is beta.",
+    description: "Returns an aggregated monthly email security report including detections, dispositions, and policy activity for the trailing 12 months.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/analytics/monthly_report",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -36,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

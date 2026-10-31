@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `aaa_silence-id`.
- */
-export const aaa_silence$$id: JsonSchema = {
-  "description": "Silence ID",
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_silence_create_request`.
  */
 export const aaa_silence_create_request: JsonSchema = {
@@ -21,8 +13,8 @@ export const aaa_silence_create_request: JsonSchema = {
       "type": "string"
     },
     "policy_id": {
-      "$ref": "#/$defs/aaa_policy-id",
-      "description": "The unique identifier of a notification policy"
+      "description": "The unique identifier of a notification policy",
+      "type": "string"
     },
     "start_time": {
       "description": "When the silence starts.",
@@ -42,8 +34,8 @@ export const aaa_silence_update_request: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_silence-id",
-      "description": "Silence ID"
+      "description": "Silence ID",
+      "type": "string"
     },
     "start_time": {
       "description": "When the silence starts.",

@@ -10,107 +10,46 @@ import {
   teams$$devices_messages,
   teams$$devices_result_info,
 } from "../../outputs.js";
-import { teams$$devices_identifier } from "../../schemas.js";
 import {
-  teams$$devices_allow_mode_switch,
-  teams$$devices_allow_updates,
-  teams$$devices_allowed_to_leave,
-  teams$$devices_auto_connect,
-  teams$$devices_captive_portal,
-  teams$$devices_disable_auto_fallback,
   teams$$devices_dns_search_suffix,
   teams$$devices_dns_search_suffixes,
-  teams$$devices_enable_device_credential_authentication,
   teams$$devices_exclude,
-  teams$$devices_exclude_office_ips,
   teams$$devices_exclude_split_tunnel_with_address,
   teams$$devices_exclude_split_tunnel_with_host,
   teams$$devices_fallback_domain,
   teams$$devices_fallback_domains,
-  teams$$devices_gateway_unique_id,
   teams$$devices_global_acceleration,
   teams$$devices_include,
-  teams$$devices_include_split_tunnel_address,
-  teams$$devices_include_split_tunnel_description,
-  teams$$devices_include_split_tunnel_host,
   teams$$devices_include_split_tunnel_with_address,
   teams$$devices_include_split_tunnel_with_host,
-  teams$$devices_ip,
-  teams$$devices_lan_allow_minutes,
-  teams$$devices_lan_allow_subnet_size,
-  teams$$devices_profile_type,
-  teams$$devices_register_interface_ip_with_dns,
-  teams$$devices_sccm_vpn_boundary_support,
-  teams$$devices_schemas$$uuid,
   teams$$devices_service_mode_v2,
   teams$$devices_split_tunnel,
-  teams$$devices_split_tunnel_address,
-  teams$$devices_split_tunnel_description,
-  teams$$devices_split_tunnel_host,
   teams$$devices_split_tunnel_include,
-  teams$$devices_support_url,
-  teams$$devices_switch_locked,
-  teams$$devices_tunnel_protocol,
-  teams$$devices_uninstall_protection,
   teams$$devices_virtual_networks,
 } from "../outputs.js";
 import {
-  teams$$devices_allow_mode_switch as teams$$devices_allow_mode_switch$,
-  teams$$devices_allow_updates as teams$$devices_allow_updates$,
-  teams$$devices_allowed_to_leave as teams$$devices_allowed_to_leave$,
-  teams$$devices_auto_connect as teams$$devices_auto_connect$,
-  teams$$devices_captive_portal as teams$$devices_captive_portal$,
-  teams$$devices_disable_auto_fallback as teams$$devices_disable_auto_fallback$,
   teams$$devices_dns_search_suffix as teams$$devices_dns_search_suffix$,
   teams$$devices_dns_search_suffixes as teams$$devices_dns_search_suffixes$,
-  teams$$devices_enable_device_credential_authentication as teams$$devices_enable_device_credential_authentication$,
-  teams$$devices_exclude_office_ips as teams$$devices_exclude_office_ips$,
   teams$$devices_exclude_request,
   teams$$devices_exclude_split_tunnel_with_address as teams$$devices_exclude_split_tunnel_with_address$,
   teams$$devices_exclude_split_tunnel_with_host as teams$$devices_exclude_split_tunnel_with_host$,
   teams$$devices_global_acceleration as teams$$devices_global_acceleration$,
   teams$$devices_include_request,
-  teams$$devices_include_split_tunnel_address as teams$$devices_include_split_tunnel_address$,
-  teams$$devices_include_split_tunnel_description as teams$$devices_include_split_tunnel_description$,
-  teams$$devices_include_split_tunnel_host as teams$$devices_include_split_tunnel_host$,
   teams$$devices_include_split_tunnel_with_address as teams$$devices_include_split_tunnel_with_address$,
   teams$$devices_include_split_tunnel_with_host as teams$$devices_include_split_tunnel_with_host$,
-  teams$$devices_lan_allow_minutes as teams$$devices_lan_allow_minutes$,
-  teams$$devices_lan_allow_subnet_size as teams$$devices_lan_allow_subnet_size$,
-  teams$$devices_profile_type as teams$$devices_profile_type$,
-  teams$$devices_register_interface_ip_with_dns as teams$$devices_register_interface_ip_with_dns$,
-  teams$$devices_sccm_vpn_boundary_support as teams$$devices_sccm_vpn_boundary_support$,
-  teams$$devices_schemas$$uuid as teams$$devices_schemas$$uuid$,
   teams$$devices_service_mode_v2 as teams$$devices_service_mode_v2$,
   teams$$devices_split_tunnel as teams$$devices_split_tunnel$,
-  teams$$devices_split_tunnel_address as teams$$devices_split_tunnel_address$,
-  teams$$devices_split_tunnel_description as teams$$devices_split_tunnel_description$,
-  teams$$devices_split_tunnel_host as teams$$devices_split_tunnel_host$,
   teams$$devices_split_tunnel_include as teams$$devices_split_tunnel_include$,
-  teams$$devices_support_url as teams$$devices_support_url$,
-  teams$$devices_switch_locked as teams$$devices_switch_locked$,
-  teams$$devices_tunnel_protocol as teams$$devices_tunnel_protocol$,
-  teams$$devices_uninstall_protection as teams$$devices_uninstall_protection$,
   teams$$devices_virtual_networks as teams$$devices_virtual_networks$,
 } from "../schemas.js";
 import {
   teams$$devices_browser_extension_config,
-  teams$$devices_default,
   teams$$devices_device_settings_policy,
   teams$$devices_device_settings_response,
   teams$$devices_device_settings_response_collection,
-  teams$$devices_precedence,
-  teams$$devices_schemas$$description,
-  teams$$devices_schemas$$match,
   teams$$devices_target_dex_test,
 } from "./outputs.js";
-import {
-  teams$$devices_browser_extension_config as teams$$devices_browser_extension_config$,
-  teams$$devices_default as teams$$devices_default$,
-  teams$$devices_precedence as teams$$devices_precedence$,
-  teams$$devices_schemas$$description as teams$$devices_schemas$$description$,
-  teams$$devices_schemas$$match as teams$$devices_schemas$$match$,
-} from "./schemas.js";
+import { teams$$devices_browser_extension_config as teams$$devices_browser_extension_config$ } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.devices.profiles.custom`.
@@ -119,50 +58,51 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_profiles_custom_create",
     title: "Create a device settings profile",
-    description: "Creates a device settings profile to be applied to certain devices matching the criteria.",
+    description: "Creates a device settings profile to be applied to certain devices matching the criteria.\n\nPOST /accounts/{account_id}/devices/policy",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "allow_mode_switch": {
-              "$ref": "#/$defs/teams-devices_allow_mode_switch",
               "default": false,
-              "description": "Whether to allow the user to switch WARP between modes."
+              "description": "Whether to allow the user to switch WARP between modes.",
+              "type": "boolean"
             },
             "allow_updates": {
-              "$ref": "#/$defs/teams-devices_allow_updates",
               "default": false,
-              "description": "Whether to receive update notifications when a new version of the client is available."
+              "description": "Whether to receive update notifications when a new version of the client is available.",
+              "type": "boolean"
             },
             "allowed_to_leave": {
-              "$ref": "#/$defs/teams-devices_allowed_to_leave",
               "default": true,
-              "description": "Whether to allow devices to leave the organization."
+              "description": "Whether to allow devices to leave the organization.",
+              "type": "boolean"
             },
             "auto_connect": {
-              "$ref": "#/$defs/teams-devices_auto_connect",
               "default": 0,
-              "description": "The amount of time in seconds to reconnect after having been disabled."
+              "description": "The amount of time in seconds to reconnect after having been disabled.",
+              "type": "number"
             },
             "browser_extension_config": {
               "$ref": "#/$defs/teams-devices_browser_extension_config",
               "description": "Browser extension proxy settings. Required when profile_type is browser_extension and invalid for WARP profiles."
             },
             "captive_portal": {
-              "$ref": "#/$defs/teams-devices_captive_portal",
               "default": 180,
-              "description": "Turn on the captive portal after the specified amount of time."
+              "description": "Turn on the captive portal after the specified amount of time.",
+              "type": "number"
             },
             "default": {
-              "$ref": "#/$defs/teams-devices_default",
               "default": false,
-              "description": "Whether the policy is the account default. WARP group profiles cannot set this field."
+              "description": "Whether the policy is the account default. WARP group profiles cannot set this field.",
+              "type": "boolean"
             },
             "description": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/teams-devices_schemas-description"
+                  "description": "A description of the policy.",
+                  "type": "string"
                 },
                 {
                   "type": "string"
@@ -170,9 +110,9 @@ export const tools: readonly Tool[] = [
               ]
             },
             "disable_auto_fallback": {
-              "$ref": "#/$defs/teams-devices_disable_auto_fallback",
               "default": false,
-              "description": "If the `dns_server` field of a fallback domain is not present, the client will fall back to a best guess of the default/system DNS resolvers unless this policy option is set to `true`."
+              "description": "If the `dns_server` field of a fallback domain is not present, the client will fall back to a best guess of the default/system DNS resolvers unless this policy option is set to `true`.",
+              "type": "boolean"
             },
             "dns_search_suffixes": {
               "$ref": "#/$defs/teams-devices_dns_search_suffixes",
@@ -180,9 +120,9 @@ export const tools: readonly Tool[] = [
               "description": "List of DNS search suffixes to apply to clients. Suffixes are evaluated in order. Use an empty array to clear."
             },
             "enable_device_credential_authentication": {
-              "$ref": "#/$defs/teams-devices_enable_device_credential_authentication",
               "default": false,
-              "description": "Determines whether the WARP client can silently reauthenticate the user with device credentials (Microsoft Entra) instead of prompting for browser-based reauthentication."
+              "description": "Determines whether the WARP client can silently reauthenticate the user with device credentials (Microsoft Entra) instead of prompting for browser-based reauthentication.",
+              "type": "boolean"
             },
             "enabled": {
               "default": true,
@@ -194,9 +134,9 @@ export const tools: readonly Tool[] = [
               "description": "List of routes excluded in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request."
             },
             "exclude_office_ips": {
-              "$ref": "#/$defs/teams-devices_exclude_office_ips",
               "default": false,
-              "description": "Whether to add Microsoft IPs to Split Tunnel exclusions."
+              "description": "Whether to add Microsoft IPs to Split Tunnel exclusions.",
+              "type": "boolean"
             },
             "global_acceleration": {
               "$ref": "#/$defs/teams-devices_global_acceleration",
@@ -207,62 +147,66 @@ export const tools: readonly Tool[] = [
               "description": "List of routes included in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request."
             },
             "lan_allow_minutes": {
-              "$ref": "#/$defs/teams-devices_lan_allow_minutes",
-              "description": "The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset."
+              "description": "The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.",
+              "type": "number"
             },
             "lan_allow_subnet_size": {
-              "$ref": "#/$defs/teams-devices_lan_allow_subnet_size",
-              "description": "The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset."
+              "description": "The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.",
+              "type": "number"
             },
             "match": {
-              "$ref": "#/$defs/teams-devices_schemas-match",
-              "description": "The wirefilter expression to match devices. Available values: \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.service_token_uuid\", \"identity.saml_attributes\", \"network\", \"os.name\", \"os.version\", \"device.tags\"."
+              "description": "The wirefilter expression to match devices. Available values: \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.service_token_uuid\", \"identity.saml_attributes\", \"network\", \"os.name\", \"os.version\", \"device.tags\".",
+              "type": "string"
             },
             "name": {
               "description": "The name of the device settings profile.",
               "type": "string"
             },
             "precedence": {
-              "$ref": "#/$defs/teams-devices_precedence",
-              "description": "The precedence of the policy. Lower values indicate higher precedence. Policies will be evaluated in ascending order of this field."
+              "description": "The precedence of the policy. Lower values indicate higher precedence. Policies will be evaluated in ascending order of this field.",
+              "type": "number"
             },
             "profile_type": {
-              "$ref": "#/$defs/teams-devices_profile_type",
               "default": "warp",
-              "description": "The client type to which the device settings profile applies. This field is set when the profile is created and cannot be changed."
+              "description": "The client type to which the device settings profile applies. This field is set when the profile is created and cannot be changed.",
+              "enum": [
+                "warp",
+                "browser_extension"
+              ],
+              "type": "string"
             },
             "register_interface_ip_with_dns": {
-              "$ref": "#/$defs/teams-devices_register_interface_ip_with_dns",
               "default": true,
-              "description": "Determines if the operating system will register WARP's local interface IP with your on-premises DNS server."
+              "description": "Determines if the operating system will register WARP's local interface IP with your on-premises DNS server.",
+              "type": "boolean"
             },
             "sccm_vpn_boundary_support": {
-              "$ref": "#/$defs/teams-devices_sccm_vpn_boundary_support",
               "default": false,
-              "description": "Determines whether the WARP client indicates to SCCM that it is inside a VPN boundary. (Windows only)."
+              "description": "Determines whether the WARP client indicates to SCCM that it is inside a VPN boundary. (Windows only).",
+              "type": "boolean"
             },
             "service_mode_v2": {
               "$ref": "#/$defs/teams-devices_service_mode_v2"
             },
             "support_url": {
-              "$ref": "#/$defs/teams-devices_support_url",
               "default": "",
-              "description": "The URL to launch when the Send Feedback button is clicked."
+              "description": "The URL to launch when the Send Feedback button is clicked.",
+              "type": "string"
             },
             "switch_locked": {
-              "$ref": "#/$defs/teams-devices_switch_locked",
               "default": false,
-              "description": "Whether to allow the user to turn off the WARP switch and disconnect the client."
+              "description": "Whether to allow the user to turn off the WARP switch and disconnect the client.",
+              "type": "boolean"
             },
             "tunnel_protocol": {
-              "$ref": "#/$defs/teams-devices_tunnel_protocol",
               "default": "",
-              "description": "Determines which tunnel protocol to use."
+              "description": "Determines which tunnel protocol to use.",
+              "type": "string"
             },
             "uninstall_protection": {
-              "$ref": "#/$defs/teams-devices_uninstall_protection",
               "default": false,
-              "description": "Determines whether uninstalling the WARP client requires an override code. (Windows only)."
+              "description": "Determines whether uninstalling the WARP client requires an override code. (Windows only).",
+              "type": "boolean"
             },
             "virtual_networks": {
               "$ref": "#/$defs/teams-devices_virtual_networks",
@@ -275,9 +219,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -290,105 +235,48 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch$,
-        "teams-devices_allow_updates": teams$$devices_allow_updates$,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave$,
-        "teams-devices_auto_connect": teams$$devices_auto_connect$,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config$,
-        "teams-devices_captive_portal": teams$$devices_captive_portal$,
-        "teams-devices_default": teams$$devices_default$,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback$,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix$,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes$,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication$,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips$,
         "teams-devices_exclude_request": teams$$devices_exclude_request,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address$,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host$,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration$,
-        "teams-devices_identifier": teams$$devices_identifier,
         "teams-devices_include_request": teams$$devices_include_request,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address$,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description$,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host$,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address$,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host$,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes$,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size$,
-        "teams-devices_precedence": teams$$devices_precedence$,
-        "teams-devices_profile_type": teams$$devices_profile_type$,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns$,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support$,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description$,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match$,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2$,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel$,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address$,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description$,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host$,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include$,
-        "teams-devices_support_url": teams$$devices_support_url$,
-        "teams-devices_switch_locked": teams$$devices_switch_locked$,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol$,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection$,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_device_settings_response",
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response": teams$$devices_device_settings_response,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -416,58 +304,28 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response": teams$$devices_device_settings_response,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -479,17 +337,18 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_profiles_custom_delete",
     title: "Delete a device settings profile",
-    description: "Deletes a device settings profile and fetches a list of the remaining profiles for an account.",
+    description: "Deletes a device settings profile and fetches a list of the remaining profiles for an account.\n\nDELETE /accounts/{account_id}/devices/policy/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/teams-devices_schemas-uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -502,66 +361,33 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_device_settings_response_collection",
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-collection": teams$$devices_api$$response$$collection,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response_collection": teams$$devices_device_settings_response_collection,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
         "teams-devices_result_info": teams$$devices_result_info,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -589,59 +415,29 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-collection": teams$$devices_api$$response$$collection,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response_collection": teams$$devices_device_settings_response_collection,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
         "teams-devices_result_info": teams$$devices_result_info,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -652,17 +448,18 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_profiles_custom_get",
     title: "Get device settings profile by ID",
-    description: "Fetches a device settings profile by ID.",
+    description: "Fetches a device settings profile by ID.\n\nGET /accounts/{account_id}/devices/policy/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/teams-devices_schemas-uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -675,65 +472,32 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_device_settings_response",
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response": teams$$devices_device_settings_response,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -756,58 +520,28 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response": teams$$devices_device_settings_response,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -818,14 +552,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_profiles_custom_list",
     title: "List device settings profiles",
-    description: "Fetches a list of the device settings profiles for an account.",
+    description: "Fetches a list of the device settings profiles for an account.\n\nGET /accounts/{account_id}/devices/policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -834,11 +569,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "profile_type": {
-              "$ref": "#/$defs/teams-devices_profile_type",
               "default": "warp",
-              "description": "Filter profiles by client type. When omitted, only WARP profiles are returned."
+              "description": "Filter profiles by client type. When omitted, only WARP profiles are returned.",
+              "enum": [
+                "warp",
+                "browser_extension"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -847,66 +587,33 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-        "teams-devices_profile_type": teams$$devices_profile_type$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_device_settings_response_collection",
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-collection": teams$$devices_api$$response$$collection,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response_collection": teams$$devices_device_settings_response_collection,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
         "teams-devices_result_info": teams$$devices_result_info,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -929,59 +636,29 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-collection": teams$$devices_api$$response$$collection,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response_collection": teams$$devices_device_settings_response_collection,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
         "teams-devices_result_info": teams$$devices_result_info,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -995,54 +672,54 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_profiles_custom_update",
     title: "Update a device settings profile",
-    description: "Updates a configured device settings profile.",
+    description: "Updates a configured device settings profile.\n\nPATCH /accounts/{account_id}/devices/policy/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "allow_mode_switch": {
-              "$ref": "#/$defs/teams-devices_allow_mode_switch",
               "default": false,
-              "description": "Whether to allow the user to switch WARP between modes."
+              "description": "Whether to allow the user to switch WARP between modes.",
+              "type": "boolean"
             },
             "allow_updates": {
-              "$ref": "#/$defs/teams-devices_allow_updates",
               "default": false,
-              "description": "Whether to receive update notifications when a new version of the client is available."
+              "description": "Whether to receive update notifications when a new version of the client is available.",
+              "type": "boolean"
             },
             "allowed_to_leave": {
-              "$ref": "#/$defs/teams-devices_allowed_to_leave",
               "default": true,
-              "description": "Whether to allow devices to leave the organization."
+              "description": "Whether to allow devices to leave the organization.",
+              "type": "boolean"
             },
             "auto_connect": {
-              "$ref": "#/$defs/teams-devices_auto_connect",
               "default": 0,
-              "description": "The amount of time in seconds to reconnect after having been disabled."
+              "description": "The amount of time in seconds to reconnect after having been disabled.",
+              "type": "number"
             },
             "browser_extension_config": {
               "$ref": "#/$defs/teams-devices_browser_extension_config",
               "description": "Browser extension proxy settings. Required when profile_type is browser_extension and invalid for WARP profiles."
             },
             "captive_portal": {
-              "$ref": "#/$defs/teams-devices_captive_portal",
               "default": 180,
-              "description": "Turn on the captive portal after the specified amount of time."
+              "description": "Turn on the captive portal after the specified amount of time.",
+              "type": "number"
             },
             "default": {
-              "$ref": "#/$defs/teams-devices_default",
               "default": false,
-              "description": "Whether the policy is the account default. WARP group profiles cannot set this field."
+              "description": "Whether the policy is the account default. WARP group profiles cannot set this field.",
+              "type": "boolean"
             },
             "description": {
-              "$ref": "#/$defs/teams-devices_schemas-description",
-              "description": "A description of the policy."
+              "description": "A description of the policy.",
+              "type": "string"
             },
             "disable_auto_fallback": {
-              "$ref": "#/$defs/teams-devices_disable_auto_fallback",
               "default": false,
-              "description": "If the `dns_server` field of a fallback domain is not present, the client will fall back to a best guess of the default/system DNS resolvers unless this policy option is set to `true`."
+              "description": "If the `dns_server` field of a fallback domain is not present, the client will fall back to a best guess of the default/system DNS resolvers unless this policy option is set to `true`.",
+              "type": "boolean"
             },
             "dns_search_suffixes": {
               "$ref": "#/$defs/teams-devices_dns_search_suffixes",
@@ -1050,9 +727,9 @@ export const tools: readonly Tool[] = [
               "description": "List of DNS search suffixes to apply to clients. Suffixes are evaluated in order. Use an empty array to clear."
             },
             "enable_device_credential_authentication": {
-              "$ref": "#/$defs/teams-devices_enable_device_credential_authentication",
               "default": false,
-              "description": "Determines whether the WARP client can silently reauthenticate the user with device credentials (Microsoft Entra) instead of prompting for browser-based reauthentication."
+              "description": "Determines whether the WARP client can silently reauthenticate the user with device credentials (Microsoft Entra) instead of prompting for browser-based reauthentication.",
+              "type": "boolean"
             },
             "enabled": {
               "description": "Whether the policy will be applied to matching devices.",
@@ -1063,9 +740,9 @@ export const tools: readonly Tool[] = [
               "description": "List of routes excluded in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request."
             },
             "exclude_office_ips": {
-              "$ref": "#/$defs/teams-devices_exclude_office_ips",
               "default": false,
-              "description": "Whether to add Microsoft IPs to Split Tunnel exclusions."
+              "description": "Whether to add Microsoft IPs to Split Tunnel exclusions.",
+              "type": "boolean"
             },
             "global_acceleration": {
               "$ref": "#/$defs/teams-devices_global_acceleration",
@@ -1076,57 +753,57 @@ export const tools: readonly Tool[] = [
               "description": "List of routes included in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request."
             },
             "lan_allow_minutes": {
-              "$ref": "#/$defs/teams-devices_lan_allow_minutes",
-              "description": "The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset."
+              "description": "The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.",
+              "type": "number"
             },
             "lan_allow_subnet_size": {
-              "$ref": "#/$defs/teams-devices_lan_allow_subnet_size",
-              "description": "The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset."
+              "description": "The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.",
+              "type": "number"
             },
             "match": {
-              "$ref": "#/$defs/teams-devices_schemas-match",
-              "description": "The wirefilter expression to match devices. Available values: \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.service_token_uuid\", \"identity.saml_attributes\", \"network\", \"os.name\", \"os.version\", \"device.tags\"."
+              "description": "The wirefilter expression to match devices. Available values: \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.service_token_uuid\", \"identity.saml_attributes\", \"network\", \"os.name\", \"os.version\", \"device.tags\".",
+              "type": "string"
             },
             "name": {
               "description": "The name of the device settings profile.",
               "type": "string"
             },
             "precedence": {
-              "$ref": "#/$defs/teams-devices_precedence",
-              "description": "The precedence of the policy. Lower values indicate higher precedence. Policies will be evaluated in ascending order of this field."
+              "description": "The precedence of the policy. Lower values indicate higher precedence. Policies will be evaluated in ascending order of this field.",
+              "type": "number"
             },
             "register_interface_ip_with_dns": {
-              "$ref": "#/$defs/teams-devices_register_interface_ip_with_dns",
               "default": true,
-              "description": "Determines if the operating system will register WARP's local interface IP with your on-premises DNS server."
+              "description": "Determines if the operating system will register WARP's local interface IP with your on-premises DNS server.",
+              "type": "boolean"
             },
             "sccm_vpn_boundary_support": {
-              "$ref": "#/$defs/teams-devices_sccm_vpn_boundary_support",
               "default": false,
-              "description": "Determines whether the WARP client indicates to SCCM that it is inside a VPN boundary. (Windows only)."
+              "description": "Determines whether the WARP client indicates to SCCM that it is inside a VPN boundary. (Windows only).",
+              "type": "boolean"
             },
             "service_mode_v2": {
               "$ref": "#/$defs/teams-devices_service_mode_v2"
             },
             "support_url": {
-              "$ref": "#/$defs/teams-devices_support_url",
               "default": "",
-              "description": "The URL to launch when the Send Feedback button is clicked."
+              "description": "The URL to launch when the Send Feedback button is clicked.",
+              "type": "string"
             },
             "switch_locked": {
-              "$ref": "#/$defs/teams-devices_switch_locked",
               "default": false,
-              "description": "Whether to allow the user to turn off the WARP switch and disconnect the client."
+              "description": "Whether to allow the user to turn off the WARP switch and disconnect the client.",
+              "type": "boolean"
             },
             "tunnel_protocol": {
-              "$ref": "#/$defs/teams-devices_tunnel_protocol",
               "default": "",
-              "description": "Determines which tunnel protocol to use."
+              "description": "Determines which tunnel protocol to use.",
+              "type": "string"
             },
             "uninstall_protection": {
-              "$ref": "#/$defs/teams-devices_uninstall_protection",
               "default": false,
-              "description": "Determines whether uninstalling the WARP client requires an override code. (Windows only)."
+              "description": "Determines whether uninstalling the WARP client requires an override code. (Windows only).",
+              "type": "boolean"
             },
             "virtual_networks": {
               "$ref": "#/$defs/teams-devices_virtual_networks",
@@ -1136,12 +813,13 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/teams-devices_schemas-uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -1155,105 +833,48 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch$,
-        "teams-devices_allow_updates": teams$$devices_allow_updates$,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave$,
-        "teams-devices_auto_connect": teams$$devices_auto_connect$,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config$,
-        "teams-devices_captive_portal": teams$$devices_captive_portal$,
-        "teams-devices_default": teams$$devices_default$,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback$,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix$,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes$,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication$,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips$,
         "teams-devices_exclude_request": teams$$devices_exclude_request,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address$,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host$,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration$,
-        "teams-devices_identifier": teams$$devices_identifier,
         "teams-devices_include_request": teams$$devices_include_request,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address$,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description$,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host$,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address$,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host$,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes$,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size$,
-        "teams-devices_precedence": teams$$devices_precedence$,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns$,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support$,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description$,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match$,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid$,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2$,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel$,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address$,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description$,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host$,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include$,
-        "teams-devices_support_url": teams$$devices_support_url$,
-        "teams-devices_switch_locked": teams$$devices_switch_locked$,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol$,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection$,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_device_settings_response",
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response": teams$$devices_device_settings_response,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },
@@ -1281,58 +902,28 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_allow_mode_switch": teams$$devices_allow_mode_switch,
-        "teams-devices_allow_updates": teams$$devices_allow_updates,
-        "teams-devices_allowed_to_leave": teams$$devices_allowed_to_leave,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_auto_connect": teams$$devices_auto_connect,
         "teams-devices_browser_extension_config": teams$$devices_browser_extension_config,
-        "teams-devices_captive_portal": teams$$devices_captive_portal,
-        "teams-devices_default": teams$$devices_default,
         "teams-devices_device_settings_policy": teams$$devices_device_settings_policy,
         "teams-devices_device_settings_response": teams$$devices_device_settings_response,
-        "teams-devices_disable_auto_fallback": teams$$devices_disable_auto_fallback,
         "teams-devices_dns_search_suffix": teams$$devices_dns_search_suffix,
         "teams-devices_dns_search_suffixes": teams$$devices_dns_search_suffixes,
-        "teams-devices_enable_device_credential_authentication": teams$$devices_enable_device_credential_authentication,
         "teams-devices_exclude": teams$$devices_exclude,
-        "teams-devices_exclude_office_ips": teams$$devices_exclude_office_ips,
         "teams-devices_exclude_split_tunnel_with_address": teams$$devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams$$devices_exclude_split_tunnel_with_host,
         "teams-devices_fallback_domain": teams$$devices_fallback_domain,
         "teams-devices_fallback_domains": teams$$devices_fallback_domains,
-        "teams-devices_gateway_unique_id": teams$$devices_gateway_unique_id,
         "teams-devices_global_acceleration": teams$$devices_global_acceleration,
         "teams-devices_include": teams$$devices_include,
-        "teams-devices_include_split_tunnel_address": teams$$devices_include_split_tunnel_address,
-        "teams-devices_include_split_tunnel_description": teams$$devices_include_split_tunnel_description,
-        "teams-devices_include_split_tunnel_host": teams$$devices_include_split_tunnel_host,
         "teams-devices_include_split_tunnel_with_address": teams$$devices_include_split_tunnel_with_address,
         "teams-devices_include_split_tunnel_with_host": teams$$devices_include_split_tunnel_with_host,
-        "teams-devices_ip": teams$$devices_ip,
-        "teams-devices_lan_allow_minutes": teams$$devices_lan_allow_minutes,
-        "teams-devices_lan_allow_subnet_size": teams$$devices_lan_allow_subnet_size,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_precedence": teams$$devices_precedence,
-        "teams-devices_profile_type": teams$$devices_profile_type,
-        "teams-devices_register_interface_ip_with_dns": teams$$devices_register_interface_ip_with_dns,
-        "teams-devices_sccm_vpn_boundary_support": teams$$devices_sccm_vpn_boundary_support,
-        "teams-devices_schemas-description": teams$$devices_schemas$$description,
-        "teams-devices_schemas-match": teams$$devices_schemas$$match,
-        "teams-devices_schemas-uuid": teams$$devices_schemas$$uuid,
         "teams-devices_service_mode_v2": teams$$devices_service_mode_v2,
         "teams-devices_split_tunnel": teams$$devices_split_tunnel,
-        "teams-devices_split_tunnel_address": teams$$devices_split_tunnel_address,
-        "teams-devices_split_tunnel_description": teams$$devices_split_tunnel_description,
-        "teams-devices_split_tunnel_host": teams$$devices_split_tunnel_host,
         "teams-devices_split_tunnel_include": teams$$devices_split_tunnel_include,
-        "teams-devices_support_url": teams$$devices_support_url,
-        "teams-devices_switch_locked": teams$$devices_switch_locked,
         "teams-devices_target_dex_test": teams$$devices_target_dex_test,
-        "teams-devices_tunnel_protocol": teams$$devices_tunnel_protocol,
-        "teams-devices_uninstall_protection": teams$$devices_uninstall_protection,
         "teams-devices_virtual_networks": teams$$devices_virtual_networks,
       },
     },

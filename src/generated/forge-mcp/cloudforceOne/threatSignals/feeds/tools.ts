@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_create",
     title: "Create Threat Signals feed",
-    description: "Subscribes the account to a custom or curated Threat Signals feed. Adding a custom feed when the account is at its custom-feed limit returns 403 with `errors[0].reason` `threat_signals_feed_limit`, and `errors[0].custom_feed_limit` and `errors[0].custom_feed_count` give the limit and current count. Curated feeds are not subject to this limit.",
+    description: "Subscribes the account to a custom or curated Threat Signals feed. Adding a custom feed when the account is at its custom-feed limit returns 403 with `errors[0].reason` `threat_signals_feed_limit`, and `errors[0].custom_feed_limit` and `errors[0].custom_feed_count` give the limit and current count. Curated feeds are not subject to this limit.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds",
     inputSchema: {
       type: "object",
       properties: {
@@ -82,6 +82,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -96,6 +97,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -831,11 +833,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_delete",
     title: "Delete Threat Signals feed",
-    description: "Unsubscribes the account from a Threat Signals feed and deletes its articles.\n\nConfirm with the user before calling this tool. This unsubscribes the account from the feed and permanently deletes its stored articles, including their extracted indicators, tags, and skill outputs.",
+    description: "Unsubscribes the account from a Threat Signals feed and deletes its articles.\n\nConfirm with the user before calling this tool. This unsubscribes the account from the feed and permanently deletes its stored articles, including their extracted indicators, tags, and skill outputs.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -856,6 +859,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1267,11 +1271,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_getRaw",
     title: "Get Threat Signals feed XML",
-    description: "Retrieves the feed document fetched by the most recent poll as text/plain by default or application/xml when format is xml.",
+    description: "Retrieves the feed document fetched by the most recent poll as text/plain by default or application/xml when format is xml.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}/raw",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1289,6 +1294,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Response format. Use xml for application/xml; omit it for the default text/plain response.",
@@ -1304,6 +1310,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -1336,11 +1343,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_list",
     title: "List Threat Signals feeds",
-    description: "Lists the account's Threat Signals feed subscriptions.",
+    description: "Lists the account's Threat Signals feed subscriptions.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1352,6 +1360,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "category": {
               "description": "Exact feed-category filter, up to 100 characters. Omit to include all categories.",
@@ -1399,6 +1408,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1999,11 +2009,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_poll",
     title: "Trigger Threat Signals feed poll",
-    description: "Starts an immediate poll of one or all Threat Signals feeds.",
+    description: "Starts an immediate poll of one or all Threat Signals feeds.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/poll",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2015,6 +2026,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "feed_id": {
               "anyOf": [
@@ -2038,6 +2050,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2220,7 +2233,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_update",
     title: "Update Threat Signals feed",
-    description: "Updates a Threat Signals feed subscription.",
+    description: "Updates a Threat Signals feed subscription.\n\nPATCH /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -2281,6 +2294,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2301,6 +2315,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

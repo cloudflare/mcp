@@ -8,7 +8,6 @@ import {
   magic_api$$response$$single,
   magic_messages,
 } from "../../outputs.js";
-import { magic_identifier } from "../../schemas.js";
 import {
   magic_netflow_config,
   magic_netflow_config_single_response,
@@ -22,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_netflowConfig_create",
     title: "Create NetFlow Configuration",
-    description: "Creates a NetFlow configuration for a site.",
+    description: "Creates a NetFlow configuration for a site.\n\nPOST /accounts/{account_id}/magic/sites/{site_id}/netflow_config",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,14 +29,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_netflow_config_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -51,8 +51,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_identifier": magic_identifier,
         "magic_netflow_config_request": magic_netflow_config_request,
       },
     },
@@ -109,19 +109,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_netflowConfig_delete",
     title: "Delete NetFlow Configuration",
-    description: "Remove NetFlow configuration for a site.",
+    description: "Remove NetFlow configuration for a site.\n\nDELETE /accounts/{account_id}/magic/sites/{site_id}/netflow_config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -134,9 +135,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
@@ -194,7 +193,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_netflowConfig_edit",
     title: "Update NetFlow Configuration",
-    description: "Updates NetFlow configuration for a site.",
+    description: "Updates NetFlow configuration for a site.\n\nPATCH /accounts/{account_id}/magic/sites/{site_id}/netflow_config",
     inputSchema: {
       type: "object",
       properties: {
@@ -202,14 +201,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_netflow_config_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -223,8 +223,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_identifier": magic_identifier,
         "magic_netflow_config_request": magic_netflow_config_request,
       },
     },
@@ -285,19 +285,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_netflowConfig_get",
     title: "NetFlow Configuration Details",
-    description: "Get NetFlow configuration for a site.",
+    description: "Get NetFlow configuration for a site.\n\nGET /accounts/{account_id}/magic/sites/{site_id}/netflow_config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -310,9 +311,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
@@ -372,7 +371,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_netflowConfig_update",
     title: "Update NetFlow Configuration",
-    description: "Updates NetFlow configuration for a site (partial update).",
+    description: "Updates NetFlow configuration for a site (partial update).\n\nPUT /accounts/{account_id}/magic/sites/{site_id}/netflow_config",
     inputSchema: {
       type: "object",
       properties: {
@@ -380,14 +379,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_netflow_config_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -401,8 +401,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_identifier": magic_identifier,
         "magic_netflow_config_request": magic_netflow_config_request,
       },
     },

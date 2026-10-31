@@ -78,7 +78,7 @@ export const digital$$experience$$monitoring_device: JsonSchema = {
       ]
     },
     "colo": {
-      "$ref": "#/$defs/digital-experience-monitoring_colo"
+      "type": "string"
     },
     "connectionType": {
       "oneOf": [
@@ -270,7 +270,7 @@ export const digital$$experience$$monitoring_device: JsonSchema = {
       ]
     },
     "mode": {
-      "$ref": "#/$defs/digital-experience-monitoring_mode"
+      "type": "string"
     },
     "networkRcvdBps": {
       "oneOf": [
@@ -303,10 +303,10 @@ export const digital$$experience$$monitoring_device: JsonSchema = {
       ]
     },
     "personEmail": {
-      "$ref": "#/$defs/digital-experience-monitoring_personEmail"
+      "type": "string"
     },
     "platform": {
-      "$ref": "#/$defs/digital-experience-monitoring_platform"
+      "type": "string"
     },
     "ramAvailableKb": {
       "oneOf": [
@@ -362,7 +362,7 @@ export const digital$$experience$$monitoring_device: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/digital-experience-monitoring_status"
+      "type": "string"
     },
     "switchLocked": {
       "oneOf": [
@@ -375,7 +375,7 @@ export const digital$$experience$$monitoring_device: JsonSchema = {
       ]
     },
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp"
+      "type": "string"
     },
     "tunnelStats": {
       "oneOf": [
@@ -398,7 +398,7 @@ export const digital$$experience$$monitoring_device: JsonSchema = {
       ]
     },
     "version": {
-      "$ref": "#/$defs/digital-experience-monitoring_version"
+      "type": "string"
     },
     "wifiStrengthDbm": {
       "oneOf": [
@@ -473,20 +473,6 @@ export const digital$$experience$$monitoring_fleet_status_devices_response: Json
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `digital-experience-monitoring_mode` in responses.
- */
-export const digital$$experience$$monitoring_mode: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_personEmail` in responses.
- */
-export const digital$$experience$$monitoring_personEmail: JsonSchema = {
-  "type": "string"
 };
 
 /**

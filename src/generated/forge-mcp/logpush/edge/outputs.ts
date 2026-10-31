@@ -4,27 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `logpush_destination_conf-2` in responses.
- */
-export const logpush_destination_conf$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_fields` in responses.
- */
-export const logpush_fields: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_filter-2` in responses.
- */
-export const logpush_filter$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `logpush_instant_logs_job` in responses.
  */
 export const logpush_instant_logs_job: JsonSchema = {
@@ -32,19 +11,19 @@ export const logpush_instant_logs_job: JsonSchema = {
     {
       "properties": {
         "destination_conf": {
-          "$ref": "#/$defs/logpush_destination_conf-2"
+          "type": "string"
         },
         "fields": {
-          "$ref": "#/$defs/logpush_fields"
+          "type": "string"
         },
         "filter": {
-          "$ref": "#/$defs/logpush_filter-2"
+          "type": "string"
         },
         "sample": {
-          "$ref": "#/$defs/logpush_sample"
+          "type": "integer"
         },
         "session_id": {
-          "$ref": "#/$defs/logpush_session_id"
+          "type": "string"
         }
       },
       "type": "object"
@@ -108,18 +87,4 @@ export const logpush_instant_logs_job_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `logpush_sample` in responses.
- */
-export const logpush_sample: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `logpush_session_id` in responses.
- */
-export const logpush_session_id: JsonSchema = {
-  "type": "string"
 };

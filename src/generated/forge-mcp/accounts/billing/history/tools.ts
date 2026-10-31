@@ -9,7 +9,6 @@ import {
   bill$$subs$$api_messages,
   bill$$subs$$api_result_info,
 } from "../../../outputs.js";
-import { bill$$subs$$api_identifier } from "../../../schemas.js";
 import { bill$$subs$$api_account_billing_history } from "../outputs.js";
 import { bill$$subs$$api_account_billing_history_collection } from "./outputs.js";
 
@@ -20,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_history_list",
     title: "Get Account Billing History",
-    description: "Gets the billing history for an account.",
+    description: "Gets the billing history for an account.\n\nGET /accounts/{account_id}/billing/history",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -37,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -59,9 +60,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_account_billing_history_collection",

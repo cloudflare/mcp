@@ -7,7 +7,6 @@ import {
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier } from "../schemas.js";
 import {
   zero$$trust$$gateway_account$$log$$options,
   zero$$trust$$gateway_gateway$$account$$logging$$settings,
@@ -25,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_logging_get",
     title: "Get logging settings for the Zero Trust account",
-    description: "Retrieve the current logging settings for the Zero Trust account.",
+    description: "Retrieve the current logging settings for the Zero Trust account.\n\nGET /accounts/{account_id}/gateway/logging",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -45,9 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response",
@@ -100,7 +98,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_logging_update",
     title: "Update Zero Trust account logging settings",
-    description: "Update logging settings for the current Zero Trust account.",
+    description: "Update logging settings for the current Zero Trust account.\n\nPUT /accounts/{account_id}/gateway/logging",
     inputSchema: {
       type: "object",
       properties: {
@@ -108,10 +106,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -124,10 +123,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options$,
         "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings$,
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
       },
     },
     outputSchema: {

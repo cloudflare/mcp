@@ -8,9 +8,6 @@ import {
   addressing_api$$response$$common$$failure,
   addressing_messages,
 } from "../../outputs.js";
-import { addressing_account_identifier } from "../../schemas.js";
-import { addressing_address_map_identifier } from "../schemas.js";
-import { addressing_zone_identifier } from "./schemas.js";
 
 /**
  * The tools of `addressing.addressMaps.zones`.
@@ -19,23 +16,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_addressMaps_zones_delete",
     title: "Remove a zone membership from an Address Map",
-    description: "Remove a zone as a member of a particular address map.",
+    description: "Remove a zone as a member of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "address_map_id": {
-              "$ref": "#/$defs/addressing_address_map_identifier",
-              "description": "Identifier of an Address Map."
+              "description": "Identifier of an Address Map.",
+              "type": "string"
             },
             "member_zone_id": {
-              "$ref": "#/$defs/addressing_zone_identifier",
-              "description": "Identifier of a zone."
+              "description": "Identifier of a zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,11 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-        "addressing_zone_identifier": addressing_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
@@ -107,7 +101,7 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_addressMaps_zones_deleteBulk",
     title: "Remove Multiple Zones from an Address Map",
-    description: "Remove multiple zones as members of a particular address map.",
+    description: "Remove multiple zones as members of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
     inputSchema: {
       type: "object",
       properties: {
@@ -115,7 +109,8 @@ export const tools: readonly Tool[] = [
           "properties": {
             "zones": {
               "items": {
-                "$ref": "#/$defs/addressing_zone_identifier"
+                "description": "Identifier of a zone.",
+                "type": "string"
               },
               "type": "array"
             }
@@ -126,14 +121,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "address_map_id": {
-              "$ref": "#/$defs/addressing_address_map_identifier",
-              "description": "Identifier of an Address Map."
+              "description": "Identifier of an Address Map.",
+              "type": "string"
             }
           },
           "required": [
@@ -147,11 +143,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-        "addressing_zone_identifier": addressing_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
@@ -206,23 +198,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_addressMaps_zones_update",
     title: "Add a zone membership to an Address Map",
-    description: "Add a zone as a member of a particular address map.",
+    description: "Add a zone as a member of a particular address map.\n\nPUT /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "address_map_id": {
-              "$ref": "#/$defs/addressing_address_map_identifier",
-              "description": "Identifier of an Address Map."
+              "description": "Identifier of an Address Map.",
+              "type": "string"
             },
             "member_zone_id": {
-              "$ref": "#/$defs/addressing_zone_identifier",
-              "description": "Identifier of a zone."
+              "description": "Identifier of a zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -236,11 +229,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-        "addressing_zone_identifier": addressing_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
@@ -289,7 +278,7 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_addressMaps_zones_updateBulk",
     title: "Add Multiple Zones to an Address Map",
-    description: "Add multiple zones as members of a particular address map.",
+    description: "Add multiple zones as members of a particular address map.\n\nPOST /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
     inputSchema: {
       type: "object",
       properties: {
@@ -297,7 +286,8 @@ export const tools: readonly Tool[] = [
           "properties": {
             "zones": {
               "items": {
-                "$ref": "#/$defs/addressing_zone_identifier"
+                "description": "Identifier of a zone.",
+                "type": "string"
               },
               "type": "array"
             }
@@ -308,14 +298,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "address_map_id": {
-              "$ref": "#/$defs/addressing_address_map_identifier",
-              "description": "Identifier of an Address Map."
+              "description": "Identifier of an Address Map.",
+              "type": "string"
             }
           },
           "required": [
@@ -329,11 +320,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-        "addressing_zone_identifier": addressing_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",

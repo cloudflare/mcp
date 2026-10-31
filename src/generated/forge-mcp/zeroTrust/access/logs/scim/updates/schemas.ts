@@ -15,18 +15,6 @@ export const access_cf_resource_id$$3: JsonSchema = {
 };
 
 /**
- * The schema of `access_direction`.
- */
-export const access_direction: JsonSchema = {
-  "description": "The chronological order used to sort the logs.",
-  "enum": [
-    "desc",
-    "asc"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `access_idp_id`.
  */
 export const access_idp_id: JsonSchema = {
@@ -46,14 +34,6 @@ export const access_idp_resource_id$$3: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_limit`.
- */
-export const access_limit: JsonSchema = {
-  "description": "The maximum number of update logs to retrieve.",
-  "type": "integer"
 };
 
 /**
@@ -111,15 +91,6 @@ export const access_resource_user_email: JsonSchema = {
 };
 
 /**
- * The schema of `access_since`.
- */
-export const access_since: JsonSchema = {
-  "description": "the timestamp of the earliest update log.",
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `access_status-2`.
  */
 export const access_status$$2: JsonSchema = {
@@ -132,13 +103,4 @@ export const access_status$$2: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_until`.
- */
-export const access_until: JsonSchema = {
-  "description": "the timestamp of the most-recent update log.",
-  "format": "date-time",
-  "type": "string"
 };

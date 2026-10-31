@@ -14,11 +14,8 @@ import {
   firewall_ip_configuration,
   firewall_ipv6_configuration,
   firewall_messages,
-  firewall_notes,
   firewall_result_info,
   firewall_rule,
-  firewall_schemas$$identifier,
-  firewall_schemas$$mode,
 } from "../../../outputs.js";
 import {
   firewall_asn_configuration as firewall_asn_configuration$,
@@ -27,9 +24,6 @@ import {
   firewall_country_configuration as firewall_country_configuration$,
   firewall_ip_configuration as firewall_ip_configuration$,
   firewall_ipv6_configuration as firewall_ipv6_configuration$,
-  firewall_notes as firewall_notes$,
-  firewall_rule_identifier,
-  firewall_schemas$$mode as firewall_schemas$$mode$,
 } from "../../../schemas.js";
 import {
   firewall_rule_collection_response,
@@ -44,7 +38,7 @@ export const tools: readonly Tool[] = [
   {
     name: "user_firewall_accessRules_create",
     title: "Create an IP Access rule",
-    description: "Creates a new IP Access rule for all zones owned by the current user.\n\nNote: To create an IP Access rule that applies to a specific zone, refer to the [IP Access rules for a zone](#ip-access-rules-for-a-zone) endpoints.",
+    description: "Creates a new IP Access rule for all zones owned by the current user.\n\nNote: To create an IP Access rule that applies to a specific zone, refer to the [IP Access rules for a zone](#ip-access-rules-for-a-zone) endpoints.\n\nPOST /user/firewall/access_rules/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -55,11 +49,20 @@ export const tools: readonly Tool[] = [
               "description": "The rule configuration."
             },
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode"
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "notes": {
-              "$ref": "#/$defs/firewall_notes",
-              "default": ""
+              "default": "",
+              "description": "An informative summary of the rule, typically used as a reminder or explanation.",
+              "type": "string"
             }
           },
           "required": [
@@ -72,6 +75,7 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "firewall_asn_configuration": firewall_asn_configuration$,
         "firewall_cidr_configuration": firewall_cidr_configuration$,
@@ -79,8 +83,6 @@ export const tools: readonly Tool[] = [
         "firewall_country_configuration": firewall_country_configuration$,
         "firewall_ip_configuration": firewall_ip_configuration$,
         "firewall_ipv6_configuration": firewall_ipv6_configuration$,
-        "firewall_notes": firewall_notes$,
-        "firewall_schemas-mode": firewall_schemas$$mode$,
       },
     },
     outputSchema: {
@@ -95,11 +97,8 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_rule": firewall_rule,
         "firewall_rule_single_response": firewall_rule_single_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     annotations: {
@@ -142,11 +141,8 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_rule": firewall_rule,
         "firewall_rule_single_response": firewall_rule_single_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     request: (args) => ({
@@ -157,15 +153,16 @@ export const tools: readonly Tool[] = [
   {
     name: "user_firewall_accessRules_delete",
     title: "Delete an IP Access rule",
-    description: "Deletes an IP Access rule at the user level.\n\nNote: Deleting a user-level rule will affect all zones owned by the user.\n\nConfirm with the user before calling this tool. This operation deletes the user-level IP Access Rule and affects every zone owned by the user.",
+    description: "Deletes an IP Access rule at the user level.\n\nNote: Deleting a user-level rule will affect all zones owned by the user.\n\nConfirm with the user before calling this tool. This operation deletes the user-level IP Access Rule and affects every zone owned by the user.\n\nDELETE /user/firewall/access_rules/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/firewall_rule_identifier",
-              "description": "Unique identifier for a rule."
+              "description": "Unique identifier for a rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -177,9 +174,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_rule_identifier": firewall_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_rule_single_id_response",
@@ -188,7 +183,6 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_messages": firewall_messages,
         "firewall_rule_single_id_response": firewall_rule_single_id_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
       },
     },
     annotations: {
@@ -226,7 +220,6 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_messages": firewall_messages,
         "firewall_rule_single_id_response": firewall_rule_single_id_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
       },
     },
     request: (args) => ({
@@ -236,27 +229,36 @@ export const tools: readonly Tool[] = [
   {
     name: "user_firewall_accessRules_edit",
     title: "Update an IP Access rule",
-    description: "Updates an IP Access rule defined at the user level. You can only update the rule action (`mode` parameter) and notes.",
+    description: "Updates an IP Access rule defined at the user level. You can only update the rule action (`mode` parameter) and notes.\n\nPATCH /user/firewall/access_rules/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode"
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "notes": {
-              "$ref": "#/$defs/firewall_notes",
-              "description": "An informative summary of the rule, typically used as a reminder or explanation."
+              "description": "An informative summary of the rule, typically used as a reminder or explanation.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/firewall_rule_identifier",
-              "description": "Unique identifier for a rule."
+              "description": "Unique identifier for a rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -269,11 +271,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "firewall_notes": firewall_notes$,
-        "firewall_rule_identifier": firewall_rule_identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_rule_single_response",
@@ -287,11 +285,8 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_rule": firewall_rule,
         "firewall_rule_single_response": firewall_rule_single_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     annotations: {
@@ -334,11 +329,8 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_rule": firewall_rule,
         "firewall_rule_single_response": firewall_rule_single_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     request: (args) => ({
@@ -349,15 +341,16 @@ export const tools: readonly Tool[] = [
   {
     name: "user_firewall_accessRules_get",
     title: "Get an IP Access rule",
-    description: "Fetches the details of an IP Access rule defined at the user level.",
+    description: "Fetches the details of an IP Access rule defined at the user level.\n\nGET /user/firewall/access_rules/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/firewall_rule_identifier",
-              "description": "Unique identifier for a rule."
+              "description": "Unique identifier for a rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -369,9 +362,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_rule_identifier": firewall_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_rule_single_response",
@@ -385,11 +376,8 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_rule": firewall_rule,
         "firewall_rule_single_response": firewall_rule_single_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     annotations: {
@@ -433,11 +421,8 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_rule": firewall_rule,
         "firewall_rule_single_response": firewall_rule_single_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     request: (args) => ({
@@ -447,11 +432,12 @@ export const tools: readonly Tool[] = [
   {
     name: "user_firewall_accessRules_list",
     title: "List IP Access rules",
-    description: "Fetches IP Access rules of the user. You can filter the results using several optional parameters.",
+    description: "Fetches IP Access rules of the user. You can filter the results using several optional parameters.\n\nGET /user/firewall/access_rules/rules",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "configuration.target": {
               "description": "Defines the target to search in existing rules.",
@@ -485,8 +471,15 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode",
-              "description": "The action to apply to a matched request."
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "notes": {
               "description": "Defines the string to search for in the notes of existing IP Access rules.\nNotes: For example, the string 'attack' would match IP Access rules with notes 'Attack 26/02' and 'Attack 27/02'. The search is case insensitive.",
@@ -513,9 +506,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
-      $defs: {
-        "firewall_schemas-mode": firewall_schemas$$mode$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_rule_collection_response",
@@ -529,12 +520,9 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_result_info": firewall_result_info,
         "firewall_rule": firewall_rule,
         "firewall_rule_collection_response": firewall_rule_collection_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     annotations: {
@@ -578,12 +566,9 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_messages": firewall_messages,
-        "firewall_notes": firewall_notes,
         "firewall_result_info": firewall_result_info,
         "firewall_rule": firewall_rule,
         "firewall_rule_collection_response": firewall_rule_collection_response,
-        "firewall_schemas-identifier": firewall_schemas$$identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
       },
     },
     request: (args) => ({

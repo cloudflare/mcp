@@ -6,23 +6,18 @@ import {
   email_api$$response$$collection,
   email_api$$response$$common,
   email_api$$response$$single,
-  email_created,
   email_dns_record,
   email_messages,
-  email_modified,
 } from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
 import {
   email_sending_subdomain,
   email_sending_subdomain_config_error,
-  email_sending_subdomain_identifier,
   email_sending_subdomain_preview_response,
   email_sending_subdomain_response_single,
   email_sending_subdomains_response_collection,
 } from "./outputs.js";
 import {
   email_create_sending_subdomain_properties,
-  email_sending_subdomain_identifier as email_sending_subdomain_identifier$,
   email_update_sending_subdomain_properties,
 } from "./schemas.js";
 
@@ -33,7 +28,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_create",
     title: "Create a sending subdomain",
-    description: "Creates a new sending subdomain or re-enables sending on an existing subdomain that had it disabled. If zone-level Email Sending has not been enabled yet, the zone flag is automatically set when the entitlement is present. A leftmost wildcard such as `*.example.com` is accepted only for accounts with wildcard Email Sending enabled. Wildcard senders share the base domain's DKIM signing identity and `cf-bounce.<base>` return path.",
+    description: "Creates a new sending subdomain or re-enables sending on an existing subdomain that had it disabled. If zone-level Email Sending has not been enabled yet, the zone flag is automatically set when the entitlement is present. A leftmost wildcard such as `*.example.com` is accepted only for accounts with wildcard Email Sending enabled. Wildcard senders share the base domain's DKIM signing identity and `cf-bounce.<base>` return path.\n\nPOST /zones/{zone_id}/email/sending/subdomains",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,10 +36,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_create_sending_subdomain_properties"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,20 +53,17 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email_create_sending_subdomain_properties": email_create_sending_subdomain_properties,
-        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_response_single",
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -105,11 +98,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -121,19 +111,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_delete",
     title: "Delete a sending subdomain",
-    description: "Disables sending on a subdomain and removes its DNS records. If routing is still active on the subdomain, only sending is disabled.\n\nConfirm with the user before calling this tool. This operation disables sending and removes the subdomain's Email Sending DNS records.",
+    description: "Disables sending on a subdomain and removes its DNS records. If routing is still active on the subdomain, only sending is disabled.\n\nConfirm with the user before calling this tool. This operation disables sending and removes the subdomain's Email Sending DNS records.\n\nDELETE /zones/{zone_id}/email/sending/subdomains/{subdomain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -146,10 +137,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_api-response-single",
@@ -199,19 +187,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_get",
     title: "Get a sending subdomain",
-    description: "Gets information for a specific sending subdomain.",
+    description: "Gets information for a specific sending subdomain.\n\nGET /zones/{zone_id}/email/sending/subdomains/{subdomain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -224,20 +213,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_response_single",
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -272,11 +255,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -287,15 +267,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_list",
     title: "List sending subdomains",
-    description: "Lists all sending-enabled subdomains for the zone.",
+    description: "Lists all sending-enabled subdomains for the zone.\n\nGET /zones/{zone_id}/email/sending/subdomains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -307,20 +288,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomains_response_collection",
       $defs: {
         "email_api-response-collection": email_api$$response$$collection,
         "email_api-response-common": email_api$$response$$common,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomains_response_collection": email_sending_subdomains_response_collection,
       },
     },
@@ -356,11 +332,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_api-response-collection": email_api$$response$$collection,
         "email_api-response-common": email_api$$response$$common,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomains_response_collection": email_sending_subdomains_response_collection,
       },
     },
@@ -371,7 +344,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_preview",
     title: "Preview sending subdomain DNS",
-    description: "Returns the DNS records that would be created for a sending subdomain, flags which records are missing, and reports any conflicts with existing DNS records. This is a read-only dry-run — no records are created or modified. Use before or after creating a subdomain to check DNS status. A leftmost wildcard requires wildcard Email Sending to be enabled for the account and previews base-scoped DKIM and return-path records.",
+    description: "Returns the DNS records that would be created for a sending subdomain, flags which records are missing, and reports any conflicts with existing DNS records. This is a read-only dry-run — no records are created or modified. Use before or after creating a subdomain to check DNS status. A leftmost wildcard requires wildcard Email Sending to be enabled for the account and previews base-scoped DKIM and return-path records.\n\nPOST /zones/{zone_id}/email/sending/subdomains/preview",
     inputSchema: {
       type: "object",
       properties: {
@@ -379,10 +352,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_create_sending_subdomain_properties"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -395,9 +369,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email_create_sending_subdomain_properties": email_create_sending_subdomain_properties,
-        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
@@ -455,7 +429,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_update",
     title: "Update a sending subdomain",
-    description: "Updates the activity-log preview preference for a sending subdomain.",
+    description: "Updates the activity-log preview preference for a sending subdomain.\n\nPATCH /zones/{zone_id}/email/sending/subdomains/{subdomain_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -463,14 +437,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_update_sending_subdomain_properties"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -484,9 +459,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier$,
         "email_update_sending_subdomain_properties": email_update_sending_subdomain_properties,
       },
     },
@@ -494,11 +468,8 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/email_sending_subdomain_response_single",
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -533,11 +504,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
         "email_messages": email_messages,
-        "email_modified": email_modified,
         "email_sending_subdomain": email_sending_subdomain,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },

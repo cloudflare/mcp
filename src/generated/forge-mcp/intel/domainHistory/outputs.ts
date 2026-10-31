@@ -39,7 +39,7 @@ export const intel_domain$$history: JsonSchema = {
       "type": "array"
     },
     "domain": {
-      "$ref": "#/$defs/intel_domain_name"
+      "type": "string"
     }
   },
   "type": "object"

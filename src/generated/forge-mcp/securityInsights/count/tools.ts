@@ -9,17 +9,11 @@ import {
   security$$center_valueCountsResponse,
 } from "../../outputs.js";
 import {
-  security$$center_dismissed,
-  security$$center_identifier,
-  security$$center_issueClass,
   security$$center_issueClasses,
-  security$$center_issueType,
   security$$center_issueTypes,
   security$$center_products,
   security$$center_severityQueryParam,
-  security$$center_source,
   security$$center_sources,
-  security$$center_subject,
   security$$center_subjects,
 } from "../../schemas.js";
 import { security$$center_partnerInsightCountResponse } from "./outputs.js";
@@ -31,11 +25,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_count_byClass",
     title: "Retrieves Security Center Insight Counts by Class",
-    description: "Retrieves Security Center insight counts aggregated by classification class.",
+    description: "Retrieves Security Center insight counts aggregated by classification class.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/class",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -46,8 +41,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,9 +52,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dismissed": {
-              "$ref": "#/$defs/security-center_dismissed"
+              "type": "boolean"
             },
             "issue_class": {
               "$ref": "#/$defs/security-center_issueClasses"
@@ -101,18 +97,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_dismissed": security$$center_dismissed,
-        "security-center_identifier": security$$center_identifier,
-        "security-center_issueClass": security$$center_issueClass,
         "security-center_issueClasses": security$$center_issueClasses,
-        "security-center_issueType": security$$center_issueType,
         "security-center_issueTypes": security$$center_issueTypes,
         "security-center_products": security$$center_products,
         "security-center_severityQueryParam": security$$center_severityQueryParam,
-        "security-center_source": security$$center_source,
         "security-center_sources": security$$center_sources,
-        "security-center_subject": security$$center_subject,
         "security-center_subjects": security$$center_subjects,
       },
     },
@@ -170,11 +161,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_count_byPartner",
     title: "Retrieves a Partner Security Center Insight Count",
-    description: "Retrieves the uncapped count of active, non-dismissed, unclassified RiskRecon insights for the account or zone.\n\nThis method is beta.",
+    description: "Retrieves the uncapped count of active, non-dismissed, unclassified RiskRecon insights for the account or zone.\n\nThis method is beta.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/partner-count",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -185,8 +177,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -196,6 +188,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "source": {
               "enum": [
@@ -214,9 +207,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_partnerInsightCountResponse",
@@ -261,11 +252,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_count_bySeverity",
     title: "Retrieves Security Center Insight Counts by Severity",
-    description: "Retrieves Security Center insight counts aggregated by severity level (critical, high, medium, low).",
+    description: "Retrieves Security Center insight counts aggregated by severity level (critical, high, medium, low).\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/severity",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -276,8 +268,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -287,9 +279,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dismissed": {
-              "$ref": "#/$defs/security-center_dismissed"
+              "type": "boolean"
             },
             "issue_class": {
               "$ref": "#/$defs/security-center_issueClasses"
@@ -331,18 +324,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_dismissed": security$$center_dismissed,
-        "security-center_identifier": security$$center_identifier,
-        "security-center_issueClass": security$$center_issueClass,
         "security-center_issueClasses": security$$center_issueClasses,
-        "security-center_issueType": security$$center_issueType,
         "security-center_issueTypes": security$$center_issueTypes,
         "security-center_products": security$$center_products,
         "security-center_severityQueryParam": security$$center_severityQueryParam,
-        "security-center_source": security$$center_source,
         "security-center_sources": security$$center_sources,
-        "security-center_subject": security$$center_subject,
         "security-center_subjects": security$$center_subjects,
       },
     },
@@ -400,11 +388,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_count_byType",
     title: "Retrieves Security Center Insight Counts by Type",
-    description: "Retrieves Security Center insight counts aggregated by insight type.",
+    description: "Retrieves Security Center insight counts aggregated by insight type.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/type",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -415,8 +404,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -426,9 +415,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dismissed": {
-              "$ref": "#/$defs/security-center_dismissed"
+              "type": "boolean"
             },
             "issue_class": {
               "$ref": "#/$defs/security-center_issueClasses"
@@ -470,18 +460,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_dismissed": security$$center_dismissed,
-        "security-center_identifier": security$$center_identifier,
-        "security-center_issueClass": security$$center_issueClass,
         "security-center_issueClasses": security$$center_issueClasses,
-        "security-center_issueType": security$$center_issueType,
         "security-center_issueTypes": security$$center_issueTypes,
         "security-center_products": security$$center_products,
         "security-center_severityQueryParam": security$$center_severityQueryParam,
-        "security-center_source": security$$center_source,
         "security-center_sources": security$$center_sources,
-        "security-center_subject": security$$center_subject,
         "security-center_subjects": security$$center_subjects,
       },
     },

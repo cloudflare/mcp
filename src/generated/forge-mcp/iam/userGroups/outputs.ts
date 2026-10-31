@@ -13,7 +13,7 @@ export const iam_user_group: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_user_group_identifier"
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",
@@ -26,10 +26,14 @@ export const iam_user_group: JsonSchema = {
       "items": {
         "properties": {
           "access": {
-            "$ref": "#/$defs/iam_access"
+            "enum": [
+              "allow",
+              "deny"
+            ],
+            "type": "string"
           },
           "id": {
-            "$ref": "#/$defs/iam_policy_identifier"
+            "type": "string"
           },
           "permission_groups": {
             "$ref": "#/$defs/iam_permission_groups"
@@ -50,13 +54,6 @@ export const iam_user_group: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_user_group_identifier` in responses.
- */
-export const iam_user_group_identifier: JsonSchema = {
-  "$ref": "#/$defs/iam_common_components-schemas-identifier"
 };
 
 /**

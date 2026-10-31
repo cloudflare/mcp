@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_rpki_aspa_changes",
     title: "Get ASPA changes over time",
-    description: "Retrieves ASPA (Autonomous System Provider Authorization) changes over time. Returns daily aggregated changes including additions, removals, and modifications of ASPA objects.",
+    description: "Retrieves ASPA (Autonomous System Provider Authorization) changes over time. Returns daily aggregated changes including additions, removals, and modifications of ASPA objects.\n\nGET /radar/bgp/rpki/aspa/changes",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filter changes involving this ASN (as customer or provider).",
@@ -46,6 +47,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -382,11 +384,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_rpki_aspa_snapshot",
     title: "Get ASPA objects snapshot",
-    description: "Retrieves current or historical ASPA (Autonomous System Provider Authorization) objects. ASPA objects define which ASNs are authorized upstream providers for a customer ASN.",
+    description: "Retrieves current or historical ASPA (Autonomous System Provider Authorization) objects. ASPA objects define which ASNs are authorized upstream providers for a customer ASN.\n\nGET /radar/bgp/rpki/aspa/snapshot",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "customerAsn": {
               "description": "Filter by customer ASN (the ASN publishing the ASPA object).",
@@ -417,6 +420,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -669,11 +673,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bgp_rpki_aspa_timeseries",
     title: "Get ASPA count time series",
-    description: "Retrieves ASPA (Autonomous System Provider Authorization) object count over time. Supports filtering by RIR or location (country code) to generate multiple named series. If no RIR or location filter is specified, returns total count.",
+    description: "Retrieves ASPA (Autonomous System Provider Authorization) object count over time. Supports filtering by RIR or location (country code) to generate multiple named series. If no RIR or location filter is specified, returns total count.\n\nGET /radar/bgp/rpki/aspa/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`.",
@@ -725,6 +730,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

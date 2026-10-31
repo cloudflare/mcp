@@ -9,8 +9,20 @@ import type { JsonSchema } from "../_/tool.js";
 export const security$$center_userClassificationUpdate: JsonSchema = {
   "properties": {
     "classification": {
-      "$ref": "#/$defs/security-center_userClassification",
-      "description": "User-defined classification for the insight. Can be 'false_positive', 'accept_risk', 'other', or null."
+      "description": "User-defined classification for the insight. Can be 'false_positive', 'accept_risk', 'other', or null.",
+      "oneOf": [
+        {
+          "enum": [
+            "false_positive",
+            "accept_risk",
+            "other"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "rationale": {
       "description": "Rationale for the classification change. Required when classification is 'accept_risk' or 'other'.",

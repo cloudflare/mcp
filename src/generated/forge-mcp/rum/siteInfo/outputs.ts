@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `rum_auto_install` in responses.
- */
-export const rum_auto_install: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `rum_empty-response` in responses.
  */
 export const rum_empty$$response: JsonSchema = {
@@ -66,10 +59,11 @@ export const rum_result_info: JsonSchema = {
 export const rum_site: JsonSchema = {
   "properties": {
     "auto_install": {
-      "$ref": "#/$defs/rum_auto_install"
+      "type": "boolean"
     },
     "created": {
-      "$ref": "#/$defs/rum_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "rules": {
       "$ref": "#/$defs/rum_rules"
@@ -78,13 +72,13 @@ export const rum_site: JsonSchema = {
       "$ref": "#/$defs/rum_ruleset"
     },
     "site_tag": {
-      "$ref": "#/$defs/rum_site_tag"
+      "type": "string"
     },
     "site_token": {
-      "$ref": "#/$defs/rum_site_token"
+      "type": "string"
     },
     "snippet": {
-      "$ref": "#/$defs/rum_snippet"
+      "type": "string"
     }
   },
   "type": "object"
@@ -121,7 +115,7 @@ export const rum_site$$tag$$list$$response: JsonSchema = {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/rum_site_tag"
+            "type": "string"
           },
           "type": "array"
         }
@@ -144,7 +138,7 @@ export const rum_site$$tag$$response$$single: JsonSchema = {
         "result": {
           "properties": {
             "site_tag": {
-              "$ref": "#/$defs/rum_site_tag"
+              "type": "string"
             }
           },
           "type": "object"
@@ -153,20 +147,6 @@ export const rum_site$$tag$$response$$single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `rum_site_tag` in responses.
- */
-export const rum_site_tag: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `rum_site_token` in responses.
- */
-export const rum_site_token: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -195,13 +175,6 @@ export const rum_sites$$response$$collection: JsonSchema = {
 };
 
 /**
- * The schema of `rum_snippet` in responses.
- */
-export const rum_snippet: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `rum_zone-tag-list-response` in responses.
  */
 export const rum_zone$$tag$$list$$response: JsonSchema = {
@@ -213,7 +186,7 @@ export const rum_zone$$tag$$list$$response: JsonSchema = {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/rum_zone_tag"
+            "type": "string"
           },
           "type": "array"
         }

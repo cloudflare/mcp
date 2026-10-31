@@ -40,16 +40,37 @@ export const zero$$trust$$gateway_anti$$virus$$settings: JsonSchema = {
     {
       "properties": {
         "enabled_download_phase": {
-          "$ref": "#/$defs/zero-trust-gateway_enabled_download_phase",
-          "description": "Specify whether to enable anti-virus scanning on downloads."
+          "description": "Specify whether to enable anti-virus scanning on downloads.",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "enabled_upload_phase": {
-          "$ref": "#/$defs/zero-trust-gateway_enabled_upload_phase",
-          "description": "Specify whether to enable anti-virus scanning on uploads."
+          "description": "Specify whether to enable anti-virus scanning on uploads.",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "fail_closed": {
-          "$ref": "#/$defs/zero-trust-gateway_fail_closed",
-          "description": "Specify whether to block requests for unscannable files."
+          "description": "Specify whether to block requests for unscannable files.",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "notification_settings": {
           "$ref": "#/$defs/zero-trust-gateway_notification_settings",
@@ -253,36 +274,6 @@ export const zero$$trust$$gateway_custom$$certificate$$settings: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_enabled_download_phase`.
- */
-export const zero$$trust$$gateway_enabled_download_phase: JsonSchema = {
-  "description": "Specify whether to enable anti-virus scanning on downloads.",
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_enabled_upload_phase`.
- */
-export const zero$$trust$$gateway_enabled_upload_phase: JsonSchema = {
-  "description": "Specify whether to enable anti-virus scanning on uploads.",
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `zero-trust-gateway_extended-email-matching`.
  */
 export const zero$$trust$$gateway_extended$$email$$matching: JsonSchema = {
@@ -303,21 +294,6 @@ export const zero$$trust$$gateway_extended$$email$$matching: JsonSchema = {
         }
       },
       "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_fail_closed`.
- */
-export const zero$$trust$$gateway_fail_closed: JsonSchema = {
-  "description": "Specify whether to block requests for unscannable files.",
-  "oneOf": [
-    {
-      "type": "boolean"
     },
     {
       "type": "null"
@@ -400,8 +376,15 @@ export const zero$$trust$$gateway_gateway$$account$$settings: JsonSchema = {
           "description": "Define the proxy inspection mode."
         },
         "max_ttl_secs": {
-          "$ref": "#/$defs/zero-trust-gateway_max-ttl-secs",
-          "description": "Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting."
+          "description": "Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting.",
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "protocol_detection": {
           "$ref": "#/$defs/zero-trust-gateway_protocol-detection",
@@ -468,21 +451,6 @@ export const zero$$trust$$gateway_inspection$$settings: JsonSchema = {
         }
       },
       "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_max-ttl-secs`.
- */
-export const zero$$trust$$gateway_max$$ttl$$secs: JsonSchema = {
-  "description": "Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting.",
-  "oneOf": [
-    {
-      "type": "integer"
     },
     {
       "type": "null"

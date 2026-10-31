@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_types_create",
     title: "Create an indicator type",
-    description: "Creates an indicator type in a dataset.",
+    description: "Creates an indicator type in a dataset.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicatorTypes/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,6 +31,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -233,11 +235,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_indicators_types_list",
     title: "List indicator types",
-    description: "Lists the indicator types used in the datasets given by `datasetIds`, which accepts dataset UUIDs or one scope value used alone. Without `datasetIds`, every dataset you can read is included, analytics datasets too.",
+    description: "Lists the indicator types used in the datasets given by `datasetIds`, which accepts dataset UUIDs or one scope value used alone. Without `datasetIds`, every dataset you can read is included, analytics datasets too.\n\nGET /accounts/{account_id}/cloudforce-one/events/indicator-types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -250,6 +253,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetIds": {
               "description": "Dataset UUIDs to query, or one standalone scope value: 'operational' for readable intelligence datasets (isAnalytics=false), 'analytics' for readable analytics datasets (isAnalytics=true), or 'all'/'*' for every readable dataset including analytics datasets. If not provided, queries all accessible datasets, including analytics datasets.",
@@ -265,6 +269,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

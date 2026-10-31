@@ -40,7 +40,8 @@ export const organizations$$api_CreateOrganizationRequest: JsonSchema = {
     "parent": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID"
+          "description": "Organization ID",
+          "type": "string"
         }
       },
       "required": [
@@ -60,14 +61,6 @@ export const organizations$$api_CreateOrganizationRequest: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_MemberID`.
- */
-export const organizations$$api_MemberID: JsonSchema = {
-  "description": "Organization Member ID",
-  "type": "string"
-};
-
-/**
  * The schema of `organizations-api_ModifyOrganizationRequest`.
  */
 export const organizations$$api_ModifyOrganizationRequest: JsonSchema = {
@@ -77,8 +70,8 @@ export const organizations$$api_ModifyOrganizationRequest: JsonSchema = {
       "type": "string"
     },
     "parent_id": {
-      "$ref": "#/$defs/organizations-api_OrganizationID",
-      "description": "The current parent Organization ID. A different value is rejected; this endpoint cannot move an Organization."
+      "description": "The current parent Organization ID. A different value is rejected; this endpoint cannot move an Organization.",
+      "type": "string"
     }
   },
   "type": "object"

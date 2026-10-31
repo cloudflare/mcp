@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_automatic_platform_optimization_value`.
  */
 export const speed_automatic_platform_optimization_value: JsonSchema = {
-  "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.\n",
+  "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.",
   "oneOf": [
     {
       "properties": {

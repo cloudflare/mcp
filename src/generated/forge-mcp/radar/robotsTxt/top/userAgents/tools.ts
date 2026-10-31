@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_robotsTxt_top_userAgents_directive",
     title: "Get top user agents on robots.txt files",
-    description: "Retrieves the top user agents on robots.txt files.",
+    description: "Retrieves the top user agents on robots.txt files.\n\nGET /radar/robots_txt/top/user_agents/directive",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
               "description": "Filters results by the specified array of dates.",
@@ -71,6 +72,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

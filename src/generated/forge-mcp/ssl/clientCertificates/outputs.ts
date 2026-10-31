@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate-7` in responses.
- */
-export const tls$$certificates$$and$$hostnames_certificate$$7: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_certificate_authority-4` in
  * responses.
  */
@@ -33,69 +26,67 @@ export const tls$$certificates$$and$$hostnames_certificate_authority$$4: JsonSch
 export const tls$$certificates$$and$$hostnames_client_certificate: JsonSchema = {
   "properties": {
     "certificate": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-7"
+      "type": "string"
     },
     "certificate_authority": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-4"
     },
     "common_name": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_common_name"
+      "type": "string"
     },
     "country": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_country"
+      "type": "string"
     },
     "csr": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_csr-2"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expired_on"
+      "type": "string"
     },
     "fingerprint_sha256": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_fingerprint_sha256"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_client_certificate_identifier"
+      "type": "string"
     },
     "issued_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issued_on"
+      "type": "string"
     },
     "location": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_location"
+      "type": "string"
     },
     "organization": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_organization"
+      "type": "string"
     },
     "organizational_unit": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_organizational_unit"
+      "type": "string"
     },
     "serial_number": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_serial_number-3"
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature-3"
+      "type": "string"
     },
     "ski": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ski"
+      "type": "string"
     },
     "state": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_state"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-11"
+      "enum": [
+        "active",
+        "pending_reactivation",
+        "pending_revocation",
+        "revoked"
+      ],
+      "type": "string"
     },
     "validity_days": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validity_days-2"
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_client_certificate_identifier`
- * in responses.
- */
-export const tls$$certificates$$and$$hostnames_client_certificate_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -141,117 +132,4 @@ export const tls$$certificates$$and$$hostnames_client_certificate_response_singl
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_common_name` in responses.
- */
-export const tls$$certificates$$and$$hostnames_common_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_country` in responses.
- */
-export const tls$$certificates$$and$$hostnames_country: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_csr-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_csr$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_expired_on` in responses.
- */
-export const tls$$certificates$$and$$hostnames_expired_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_fingerprint_sha256` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_fingerprint_sha256: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_issued_on` in responses.
- */
-export const tls$$certificates$$and$$hostnames_issued_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_location` in responses.
- */
-export const tls$$certificates$$and$$hostnames_location: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_organization` in responses.
- */
-export const tls$$certificates$$and$$hostnames_organization: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_organizational_unit` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_organizational_unit: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_serial_number-3` in responses.
- */
-export const tls$$certificates$$and$$hostnames_serial_number$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_signature-3` in responses.
- */
-export const tls$$certificates$$and$$hostnames_signature$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_ski` in responses.
- */
-export const tls$$certificates$$and$$hostnames_ski: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_state` in responses.
- */
-export const tls$$certificates$$and$$hostnames_state: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-11` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status$$11: JsonSchema = {
-  "enum": [
-    "active",
-    "pending_reactivation",
-    "pending_revocation",
-    "revoked"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validity_days-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_validity_days$$2: JsonSchema = {
-  "type": "integer"
 };

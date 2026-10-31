@@ -9,7 +9,6 @@ import {
   argo$$analytics_messages,
   argo$$analytics_response_single,
 } from "./outputs.js";
-import { argo$$analytics_identifier } from "./schemas.js";
 
 /**
  * The tools of `analytics.latency`.
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_latency_get",
     title: "Argo Analytics for a zone",
-    description: "Retrieves aggregate Argo Smart Routing analytics for a zone, including latency improvements, bandwidth savings, and routing statistics.",
+    description: "Retrieves aggregate Argo Smart Routing analytics for a zone, including latency improvements, bandwidth savings, and routing statistics.\n\nGET /zones/{zone_id}/analytics/latency",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/argo-analytics_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "bins": {
               "type": "string"
@@ -46,9 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "argo-analytics_identifier": argo$$analytics_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/argo-analytics_response_single",

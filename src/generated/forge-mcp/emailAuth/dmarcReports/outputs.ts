@@ -86,7 +86,14 @@ export const email$$auth_DmarcReportResponse: JsonSchema = {
       "type": "boolean"
     },
     "status": {
-      "$ref": "#/$defs/email-auth_DmarcStatus"
+      "enum": [
+        "missing-dmarc-report",
+        "multiple-dmarc-reports",
+        "missing-dmarc-rua",
+        "cname-on-dmarc-record",
+        "unauthorized-reporting-domain"
+      ],
+      "type": "string"
     },
     "tag": {
       "type": "string"
@@ -96,20 +103,6 @@ export const email$$auth_DmarcReportResponse: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `email-auth_DmarcStatus` in responses.
- */
-export const email$$auth_DmarcStatus: JsonSchema = {
-  "enum": [
-    "missing-dmarc-report",
-    "multiple-dmarc-reports",
-    "missing-dmarc-rua",
-    "cname-on-dmarc-record",
-    "unauthorized-reporting-domain"
-  ],
-  "type": "string"
 };
 
 /**

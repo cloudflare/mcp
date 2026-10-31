@@ -10,9 +10,7 @@ import {
   email_dns_settings_response_collection,
   email_messages,
 } from "../../../outputs.js";
-import { email_identifier } from "../../../schemas.js";
 import { email_sending_subdomain_config_error } from "../outputs.js";
-import { email_sending_subdomain_identifier } from "../schemas.js";
 import { email_sending_subdomain_dns_status_response } from "./outputs.js";
 
 /**
@@ -22,19 +20,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_dns_fix",
     title: "Fix sending subdomain DNS records",
-    description: "Idempotently re-applies the sending DNS records (creates missing records, re-applies the email_routing lock on records whose lock has been cleared). Refuses with a 409 if foreign MX, multiple SPF, multiple DMARC, or multiple DKIM records exist at the relevant DNS names — those require manual cleanup.",
+    description: "Idempotently re-applies the sending DNS records (creates missing records, re-applies the email_routing lock on records whose lock has been cleared). Refuses with a 409 if foreign MX, multiple SPF, multiple DMARC, or multiple DKIM records exist at the relevant DNS names — those require manual cleanup.\n\nPOST /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,10 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
@@ -109,19 +105,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_dns_get",
     title: "Get sending subdomain DNS records",
-    description: "Returns the expected DNS records for a sending subdomain.",
+    description: "Returns the expected DNS records for a sending subdomain.\n\nGET /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -134,10 +131,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_dns_settings_response_collection",
@@ -193,19 +187,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_subdomains_dns_status",
     title: "Get sending subdomain DNS status",
-    description: "Returns the desired DNS records for a sending subdomain along with a live diff against actual DNS state. Use this to detect missing, unlocked, foreign, or multi-record conflicts before deciding whether to call the fix endpoint. For wildcard sending rows, each call also rechecks the governing organizational-domain DMARC policy and reports policy drift that DNS Fix cannot repair.",
+    description: "Returns the desired DNS records for a sending subdomain along with a live diff against actual DNS state. Use this to detect missing, unlocked, foreign, or multi-record conflicts before deciding whether to call the fix endpoint. For wildcard sending rows, each call also rechecks the governing organizational-domain DMARC policy and reports policy drift that DNS Fix cannot repair.\n\nGET /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns/status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "subdomain_id": {
-              "$ref": "#/$defs/email_sending_subdomain_identifier",
-              "description": "Sending subdomain identifier."
+              "description": "Sending subdomain identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -218,10 +213,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_dns_status_response",

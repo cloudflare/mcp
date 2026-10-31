@@ -9,22 +9,25 @@ import type { JsonSchema } from "../../_/tool.js";
 export const waitingroom_create_rule: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/waitingroom_rule_action",
-      "description": "The action to take when the expression matches."
+      "description": "The action to take when the expression matches.",
+      "enum": [
+        "bypass_waiting_room"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_rule_description",
       "default": "",
-      "description": "The description of the rule."
+      "description": "The description of the rule.",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/waitingroom_rule_enabled",
       "default": true,
-      "description": "When set to true, the rule is enabled."
+      "description": "When set to true, the rule is enabled.",
+      "type": "boolean"
     },
     "expression": {
-      "$ref": "#/$defs/waitingroom_rule_expression",
-      "description": "Criteria defining when there is a match for the current rule."
+      "description": "Criteria defining when there is a match for the current rule.",
+      "type": "string"
     }
   },
   "required": [
@@ -40,22 +43,25 @@ export const waitingroom_create_rule: JsonSchema = {
 export const waitingroom_patch_rule: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/waitingroom_rule_action",
-      "description": "The action to take when the expression matches."
+      "description": "The action to take when the expression matches.",
+      "enum": [
+        "bypass_waiting_room"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_rule_description",
       "default": "",
-      "description": "The description of the rule."
+      "description": "The description of the rule.",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/waitingroom_rule_enabled",
       "default": true,
-      "description": "When set to true, the rule is enabled."
+      "description": "When set to true, the rule is enabled.",
+      "type": "boolean"
     },
     "expression": {
-      "$ref": "#/$defs/waitingroom_rule_expression",
-      "description": "Criteria defining when there is a match for the current rule."
+      "description": "Criteria defining when there is a match for the current rule.",
+      "type": "string"
     },
     "position": {
       "$ref": "#/$defs/waitingroom_rule_position",
@@ -67,49 +73,6 @@ export const waitingroom_patch_rule: JsonSchema = {
     "expression"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `waitingroom_rule_action`.
- */
-export const waitingroom_rule_action: JsonSchema = {
-  "description": "The action to take when the expression matches.",
-  "enum": [
-    "bypass_waiting_room"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_rule_description`.
- */
-export const waitingroom_rule_description: JsonSchema = {
-  "description": "The description of the rule.",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_rule_enabled`.
- */
-export const waitingroom_rule_enabled: JsonSchema = {
-  "description": "When set to true, the rule is enabled.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_rule_expression`.
- */
-export const waitingroom_rule_expression: JsonSchema = {
-  "description": "Criteria defining when there is a match for the current rule.",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_rule_id`.
- */
-export const waitingroom_rule_id: JsonSchema = {
-  "description": "The ID of the rule.",
-  "type": "string"
 };
 
 /**

@@ -12,7 +12,7 @@ export const workers_namespace$$script$$delete$$bulk$$response: JsonSchema = {
       "items": {
         "properties": {
           "id": {
-            "$ref": "#/$defs/workers_uuid"
+            "type": "string"
           }
         },
         "type": "object"
@@ -35,13 +35,15 @@ export const workers_namespace$$script$$delete$$bulk$$response: JsonSchema = {
 export const workers_namespace$$script$$response: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/workers_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "dispatch_namespace": {
-      "$ref": "#/$defs/workers_dispatch_namespace_name"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/workers_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "script": {
       "$ref": "#/$defs/workers_script-response"

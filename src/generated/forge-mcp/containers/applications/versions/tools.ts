@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cc_Image,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
@@ -13,16 +12,10 @@ import {
   cc_DeploymentObservability,
   cc_Entrypoint,
   cc_EnvironmentVariable,
-  cc_EnvironmentVariableName,
-  cc_EnvironmentVariableValue,
-  cc_ExecFormParam,
-  cc_InstanceType,
   cc_ModifyUserDeploymentConfiguration,
   cc_ObservabilityLogs,
-  cc_SSHPublicKey,
   cc_UserSSHPublicKey,
 } from "../outputs.js";
-import { cc_ApplicationID } from "../schemas.js";
 import { cc_ApplicationVersion } from "./outputs.js";
 
 /**
@@ -32,19 +25,20 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_versions_list",
     title: "List all application versions",
-    description: "Returns all versions for a scheduler-backed application with\n`scheduling_policy: \"default\"`. Versions and rollouts do not apply to\napplications with `scheduling_policy: \"durable_object\"`.",
+    description: "Returns all versions for a scheduler-backed application with\n`scheduling_policy: \"default\"`. Versions and rollouts do not apply to\napplications with `scheduling_policy: \"durable_object\"`.\n\nGET /accounts/{account_id}/containers/applications/{application_id}/versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,9 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cc_ApplicationID": cc_ApplicationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -87,15 +79,9 @@ export const tools: readonly Tool[] = [
         "cc_DeploymentObservability": cc_DeploymentObservability,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_Image": cc_Image,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -154,15 +140,9 @@ export const tools: readonly Tool[] = [
         "cc_DeploymentObservability": cc_DeploymentObservability,
         "cc_Entrypoint": cc_Entrypoint,
         "cc_EnvironmentVariable": cc_EnvironmentVariable,
-        "cc_EnvironmentVariableName": cc_EnvironmentVariableName,
-        "cc_EnvironmentVariableValue": cc_EnvironmentVariableValue,
-        "cc_ExecFormParam": cc_ExecFormParam,
-        "cc_Image": cc_Image,
-        "cc_InstanceType": cc_InstanceType,
         "cc_Messages": cc_Messages,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
-        "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,

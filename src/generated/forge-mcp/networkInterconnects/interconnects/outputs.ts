@@ -4,34 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `nsc_ApiBandwidth` in responses.
- */
-export const nsc_ApiBandwidth: JsonSchema = {
-  "enum": [
-    "50M",
-    "100M",
-    "200M",
-    "300M",
-    "400M",
-    "500M",
-    "1G",
-    "2G",
-    "5G",
-    "10G",
-    "20G",
-    "50G"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `nsc_CloudflareSite` in responses.
- */
-export const nsc_CloudflareSite: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `nsc_DefaultNameResponse` in responses.
  */
 export const nsc_DefaultNameResponse: JsonSchema = {
@@ -121,7 +93,21 @@ export const nsc_Interconnect_GcpPartner_Body: JsonSchema = {
           "type": "string"
         },
         "speed": {
-          "$ref": "#/$defs/nsc_ApiBandwidth"
+          "enum": [
+            "50M",
+            "100M",
+            "200M",
+            "300M",
+            "400M",
+            "500M",
+            "1G",
+            "2G",
+            "5G",
+            "10G",
+            "20G",
+            "50G"
+          ],
+          "type": "string"
         },
         "virtual_port_reservation_id": {
           "format": "uuid",
@@ -180,7 +166,7 @@ export const nsc_Interconnect_Physical_Body: JsonSchema = {
           "$ref": "#/$defs/nsc_FacilityInfo"
         },
         "site": {
-          "$ref": "#/$defs/nsc_CloudflareSite"
+          "type": "string"
         },
         "slot_id": {
           "format": "uuid",

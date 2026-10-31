@@ -153,11 +153,3 @@ export const custom$$pages_messages: JsonSchema = {
   },
   "type": "array"
 };
-
-/**
- * The schema of `custom-pages_timestamp` in responses.
- */
-export const custom$$pages_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};

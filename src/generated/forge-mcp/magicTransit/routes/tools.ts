@@ -6,42 +6,25 @@ import {
   magic_api$$response$$common,
   magic_api$$response$$common$$failure,
   magic_api$$response$$single,
-  magic_identifier,
   magic_messages,
 } from "../outputs.js";
-import { magic_identifier as magic_identifier$ } from "../schemas.js";
 import {
-  magic_colo_name,
   magic_colo_names,
-  magic_colo_region,
   magic_colo_regions,
   magic_create_route_response,
-  magic_created_on,
-  magic_description,
-  magic_modified_on,
   magic_multiple_route_delete_response,
   magic_multiple_route_modified_response,
-  magic_nexthop,
-  magic_prefix,
-  magic_priority,
   magic_route,
   magic_route_deleted_response,
   magic_route_modified_response,
   magic_route_single_response,
   magic_routes_collection_response,
   magic_scope,
-  magic_weight,
 } from "./outputs.js";
 import {
-  magic_colo_name as magic_colo_name$,
   magic_colo_names as magic_colo_names$,
-  magic_colo_region as magic_colo_region$,
   magic_colo_regions as magic_colo_regions$,
   magic_create_route_request,
-  magic_description as magic_description$,
-  magic_nexthop as magic_nexthop$,
-  magic_prefix as magic_prefix$,
-  magic_priority as magic_priority$,
   magic_route_add_single_request,
   magic_route_delete_id,
   magic_route_delete_many_request,
@@ -49,7 +32,6 @@ import {
   magic_route_update_request,
   magic_route_update_single_request,
   magic_scope as magic_scope$,
-  magic_weight as magic_weight$,
 } from "./schemas.js";
 
 /**
@@ -59,7 +41,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_bulkUpdate",
     title: "Update Many Routes",
-    description: "Update multiple Magic static routes. Use `?validate_only=true` as an optional query parameter to run validation only without persisting changes. Only fields for a route that need to be changed need be provided.",
+    description: "Update multiple Magic static routes. Use `?validate_only=true` as an optional query parameter to run validation only without persisting changes. Only fields for a route that need to be changed need be provided.\n\nPUT /accounts/{account_id}/magic/routes",
     inputSchema: {
       type: "object",
       properties: {
@@ -67,10 +49,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_route_update_many_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -83,21 +66,14 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_colo_name": magic_colo_name$,
         "magic_colo_names": magic_colo_names$,
-        "magic_colo_region": magic_colo_region$,
         "magic_colo_regions": magic_colo_regions$,
-        "magic_description": magic_description$,
-        "magic_identifier": magic_identifier$,
-        "magic_nexthop": magic_nexthop$,
-        "magic_prefix": magic_prefix$,
-        "magic_priority": magic_priority$,
         "magic_route_add_single_request": magic_route_add_single_request,
         "magic_route_update_many_request": magic_route_update_many_request,
         "magic_route_update_single_request": magic_route_update_single_request,
         "magic_scope": magic_scope$,
-        "magic_weight": magic_weight$,
       },
     },
     outputSchema: {
@@ -105,22 +81,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
         "magic_multiple_route_modified_response": magic_multiple_route_modified_response,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -162,22 +128,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
         "magic_multiple_route_modified_response": magic_multiple_route_modified_response,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({
@@ -188,7 +144,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_create",
     title: "Create a Route",
-    description: "Creates a new Magic static route. Use `?validate_only=true` as an optional query parameter to run validation only without persisting changes.",
+    description: "Creates a new Magic static route. Use `?validate_only=true` as an optional query parameter to run validation only without persisting changes.\n\nPOST /accounts/{account_id}/magic/routes",
     inputSchema: {
       type: "object",
       properties: {
@@ -196,10 +152,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_create_route_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -212,19 +169,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_colo_name": magic_colo_name$,
         "magic_colo_names": magic_colo_names$,
-        "magic_colo_region": magic_colo_region$,
         "magic_colo_regions": magic_colo_regions$,
         "magic_create_route_request": magic_create_route_request,
-        "magic_description": magic_description$,
-        "magic_identifier": magic_identifier$,
-        "magic_nexthop": magic_nexthop$,
-        "magic_prefix": magic_prefix$,
-        "magic_priority": magic_priority$,
         "magic_scope": magic_scope$,
-        "magic_weight": magic_weight$,
       },
     },
     outputSchema: {
@@ -232,22 +182,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
         "magic_create_route_response": magic_create_route_response,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -289,22 +229,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
         "magic_create_route_response": magic_create_route_response,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({
@@ -315,19 +245,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_delete",
     title: "Delete Route",
-    description: "Disable and remove a specific Magic static route.",
+    description: "Disable and remove a specific Magic static route.\n\nDELETE /accounts/{account_id}/magic/routes/{route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "route_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -340,31 +271,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_route_deleted_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_route_deleted_response": magic_route_deleted_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -406,22 +325,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_route_deleted_response": magic_route_deleted_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({
@@ -431,7 +340,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_empty",
     title: "Delete Many Routes",
-    description: "Delete multiple Magic static routes.",
+    description: "Delete multiple Magic static routes.\n\nDELETE /accounts/{account_id}/magic/routes",
     inputSchema: {
       type: "object",
       properties: {
@@ -439,10 +348,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_route_delete_many_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -455,8 +365,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_identifier": magic_identifier$,
         "magic_route_delete_id": magic_route_delete_id,
         "magic_route_delete_many_request": magic_route_delete_many_request,
       },
@@ -466,22 +376,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
         "magic_multiple_route_delete_response": magic_multiple_route_delete_response,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -523,22 +423,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
         "magic_multiple_route_delete_response": magic_multiple_route_delete_response,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({
@@ -549,19 +439,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_get",
     title: "Route Details",
-    description: "Get a specific Magic static route.",
+    description: "Get a specific Magic static route.\n\nGET /accounts/{account_id}/magic/routes/{route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "route_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -574,31 +465,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_route_single_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_route_single_response": magic_route_single_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -642,22 +521,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_route_single_response": magic_route_single_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({
@@ -667,15 +536,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_list",
     title: "List Routes",
-    description: "List all Magic static routes.",
+    description: "List all Magic static routes.\n\nGET /accounts/{account_id}/magic/routes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -687,31 +557,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_routes_collection_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_routes_collection_response": magic_routes_collection_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -750,22 +608,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_routes_collection_response": magic_routes_collection_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({
@@ -775,7 +623,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_routes_update",
     title: "Update Route",
-    description: "Update a specific Magic static route. Use `?validate_only=true` as an optional query parameter to run validation only without persisting changes.",
+    description: "Update a specific Magic static route. Use `?validate_only=true` as an optional query parameter to run validation only without persisting changes.\n\nPUT /accounts/{account_id}/magic/routes/{route_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -783,14 +631,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_route_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "route_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -804,19 +653,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_colo_name": magic_colo_name$,
         "magic_colo_names": magic_colo_names$,
-        "magic_colo_region": magic_colo_region$,
         "magic_colo_regions": magic_colo_regions$,
-        "magic_description": magic_description$,
-        "magic_identifier": magic_identifier$,
-        "magic_nexthop": magic_nexthop$,
-        "magic_prefix": magic_prefix$,
-        "magic_priority": magic_priority$,
         "magic_route_update_request": magic_route_update_request,
         "magic_scope": magic_scope$,
-        "magic_weight": magic_weight$,
       },
     },
     outputSchema: {
@@ -824,22 +666,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_route_modified_response": magic_route_modified_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     annotations: {
@@ -881,22 +713,12 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_colo_name": magic_colo_name,
         "magic_colo_names": magic_colo_names,
-        "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
-        "magic_created_on": magic_created_on,
-        "magic_description": magic_description,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_modified_on": magic_modified_on,
-        "magic_nexthop": magic_nexthop,
-        "magic_prefix": magic_prefix,
-        "magic_priority": magic_priority,
         "magic_route": magic_route,
         "magic_route_modified_response": magic_route_modified_response,
         "magic_scope": magic_scope,
-        "magic_weight": magic_weight,
       },
     },
     request: (args) => ({

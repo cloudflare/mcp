@@ -4,45 +4,25 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `custom-pages_asset_description` in responses.
- */
-export const custom$$pages_asset_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `custom-pages_asset_name` in responses.
- */
-export const custom$$pages_asset_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `custom-pages_asset_url` in responses.
- */
-export const custom$$pages_asset_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `custom-pages_custom_asset` in responses.
  */
 export const custom$$pages_custom_asset: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/custom-pages_asset_description"
+      "type": "string"
     },
     "last_updated": {
-      "$ref": "#/$defs/custom-pages_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/custom-pages_asset_name"
+      "type": "string"
     },
     "size_bytes": {
       "type": "integer"
     },
     "url": {
-      "$ref": "#/$defs/custom-pages_asset_url"
+      "type": "string"
     }
   },
   "type": "object"

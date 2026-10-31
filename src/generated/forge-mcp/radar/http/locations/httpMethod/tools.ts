@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_locations_httpMethod_get",
     title: "Get top locations by HTTP requests for an HTTP version",
-    description: "Retrieves the top locations, by HTTP requests, of the requested HTTP version.",
+    description: "Retrieves the top locations, by HTTP requests, of the requested HTTP version.\n\nGET /radar/http/top/locations/http_version/{http_version}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "http_version": {
               "description": "HTTP version.",
@@ -32,6 +33,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -199,6 +201,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

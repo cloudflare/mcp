@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_email_security_top_tlds_spoof_get",
     title: "Get top TLDs by email spoof classification",
-    description: "Retrieves the top TLDs by emails classified as spoof or not.",
+    description: "Retrieves the top TLDs by emails classified as spoof or not.\n\nGET /radar/email/security/top/tlds/spoof/{spoof}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "spoof": {
               "description": "Spoof classification.",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "arc": {
               "description": "Filters results by ARC (Authenticated Received Chain) validation.",
@@ -151,6 +153,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

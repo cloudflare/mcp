@@ -4,20 +4,12 @@
 import type { JsonSchema } from "./_/tool.js";
 
 /**
- * The schema of `aaa_identifier`.
- */
-export const aaa_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
-};
-
-/**
  * The schema of `analytics-sql_SqlQueryAccountScope`.
  */
 export const analytics$$sql_SqlQueryAccountScope: JsonSchema = {
   "properties": {
     "accountTag": {
-      "description": "Account tag used to authorize and scope the query. Must be a 32-character lowercase hex string.\n",
+      "description": "Account tag used to authorize and scope the query. Must be a 32-character lowercase hex string.",
       "type": "string"
     }
   },
@@ -33,7 +25,7 @@ export const analytics$$sql_SqlQueryAccountScope: JsonSchema = {
 export const analytics$$sql_SqlQueryRequest: JsonSchema = {
   "properties": {
     "params": {
-      "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.\n",
+      "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.",
       "oneOf": [
         {
           "items": {
@@ -60,12 +52,12 @@ export const analytics$$sql_SqlQueryRequest: JsonSchema = {
       ]
     },
     "query": {
-      "description": "SQL query to execute. A trailing FORMAT selects JSON, JSONEachRow, TabSeparated, or TSV output on any dataset.\n",
+      "description": "SQL query to execute. A trailing FORMAT selects JSON, JSONEachRow, TabSeparated, or TSV output on any dataset.",
       "type": "string"
     },
     "scope": {
       "$ref": "#/$defs/analytics-sql_SqlQueryScope",
-      "description": "Account or zone scope applied to the query. Include exactly one scope tag. Do not include account or zone tenancy predicates in the SQL query when this field is present.\n"
+      "description": "Account or zone scope applied to the query. Include exactly one scope tag. Do not include account or zone tenancy predicates in the SQL query when this field is present."
     },
     "time_range": {
       "$ref": "#/$defs/analytics-sql_SqlQueryTimeRange"
@@ -81,7 +73,7 @@ export const analytics$$sql_SqlQueryRequest: JsonSchema = {
  * The schema of `analytics-sql_SqlQueryScope`.
  */
 export const analytics$$sql_SqlQueryScope: JsonSchema = {
-  "description": "Account or zone scope applied to the query. Include exactly one scope tag. Do not include account or zone tenancy predicates in the SQL query when this field is present.\n",
+  "description": "Account or zone scope applied to the query. Include exactly one scope tag. Do not include account or zone tenancy predicates in the SQL query when this field is present.",
   "oneOf": [
     {
       "$ref": "#/$defs/analytics-sql_SqlQueryAccountScope"
@@ -96,7 +88,7 @@ export const analytics$$sql_SqlQueryScope: JsonSchema = {
  * The schema of `analytics-sql_SqlQueryTimeRange`.
  */
 export const analytics$$sql_SqlQueryTimeRange: JsonSchema = {
-  "description": "Time bounds applied to the dataset's timestamp column. Do not include timestamp predicates in the SQL query when this field is present.\n",
+  "description": "Time bounds applied to the dataset's timestamp column. Do not include timestamp predicates in the SQL query when this field is present.",
   "properties": {
     "end": {
       "description": "Inclusive upper bound for the dataset's timestamp column.",
@@ -119,7 +111,7 @@ export const analytics$$sql_SqlQueryTimeRange: JsonSchema = {
 export const analytics$$sql_SqlQueryZoneScope: JsonSchema = {
   "properties": {
     "zoneTag": {
-      "description": "Zone tag used to authorize and scope the query. Must be a 32-character lowercase hex string.\n",
+      "description": "Zone tag used to authorize and scope the query. Must be a 32-character lowercase hex string.",
       "type": "string"
     }
   },
@@ -135,16 +127,27 @@ export const analytics$$sql_SqlQueryZoneScope: JsonSchema = {
 export const api$$shield_basic_operation: JsonSchema = {
   "properties": {
     "endpoint": {
-      "$ref": "#/$defs/api-shield_endpoint",
-      "description": "The endpoint which can contain path parameter templates in curly braces, each will be replaced from left to right with {varN}, starting with {var1}, during insertion. This will further be Cloudflare-normalized upon insertion. See: https://developers.cloudflare.com/rules/normalization/how-it-works/."
+      "description": "The endpoint which can contain path parameter templates in curly braces, each will be replaced from left to right with {varN}, starting with {var1}, during insertion. This will further be Cloudflare-normalized upon insertion. See: https://developers.cloudflare.com/rules/normalization/how-it-works/.",
+      "type": "string"
     },
     "host": {
-      "$ref": "#/$defs/api-shield_host",
-      "description": "RFC3986-compliant host."
+      "description": "RFC3986-compliant host.",
+      "type": "string"
     },
     "method": {
-      "$ref": "#/$defs/api-shield_method",
-      "description": "The HTTP method used to access the endpoint."
+      "description": "The HTTP method used to access the endpoint.",
+      "enum": [
+        "GET",
+        "POST",
+        "HEAD",
+        "OPTIONS",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "PATCH",
+        "TRACE"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -153,85 +156,6 @@ export const api$$shield_basic_operation: JsonSchema = {
     "method"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_endpoint`.
- */
-export const api$$shield_endpoint: JsonSchema = {
-  "description": "The endpoint which can contain path parameter templates in curly braces, each will be replaced from left to right with {varN}, starting with {var1}, during insertion. This will further be Cloudflare-normalized upon insertion. See: https://developers.cloudflare.com/rules/normalization/how-it-works/.",
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_host`.
- */
-export const api$$shield_host: JsonSchema = {
-  "description": "RFC3986-compliant host.",
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_identifier`.
- */
-export const api$$shield_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_identifier-2`.
- */
-export const api$$shield_identifier$$2: JsonSchema = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/api-shield_identifier"
-    },
-    {
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `api-shield_method`.
- */
-export const api$$shield_method: JsonSchema = {
-  "description": "The HTTP method used to access the endpoint.",
-  "enum": [
-    "GET",
-    "POST",
-    "HEAD",
-    "OPTIONS",
-    "PUT",
-    "DELETE",
-    "CONNECT",
-    "PATCH",
-    "TRACE"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_uuid`.
- */
-export const api$$shield_uuid: JsonSchema = {
-  "description": "UUID.",
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_uuid-2`.
- */
-export const api$$shield_uuid$$2: JsonSchema = {
-  "allOf": [
-    {
-      "type": "string"
-    },
-    {
-      "$ref": "#/$defs/api-shield_uuid"
-    }
-  ]
 };
 
 /**
@@ -285,37 +209,6 @@ export const bill$$subs$$api_component_values: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_frequency`.
- */
-export const bill$$subs$$api_frequency: JsonSchema = {
-  "description": "How often the subscription is renewed automatically.",
-  "enum": [
-    "weekly",
-    "monthly",
-    "quarterly",
-    "yearly"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_identifier`.
- */
-export const bill$$subs$$api_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_install_id`.
- */
-export const bill$$subs$$api_install_id: JsonSchema = {
-  "deprecated": true,
-  "description": "app install id.",
-  "type": "string"
-};
-
-/**
  * The schema of `bill-subs-api_rate_plan`.
  */
 export const bill$$subs$$api_rate_plan: JsonSchema = {
@@ -357,14 +250,6 @@ export const bill$$subs$$api_rate_plan: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_schemas-identifier`.
- */
-export const bill$$subs$$api_schemas$$identifier: JsonSchema = {
-  "description": "Subscription identifier tag.",
-  "type": "string"
-};
-
-/**
  * The schema of `bill-subs-api_subscription-v2`.
  */
 export const bill$$subs$$api_subscription$$v2: JsonSchema = {
@@ -374,8 +259,9 @@ export const bill$$subs$$api_subscription$$v2: JsonSchema = {
       "description": "Cloudflare Apps Marketplace is sunset. This field is retained for legacy grandfathered app subscriptions only.",
       "properties": {
         "install_id": {
-          "$ref": "#/$defs/bill-subs-api_install_id",
-          "description": "app install id."
+          "deprecated": true,
+          "description": "app install id.",
+          "type": "string"
         }
       },
       "type": "object"
@@ -385,8 +271,14 @@ export const bill$$subs$$api_subscription$$v2: JsonSchema = {
       "description": "Configurable component values for the subscription."
     },
     "frequency": {
-      "$ref": "#/$defs/bill-subs-api_frequency",
-      "description": "How often the subscription is renewed automatically."
+      "description": "How often the subscription is renewed automatically.",
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "type": "string"
     },
     "rate_plan": {
       "$ref": "#/$defs/bill-subs-api_rate_plan",
@@ -408,21 +300,13 @@ export const bill$$subs$$api_zone: JsonSchema = {
 };
 
 /**
- * The schema of `billable-usage-api_identifier`.
- */
-export const billable$$usage$$api_identifier: JsonSchema = {
-  "description": "Represents a Cloudflare resource identifier tag.",
-  "type": "string"
-};
-
-/**
  * The schema of `builds_BuildSeedRepoInput`.
  */
 export const builds_BuildSeedRepoInput: JsonSchema = {
   "properties": {
     "branch": {
-      "$ref": "#/$defs/builds_branch",
-      "description": "Repository branch to seed."
+      "description": "Repository branch to seed.",
+      "type": "string"
     },
     "files": {
       "description": "Files to add or replace for this build. Maximum 2.",
@@ -495,12 +379,12 @@ export const builds_BuildSeedRepoInputFile: JsonSchema = {
 export const builds_CreateBuildRequest: JsonSchema = {
   "properties": {
     "branch": {
-      "$ref": "#/$defs/builds_branch",
-      "description": "Git branch name (required if commit_hash not provided)"
+      "description": "Git branch name (required if commit_hash not provided)",
+      "type": "string"
     },
     "commit_hash": {
-      "$ref": "#/$defs/builds_commit_hash",
-      "description": "Git commit hash (required if branch not provided)"
+      "description": "Git commit hash (required if branch not provided)",
+      "type": "string"
     },
     "seed_repo": {
       "$ref": "#/$defs/builds_BuildSeedRepoInput",
@@ -511,41 +395,28 @@ export const builds_CreateBuildRequest: JsonSchema = {
 };
 
 /**
- * The schema of `builds_SCMProviderType`.
- */
-export const builds_SCMProviderType: JsonSchema = {
-  "description": "Source control provider.",
-  "enum": [
-    "github",
-    "gitlab",
-    "gitlab_internal",
-    "origin"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `builds_UpdateWorkerBuildSettingsInput`.
  */
 export const builds_UpdateWorkerBuildSettingsInput: JsonSchema = {
   "description": "Partial build settings for updating a Worker build configuration",
   "properties": {
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled",
       "default": false,
-      "description": "Whether builds reuse cached dependencies and build artifacts."
+      "description": "Whether builds reuse cached dependencies and build artifacts.",
+      "type": "boolean"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command",
-      "description": "Command to build the Worker."
+      "description": "Command to build the Worker.",
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid",
-      "description": "UUID of the build token used when deploying the Worker."
+      "description": "UUID of the build token used when deploying the Worker.",
+      "format": "uuid",
+      "type": "string"
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command",
-      "description": "Command to deploy the Worker."
+      "description": "Command to deploy the Worker.",
+      "type": "string"
     },
     "environment_variables": {
       "additionalProperties": {
@@ -553,8 +424,8 @@ export const builds_UpdateWorkerBuildSettingsInput: JsonSchema = {
           {
             "properties": {
               "is_secret": {
-                "$ref": "#/$defs/builds_is_secret",
-                "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible."
+                "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible.",
+                "type": "boolean"
               },
               "value": {
                 "description": "Value made available to the build. Maximum length is 5000 characters.",
@@ -587,27 +458,11 @@ export const builds_UpdateWorkerBuildSettingsInput: JsonSchema = {
       "description": "Path patterns that can start builds."
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory",
-      "description": "Repository directory in which build and deploy commands run."
+      "description": "Repository directory in which build and deploy commands run.",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_account_id`.
- */
-export const builds_account_id: JsonSchema = {
-  "description": "Account identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_branch`.
- */
-export const builds_branch: JsonSchema = {
-  "description": "Git branch name.",
-  "type": "string"
 };
 
 /**
@@ -633,87 +488,6 @@ export const builds_branch_includes: JsonSchema = {
 };
 
 /**
- * The schema of `builds_build_caching_enabled`.
- */
-export const builds_build_caching_enabled: JsonSchema = {
-  "description": "Whether builds reuse cached dependencies and build artifacts.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `builds_build_command`.
- */
-export const builds_build_command: JsonSchema = {
-  "description": "Command to build the Worker.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_build_token_name`.
- */
-export const builds_build_token_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_build_token_uuid`.
- */
-export const builds_build_token_uuid: JsonSchema = {
-  "description": "UUID of the build token used when deploying the Worker.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_build_uuid`.
- */
-export const builds_build_uuid: JsonSchema = {
-  "description": "Build UUID.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_commit_hash`.
- */
-export const builds_commit_hash: JsonSchema = {
-  "description": "Git commit hash",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_deploy_command`.
- */
-export const builds_deploy_command: JsonSchema = {
-  "description": "Command to deploy the Worker.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_deploy_hook_name`.
- */
-export const builds_deploy_hook_name: JsonSchema = {
-  "description": "Deploy hook name (1-58 characters).",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_external_script_id`.
- */
-export const builds_external_script_id: JsonSchema = {
-  "description": "System-generated tag of the Worker. This is not the Worker name.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_is_secret`.
- */
-export const builds_is_secret: JsonSchema = {
-  "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `builds_path_excludes`.
  */
 export const builds_path_excludes: JsonSchema = {
@@ -736,123 +510,25 @@ export const builds_path_includes: JsonSchema = {
 };
 
 /**
- * The schema of `builds_provider_account_id`.
- */
-export const builds_provider_account_id: JsonSchema = {
-  "description": "Provider-specific identifier of the account or namespace that owns the repository.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_provider_account_name`.
- */
-export const builds_provider_account_name: JsonSchema = {
-  "description": "Human-readable name of the account or namespace that owns the repository.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_repo_connection_uuid`.
- */
-export const builds_repo_connection_uuid: JsonSchema = {
-  "description": "Repository connection UUID.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_repo_id`.
- */
-export const builds_repo_id: JsonSchema = {
-  "description": "Provider-specific repository identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_repo_name`.
- */
-export const builds_repo_name: JsonSchema = {
-  "description": "Human-readable repository name.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_root_directory`.
- */
-export const builds_root_directory: JsonSchema = {
-  "description": "Repository directory in which build and deploy commands run.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_trigger_name`.
- */
-export const builds_trigger_name: JsonSchema = {
-  "description": "Human-readable name of the build trigger.",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_trigger_uuid`.
- */
-export const builds_trigger_uuid: JsonSchema = {
-  "description": "Trigger UUID.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `cache-settings_identifier`.
- */
-export const cache$$settings_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `dns-custom-nameservers_CustomNSInput`.
  */
 export const dns$$custom$$nameservers_CustomNSInput: JsonSchema = {
   "description": "Custom NS Input",
   "properties": {
     "ns_name": {
-      "$ref": "#/$defs/dns-custom-nameservers_ns_name",
-      "description": "The FQDN of the name server."
+      "description": "The FQDN of the name server.",
+      "type": "string"
     },
     "ns_set": {
-      "$ref": "#/$defs/dns-custom-nameservers_ns_set",
       "default": 1,
-      "description": "The number of the set that this name server belongs to."
+      "description": "The number of the set that this name server belongs to.",
+      "type": "number"
     }
   },
   "required": [
     "ns_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dns-custom-nameservers_ns_name`.
- */
-export const dns$$custom$$nameservers_ns_name: JsonSchema = {
-  "description": "The FQDN of the name server.",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-custom-nameservers_ns_set`.
- */
-export const dns$$custom$$nameservers_ns_set: JsonSchema = {
-  "description": "The number of the set that this name server belongs to.",
-  "type": "number"
-};
-
-/**
- * The schema of `email_identifier`.
- */
-export const email_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
 };
 
 /**
@@ -985,14 +661,6 @@ export const firewall_ipv6_configuration: JsonSchema = {
 };
 
 /**
- * The schema of `firewall_notes`.
- */
-export const firewall_notes: JsonSchema = {
-  "description": "An informative summary of the rule, typically used as a reminder or explanation.",
-  "type": "string"
-};
-
-/**
  * The schema of `firewall_rule`.
  */
 export const firewall_rule: JsonSchema = {
@@ -1002,11 +670,19 @@ export const firewall_rule: JsonSchema = {
       "description": "The rule configuration."
     },
     "mode": {
-      "$ref": "#/$defs/firewall_schemas-mode"
+      "description": "The action to apply to a matched request.",
+      "enum": [
+        "block",
+        "challenge",
+        "whitelist",
+        "js_challenge",
+        "managed_challenge"
+      ],
+      "type": "string"
     },
     "notes": {
-      "$ref": "#/$defs/firewall_notes",
-      "description": "An informative summary of the rule, typically used as a reminder or explanation."
+      "description": "An informative summary of the rule, typically used as a reminder or explanation.",
+      "type": "string"
     }
   },
   "required": [
@@ -1014,60 +690,6 @@ export const firewall_rule: JsonSchema = {
     "mode"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `firewall_rule_identifier`.
- */
-export const firewall_rule_identifier: JsonSchema = {
-  "description": "Unique identifier for a rule.",
-  "type": "string"
-};
-
-/**
- * The schema of `firewall_schemas-mode`.
- */
-export const firewall_schemas$$mode: JsonSchema = {
-  "description": "The action to apply to a matched request.",
-  "enum": [
-    "block",
-    "challenge",
-    "whitelist",
-    "js_challenge",
-    "managed_challenge"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_access`.
- */
-export const iam_access: JsonSchema = {
-  "description": "Allow or deny operations against the resources.",
-  "enum": [
-    "allow",
-    "deny"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_account-type`.
- */
-export const iam_account$$type: JsonSchema = {
-  "enum": [
-    "standard",
-    "enterprise"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_account_identifier`.
- */
-export const iam_account_identifier: JsonSchema = {
-  "$ref": "#/$defs/iam_common_components-schemas-identifier",
-  "description": "Account identifier tag."
 };
 
 /**
@@ -1079,14 +701,6 @@ export const iam_cidr_list: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `iam_common_components-schemas-identifier`.
- */
-export const iam_common_components$$schemas$$identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
 };
 
 /**
@@ -1111,16 +725,18 @@ export const iam_create_payload: JsonSchema = {
       "$ref": "#/$defs/iam_condition"
     },
     "expires_on": {
-      "$ref": "#/$defs/iam_expires_on",
-      "description": "The expiration time on or after which the JWT MUST NOT be accepted for processing."
+      "description": "The expiration time on or after which the JWT MUST NOT be accepted for processing.",
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/iam_name",
-      "description": "Token name."
+      "description": "Token name.",
+      "type": "string"
     },
     "not_before": {
-      "$ref": "#/$defs/iam_not_before",
-      "description": "The time before which the token MUST NOT be accepted for processing."
+      "description": "The time before which the token MUST NOT be accepted for processing.",
+      "format": "date-time",
+      "type": "string"
     },
     "policies": {
       "$ref": "#/$defs/iam_token_policies",
@@ -1132,50 +748,6 @@ export const iam_create_payload: JsonSchema = {
     "policies"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_effect`.
- */
-export const iam_effect: JsonSchema = {
-  "description": "Allow or deny operations against the resources.",
-  "enum": [
-    "allow",
-    "deny"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_email`.
- */
-export const iam_email: JsonSchema = {
-  "description": "The contact email address of the user.",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_expires_on`.
- */
-export const iam_expires_on: JsonSchema = {
-  "description": "The expiration time on or after which the JWT MUST NOT be accepted for processing.",
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_first_name`.
- */
-export const iam_first_name: JsonSchema = {
-  "description": "User's first name",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -1191,46 +763,6 @@ export const iam_grants: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `iam_last_name`.
- */
-export const iam_last_name: JsonSchema = {
-  "description": "User's last name",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `iam_membership_components-schemas-identifier`.
- */
-export const iam_membership_components$$schemas$$identifier: JsonSchema = {
-  "description": "Membership identifier tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_name`.
- */
-export const iam_name: JsonSchema = {
-  "description": "Token name.",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_not_before`.
- */
-export const iam_not_before: JsonSchema = {
-  "description": "The time before which the token MUST NOT be accepted for processing.",
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -1352,8 +884,12 @@ export const iam_policy_with_permission_groups_and_resources: JsonSchema = {
   "description": "Policy with Permission Groups and Resources",
   "properties": {
     "effect": {
-      "$ref": "#/$defs/iam_effect",
-      "description": "Allow or deny operations against the resources."
+      "description": "Allow or deny operations against the resources.",
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "permission_groups": {
       "$ref": "#/$defs/iam_permission_groups",
@@ -1440,24 +976,31 @@ export const iam_token_body: JsonSchema = {
       "$ref": "#/$defs/iam_condition"
     },
     "expires_on": {
-      "$ref": "#/$defs/iam_expires_on",
-      "description": "The expiration time on or after which the JWT MUST NOT be accepted for processing."
+      "description": "The expiration time on or after which the JWT MUST NOT be accepted for processing.",
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/iam_name",
-      "description": "Token name."
+      "description": "Token name.",
+      "type": "string"
     },
     "not_before": {
-      "$ref": "#/$defs/iam_not_before",
-      "description": "The time before which the token MUST NOT be accepted for processing."
+      "description": "The time before which the token MUST NOT be accepted for processing.",
+      "format": "date-time",
+      "type": "string"
     },
     "policies": {
       "$ref": "#/$defs/iam_token_policies",
       "description": "List of access policies assigned to the token."
     },
     "status": {
-      "$ref": "#/$defs/iam_token_status",
-      "description": "Status of the token."
+      "description": "Status of the token.",
+      "enum": [
+        "active",
+        "disabled",
+        "expired"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -1465,14 +1008,6 @@ export const iam_token_body: JsonSchema = {
     "policies"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_token_identifier`.
- */
-export const iam_token_identifier: JsonSchema = {
-  "description": "Token identifier tag.",
-  "type": "string"
 };
 
 /**
@@ -1487,27 +1022,6 @@ export const iam_token_policies: JsonSchema = {
 };
 
 /**
- * The schema of `iam_token_status`.
- */
-export const iam_token_status: JsonSchema = {
-  "description": "Status of the token.",
-  "enum": [
-    "active",
-    "disabled",
-    "expired"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `infra_AccountTag`.
- */
-export const infra_AccountTag: JsonSchema = {
-  "description": "Account identifier",
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_Host`.
  */
 export const load$$balancing_Host: JsonSchema = {
@@ -1516,22 +1030,6 @@ export const load$$balancing_Host: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_address`.
- */
-export const load$$balancing_address: JsonSchema = {
-  "description": "The IP address (IPv4 or IPv6) of the origin, or its publicly addressable hostname. Hostnames entered here should resolve directly to the origin, and not be a hostname proxied by Cloudflare. To set an internal/reserved address, virtual_network_id must also be set.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_allow_insecure`.
- */
-export const load$$balancing_allow_insecure: JsonSchema = {
-  "description": "Do not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors.",
-  "type": "boolean"
 };
 
 /**
@@ -1567,54 +1065,6 @@ export const load$$balancing_check_regions: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_consecutive_down`.
- */
-export const load$$balancing_consecutive_down: JsonSchema = {
-  "description": "To be marked unhealthy the monitored origin must fail this healthcheck N consecutive times.",
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_consecutive_up`.
- */
-export const load$$balancing_consecutive_up: JsonSchema = {
-  "description": "To be marked healthy the monitored origin must pass this healthcheck N consecutive times.",
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_description`.
- */
-export const load$$balancing_description: JsonSchema = {
-  "description": "Object description.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_enabled`.
- */
-export const load$$balancing_enabled: JsonSchema = {
-  "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any).",
-  "type": "boolean"
-};
-
-/**
- * The schema of `load-balancing_expected_body`.
- */
-export const load$$balancing_expected_body: JsonSchema = {
-  "description": "A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_expected_codes`.
- */
-export const load$$balancing_expected_codes: JsonSchema = {
-  "description": "The expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors.",
-  "type": "string"
 };
 
 /**
@@ -1658,14 +1108,6 @@ export const load$$balancing_filter_options: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_follow_redirects`.
- */
-export const load$$balancing_follow_redirects: JsonSchema = {
-  "description": "Follow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_header`.
  */
 export const load$$balancing_header: JsonSchema = {
@@ -1700,29 +1142,6 @@ export const load$$balancing_health_sources: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_identifier`.
- */
-export const load$$balancing_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_interval`.
- */
-export const load$$balancing_interval: JsonSchema = {
-  "description": "The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations.",
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_latitude`.
- */
-export const load$$balancing_latitude: JsonSchema = {
-  "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set.",
-  "type": "number"
 };
 
 /**
@@ -1770,134 +1189,101 @@ export const load$$balancing_load_shedding: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_longitude`.
- */
-export const load$$balancing_longitude: JsonSchema = {
-  "description": "The longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set.",
-  "type": "number"
-};
-
-/**
- * The schema of `load-balancing_method`.
- */
-export const load$$balancing_method: JsonSchema = {
-  "description": "The method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_minimum_origins`.
- */
-export const load$$balancing_minimum_origins: JsonSchema = {
-  "description": "The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool.",
-  "type": "integer"
-};
-
-/**
  * The schema of `load-balancing_monitor-editable`.
  */
 export const load$$balancing_monitor$$editable: JsonSchema = {
   "properties": {
     "allow_insecure": {
-      "$ref": "#/$defs/load-balancing_allow_insecure",
       "default": false,
-      "description": "Do not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors."
+      "description": "Do not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors.",
+      "type": "boolean"
     },
     "consecutive_down": {
-      "$ref": "#/$defs/load-balancing_consecutive_down",
-      "description": "To be marked unhealthy the monitored origin must fail this healthcheck N consecutive times."
+      "description": "To be marked unhealthy the monitored origin must fail this healthcheck N consecutive times.",
+      "type": "integer"
     },
     "consecutive_up": {
-      "$ref": "#/$defs/load-balancing_consecutive_up",
-      "description": "To be marked healthy the monitored origin must pass this healthcheck N consecutive times."
+      "description": "To be marked healthy the monitored origin must pass this healthcheck N consecutive times.",
+      "type": "integer"
     },
     "description": {
-      "$ref": "#/$defs/load-balancing_description",
       "default": "",
-      "description": "Object description."
+      "description": "Object description.",
+      "type": "string"
     },
     "expected_body": {
-      "$ref": "#/$defs/load-balancing_expected_body",
       "default": "",
-      "description": "A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors."
+      "description": "A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors.",
+      "type": "string"
     },
     "expected_codes": {
-      "$ref": "#/$defs/load-balancing_expected_codes",
       "default": "",
-      "description": "The expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors."
+      "description": "The expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors.",
+      "type": "string"
     },
     "follow_redirects": {
-      "$ref": "#/$defs/load-balancing_follow_redirects",
       "default": false,
-      "description": "Follow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors."
+      "description": "Follow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors.",
+      "type": "boolean"
     },
     "header": {
       "$ref": "#/$defs/load-balancing_header",
       "description": "The HTTP request headers to send in the health check. It is recommended you set a Host header by default. The User-Agent header cannot be overridden. This parameter is only valid for HTTP and HTTPS monitors."
     },
     "interval": {
-      "$ref": "#/$defs/load-balancing_interval",
       "default": 60,
-      "description": "The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations."
+      "description": "The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations.",
+      "type": "integer"
     },
     "method": {
-      "$ref": "#/$defs/load-balancing_method",
-      "description": "The method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks."
+      "description": "The method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks.",
+      "type": "string"
     },
     "path": {
-      "$ref": "#/$defs/load-balancing_path",
-      "description": "The endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors."
+      "description": "The endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors.",
+      "type": "string"
     },
     "port": {
-      "$ref": "#/$defs/load-balancing_port",
-      "description": "The port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443)."
+      "description": "The port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443).",
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "probe_zone": {
-      "$ref": "#/$defs/load-balancing_probe_zone",
       "default": "",
-      "description": "Assign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors."
+      "description": "Assign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors.",
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/load-balancing_retries",
       "default": 2,
-      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."
+      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
+      "type": "integer"
     },
     "timeout": {
-      "$ref": "#/$defs/load-balancing_timeout",
       "default": 5,
-      "description": "The timeout (in seconds) before marking the health check as failed."
+      "description": "The timeout (in seconds) before marking the health check as failed.",
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/load-balancing_type",
       "default": "http",
-      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'."
+      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'.",
+      "enum": [
+        "http",
+        "https",
+        "tcp",
+        "udp_icmp",
+        "icmp_ping",
+        "smtp"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_monitor_group_id`.
- */
-export const load$$balancing_monitor_group_id: JsonSchema = {
-  "description": "The ID of the Monitor Group to use for checking the health of origins within this pool.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_monitor_id`.
- */
-export const load$$balancing_monitor_id: JsonSchema = {
-  "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_name`.
- */
-export const load$$balancing_name: JsonSchema = {
-  "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
-  "type": "string"
 };
 
 /**
@@ -1909,14 +1295,6 @@ export const load$$balancing_networks: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_notification_email`.
- */
-export const load$$balancing_notification_email: JsonSchema = {
-  "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
-  "type": "string"
 };
 
 /**
@@ -1950,59 +1328,43 @@ export const load$$balancing_notification_filter: JsonSchema = {
 export const load$$balancing_origin: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/load-balancing_address",
-      "description": "The IP address (IPv4 or IPv6) of the origin, or its publicly addressable hostname. Hostnames entered here should resolve directly to the origin, and not be a hostname proxied by Cloudflare. To set an internal/reserved address, virtual_network_id must also be set."
+      "description": "The IP address (IPv4 or IPv6) of the origin, or its publicly addressable hostname. Hostnames entered here should resolve directly to the origin, and not be a hostname proxied by Cloudflare. To set an internal/reserved address, virtual_network_id must also be set.",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/load-balancing_schemas-enabled",
       "default": true,
-      "description": "Whether to enable (the default) this origin within the pool. Disabled origins will not receive traffic and are excluded from health checks. The origin will only be disabled for the current pool."
+      "description": "Whether to enable (the default) this origin within the pool. Disabled origins will not receive traffic and are excluded from health checks. The origin will only be disabled for the current pool.",
+      "type": "boolean"
     },
     "flatten_cname": {
-      "$ref": "#/$defs/load-balancing_origin_flatten_cname",
       "default": true,
-      "description": "Whether to flatten CNAME records for this origin, resolving them to A/AAAA records before returning to the client. When true (the default), the director resolves CNAME addresses to their underlying A/AAAA records. When false, the origin address is returned as a raw CNAME record without resolution. This setting mirrors the DNS API record flatten_cname setting."
+      "description": "Whether to flatten CNAME records for this origin, resolving them to A/AAAA records before returning to the client. When true (the default), the director resolves CNAME addresses to their underlying A/AAAA records. When false, the origin address is returned as a raw CNAME record without resolution. This setting mirrors the DNS API record flatten_cname setting.",
+      "type": "boolean"
     },
     "header": {
       "$ref": "#/$defs/load-balancing_schemas-header",
       "description": "The request header is used to pass additional information with an HTTP request. Currently supported header is 'Host'."
     },
     "name": {
-      "$ref": "#/$defs/load-balancing_schemas-name",
-      "description": "A human-identifiable name for the origin."
+      "description": "A human-identifiable name for the origin.",
+      "type": "string"
     },
     "port": {
-      "$ref": "#/$defs/load-balancing_origin_port",
       "default": 0,
-      "description": "The port for upstream connections. A value of 0 means the default port for the protocol will be used."
+      "description": "The port for upstream connections. A value of 0 means the default port for the protocol will be used.",
+      "type": "integer"
     },
     "virtual_network_id": {
-      "$ref": "#/$defs/load-balancing_virtual_network_id",
-      "description": "The virtual network subnet ID the origin belongs in. Virtual network must also belong to the account."
+      "description": "The virtual network subnet ID the origin belongs in. Virtual network must also belong to the account.",
+      "type": "string"
     },
     "weight": {
-      "$ref": "#/$defs/load-balancing_weight",
       "default": 1,
-      "description": "The weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.\n- `origin_steering.policy=\"least_outstanding_requests\"`: Use weight to scale the origin's outstanding requests.\n- `origin_steering.policy=\"least_connections\"`: Use weight to scale the origin's open connections."
+      "description": "The weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.\n- `origin_steering.policy=\"least_outstanding_requests\"`: Use weight to scale the origin's outstanding requests.\n- `origin_steering.policy=\"least_connections\"`: Use weight to scale the origin's open connections.",
+      "type": "number"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_origin_flatten_cname`.
- */
-export const load$$balancing_origin_flatten_cname: JsonSchema = {
-  "description": "Whether to flatten CNAME records for this origin, resolving them to A/AAAA records before returning to the client. When true (the default), the director resolves CNAME addresses to their underlying A/AAAA records. When false, the origin address is returned as a raw CNAME record without resolution. This setting mirrors the DNS API record flatten_cname setting.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `load-balancing_origin_port`.
- */
-export const load$$balancing_origin_port: JsonSchema = {
-  "description": "The port for upstream connections. A value of 0 means the default port for the protocol will be used.",
-  "type": "integer"
 };
 
 /**
@@ -2045,69 +1407,6 @@ export const load$$balancing_origins: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_patch_pools_notification_email`.
- */
-export const load$$balancing_patch_pools_notification_email: JsonSchema = {
-  "description": "The email address to send health status notifications to. This field is now deprecated in favor of Cloudflare Notifications for Load Balancing, so only resetting this field with an empty string `\"\"` is accepted.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_path`.
- */
-export const load$$balancing_path: JsonSchema = {
-  "description": "The endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_port`.
- */
-export const load$$balancing_port: JsonSchema = {
-  "description": "The port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443).",
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `load-balancing_probe_zone`.
- */
-export const load$$balancing_probe_zone: JsonSchema = {
-  "description": "Assign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_retries`.
- */
-export const load$$balancing_retries: JsonSchema = {
-  "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_schemas-description`.
- */
-export const load$$balancing_schemas$$description: JsonSchema = {
-  "description": "A human-readable description of the pool.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_schemas-enabled`.
- */
-export const load$$balancing_schemas$$enabled: JsonSchema = {
-  "description": "Whether to enable (the default) this origin within the pool. Disabled origins will not receive traffic and are excluded from health checks. The origin will only be disabled for the current pool.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_schemas-header`.
  */
 export const load$$balancing_schemas$$header: JsonSchema = {
@@ -2119,91 +1418,6 @@ export const load$$balancing_schemas$$header: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_schemas-identifier`.
- */
-export const load$$balancing_schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_schemas-name`.
- */
-export const load$$balancing_schemas$$name: JsonSchema = {
-  "description": "A human-identifiable name for the origin.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_subdivision_code_a2`.
- */
-export const load$$balancing_subdivision_code_a2: JsonSchema = {
-  "description": "Two-letter subdivision code followed in ISO 3166-2.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_timeout`.
- */
-export const load$$balancing_timeout: JsonSchema = {
-  "description": "The timeout (in seconds) before marking the health check as failed.",
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_type`.
- */
-export const load$$balancing_type: JsonSchema = {
-  "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'.",
-  "enum": [
-    "http",
-    "https",
-    "tcp",
-    "udp_icmp",
-    "icmp_ping",
-    "smtp"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_virtual_network_id`.
- */
-export const load$$balancing_virtual_network_id: JsonSchema = {
-  "description": "The virtual network subnet ID the origin belongs in. Virtual network must also belong to the account.",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_weight`.
- */
-export const load$$balancing_weight: JsonSchema = {
-  "description": "The weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.\n- `origin_steering.policy=\"least_outstanding_requests\"`: Use weight to scale the origin's outstanding requests.\n- `origin_steering.policy=\"least_connections\"`: Use weight to scale the origin's open connections.",
-  "type": "number"
-};
-
-/**
- * The schema of `mconn-telemetry_account_id`.
- */
-export const mconn$$telemetry_account_id: JsonSchema = {
-  "description": "Account identifier",
-  "type": "string"
-};
-
-/**
- * The schema of `mconn_account_id`.
- */
-export const mconn_account_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `mconn_uuid`.
- */
-export const mconn_uuid: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -2267,34 +1481,10 @@ export const organizations$$api_ModifyProfileRequest: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_OrganizationID`.
- */
-export const organizations$$api_OrganizationID: JsonSchema = {
-  "description": "Organization ID",
-  "type": "string"
-};
-
-/**
- * The schema of `r2-data-catalog_account-id`.
- */
-export const r2$$data$$catalog_account$$id: JsonSchema = {
-  "description": "Use this to identify the account.",
-  "type": "string"
-};
-
-/**
- * The schema of `r2-data-catalog_bucket-name`.
- */
-export const r2$$data$$catalog_bucket$$name: JsonSchema = {
-  "description": "Specifies the R2 bucket name.",
-  "type": "string"
-};
-
-/**
  * The schema of `r2-data-catalog_catalog-activation-request`.
  */
 export const r2$$data$$catalog_catalog$$activation$$request: JsonSchema = {
-  "description": "Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog's\nmaintenance credential, like the store credentials operation.\n",
+  "description": "Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog's\nmaintenance credential, like the store credentials operation.",
   "properties": {
     "credential": {
       "$ref": "#/$defs/r2-data-catalog_catalog-credential-request",
@@ -2322,18 +1512,6 @@ export const r2$$data$$catalog_catalog$$credential$$request: JsonSchema = {
 };
 
 /**
- * The schema of `r2-data-catalog_catalog-maintenance-state`.
- */
-export const r2$$data$$catalog_catalog$$maintenance$$state: JsonSchema = {
-  "description": "Specifies the state of maintenance operations.",
-  "enum": [
-    "enabled",
-    "disabled"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2-data-catalog_catalog-maintenance-update-request`.
  */
 export const r2$$data$$catalog_catalog$$maintenance$$update$$request: JsonSchema = {
@@ -2352,32 +1530,28 @@ export const r2$$data$$catalog_catalog$$maintenance$$update$$request: JsonSchema
 };
 
 /**
- * The schema of `r2-data-catalog_catalog-target-file-size`.
- */
-export const r2$$data$$catalog_catalog$$target$$file$$size: JsonSchema = {
-  "description": "Sets the target file size for compaction in megabytes. Defaults to \"128\".",
-  "enum": [
-    "64",
-    "128",
-    "256",
-    "512"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2-data-catalog_compaction-update-params`.
  */
 export const r2$$data$$catalog_compaction$$update$$params: JsonSchema = {
   "description": "Updates compaction configuration (all fields optional).",
   "properties": {
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state",
-      "description": "Specifies the state of maintenance operations."
+      "description": "Specifies the state of maintenance operations.",
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "target_size_mb": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-target-file-size",
-      "description": "Sets the target file size for compaction in megabytes. Defaults to \"128\"."
+      "description": "Sets the target file size for compaction in megabytes. Defaults to \"128\".",
+      "enum": [
+        "64",
+        "128",
+        "256",
+        "512"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -2418,8 +1592,12 @@ export const r2$$data$$catalog_snapshot$$expiration$$update$$params: JsonSchema 
       "type": "integer"
     },
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state",
-      "description": "Specifies the state of maintenance operations."
+      "description": "Specifies the state of maintenance operations.",
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -2432,12 +1610,22 @@ export const r2$$data$$catalog_table$$compaction$$update$$params: JsonSchema = {
   "description": "Updates table compaction configuration; all fields are optional.",
   "properties": {
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state",
-      "description": "Specifies the state of maintenance operations."
+      "description": "Specifies the state of maintenance operations.",
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "target_size_mb": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-target-file-size",
-      "description": "Sets the target file size for compaction in megabytes. Defaults to \"128\"."
+      "description": "Sets the target file size for compaction in megabytes. Defaults to \"128\".",
+      "enum": [
+        "64",
+        "128",
+        "256",
+        "512"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -2462,30 +1650,6 @@ export const r2$$data$$catalog_table$$maintenance$$update$$request: JsonSchema =
 };
 
 /**
- * The schema of `resource-sharing_account_id`.
- */
-export const resource$$sharing_account_id: JsonSchema = {
-  "description": "Account identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_organization_id`.
- */
-export const resource$$sharing_organization_id: JsonSchema = {
-  "description": "Organization identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_id`.
- */
-export const resource$$sharing_resource_id: JsonSchema = {
-  "description": "Share Resource identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `resource-sharing_resource_meta`.
  */
 export const resource$$sharing_resource_meta: JsonSchema = {
@@ -2494,154 +1658,13 @@ export const resource$$sharing_resource_meta: JsonSchema = {
 };
 
 /**
- * The schema of `resource-sharing_resource_resource_id`.
- */
-export const resource$$sharing_resource_resource_id: JsonSchema = {
-  "description": "Share Resource identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_status`.
- */
-export const resource$$sharing_resource_status: JsonSchema = {
-  "description": "Resource Status.",
-  "enum": [
-    "active",
-    "deleting",
-    "deleted"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_type`.
- */
-export const resource$$sharing_resource_type: JsonSchema = {
-  "description": "Resource Type.",
-  "enum": [
-    "custom-ruleset",
-    "gateway-policy",
-    "gateway-destination-ip",
-    "gateway-block-page-settings",
-    "gateway-extended-email-matching",
-    "idp-federation-grant",
-    "trust-grant"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_id`.
- */
-export const resource$$sharing_share_id: JsonSchema = {
-  "description": "Share identifier tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_kind`.
- */
-export const resource$$sharing_share_kind: JsonSchema = {
-  "enum": [
-    "sent",
-    "received"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_name`.
- */
-export const resource$$sharing_share_name: JsonSchema = {
-  "description": "The name of the share.",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_status`.
- */
-export const resource$$sharing_share_status: JsonSchema = {
-  "enum": [
-    "active",
-    "deleting",
-    "deleted"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_target_type`.
- */
-export const resource$$sharing_share_target_type: JsonSchema = {
-  "enum": [
-    "account",
-    "organization"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `rulesets_ZoneId`.
- */
-export const rulesets_ZoneId: JsonSchema = {
-  "description": "The unique ID of the zone.",
-  "type": "string"
-};
-
-/**
- * The schema of `rum_identifier`.
- */
-export const rum_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `security-center_dismissed`.
- */
-export const security$$center_dismissed: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `security-center_identifier`.
- */
-export const security$$center_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `security-center_issueClass`.
- */
-export const security$$center_issueClass: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `security-center_issueClasses`.
  */
 export const security$$center_issueClasses: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/security-center_issueClass"
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `security-center_issueType`.
- */
-export const security$$center_issueType: JsonSchema = {
-  "enum": [
-    "compliance_violation",
-    "email_security",
-    "exposed_infrastructure",
-    "insecure_configuration",
-    "weak_authentication",
-    "configuration_suggestion"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2649,25 +1672,17 @@ export const security$$center_issueType: JsonSchema = {
  */
 export const security$$center_issueTypes: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/security-center_issueType"
+    "enum": [
+      "compliance_violation",
+      "email_security",
+      "exposed_infrastructure",
+      "insecure_configuration",
+      "weak_authentication",
+      "configuration_suggestion"
+    ],
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `security-center_page`.
- */
-export const security$$center_page: JsonSchema = {
-  "description": "Specifies the current page within paginated list of results.",
-  "type": "integer"
-};
-
-/**
- * The schema of `security-center_perPage`.
- */
-export const security$$center_perPage: JsonSchema = {
-  "description": "Sets the number of results per page of results.",
-  "type": "integer"
 };
 
 /**
@@ -2696,32 +1711,18 @@ export const security$$center_severityQueryParam: JsonSchema = {
 };
 
 /**
- * The schema of `security-center_source`.
- */
-export const security$$center_source: JsonSchema = {
-  "description": "Who generated the insight. `cloudflare` for Cloudflare-generated insights, otherwise the partner.",
-  "enum": [
-    "cloudflare",
-    "riskrecon"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `security-center_sources`.
  */
 export const security$$center_sources: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/security-center_source"
+    "description": "Who generated the insight. `cloudflare` for Cloudflare-generated insights, otherwise the partner.",
+    "enum": [
+      "cloudflare",
+      "riskrecon"
+    ],
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `security-center_subject`.
- */
-export const security$$center_subject: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -2729,178 +1730,9 @@ export const security$$center_subject: JsonSchema = {
  */
 export const security$$center_subjects: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/security-center_subject"
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `security-center_userClassification`.
- */
-export const security$$center_userClassification: JsonSchema = {
-  "description": "User-defined classification for the insight. Can be 'false_positive', 'accept_risk', 'other', or null.",
-  "oneOf": [
-    {
-      "enum": [
-        "false_positive",
-        "accept_risk",
-        "other"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `speed_identifier`.
- */
-export const speed_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_identifier`.
- */
-export const tls$$certificates$$and$$hostnames_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_account_id`.
- */
-export const tunnel_account_id: JsonSchema = {
-  "description": "Cloudflare account ID",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_client_id`.
- */
-export const tunnel_client_id: JsonSchema = {
-  "description": "UUID of the Cloudflare Tunnel connector.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_config_src`.
- */
-export const tunnel_config_src: JsonSchema = {
-  "description": "Indicates if this is a locally or remotely configured tunnel. If `local`, manage the tunnel using a YAML file on the origin machine. If `cloudflare`, manage the tunnel on the Zero Trust dashboard.",
-  "enum": [
-    "local",
-    "cloudflare"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_existed_at`.
- */
-export const tunnel_existed_at: JsonSchema = {
-  "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded.",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_identifier`.
- */
-export const tunnel_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_ip`.
- */
-export const tunnel_ip: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_page_number`.
- */
-export const tunnel_page_number: JsonSchema = {
-  "description": "Page number of paginated results.",
-  "type": "number"
-};
-
-/**
- * The schema of `tunnel_per_page`.
- */
-export const tunnel_per_page: JsonSchema = {
-  "description": "Number of results to display.",
-  "type": "number"
-};
-
-/**
- * The schema of `tunnel_status`.
- */
-export const tunnel_status: JsonSchema = {
-  "description": "The status of the tunnel. Valid values are `inactive` (tunnel has never been run), `degraded` (tunnel is active and able to serve traffic but in an unhealthy state), `healthy` (tunnel is active and able to serve traffic), or `down` (tunnel can not serve traffic as it has no connections to the Cloudflare Edge).",
-  "enum": [
-    "inactive",
-    "degraded",
-    "healthy",
-    "down"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_id`.
- */
-export const tunnel_tunnel_id: JsonSchema = {
-  "description": "UUID of the tunnel.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_id-2`.
- */
-export const tunnel_tunnel_id$$2: JsonSchema = {
-  "description": "UUID of the tunnel.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_name`.
- */
-export const tunnel_tunnel_name: JsonSchema = {
-  "description": "A user-friendly name for a tunnel.",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_secret`.
- */
-export const tunnel_tunnel_secret: JsonSchema = {
-  "description": "Sets the password required to run a locally-managed tunnel. Must be at least 32 bytes and encoded as a base64 string.",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_type`.
- */
-export const tunnel_tunnel_type: JsonSchema = {
-  "description": "The type of tunnel.",
-  "enum": [
-    "cfd_tunnel",
-    "warp_connector",
-    "warp",
-    "magic",
-    "ip_sec",
-    "gre",
-    "cni"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2909,25 +1741,19 @@ export const tunnel_tunnel_type: JsonSchema = {
 export const tunnel_tunnel_types: JsonSchema = {
   "description": "The types of tunnels to filter by, separated by commas.",
   "items": {
-    "$ref": "#/$defs/tunnel_tunnel_type"
+    "description": "The type of tunnel.",
+    "enum": [
+      "cfd_tunnel",
+      "warp_connector",
+      "warp",
+      "magic",
+      "ip_sec",
+      "gre",
+      "cni"
+    ],
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `usage-analytics_identifier`.
- */
-export const usage$$analytics_identifier: JsonSchema = {
-  "description": "Cloudflare resource identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `waf-product-api-bundle_identifier`.
- */
-export const waf$$product$$api$$bundle_identifier: JsonSchema = {
-  "description": "Defines an identifier.",
-  "type": "string"
 };
 
 /**
@@ -3059,8 +1885,8 @@ export const workers_binding_item: JsonSchema = {
 export const workers_binding_kind_ai: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3087,8 +1913,8 @@ export const workers_binding_kind_ai_search: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace": {
       "description": "The namespace the instance belongs to. Defaults to \"default\" if omitted. Customers who don't use namespaces can simply omit this field.",
@@ -3116,8 +1942,8 @@ export const workers_binding_kind_ai_search: JsonSchema = {
 export const workers_binding_kind_ai_search_namespace: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace": {
       "description": "The user-chosen namespace name. Must exist before deploy -- Wrangler handles auto-creation on deploy failure (R2 bucket pattern). The \"default\" namespace is auto-created by config-api for new accounts. Grants full access (CRUD + search + chat) to all instances within the namespace.",
@@ -3149,8 +1975,8 @@ export const workers_binding_kind_analytics_engine: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3174,8 +2000,8 @@ export const workers_binding_kind_analytics_engine: JsonSchema = {
 export const workers_binding_kind_artifacts: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace": {
       "description": "The Artifacts namespace exposed to the Worker in the Worker's account. Must be 2-63 characters, start with an ASCII alphanumeric character, contain only ASCII alphanumeric characters, dots, underscores, and hyphens, and must not end with a hyphen. The namespace does not need to be created before binding it.",
@@ -3203,8 +2029,8 @@ export const workers_binding_kind_artifacts: JsonSchema = {
 export const workers_binding_kind_assets: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3227,8 +2053,8 @@ export const workers_binding_kind_assets: JsonSchema = {
 export const workers_binding_kind_browser: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3260,8 +2086,8 @@ export const workers_binding_kind_d1: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3285,8 +2111,8 @@ export const workers_binding_kind_d1: JsonSchema = {
 export const workers_binding_kind_data_blob: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "part": {
       "description": "The name of the file containing the data content. Only accepted for `service worker syntax` Workers.",
@@ -3315,8 +2141,8 @@ export const workers_binding_kind_data_blob: JsonSchema = {
 export const workers_binding_kind_dispatch_namespace: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace": {
       "description": "The name of the dispatch namespace.",
@@ -3396,13 +2222,14 @@ export const workers_binding_kind_durable_object_namespace: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace_id": {
       "allOf": [
         {
-          "$ref": "#/$defs/workers_namespace_identifier"
+          "description": "Namespace identifier tag.",
+          "type": "string"
         },
         {
           "type": "string"
@@ -3438,8 +2265,8 @@ export const workers_binding_kind_flagship: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3467,8 +2294,8 @@ export const workers_binding_kind_hyperdrive: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3492,8 +2319,8 @@ export const workers_binding_kind_hyperdrive: JsonSchema = {
 export const workers_binding_kind_images: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3553,8 +2380,8 @@ export const workers_binding_kind_json: JsonSchema = {
       "type": "object"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3579,8 +2406,8 @@ export const workers_binding_kind_k2: JsonSchema = {
   "description": "A K2 stream binding. Available only to accounts enabled for K2.",
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "stream": {
       "description": "ID of a K2 stream owned by the account deploying the Worker.",
@@ -3608,12 +2435,12 @@ export const workers_binding_kind_k2: JsonSchema = {
 export const workers_binding_kind_kv_namespace: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace_id": {
-      "$ref": "#/$defs/workers_namespace_identifier",
-      "description": "Namespace identifier tag."
+      "description": "Namespace identifier tag.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3637,8 +2464,8 @@ export const workers_binding_kind_kv_namespace: JsonSchema = {
 export const workers_binding_kind_media: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3661,8 +2488,8 @@ export const workers_binding_kind_media: JsonSchema = {
 export const workers_binding_kind_messaging: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace": {
       "description": "The Messaging namespace to bind to.",
@@ -3694,8 +2521,8 @@ export const workers_binding_kind_mtls_certificate: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3719,8 +2546,8 @@ export const workers_binding_kind_mtls_certificate: JsonSchema = {
 export const workers_binding_kind_pipelines: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "pipeline": {
       "description": "Name of the Pipeline to bind to.",
@@ -3748,8 +2575,8 @@ export const workers_binding_kind_pipelines: JsonSchema = {
 export const workers_binding_kind_plain_text: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "text": {
       "description": "The text value to use.",
@@ -3777,8 +2604,8 @@ export const workers_binding_kind_plain_text: JsonSchema = {
 export const workers_binding_kind_queue: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "queue_name": {
       "description": "Name of the Queue to bind to.",
@@ -3820,8 +2647,8 @@ export const workers_binding_kind_r2_bucket: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3845,8 +2672,8 @@ export const workers_binding_kind_r2_bucket: JsonSchema = {
 export const workers_binding_kind_ratelimit: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "namespace_id": {
       "description": "Identifier of the rate limit namespace to bind to.",
@@ -3860,7 +2687,7 @@ export const workers_binding_kind_ratelimit: JsonSchema = {
           "type": "number"
         },
         "mitigation_timeout": {
-          "description": "Duration in seconds to apply the mitigation action after the rate limit is exceeded. Valid values are 0 (disabled), 10, or multiples of 60 up to 86400. Must be greater than or equal to the period when non-zero.\n",
+          "description": "Duration in seconds to apply the mitigation action after the rate limit is exceeded. Valid values are 0 (disabled), 10, or multiples of 60 up to 86400. Must be greater than or equal to the period when non-zero.",
           "type": "integer"
         },
         "period": {
@@ -3919,8 +2746,8 @@ export const workers_binding_kind_secret_key: JsonSchema = {
       "type": "object"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3963,8 +2790,8 @@ export const workers_binding_kind_secret_key: JsonSchema = {
 export const workers_binding_kind_secret_text: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "text": {
       "description": "The secret value to use.",
@@ -3992,8 +2819,8 @@ export const workers_binding_kind_secret_text: JsonSchema = {
 export const workers_binding_kind_secrets_store_secret: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "secret_name": {
       "description": "Name of the secret in the store.",
@@ -4044,8 +2871,8 @@ export const workers_binding_kind_send_email: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -4077,8 +2904,8 @@ export const workers_binding_kind_service: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "service": {
       "description": "Name of Worker to bind to.",
@@ -4106,8 +2933,8 @@ export const workers_binding_kind_service: JsonSchema = {
 export const workers_binding_kind_text_blob: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "part": {
       "description": "The name of the file containing the text content. Only accepted for `service worker syntax` Workers.",
@@ -4140,8 +2967,8 @@ export const workers_binding_kind_vectorize: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -4165,8 +2992,8 @@ export const workers_binding_kind_vectorize: JsonSchema = {
 export const workers_binding_kind_version_metadata: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -4189,22 +3016,22 @@ export const workers_binding_kind_version_metadata: JsonSchema = {
 export const workers_binding_kind_vpc_network: JsonSchema = {
   "properties": {
     "identity": {
-      "description": "Enables Gateway identity for the binding. Requires network_id to be \"cf1:network\" and cannot be combined with tunnel_id or an explicit \"cf1:vnet:<UUID>\" network_id.\n",
+      "description": "Enables Gateway identity for the binding. Requires network_id to be \"cf1:network\" and cannot be combined with tunnel_id or an explicit \"cf1:vnet:<UUID>\" network_id.",
       "enum": [
         "runtime-email-alpha"
       ],
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "network_id": {
-      "description": "Identifier of the network to bind to. Use \"cf1:network\" to select the account's default virtual network at runtime, or \"cf1:vnet:<UUID>\" to select an explicit virtual network in the Worker's account. Mutually exclusive with tunnel_id.\n",
+      "description": "Identifier of the network to bind to. Use \"cf1:network\" to select the account's default virtual network at runtime, or \"cf1:vnet:<UUID>\" to select an explicit virtual network in the Worker's account. Mutually exclusive with tunnel_id.",
       "type": "string"
     },
     "tunnel_id": {
-      "description": "UUID of the Cloudflare Tunnel to bind to. Mutually exclusive with network_id.\n",
+      "description": "UUID of the Cloudflare Tunnel to bind to. Mutually exclusive with network_id.",
       "type": "string"
     },
     "type": {
@@ -4228,8 +3055,8 @@ export const workers_binding_kind_vpc_network: JsonSchema = {
 export const workers_binding_kind_vpc_service: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "service_id": {
       "description": "Identifier of the VPC service to bind to.",
@@ -4257,8 +3084,8 @@ export const workers_binding_kind_vpc_service: JsonSchema = {
 export const workers_binding_kind_wasm_module: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "part": {
       "description": "The name of the file containing the WebAssembly module content. Only accepted for `service worker syntax` Workers.",
@@ -4291,8 +3118,8 @@ export const workers_binding_kind_workflow: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name",
-      "description": "A JavaScript variable name for the binding."
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
     },
     "script_name": {
       "description": "Script name that contains the Workflow. If not provided, defaults to this script name.",
@@ -4319,14 +3146,6 @@ export const workers_binding_kind_workflow: JsonSchema = {
 };
 
 /**
- * The schema of `workers_binding_name`.
- */
-export const workers_binding_name: JsonSchema = {
-  "description": "A JavaScript variable name for the binding.",
-  "type": "string"
-};
-
-/**
  * The schema of `workers_bindings`.
  */
 export const workers_bindings: JsonSchema = {
@@ -4341,11 +3160,11 @@ export const workers_bindings: JsonSchema = {
  * The schema of `workers_cache_options`.
  */
 export const workers_cache_options: JsonSchema = {
-  "description": "Global CacheW configuration for the Worker. When caching is on,\nthe platform provisions a `cloudflare.app` zone for the Worker.\nA `type: worker` entry in the `exports` map can override this\nvalue for a single entrypoint.\n",
+  "description": "Global CacheW configuration for the Worker. When caching is on,\nthe platform provisions a `cloudflare.app` zone for the Worker.\nA `type: worker` entry in the `exports` map can override this\nvalue for a single entrypoint.",
   "properties": {
     "cross_version_cache": {
       "default": false,
-      "description": "Whether cached responses are shared across Worker version\nuploads. This is independent of `enabled`. It can stay true\nwhile caching is off, so the preference survives turning\ncaching off and back on.\n",
+      "description": "Whether cached responses are shared across Worker version\nuploads. This is independent of `enabled`. It can stay true\nwhile caching is off, so the preference survives turning\ncaching off and back on.",
       "type": "boolean"
     },
     "enabled": {
@@ -4410,28 +3229,13 @@ export const workers_code_update_strategy: JsonSchema = {
 };
 
 /**
- * The schema of `workers_compatibility_date`.
- */
-export const workers_compatibility_date: JsonSchema = {
-  "description": "Date indicating targeted support in the Workers runtime. Backwards incompatible fixes to the runtime following this date will not affect this Worker.",
-  "type": "string"
-};
-
-/**
- * The schema of `workers_compatibility_flag`.
- */
-export const workers_compatibility_flag: JsonSchema = {
-  "description": "Flag that enables or disables a specific feature in the Workers runtime.",
-  "type": "string"
-};
-
-/**
  * The schema of `workers_compatibility_flags`.
  */
 export const workers_compatibility_flags: JsonSchema = {
   "description": "Flags that enable or disable certain features in the Workers runtime. Used to enable upcoming features or opt in or out of specific changes not included in a `compatibility_date`.",
   "items": {
-    "$ref": "#/$defs/workers_compatibility_flag"
+    "description": "Flag that enables or disables a specific feature in the Workers runtime.",
+    "type": "string"
   },
   "type": "array"
 };
@@ -4459,7 +3263,7 @@ export const workers_create$$assets$$upload$$session$$object: JsonSchema = {
  * The schema of `workers_durable_object_deleted_export`.
  */
 export const workers_durable_object_deleted_export: JsonSchema = {
-  "description": "A `deleted` tombstone: retires the provisioned namespace for this\nclass and all of its data. The class must be absent from the\nuploaded code and no other Worker in the account may bind to the\nnamespace, otherwise the deploy is rejected. No other fields are\nallowed. Deletion is irreversible.\n",
+  "description": "A `deleted` tombstone: retires the provisioned namespace for this\nclass and all of its data. The class must be absent from the\nuploaded code and no other Worker in the account may bind to the\nnamespace, otherwise the deploy is rejected. No other fields are\nallowed. Deletion is irreversible.",
   "properties": {
     "state": {
       "description": "Tombstone that deletes the namespace.",
@@ -4487,10 +3291,10 @@ export const workers_durable_object_deleted_export: JsonSchema = {
  * The schema of `workers_durable_object_expecting_transfer_export`.
  */
 export const workers_durable_object_expecting_transfer_export: JsonSchema = {
-  "description": "The target side of a two-phase transfer (`state:\nexpecting-transfer`). Declares that this script expects to receive\na namespace for this class from the `transfer_from` script. This\nis a live entry, not a tombstone: bindings resolve through the\nsource's namespace until the source commits with a `transferred`\ntombstone. `storage` and `transfer_from` are required; `renamed_to`\nand `transferred_to` are not allowed.\n",
+  "description": "The target side of a two-phase transfer (`state:\nexpecting-transfer`). Declares that this script expects to receive\na namespace for this class from the `transfer_from` script. This\nis a live entry, not a tombstone: bindings resolve through the\nsource's namespace until the source commits with a `transferred`\ntombstone. `storage` and `transfer_from` are required; `renamed_to`\nand `transferred_to` are not allowed.",
   "properties": {
     "container": {
-      "description": "Name of the container (declared in the upload's\n`metadata.containers`) that backs this Durable Object once the\ntransfer settles. Valid only on live entries.\n",
+      "description": "Name of the container (declared in the upload's\n`metadata.containers`) that backs this Durable Object once the\ntransfer settles. Valid only on live entries.",
       "type": "string"
     },
     "state": {
@@ -4501,11 +3305,15 @@ export const workers_durable_object_expecting_transfer_export: JsonSchema = {
       "type": "string"
     },
     "storage": {
-      "$ref": "#/$defs/workers_export_storage",
-      "description": "Durable Object storage backend. `sqlite` is the recommended (and\nonly) backend for new namespaces. `legacy-kv` is accepted only for\na class whose namespace already exists as KV-backed; the `exports`\nflow never provisions a new `legacy-kv` namespace.\n"
+      "description": "Durable Object storage backend. `sqlite` is the recommended (and\nonly) backend for new namespaces. `legacy-kv` is accepted only for\na class whose namespace already exists as KV-backed; the `exports`\nflow never provisions a new `legacy-kv` namespace.",
+      "enum": [
+        "sqlite",
+        "legacy-kv"
+      ],
+      "type": "string"
     },
     "transfer_from": {
-      "description": "The source script name to receive the namespace from. Must be\nin the same account and dispatch-namespace context. Present on\nreads for `expecting-transfer` entries.\n",
+      "description": "The source script name to receive the namespace from. Must be\nin the same account and dispatch-namespace context. Present on\nreads for `expecting-transfer` entries.",
       "type": "string"
     },
     "type": {
@@ -4529,10 +3337,10 @@ export const workers_durable_object_expecting_transfer_export: JsonSchema = {
  * The schema of `workers_durable_object_export`.
  */
 export const workers_durable_object_export: JsonSchema = {
-  "description": "A live Durable Object export (`state: created`, the default). The\nplatform auto-provisions the namespace on first deploy, matches it\non subsequent deploys, and never mutates or deletes it as a side\neffect of a code-only change. `storage` is required; `renamed_to`,\n`transferred_to` and `transfer_from` are not allowed on a live\nentry.\n",
+  "description": "A live Durable Object export (`state: created`, the default). The\nplatform auto-provisions the namespace on first deploy, matches it\non subsequent deploys, and never mutates or deletes it as a side\neffect of a code-only change. `storage` is required; `renamed_to`,\n`transferred_to` and `transfer_from` are not allowed on a live\nentry.",
   "properties": {
     "container": {
-      "description": "Name of the container (declared in the upload's\n`metadata.containers`) that backs this Durable Object. When\nset, the namespace is container-enabled. Valid only on live\nentries.\n",
+      "description": "Name of the container (declared in the upload's\n`metadata.containers`) that backs this Durable Object. When\nset, the namespace is container-enabled. Valid only on live\nentries.",
       "type": "string"
     },
     "state": {
@@ -4544,8 +3352,12 @@ export const workers_durable_object_export: JsonSchema = {
       "type": "string"
     },
     "storage": {
-      "$ref": "#/$defs/workers_export_storage",
-      "description": "Durable Object storage backend. `sqlite` is the recommended (and\nonly) backend for new namespaces. `legacy-kv` is accepted only for\na class whose namespace already exists as KV-backed; the `exports`\nflow never provisions a new `legacy-kv` namespace.\n"
+      "description": "Durable Object storage backend. `sqlite` is the recommended (and\nonly) backend for new namespaces. `legacy-kv` is accepted only for\na class whose namespace already exists as KV-backed; the `exports`\nflow never provisions a new `legacy-kv` namespace.",
+      "enum": [
+        "sqlite",
+        "legacy-kv"
+      ],
+      "type": "string"
     },
     "type": {
       "description": "Marks this entry as a Durable Object export.",
@@ -4566,7 +3378,7 @@ export const workers_durable_object_export: JsonSchema = {
  * The schema of `workers_durable_object_export_variants`.
  */
 export const workers_durable_object_export_variants: JsonSchema = {
-  "description": "Any Durable Object export entry (`type: durable-object`), across\nall lifecycle states. The optional `state` field selects the\nvariant (default `created`); the tombstone states (`deleted`,\n`renamed`, `transferred`) and the live transfer target\n(`expecting-transfer`) are the alternatives. The server validates\nthe exact per-state field combinations; fields not listed for a\nvariant are rejected.\n",
+  "description": "Any Durable Object export entry (`type: durable-object`), across\nall lifecycle states. The optional `state` field selects the\nvariant (default `created`); the tombstone states (`deleted`,\n`renamed`, `transferred`) and the live transfer target\n(`expecting-transfer`) are the alternatives. The server validates\nthe exact per-state field combinations; fields not listed for a\nvariant are rejected.",
   "oneOf": [
     {
       "$ref": "#/$defs/workers_durable_object_export"
@@ -4590,10 +3402,10 @@ export const workers_durable_object_export_variants: JsonSchema = {
  * The schema of `workers_durable_object_renamed_export`.
  */
 export const workers_durable_object_renamed_export: JsonSchema = {
-  "description": "A `renamed` tombstone: rewrites the provisioned namespace's class\nname from this map key to `renamed_to`. The source class may stay\nin code during the rollout window (an info notice is emitted).\n`storage`, `transferred_to` and `transfer_from` are not allowed.\n",
+  "description": "A `renamed` tombstone: rewrites the provisioned namespace's class\nname from this map key to `renamed_to`. The source class may stay\nin code during the rollout window (an info notice is emitted).\n`storage`, `transferred_to` and `transfer_from` are not allowed.",
   "properties": {
     "renamed_to": {
-      "description": "The destination class name. Must differ from the source class\n(the map key) and must be declared as a live (`created`) entry\nin the same `exports` map. Write-only: never present in GET\nresponses.\n",
+      "description": "The destination class name. Must differ from the source class\n(the map key) and must be declared as a live (`created`) entry\nin the same `exports` map. Write-only: never present in GET\nresponses.",
       "type": "string"
     },
     "state": {
@@ -4623,7 +3435,7 @@ export const workers_durable_object_renamed_export: JsonSchema = {
  * The schema of `workers_durable_object_transferred_export`.
  */
 export const workers_durable_object_transferred_export: JsonSchema = {
-  "description": "A `transferred` tombstone (source side of a two-phase transfer):\nhands ownership of the provisioned namespace to another script in\nthe same account, named by `transferred_to`. The target must have\nalready deployed a matching `expecting-transfer` entry. The source\nclass may stay in code during the rollout window (an info notice\nis emitted). `storage`, `renamed_to` and `transfer_from` are not\nallowed.\n",
+  "description": "A `transferred` tombstone (source side of a two-phase transfer):\nhands ownership of the provisioned namespace to another script in\nthe same account, named by `transferred_to`. The target must have\nalready deployed a matching `expecting-transfer` entry. The source\nclass may stay in code during the rollout window (an info notice\nis emitted). `storage`, `renamed_to` and `transfer_from` are not\nallowed.",
   "properties": {
     "state": {
       "description": "Tombstone that transfers the namespace to another script.",
@@ -4633,7 +3445,7 @@ export const workers_durable_object_transferred_export: JsonSchema = {
       "type": "string"
     },
     "transferred_to": {
-      "description": "The destination script name. Must be in the same account and\nthe same dispatch-namespace context (or both non-dispatch).\nCross-dispatch-namespace transfers are rejected. Write-only:\nnever present in GET responses.\n",
+      "description": "The destination script name. Must be in the same account and\nthe same dispatch-namespace context (or both non-dispatch).\nCross-dispatch-namespace transfers are rejected. Write-only:\nnever present in GET responses.",
       "type": "string"
     },
     "type": {
@@ -4656,7 +3468,7 @@ export const workers_durable_object_transferred_export: JsonSchema = {
  * The schema of `workers_entrypoint_cache_options`.
  */
 export const workers_entrypoint_cache_options: JsonSchema = {
-  "description": "CacheW configuration for a single `type: worker` entrypoint.\nWhen present it overrides the Worker's global\n`cache_options.enabled` for that entrypoint, so a Worker can turn\ncaching on globally and opt one entrypoint out, or the reverse.\n",
+  "description": "CacheW configuration for a single `type: worker` entrypoint.\nWhen present it overrides the Worker's global\n`cache_options.enabled` for that entrypoint, so a Worker can turn\ncaching on globally and opt one entrypoint out, or the reverse.",
   "properties": {
     "enabled": {
       "description": "Whether caching is enabled for this entrypoint.",
@@ -4673,7 +3485,7 @@ export const workers_entrypoint_cache_options: JsonSchema = {
  * The schema of `workers_export_config`.
  */
 export const workers_export_config: JsonSchema = {
-  "description": "A single entry in the `exports` map, keyed by export name (a\n`WorkerEntrypoint` class name, a Durable Object class name, or\n`default` for the Worker's default export). The `type`\ndiscriminator selects the top-level shape: `worker` entrypoint\nentries may carry `cache` configuration, while `durable-object`\nentries are further refined by the optional `state` field\n(default `created`). Tombstone states (`deleted`, `renamed`,\n`transferred`) express destructive lifecycle operations\ndeclaratively; `expecting-transfer` is the live target side of a\ntransfer. The server validates the exact per-(type, state) field\ncombinations; fields not listed for a variant are rejected.\n",
+  "description": "A single entry in the `exports` map, keyed by export name (a\n`WorkerEntrypoint` class name, a Durable Object class name, or\n`default` for the Worker's default export). The `type`\ndiscriminator selects the top-level shape: `worker` entrypoint\nentries may carry `cache` configuration, while `durable-object`\nentries are further refined by the optional `state` field\n(default `created`). Tombstone states (`deleted`, `renamed`,\n`transferred`) express destructive lifecycle operations\ndeclaratively; `expecting-transfer` is the live target side of a\ntransfer. The server validates the exact per-(type, state) field\ncombinations; fields not listed for a variant are rejected.",
   "oneOf": [
     {
       "$ref": "#/$defs/workers_worker_export"
@@ -4685,25 +3497,13 @@ export const workers_export_config: JsonSchema = {
 };
 
 /**
- * The schema of `workers_export_storage`.
- */
-export const workers_export_storage: JsonSchema = {
-  "description": "Durable Object storage backend. `sqlite` is the recommended (and\nonly) backend for new namespaces. `legacy-kv` is accepted only for\na class whose namespace already exists as KV-backed; the `exports`\nflow never provisions a new `legacy-kv` namespace.\n",
-  "enum": [
-    "sqlite",
-    "legacy-kv"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers_exports_config_map`.
  */
 export const workers_exports_config_map: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/workers_export_config"
   },
-  "description": "Declarative exports for the Worker, keyed by export name. Worker\nentrypoint entries (`type: worker`) carry cache configuration for\nthat entrypoint. Durable Object entries (`type: durable-object`)\nare also configured here and drive namespace reconciliation. At\nmost 100 entries; class names are at most 128 characters.\n",
+  "description": "Declarative exports for the Worker, keyed by export name. Worker\nentrypoint entries (`type: worker`) carry cache configuration for\nthat entrypoint. Durable Object entries (`type: durable-object`)\nare also configured here and drive namespace reconciliation. At\nmost 100 entries; class names are at most 128 characters.",
   "type": "object"
 };
 
@@ -4711,7 +3511,7 @@ export const workers_exports_config_map: JsonSchema = {
  * The schema of `workers_exports_reconciliation_info`.
  */
 export const workers_exports_reconciliation_info: JsonSchema = {
-  "description": "A non-blocking reconciliation info entry. Emitted for stale\ntombstones (a no-op on this deploy) and for tombstones applied\nwith the source class still in code (the supported zero-downtime\nrollout pattern).\n",
+  "description": "A non-blocking reconciliation info entry. Emitted for stale\ntombstones (a no-op on this deploy) and for tombstones applied\nwith the source class still in code (the supported zero-downtime\nrollout pattern).",
   "properties": {
     "class": {
       "description": "The class name the info entry is about.",
@@ -4727,15 +3527,50 @@ export const workers_exports_reconciliation_info: JsonSchema = {
       "type": "string"
     },
     "referencing_scripts": {
-      "description": "Other Workers in the account that still bind to the affected\nclass. Advisory: while non-empty the tombstone is not yet safe\nto remove — redeploy these Workers with bindings re-pointed\nfirst.\n",
+      "description": "Other Workers in the account that still bind to the affected\nclass. Advisory: while non-empty the tombstone is not yet safe\nto remove — redeploy these Workers with bindings re-pointed\nfirst.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "scenario": {
-      "$ref": "#/$defs/workers_exports_reconciliation_scenario",
-      "description": "Stable, machine-readable tag identifying which reconciliation\nscenario produced an error, warning, or info entry. Clients may\nbranch on this value instead of parsing `message`.\n"
+      "description": "Stable, machine-readable tag identifying which reconciliation\nscenario produced an error, warning, or info entry. Clients may\nbranch on this value instead of parsing `message`.",
+      "enum": [
+        "code_class_not_in_exports",
+        "provisioned_class_missing_from_config",
+        "config_export_not_in_code",
+        "config_references_nonexistent_class",
+        "orphaned_provisioned_namespace",
+        "storage_type_mismatch",
+        "free_tier_requires_sqlite",
+        "invalid_export",
+        "tombstone_delete_class_still_in_code",
+        "tombstone_delete_blocked_by_external_bindings",
+        "tombstone_renamed_to_occupied",
+        "transferred_pending_not_found",
+        "transferred_target_missing",
+        "transferred_target_mismatch",
+        "phase_one_transfer_source_missing",
+        "phase_one_transfer_source_namespace_missing",
+        "phase_one_transfer_target_class_provisioned",
+        "phase_one_transfer_after_commit_mismatch",
+        "phase_one_transfer_duplicate",
+        "phase_one_transfer_target_in_dispatch_namespace",
+        "phase_one_transfer_source_in_dispatch_namespace",
+        "transferred_source_in_dispatch_namespace",
+        "transferred_target_in_dispatch_namespace",
+        "container_undeclared_reference",
+        "container_class_not_durable_object",
+        "container_wiring_inconsistent",
+        "container_multiple_durable_objects",
+        "transfer_container_parity_mismatch",
+        "transfer_container_parity_mismatch_on_commit",
+        "tombstone_class_still_in_code",
+        "stale_tombstone",
+        "transfer_receive_already_applied",
+        "transfer_receive_cleanup_complete"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -4772,7 +3607,7 @@ export const workers_exports_reconciliation_rename: JsonSchema = {
  * The schema of `workers_exports_reconciliation_result`.
  */
 export const workers_exports_reconciliation_result: JsonSchema = {
-  "description": "Summary of what the declarative exports reconciliation did on this\nupload. Present only on uploads that included an `exports` block.\nReconciliation acts on Durable Object entries; `type: worker`\nentries in the same map do not participate. Every array is always\npresent (possibly empty) so clients can iterate unconditionally.\nClients should surface `warnings` prominently, render `info` at\nlower visibility, and use `removable_entries` as the \"safe to\ndelete from your config\" hint.\n",
+  "description": "Summary of what the declarative exports reconciliation did on this\nupload. Present only on uploads that included an `exports` block.\nReconciliation acts on Durable Object entries; `type: worker`\nentries in the same map do not participate. Every array is always\npresent (possibly empty) so clients can iterate unconditionally.\nClients should surface `warnings` prominently, render `info` at\nlower visibility, and use `removable_entries` as the \"safe to\ndelete from your config\" hint.",
   "properties": {
     "created": {
       "description": "Class names for which a new namespace was provisioned.",
@@ -4789,14 +3624,14 @@ export const workers_exports_reconciliation_result: JsonSchema = {
       "type": "array"
     },
     "info": {
-      "description": "Non-blocking info entries (stale tombstones, tombstone applied\nwith class still in code). See `exports_reconciliation_info`.\n",
+      "description": "Non-blocking info entries (stale tombstones, tombstone applied\nwith class still in code). See `exports_reconciliation_info`.",
       "items": {
         "$ref": "#/$defs/workers_exports_reconciliation_info"
       },
       "type": "array"
     },
     "removable_entries": {
-      "description": "Source class names whose tombstone entry is now stale and safe\nto delete from `exports` (no remaining referencing scripts).\n",
+      "description": "Source class names whose tombstone entry is now stale and safe\nto delete from `exports` (no remaining referencing scripts).",
       "items": {
         "type": "string"
       },
@@ -4853,49 +3688,6 @@ export const workers_exports_reconciliation_result: JsonSchema = {
 };
 
 /**
- * The schema of `workers_exports_reconciliation_scenario`.
- */
-export const workers_exports_reconciliation_scenario: JsonSchema = {
-  "description": "Stable, machine-readable tag identifying which reconciliation\nscenario produced an error, warning, or info entry. Clients may\nbranch on this value instead of parsing `message`.\n",
-  "enum": [
-    "code_class_not_in_exports",
-    "provisioned_class_missing_from_config",
-    "config_export_not_in_code",
-    "config_references_nonexistent_class",
-    "orphaned_provisioned_namespace",
-    "storage_type_mismatch",
-    "free_tier_requires_sqlite",
-    "invalid_export",
-    "tombstone_delete_class_still_in_code",
-    "tombstone_delete_blocked_by_external_bindings",
-    "tombstone_renamed_to_occupied",
-    "transferred_pending_not_found",
-    "transferred_target_missing",
-    "transferred_target_mismatch",
-    "phase_one_transfer_source_missing",
-    "phase_one_transfer_source_namespace_missing",
-    "phase_one_transfer_target_class_provisioned",
-    "phase_one_transfer_after_commit_mismatch",
-    "phase_one_transfer_duplicate",
-    "phase_one_transfer_target_in_dispatch_namespace",
-    "phase_one_transfer_source_in_dispatch_namespace",
-    "transferred_source_in_dispatch_namespace",
-    "transferred_target_in_dispatch_namespace",
-    "container_undeclared_reference",
-    "container_class_not_durable_object",
-    "container_wiring_inconsistent",
-    "container_multiple_durable_objects",
-    "transfer_container_parity_mismatch",
-    "transfer_container_parity_mismatch_on_commit",
-    "tombstone_class_still_in_code",
-    "stale_tombstone",
-    "transfer_receive_already_applied",
-    "transfer_receive_cleanup_complete"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers_exports_reconciliation_transfer`.
  */
 export const workers_exports_reconciliation_transfer: JsonSchema = {
@@ -4929,7 +3721,7 @@ export const workers_exports_reconciliation_transfer: JsonSchema = {
  * The schema of `workers_exports_reconciliation_transfer_pending`.
  */
 export const workers_exports_reconciliation_transfer_pending: JsonSchema = {
-  "description": "A single phase-1 transfer hint recorded on the target side (a live\n`expecting-transfer` entry).\n",
+  "description": "A single phase-1 transfer hint recorded on the target side (a live\n`expecting-transfer` entry).",
   "properties": {
     "class": {
       "description": "The target-side class name awaiting transfer.",
@@ -4951,7 +3743,7 @@ export const workers_exports_reconciliation_transfer_pending: JsonSchema = {
  * The schema of `workers_exports_reconciliation_warning`.
  */
 export const workers_exports_reconciliation_warning: JsonSchema = {
-  "description": "A non-blocking reconciliation warning. Reserved: no scenario\npopulates this array today (`code_class_not_in_exports` is\nsurfaced as info and `provisioned_class_missing_from_config` is a\nhard error). Clients should still surface any entries that appear.\n",
+  "description": "A non-blocking reconciliation warning. Reserved: no scenario\npopulates this array today (`code_class_not_in_exports` is\nsurfaced as info and `provisioned_class_missing_from_config` is a\nhard error). Clients should still surface any entries that appear.",
   "properties": {
     "class": {
       "description": "The class name the warning is about.",
@@ -4967,8 +3759,43 @@ export const workers_exports_reconciliation_warning: JsonSchema = {
       "type": "string"
     },
     "scenario": {
-      "$ref": "#/$defs/workers_exports_reconciliation_scenario",
-      "description": "Stable, machine-readable tag identifying which reconciliation\nscenario produced an error, warning, or info entry. Clients may\nbranch on this value instead of parsing `message`.\n"
+      "description": "Stable, machine-readable tag identifying which reconciliation\nscenario produced an error, warning, or info entry. Clients may\nbranch on this value instead of parsing `message`.",
+      "enum": [
+        "code_class_not_in_exports",
+        "provisioned_class_missing_from_config",
+        "config_export_not_in_code",
+        "config_references_nonexistent_class",
+        "orphaned_provisioned_namespace",
+        "storage_type_mismatch",
+        "free_tier_requires_sqlite",
+        "invalid_export",
+        "tombstone_delete_class_still_in_code",
+        "tombstone_delete_blocked_by_external_bindings",
+        "tombstone_renamed_to_occupied",
+        "transferred_pending_not_found",
+        "transferred_target_missing",
+        "transferred_target_mismatch",
+        "phase_one_transfer_source_missing",
+        "phase_one_transfer_source_namespace_missing",
+        "phase_one_transfer_target_class_provisioned",
+        "phase_one_transfer_after_commit_mismatch",
+        "phase_one_transfer_duplicate",
+        "phase_one_transfer_target_in_dispatch_namespace",
+        "phase_one_transfer_source_in_dispatch_namespace",
+        "transferred_source_in_dispatch_namespace",
+        "transferred_target_in_dispatch_namespace",
+        "container_undeclared_reference",
+        "container_class_not_durable_object",
+        "container_wiring_inconsistent",
+        "container_multiple_durable_objects",
+        "transfer_container_parity_mismatch",
+        "transfer_container_parity_mismatch_on_commit",
+        "tombstone_class_still_in_code",
+        "stale_tombstone",
+        "transfer_receive_already_applied",
+        "transfer_receive_cleanup_complete"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -4977,14 +3804,6 @@ export const workers_exports_reconciliation_warning: JsonSchema = {
     "scenario"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_identifier`.
- */
-export const workers_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
 };
 
 /**
@@ -5003,14 +3822,6 @@ export const workers_limits: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_logpush`.
- */
-export const workers_logpush: JsonSchema = {
-  "description": "Whether Logpush is turned on for the Worker.",
-  "type": "boolean"
 };
 
 /**
@@ -5135,14 +3946,6 @@ export const workers_multiple_step_migrations: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `workers_namespace_identifier`.
- */
-export const workers_namespace_identifier: JsonSchema = {
-  "description": "Namespace identifier tag.",
-  "type": "string"
 };
 
 /**
@@ -5489,14 +4292,6 @@ export const workers_placement_target: JsonSchema = {
 };
 
 /**
- * The schema of `workers_script_name`.
- */
-export const workers_script_name: JsonSchema = {
-  "description": "Name of the script.",
-  "type": "string"
-};
-
-/**
  * The schema of `workers_secret`.
  */
 export const workers_secret: JsonSchema = {
@@ -5515,7 +4310,7 @@ export const workers_secret: JsonSchema = {
  * The schema of `workers_secret-patch-request`.
  */
 export const workers_secret$$patch$$request: JsonSchema = {
-  "description": "JSON Merge Patch (RFC 7396) request body for bulk secret changes.\n",
+  "description": "JSON Merge Patch (RFC 7396) request body for bulk secret changes.",
   "properties": {
     "secrets": {
       "additionalProperties": {
@@ -5528,7 +4323,7 @@ export const workers_secret$$patch$$request: JsonSchema = {
           }
         ]
       },
-      "description": "Map of secret names to secret values:\n- Set to a secret object to create or update.\n- Set to `null` to delete.\n- Omit to leave unchanged.\n",
+      "description": "Map of secret names to secret values:\n- Set to a secret object to create or update.\n- Set to `null` to delete.\n- Omit to leave unchanged.",
       "type": "object"
     },
     "version_tags": {
@@ -5537,22 +4332,6 @@ export const workers_secret$$patch$$request: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_secret_name`.
- */
-export const workers_secret_name: JsonSchema = {
-  "description": "A JavaScript variable name for the secret binding.",
-  "type": "string"
-};
-
-/**
- * The schema of `workers_secret_name_url_encoded`.
- */
-export const workers_secret_name_url_encoded: JsonSchema = {
-  "description": "Flag that indicates whether the secret name is URL encoded.",
-  "type": "boolean"
 };
 
 /**
@@ -5571,13 +4350,6 @@ export const workers_single_step_migrations: JsonSchema = {
 };
 
 /**
- * The schema of `workers_tag`.
- */
-export const workers_tag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers_tags`.
  */
 export const workers_tags: JsonSchema = {
@@ -5585,7 +4357,7 @@ export const workers_tags: JsonSchema = {
   "oneOf": [
     {
       "items": {
-        "$ref": "#/$defs/workers_tag"
+        "type": "string"
       },
       "maxItems": 10,
       "type": "array"
@@ -5622,27 +4394,14 @@ export const workers_tail_consumers_script: JsonSchema = {
 };
 
 /**
- * The schema of `workers_usage_model`.
- */
-export const workers_usage_model: JsonSchema = {
-  "description": "Usage model for the Worker invocations.",
-  "enum": [
-    "standard",
-    "bundled",
-    "unbound"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers_worker_export`.
  */
 export const workers_worker_export: JsonSchema = {
-  "description": "A named Worker entrypoint export (`type: worker`). Worker\nentrypoints are always live (`state: created`) and carry no\nstorage or lifecycle fields. The optional `cache` block overrides\nthe Worker's global `cache_options.enabled` for this entrypoint.\n",
+  "description": "A named Worker entrypoint export (`type: worker`). Worker\nentrypoints are always live (`state: created`) and carry no\nstorage or lifecycle fields. The optional `cache` block overrides\nthe Worker's global `cache_options.enabled` for this entrypoint.",
   "properties": {
     "cache": {
       "$ref": "#/$defs/workers_entrypoint_cache_options",
-      "description": "Cache override for this entrypoint. Overrides the Worker's\nglobal `cache_options.enabled` for this entrypoint only.\n"
+      "description": "Cache override for this entrypoint. Overrides the Worker's\nglobal `cache_options.enabled` for this entrypoint only."
     },
     "state": {
       "default": "created",
@@ -5664,12 +4423,4 @@ export const workers_worker_export: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `zones_identifier-2`.
- */
-export const zones_identifier$$2: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
 };

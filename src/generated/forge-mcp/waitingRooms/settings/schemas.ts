@@ -4,22 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waitingroom_search_engine_crawler_bypass`.
- */
-export const waitingroom_search_engine_crawler_bypass: JsonSchema = {
-  "description": "Whether to allow verified search engine crawlers to bypass all waiting rooms on this zone.\nVerified search engine crawlers will not be tracked or counted by the waiting room system,\nand will not appear in waiting room analytics.\n",
-  "type": "boolean"
-};
-
-/**
  * The schema of `waitingroom_zone_settings`.
  */
 export const waitingroom_zone_settings: JsonSchema = {
   "properties": {
     "search_engine_crawler_bypass": {
-      "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass",
       "default": false,
-      "description": "Whether to allow verified search engine crawlers to bypass all waiting rooms on this zone.\nVerified search engine crawlers will not be tracked or counted by the waiting room system,\nand will not appear in waiting room analytics.\n"
+      "description": "Whether to allow verified search engine crawlers to bypass all waiting rooms on this zone.\nVerified search engine crawlers will not be tracked or counted by the waiting room system,\nand will not appear in waiting room analytics.",
+      "type": "boolean"
     }
   },
   "type": "object"

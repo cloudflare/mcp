@@ -8,19 +8,13 @@ import {
   web3_api$$response$$single,
   web3_messages,
 } from "../../outputs.js";
-import { web3_identifier } from "../../schemas.js";
 import {
-  web3_content_list_action,
   web3_content_list_details,
   web3_content_list_details_response,
 } from "./outputs.js";
 import {
-  web3_content_list_action as web3_content_list_action$,
   web3_content_list_entries,
   web3_content_list_entry,
-  web3_content_list_entry_content,
-  web3_content_list_entry_description,
-  web3_content_list_entry_type,
   web3_content_list_update_request,
 } from "./schemas.js";
 
@@ -31,19 +25,20 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_get",
     title: "IPFS Universal Path Gateway Content List Details",
-    description: "IPFS Universal Path Gateway Content List Details",
+    description: "IPFS Universal Path Gateway Content List Details\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "identifier": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,16 +51,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_content_list_details_response",
       $defs: {
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_content_list_action": web3_content_list_action,
         "web3_content_list_details": web3_content_list_details,
         "web3_content_list_details_response": web3_content_list_details_response,
         "web3_messages": web3_messages,
@@ -122,7 +114,6 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_content_list_action": web3_content_list_action,
         "web3_content_list_details": web3_content_list_details,
         "web3_content_list_details_response": web3_content_list_details_response,
         "web3_messages": web3_messages,
@@ -135,7 +126,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_update",
     title: "Update IPFS Universal Path Gateway Content List",
-    description: "Update IPFS Universal Path Gateway Content List",
+    description: "Update IPFS Universal Path Gateway Content List\n\nPUT /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list",
     inputSchema: {
       type: "object",
       properties: {
@@ -143,14 +134,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/web3_content_list_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "identifier": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -164,15 +156,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "web3_content_list_action": web3_content_list_action$,
         "web3_content_list_entries": web3_content_list_entries,
         "web3_content_list_entry": web3_content_list_entry,
-        "web3_content_list_entry_content": web3_content_list_entry_content,
-        "web3_content_list_entry_description": web3_content_list_entry_description,
-        "web3_content_list_entry_type": web3_content_list_entry_type,
         "web3_content_list_update_request": web3_content_list_update_request,
-        "web3_identifier": web3_identifier,
       },
     },
     outputSchema: {
@@ -180,7 +168,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_content_list_action": web3_content_list_action,
         "web3_content_list_details": web3_content_list_details,
         "web3_content_list_details_response": web3_content_list_details_response,
         "web3_messages": web3_messages,
@@ -236,7 +223,6 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_content_list_action": web3_content_list_action,
         "web3_content_list_details": web3_content_list_details,
         "web3_content_list_details_response": web3_content_list_details_response,
         "web3_messages": web3_messages,

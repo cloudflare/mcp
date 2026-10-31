@@ -31,7 +31,6 @@ import {
   zaraz_custom$$managed$$component as zaraz_custom$$managed$$component$,
   zaraz_element$$visibility$$rule as zaraz_element$$visibility$$rule$,
   zaraz_form$$submission$$rule as zaraz_form$$submission$$rule$,
-  zaraz_identifier,
   zaraz_load$$rule as zaraz_load$$rule$,
   zaraz_managed$$component as zaraz_managed$$component$,
   zaraz_scroll$$depth$$rule as zaraz_scroll$$depth$$rule$,
@@ -51,15 +50,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_config_get",
     title: "Get Zaraz configuration",
-    description: "Gets latest Zaraz configuration for a zone. It can be preview or published configuration, whichever was the last updated. Secret variables values will not be included.",
+    description: "Gets latest Zaraz configuration for a zone. It can be preview or published configuration, whichever was the last updated. Secret variables values will not be included.\n\nGET /zones/{zone_id}/settings/zaraz/config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -71,9 +71,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-config-response",
@@ -154,7 +152,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_config_update",
     title: "Update Zaraz configuration",
-    description: "Updates Zaraz configuration for a zone.",
+    description: "Updates Zaraz configuration for a zone.\n\nPUT /zones/{zone_id}/settings/zaraz/config",
     inputSchema: {
       type: "object",
       properties: {
@@ -162,10 +160,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/zaraz_zaraz-config-body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -178,6 +177,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zaraz_base-mc": zaraz_base$$mc$,
         "zaraz_base-tool": zaraz_base$$tool$,
@@ -185,7 +185,6 @@ export const tools: readonly Tool[] = [
         "zaraz_custom-managed-component": zaraz_custom$$managed$$component$,
         "zaraz_element-visibility-rule": zaraz_element$$visibility$$rule$,
         "zaraz_form-submission-rule": zaraz_form$$submission$$rule$,
-        "zaraz_identifier": zaraz_identifier,
         "zaraz_load-rule": zaraz_load$$rule$,
         "zaraz_managed-component": zaraz_managed$$component$,
         "zaraz_scroll-depth-rule": zaraz_scroll$$depth$$rule$,

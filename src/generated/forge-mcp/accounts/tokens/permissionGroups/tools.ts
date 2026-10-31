@@ -10,10 +10,6 @@ import {
   iam_permissions_group_response_collection,
   iam_result_info,
 } from "../../../outputs.js";
-import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier,
-} from "../../../schemas.js";
 
 /**
  * The tools of `accounts.tokens.permissionGroups`.
@@ -22,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_permissionGroups_list",
     title: "List Permission Groups",
-    description: "Find all available permission groups for Account Owned API Tokens.\nEach permission group indicates whether the caller can select it when\ncreating a token. Token creation performs the authoritative permission\ncheck.",
+    description: "Find all available permission groups for Account Owned API Tokens.\nEach permission group indicates whether the caller can select it when\ncreating a token. Token creation performs the authoritative permission\ncheck.\n\nGET /accounts/{account_id}/tokens/permission_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Filter by the name of the permission group.\nThe value must be URL-encoded.",
@@ -55,10 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_permissions_group_response_collection",

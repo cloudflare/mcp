@@ -9,7 +9,8 @@ import type { JsonSchema } from "../../_/tool.js";
 export const custom$$pages_custom_page: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/custom-pages_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -18,7 +19,8 @@ export const custom$$pages_custom_page: JsonSchema = {
       "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/custom-pages_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "preview_target": {
       "type": "string"
@@ -30,10 +32,14 @@ export const custom$$pages_custom_page: JsonSchema = {
       "type": "array"
     },
     "state": {
-      "$ref": "#/$defs/custom-pages_state"
+      "enum": [
+        "default",
+        "customized"
+      ],
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/custom-pages_url"
+      "type": "string"
     }
   },
   "type": "object"
@@ -78,22 +84,4 @@ export const custom$$pages_custom_page_result_list: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `custom-pages_state` in responses.
- */
-export const custom$$pages_state: JsonSchema = {
-  "enum": [
-    "default",
-    "customized"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `custom-pages_url` in responses.
- */
-export const custom$$pages_url: JsonSchema = {
-  "type": "string"
 };

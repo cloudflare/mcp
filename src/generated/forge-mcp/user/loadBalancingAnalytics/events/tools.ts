@@ -3,30 +3,17 @@
 
 import { type Tool, param } from "../../../_/tool.js";
 import {
-  load$$balancing_address,
   load$$balancing_api$$paginated$$response$$collection,
   load$$balancing_api$$response$$common,
   load$$balancing_api$$response$$common$$failure,
   load$$balancing_messages,
   load$$balancing_result_info,
-  load$$balancing_schemas$$enabled,
-  load$$balancing_schemas$$name,
 } from "../../../outputs.js";
-import { load$$balancing_schemas$$identifier } from "../../../schemas.js";
 import {
   load$$balancing_analytics,
   load$$balancing_components$$schemas$$response_collection,
   load$$balancing_origin$$analytics,
-  load$$balancing_origin$$changed,
-  load$$balancing_origin$$failure$$reason,
-  load$$balancing_origin$$healthy,
-  load$$balancing_origin$$ip,
 } from "./outputs.js";
-import {
-  load$$balancing_origin_healthy,
-  load$$balancing_pool_name,
-  load$$balancing_until,
-} from "./schemas.js";
 
 /**
  * The tools of `user.loadBalancingAnalytics.events`.
@@ -35,16 +22,17 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancingAnalytics_events_list",
     title: "List Healthcheck Events",
-    description: "List origin health changes.",
+    description: "List origin health changes.\n\nGET /user/load_balancing_analytics/events",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "origin_healthy": {
-              "$ref": "#/$defs/load-balancing_origin_healthy",
               "default": true,
-              "description": "If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy."
+              "description": "If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy.",
+              "type": "boolean"
             },
             "origin_name": {
               "description": "The name for the origin to filter.",
@@ -56,11 +44,11 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             },
             "pool_name": {
-              "$ref": "#/$defs/load-balancing_pool_name",
-              "description": "The name for the pool to filter."
+              "description": "The name for the pool to filter.",
+              "type": "string"
             },
             "since": {
               "description": "Start date and time of requesting data period in the ISO8601 format.",
@@ -68,37 +56,26 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "until": {
-              "$ref": "#/$defs/load-balancing_until",
-              "description": "End date and time of requesting data period in the ISO8601 format."
+              "description": "End date and time of requesting data period in the ISO8601 format.",
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
         }
       },
-      $defs: {
-        "load-balancing_origin_healthy": load$$balancing_origin_healthy,
-        "load-balancing_pool_name": load$$balancing_pool_name,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_until": load$$balancing_until,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_components-schemas-response_collection",
       $defs: {
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_analytics": load$$balancing_analytics,
         "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_components-schemas-response_collection": load$$balancing_components$$schemas$$response_collection,
         "load-balancing_messages": load$$balancing_messages,
         "load-balancing_origin-analytics": load$$balancing_origin$$analytics,
-        "load-balancing_origin-changed": load$$balancing_origin$$changed,
-        "load-balancing_origin-failure-reason": load$$balancing_origin$$failure$$reason,
-        "load-balancing_origin-healthy": load$$balancing_origin$$healthy,
-        "load-balancing_origin-ip": load$$balancing_origin$$ip,
         "load-balancing_result_info": load$$balancing_result_info,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
       },
     },
     annotations: {
@@ -126,7 +103,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_analytics": load$$balancing_analytics,
         "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
@@ -134,13 +110,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_components-schemas-response_collection": load$$balancing_components$$schemas$$response_collection,
         "load-balancing_messages": load$$balancing_messages,
         "load-balancing_origin-analytics": load$$balancing_origin$$analytics,
-        "load-balancing_origin-changed": load$$balancing_origin$$changed,
-        "load-balancing_origin-failure-reason": load$$balancing_origin$$failure$$reason,
-        "load-balancing_origin-healthy": load$$balancing_origin$$healthy,
-        "load-balancing_origin-ip": load$$balancing_origin$$ip,
         "load-balancing_result_info": load$$balancing_result_info,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
       },
     },
     request: (args) => ({

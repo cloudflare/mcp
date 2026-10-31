@@ -22,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityLevels_create",
     title: "Creates a new sensitivity level.",
-    description: "Creates a sensitivity level in a group.",
+    description: "Creates a sensitivity level in a group.\n\nPOST /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/levels",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,6 +31,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new sensitivity level."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewSensitivityLevel": dlp_NewSensitivityLevel,
       },
@@ -125,11 +127,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityLevels_delete",
     title: "Delete a single sensitivity level.",
-    description: "Deletes a sensitivity level from a group.",
+    description: "Deletes a sensitivity level from a group.\n\nDELETE /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/levels/{sensitivity_level_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -154,6 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -224,11 +228,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityLevels_get",
     title: "Retrieve a specific sensitivity level.",
-    description: "Gets a sensitivity level from a group.",
+    description: "Gets a sensitivity level from a group.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/levels/{sensitivity_level_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -253,6 +258,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -324,11 +330,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityLevels_list",
     title: "Retrieve all sensitivity levels in a sensitivity group",
-    description: "Lists sensitivity levels in a sensitivity group.",
+    description: "Lists sensitivity levels in a sensitivity group.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/levels",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -348,6 +355,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -421,7 +429,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_sensitivityLevels_update",
     title: "Update the attributes of a single sensitivity level.",
-    description: "Updates a sensitivity level in a group.",
+    description: "Updates a sensitivity level in a group.\n\nPUT /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/levels/{sensitivity_level_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -430,6 +438,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the sensitivity level to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -455,6 +464,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_SensitivityLevelUpdate": dlp_SensitivityLevelUpdate,
       },

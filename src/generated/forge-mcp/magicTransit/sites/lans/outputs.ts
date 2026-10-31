@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic_bond_id` in responses.
- */
-export const magic_bond_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `magic_dhcp_option` in responses.
  */
 export const magic_dhcp_option: JsonSchema = {
@@ -47,13 +40,13 @@ export const magic_dhcp_option: JsonSchema = {
 export const magic_lan: JsonSchema = {
   "properties": {
     "bond_id": {
-      "$ref": "#/$defs/magic_bond_id"
+      "type": "integer"
     },
     "ha_link": {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "is_breakout": {
       "type": "boolean"
@@ -68,7 +61,7 @@ export const magic_lan: JsonSchema = {
       "$ref": "#/$defs/magic_nat"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "remote_subnets": {
       "items": {
@@ -83,13 +76,13 @@ export const magic_lan: JsonSchema = {
       "type": "array"
     },
     "site_id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "static_addressing": {
       "$ref": "#/$defs/magic_lan_static_addressing"
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag"
+      "type": "integer"
     }
   },
   "type": "object"
@@ -121,7 +114,7 @@ export const magic_lan_dhcp_relay: JsonSchema = {
   "properties": {
     "server_addresses": {
       "items": {
-        "$ref": "#/$defs/magic_ip-address"
+        "type": "string"
       },
       "type": "array"
     }
@@ -141,17 +134,17 @@ export const magic_lan_dhcp_server: JsonSchema = {
       "type": "array"
     },
     "dhcp_pool_end": {
-      "$ref": "#/$defs/magic_ip-address"
+      "type": "string"
     },
     "dhcp_pool_start": {
-      "$ref": "#/$defs/magic_ip-address"
+      "type": "string"
     },
     "dns_server": {
-      "$ref": "#/$defs/magic_ip-address"
+      "type": "string"
     },
     "dns_servers": {
       "items": {
-        "$ref": "#/$defs/magic_ip-address"
+        "type": "string"
       },
       "type": "array"
     },
@@ -209,7 +202,7 @@ export const magic_lan_single_response: JsonSchema = {
 export const magic_lan_static_addressing: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "dhcp_relay": {
       "$ref": "#/$defs/magic_lan_dhcp_relay"
@@ -218,10 +211,10 @@ export const magic_lan_static_addressing: JsonSchema = {
       "$ref": "#/$defs/magic_lan_dhcp_server"
     },
     "secondary_address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "virtual_address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     }
   },
   "required": [
@@ -258,7 +251,7 @@ export const magic_lans_collection_response: JsonSchema = {
 export const magic_nat: JsonSchema = {
   "properties": {
     "static_prefix": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     }
   },
   "type": "object"
@@ -270,10 +263,10 @@ export const magic_nat: JsonSchema = {
 export const magic_remote_subnet: JsonSchema = {
   "properties": {
     "local_alias_prefix": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "remote_prefix": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     }
   },
   "required": [
@@ -292,10 +285,10 @@ export const magic_routed_subnet: JsonSchema = {
       "$ref": "#/$defs/magic_nat"
     },
     "next_hop": {
-      "$ref": "#/$defs/magic_ip-address"
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     }
   },
   "required": [

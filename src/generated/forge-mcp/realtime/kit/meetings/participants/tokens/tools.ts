@@ -7,10 +7,6 @@ import {
   realtimekit_GenericSuccessResponse,
   realtimekit_ValidationIssue,
 } from "../../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../../schemas.js";
 import { realtimekit_ParticipantTokenValidity } from "../schemas.js";
 
 /**
@@ -20,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_tokens_refresh",
     title: "Refresh participant's authentication token",
-    description: "Regenerates participant's authentication token for the given meeting and participant ID.\n\nThis method is beta.",
+    description: "Regenerates participant's authentication token for the given meeting and participant ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}/token",
     inputSchema: {
       type: "object",
       properties: {
@@ -28,14 +24,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/realtimekit_ParticipantTokenValidity"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
@@ -59,10 +56,9 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_ParticipantTokenValidity": realtimekit_ParticipantTokenValidity,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -178,7 +174,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_tokens_revoke",
     title: "Revoke participant's authentication token",
-    description: "Revokes a previously issued participant authentication token without deleting the participant. Other tokens issued to the participant remain valid.\n\nThis method is beta.",
+    description: "Revokes a previously issued participant authentication token without deleting the participant. Other tokens issued to the participant remain valid.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}/token",
     inputSchema: {
       type: "object",
       properties: {
@@ -195,14 +191,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
@@ -227,10 +224,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

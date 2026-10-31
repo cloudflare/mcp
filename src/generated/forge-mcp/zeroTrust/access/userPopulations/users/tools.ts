@@ -7,7 +7,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
   access_scim_email,
   access_scim_meta,
@@ -32,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_users_create",
     title: "Create a user population user",
-    description: "Creates a SCIM user in a user population.",
+    description: "Creates a SCIM user in a user population.\n\nPOST /accounts/{account_id}/access/user_populations/{user_population_id}/users",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,14 +39,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_scim_user"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,13 +61,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier,
         "access_scim_email": access_scim_email$,
         "access_scim_meta": access_scim_meta$,
         "access_scim_name": access_scim_name$,
         "access_scim_user": access_scim_user$,
-        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
@@ -119,23 +118,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_users_delete",
     title: "Delete a user population user",
-    description: "Deletes a SCIM user from a user population.",
+    description: "Deletes a SCIM user from a user population.\n\nDELETE /accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
               "description": "The SCIM user identifier.",
               "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -149,10 +149,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -182,23 +179,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_users_get",
     title: "Get a user population user",
-    description: "Fetches a SCIM user from a user population.",
+    description: "Fetches a SCIM user from a user population.\n\nGET /accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
               "description": "The SCIM user identifier.",
               "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -209,6 +207,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "attributes": {
               "description": "Comma-separated SCIM attributes to return.",
@@ -225,10 +224,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_scim_user_single_response",
@@ -282,19 +278,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_users_list",
     title: "List users in a user population",
-    description: "Lists SCIM users in a user population.",
+    description: "Lists SCIM users in a user population.\n\nGET /accounts/{account_id}/access/user_populations/{user_population_id}/users",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -304,6 +301,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "attributes": {
               "description": "Comma-separated SCIM attributes to return.",
@@ -333,10 +331,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_scim_user_collection_response",
@@ -395,7 +390,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_users_replace",
     title: "Replace a user population user",
-    description: "Replaces a SCIM user in a user population.",
+    description: "Replaces a SCIM user in a user population.\n\nPUT /accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -403,18 +398,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_scim_user"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
               "description": "The SCIM user identifier.",
               "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -429,13 +425,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier,
         "access_scim_email": access_scim_email$,
         "access_scim_meta": access_scim_meta$,
         "access_scim_name": access_scim_name$,
         "access_scim_user": access_scim_user$,
-        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
@@ -487,7 +482,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_users_update",
     title: "Update a user population user",
-    description: "Updates a SCIM user in a user population.",
+    description: "Updates a SCIM user in a user population.\n\nPATCH /accounts/{account_id}/access/user_populations/{user_population_id}/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -495,18 +490,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_scim_patch_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
               "description": "The SCIM user identifier.",
               "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -521,10 +517,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier,
         "access_scim_patch_request": access_scim_patch_request,
-        "access_uuid": access_uuid,
       },
     },
     outputSchema: {

@@ -20,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategoryTemplates_get",
     title: "Retrieve a specific data tag category template.",
-    description: "Gets an available data tag category template.",
+    description: "Gets an available data tag category template.\n\nGET /accounts/{account_id}/dlp/data_tag_category_templates/{template_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -120,11 +122,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategoryTemplates_list",
     title: "Retrieve all data tag category templates in an account",
-    description: "Lists available data tag category templates.",
+    description: "Lists available data tag category templates.\n\nGET /accounts/{account_id}/dlp/data_tag_category_templates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -139,6 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

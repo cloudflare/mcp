@@ -14,7 +14,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_relationships_create",
     title: "Create a tag relationship",
-    description: "Creates a relationship from a tag to an event or indicator (`targetType`) in the dataset given by `datasetId`. Relationships between two tags are not supported.",
+    description: "Creates a relationship from a tag to an event or indicator (`targetType`) in the dataset given by `datasetId`. Relationships between two tags are not supported.\n\nPOST /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}/relationships",
     inputSchema: {
       type: "object",
       properties: {
@@ -58,6 +58,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -78,6 +79,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -166,11 +168,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_relationships_delete",
     title: "Delete a tag relationship",
-    description: "Deletes a tag relationship by its UUID. `datasetId` is required. Returns `deleted: false` if the relationship doesn't exist.",
+    description: "Deletes a tag relationship by its UUID. `datasetId` is required. Returns `deleted: false` if the relationship doesn't exist.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}/relationships/{rel_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -194,6 +197,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetId": {
               "description": "Dataset UUID containing the relationship.",
@@ -210,6 +214,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -301,11 +306,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_relationships_list",
     title: "List tag relationships",
-    description: "Lists the relationships that start at a tag, across the intelligence datasets you can read. Use `datasets` to limit the datasets (`all` and `operational` are equivalent here) and `expand` to include the related entities. Analytics datasets don't store tag associations, so the `analytics` scope returns no results.",
+    description: "Lists the relationships that start at a tag, across the intelligence datasets you can read. Use `datasets` to limit the datasets (`all` and `operational` are equivalent here) and `expand` to include the related entities. Analytics datasets don't store tag associations, so the `analytics` scope returns no results.\n\nGET /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}/relationships",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -323,6 +329,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Offset cursor from a previous page.",
@@ -417,6 +424,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -589,7 +597,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_relationships_update",
     title: "Update a tag relationship",
-    description: "Updates the given fields of a tag relationship and leaves the other fields unchanged. `datasetId` is required.",
+    description: "Updates the given fields of a tag relationship and leaves the other fields unchanged. `datasetId` is required.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}/relationships/{rel_uuid}",
     inputSchema: {
       type: "object",
       properties: {
@@ -625,6 +633,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -648,6 +657,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetId": {
               "description": "Dataset UUID containing the relationship.",
@@ -664,6 +674,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

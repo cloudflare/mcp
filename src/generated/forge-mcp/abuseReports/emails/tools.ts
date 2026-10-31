@@ -22,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_emails_list",
     title: "List abuse report emails",
-    description: "List emails sent to the customer for an abuse report. Returns all successful customer emails sent for the specified abuse report. Does not include emails sent to hosts or submitters.",
+    description: "List emails sent to the customer for an abuse report. Returns all successful customer emails sent for the specified abuse report. Does not include emails sent to hosts or submitters.\n\nGET /accounts/{account_id}/abuse-reports/{report_id}/emails",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "description": "Page number to retrieve (default 1)",
@@ -60,6 +62,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -283,11 +286,12 @@ export const tools: readonly Tool[] = [
   {
     name: "abuseReports_emails_listSubmitted",
     title: "List emails sent to an abuse report submitter",
-    description: "List successful emails sent to the submitter of a report submitted by the account. Does not include emails sent to customers or hosts.",
+    description: "List successful emails sent to the submitter of a report submitted by the account. Does not include emails sent to customers or hosts.\n\nGET /accounts/{account_id}/abuse-reports/submitted/{report_id}/emails",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare Account ID",
@@ -305,6 +309,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "description": "Page number to retrieve (default 1).",
@@ -321,6 +326,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/abuse-reports_EmailListResponse",

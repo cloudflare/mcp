@@ -7,8 +7,6 @@ import {
   logpush_api$$response$$single,
   logpush_messages,
 } from "../../outputs.js";
-import { logpush_identifier } from "../../schemas.js";
-import { logpush_transformer_identifier } from "../schemas.js";
 import { logpush_transformer_content_response } from "./outputs.js";
 
 /**
@@ -18,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_content_get",
     title: "Get transformer content",
-    description: "Returns the SQL query content for a transformer. Without query params, returns the latest version. With `version_id`, returns the specified version.",
+    description: "Returns the SQL query content for a transformer. Without query params, returns the latest version. With `version_id`, returns the specified version.\n\nGET /accounts/{account_id}/logpush/transformers/{transformer_id}/content",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "transformer_id": {
-              "$ref": "#/$defs/logpush_transformer_identifier",
-              "description": "The transformer ID."
+              "description": "The transformer ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -40,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "version_id": {
               "description": "Specific version ID to retrieve. When omitted, the latest version is returned.",
@@ -52,10 +52,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_content_response",

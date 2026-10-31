@@ -11,18 +11,11 @@ import {
   pages_env_vars,
   pages_messages,
   pages_plain_text_env_var,
-  pages_project_name,
   pages_secret_text_env_var,
   pages_source,
   pages_source_config,
-  pages_source_type,
   pages_stage,
 } from "../outputs.js";
-import {
-  pages_identifier,
-  pages_project_name as pages_project_name$,
-} from "../schemas.js";
-import { pages_deployment_id } from "./schemas.js";
 
 /**
  * The tools of `pages.deployments`.
@@ -31,23 +24,25 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_deployments_delete",
     title: "Delete a Pages deployment",
-    description: "Remove a deployment from a Cloudflare Pages project.",
+    description: "Remove a deployment from a Cloudflare Pages project.\n\nDELETE /accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
-              "$ref": "#/$defs/pages_deployment_id",
-              "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
+              "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
+              "format": "uuid",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -58,6 +53,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "description": "Allow deletion when a non-production deployment has an active alias.",
@@ -70,11 +66,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_deployment_id": pages_deployment_id,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -166,23 +158,25 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_deployments_get",
     title: "Get a Pages deployment",
-    description: "Retrieve the status and details of a Cloudflare Pages deployment.",
+    description: "Retrieve the status and details of a Cloudflare Pages deployment.\n\nGET /accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
-              "$ref": "#/$defs/pages_deployment_id",
-              "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
+              "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
+              "format": "uuid",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -196,11 +190,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_deployment_id": pages_deployment_id,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -226,11 +216,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -281,11 +269,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -296,19 +282,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_deployments_list",
     title: "List Pages deployments",
-    description: "List the production or preview deployments for a Cloudflare Pages project.",
+    description: "List the production or preview deployments for a Cloudflare Pages project.\n\nGET /accounts/{account_id}/pages/projects/{project_name}/deployments",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -318,6 +305,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "env": {
               "description": "Deployment environment to return. Valid values are `production` and `preview`.",
@@ -342,10 +330,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -375,11 +360,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -434,11 +417,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -454,23 +435,25 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_deployments_retry",
     title: "Retry a Pages deployment",
-    description: "Retry a previous Cloudflare Pages deployment.",
+    description: "Retry a previous Cloudflare Pages deployment.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}/retry",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
-              "$ref": "#/$defs/pages_deployment_id",
-              "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
+              "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
+              "format": "uuid",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -484,11 +467,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_deployment_id": pages_deployment_id,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -514,11 +493,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -568,11 +545,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -583,23 +558,25 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_deployments_rollback",
     title: "Roll back a Pages deployment",
-    description: "Roll back production to a previous successful Cloudflare Pages deployment.\n\nConfirm with the user before calling this tool. This operation rolls back the production deployment to an earlier deployment.",
+    description: "Roll back production to a previous successful Cloudflare Pages deployment.\n\nConfirm with the user before calling this tool. This operation rolls back the production deployment to an earlier deployment.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}/rollback",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
-              "$ref": "#/$defs/pages_deployment_id",
-              "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
+              "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
+              "format": "uuid",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -613,11 +590,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_deployment_id": pages_deployment_id,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -643,11 +616,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -697,11 +668,9 @@ export const tools: readonly Tool[] = [
         "pages_env_vars": pages_env_vars,
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },

@@ -96,13 +96,6 @@ export const dls_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `dls_hostname` in responses.
- */
-export const dls_hostname: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dls_messages` in responses.
  */
 export const dls_messages: JsonSchema = {
@@ -136,13 +129,6 @@ export const dls_messages: JsonSchema = {
 };
 
 /**
- * The schema of `dls_region_key` in responses.
- */
-export const dls_region_key: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dls_regional_hostname_response` in responses.
  */
 export const dls_regional_hostname_response: JsonSchema = {
@@ -150,7 +136,8 @@ export const dls_regional_hostname_response: JsonSchema = {
     "created_on": {
       "allOf": [
         {
-          "$ref": "#/$defs/dls_timestamp"
+          "format": "date-time",
+          "type": "string"
         },
         {
           "type": "string"
@@ -161,13 +148,13 @@ export const dls_regional_hostname_response: JsonSchema = {
       ]
     },
     "hostname": {
-      "$ref": "#/$defs/dls_hostname"
+      "type": "string"
     },
     "region_key": {
-      "$ref": "#/$defs/dls_region_key"
+      "type": "string"
     },
     "routing": {
-      "$ref": "#/$defs/dls_routing"
+      "type": "string"
     }
   },
   "required": [
@@ -177,19 +164,4 @@ export const dls_regional_hostname_response: JsonSchema = {
     "routing"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dls_routing` in responses.
- */
-export const dls_routing: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dls_timestamp` in responses.
- */
-export const dls_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

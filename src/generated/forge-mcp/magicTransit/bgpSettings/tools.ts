@@ -8,7 +8,6 @@ import {
   magic_api$$response$$single,
   magic_messages,
 } from "../outputs.js";
-import { magic_identifier } from "../schemas.js";
 import {
   magic_bgp_redistribute_sources,
   magic_bgp_settings,
@@ -26,15 +25,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_bgpSettings_get",
     title: "Get BGP Settings",
-    description: "Gets the BGP settings for an account, including the default ASN and redistribution configuration.",
+    description: "Gets the BGP settings for an account, including the default ASN and redistribution configuration.\n\nGET /accounts/{account_id}/magic/bgp/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -46,9 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_magic_bgp_settings_response",
@@ -105,7 +103,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_bgpSettings_update",
     title: "Update BGP Settings",
-    description: "Modifies the BGP settings for an account, including the default ASN and redistribution configuration.",
+    description: "Modifies the BGP settings for an account, including the default ASN and redistribution configuration.\n\nPUT /accounts/{account_id}/magic/bgp/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -113,10 +111,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_update_bgp_settings_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -129,8 +128,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_identifier": magic_identifier,
         "magic_update_bgp_settings_redistribute_sources": magic_update_bgp_settings_redistribute_sources,
         "magic_update_bgp_settings_request": magic_update_bgp_settings_request,
       },

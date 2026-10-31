@@ -20,21 +20,14 @@ export const speed_cloudflare_fonts: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_cloudflare_fonts_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_cloudflare_fonts_value` in responses.
- */
-export const speed_cloudflare_fonts_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

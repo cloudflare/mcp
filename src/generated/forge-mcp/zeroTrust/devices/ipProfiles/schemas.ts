@@ -25,20 +25,20 @@ export const teams$$devices_ip_profile_create_request: JsonSchema = {
       "type": "boolean"
     },
     "match": {
-      "$ref": "#/$defs/teams-devices_ip_profile_match",
-      "description": "The wirefilter expression to match registrations. Available values: \"identity.name\", \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.saml_attributes\"."
+      "description": "The wirefilter expression to match registrations. Available values: \"identity.name\", \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.saml_attributes\".",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_ip_profile_name",
-      "description": "A user-friendly name for the Device IP profile."
+      "description": "A user-friendly name for the Device IP profile.",
+      "type": "string"
     },
     "precedence": {
-      "$ref": "#/$defs/teams-devices_ip_profile_precedence",
-      "description": "The precedence of the Device IP profile. Lower values indicate higher precedence. Device IP profile will be evaluated in ascending order of this field."
+      "description": "The precedence of the Device IP profile. Lower values indicate higher precedence. Device IP profile will be evaluated in ascending order of this field.",
+      "type": "integer"
     },
     "subnet_id": {
-      "$ref": "#/$defs/teams-devices_ip_profile_subnet_id",
-      "description": "The ID of the Subnet."
+      "description": "The ID of the Subnet.",
+      "type": "string"
     }
   },
   "required": [
@@ -51,46 +51,6 @@ export const teams$$devices_ip_profile_create_request: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_ip_profile_enabled`.
- */
-export const teams$$devices_ip_profile_enabled: JsonSchema = {
-  "description": "Whether the Device IP profile is enabled.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_match`.
- */
-export const teams$$devices_ip_profile_match: JsonSchema = {
-  "description": "The wirefilter expression to match registrations. Available values: \"identity.name\", \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.saml_attributes\".",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_name`.
- */
-export const teams$$devices_ip_profile_name: JsonSchema = {
-  "description": "A user-friendly name for the Device IP profile.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_precedence`.
- */
-export const teams$$devices_ip_profile_precedence: JsonSchema = {
-  "description": "The precedence of the Device IP profile. Lower values indicate higher precedence. Device IP profile will be evaluated in ascending order of this field.",
-  "type": "integer"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_subnet_id`.
- */
-export const teams$$devices_ip_profile_subnet_id: JsonSchema = {
-  "description": "The ID of the Subnet.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_ip_profile_update_request`.
  */
 export const teams$$devices_ip_profile_update_request: JsonSchema = {
@@ -100,24 +60,24 @@ export const teams$$devices_ip_profile_update_request: JsonSchema = {
       "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/teams-devices_ip_profile_enabled",
-      "description": "Whether the Device IP profile is enabled."
+      "description": "Whether the Device IP profile is enabled.",
+      "type": "boolean"
     },
     "match": {
-      "$ref": "#/$defs/teams-devices_ip_profile_match",
-      "description": "The wirefilter expression to match registrations. Available values: \"identity.name\", \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.saml_attributes\"."
+      "description": "The wirefilter expression to match registrations. Available values: \"identity.name\", \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.saml_attributes\".",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_ip_profile_name",
-      "description": "A user-friendly name for the Device IP profile."
+      "description": "A user-friendly name for the Device IP profile.",
+      "type": "string"
     },
     "precedence": {
-      "$ref": "#/$defs/teams-devices_ip_profile_precedence",
-      "description": "The precedence of the Device IP profile. Lower values indicate higher precedence. Device IP profile will be evaluated in ascending order of this field."
+      "description": "The precedence of the Device IP profile. Lower values indicate higher precedence. Device IP profile will be evaluated in ascending order of this field.",
+      "type": "integer"
     },
     "subnet_id": {
-      "$ref": "#/$defs/teams-devices_ip_profile_subnet_id",
-      "description": "The ID of the Subnet."
+      "description": "The ID of the Subnet.",
+      "type": "string"
     }
   },
   "type": "object"

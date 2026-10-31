@@ -6,15 +6,9 @@ import {
   r2_errors,
   r2_messages,
   r2_prefix_delete_job,
-  r2_r2_bucket_job_status,
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import {
-  r2_account_identifier,
-  r2_bucket_name,
-  r2_r2_bucket_job_status as r2_r2_bucket_job_status$,
-} from "../../schemas.js";
 import {
   r2_r2_bucket_job,
   r2_r2_bucket_jobs_result,
@@ -32,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_jobs_create",
     title: "Create Bucket Job",
-    description: "Creates a background job for an R2 bucket. The `jobType` field selects the job:\n\n- **`prefixDelete`**: deletes every object whose key begins with `prefix`. A non-empty\n  prefix must end in `/`. An empty prefix (`\"\"`) empties the entire bucket.\n- **`storageClassMigration`**: migrates every object in the bucket between storage\n  classes. `sourceStorageClass` and `destinationStorageClass` must be provided together\n  and must differ; omitting both migrates from `InfrequentAccess` to `Standard`.\n\nPoll the returned `id` with the Get Bucket Job endpoint. Small prefix-delete jobs can\nfinish synchronously and return `COMPLETED`. Objects uploaded after a background job\nstarts are not affected by that job.\n\nFor prefix-delete jobs: abort active multipart uploads before submitting the request,\nsince a synchronously completed job does not abort them, and avoid writing objects or\nstarting multipart uploads while a bucket-emptying job is in progress. Each request\ncreates a distinct job, and the number of active prefix-delete jobs is limited per\nbucket; wait for an existing job to finish before retrying a request rejected with\nHTTP 429. A bucket cannot be emptied while event notifications are configured (HTTP 409\n/ error code 10083). To protect a bucket with R2 Data Catalog enabled, send the\n`cf-r2-data-catalog-check` header; a conflict is returned with HTTP 409 / error code\n10081.\n\nPrefix-delete jobs require permission to delete objects; storage-class migration jobs\nrequire permission to write to the bucket.\n\nConfirm with the user before calling this tool. This starts a background job that either permanently deletes every object under the given prefix (every object in the bucket for an empty prefix) or migrates every object in the bucket between storage classes.",
+    description: "Creates a background job for an R2 bucket. The `jobType` field selects the job:\n\n- **`prefixDelete`**: deletes every object whose key begins with `prefix`. A non-empty\n  prefix must end in `/`. An empty prefix (`\"\"`) empties the entire bucket.\n- **`storageClassMigration`**: migrates every object in the bucket between storage\n  classes. `sourceStorageClass` and `destinationStorageClass` must be provided together\n  and must differ; omitting both migrates from `InfrequentAccess` to `Standard`.\n\nPoll the returned `id` with the Get Bucket Job endpoint. Small prefix-delete jobs can\nfinish synchronously and return `COMPLETED`. Objects uploaded after a background job\nstarts are not affected by that job.\n\nFor prefix-delete jobs: abort active multipart uploads before submitting the request,\nsince a synchronously completed job does not abort them, and avoid writing objects or\nstarting multipart uploads while a bucket-emptying job is in progress. Each request\ncreates a distinct job, and the number of active prefix-delete jobs is limited per\nbucket; wait for an existing job to finish before retrying a request rejected with\nHTTP 429. A bucket cannot be emptied while event notifications are configured (HTTP 409\n/ error code 10083). To protect a bucket with R2 Data Catalog enabled, send the\n`cf-r2-data-catalog-check` header; a conflict is returned with HTTP 409 / error code\n10081.\n\nPrefix-delete jobs require permission to delete objects; storage-class migration jobs\nrequire permission to write to the bucket.\n\nConfirm with the user before calling this tool. This starts a background job that either permanently deletes every object under the given prefix (every object in the bucket for an empty prefix) or migrates every object in the bucket between storage classes.\n\nPOST /accounts/{account_id}/r2/buckets/{bucket_name}/jobs",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,6 +41,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-data-catalog-check": {
               "description": "For prefix-delete jobs, set this header to reject the request when R2 Data Catalog is enabled for the bucket.",
@@ -68,14 +63,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -89,9 +85,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
         "r2_create_prefix_delete_job_request": r2_create_prefix_delete_job_request,
         "r2_create_storage_class_migration_job_request": r2_create_storage_class_migration_job_request,
       },
@@ -115,7 +110,6 @@ export const tools: readonly Tool[] = [
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
         "r2_r2_bucket_job": r2_r2_bucket_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_storage_class_migration_job": r2_storage_class_migration_job,
         "r2_v4_response": r2_v4_response,
       },
@@ -166,7 +160,6 @@ export const tools: readonly Tool[] = [
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
         "r2_r2_bucket_job": r2_r2_bucket_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_storage_class_migration_job": r2_storage_class_migration_job,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
@@ -184,11 +177,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_jobs_get",
     title: "Get Bucket Job",
-    description: "Gets the current status of a background job of any type for an R2 bucket. Poll this\nendpoint with the job identifier returned by Create Bucket Job until the status is\n`COMPLETED`, `FAILED`, or `CANCELLED`.",
+    description: "Gets the current status of a background job of any type for an R2 bucket. Poll this\nendpoint with the job identifier returned by Create Bucket Job until the status is\n`COMPLETED`, `FAILED`, or `CANCELLED`.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/jobs/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -206,14 +200,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "job_id": {
               "description": "Identifier returned when the background job was submitted.",
@@ -231,10 +226,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -255,7 +247,6 @@ export const tools: readonly Tool[] = [
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
         "r2_r2_bucket_job": r2_r2_bucket_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_storage_class_migration_job": r2_storage_class_migration_job,
         "r2_v4_response": r2_v4_response,
       },
@@ -302,7 +293,6 @@ export const tools: readonly Tool[] = [
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
         "r2_r2_bucket_job": r2_r2_bucket_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_storage_class_migration_job": r2_storage_class_migration_job,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
@@ -318,11 +308,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_jobs_list",
     title: "List Bucket Jobs",
-    description: "Lists background jobs for an R2 bucket, including prefix-delete (and bucket-emptying)\njobs and storage-class migration jobs. Jobs of every type are returned unless `jobType`\nis provided.",
+    description: "Lists background jobs for an R2 bucket, including prefix-delete (and bucket-emptying)\njobs and storage-class migration jobs. Jobs of every type are returned unless `jobType`\nis provided.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -340,14 +331,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -357,6 +349,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continuationToken": {
               "description": "Pagination token received as `nextContinuationToken` in the previous response.",
@@ -375,8 +368,15 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/r2_r2_bucket_job_status",
-              "description": "Restricts results to jobs with the specified status. `jobType` is required when this parameter is provided."
+              "description": "Restricts results to jobs with the specified status. `jobType` is required when this parameter is provided.",
+              "enum": [
+                "ENQUEUED",
+                "RUNNING",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -385,11 +385,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -410,7 +406,6 @@ export const tools: readonly Tool[] = [
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
         "r2_r2_bucket_job": r2_r2_bucket_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_r2_bucket_jobs_result": r2_r2_bucket_jobs_result,
         "r2_storage_class_migration_job": r2_storage_class_migration_job,
         "r2_v4_response": r2_v4_response,
@@ -458,7 +453,6 @@ export const tools: readonly Tool[] = [
         "r2_messages": r2_messages,
         "r2_prefix_delete_job": r2_prefix_delete_job,
         "r2_r2_bucket_job": r2_r2_bucket_job,
-        "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
         "r2_r2_bucket_jobs_result": r2_r2_bucket_jobs_result,
         "r2_storage_class_migration_job": r2_storage_class_migration_job,
         "r2_v4_response": r2_v4_response,

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_interests_create",
     title: "Create an account interest for PIR Option 2",
-    description: "Creates a structured account interest used by Priority Intelligence Option 2 evaluations. Interests are evaluated independently from free-form PIR requirements.",
+    description: "Creates a structured account interest used by Priority Intelligence Option 2 evaluations. Interests are evaluated independently from free-form PIR requirements.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/interests",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,6 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -60,6 +61,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -90,11 +92,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_interests_delete",
     title: "Delete an account interest for PIR Option 2",
-    description: "Deletes a structured account interest so later Priority Intelligence Option 2 evaluations no longer include it.",
+    description: "Deletes a structured account interest so later Priority Intelligence Option 2 evaluations no longer include it.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/interests/{interest_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -116,6 +119,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -144,11 +148,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_interests_list",
     title: "List account interests for PIR Option 2",
-    description: "Lists structured account interests for Priority Intelligence Option 2. Filter by enabled state and paginate results.",
+    description: "Lists structured account interests for Priority Intelligence Option 2. Filter by enabled state and paginate results.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/interests",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -161,6 +166,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "enum": [
@@ -184,6 +190,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -218,7 +225,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_interests_update",
     title: "Update an account interest for PIR Option 2",
-    description: "Updates a structured account interest used by Priority Intelligence Option 2 evaluations. Changing the value re-resolves the interest against the current catalog.",
+    description: "Updates a structured account interest used by Priority Intelligence Option 2 evaluations. Changing the value re-resolves the interest against the current catalog.\n\nPATCH /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/interests/{interest_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -234,6 +241,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -255,6 +263,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

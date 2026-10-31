@@ -9,8 +9,6 @@ import {
   images_deleted_response,
   images_messages,
 } from "../../outputs.js";
-import { images_account_identifier } from "../../schemas.js";
-import { images_sourcingkit_identifier } from "../schemas.js";
 import {
   images_sourcingkit_connectivity_check_response,
   images_sourcingkit_source,
@@ -18,13 +16,11 @@ import {
   images_sourcingkit_source_list_response,
   images_sourcingkit_source_single_response,
   images_sourcingkit_source_update_response,
-  images_sourcingkit_vendor,
 } from "./outputs.js";
 import {
   images_sourcingkit_connectivity_precheck_request,
   images_sourcingkit_source_create_request,
   images_sourcingkit_source_update_request,
-  images_sourcingkit_vendor as images_sourcingkit_vendor$,
 } from "./schemas.js";
 
 /**
@@ -34,19 +30,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_check",
     title: "Get source connectivity status",
-    description: "Check whether a source can still access its S3 bucket.",
+    description: "Check whether a source can still access its S3 bucket.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/sources/{source_id}/connectivity",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "source_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -59,10 +57,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_connectivity_check_response",
@@ -119,7 +114,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_create",
     title: "Create a sourcing kit source",
-    description: "Configure an S3 source for CF Images imports.",
+    description: "Configure an S3 source for CF Images imports.\n\nPOST /accounts/{account_id}/images/v2/sourcingkit/sources",
     inputSchema: {
       type: "object",
       properties: {
@@ -127,10 +122,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/images_sourcingkit_source_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -143,10 +139,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "images_account_identifier": images_account_identifier,
         "images_sourcingkit_source_create_request": images_sourcingkit_source_create_request,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor$,
       },
     },
     outputSchema: {
@@ -157,7 +152,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_create_response": images_sourcingkit_source_create_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     annotations: {
@@ -197,7 +191,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_create_response": images_sourcingkit_source_create_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     request: (args) => ({
@@ -208,19 +201,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_delete",
     title: "Delete a sourcing kit source",
-    description: "Delete a source configured for CF Images imports. Sources used by active imports cannot be deleted.\n\nConfirm with the user before calling this tool. This operation will delete this import source.",
+    description: "Delete a source configured for CF Images imports. Sources used by active imports cannot be deleted.\n\nConfirm with the user before calling this tool. This operation will delete this import source.\n\nDELETE /accounts/{account_id}/images/v2/sourcingkit/sources/{source_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "source_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -233,10 +228,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_deleted_response",
@@ -292,19 +284,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_get",
     title: "Get sourcing kit source",
-    description: "Get details of a source configured for CF Images imports.",
+    description: "Get details of a source configured for CF Images imports.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/sources/{source_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "source_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -317,10 +311,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_source_single_response",
@@ -330,7 +321,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_single_response": images_sourcingkit_source_single_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     annotations: {
@@ -371,7 +361,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_single_response": images_sourcingkit_source_single_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     request: (args) => ({
@@ -381,15 +370,16 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_list",
     title: "List sourcing kit sources",
-    description: "List sources configured for CF Images imports.",
+    description: "List sources configured for CF Images imports.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/sources",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -398,6 +388,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 25,
@@ -420,9 +411,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_source_list_response",
@@ -431,7 +420,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_list_response": images_sourcingkit_source_list_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     annotations: {
@@ -471,7 +459,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_list_response": images_sourcingkit_source_list_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     request: (args) => ({
@@ -486,7 +473,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_preCheck",
     title: "Precheck source connectivity",
-    description: "Check S3 credentials without saving a source.",
+    description: "Check S3 credentials without saving a source.\n\nPOST /accounts/{account_id}/images/v2/sourcingkit/sources/connectivity-precheck",
     inputSchema: {
       type: "object",
       properties: {
@@ -494,10 +481,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/images_sourcingkit_connectivity_precheck_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -510,10 +498,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "images_account_identifier": images_account_identifier,
         "images_sourcingkit_connectivity_precheck_request": images_sourcingkit_connectivity_precheck_request,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor$,
       },
     },
     outputSchema: {
@@ -571,7 +558,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_sources_update",
     title: "Update a sourcing kit source",
-    description: "Rename a source configured for CF Images imports.",
+    description: "Rename a source configured for CF Images imports.\n\nPATCH /accounts/{account_id}/images/v2/sourcingkit/sources/{source_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -579,14 +566,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/images_sourcingkit_source_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "source_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -600,9 +589,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
         "images_sourcingkit_source_update_request": images_sourcingkit_source_update_request,
       },
     },
@@ -614,7 +602,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_update_response": images_sourcingkit_source_update_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     annotations: {
@@ -654,7 +641,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_source": images_sourcingkit_source,
         "images_sourcingkit_source_update_response": images_sourcingkit_source_update_response,
-        "images_sourcingkit_vendor": images_sourcingkit_vendor,
       },
     },
     request: (args) => ({

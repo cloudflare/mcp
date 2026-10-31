@@ -11,7 +11,6 @@ import {
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
-import { zero$$trust$$gateway_identifier } from "../schemas.js";
 import {
   zero$$trust$$gateway_dns_destination_ip_pair,
   zero$$trust$$gateway_response_collection$$2,
@@ -24,15 +23,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_dnsDestinationIps_list",
     title: "List Zero Trust Gateway DNS destination IPv4 address pairs",
-    description: "List Zero Trust Gateway IPv4 address pairs for an account.",
+    description: "List Zero Trust Gateway IPv4 address pairs for an account.\n\nGET /accounts/{account_id}/gateway/dns_destination_ips",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,9 +44,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-2",

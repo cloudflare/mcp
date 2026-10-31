@@ -9,12 +9,12 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const secondary$$dns_acl: JsonSchema = {
   "properties": {
     "ip_range": {
-      "$ref": "#/$defs/secondary-dns_ip_range",
-      "description": "Allowed IPv4/IPv6 address range of primary or secondary nameservers. This will be applied for the entire account. The IP range is used to allow additional NOTIFY IPs for secondary zones and IPs Cloudflare allows AXFR/IXFR requests from for primary zones. CIDRs are limited to a maximum of /24 for IPv4 and /64 for IPv6 respectively."
+      "description": "Allowed IPv4/IPv6 address range of primary or secondary nameservers. This will be applied for the entire account. The IP range is used to allow additional NOTIFY IPs for secondary zones and IPs Cloudflare allows AXFR/IXFR requests from for primary zones. CIDRs are limited to a maximum of /24 for IPv4 and /64 for IPv6 respectively.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-4",
-      "description": "The name of the acl."
+      "description": "The name of the acl.",
+      "type": "string"
     }
   },
   "required": [
@@ -22,20 +22,4 @@ export const secondary$$dns_acl: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_ip_range`.
- */
-export const secondary$$dns_ip_range: JsonSchema = {
-  "description": "Allowed IPv4/IPv6 address range of primary or secondary nameservers. This will be applied for the entire account. The IP range is used to allow additional NOTIFY IPs for secondary zones and IPs Cloudflare allows AXFR/IXFR requests from for primary zones. CIDRs are limited to a maximum of /24 for IPv4 and /64 for IPv6 respectively.",
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_name-4`.
- */
-export const secondary$$dns_name$$4: JsonSchema = {
-  "description": "The name of the acl.",
-  "type": "string"
 };

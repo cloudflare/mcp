@@ -8,7 +8,6 @@ import {
   snippets_Messages,
   snippets_Response,
 } from "../outputs.js";
-import { snippets_SnippetName, snippets_ZoneId } from "../schemas.js";
 
 /**
  * The tools of `snippets.content`.
@@ -17,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_content_get",
     title: "Get a zone snippet content",
-    description: "Fetches the content of a snippet belonging to the zone.",
+    description: "Fetches the content of a snippet belonging to the zone.\n\nGET /zones/{zone_id}/snippets/{snippet_name}/content",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "snippet_name": {
-              "$ref": "#/$defs/snippets_SnippetName",
-              "description": "Identify the snippet."
+              "description": "Identify the snippet.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,10 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "snippets_SnippetName": snippets_SnippetName,
-        "snippets_ZoneId": snippets_ZoneId,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

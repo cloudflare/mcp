@@ -6,20 +6,15 @@ import {
   intel_api$$response$$collection,
   intel_api$$response$$common,
   intel_api$$response$$common$$failure,
-  intel_domain_name,
   intel_messages,
   intel_result_info,
 } from "../../outputs.js";
-import { intel_identifier } from "../../schemas.js";
 import {
   intel_additional_information,
   intel_application,
   intel_categories_with_super_category_ids_example_empty,
   intel_category_with_super_category_id,
   intel_content_categories,
-  intel_inherited_from,
-  intel_popularity_rank,
-  intel_risk_score,
 } from "../outputs.js";
 import { intel_collection_response } from "./outputs.js";
 
@@ -30,15 +25,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_domains_bulks_get",
     title: "Get Multiple Domain Details",
-    description: "Returns security details and statistics about multiple domains in a\nsingle request.\n\n**Behavior change — domain ranking is becoming opt-in.** This endpoint\npreviously included domain ranking data in every response and accepted\na `skip_ranking=true` query parameter to opt out. That parameter is\nbeing deprecated and ranking will no longer be returned by default.\nCallers that want ranking data must pass `include_ranking=true`. The\n`skip_ranking` parameter will be silently ignored once the change ships.",
+    description: "Returns security details and statistics about multiple domains in a\nsingle request.\n\n**Behavior change — domain ranking is becoming opt-in.** This endpoint\npreviously included domain ranking data in every response and accepted\na `skip_ranking=true` query parameter to opt out. That parameter is\nbeing deprecated and ranking will no longer be returned by default.\nCallers that want ranking data must pass `include_ranking=true`. The\n`skip_ranking` parameter will be silently ignored once the change ships.\n\nGET /accounts/{account_id}/intel/domain/bulk",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,6 +43,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "domain": {
               "description": "Accepts multiple values like `?domain=cloudflare.com&domain=example.com`.",
@@ -57,12 +54,12 @@ export const tools: readonly Tool[] = [
             },
             "include_ranking": {
               "default": false,
-              "description": "Whether to include domain ranking data in the response. Defaults to\n`false` — ranking lookups are expensive at bulk scale and most\ncallers do not need them. Set to `true` to opt in. This parameter\nreplaces the deprecated `skip_ranking` (see below).\n",
+              "description": "Whether to include domain ranking data in the response. Defaults to\n`false` — ranking lookups are expensive at bulk scale and most\ncallers do not need them. Set to `true` to opt in. This parameter\nreplaces the deprecated `skip_ranking` (see below).",
               "type": "boolean"
             },
             "skip_ranking": {
               "deprecated": true,
-              "description": "**Deprecated.** Previously controlled whether the ranking lookup\nwas skipped (defaulted to `false`, meaning ranking ran). The\nendpoint's default behavior is being flipped — ranking is now\nopt-in via `include_ranking=true` — and this parameter will be\nsilently ignored. Remove it from your callers and use\n`include_ranking` instead.\n",
+              "description": "**Deprecated.** Previously controlled whether the ranking lookup\nwas skipped (defaulted to `false`, meaning ranking ran). The\nendpoint's default behavior is being flipped — ranking is now\nopt-in via `include_ranking=true` — and this parameter will be\nsilently ignored. Remove it from your callers and use\n`include_ranking` instead.",
               "type": "boolean"
             }
           },
@@ -72,9 +69,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_collection_response",
@@ -87,12 +82,8 @@ export const tools: readonly Tool[] = [
         "intel_category_with_super_category_id": intel_category_with_super_category_id,
         "intel_collection_response": intel_collection_response,
         "intel_content_categories": intel_content_categories,
-        "intel_domain_name": intel_domain_name,
-        "intel_inherited_from": intel_inherited_from,
         "intel_messages": intel_messages,
-        "intel_popularity_rank": intel_popularity_rank,
         "intel_result_info": intel_result_info,
-        "intel_risk_score": intel_risk_score,
       },
     },
     annotations: {
@@ -136,12 +127,8 @@ export const tools: readonly Tool[] = [
         "intel_category_with_super_category_id": intel_category_with_super_category_id,
         "intel_collection_response": intel_collection_response,
         "intel_content_categories": intel_content_categories,
-        "intel_domain_name": intel_domain_name,
-        "intel_inherited_from": intel_inherited_from,
         "intel_messages": intel_messages,
-        "intel_popularity_rank": intel_popularity_rank,
         "intel_result_info": intel_result_info,
-        "intel_risk_score": intel_risk_score,
       },
     },
     request: (args) => ({

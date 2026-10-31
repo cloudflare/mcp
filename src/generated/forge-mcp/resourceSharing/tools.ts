@@ -3,46 +3,20 @@
 
 import { type Tool, param, pathParam } from "../_/tool.js";
 import {
-  resource$$sharing_account_id,
-  resource$$sharing_account_name,
   resource$$sharing_api$$response$$collection,
   resource$$sharing_api$$response$$collection$$info,
   resource$$sharing_api$$response$$common,
   resource$$sharing_api$$response$$common$$failure,
-  resource$$sharing_created,
-  resource$$sharing_modified,
-  resource$$sharing_organization_id,
-  resource$$sharing_resource_id,
   resource$$sharing_resource_meta,
-  resource$$sharing_resource_resource_id,
-  resource$$sharing_resource_status,
-  resource$$sharing_resource_type,
-  resource$$sharing_resource_version,
   resource$$sharing_result_info,
-  resource$$sharing_share_id,
-  resource$$sharing_share_kind,
-  resource$$sharing_share_name,
   resource$$sharing_share_object,
   resource$$sharing_share_resource_object,
   resource$$sharing_share_response_collection,
   resource$$sharing_share_response_collection_result,
-  resource$$sharing_share_status,
-  resource$$sharing_share_target_type,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../outputs.js";
-import {
-  resource$$sharing_account_id as resource$$sharing_account_id$,
-  resource$$sharing_organization_id as resource$$sharing_organization_id$,
-  resource$$sharing_resource_meta as resource$$sharing_resource_meta$,
-  resource$$sharing_resource_resource_id as resource$$sharing_resource_resource_id$,
-  resource$$sharing_resource_type as resource$$sharing_resource_type$,
-  resource$$sharing_share_id as resource$$sharing_share_id$,
-  resource$$sharing_share_kind as resource$$sharing_share_kind$,
-  resource$$sharing_share_name as resource$$sharing_share_name$,
-  resource$$sharing_share_status as resource$$sharing_share_status$,
-  resource$$sharing_share_target_type as resource$$sharing_share_target_type$,
-} from "../schemas.js";
+import { resource$$sharing_resource_meta as resource$$sharing_resource_meta$ } from "../schemas.js";
 import {
   resource$$sharing_share_response_single,
   resource$$sharing_share_response_single_result,
@@ -61,7 +35,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_create",
     title: "Trigger a share creation",
-    description: "Creates a new resource share for sharing Cloudflare resources with other accounts or organizations.",
+    description: "Creates a new resource share for sharing Cloudflare resources with other accounts or organizations.\n\nPOST /accounts/{account_id}/shares",
     inputSchema: {
       type: "object",
       properties: {
@@ -69,10 +43,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_create_share_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -85,42 +60,23 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
         "resource-sharing_create_share_recipient_request": resource$$sharing_create_share_recipient_request,
         "resource-sharing_create_share_request": resource$$sharing_create_share_request,
         "resource-sharing_create_share_resource_request": resource$$sharing_create_share_resource_request,
-        "resource-sharing_organization_id": resource$$sharing_organization_id$,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta$,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id$,
-        "resource-sharing_resource_type": resource$$sharing_resource_type$,
-        "resource-sharing_share_name": resource$$sharing_share_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -156,28 +112,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -190,19 +131,20 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_delete",
     title: "Trigger a share deletion",
-    description: "Deletion is not immediate, an updated share object with a new status will be returned.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Deletion is not immediate, an updated share object with a new status will be returned.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/shares/{share_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -215,35 +157,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -279,28 +203,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -312,19 +221,20 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_get",
     title: "Get account share by ID",
-    description: "Fetches share by ID.",
+    description: "Fetches share by ID.\n\nGET /accounts/{account_id}/shares/{share_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -334,6 +244,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_recipient_counts": {
               "description": "Include recipient counts in the response.",
@@ -350,35 +261,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -421,28 +314,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -458,15 +336,16 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_list",
     title: "List account shares",
-    description: "Lists all account shares.",
+    description: "Lists all account shares.\n\nGET /accounts/{account_id}/shares",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -475,6 +354,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -494,8 +374,12 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "kind": {
-              "$ref": "#/$defs/resource-sharing_share_kind",
-              "description": "Filter shares by kind."
+              "description": "Filter shares by kind.",
+              "enum": [
+                "sent",
+                "received"
+              ],
+              "type": "string"
             },
             "order": {
               "default": "created",
@@ -519,13 +403,28 @@ export const tools: readonly Tool[] = [
             "resource_types": {
               "description": "Filter share resources by resource_types.",
               "items": {
-                "$ref": "#/$defs/resource-sharing_resource_type"
+                "description": "Resource Type.",
+                "enum": [
+                  "custom-ruleset",
+                  "gateway-policy",
+                  "gateway-destination-ip",
+                  "gateway-block-page-settings",
+                  "gateway-extended-email-matching",
+                  "idp-federation-grant",
+                  "trust-grant"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
             "status": {
-              "$ref": "#/$defs/resource-sharing_share_status",
-              "description": "Filter shares by status."
+              "description": "Filter shares by status.",
+              "enum": [
+                "active",
+                "deleting",
+                "deleted"
+              ],
+              "type": "string"
             },
             "tag": {
               "description": "Filter shares by tag. Each value is either `key=value` (matches shares whose tags contain that key/value pair) or `key` alone (matches shares that have any value for that key). May be repeated; multiple `tag` parameters are ANDed together. Maximum 20 `tag` parameters per request.",
@@ -536,8 +435,12 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "target_type": {
-              "$ref": "#/$defs/resource-sharing_share_target_type",
-              "description": "Filter shares by target_type."
+              "description": "Filter shares by target_type.",
+              "enum": [
+                "account",
+                "organization"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -546,41 +449,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_resource_type": resource$$sharing_resource_type$,
-        "resource-sharing_share_kind": resource$$sharing_share_kind$,
-        "resource-sharing_share_status": resource$$sharing_share_status$,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_collection",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_result_info": resource$$sharing_result_info,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -624,31 +506,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_result_info": resource$$sharing_result_info,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -673,7 +540,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_update",
     title: "Trigger a share rename",
-    description: "Updates the share's display name and tags. This endpoint does **not**\nmodify recipients or resources — those are managed via dedicated\nsubresource endpoints:\n\n- **Recipients**: Use `POST /accounts/{account_id}/shares/{share_id}/recipients`\n  to add a single recipient, `PUT /accounts/{account_id}/shares/{share_id}/recipients`\n  to replace the full recipient list, or\n  `DELETE /accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}`\n  to remove a recipient.\n- **Resources**: Use the share's resource subresource endpoints.\n\nUpdating is not immediate; an updated share object with a new status\nwill be returned.",
+    description: "Updates the share's display name and tags. This endpoint does **not**\nmodify recipients or resources — those are managed via dedicated\nsubresource endpoints:\n\n- **Recipients**: Use `POST /accounts/{account_id}/shares/{share_id}/recipients`\n  to add a single recipient, `PUT /accounts/{account_id}/shares/{share_id}/recipients`\n  to replace the full recipient list, or\n  `DELETE /accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}`\n  to remove a recipient.\n- **Resources**: Use the share's resource subresource endpoints.\n\nUpdating is not immediate; an updated share object with a new status\nwill be returned.\n\nPUT /accounts/{account_id}/shares/{share_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -681,14 +548,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_update_share_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -702,37 +570,20 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id$,
-        "resource-sharing_share_name": resource$$sharing_share_name$,
         "resource-sharing_update_share_request": resource$$sharing_update_share_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -767,28 +618,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },

@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoModules_create",
     title: "Create a new Rego module",
-    description: "Creates a library Rego module and derives its package path from the source.\n\nThis method is beta.",
+    description: "Creates a library Rego module and derives its package path from the source.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/rego-modules",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreateRegoModuleInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreateRegoModuleInputBody": cws_CreateRegoModuleInputBody,
       },
@@ -107,11 +109,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoModules_delete",
     title: "Delete a Rego module",
-    description: "Deletes the module if no policy or library references its rules.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Rego module?",
+    description: "Deletes the module if no policy or library references its rules.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Rego module?\n\nDELETE /accounts/{account_id}/cws/rego-modules/{rego_module_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -133,6 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -182,11 +186,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoModules_get",
     title: "Get a Rego module by ID",
-    description: "Returns the library Rego module with the specified ID.\n\nThis method is beta.",
+    description: "Returns the library Rego module with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/rego-modules/{rego_module_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -208,6 +213,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseRegoModule",
@@ -257,11 +263,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoModules_list",
     title: "List Rego modules",
-    description: "Returns a paginated list of library Rego modules in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of library Rego modules in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/rego-modules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -274,6 +281,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -318,6 +326,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseRegoModule",
@@ -377,7 +386,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_regoModules_update",
     title: "Update a Rego module",
-    description: "Replaces the module and validates policies and libraries that depend on it.\n\nThis method is beta.",
+    description: "Replaces the module and validates policies and libraries that depend on it.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/rego-modules/{rego_module_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -385,6 +394,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_UpdateRegoModuleInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -407,6 +417,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_UpdateRegoModuleInputBody": cws_UpdateRegoModuleInputBody,
       },

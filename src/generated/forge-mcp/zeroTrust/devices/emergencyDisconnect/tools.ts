@@ -8,18 +8,11 @@ import {
   teams$$devices_api$$response$$single,
   teams$$devices_messages,
 } from "../outputs.js";
-import { teams$$devices_identifier } from "../schemas.js";
 import {
-  teams$$devices_disconnect,
   teams$$devices_global_warp_override,
   teams$$devices_global_warp_override_response,
-  teams$$devices_timestamp,
 } from "./outputs.js";
-import {
-  teams$$devices_disconnect as teams$$devices_disconnect$,
-  teams$$devices_global_warp_override_request,
-  teams$$devices_justification,
-} from "./schemas.js";
+import { teams$$devices_global_warp_override_request } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.devices.emergencyDisconnect`.
@@ -28,14 +21,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_emergencyDisconnect_get",
     title: "Get Global Disconnect",
-    description: "Fetch the Global WARP disconnect state.",
+    description: "Fetch the Global WARP disconnect state.\n\nGET /accounts/{account_id}/devices/resilience/disconnect",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -47,20 +41,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_global_warp_override_response",
       $defs: {
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_disconnect": teams$$devices_disconnect,
         "teams-devices_global_warp_override": teams$$devices_global_warp_override,
         "teams-devices_global_warp_override_response": teams$$devices_global_warp_override_response,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_timestamp": teams$$devices_timestamp,
       },
     },
     annotations: {
@@ -93,11 +83,9 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_disconnect": teams$$devices_disconnect,
         "teams-devices_global_warp_override": teams$$devices_global_warp_override,
         "teams-devices_global_warp_override_response": teams$$devices_global_warp_override_response,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_timestamp": teams$$devices_timestamp,
       },
     },
     request: (args) => ({
@@ -107,7 +95,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_emergencyDisconnect_set",
     title: "Set Global Disconnect",
-    description: "Sets the Global WARP disconnect state.",
+    description: "Sets the Global WARP disconnect state.\n\nPOST /accounts/{account_id}/devices/resilience/disconnect",
     inputSchema: {
       type: "object",
       properties: {
@@ -115,9 +103,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_global_warp_override_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -130,11 +119,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_disconnect": teams$$devices_disconnect$,
         "teams-devices_global_warp_override_request": teams$$devices_global_warp_override_request,
-        "teams-devices_identifier": teams$$devices_identifier,
-        "teams-devices_justification": teams$$devices_justification,
       },
     },
     outputSchema: {
@@ -142,11 +129,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_disconnect": teams$$devices_disconnect,
         "teams-devices_global_warp_override": teams$$devices_global_warp_override,
         "teams-devices_global_warp_override_response": teams$$devices_global_warp_override_response,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_timestamp": teams$$devices_timestamp,
       },
     },
     annotations: {
@@ -176,11 +161,9 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
-        "teams-devices_disconnect": teams$$devices_disconnect,
         "teams-devices_global_warp_override": teams$$devices_global_warp_override,
         "teams-devices_global_warp_override_response": teams$$devices_global_warp_override_response,
         "teams-devices_messages": teams$$devices_messages,
-        "teams-devices_timestamp": teams$$devices_timestamp,
       },
     },
     request: (args) => ({

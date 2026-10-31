@@ -8,7 +8,6 @@ import {
 } from "./outputs.js";
 import {
   email$$sending_EmailAddressObject,
-  email$$sending_EmailAddressString,
   email$$sending_EmailAttachment,
   email$$sending_EmailBuilder,
   email$$sending_EmailInlineAttachment,
@@ -22,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_get",
     title: "Fetch an email message",
-    description: "Returns the raw RFC 5322 MIME message for the given account and message id.",
+    description: "Returns the raw RFC 5322 MIME message for the given account and message id.\n\nGET /accounts/{account_id}/email/sending/messages/{message_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -45,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -89,7 +90,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_send",
     title: "Send an email",
-    description: "Send an email for the specified account using the structured builder. Provide the sender, recipients, subject, and at least one of text or html; attachments are optional.",
+    description: "Send an email for the specified account using the structured builder. Provide the sender, recipients, subject, and at least one of text or html; attachments are optional.\n\nPOST /accounts/{account_id}/email/sending/send",
     inputSchema: {
       type: "object",
       properties: {
@@ -97,6 +98,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-sending_EmailBuilder"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Identifier of the account.",
@@ -113,9 +115,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-sending_EmailAddressObject": email$$sending_EmailAddressObject,
-        "email-sending_EmailAddressString": email$$sending_EmailAddressString,
         "email-sending_EmailAttachment": email$$sending_EmailAttachment,
         "email-sending_EmailBuilder": email$$sending_EmailBuilder,
         "email-sending_EmailInlineAttachment": email$$sending_EmailInlineAttachment,
@@ -599,7 +601,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_sendRaw",
     title: "Send a raw MIME email",
-    description: "Send a raw RFC 5322 (MIME) email for the specified account. Provide the full MIME message plus the SMTP envelope (from and recipients).",
+    description: "Send a raw RFC 5322 (MIME) email for the specified account. Provide the full MIME message plus the SMTP envelope (from and recipients).\n\nPOST /accounts/{account_id}/email/sending/send_raw",
     inputSchema: {
       type: "object",
       properties: {
@@ -607,6 +609,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-sending_SendRawRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Identifier of the account.",
@@ -623,6 +626,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-sending_SendRawRequest": email$$sending_SendRawRequest,
       },

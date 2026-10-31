@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cc_ISO8601Timestamp,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
@@ -11,14 +10,10 @@ import {
 import {
   cc_ContainersDeleteImageRegistryResponseBody,
   cc_CustomerImageRegistry,
-  cc_DefaultImageRegistryKind,
-  cc_Domain,
-  cc_ExternalRegistryKind,
 } from "./outputs.js";
 import {
   cc_ContainersCreateImageRegistryRequestBody,
   cc_ContainersImageRegistryAuth,
-  cc_ExternalRegistryKind as cc_ExternalRegistryKind$,
   cc_SecretsStoreRef,
 } from "./schemas.js";
 
@@ -29,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_registries_create",
     title: "Configure a private external image registry",
-    description: "Registers credentials for a supported private external image registry so\nContainers can pull images from it. This endpoint does not create a registry\nor upload an image. Public Docker Hub images and images in the Cloudflare\nmanaged registry do not require this configuration.\n\nRefer to [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor supported registries and instructions for storing registry credentials.",
+    description: "Registers credentials for a supported private external image registry so\nContainers can pull images from it. This endpoint does not create a registry\nor upload an image. Public Docker Hub images and images in the Cloudflare\nmanaged registry do not require this configuration.\n\nRefer to [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor supported registries and instructions for storing registry credentials.\n\nPOST /accounts/{account_id}/containers/registries",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,6 +32,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cc_ContainersCreateImageRegistryRequestBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -53,10 +49,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cc_ContainersCreateImageRegistryRequestBody": cc_ContainersCreateImageRegistryRequestBody,
         "cc_ContainersImageRegistryAuth": cc_ContainersImageRegistryAuth,
-        "cc_ExternalRegistryKind": cc_ExternalRegistryKind$,
         "cc_SecretsStoreRef": cc_SecretsStoreRef,
       },
     },
@@ -79,10 +75,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry,
-        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind,
-        "cc_Domain": cc_Domain,
-        "cc_ExternalRegistryKind": cc_ExternalRegistryKind,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
         "cc_Messages": cc_Messages,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -136,10 +128,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry,
-        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind,
-        "cc_Domain": cc_Domain,
-        "cc_ExternalRegistryKind": cc_ExternalRegistryKind,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
         "cc_Messages": cc_Messages,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -153,11 +141,12 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_registries_delete",
     title: "Delete a registry from the account",
-    description: "Delete a registry from the account, this will prevent Containers from pulling images from the registry.\n\nConfirm with the user before calling this tool. This operation deletes the registry configuration. Containers will no longer be able to pull images from it.",
+    description: "Delete a registry from the account, this will prevent Containers from pulling images from the registry.\n\nConfirm with the user before calling this tool. This operation deletes the registry configuration. Containers will no longer be able to pull images from it.\n\nDELETE /accounts/{account_id}/containers/registries/{domain}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -178,6 +167,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -198,7 +188,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cc_ContainersDeleteImageRegistryResponseBody": cc_ContainersDeleteImageRegistryResponseBody,
-        "cc_Domain": cc_Domain,
         "cc_Messages": cc_Messages,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -252,7 +241,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cc_ContainersDeleteImageRegistryResponseBody": cc_ContainersDeleteImageRegistryResponseBody,
-        "cc_Domain": cc_Domain,
         "cc_Messages": cc_Messages,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,
@@ -265,11 +253,12 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_registries_list",
     title: "Get the list of configured registries in the account",
-    description: "Get the list of configured registries in the account.",
+    description: "Get the list of configured registries in the account.\n\nGET /accounts/{account_id}/containers/registries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -285,6 +274,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -308,10 +298,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry,
-        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind,
-        "cc_Domain": cc_Domain,
-        "cc_ExternalRegistryKind": cc_ExternalRegistryKind,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
         "cc_Messages": cc_Messages,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -363,10 +349,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry,
-        "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind,
-        "cc_Domain": cc_Domain,
-        "cc_ExternalRegistryKind": cc_ExternalRegistryKind,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
         "cc_Messages": cc_Messages,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,

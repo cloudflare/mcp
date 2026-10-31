@@ -26,11 +26,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_terms_get",
     title: "Get pay-per-crawl terms",
-    description: "Gets the pay-per-crawl terms and conditions contract.",
+    description: "Gets the pay-per-crawl terms and conditions contract.\n\nGET /accounts/{account_id}/pay-per-crawl/terms",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -46,6 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getTermsResponse",
@@ -126,11 +128,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_terms_getSignature",
     title: "Get pay-per-crawl terms signature status",
-    description: "Gets the account's pay-per-crawl terms signature status.",
+    description: "Gets the account's pay-per-crawl terms signature status.\n\nGET /accounts/{account_id}/pay-per-crawl/terms/signature",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -143,6 +146,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "remote": {
               "description": "Refresh the signature status from Ironclad.",
@@ -155,6 +159,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getTermsSignatureResponse",
@@ -236,11 +241,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_terms_getSignatureLink",
     title: "Get signed pay-per-crawl terms link",
-    description: "Gets a download link for the account's signed pay-per-crawl terms.",
+    description: "Gets a download link for the account's signed pay-per-crawl terms.\n\nGET /accounts/{account_id}/pay-per-crawl/signature_link",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -256,6 +262,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getTermsSignatureLinkResponse",
@@ -336,11 +343,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_terms_sendSignatureEvent",
     title: "Record pay-per-crawl terms activity",
-    description: "Records that an account displayed or agreed to the pay-per-crawl terms.",
+    description: "Records that an account displayed or agreed to the pay-per-crawl terms.\n\nPOST /accounts/{account_id}/pay-per-crawl/terms/signature",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -353,6 +361,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "event_type": {
               "description": "The terms activity to record.",
@@ -378,6 +387,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",

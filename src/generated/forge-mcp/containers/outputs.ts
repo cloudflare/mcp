@@ -4,27 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `cc_AccountID` in responses.
- */
-export const cc_AccountID: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ISO8601Timestamp` in responses.
- */
-export const cc_ISO8601Timestamp: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_Image` in responses.
- */
-export const cc_Image: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `cc_Messages` in responses.
  */
 export const cc_Messages: JsonSchema = {

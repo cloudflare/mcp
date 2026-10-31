@@ -14,7 +14,7 @@ export const digital$$experience$$monitoring_traceroute_test_network_path_respon
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "interval": {
       "type": "string"
@@ -101,7 +101,7 @@ export const digital$$experience$$monitoring_traceroute_test_network_path_respon
                     ]
                   },
                   "id": {
-                    "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                    "type": "string"
                   },
                   "timestamp": {
                     "type": "string"

@@ -6,8 +6,6 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_messages,
 } from "../../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../../schemas.js";
-import { digital$$experience$$monitoring_command_id } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.dex.commands.results`.
@@ -16,19 +14,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_commands_results_get",
     title: "Download command output file",
-    description: "Downloads artifacts for an executed command. Bulk downloads are not supported",
+    description: "Downloads artifacts for an executed command. Bulk downloads are not supported\n\nGET /accounts/{account_id}/dex/commands/{command_id}/downloads/{filename}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "command_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_command_id",
-              "description": "Unique identifier for command."
+              "description": "Unique identifier for command.",
+              "type": "string"
             },
             "filename": {
               "description": "The name of the file to be downloaded, including the `.zip` extension.",
@@ -46,10 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_command_id": digital$$experience$$monitoring_command_id,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

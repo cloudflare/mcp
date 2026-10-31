@@ -10,11 +10,8 @@ import {
 import {
   posture$$api_CreateWebhookJobsResponse,
   posture$$api_WebhookJob,
-  posture$$api_WebhookJobActorTypeEnum,
   posture$$api_WebhookJobFailure,
-  posture$$api_WebhookJobFailureReasonEnum,
   posture$$api_WebhookJobParameters,
-  posture$$api_WebhookJobStatusEnum,
 } from "./outputs.js";
 import { posture$$api_CreateWebhookJobsRequest } from "./schemas.js";
 
@@ -25,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_webhooks_jobs_create",
     title: "Create webhook jobs",
-    description: "Creates webhook jobs to send a finding instance to one or more configured webhooks.",
+    description: "Creates webhook jobs to send a finding instance to one or more configured webhooks.\n\nPOST /accounts/{account_id}/data-security/posture/webhooks/jobs",
     inputSchema: {
       type: "object",
       properties: {
@@ -33,6 +30,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_CreateWebhookJobsRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -49,6 +47,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_CreateWebhookJobsRequest": posture$$api_CreateWebhookJobsRequest,
       },
@@ -58,11 +57,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_CreateWebhookJobsResponse": posture$$api_CreateWebhookJobsResponse,
         "posture-api_WebhookJob": posture$$api_WebhookJob,
-        "posture-api_WebhookJobActorTypeEnum": posture$$api_WebhookJobActorTypeEnum,
         "posture-api_WebhookJobFailure": posture$$api_WebhookJobFailure,
-        "posture-api_WebhookJobFailureReasonEnum": posture$$api_WebhookJobFailureReasonEnum,
         "posture-api_WebhookJobParameters": posture$$api_WebhookJobParameters,
-        "posture-api_WebhookJobStatusEnum": posture$$api_WebhookJobStatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_messages": posture$$api_messages,
       },
@@ -105,11 +101,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_CreateWebhookJobsResponse": posture$$api_CreateWebhookJobsResponse,
         "posture-api_WebhookJob": posture$$api_WebhookJob,
-        "posture-api_WebhookJobActorTypeEnum": posture$$api_WebhookJobActorTypeEnum,
         "posture-api_WebhookJobFailure": posture$$api_WebhookJobFailure,
-        "posture-api_WebhookJobFailureReasonEnum": posture$$api_WebhookJobFailureReasonEnum,
         "posture-api_WebhookJobParameters": posture$$api_WebhookJobParameters,
-        "posture-api_WebhookJobStatusEnum": posture$$api_WebhookJobStatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_error-response": posture$$api_error$$response,
         "posture-api_messages": posture$$api_messages,

@@ -3,31 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  addressing_account_identifier,
   addressing_api$$response$$common$$failure,
   addressing_api$$response$$single,
-  addressing_loa_document_identifier,
   addressing_messages,
-  addressing_timestamp,
 } from "../../outputs.js";
-import { addressing_account_identifier as addressing_account_identifier$ } from "../../schemas.js";
 import {
-  addressing_advertised,
-  addressing_advertised_modified_at_nullable,
-  addressing_approved,
-  addressing_asn,
-  addressing_cidr,
-  addressing_delegate_loa_creation,
-  addressing_description,
   addressing_ipam$$prefixes,
-  addressing_on_demand_enabled,
-  addressing_on_demand_locked,
-  addressing_ownership_validation_token,
-  addressing_prefix_identifier,
   addressing_single_response,
-  addressing_validation_state,
 } from "../outputs.js";
-import { addressing_prefix_identifier as addressing_prefix_identifier$ } from "../schemas.js";
 
 /**
  * The tools of `addressing.prefixes.validate`.
@@ -36,19 +19,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_validate_create",
     title: "Validate Prefix",
-    description: "Triggers a new prefix validation. The checks are run asynchronously and include IRR, RPKI, and prefix ownership.",
+    description: "Triggers a new prefix validation. The checks are run asynchronously and include IRR, RPKI, and prefix ownership.\n\nPOST /accounts/{account_id}/addressing/prefixes/{prefix_id}/validate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,33 +45,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-        "addressing_prefix_identifier": addressing_prefix_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     annotations: {
@@ -122,26 +88,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_advertised": addressing_advertised,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_api-response-single": addressing_api$$response$$single,
-        "addressing_approved": addressing_approved,
-        "addressing_asn": addressing_asn,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
-        "addressing_description": addressing_description,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled,
-        "addressing_on_demand_locked": addressing_on_demand_locked,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_single_response": addressing_single_response,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_validation_state": addressing_validation_state,
       },
     },
     request: (args) => ({

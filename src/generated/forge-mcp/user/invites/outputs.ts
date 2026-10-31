@@ -4,35 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `iam_invite_components-schemas-identifier` in responses.
- */
-export const iam_invite_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_invited_by` in responses.
- */
-export const iam_invited_by: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_invited_member_email` in responses.
- */
-export const iam_invited_member_email: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_invited_on` in responses.
- */
-export const iam_invited_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `iam_schemas-collection_invite_response` in responses.
  */
 export const iam_schemas$$collection_invite_response: JsonSchema = {
@@ -52,14 +23,6 @@ export const iam_schemas$$collection_invite_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `iam_schemas-expires_on` in responses.
- */
-export const iam_schemas$$expires_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -87,16 +50,17 @@ export const iam_single_invite_response: JsonSchema = {
 export const iam_user_invite: JsonSchema = {
   "properties": {
     "expires_on": {
-      "$ref": "#/$defs/iam_schemas-expires_on"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_invite_components-schemas-identifier"
+      "type": "string"
     },
     "invited_by": {
-      "$ref": "#/$defs/iam_invited_by"
+      "type": "string"
     },
     "invited_member_email": {
-      "$ref": "#/$defs/iam_invited_member_email"
+      "type": "string"
     },
     "invited_member_id": {
       "oneOf": [
@@ -109,7 +73,8 @@ export const iam_user_invite: JsonSchema = {
       ]
     },
     "invited_on": {
-      "$ref": "#/$defs/iam_invited_on"
+      "format": "date-time",
+      "type": "string"
     },
     "organization_id": {
       "type": "string"

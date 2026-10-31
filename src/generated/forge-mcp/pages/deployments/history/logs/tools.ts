@@ -7,8 +7,6 @@ import {
   pages_api$$response$$common$$failure,
   pages_messages,
 } from "../../../outputs.js";
-import { pages_identifier, pages_project_name } from "../../../schemas.js";
-import { pages_deployment_id } from "../../schemas.js";
 import { pages_deployment_log } from "./outputs.js";
 
 /**
@@ -18,23 +16,25 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_deployments_history_logs_get",
     title: "Get Pages deployment logs",
-    description: "Retrieve the build logs for a Cloudflare Pages deployment.",
+    description: "Retrieve the build logs for a Cloudflare Pages deployment.\n\nGET /accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}/history/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "deployment_id": {
-              "$ref": "#/$defs/pages_deployment_id",
-              "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
+              "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
+              "format": "uuid",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,11 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_deployment_id": pages_deployment_id,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

@@ -20,23 +20,16 @@ export const zones_0rtt: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_0rtt_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_0rtt_value` in responses.
- */
-export const zones_0rtt_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -56,23 +49,16 @@ export const zones_advanced_ddos: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_advanced_ddos_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_advanced_ddos_value` in responses.
- */
-export const zones_advanced_ddos_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -92,23 +78,16 @@ export const zones_always_online: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_always_online_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_always_online_value` in responses.
- */
-export const zones_always_online_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -128,23 +107,16 @@ export const zones_always_use_https$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_always_use_https_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_always_use_https_value` in responses.
- */
-export const zones_always_use_https_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -221,23 +193,16 @@ export const zones_automatic_https_rewrites$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_automatic_https_rewrites_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_automatic_https_rewrites_value` in responses.
- */
-export const zones_automatic_https_rewrites_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -351,23 +316,16 @@ export const zones_brotli: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_brotli_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_brotli_value` in responses.
- */
-export const zones_brotli_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -387,19 +345,12 @@ export const zones_browser_cache_ttl$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_browser_cache_ttl_value"
+          "type": "integer"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_browser_cache_ttl_value` in responses.
- */
-export const zones_browser_cache_ttl_value: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -419,23 +370,16 @@ export const zones_browser_check$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_browser_check_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_browser_check_value` in responses.
- */
-export const zones_browser_check_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -521,19 +465,12 @@ export const zones_cache$$rules_origin_h2_max_streams: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_cache-rules_origin_h2_max_streams_value"
+          "type": "integer"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_cache-rules_origin_h2_max_streams_value` in responses.
- */
-export const zones_cache$$rules_origin_h2_max_streams_value: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -553,23 +490,16 @@ export const zones_cache$$rules_origin_max_http_version: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_cache-rules_origin_max_http_version_value"
+          "enum": [
+            "2",
+            "1"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_cache-rules_origin_max_http_version_value` in responses.
- */
-export const zones_cache$$rules_origin_max_http_version_value: JsonSchema = {
-  "enum": [
-    "2",
-    "1"
-  ],
-  "type": "string"
 };
 
 /**
@@ -589,24 +519,17 @@ export const zones_cache_level$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_cache_level_value"
+          "enum": [
+            "aggressive",
+            "basic",
+            "simplified"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_cache_level_value` in responses.
- */
-export const zones_cache_level_value: JsonSchema = {
-  "enum": [
-    "aggressive",
-    "basic",
-    "simplified"
-  ],
-  "type": "string"
 };
 
 /**
@@ -626,35 +549,28 @@ export const zones_challenge_ttl: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_challenge_ttl_value"
+          "enum": [
+            300,
+            900,
+            1800,
+            2700,
+            3600,
+            7200,
+            10800,
+            14400,
+            28800,
+            57600,
+            86400,
+            604800,
+            2592000,
+            31536000
+          ],
+          "type": "integer"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_challenge_ttl_value` in responses.
- */
-export const zones_challenge_ttl_value: JsonSchema = {
-  "enum": [
-    300,
-    900,
-    1800,
-    2700,
-    3600,
-    7200,
-    10800,
-    14400,
-    28800,
-    57600,
-    86400,
-    604800,
-    2592000,
-    31536000
-  ],
-  "type": "integer"
 };
 
 /**
@@ -674,23 +590,16 @@ export const zones_china_network_enabled: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_china_network_enabled_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_china_network_enabled_value` in responses.
- */
-export const zones_china_network_enabled_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -745,23 +654,16 @@ export const zones_cname_flattening: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_cname_flattening_value"
+          "enum": [
+            "flatten_at_root",
+            "flatten_all"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_cname_flattening_value` in responses.
- */
-export const zones_cname_flattening_value: JsonSchema = {
-  "enum": [
-    "flatten_at_root",
-    "flatten_all"
-  ],
-  "type": "string"
 };
 
 /**
@@ -781,23 +683,16 @@ export const zones_content_converter: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_content_converter_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_content_converter_value` in responses.
- */
-export const zones_content_converter_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -820,23 +715,16 @@ export const zones_development_mode: JsonSchema = {
           "type": "number"
         },
         "value": {
-          "$ref": "#/$defs/zones_development_mode_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_development_mode_value` in responses.
- */
-export const zones_development_mode_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -856,23 +744,16 @@ export const zones_early_hints: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_early_hints_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_early_hints_value` in responses.
- */
-export const zones_early_hints_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -892,42 +773,35 @@ export const zones_edge_cache_ttl$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_edge_cache_ttl_value"
+          "enum": [
+            30,
+            60,
+            300,
+            1200,
+            1800,
+            3600,
+            7200,
+            10800,
+            14400,
+            18000,
+            28800,
+            43200,
+            57600,
+            72000,
+            86400,
+            172800,
+            259200,
+            345600,
+            432000,
+            518400,
+            604800
+          ],
+          "type": "integer"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_edge_cache_ttl_value` in responses.
- */
-export const zones_edge_cache_ttl_value: JsonSchema = {
-  "enum": [
-    30,
-    60,
-    300,
-    1200,
-    1800,
-    3600,
-    7200,
-    10800,
-    14400,
-    18000,
-    28800,
-    43200,
-    57600,
-    72000,
-    86400,
-    172800,
-    259200,
-    345600,
-    432000,
-    518400,
-    604800
-  ],
-  "type": "integer"
 };
 
 /**
@@ -947,23 +821,16 @@ export const zones_email_obfuscation$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_email_obfuscation_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_email_obfuscation_value` in responses.
- */
-export const zones_email_obfuscation_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -983,24 +850,17 @@ export const zones_h2_prioritization: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_h2_prioritization_value"
+          "enum": [
+            "on",
+            "off",
+            "custom"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_h2_prioritization_value` in responses.
- */
-export const zones_h2_prioritization_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off",
-    "custom"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1020,23 +880,16 @@ export const zones_hotlink_protection: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_hotlink_protection_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_hotlink_protection_value` in responses.
- */
-export const zones_hotlink_protection_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1056,23 +909,16 @@ export const zones_http2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_http2_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_http2_value` in responses.
- */
-export const zones_http2_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1092,23 +938,16 @@ export const zones_http3: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_http3_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_http3_value` in responses.
- */
-export const zones_http3_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1128,24 +967,17 @@ export const zones_image_resizing: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_image_resizing_value"
+          "enum": [
+            "on",
+            "off",
+            "open"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_image_resizing_value` in responses.
- */
-export const zones_image_resizing_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off",
-    "open"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1165,23 +997,16 @@ export const zones_ip_geolocation$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_ip_geolocation_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_ip_geolocation_value` in responses.
- */
-export const zones_ip_geolocation_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1201,23 +1026,16 @@ export const zones_ipv6: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_ipv6_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_ipv6_value` in responses.
- */
-export const zones_ipv6_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1237,47 +1055,40 @@ export const zones_max_upload: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_max_upload_value"
+          "enum": [
+            100,
+            125,
+            150,
+            175,
+            200,
+            225,
+            250,
+            275,
+            300,
+            325,
+            350,
+            375,
+            400,
+            425,
+            450,
+            475,
+            500,
+            1000,
+            1500,
+            2000,
+            2500,
+            3000,
+            3500,
+            4000,
+            4500,
+            5000
+          ],
+          "type": "integer"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_max_upload_value` in responses.
- */
-export const zones_max_upload_value: JsonSchema = {
-  "enum": [
-    100,
-    125,
-    150,
-    175,
-    200,
-    225,
-    250,
-    275,
-    300,
-    325,
-    350,
-    375,
-    400,
-    425,
-    450,
-    475,
-    500,
-    1000,
-    1500,
-    2000,
-    2500,
-    3000,
-    3500,
-    4000,
-    4500,
-    5000
-  ],
-  "type": "integer"
 };
 
 /**
@@ -1297,25 +1108,18 @@ export const zones_min_tls_version: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_min_tls_version_value"
+          "enum": [
+            "1.0",
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_min_tls_version_value` in responses.
- */
-export const zones_min_tls_version_value: JsonSchema = {
-  "enum": [
-    "1.0",
-    "1.1",
-    "1.2",
-    "1.3"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1335,23 +1139,16 @@ export const zones_mirage$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_mirage_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_mirage_value` in responses.
- */
-export const zones_mirage_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1408,23 +1205,16 @@ export const zones_opportunistic_encryption$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_opportunistic_encryption_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_opportunistic_encryption_value` in responses.
- */
-export const zones_opportunistic_encryption_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1444,23 +1234,16 @@ export const zones_opportunistic_onion: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_opportunistic_onion_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_opportunistic_onion_value` in responses.
- */
-export const zones_opportunistic_onion_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1480,23 +1263,16 @@ export const zones_orange_to_orange: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_orange_to_orange_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_orange_to_orange_value` in responses.
- */
-export const zones_orange_to_orange_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1516,23 +1292,16 @@ export const zones_origin_error_page_pass_thru$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_origin_error_page_pass_thru_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_origin_error_page_pass_thru_value` in responses.
- */
-export const zones_origin_error_page_pass_thru_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1552,24 +1321,17 @@ export const zones_polish$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_polish_value"
+          "enum": [
+            "off",
+            "lossless",
+            "lossy"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_polish_value` in responses.
- */
-export const zones_polish_value: JsonSchema = {
-  "enum": [
-    "off",
-    "lossless",
-    "lossy"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1589,23 +1351,16 @@ export const zones_pre_render: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_pre_render_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_pre_render_value` in responses.
- */
-export const zones_pre_render_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1625,23 +1380,16 @@ export const zones_prefetch_preload: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_prefetch_preload_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_prefetch_preload_value` in responses.
- */
-export const zones_prefetch_preload_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1661,23 +1409,16 @@ export const zones_privacy_pass: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_privacy_pass_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_privacy_pass_value` in responses.
- */
-export const zones_privacy_pass_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1697,19 +1438,12 @@ export const zones_proxy_read_timeout: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_proxy_read_timeout_value"
+          "type": "number"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_proxy_read_timeout_value` in responses.
- */
-export const zones_proxy_read_timeout_value: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -1729,24 +1463,17 @@ export const zones_pseudo_ipv4: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_pseudo_ipv4_value"
+          "enum": [
+            "off",
+            "add_header",
+            "overwrite_header"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_pseudo_ipv4_value` in responses.
- */
-export const zones_pseudo_ipv4_value: JsonSchema = {
-  "enum": [
-    "off",
-    "add_header",
-    "overwrite_header"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1766,23 +1493,16 @@ export const zones_redirects_for_ai_training: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_redirects_for_ai_training_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_redirects_for_ai_training_value` in responses.
- */
-export const zones_redirects_for_ai_training_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1802,23 +1522,16 @@ export const zones_replace_insecure_js: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_replace_insecure_js_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_replace_insecure_js_value` in responses.
- */
-export const zones_replace_insecure_js_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1838,23 +1551,16 @@ export const zones_response_buffering$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_response_buffering_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_response_buffering_value` in responses.
- */
-export const zones_response_buffering_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1874,23 +1580,16 @@ export const zones_rocket_loader$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_rocket_loader_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_rocket_loader_value` in responses.
- */
-export const zones_rocket_loader_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1935,23 +1634,16 @@ export const zones_search_for_agents: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_search_for_agents_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_search_for_agents_value` in responses.
- */
-export const zones_search_for_agents_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2025,27 +1717,20 @@ export const zones_security_level$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_security_level_value"
+          "enum": [
+            "off",
+            "essentially_off",
+            "low",
+            "medium",
+            "high",
+            "under_attack"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_security_level_value` in responses.
- */
-export const zones_security_level_value: JsonSchema = {
-  "enum": [
-    "off",
-    "essentially_off",
-    "low",
-    "medium",
-    "high",
-    "under_attack"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2065,23 +1750,16 @@ export const zones_server_side_exclude: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_server_side_exclude_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_server_side_exclude_value` in responses.
- */
-export const zones_server_side_exclude_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2310,23 +1988,16 @@ export const zones_sha1_support: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_sha1_support_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_sha1_support_value` in responses.
- */
-export const zones_sha1_support_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2346,23 +2017,16 @@ export const zones_sort_query_string_for_cache$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_sort_query_string_for_cache_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_sort_query_string_for_cache_value` in responses.
- */
-export const zones_sort_query_string_for_cache_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2382,7 +2046,13 @@ export const zones_ssl$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_ssl_value"
+          "enum": [
+            "off",
+            "flexible",
+            "full",
+            "strict"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -2396,7 +2066,7 @@ export const zones_ssl$$2: JsonSchema = {
 export const zones_ssl_recommender: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/zones_ssl_recommender_enabled"
+      "type": "boolean"
     },
     "id": {
       "enum": [
@@ -2406,26 +2076,6 @@ export const zones_ssl_recommender: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zones_ssl_recommender_enabled` in responses.
- */
-export const zones_ssl_recommender_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `zones_ssl_value` in responses.
- */
-export const zones_ssl_value: JsonSchema = {
-  "enum": [
-    "off",
-    "flexible",
-    "full",
-    "strict"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2445,23 +2095,16 @@ export const zones_tls_1_2_only: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_tls_1_2_only_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_tls_1_2_only_value` in responses.
- */
-export const zones_tls_1_2_only_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2481,24 +2124,17 @@ export const zones_tls_1_3: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_tls_1_3_value"
+          "enum": [
+            "on",
+            "off",
+            "zrt"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_tls_1_3_value` in responses.
- */
-export const zones_tls_1_3_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off",
-    "zrt"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2518,23 +2154,16 @@ export const zones_tls_client_auth: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_tls_client_auth_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_tls_client_auth_value` in responses.
- */
-export const zones_tls_client_auth_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2554,7 +2183,12 @@ export const zones_transformations: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_image_resizing_value"
+          "enum": [
+            "on",
+            "off",
+            "open"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -2579,19 +2213,12 @@ export const zones_transformations_allowed_origins: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_transformations_allowed_origins_value"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_transformations_allowed_origins_value` in responses.
- */
-export const zones_transformations_allowed_origins_value: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -2611,23 +2238,16 @@ export const zones_true_client_ip_header$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_true_client_ip_header_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_true_client_ip_header_value` in responses.
- */
-export const zones_true_client_ip_header_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2647,23 +2267,16 @@ export const zones_waf$$2: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_waf_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_waf_value` in responses.
- */
-export const zones_waf_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2683,23 +2296,16 @@ export const zones_webmcp_enabled: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_webmcp_enabled_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_webmcp_enabled_value` in responses.
- */
-export const zones_webmcp_enabled_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2719,19 +2325,12 @@ export const zones_webmcp_mcp_url: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_webmcp_mcp_url_value"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_webmcp_mcp_url_value` in responses.
- */
-export const zones_webmcp_mcp_url_value: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -2751,19 +2350,12 @@ export const zones_webmcp_packs: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_webmcp_packs_value"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_webmcp_packs_value` in responses.
- */
-export const zones_webmcp_packs_value: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -2783,23 +2375,16 @@ export const zones_webp: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_webp_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_webp_value` in responses.
- */
-export const zones_webp_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2819,21 +2404,14 @@ export const zones_websockets: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/zones_websockets_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zones_websockets_value` in responses.
- */
-export const zones_websockets_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };

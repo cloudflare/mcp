@@ -13,22 +13,29 @@ export const tls$$certificates$$and$$hostnames_hostname$$authenticated$$origin$$
     {
       "properties": {
         "cert_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_aop_certificate_identifier"
+          "type": "string"
         },
         "certificate": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-6"
+          "type": "string"
         },
         "enabled": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-5"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "hostname": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-2"
+          "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_aop_certificate_identifier"
+          "type": "string"
         },
         "private_key": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_private_key-3"
+          "type": "string"
         }
       },
       "type": "object"
@@ -90,46 +97,76 @@ export const tls$$certificates$$and$$hostnames_hostname_aop_single_response: Jso
 export const tls$$certificates$$and$$hostnames_hostname_certid_object: JsonSchema = {
   "properties": {
     "cert_id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_aop_certificate_identifier"
+      "type": "string"
     },
     "cert_status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-9"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "pending_deletion",
+        "active",
+        "deleted",
+        "deployment_timed_out",
+        "deletion_timed_out"
+      ],
+      "type": "string"
     },
     "cert_updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-3"
+      "format": "date-time",
+      "type": "string"
     },
     "cert_uploaded_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uploaded_on-3"
+      "format": "date-time",
+      "type": "string"
     },
     "certificate": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-6"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-3"
+      "format": "date-time",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-5"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on-5"
+      "format": "date-time",
+      "type": "string"
     },
     "hostname": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-2"
+      "type": "string"
     },
     "issuer": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issuer"
+      "type": "string"
     },
     "serial_number": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_serial_number"
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-9"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "pending_deletion",
+        "active",
+        "deleted",
+        "deployment_timed_out",
+        "deletion_timed_out"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-3"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"

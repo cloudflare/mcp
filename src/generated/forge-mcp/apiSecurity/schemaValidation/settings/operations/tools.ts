@@ -7,14 +7,7 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../../outputs.js";
-import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid as api$$shield_uuid$,
-} from "../../../../schemas.js";
 import {
   api$$shield_per_operation_setting,
   api$$shield_per_operation_setting_change_base,
@@ -27,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_operations_bulkEdit",
     title: "Bulk edit per-operation schema validation settings",
-    description: "Updates schema validation settings for multiple API operations in a single request. Efficient for applying consistent validation rules across endpoints.",
+    description: "Updates schema validation settings for multiple API operations in a single request. Efficient for applying consistent validation rules across endpoints.\n\nPATCH /zones/{zone_id}/schema_validation/settings/operations",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,7 +28,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": {
             "properties": {
               "mitigation_action": {
-                "description": "Mitigation actions are as follows:\n* `log` - log request when request does not conform to schema * `block` - deny access to the site when request does not conform to schema * `none` - skip running schema validation * null - clears any existing per-operation setting\n",
+                "description": "Mitigation actions are as follows:\n* `log` - log request when request does not conform to schema * `block` - deny access to the site when request does not conform to schema * `none` - skip running schema validation * null - clears any existing per-operation setting",
                 "oneOf": [
                   {
                     "enum": [
@@ -56,9 +49,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -71,10 +73,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -159,18 +158,27 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_operations_delete",
     title: "Delete per-operation schema validation setting",
-    description: "Removes custom schema validation settings for a specific API operation, reverting to zone-level defaults.\n\nConfirm with the user before calling this tool. This operation deletes the operation-specific schema validation setting and restores the zone default.",
+    description: "Removes custom schema validation settings for a specific API operation, reverting to zone-level defaults.\n\nConfirm with the user before calling this tool. This operation deletes the operation-specific schema validation setting and restores the zone default.\n\nDELETE /zones/{zone_id}/schema_validation/settings/operations/{operation_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "operation_id": {
-              "$ref": "#/$defs/api-shield_uuid",
-              "description": "Identifier for the operation"
+              "description": "Identifier for the operation",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -183,11 +191,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -199,7 +203,14 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "operation_id": {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 }
               },
               "type": "object"
@@ -214,8 +225,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -245,7 +254,14 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "operation_id": {
-                      "$ref": "#/$defs/api-shield_uuid-2"
+                      "allOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
                     }
                   },
                   "type": "object"
@@ -266,8 +282,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -277,18 +291,27 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_operations_get",
     title: "Get per-operation schema validation setting",
-    description: "Retrieves the schema validation settings configured for a specific API operation.",
+    description: "Retrieves the schema validation settings configured for a specific API operation.\n\nGET /zones/{zone_id}/schema_validation/settings/operations/{operation_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "operation_id": {
-              "$ref": "#/$defs/api-shield_uuid",
-              "description": "Identifier for the operation"
+              "description": "Identifier for the operation",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -301,11 +324,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -328,8 +347,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
         "api-shield_per_operation_setting": api$$shield_per_operation_setting,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -378,8 +395,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
         "api-shield_per_operation_setting": api$$shield_per_operation_setting,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -389,14 +404,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_operations_list",
     title: "List per-operation schema validation settings",
-    description: "Lists per-operation schema validation settings configured for the zone.",
+    description: "Lists per-operation schema validation settings configured for the zone.\n\nGET /zones/{zone_id}/schema_validation/settings/operations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -405,6 +429,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -423,10 +448,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -453,8 +475,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
         "api-shield_per_operation_setting": api$$shield_per_operation_setting,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -507,8 +527,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
         "api-shield_per_operation_setting": api$$shield_per_operation_setting,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -522,14 +540,14 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_settings_operations_update",
     title: "Update per-operation schema validation setting",
-    description: "Fully updates schema validation settings for a specific API operation.",
+    description: "Fully updates schema validation settings for a specific API operation.\n\nPUT /zones/{zone_id}/schema_validation/settings/operations/{operation_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "mitigation_action": {
-              "description": "When set, this applies a mitigation action to this operation\n\n  - `\"log\"` - log request when request does not conform to schema for this operation\n  - `\"block\"` - deny access to the site when request does not conform to schema for this operation\n  - `\"none\"` - will skip mitigation for this operation\n  - `null` - clears any mitigation action\n",
+              "description": "When set, this applies a mitigation action to this operation\n\n  - `\"log\"` - log request when request does not conform to schema for this operation\n  - `\"block\"` - deny access to the site when request does not conform to schema for this operation\n  - `\"none\"` - will skip mitigation for this operation\n  - `null` - clears any mitigation action",
               "oneOf": [
                 {
                   "enum": [
@@ -551,13 +569,22 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "operation_id": {
-              "$ref": "#/$defs/api-shield_uuid",
-              "description": "Identifier for the operation"
+              "description": "Identifier for the operation",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -571,11 +598,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -598,8 +621,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
         "api-shield_per_operation_setting": api$$shield_per_operation_setting,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -646,8 +667,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
         "api-shield_per_operation_setting": api$$shield_per_operation_setting,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

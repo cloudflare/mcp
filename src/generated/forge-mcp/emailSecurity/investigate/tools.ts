@@ -5,26 +5,12 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   email$$security_ActionLogEntry,
   email$$security_CursorResultInfo,
-  email$$security_DispositionLabel,
-  email$$security_InvestigateId,
-  email$$security_MessageDeliveryMode,
-  email$$security_MessageDeliveryStatus,
   email$$security_MessageDetails,
-  email$$security_PostfixId,
   email$$security_Validation,
-  email$$security_ValidationStatus,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_messages,
 } from "../outputs.js";
-import {
-  email$$security_DispositionLabel as email$$security_DispositionLabel$,
-  email$$security_InvestigateId as email$$security_InvestigateId$,
-  email$$security_MailboxDestination,
-  email$$security_MessageDeliveryStatus as email$$security_MessageDeliveryStatus$,
-  email$$security_PostfixId as email$$security_PostfixId$,
-  email$$security_identifier,
-} from "../schemas.js";
 import {
   email$$security_MoveResponseItem,
   email$$security_ReleaseResponse,
@@ -37,19 +23,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_get",
     title: "Get message details",
-    description: "Retrieves comprehensive details for a specific email message including headers, recipients, sender information, and current quarantine status. Use the investigate_id from search results to fetch detailed information.\n\nThis method is beta.",
+    description: "Retrieves comprehensive details for a specific email message including headers, recipients, sender information, and current quarantine status. Use the investigate_id from search results to fetch detailed information.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "investigate_id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,6 +46,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "submission": {
               "description": "When true, search the submissions datastore only. When false or omitted, search the\nregular datastore only.",
@@ -71,10 +59,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -95,14 +80,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ActionLogEntry": email$$security_ActionLogEntry,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_MessageDeliveryMode": email$$security_MessageDeliveryMode,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_MessageDetails": email$$security_MessageDetails,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
       },
@@ -149,14 +128,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ActionLogEntry": email$$security_ActionLogEntry,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_MessageDeliveryMode": email$$security_MessageDeliveryMode,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_MessageDetails": email$$security_MessageDetails,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
@@ -172,15 +145,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_list",
     title: "Search email messages",
-    description: "Returns information for each email that matches the provided search parameters.\n\nThis method is beta.",
+    description: "Returns information for each email that matches the provided search parameters.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -189,6 +163,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "alert_id": {
               "description": "Filter by alert ID.",
@@ -199,8 +174,18 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "delivery_status": {
-              "$ref": "#/$defs/email-security_MessageDeliveryStatus",
-              "description": "Delivery status to filter by."
+              "description": "Delivery status to filter by.",
+              "enum": [
+                "delivered",
+                "moved",
+                "quarantined",
+                "rejected",
+                "deferred",
+                "bounced",
+                "queued",
+                "move_failed"
+              ],
+              "type": "string"
             },
             "detections_only": {
               "default": true,
@@ -295,10 +280,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "anyOf": [
@@ -357,14 +339,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ActionLogEntry": email$$security_ActionLogEntry,
         "email-security_CursorResultInfo": email$$security_CursorResultInfo,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_MessageDeliveryMode": email$$security_MessageDeliveryMode,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_MessageDetails": email$$security_MessageDetails,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
       },
@@ -445,14 +421,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_ActionLogEntry": email$$security_ActionLogEntry,
         "email-security_CursorResultInfo": email$$security_CursorResultInfo,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_MessageDeliveryMode": email$$security_MessageDeliveryMode,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_MessageDetails": email$$security_MessageDetails,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
@@ -485,22 +455,42 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_move",
     title: "Move messages",
-    description: "Moves one or more messages to a specified mailbox folder (Inbox, JunkEmail, DeletedItems, RecoverableItemsDeletions, or RecoverableItemsPurges). Requires active integration. Operates on an explicit list of messages; to move all messages matching a search, create a bulk action job instead.\n\nThis method is beta.",
+    description: "Moves one or more messages to a specified mailbox folder (Inbox, JunkEmail, DeletedItems, RecoverableItemsDeletions, or RecoverableItemsPurges). Requires active integration. Operates on an explicit list of messages; to move all messages matching a search, create a bulk action job instead.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/investigate/move",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "destination": {
-              "$ref": "#/$defs/email-security_MailboxDestination",
-              "description": "The mailbox folder to move messages to."
+              "description": "The mailbox folder to move messages to.",
+              "enum": [
+                "Inbox",
+                "JunkEmail",
+                "DeletedItems",
+                "RecoverableItemsDeletions",
+                "RecoverableItemsPurges"
+              ],
+              "type": "string"
             },
             "expected_disposition": {
               "deprecated": true,
               "description": "Nonfunctional field. End of life: December 1, 2026.",
               "oneOf": [
                 {
-                  "$ref": "#/$defs/email-security_DispositionLabel"
+                  "description": "The verdict Email Security assigns to a message.",
+                  "enum": [
+                    "MALICIOUS",
+                    "MALICIOUS-BEC",
+                    "SUSPICIOUS",
+                    "SPOOF",
+                    "SPAM",
+                    "BULK",
+                    "ENCRYPTED",
+                    "EXTERNAL",
+                    "UNKNOWN",
+                    "NONE"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "null"
@@ -510,7 +500,8 @@ export const tools: readonly Tool[] = [
             "ids": {
               "description": "List of message IDs to move.",
               "items": {
-                "$ref": "#/$defs/email-security_InvestigateId"
+                "description": "Unique identifier for a message retrieved from investigation.",
+                "type": "string"
               },
               "maxItems": 1000,
               "minItems": 1,
@@ -520,7 +511,8 @@ export const tools: readonly Tool[] = [
               "deprecated": true,
               "description": "Deprecated, use `ids` instead. End of life: November 1, 2026.",
               "items": {
-                "$ref": "#/$defs/email-security_PostfixId"
+                "description": "The identifier of the message.",
+                "type": "string"
               },
               "type": "array"
             }
@@ -532,10 +524,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -548,13 +541,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "email-security_DispositionLabel": email$$security_DispositionLabel$,
-        "email-security_InvestigateId": email$$security_InvestigateId$,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_PostfixId": email$$security_PostfixId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -639,7 +626,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_release",
     title: "Release messages from quarantine",
-    description: "Delivers one or more quarantined messages to their intended recipients, for cases where a message was incorrectly quarantined. Operates on an explicit list of messages; to release all messages matching a search, create a bulk action job instead. The response includes delivery status for each recipient.\n\nThis method is beta.",
+    description: "Delivers one or more quarantined messages to their intended recipients, for cases where a message was incorrectly quarantined. Operates on an explicit list of messages; to release all messages matching a search, create a bulk action job instead. The response includes delivery status for each recipient.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/investigate/release",
     inputSchema: {
       type: "object",
       properties: {
@@ -649,7 +636,8 @@ export const tools: readonly Tool[] = [
             "ids": {
               "description": "Investigate IDs of the messages to release.",
               "items": {
-                "$ref": "#/$defs/email-security_InvestigateId"
+                "description": "Unique identifier for a message retrieved from investigation.",
+                "type": "string"
               },
               "minItems": 1,
               "type": "array"
@@ -661,10 +649,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -677,10 +666,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -703,8 +689,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_ReleaseResponse": email$$security_ReleaseResponse,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
@@ -753,8 +737,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_PostfixId": email$$security_PostfixId,
         "email-security_ReleaseResponse": email$$security_ReleaseResponse,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,

@@ -9,17 +9,13 @@ import {
 } from "../../outputs.js";
 import {
   dlp_AttachedEntry,
-  dlp_EntryType,
-  dlp_ProximityWeight,
   dlp_ProximityWord,
   dlp_ProximityWordValidator,
   dlp_Validator,
   dlp_ValidatorArray,
   dlp_ValidatorReferences,
-  dlp_WorkerDefault,
   dlp_WorkerValidator,
 } from "./outputs.js";
-import { dlp_ValidatorKind } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.dlp.validators`.
@@ -28,11 +24,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_get",
     title: "Get a validator",
-    description: "Fetches a validator of any kind by ID.",
+    description: "Fetches a validator of any kind by ID.\n\nGET /accounts/{account_id}/dlp/validators/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -52,6 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -69,13 +67,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_Validator": dlp_Validator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -119,13 +114,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_Validator": dlp_Validator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -139,11 +131,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_list",
     title: "List validators",
-    description: "Lists the validators configured for the account, of every kind.",
+    description: "Lists the validators configured for the account, of every kind.\n\nGET /accounts/{account_id}/dlp/validators",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -155,12 +148,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "kind": {
               "description": "Only return validators of this kind. Omit to return every kind.",
               "oneOf": [
                 {
-                  "$ref": "#/$defs/dlp_ValidatorKind"
+                  "description": "The type of a validator, and the accepted values of the `kind` filter when listing.",
+                  "enum": [
+                    "proximity_words",
+                    "worker"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "null"
@@ -174,9 +173,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dlp_ValidatorKind": dlp_ValidatorKind,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -194,14 +191,11 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_Validator": dlp_Validator,
         "dlp_ValidatorArray": dlp_ValidatorArray,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -245,14 +239,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_Validator": dlp_Validator,
         "dlp_ValidatorArray": dlp_ValidatorArray,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
-        "dlp_WorkerDefault": dlp_WorkerDefault,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

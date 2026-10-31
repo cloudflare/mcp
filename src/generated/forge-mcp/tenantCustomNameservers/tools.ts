@@ -7,23 +7,15 @@ import {
   dns$$custom$$nameservers_api$$response$$common,
   dns$$custom$$nameservers_api$$response$$common$$failure,
   dns$$custom$$nameservers_api$$response$$single,
-  dns$$custom$$nameservers_identifier$$2,
   dns$$custom$$nameservers_messages,
-  dns$$custom$$nameservers_ns_name,
-  dns$$custom$$nameservers_ns_set,
 } from "../outputs.js";
-import {
-  dns$$custom$$nameservers_CustomNSInput,
-  dns$$custom$$nameservers_ns_name as dns$$custom$$nameservers_ns_name$,
-  dns$$custom$$nameservers_ns_set as dns$$custom$$nameservers_ns_set$,
-} from "../schemas.js";
+import { dns$$custom$$nameservers_CustomNSInput } from "../schemas.js";
 import {
   dns$$custom$$nameservers_CustomNS$$2,
   dns$$custom$$nameservers_empty_response$$3,
   dns$$custom$$nameservers_tcns_response_collection,
   dns$$custom$$nameservers_tcns_response_single,
 } from "./outputs.js";
-import { dns$$custom$$nameservers_identifier$$3 } from "./schemas.js";
 
 /**
  * The tools of `tenantCustomNameservers`.
@@ -32,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "tenantCustomNameservers_create",
     title: "Add Tenant Custom Nameserver",
-    description: "Adds a custom nameserver for a tenant.",
+    description: "Adds a custom nameserver for a tenant.\n\nPOST /tenants/{tenant_id}/custom_ns",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,10 +32,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-custom-nameservers_CustomNSInput"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "tenant_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_identifier-3",
-              "description": "Tenant identifier tag."
+              "description": "Tenant identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,11 +49,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-custom-nameservers_CustomNSInput": dns$$custom$$nameservers_CustomNSInput,
-        "dns-custom-nameservers_identifier-3": dns$$custom$$nameservers_identifier$$3,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name$,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set$,
       },
     },
     outputSchema: {
@@ -68,10 +59,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-custom-nameservers_CustomNS-2": dns$$custom$$nameservers_CustomNS$$2,
         "dns-custom-nameservers_api-response-single": dns$$custom$$nameservers_api$$response$$single,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
         "dns-custom-nameservers_tcns_response_single": dns$$custom$$nameservers_tcns_response_single,
       },
     },
@@ -112,10 +100,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_CustomNS-2": dns$$custom$$nameservers_CustomNS$$2,
         "dns-custom-nameservers_api-response-common-failure": dns$$custom$$nameservers_api$$response$$common$$failure,
         "dns-custom-nameservers_api-response-single": dns$$custom$$nameservers_api$$response$$single,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
         "dns-custom-nameservers_tcns_response_single": dns$$custom$$nameservers_tcns_response_single,
       },
     },
@@ -127,19 +112,20 @@ export const tools: readonly Tool[] = [
   {
     name: "tenantCustomNameservers_delete",
     title: "Delete Tenant Custom Nameserver",
-    description: "Deletes a tenant's custom nameserver.",
+    description: "Deletes a tenant's custom nameserver.\n\nDELETE /tenants/{tenant_id}/custom_ns/{custom_ns_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "custom_ns_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_ns_name",
-              "description": "The FQDN of the name server."
+              "description": "The FQDN of the name server.",
+              "type": "string"
             },
             "tenant_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_identifier-3",
-              "description": "Tenant identifier tag."
+              "description": "Tenant identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -152,10 +138,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-custom-nameservers_identifier-3": dns$$custom$$nameservers_identifier$$3,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-custom-nameservers_empty_response-3",
@@ -214,15 +197,16 @@ export const tools: readonly Tool[] = [
   {
     name: "tenantCustomNameservers_get",
     title: "List Tenant Custom Nameservers",
-    description: "Lists a tenant's custom nameservers.",
+    description: "Lists a tenant's custom nameservers.\n\nGET /tenants/{tenant_id}/custom_ns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "tenant_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_identifier-3",
-              "description": "Tenant identifier tag."
+              "description": "Tenant identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -234,9 +218,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-custom-nameservers_identifier-3": dns$$custom$$nameservers_identifier$$3,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-custom-nameservers_tcns_response_collection",
@@ -244,10 +226,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_CustomNS-2": dns$$custom$$nameservers_CustomNS$$2,
         "dns-custom-nameservers_api-response-collection": dns$$custom$$nameservers_api$$response$$collection,
         "dns-custom-nameservers_api-response-common": dns$$custom$$nameservers_api$$response$$common,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
         "dns-custom-nameservers_tcns_response_collection": dns$$custom$$nameservers_tcns_response_collection,
       },
     },
@@ -289,10 +268,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_api-response-collection": dns$$custom$$nameservers_api$$response$$collection,
         "dns-custom-nameservers_api-response-common": dns$$custom$$nameservers_api$$response$$common,
         "dns-custom-nameservers_api-response-common-failure": dns$$custom$$nameservers_api$$response$$common$$failure,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
         "dns-custom-nameservers_tcns_response_collection": dns$$custom$$nameservers_tcns_response_collection,
       },
     },

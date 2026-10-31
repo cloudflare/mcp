@@ -22,7 +22,7 @@ export const spectrum$$analytics_query$$response$$aggregate: JsonSchema = {
                     "type": "string"
                   },
                   {
-                    "$ref": "#/$defs/spectrum-analytics_identifier"
+                    "type": "string"
                   }
                 ]
               },

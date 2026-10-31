@@ -41,7 +41,16 @@ export const email$$auth_SpfComponent: JsonSchema = {
       "$ref": "#/$defs/email-auth_SpfTree"
     },
     "result": {
-      "$ref": "#/$defs/email-auth_SpfResult"
+      "enum": [
+        "pass",
+        "neutral",
+        "fail",
+        "soft_fail",
+        "none",
+        "temp_error",
+        "perm_error"
+      ],
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -68,22 +77,6 @@ export const email$$auth_SpfComponent: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-auth_SpfResult` in responses.
- */
-export const email$$auth_SpfResult: JsonSchema = {
-  "enum": [
-    "pass",
-    "neutral",
-    "fail",
-    "soft_fail",
-    "none",
-    "temp_error",
-    "perm_error"
-  ],
-  "type": "string"
 };
 
 /**

@@ -134,7 +134,7 @@ export const secondary$$dns_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -158,7 +158,7 @@ export const secondary$$dns_id_response$$3: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/secondary-dns_identifier-3"
+              "type": "string"
             }
           },
           "type": "object"
@@ -167,20 +167,6 @@ export const secondary$$dns_id_response$$3: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secondary-dns_identifier` in responses.
- */
-export const secondary$$dns_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_identifier-3` in responses.
- */
-export const secondary$$dns_identifier$$3: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -217,32 +203,11 @@ export const secondary$$dns_messages: JsonSchema = {
 };
 
 /**
- * The schema of `secondary-dns_name` in responses.
- */
-export const secondary$$dns_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_peers` in responses.
  */
 export const secondary$$dns_peers: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/secondary-dns_identifier"
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `secondary-dns_soa_serial` in responses.
- */
-export const secondary$$dns_soa_serial: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `secondary-dns_time` in responses.
- */
-export const secondary$$dns_time: JsonSchema = {
-  "type": "string"
 };

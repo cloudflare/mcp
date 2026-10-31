@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_create",
     title: "Create a priority intelligence requirement",
-    description: "Creates a new PIR for the account. The cfone.priority_intelligence_requirement_limit entitlement sets how many PIRs can be active; drafts do not count, but the account can hold at most five times that many PIRs in total. An active PIR requires a query.",
+    description: "Creates a new PIR for the account. The cfone.priority_intelligence_requirement_limit entitlement sets how many PIRs can be active; drafts do not count, but the account can hold at most five times that many PIRs in total. An active PIR requires a query.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence",
     inputSchema: {
       type: "object",
       properties: {
@@ -509,6 +509,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -523,6 +524,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -555,11 +557,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_delete",
     title: "Delete a priority intelligence requirement",
-    description: "Soft-deletes a PIR. The PIR will no longer count against quota.",
+    description: "Soft-deletes a PIR. The PIR will no longer count against quota.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -579,6 +582,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -608,11 +612,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_get",
     title: "Get a priority intelligence requirement by ID",
-    description: "Returns a single free-form Priority Intelligence Requirement for the authenticated account.",
+    description: "Returns a single free-form Priority Intelligence Requirement for the authenticated account.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -632,6 +637,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -662,11 +668,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_list",
     title: "List priority intelligence requirements for an account",
-    description: "Lists free-form Priority Intelligence Requirements for the account. Results are scoped to the authenticated account.",
+    description: "Lists free-form Priority Intelligence Requirements for the account. Results are scoped to the authenticated account.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -678,6 +685,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -694,6 +702,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -728,7 +737,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_update",
     title: "Update a priority intelligence requirement",
-    description: "Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one.",
+    description: "Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1257,6 +1266,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1276,6 +1286,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,

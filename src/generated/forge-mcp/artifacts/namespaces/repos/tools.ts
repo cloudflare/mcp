@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_create",
     title: "Create a repository",
-    description: "Creates a Git-compatible Artifacts repository in a namespace.\n\nThis method is beta.",
+    description: "Creates a Git-compatible Artifacts repository in a namespace.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/artifacts/namespaces/{namespace}/repos",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -57,6 +58,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -841,11 +843,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_delete",
     title: "Delete a repository",
-    description: "Deletes a repository and schedules cleanup of its backing data.\n\nThis method is beta.",
+    description: "Deletes a repository and schedules cleanup of its backing data.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -871,6 +874,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1600,7 +1604,7 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_fork",
     title: "Fork a repository",
-    description: "Forks a source repository into a new repository.\n\nThis method is beta.",
+    description: "Forks a source repository into a new repository.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/fork",
     inputSchema: {
       type: "object",
       properties: {
@@ -1625,6 +1629,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -1651,6 +1656,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2615,11 +2621,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_get",
     title: "Get a repository",
-    description: "Returns repository metadata.\n\nThis method is beta.",
+    description: "Returns repository metadata.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -2645,6 +2652,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3580,7 +3588,7 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_import",
     title: "Import a repository",
-    description: "Imports an HTTPS Git repository into an Artifacts repository.\n\nThis method is beta.",
+    description: "Imports an HTTPS Git repository into an Artifacts repository.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/import",
     inputSchema: {
       type: "object",
       properties: {
@@ -3606,6 +3614,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -3632,6 +3641,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4932,11 +4942,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_list",
     title: "List repositories",
-    description: "Lists repositories in a namespace.\n\nThis method is beta.",
+    description: "Lists repositories in a namespace.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -4954,6 +4965,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "type": "string"
@@ -4990,6 +5002,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

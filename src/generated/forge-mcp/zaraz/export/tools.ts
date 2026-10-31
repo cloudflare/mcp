@@ -22,7 +22,6 @@ import {
   zaraz_zaraz$$config$$base,
   zaraz_zaraz$$config$$return,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
 
 /**
  * The tools of `zaraz.export`.
@@ -31,15 +30,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_export_get",
     title: "Export Zaraz configuration",
-    description: "Exports full current published Zaraz configuration for a zone, secret variables included.",
+    description: "Exports full current published Zaraz configuration for a zone, secret variables included.\n\nGET /zones/{zone_id}/settings/zaraz/export",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,9 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-config-return",

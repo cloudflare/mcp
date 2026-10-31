@@ -20,22 +20,15 @@ export const speed_h2_prioritization_response: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_h2_prioritization_value"
+          "enum": [
+            "off",
+            "on",
+            "custom"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_h2_prioritization_value` in responses.
- */
-export const speed_h2_prioritization_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on",
-    "custom"
-  ],
-  "type": "string"
 };

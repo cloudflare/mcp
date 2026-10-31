@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "urlScanner_responses_get",
     title: "Get raw response",
-    description: "Returns the raw response of the network request. Find the `response_id` in the `data.requests.response.hash`.",
+    description: "Returns the raw response of the network request. Find the `response_id` in the `data.requests.response.hash`.\n\nGET /accounts/{account_id}/urlscanner/v2/responses/{response_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

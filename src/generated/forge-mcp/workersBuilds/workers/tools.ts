@@ -8,29 +8,12 @@ import {
   builds_EnvironmentVariablesResponse,
   builds_ErrorResponse,
   builds_PaginationInfo,
-  builds_SCMProviderType,
   builds_WorkerBuildSettings,
   builds_WorkerGitRepository,
   builds_WorkerResponse,
-  builds_build_caching_enabled,
-  builds_build_command,
-  builds_build_token_uuid,
-  builds_created_on,
-  builds_deploy_command,
-  builds_external_script_id,
-  builds_is_secret,
   builds_path_excludes,
   builds_path_includes,
-  builds_provider_account_id,
-  builds_provider_account_name,
-  builds_repo_id,
-  builds_repo_name,
-  builds_root_directory,
 } from "../../outputs.js";
-import {
-  builds_account_id,
-  builds_external_script_id as builds_external_script_id$,
-} from "../../schemas.js";
 import { builds_MigrateToPreviewsRequest } from "./schemas.js";
 
 /**
@@ -40,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersBuilds_workers_migrateToPreviews",
     title: "Migrate worker to previews",
-    description: "Migrate a Worker's legacy non-production trigger to Previews. The legacy build settings become the Previews base config and the legacy trigger is removed.",
+    description: "Migrate a Worker's legacy non-production trigger to Previews. The legacy build settings become the Previews base config and the legacy trigger is removed.\n\nPOST /accounts/{account_id}/builds/workers/{script_tag}/migrate_to_previews",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,14 +31,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_MigrateToPreviewsRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -69,10 +53,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_MigrateToPreviewsRequest": builds_MigrateToPreviewsRequest,
-        "builds_account_id": builds_account_id,
-        "builds_external_script_id": builds_external_script_id$,
       },
     },
     outputSchema: {
@@ -94,24 +77,11 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     annotations: {
@@ -161,24 +131,11 @@ export const tools: readonly Tool[] = [
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
         "builds_WorkerGitRepository": builds_WorkerGitRepository,
         "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
       },
     },
     request: (args) => ({

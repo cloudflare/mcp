@@ -47,7 +47,8 @@ export const billing$$spend$$policies_policy_activity_event: JsonSchema = {
       "type": "string"
     },
     "policy_id": {
-      "$ref": "#/$defs/billing-spend-policies_policy_id"
+      "format": "uuid",
+      "type": "string"
     },
     "policy_version": {
       "type": "integer"

@@ -6,12 +6,7 @@ import {
   billing$$spend$$policies_api$$response$$common$$failure,
   billing$$spend$$policies_api$$response$$common$$success,
   billing$$spend$$policies_message,
-  billing$$spend$$policies_policy_action,
 } from "../outputs.js";
-import {
-  billing$$spend$$policies_identifier,
-  billing$$spend$$policies_policy_id,
-} from "../schemas.js";
 import {
   billing$$spend$$policies_policy_audit_entry,
   billing$$spend$$policies_policy_audit_response,
@@ -24,19 +19,21 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_audit_list",
     title: "List Spend Policy Audit Entries",
-    description: "Returns the policy's evaluation history, newest first. At most one entry is recorded per trigger (`approaching_limit` or `limit_reached`), policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back.\n\nThis method is beta.",
+    description: "Returns the policy's evaluation history, newest first. At most one entry is recorded per trigger (`approaching_limit` or `limit_reached`), policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/{policy_id}/audit",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/billing-spend-policies_policy_id",
-              "description": "Identifies the spend policy."
+              "description": "Identifies the spend policy.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -46,6 +43,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 50,
@@ -59,17 +57,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billing-spend-policies_policy_audit_response",
       $defs: {
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_audit_entry": billing$$spend$$policies_policy_audit_entry,
         "billing-spend-policies_policy_audit_response": billing$$spend$$policies_policy_audit_response,
       },
@@ -114,7 +108,6 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-failure": billing$$spend$$policies_api$$response$$common$$failure,
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_audit_entry": billing$$spend$$policies_policy_audit_entry,
         "billing-spend-policies_policy_audit_response": billing$$spend$$policies_policy_audit_response,
       },

@@ -6,26 +6,18 @@ import {
   magic_api$$response$$common,
   magic_api$$response$$common$$failure,
   magic_api$$response$$single,
-  magic_identifier,
   magic_messages,
 } from "../outputs.js";
-import { magic_identifier as magic_identifier$ } from "../schemas.js";
 import {
-  magic_connector$$id,
-  magic_secondary$$connector$$id,
   magic_site,
   magic_site$$location,
-  magic_site$$name,
   magic_site_deleted_response,
   magic_site_modified_response,
   magic_site_single_response,
   magic_sites_collection_response,
 } from "./outputs.js";
 import {
-  magic_connector$$id as magic_connector$$id$,
-  magic_secondary$$connector$$id as magic_secondary$$connector$$id$,
   magic_site$$location as magic_site$$location$,
-  magic_site$$name as magic_site$$name$,
   magic_site_update_request,
   magic_sites_add_single_request,
 } from "./schemas.js";
@@ -37,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_create",
     title: "Create a new Site",
-    description: "Creates a new Site",
+    description: "Creates a new Site\n\nPOST /accounts/{account_id}/magic/sites",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,10 +37,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_sites_add_single_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -61,12 +54,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_connector-id": magic_connector$$id$,
-        "magic_identifier": magic_identifier$,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id$,
         "magic_site-location": magic_site$$location$,
-        "magic_site-name": magic_site$$name$,
         "magic_sites_add_single_request": magic_sites_add_single_request,
       },
     },
@@ -75,13 +65,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_single_response": magic_site_single_response,
       },
     },
@@ -119,13 +105,9 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_single_response": magic_site_single_response,
       },
     },
@@ -137,19 +119,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_delete",
     title: "Delete Site",
-    description: "Remove a specific Site.",
+    description: "Remove a specific Site.\n\nDELETE /accounts/{account_id}/magic/sites/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -162,22 +145,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_site_deleted_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_deleted_response": magic_site_deleted_response,
       },
     },
@@ -220,13 +197,9 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_deleted_response": magic_site_deleted_response,
       },
     },
@@ -237,7 +210,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_edit",
     title: "Patch Site",
-    description: "Patch a specific Site.",
+    description: "Patch a specific Site.\n\nPATCH /accounts/{account_id}/magic/sites/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -245,14 +218,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_site_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -266,12 +240,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_connector-id": magic_connector$$id$,
-        "magic_identifier": magic_identifier$,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id$,
         "magic_site-location": magic_site$$location$,
-        "magic_site-name": magic_site$$name$,
         "magic_site_update_request": magic_site_update_request,
       },
     },
@@ -280,13 +251,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_modified_response": magic_site_modified_response,
       },
     },
@@ -329,13 +296,9 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_modified_response": magic_site_modified_response,
       },
     },
@@ -347,11 +310,12 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_get",
     title: "Site Details",
-    description: "Get a specific Site.",
+    description: "Get a specific Site.\n\nGET /accounts/{account_id}/magic/sites/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "x-magic-new-hc-target": {
               "description": "If true, the health check target in the response body will be presented using the new object format. Defaults to false.",
@@ -361,14 +325,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -381,22 +346,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_site_single_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_single_response": magic_site_single_response,
       },
     },
@@ -441,13 +400,9 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_single_response": magic_site_single_response,
       },
     },
@@ -461,15 +416,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_list",
     title: "List Sites",
-    description: "Lists Sites associated with an account. Use connectorid query param to return sites where connectorid matches either site.ConnectorID or site.SecondaryConnectorID.",
+    description: "Lists Sites associated with an account. Use connectorid query param to return sites where connectorid matches either site.ConnectorID or site.SecondaryConnectorID.\n\nGET /accounts/{account_id}/magic/sites",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -478,10 +434,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "connectorid": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "type": "object"
@@ -490,22 +447,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_sites_collection_response",
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_sites_collection_response": magic_sites_collection_response,
       },
     },
@@ -545,13 +496,9 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_sites_collection_response": magic_sites_collection_response,
       },
     },
@@ -565,7 +512,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_sites_update",
     title: "Update Site",
-    description: "Update a specific Site.",
+    description: "Update a specific Site.\n\nPUT /accounts/{account_id}/magic/sites/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -573,14 +520,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_site_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -594,12 +542,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_connector-id": magic_connector$$id$,
-        "magic_identifier": magic_identifier$,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id$,
         "magic_site-location": magic_site$$location$,
-        "magic_site-name": magic_site$$name$,
         "magic_site_update_request": magic_site_update_request,
       },
     },
@@ -608,13 +553,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_modified_response": magic_site_modified_response,
       },
     },
@@ -657,13 +598,9 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common": magic_api$$response$$common,
         "magic_api-response-common-failure": magic_api$$response$$common$$failure,
         "magic_api-response-single": magic_api$$response$$single,
-        "magic_connector-id": magic_connector$$id,
-        "magic_identifier": magic_identifier,
         "magic_messages": magic_messages,
-        "magic_secondary-connector-id": magic_secondary$$connector$$id,
         "magic_site": magic_site,
         "magic_site-location": magic_site$$location,
-        "magic_site-name": magic_site$$name,
         "magic_site_modified_response": magic_site_modified_response,
       },
     },

@@ -14,7 +14,6 @@ import {
 } from "../outputs.js";
 import {
   workers_cache_options as workers_cache_options$,
-  workers_identifier,
   workers_limits as workers_limits$,
   workers_placement_info_no_status as workers_placement_info_no_status$,
   workers_placement_target as workers_placement_target$,
@@ -55,7 +54,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_create",
     title: "Create Worker",
-    description: "Create a new Worker.",
+    description: "Create a new Worker.\n\nPOST /accounts/{account_id}/workers/workers",
     inputSchema: {
       type: "object",
       properties: {
@@ -245,10 +244,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -261,12 +261,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig$,
         "workers_cache_options": workers_cache_options$,
         "workers_env": workers_env$,
         "workers_env_binding_item": workers_env_binding_item$,
-        "workers_identifier": workers_identifier,
         "workers_limits": workers_limits$,
         "workers_observability": workers_observability$,
         "workers_placement_info_no_status": workers_placement_info_no_status$,
@@ -511,15 +511,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_delete",
     title: "Delete Worker",
-    description: "Delete a Worker and all its associated resources (versions, deployments, etc.).\n\nConfirm with the user before calling this tool. This will permanently delete the Worker and its associated versions and deployments.",
+    description: "Delete a Worker and all its associated resources (versions, deployments, etc.).\n\nConfirm with the user before calling this tool. This will permanently delete the Worker and its associated versions and deployments.\n\nDELETE /accounts/{account_id}/workers/workers/{worker_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -533,6 +534,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "description": "If true, delete the Worker even when other Workers still reference it. Service bindings in those Workers may be left broken. Durable Object namespaces implemented by the deleted Worker are deleted even if other Workers reference them.",
@@ -545,9 +547,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -682,7 +682,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_edit",
     title: "Edit Worker",
-    description: "Perform a partial update on a Worker, where omitted properties are left unchanged from their current values.",
+    description: "Perform a partial update on a Worker, where omitted properties are left unchanged from their current values.\n\nPATCH /accounts/{account_id}/workers/workers/{worker_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -691,10 +691,11 @@ export const tools: readonly Tool[] = [
           "description": "Worker partial update parameters."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -712,13 +713,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig$,
         "workers_Worker": workers_Worker$,
         "workers_cache_options": workers_cache_options$,
         "workers_env": workers_env$,
         "workers_env_binding_item": workers_env_binding_item$,
-        "workers_identifier": workers_identifier,
         "workers_limits": workers_limits$,
         "workers_observability": workers_observability$,
         "workers_placement_info_no_status": workers_placement_info_no_status$,
@@ -993,15 +994,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_get",
     title: "Get Worker",
-    description: "Get details about a specific Worker.",
+    description: "Get details about a specific Worker.\n\nGET /accounts/{account_id}/workers/workers/{worker_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -1018,9 +1020,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -1186,15 +1186,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_list",
     title: "List Workers",
-    description: "List all Workers for an account.",
+    description: "List all Workers for an account.\n\nGET /accounts/{account_id}/workers/workers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1203,6 +1204,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order": {
               "default": "desc",
@@ -1241,9 +1243,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -1401,7 +1401,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_update",
     title: "Update Worker",
-    description: "Perform a complete replacement of a Worker, where omitted properties are set to their default values. This is the exact same as the Create Worker endpoint, but operates on an existing Worker. To perform a partial update instead, use the Edit Worker endpoint.",
+    description: "Perform a complete replacement of a Worker, where omitted properties are set to their default values. This is the exact same as the Create Worker endpoint, but operates on an existing Worker. To perform a partial update instead, use the Edit Worker endpoint.\n\nPUT /accounts/{account_id}/workers/workers/{worker_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1591,10 +1591,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -1612,12 +1613,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_PreviewsBaseConfig": workers_PreviewsBaseConfig$,
         "workers_cache_options": workers_cache_options$,
         "workers_env": workers_env$,
         "workers_env_binding_item": workers_env_binding_item$,
-        "workers_identifier": workers_identifier,
         "workers_limits": workers_limits$,
         "workers_observability": workers_observability$,
         "workers_placement_info_no_status": workers_placement_info_no_status$,

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bots_get",
     title: "Get bot details",
-    description: "Retrieves the requested bot information.",
+    description: "Retrieves the requested bot information.\n\nGET /radar/bots/{bot_slug}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "bot_slug": {
               "description": "Bot slug.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -248,11 +251,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bots_list",
     title: "List bots",
-    description: "Retrieves a list of bots.",
+    description: "Retrieves a list of bots.\n\nGET /radar/bots",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "botCategory": {
               "description": "Filters results by bot category.",
@@ -317,6 +321,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -511,11 +516,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bots_summary",
     title: "Get bots HTTP requests distribution by dimension",
-    description: "Retrieves an aggregated summary of bots HTTP requests grouped by the specified dimension.",
+    description: "Retrieves an aggregated summary of bots HTTP requests grouped by the specified dimension.\n\nGET /radar/bots/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -534,6 +540,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -666,6 +673,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1117,11 +1125,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bots_timeseries",
     title: "Get bots HTTP requests time series",
-    description: "Retrieves bots HTTP request volume over time.",
+    description: "Retrieves bots HTTP request volume over time.\n\nGET /radar/bots/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1257,6 +1266,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1760,11 +1770,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_bots_timeseriesGroups",
     title: "Get time series distribution of bots HTTP requests by dimension.",
-    description: "Retrieves the distribution of HTTP requests from bots, grouped by the specified dimension over time.",
+    description: "Retrieves the distribution of HTTP requests from bots, grouped by the specified dimension over time.\n\nGET /radar/bots/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the attribute by which to group the results.",
@@ -1783,6 +1794,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1925,6 +1937,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

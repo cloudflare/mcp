@@ -9,16 +9,16 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const api$$shield_label_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/api-shield_label_description",
-      "description": "The description of the label"
+      "description": "The description of the label",
+      "type": "string"
     },
     "metadata": {
       "$ref": "#/$defs/api-shield_label_metadata",
       "description": "Metadata for the label"
     },
     "name": {
-      "$ref": "#/$defs/api-shield_label_name",
-      "description": "The name of the label"
+      "description": "The name of the label",
+      "type": "string"
     }
   },
   "required": [
@@ -33,8 +33,8 @@ export const api$$shield_label_request: JsonSchema = {
 export const api$$shield_patch_label_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/api-shield_label_description",
-      "description": "The description of the label"
+      "description": "The description of the label",
+      "type": "string"
     },
     "metadata": {
       "$ref": "#/$defs/api-shield_label_metadata",
@@ -50,8 +50,8 @@ export const api$$shield_patch_label_request: JsonSchema = {
 export const api$$shield_put_label_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/api-shield_label_description",
-      "description": "The description of the label"
+      "description": "The description of the label",
+      "type": "string"
     },
     "metadata": {
       "$ref": "#/$defs/api-shield_label_metadata",

@@ -7,10 +7,7 @@ import {
   workers_api$$response$$common$$failure,
   workers_api$$response$$null$$result,
   workers_cache_options,
-  workers_compatibility_date,
-  workers_compatibility_flag,
   workers_compatibility_flags,
-  workers_created_on,
   workers_durable_object_deleted_export,
   workers_durable_object_expecting_transfer_export,
   workers_durable_object_export,
@@ -18,33 +15,18 @@ import {
   workers_durable_object_renamed_export,
   workers_durable_object_transferred_export,
   workers_entrypoint_cache_options,
-  workers_etag,
   workers_export_config,
-  workers_export_storage,
   workers_exports_config_map,
-  workers_has_assets,
-  workers_has_modules,
-  workers_identifier,
-  workers_logpush,
   workers_messages,
-  workers_modified_on,
   workers_observability$$2,
   workers_placement_info,
-  workers_placement_mode,
-  workers_placement_status,
   workers_placement_target,
   workers_script$$response,
-  workers_tag,
   workers_tags,
   workers_tail_consumers,
   workers_tail_consumers_script,
-  workers_usage_model,
   workers_worker_export,
 } from "../../../outputs.js";
-import {
-  workers_identifier as workers_identifier$,
-  workers_script_name,
-} from "../../../schemas.js";
 import { workers_route } from "../../outputs.js";
 import { workers_script$$response$$collection } from "./outputs.js";
 
@@ -55,19 +37,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_delete",
     title: "Delete Worker",
-    description: "Delete your worker. This call has no response body on a successful delete.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker script.",
+    description: "Delete your worker. This call has no response body on a successful delete.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker script.\n\nDELETE /accounts/{account_id}/workers/scripts/{script_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -77,6 +60,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "description": "If true, delete the Worker even when other Workers still reference it. Service bindings in those Workers may be left broken. Durable Object namespaces implemented by the deleted Worker are deleted even if other Workers reference them.",
@@ -89,10 +73,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-null-result",
@@ -147,19 +128,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_get",
     title: "Download Worker Script",
-    description: "Fetch raw content for a Worker script. Note this is the original script content, not JSON encoded.\n\nThis method is deprecated.",
+    description: "Fetch raw content for a Worker script. Note this is the original script content, not JSON encoded.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -172,10 +154,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -221,15 +200,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_list",
     title: "List Worker Scripts",
-    description: "Fetch a list of uploaded Worker scripts.\n\nThis method is deprecated.",
+    description: "Fetch a list of uploaded Worker scripts.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -238,6 +218,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "tags": {
               "description": "Filter scripts by tags. Format: comma-separated list of tag:allowed pairs where allowed is 'yes' or 'no'.",
@@ -250,19 +231,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_script-response-collection",
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
-        "workers_created_on": workers_created_on,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
         "workers_durable_object_export": workers_durable_object_export,
@@ -270,29 +246,18 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
-        "workers_etag": workers_etag,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
-        "workers_has_assets": workers_has_assets,
-        "workers_has_modules": workers_has_modules,
-        "workers_identifier": workers_identifier,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
         "workers_observability-2": workers_observability$$2,
         "workers_placement_info": workers_placement_info,
-        "workers_placement_mode": workers_placement_mode,
-        "workers_placement_status": workers_placement_status,
         "workers_placement_target": workers_placement_target,
         "workers_route": workers_route,
         "workers_script-response": workers_script$$response,
         "workers_script-response-collection": workers_script$$response$$collection,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers": workers_tail_consumers,
         "workers_tail_consumers_script": workers_tail_consumers_script,
-        "workers_usage_model": workers_usage_model,
         "workers_worker_export": workers_worker_export,
       },
     },
@@ -336,10 +301,7 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
-        "workers_created_on": workers_created_on,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
         "workers_durable_object_export": workers_durable_object_export,
@@ -347,29 +309,18 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
-        "workers_etag": workers_etag,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
-        "workers_has_assets": workers_has_assets,
-        "workers_has_modules": workers_has_modules,
-        "workers_identifier": workers_identifier,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
         "workers_observability-2": workers_observability$$2,
         "workers_placement_info": workers_placement_info,
-        "workers_placement_mode": workers_placement_mode,
-        "workers_placement_status": workers_placement_status,
         "workers_placement_target": workers_placement_target,
         "workers_route": workers_route,
         "workers_script-response": workers_script$$response,
         "workers_script-response-collection": workers_script$$response$$collection,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers": workers_tail_consumers,
         "workers_tail_consumers_script": workers_tail_consumers_script,
-        "workers_usage_model": workers_usage_model,
         "workers_worker_export": workers_worker_export,
       },
     },

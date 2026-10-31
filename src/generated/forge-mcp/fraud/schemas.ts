@@ -7,7 +7,7 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `fraud_auth_criteria`.
  */
 export const fraud_auth_criteria: JsonSchema = {
-  "description": "A criterion for determining authentication outcome. The `kind` field determines which\nother fields are used for matching.\n",
+  "description": "A criterion for determining authentication outcome. The `kind` field determines which\nother fields are used for matching.",
   "properties": {
     "kind": {
       "description": "The type of criterion. Currently only `status_code` is supported.",
@@ -17,7 +17,7 @@ export const fraud_auth_criteria: JsonSchema = {
       "type": "string"
     },
     "status_codes": {
-      "description": "HTTP status codes to match against the origin response.\n- Maximum of 10 codes per criterion.\n- Each code must be a valid HTTP status code (100-599).\n- Codes are deduplicated and sorted on save.\n- Omit to leave unchanged on update.\n- Provide an empty array `[]` to clear codes on update.\n",
+      "description": "HTTP status codes to match against the origin response.\n- Maximum of 10 codes per criterion.\n- Each code must be a valid HTTP status code (100-599).\n- Codes are deduplicated and sorted on save.\n- Omit to leave unchanged on update.\n- Provide an empty array `[]` to clear codes on update.",
       "items": {
         "type": "integer"
       },
@@ -35,7 +35,7 @@ export const fraud_auth_criteria: JsonSchema = {
  * The schema of `fraud_authentication_settings`.
  */
 export const fraud_authentication_settings: JsonSchema = {
-  "description": "Configuration for classifying login authentication outcomes based on the origin response.\nRequires `user_profiles` to be enabled.\n\n- Success and failure criteria are independently updatable — sending only `success_criteria`\n  leaves failure codes untouched, and vice versa.\n- Omit `authentication_settings` entirely to leave both unchanged.\n- Status codes must not overlap between success and failure criteria.\n",
+  "description": "Configuration for classifying login authentication outcomes based on the origin response.\nRequires `user_profiles` to be enabled.\n\n- Success and failure criteria are independently updatable — sending only `success_criteria`\n  leaves failure codes untouched, and vice versa.\n- Omit `authentication_settings` entirely to leave both unchanged.\n- Status codes must not overlap between success and failure criteria.",
   "properties": {
     "failure_criteria": {
       "$ref": "#/$defs/fraud_auth_criteria",
@@ -56,45 +56,29 @@ export const fraud_fraud_settings: JsonSchema = {
   "properties": {
     "authentication_settings": {
       "$ref": "#/$defs/fraud_authentication_settings",
-      "description": "Configuration for classifying login authentication outcomes based on the origin response.\nRequires `user_profiles` to be enabled.\n\n- Success and failure criteria are independently updatable — sending only `success_criteria`\n  leaves failure codes untouched, and vice versa.\n- Omit `authentication_settings` entirely to leave both unchanged.\n- Status codes must not overlap between success and failure criteria.\n"
+      "description": "Configuration for classifying login authentication outcomes based on the origin response.\nRequires `user_profiles` to be enabled.\n\n- Success and failure criteria are independently updatable — sending only `success_criteria`\n  leaves failure codes untouched, and vice versa.\n- Omit `authentication_settings` entirely to leave both unchanged.\n- Status codes must not overlap between success and failure criteria."
     },
     "user_profiles": {
-      "$ref": "#/$defs/fraud_user_profiles_status",
-      "description": "Whether Fraud User Profiles is enabled for the zone."
+      "description": "Whether Fraud User Profiles is enabled for the zone.",
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "username_expressions": {
       "$ref": "#/$defs/fraud_username_expressions",
-      "description": "List of expressions to detect usernames in write HTTP requests.\n\n- Maximum of 10 expressions.\n- Omit or set to null to leave unchanged on update.\n- Provide an empty array `[]` to clear all expressions on update.\n- Invalid expressions will result in a 10400 Bad Request with details in the `messages` array.\n"
+      "description": "List of expressions to detect usernames in write HTTP requests.\n\n- Maximum of 10 expressions.\n- Omit or set to null to leave unchanged on update.\n- Provide an empty array `[]` to clear all expressions on update.\n- Invalid expressions will result in a 10400 Bad Request with details in the `messages` array."
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `fraud_identifier`.
- */
-export const fraud_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `fraud_user_profiles_status`.
- */
-export const fraud_user_profiles_status: JsonSchema = {
-  "description": "Whether Fraud User Profiles is enabled for the zone.",
-  "enum": [
-    "enabled",
-    "disabled"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `fraud_username_expressions`.
  */
 export const fraud_username_expressions: JsonSchema = {
-  "description": "List of expressions to detect usernames in write HTTP requests.\n\n- Maximum of 10 expressions.\n- Omit or set to null to leave unchanged on update.\n- Provide an empty array `[]` to clear all expressions on update.\n- Invalid expressions will result in a 10400 Bad Request with details in the `messages` array.\n",
+  "description": "List of expressions to detect usernames in write HTTP requests.\n\n- Maximum of 10 expressions.\n- Omit or set to null to leave unchanged on update.\n- Provide an empty array `[]` to clear all expressions on update.\n- Invalid expressions will result in a 10400 Bad Request with details in the `messages` array.",
   "items": {
     "type": "string"
   },

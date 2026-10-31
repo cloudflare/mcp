@@ -22,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_assetSchemas_get",
     title: "Get asset schema by asset class",
-    description: "Returns the fields and related attributes a custom finding type may reference\nfor the given asset class (JSON Schema). Used by the custom finding types builder.",
+    description: "Returns the fields and related attributes a custom finding type may reference\nfor the given asset class (JSON Schema). Used by the custom finding types builder.\n\nGET /accounts/{account_id}/data-security/posture/asset_schemas/{asset_class}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -47,6 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_AssetSchemaResponse",
@@ -105,11 +107,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_assetSchemas_list",
     title: "List asset schemas",
-    description: "Returns the catalog of asset classes available when authoring custom\nfindings, grouped by vendor. Optionally filter to a single vendor with\nthe `vendor` query parameter.",
+    description: "Returns the catalog of asset classes available when authoring custom\nfindings, grouped by vendor. Optionally filter to a single vendor with\nthe `vendor` query parameter.\n\nGET /accounts/{account_id}/data-security/posture/asset_schemas",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -122,6 +125,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "vendor": {
               "description": "Restrict the result to a single vendor. Unknown values return 400.",
@@ -153,6 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_AssetSchemaListResponse",

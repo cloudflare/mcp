@@ -8,7 +8,6 @@ import {
   bill$$subs$$api_api$$response$$single,
   bill$$subs$$api_messages,
 } from "../../outputs.js";
-import { bill$$subs$$api_identifier } from "../../schemas.js";
 import {
   bill$$subs$$api_account_billing_history,
   bill$$subs$$api_account_credits_response,
@@ -25,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_createSetupIntent",
     title: "Create Setup Intent",
-    description: "Creates a Stripe setup intent for adding a payment method to an account. Returns a client secret for frontend payment method collection.",
+    description: "Creates a Stripe setup intent for adding a payment method to an account. Returns a client secret for frontend payment method collection.\n\nPOST /accounts/{account_id}/client-secret",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -45,9 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_client_secret_response_single",
@@ -99,15 +97,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_getBadDebt",
     title: "Get Account Bad Debt",
-    description: "Gets bad debt information for an account, including outstanding invoices and total debt amount.",
+    description: "Gets bad debt information for an account, including outstanding invoices and total debt amount.\n\nGET /accounts/{account_id}/billing/bad-debt",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -119,9 +118,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_bad_debt_response_single",
@@ -177,15 +174,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_getCredits",
     title: "Get Account Credits",
-    description: "Gets the credit balance and eligibility for an account.",
+    description: "Gets the credit balance and eligibility for an account.\n\nGET /accounts/{account_id}/billing/credits",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -197,9 +195,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_account_credits_response",
@@ -260,19 +256,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_getReceiptPdf",
     title: "Get Receipt PDF",
-    description: "Downloads a receipt as a PDF document.",
+    description: "Downloads a receipt as a PDF document.\n\nGET /accounts/{account_id}/receipts/{receipt_id}/pdf",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "receipt_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Receipt identifier."
+              "description": "Receipt identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -282,6 +279,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "doctype": {
               "description": "The document type to generate.",
@@ -294,9 +292,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -337,15 +333,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_getUnpaidInvoices",
     title: "Get Unpaid Invoices",
-    description: "Gets unpaid invoice information for an account.",
+    description: "Gets unpaid invoice information for an account.\n\nGET /accounts/{account_id}/billing/unpaid-invoice",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -357,9 +354,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_unpaid_invoices_response_single",
@@ -413,7 +408,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_payInvoice",
     title: "Pay Invoice",
-    description: "Pays an outstanding invoice for an account. Returns a Stripe client secret when Strong Customer Authentication (SCA) is required to complete the payment.",
+    description: "Pays an outstanding invoice for an account. Returns a Stripe client secret when Strong Customer Authentication (SCA) is required to complete the payment.\n\nPOST /accounts/{account_id}/pay-invoice",
     inputSchema: {
       type: "object",
       properties: {
@@ -435,10 +430,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -451,9 +447,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_client_secret_response_single",
@@ -509,7 +503,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_togglePdfInvoices",
     title: "Toggle PDF Invoices",
-    description: "Toggles PDF invoice generation for an account.",
+    description: "Toggles PDF invoice generation for an account.\n\nPATCH /accounts/{account_id}/invoices",
     inputSchema: {
       type: "object",
       properties: {
@@ -523,10 +517,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -539,9 +534,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_api-response-single",

@@ -158,7 +158,11 @@ export const teams$$devices_client_certificate_v2_input_request: JsonSchema = {
     "extended_key_usage": {
       "description": "List of values indicating purposes for which the certificate public key can be used.",
       "items": {
-        "$ref": "#/$defs/teams-devices_extended_key_usage_enum"
+        "enum": [
+          "clientAuth",
+          "emailProtection"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -303,14 +307,6 @@ export const teams$$devices_custom_s2s_input_request: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_description`.
- */
-export const teams$$devices_description: JsonSchema = {
-  "description": "The description of the device posture rule.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_disk_encryption_input_request`.
  */
 export const teams$$devices_disk_encryption_input_request: JsonSchema = {
@@ -321,8 +317,8 @@ export const teams$$devices_disk_encryption_input_request: JsonSchema = {
       "description": "List of volume names to be checked for encryption."
     },
     "requireAll": {
-      "$ref": "#/$defs/teams-devices_requireAll",
-      "description": "Whether to check all disks for encryption."
+      "description": "Whether to check all disks for encryption.",
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -350,25 +346,6 @@ export const teams$$devices_domain_joined_input_request: JsonSchema = {
     "operating_system"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_expiration`.
- */
-export const teams$$devices_expiration: JsonSchema = {
-  "description": "Sets the expiration time for a posture check result. If empty, the result remains valid until it is overwritten by new data from the WARP client.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_extended_key_usage_enum`.
- */
-export const teams$$devices_extended_key_usage_enum: JsonSchema = {
-  "enum": [
-    "clientAuth",
-    "emailProtection"
-  ],
-  "type": "string"
 };
 
 /**
@@ -598,18 +575,18 @@ export const teams$$devices_match: JsonSchema = {
 export const teams$$devices_match_item: JsonSchema = {
   "properties": {
     "platform": {
-      "$ref": "#/$defs/teams-devices_platform"
+      "enum": [
+        "windows",
+        "mac",
+        "linux",
+        "android",
+        "ios",
+        "chromeos"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_name`.
- */
-export const teams$$devices_name: JsonSchema = {
-  "description": "The name of the device posture rule.",
-  "type": "string"
 };
 
 /**
@@ -670,37 +647,6 @@ export const teams$$devices_paths: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `teams-devices_platform`.
- */
-export const teams$$devices_platform: JsonSchema = {
-  "enum": [
-    "windows",
-    "mac",
-    "linux",
-    "android",
-    "ios",
-    "chromeos"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_requireAll`.
- */
-export const teams$$devices_requireAll: JsonSchema = {
-  "description": "Whether to check all disks for encryption.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_schedule`.
- */
-export const teams$$devices_schedule: JsonSchema = {
-  "description": "Polling frequency for the WARP client posture check. Default: `5m` (poll every five minutes). Minimum: `1m`.",
-  "type": "string"
 };
 
 /**
@@ -864,53 +810,13 @@ export const teams$$devices_tanium_input_request: JsonSchema = {
 export const teams$$devices_trust_stores: JsonSchema = {
   "description": "List of trust stores to check for client certificate.",
   "items": {
-    "$ref": "#/$defs/teams-devices_trust_stores_enum"
+    "enum": [
+      "system",
+      "user"
+    ],
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `teams-devices_trust_stores_enum`.
- */
-export const teams$$devices_trust_stores_enum: JsonSchema = {
-  "enum": [
-    "system",
-    "user"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_type`.
- */
-export const teams$$devices_type: JsonSchema = {
-  "description": "The type of device posture rule.",
-  "enum": [
-    "file",
-    "application",
-    "tanium",
-    "gateway",
-    "warp",
-    "disk_encryption",
-    "serial_number",
-    "sentinelone",
-    "carbonblack",
-    "firewall",
-    "os_version",
-    "domain_joined",
-    "client_certificate",
-    "client_certificate_v2",
-    "antivirus",
-    "unique_client_id",
-    "kolide",
-    "tanium_s2s",
-    "crowdstrike_s2s",
-    "intune",
-    "workspace_one",
-    "sentinelone_s2s",
-    "custom_s2s"
-  ],
-  "type": "string"
 };
 
 /**

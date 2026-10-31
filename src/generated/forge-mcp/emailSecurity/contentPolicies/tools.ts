@@ -8,19 +8,13 @@ import {
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
-import { email$$security_identifier } from "../schemas.js";
 import {
   email$$security_ContentPolicy,
-  email$$security_ContentPolicyId,
   email$$security_ContentPolicyList,
-  email$$security_ContentPolicyTarget,
   email$$security_DeletedContentPolicy,
 } from "./outputs.js";
 import {
-  email$$security_ContentPolicyId as email$$security_ContentPolicyId$,
-  email$$security_ContentPolicyTarget as email$$security_ContentPolicyTarget$,
   email$$security_CreateContentPolicy,
   email$$security_UpdateContentPolicy,
 } from "./schemas.js";
@@ -32,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_contentPolicies_batch",
     title: "Batch content policy operations",
-    description: "Executes multiple content policy operations atomically: delete, partially update,\nreplace, and create content policies in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected content policies and stop evaluating emails against their patterns.",
+    description: "Executes multiple content policy operations atomically: delete, partially update,\nreplace, and create content policies in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected content policies and stop evaluating emails against their patterns.\n\nPOST /accounts/{account_id}/email-security/settings/content_policies/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -43,8 +37,9 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/email-security_ContentPolicyId",
-                    "description": "Content policy identifier."
+                    "description": "Content policy identifier.",
+                    "format": "uuid",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -65,7 +60,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_ContentPolicyId"
+                        "description": "Content policy identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -96,7 +93,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_ContentPolicyId"
+                        "description": "Content policy identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -119,10 +118,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -135,12 +135,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId$,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget$,
         "email-security_CreateContentPolicy": email$$security_CreateContentPolicy,
         "email-security_UpdateContentPolicy": email$$security_UpdateContentPolicy,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -176,13 +174,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
         "email-security_ContentPolicyList": email$$security_ContentPolicyList,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_DeletedContentPolicy": email$$security_DeletedContentPolicy,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -240,14 +235,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
         "email-security_ContentPolicyList": email$$security_ContentPolicyList,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_DeletedContentPolicy": email$$security_DeletedContentPolicy,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -258,7 +250,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_contentPolicies_create",
     title: "Create a content policy",
-    description: "Creates a new content policy. Emails whose subject or body matches the pattern will be subject to the configured action.\n\nThis method is beta.",
+    description: "Creates a new content policy. Emails whose subject or body matches the pattern will be subject to the configured action.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/content_policies",
     inputSchema: {
       type: "object",
       properties: {
@@ -266,10 +258,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateContentPolicy"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -282,10 +275,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget$,
         "email-security_CreateContentPolicy": email$$security_CreateContentPolicy,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -304,11 +296,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -349,12 +338,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -365,19 +351,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_contentPolicies_delete",
     title: "Delete a content policy",
-    description: "Removes a content policy. After deletion, emails will no longer be evaluated against this pattern.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the content policy and stops evaluating emails against its pattern.",
+    description: "Removes a content policy. After deletion, emails will no longer be evaluated against this pattern.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the content policy and stops evaluating emails against its pattern.\n\nDELETE /accounts/{account_id}/email-security/settings/content_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_ContentPolicyId",
-              "description": "Content policy identifier."
+              "description": "Content policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -390,10 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -410,7 +395,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
         "email-security_DeletedContentPolicy": email$$security_DeletedContentPolicy,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -453,7 +437,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
         "email-security_DeletedContentPolicy": email$$security_DeletedContentPolicy,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
@@ -467,7 +450,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_contentPolicies_edit",
     title: "Update a content policy",
-    description: "Updates an existing content policy. Only provided fields will be modified.\n\nThis method is beta.",
+    description: "Updates an existing content policy. Only provided fields will be modified.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/content_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -475,14 +458,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateContentPolicy"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_ContentPolicyId",
-              "description": "Content policy identifier."
+              "description": "Content policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -496,11 +481,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId$,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget$,
         "email-security_UpdateContentPolicy": email$$security_UpdateContentPolicy,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -519,11 +502,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -564,12 +544,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -580,19 +557,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_contentPolicies_get",
     title: "Get a content policy",
-    description: "Retrieves details for a specific content policy including its pattern, targets, and metadata.\n\nThis method is beta.",
+    description: "Retrieves details for a specific content policy including its pattern, targets, and metadata.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/content_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_ContentPolicyId",
-              "description": "Content policy identifier."
+              "description": "Content policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -605,10 +584,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -626,11 +602,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -672,12 +645,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -687,15 +657,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_contentPolicies_list",
     title: "List content policies",
-    description: "Returns a paginated list of content policies. These policies match against the subject or body of emails using a pattern. Supports filtering by name or enabled status, and searching across name and pattern fields.\n\nThis method is beta.",
+    description: "Returns a paginated list of content policies. These policies match against the subject or body of emails using a pattern. Supports filtering by name or enabled status, and searching across name and pattern fields.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/content_policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -704,6 +675,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -754,9 +726,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -774,13 +744,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
         "email-security_ContentPolicyList": email$$security_ContentPolicyList,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -822,14 +789,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ContentPolicy": email$$security_ContentPolicy,
-        "email-security_ContentPolicyId": email$$security_ContentPolicyId,
         "email-security_ContentPolicyList": email$$security_ContentPolicyList,
-        "email-security_ContentPolicyTarget": email$$security_ContentPolicyTarget,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

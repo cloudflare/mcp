@@ -332,15 +332,15 @@ export const access_identity$$provider: JsonSchema = {
       "type": "object"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
+      "description": "UUID.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
+      "description": "The name of the identity provider, shown to users on the login page.",
+      "type": "string"
     },
     "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
+      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.",
       "format": "uuid",
       "type": "string"
     },
@@ -484,14 +484,6 @@ export const access_linkedin: JsonSchema = {
     }
   ],
   "description": "LinkedIn"
-};
-
-/**
- * The schema of `access_name-3`.
- */
-export const access_name$$3: JsonSchema = {
-  "description": "The name of the identity provider, shown to users on the login page.",
-  "type": "string"
 };
 
 /**
@@ -745,7 +737,7 @@ export const access_saml: JsonSchema = {
             },
             "enable_encryption": {
               "default": false,
-              "description": "Enable SAML assertion encryption. When enabled, the Identity Provider will encrypt \nSAML assertions using the certificate from the assigned certificate set.\n\nTo enable encryption:\n1. Create a certificate set via POST to `/identity_providers/{id}/saml_certificate`\n2. Set this field to `true` and include `saml_certificate_set_id` in the PUT request\n3. Configure the public certificate in your external Identity Provider\n\nNote: Requires `saml_certificate_set_id` to be set when `true`.\n",
+              "description": "Enable SAML assertion encryption. When enabled, the Identity Provider will encrypt \nSAML assertions using the certificate from the assigned certificate set.\n\nTo enable encryption:\n1. Create a certificate set via POST to `/identity_providers/{id}/saml_certificate`\n2. Set this field to `true` and include `saml_certificate_set_id` in the PUT request\n3. Configure the public certificate in your external Identity Provider\n\nNote: Requires `saml_certificate_set_id` to be set when `true`.",
               "type": "boolean"
             },
             "force_authn": {
@@ -782,7 +774,7 @@ export const access_saml: JsonSchema = {
               "type": "string"
             },
             "max_sso_url_length": {
-              "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.\n",
+              "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.",
               "type": "integer"
             },
             "sign_request": {

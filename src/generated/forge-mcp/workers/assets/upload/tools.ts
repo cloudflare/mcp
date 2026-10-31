@@ -10,9 +10,7 @@ import {
 } from "../../../outputs.js";
 import {
   workers_create$$assets$$upload$$session$$object,
-  workers_identifier,
   workers_manifest$$value,
-  workers_script_name,
 } from "../../../schemas.js";
 
 /**
@@ -22,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_assets_upload_createSession",
     title: "Create Worker Assets Upload Session",
-    description: "Start uploading a collection of assets for use in a Worker version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.",
+    description: "Start uploading a collection of assets for use in a Worker version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/assets-upload-session",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,14 +28,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_create-assets-upload-session-object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,11 +50,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_create-assets-upload-session-object": workers_create$$assets$$upload$$session$$object,
-        "workers_identifier": workers_identifier,
         "workers_manifest-value": workers_manifest$$value,
-        "workers_script_name": workers_script_name,
       },
     },
     outputSchema: {

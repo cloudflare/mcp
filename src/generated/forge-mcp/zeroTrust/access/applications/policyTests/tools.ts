@@ -7,7 +7,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier } from "../../../schemas.js";
 import {
   access_access_group_rule,
   access_allowed_clipboard_local_to_remote_formats,
@@ -15,7 +14,6 @@ import {
   access_any_valid_service_token_rule,
   access_approval_group,
   access_approval_groups,
-  access_approval_required,
   access_auth_context_rule,
   access_authentication_method_rule,
   access_azure_group_rule,
@@ -26,7 +24,6 @@ import {
   access_connection_rules,
   access_connection_rules_rdp,
   access_country_rule,
-  access_decision,
   access_device_posture_rule,
   access_domain_rule,
   access_email_list_rule,
@@ -39,45 +36,24 @@ import {
   access_include$$2,
   access_ip_list_rule,
   access_ip_rule,
-  access_isolation_required,
   access_linked_app_token_rule,
   access_login_method_rule,
   access_mfa_config,
-  access_name$$9,
   access_oidc_claim_rule,
   access_okta_group_rule,
   access_policy_req,
-  access_policy_resolution_account_id,
-  access_purpose_justification_prompt,
-  access_purpose_justification_required,
-  access_rdp_clipboard_format,
   access_require$$2,
   access_rule,
   access_saml_group_rule,
   access_service_token_rule,
   access_service_token_tag_rule,
-  access_session_duration$$3,
   access_user_risk_score_rule,
 } from "../../schemas.js";
 import {
-  access_percent_approved,
-  access_percent_blocked,
-  access_percent_errored,
-  access_percent_users_processed,
   access_policy_init_resp,
-  access_policy_test_id,
   access_policy_update_resp,
-  access_status,
-  access_total_users,
-  access_update_status,
-  access_users_approved,
-  access_users_blocked,
-  access_users_errored,
 } from "./outputs.js";
-import {
-  access_policy_init_req,
-  access_policy_test_id as access_policy_test_id$,
-} from "./schemas.js";
+import { access_policy_init_req } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.applications.policyTests`.
@@ -86,7 +62,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_policyTests_create",
     title: "Start Access policy test",
-    description: "Starts an Access policy test.",
+    description: "Starts an Access policy test.\n\nPOST /accounts/{account_id}/access/policy-tests",
     inputSchema: {
       type: "object",
       properties: {
@@ -94,10 +70,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_policy_init_req"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -110,6 +87,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_access_group_rule": access_access_group_rule,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
@@ -117,7 +95,6 @@ export const tools: readonly Tool[] = [
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
         "access_approval_group": access_approval_group,
         "access_approval_groups": access_approval_groups,
-        "access_approval_required": access_approval_required,
         "access_auth_context_rule": access_auth_context_rule,
         "access_authentication_method_rule": access_authentication_method_rule,
         "access_azure_group_rule": access_azure_group_rule,
@@ -128,7 +105,6 @@ export const tools: readonly Tool[] = [
         "access_connection_rules": access_connection_rules,
         "access_connection_rules_rdp": access_connection_rules_rdp,
         "access_country_rule": access_country_rule,
-        "access_decision": access_decision,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -138,29 +114,21 @@ export const tools: readonly Tool[] = [
         "access_external_evaluation_rule": access_external_evaluation_rule,
         "access_github_organization_rule": access_github_organization_rule,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include-2": access_include$$2,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
-        "access_isolation_required": access_isolation_required,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_mfa_config": access_mfa_config,
-        "access_name-9": access_name$$9,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_policy_init_req": access_policy_init_req,
         "access_policy_req": access_policy_req,
-        "access_policy_resolution_account_id": access_policy_resolution_account_id,
-        "access_purpose_justification_prompt": access_purpose_justification_prompt,
-        "access_purpose_justification_required": access_purpose_justification_required,
-        "access_rdp_clipboard_format": access_rdp_clipboard_format,
         "access_require-2": access_require$$2,
         "access_rule": access_rule,
         "access_saml_group_rule": access_saml_group_rule,
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
-        "access_session_duration-3": access_session_duration$$3,
         "access_user_risk_score_rule": access_user_risk_score_rule,
       },
     },
@@ -170,8 +138,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_policy_init_resp": access_policy_init_resp,
-        "access_policy_test_id": access_policy_test_id,
-        "access_status": access_status,
       },
     },
     annotations: {
@@ -202,8 +168,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_policy_init_resp": access_policy_init_resp,
-        "access_policy_test_id": access_policy_test_id,
-        "access_status": access_status,
       },
     },
     request: (args) => ({
@@ -214,19 +178,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_policyTests_get",
     title: "Get the current status of a given Access policy test",
-    description: "Fetches the current status of a given Access policy test.",
+    description: "Fetches the current status of a given Access policy test.\n\nGET /accounts/{account_id}/access/policy-tests/{policy_test_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "policy_test_id": {
-              "$ref": "#/$defs/access_policy_test_id",
-              "description": "The UUID of the policy test."
+              "description": "The UUID of the policy test.",
+              "type": "string"
             }
           },
           "required": [
@@ -239,27 +204,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_policy_test_id": access_policy_test_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_policy_update_resp",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
-        "access_percent_approved": access_percent_approved,
-        "access_percent_blocked": access_percent_blocked,
-        "access_percent_errored": access_percent_errored,
-        "access_percent_users_processed": access_percent_users_processed,
-        "access_policy_test_id": access_policy_test_id,
         "access_policy_update_resp": access_policy_update_resp,
-        "access_total_users": access_total_users,
-        "access_update_status": access_update_status,
-        "access_users_approved": access_users_approved,
-        "access_users_blocked": access_users_blocked,
-        "access_users_errored": access_users_errored,
       },
     },
     annotations: {
@@ -290,17 +242,7 @@ export const tools: readonly Tool[] = [
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
-        "access_percent_approved": access_percent_approved,
-        "access_percent_blocked": access_percent_blocked,
-        "access_percent_errored": access_percent_errored,
-        "access_percent_users_processed": access_percent_users_processed,
-        "access_policy_test_id": access_policy_test_id,
         "access_policy_update_resp": access_policy_update_resp,
-        "access_total_users": access_total_users,
-        "access_update_status": access_update_status,
-        "access_users_approved": access_users_approved,
-        "access_users_blocked": access_users_blocked,
-        "access_users_errored": access_users_errored,
       },
     },
     request: (args) => ({

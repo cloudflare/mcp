@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_evaluations_create",
     title: "Create an evaluation (deprecated)",
-    description: "Creates an evaluation that scores the logs in a dataset with the specified evaluator types. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Creates an evaluation that scores the logs in a dataset with the specified evaluator types. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/evaluations",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -61,6 +62,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -536,11 +538,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_evaluations_delete",
     title: "Delete an evaluation (deprecated)",
-    description: "Deletes an evaluation and its results. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Deletes an evaluation and its results. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/evaluations/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -564,6 +567,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1031,11 +1035,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_evaluations_get",
     title: "Get an evaluation (deprecated)",
-    description: "Retrieves an evaluation and its results. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Retrieves an evaluation and its results. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/evaluations/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1059,6 +1064,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1527,11 +1533,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_evaluations_list",
     title: "List evaluations (deprecated)",
-    description: "Lists the evaluations run on an AI Gateway. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Lists the evaluations run on an AI Gateway. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/evaluations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1548,6 +1555,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "type": "string"
@@ -1574,6 +1582,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_automations_create",
     title: "Create an issue automation",
-    description: "Create an account or service issue automation.",
+    description: "Create an account or service issue automation.\n\nPOST /accounts/{account_id}/workers/observability/issues/automations",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -57,6 +58,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -625,11 +627,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_automations_delete",
     title: "Delete an issue automation",
-    description: "Delete an issue automation while preserving its historical runs.",
+    description: "Delete an issue automation while preserving its historical runs.\n\nDELETE /accounts/{account_id}/workers/observability/issues/automations/{automationId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -649,6 +652,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1216,11 +1220,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_automations_get",
     title: "Get an issue automation",
-    description: "Retrieve an issue automation.",
+    description: "Retrieve an issue automation.\n\nGET /accounts/{account_id}/workers/observability/issues/automations/{automationId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1240,6 +1245,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1807,11 +1813,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_automations_list",
     title: "List issue automations",
-    description: "List account and service issue automations.",
+    description: "List account and service issue automations.\n\nGET /accounts/{account_id}/workers/observability/issues/automations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1824,6 +1831,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "service": {
               "type": "string"
@@ -1835,6 +1843,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2411,7 +2420,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_issues_automations_update",
     title: "Update an issue automation",
-    description: "Replace an issue automation configuration.",
+    description: "Replace an issue automation configuration.\n\nPUT /accounts/{account_id}/workers/observability/issues/automations/{automationId}",
     inputSchema: {
       type: "object",
       properties: {
@@ -2442,6 +2451,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -2462,6 +2472,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

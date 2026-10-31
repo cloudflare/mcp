@@ -30,14 +30,6 @@ export const dns$$firewall_attack_mitigation: JsonSchema = {
 };
 
 /**
- * The schema of `dns-firewall_deprecate_any_requests`.
- */
-export const dns$$firewall_deprecate_any_requests: JsonSchema = {
-  "description": "Whether to refuse to answer queries for the ANY type",
-  "type": "boolean"
-};
-
-/**
  * The schema of `dns-firewall_dns-firewall-cluster`.
  */
 export const dns$$firewall_dns$$firewall$$cluster: JsonSchema = {
@@ -47,39 +39,53 @@ export const dns$$firewall_dns$$firewall$$cluster: JsonSchema = {
       "description": "Attack mitigation settings"
     },
     "deprecate_any_requests": {
-      "$ref": "#/$defs/dns-firewall_deprecate_any_requests",
-      "description": "Whether to refuse to answer queries for the ANY type"
+      "description": "Whether to refuse to answer queries for the ANY type",
+      "type": "boolean"
     },
     "ecs_fallback": {
-      "$ref": "#/$defs/dns-firewall_ecs_fallback",
-      "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent"
+      "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent",
+      "type": "boolean"
     },
     "maximum_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_maximum_cache_ttl",
       "default": 900,
-      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets an upper bound on this duration. For caching purposes, higher TTLs\nwill be decreased to the maximum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n"
+      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets an upper bound on this duration. For caching purposes, higher TTLs\nwill be decreased to the maximum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.",
+      "type": "number"
     },
     "minimum_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_minimum_cache_ttl",
       "default": 60,
-      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets a lower bound on this duration. For caching purposes, lower TTLs\nwill be increased to the minimum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n\nNote that, even with this setting, there is no guarantee that a\nresponse will be cached for at least the specified duration. Cached\nresponses may be removed earlier for capacity or other operational\nreasons.\n"
+      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets a lower bound on this duration. For caching purposes, lower TTLs\nwill be increased to the minimum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n\nNote that, even with this setting, there is no guarantee that a\nresponse will be cached for at least the specified duration. Cached\nresponses may be removed earlier for capacity or other operational\nreasons.",
+      "type": "number"
     },
     "name": {
-      "$ref": "#/$defs/dns-firewall_name",
-      "description": "DNS Firewall cluster name"
+      "description": "DNS Firewall cluster name",
+      "type": "string"
     },
     "negative_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_negative_cache_ttl",
-      "description": "This setting controls how long DNS Firewall should cache negative\nresponses (e.g., NXDOMAIN) from the upstream servers.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n"
+      "description": "This setting controls how long DNS Firewall should cache negative\nresponses (e.g., NXDOMAIN) from the upstream servers.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "ratelimit": {
-      "$ref": "#/$defs/dns-firewall_ratelimit",
-      "description": "Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting."
+      "description": "Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "retries": {
-      "$ref": "#/$defs/dns-firewall_retries",
       "default": 2,
-      "description": "Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)"
+      "description": "Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)",
+      "type": "number"
     },
     "upstream_ips": {
       "$ref": "#/$defs/dns-firewall_upstream_ips"
@@ -98,39 +104,53 @@ export const dns$$firewall_dns$$firewall$$cluster$$patch: JsonSchema = {
       "description": "Attack mitigation settings"
     },
     "deprecate_any_requests": {
-      "$ref": "#/$defs/dns-firewall_deprecate_any_requests",
-      "description": "Whether to refuse to answer queries for the ANY type"
+      "description": "Whether to refuse to answer queries for the ANY type",
+      "type": "boolean"
     },
     "ecs_fallback": {
-      "$ref": "#/$defs/dns-firewall_ecs_fallback",
-      "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent"
+      "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent",
+      "type": "boolean"
     },
     "maximum_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_maximum_cache_ttl",
       "default": 900,
-      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets an upper bound on this duration. For caching purposes, higher TTLs\nwill be decreased to the maximum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n"
+      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets an upper bound on this duration. For caching purposes, higher TTLs\nwill be decreased to the maximum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.",
+      "type": "number"
     },
     "minimum_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_minimum_cache_ttl",
       "default": 60,
-      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets a lower bound on this duration. For caching purposes, lower TTLs\nwill be increased to the minimum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n\nNote that, even with this setting, there is no guarantee that a\nresponse will be cached for at least the specified duration. Cached\nresponses may be removed earlier for capacity or other operational\nreasons.\n"
+      "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets a lower bound on this duration. For caching purposes, lower TTLs\nwill be increased to the minimum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n\nNote that, even with this setting, there is no guarantee that a\nresponse will be cached for at least the specified duration. Cached\nresponses may be removed earlier for capacity or other operational\nreasons.",
+      "type": "number"
     },
     "name": {
-      "$ref": "#/$defs/dns-firewall_name",
-      "description": "DNS Firewall cluster name"
+      "description": "DNS Firewall cluster name",
+      "type": "string"
     },
     "negative_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_negative_cache_ttl",
-      "description": "This setting controls how long DNS Firewall should cache negative\nresponses (e.g., NXDOMAIN) from the upstream servers.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n"
+      "description": "This setting controls how long DNS Firewall should cache negative\nresponses (e.g., NXDOMAIN) from the upstream servers.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "ratelimit": {
-      "$ref": "#/$defs/dns-firewall_ratelimit",
-      "description": "Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting."
+      "description": "Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "retries": {
-      "$ref": "#/$defs/dns-firewall_retries",
       "default": 2,
-      "description": "Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)"
+      "description": "Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)",
+      "type": "number"
     },
     "upstream_ips": {
       "$ref": "#/$defs/dns-firewall_upstream_ips"
@@ -150,100 +170,14 @@ export const dns$$firewall_dns$$firewall$$cluster$$post: JsonSchema = {
     {
       "properties": {
         "dns_firewall_ip_count": {
-          "$ref": "#/$defs/dns-firewall_dns_firewall_ip_count",
           "default": 2,
-          "description": "Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later."
+          "description": "Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later.",
+          "type": "integer"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `dns-firewall_dns_firewall_ip_count`.
- */
-export const dns$$firewall_dns_firewall_ip_count: JsonSchema = {
-  "description": "Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later.",
-  "type": "integer"
-};
-
-/**
- * The schema of `dns-firewall_ecs_fallback`.
- */
-export const dns$$firewall_ecs_fallback: JsonSchema = {
-  "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent",
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-firewall_identifier`.
- */
-export const dns$$firewall_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-firewall_maximum_cache_ttl`.
- */
-export const dns$$firewall_maximum_cache_ttl: JsonSchema = {
-  "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets an upper bound on this duration. For caching purposes, higher TTLs\nwill be decreased to the maximum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n",
-  "type": "number"
-};
-
-/**
- * The schema of `dns-firewall_minimum_cache_ttl`.
- */
-export const dns$$firewall_minimum_cache_ttl: JsonSchema = {
-  "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets a lower bound on this duration. For caching purposes, lower TTLs\nwill be increased to the minimum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n\nNote that, even with this setting, there is no guarantee that a\nresponse will be cached for at least the specified duration. Cached\nresponses may be removed earlier for capacity or other operational\nreasons.\n",
-  "type": "number"
-};
-
-/**
- * The schema of `dns-firewall_name`.
- */
-export const dns$$firewall_name: JsonSchema = {
-  "description": "DNS Firewall cluster name",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-firewall_negative_cache_ttl`.
- */
-export const dns$$firewall_negative_cache_ttl: JsonSchema = {
-  "description": "This setting controls how long DNS Firewall should cache negative\nresponses (e.g., NXDOMAIN) from the upstream servers.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n",
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dns-firewall_ratelimit`.
- */
-export const dns$$firewall_ratelimit: JsonSchema = {
-  "description": "Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.",
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dns-firewall_retries`.
- */
-export const dns$$firewall_retries: JsonSchema = {
-  "description": "Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)",
-  "type": "number"
 };
 
 /**

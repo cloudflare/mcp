@@ -8,36 +8,21 @@ import {
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$data as digital$$experience$$monitoring_device$$dex$$test$$schemas$$data$,
-  digital$$experience$$monitoring_uuid as digital$$experience$$monitoring_uuid$,
-} from "../schemas.js";
+import { digital$$experience$$monitoring_device$$dex$$test$$schemas$$data as digital$$experience$$monitoring_device$$dex$$test$$schemas$$data$ } from "../schemas.js";
 import {
   digital$$experience$$monitoring_api$$response$$collection$$common,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
   digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
   digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
   digital$$experience$$monitoring_dex$$delete$$response$$collection,
   digital$$experience$$monitoring_dex$$response_collection,
   digital$$experience$$monitoring_dex$$single_response,
   digital$$experience$$monitoring_dex_target_policy,
-  digital$$experience$$monitoring_schemas$$test$$id,
 } from "./outputs.js";
 import {
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$description as digital$$experience$$monitoring_device$$dex$$test$$schemas$$description$,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled as digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled$,
   digital$$experience$$monitoring_device$$dex$$test$$schemas$$http as digital$$experience$$monitoring_device$$dex$$test$$schemas$$http$,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval as digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval$,
-  digital$$experience$$monitoring_device$$dex$$test$$schemas$$name as digital$$experience$$monitoring_device$$dex$$test$$schemas$$name$,
   digital$$experience$$monitoring_device$$dex$$test$$target$$policies as digital$$experience$$monitoring_device$$dex$$test$$target$$policies$,
   digital$$experience$$monitoring_dex_target_policy as digital$$experience$$monitoring_dex_target_policy$,
-  digital$$experience$$monitoring_schemas$$test$$id as digital$$experience$$monitoring_schemas$$test$$id$,
 } from "./schemas.js";
 
 /**
@@ -47,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_tests_create",
     title: "Create Device DEX test",
-    description: "Create a DEX test.",
+    description: "Create a DEX test.\n\nPOST /accounts/{account_id}/dex/devices/dex_tests",
     inputSchema: {
       type: "object",
       properties: {
@@ -55,10 +40,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -71,17 +57,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data$,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description$,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled$,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http$,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval$,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name$,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies$,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy$,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
       },
     },
     outputSchema: {
@@ -89,17 +70,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-single_response": digital$$experience$$monitoring_dex$$single_response,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -129,17 +104,11 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-single_response": digital$$experience$$monitoring_dex$$single_response,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -150,19 +119,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_tests_delete",
     title: "Delete Device DEX test",
-    description: "Delete a Device DEX test. Returns the remaining device dex tests for the account.",
+    description: "Delete a Device DEX test. Returns the remaining device dex tests for the account.\n\nDELETE /accounts/{account_id}/dex/devices/dex_tests/{dex_test_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "dex_test_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier for a DEX test."
+              "description": "Unique identifier for a DEX test.",
+              "type": "string"
             }
           },
           "required": [
@@ -175,27 +145,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_dex-delete-response-collection",
       $defs: {
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-delete-response-collection": digital$$experience$$monitoring_dex$$delete$$response$$collection,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -225,17 +186,11 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-delete-response-collection": digital$$experience$$monitoring_dex$$delete$$response$$collection,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -245,19 +200,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_tests_get",
     title: "Get Device DEX test",
-    description: "Fetch a single DEX test.",
+    description: "Fetch a single DEX test.\n\nGET /accounts/{account_id}/dex/devices/dex_tests/{dex_test_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "dex_test_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_schemas-test-id",
-              "description": "Unique identifier for a DEX test."
+              "description": "Unique identifier for a DEX test.",
+              "type": "string"
             }
           },
           "required": [
@@ -270,27 +226,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_dex-single_response",
       $defs: {
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-single_response": digital$$experience$$monitoring_dex$$single_response,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -323,17 +270,11 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-single_response": digital$$experience$$monitoring_dex$$single_response,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -343,15 +284,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_tests_list",
     title: "List Device DEX tests",
-    description: "Fetch all DEX tests.",
+    description: "Fetch all DEX tests.\n\nGET /accounts/{account_id}/dex/devices/dex_tests",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -360,6 +302,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "kind": {
               "description": "Filter by test type.",
@@ -390,9 +333,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_dex-response_collection",
@@ -400,17 +341,11 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-collection-common": digital$$experience$$monitoring_api$$response$$collection$$common,
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-response_collection": digital$$experience$$monitoring_dex$$response_collection,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -444,17 +379,11 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-response_collection": digital$$experience$$monitoring_dex$$response_collection,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -470,7 +399,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_tests_update",
     title: "Update Device DEX test",
-    description: "Update a DEX test.",
+    description: "Update a DEX test.\n\nPUT /accounts/{account_id}/dex/devices/dex_tests/{dex_test_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -478,14 +407,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "dex_test_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier for a DEX test."
+              "description": "Unique identifier for a DEX test.",
+              "type": "string"
             }
           },
           "required": [
@@ -499,17 +429,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data$,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description$,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled$,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http$,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval$,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name$,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies$,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy$,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
       },
     },
     outputSchema: {
@@ -517,17 +442,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-single_response": digital$$experience$$monitoring_dex$$single_response,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -557,17 +476,11 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
-        "digital-experience-monitoring_device-dex-test-schemas-description": digital$$experience$$monitoring_device$$dex$$test$$schemas$$description,
-        "digital-experience-monitoring_device-dex-test-schemas-enabled": digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
-        "digital-experience-monitoring_device-dex-test-schemas-interval": digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval,
-        "digital-experience-monitoring_device-dex-test-schemas-name": digital$$experience$$monitoring_device$$dex$$test$$schemas$$name,
         "digital-experience-monitoring_device-dex-test-target-policies": digital$$experience$$monitoring_device$$dex$$test$$target$$policies,
         "digital-experience-monitoring_dex-single_response": digital$$experience$$monitoring_dex$$single_response,
         "digital-experience-monitoring_dex_target_policy": digital$$experience$$monitoring_dex_target_policy,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_schemas-test-id": digital$$experience$$monitoring_schemas$$test$$id,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({

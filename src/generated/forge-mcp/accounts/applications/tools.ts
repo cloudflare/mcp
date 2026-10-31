@@ -6,31 +6,18 @@ import {
   alexandria_api$$response$$collection,
   alexandria_api$$response$$common,
   alexandria_api_response_common_failure,
-  alexandria_category_id,
   alexandria_messages,
 } from "../outputs.js";
-import { alexandria_category_id as alexandria_category_id$ } from "../schemas.js";
 import {
   alexandria_application,
-  alexandria_application_confidence_score,
-  alexandria_application_created_at,
-  alexandria_application_gen_ai_score,
   alexandria_application_hostnames,
-  alexandria_application_human_id,
-  alexandria_application_id,
   alexandria_application_ip_subnets,
   alexandria_application_list_item,
-  alexandria_application_name,
   alexandria_application_port_protocols,
   alexandria_application_reference,
   alexandria_application_score_composition,
-  alexandria_application_source,
   alexandria_application_support_domains,
   alexandria_application_supported,
-  alexandria_application_type,
-  alexandria_application_type_description,
-  alexandria_application_updated_at,
-  alexandria_application_version,
   alexandria_applications,
   alexandria_delete_application_conflict_response,
   alexandria_delete_application_response,
@@ -39,10 +26,7 @@ import {
 } from "./outputs.js";
 import {
   alexandria_application_hostnames as alexandria_application_hostnames$,
-  alexandria_application_human_id as alexandria_application_human_id$,
-  alexandria_application_id as alexandria_application_id$,
   alexandria_application_ip_subnets as alexandria_application_ip_subnets$,
-  alexandria_application_name as alexandria_application_name$,
   alexandria_application_port_protocols as alexandria_application_port_protocols$,
   alexandria_application_support_domains as alexandria_application_support_domains$,
   alexandria_create_application_request,
@@ -57,7 +41,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_applications_create",
     title: "Create application",
-    description: "Create a custom application for an account from a name, category, and optional network matchers.",
+    description: "Create a custom application for an account from a name, category, and optional network matchers.\n\nPOST /accounts/{account_id}/resource-library/applications",
     inputSchema: {
       type: "object",
       properties: {
@@ -65,6 +49,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/alexandria_create_application_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -81,14 +66,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "alexandria_application_hostnames": alexandria_application_hostnames$,
-        "alexandria_application_human_id": alexandria_application_human_id$,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets$,
-        "alexandria_application_name": alexandria_application_name$,
         "alexandria_application_port_protocols": alexandria_application_port_protocols$,
         "alexandria_application_support_domains": alexandria_application_support_domains$,
-        "alexandria_category_id": alexandria_category_id$,
         "alexandria_create_application_request": alexandria_create_application_request,
       },
     },
@@ -97,24 +80,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_application": alexandria_application,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_application_response": alexandria_get_application_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -147,24 +118,12 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
         "alexandria_application": alexandria_application,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_application_response": alexandria_get_application_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -177,19 +136,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_applications_delete",
     title: "Delete application",
-    description: "Delete a custom application and all of its versions. Deletion is rejected when other resources reference the application.\n\nConfirm with the user before calling this tool. This operation deletes the custom application and all of its versions. This action cannot be undone.",
+    description: "Delete a custom application and all of its versions. Deletion is rejected when other resources reference the application.\n\nConfirm with the user before calling this tool. This operation deletes the custom application and all of its versions. This action cannot be undone.\n\nDELETE /accounts/{account_id}/resource-library/applications/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
               "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/alexandria_application_id",
-              "description": "Application ID."
+              "description": "Application ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -202,9 +162,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "alexandria_application_id": alexandria_application_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/alexandria_delete_application_response",
@@ -260,19 +218,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_applications_get",
     title: "Get application",
-    description: "Retrieve an application available to the account by its numeric application ID.",
+    description: "Retrieve an application available to the account by its numeric application ID.\n\nGET /accounts/{account_id}/resource-library/applications/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
               "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/alexandria_application_id",
-              "description": "Application ID."
+              "description": "Application ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -285,33 +244,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "alexandria_application_id": alexandria_application_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/alexandria_get_application_response",
       $defs: {
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_application": alexandria_application,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_application_response": alexandria_get_application_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -346,24 +291,12 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
         "alexandria_application": alexandria_application,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_application_response": alexandria_get_application_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -375,11 +308,12 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_applications_list",
     title: "List applications",
-    description: "List the applications available to an account, both the applications Cloudflare\ncurates and the custom applications the account has defined.\n\nResults are paginated. Page with `cursor` so that applications added or removed\nbetween requests do not make other results repeat or go missing; `offset` paging can\nrepeat or miss results when the list changes between requests. Use `filter` and\n`search` to narrow the list, `order_by` to sort it, and `fields` to reduce each result\nto only the properties you need.\nUse `lookup` to find complete application names mentioned in a rule sentence,\nignoring case. Lookup does not correct misspellings. It ranks matches by\nrelevance and uses the same filters, fields, and pagination as listing.\n`lookup` cannot be combined with `search`.\n\nInvalid UTF-8 or a NUL character (U+0000) in any query parameter name or value\nreturns `400`.\n\nThe authenticated principal must have access to the account identified by\n`account_id`.",
+    description: "List the applications available to an account, both the applications Cloudflare\ncurates and the custom applications the account has defined.\n\nResults are paginated. Page with `cursor` so that applications added or removed\nbetween requests do not make other results repeat or go missing; `offset` paging can\nrepeat or miss results when the list changes between requests. Use `filter` and\n`search` to narrow the list, `order_by` to sort it, and `fields` to reduce each result\nto only the properties you need.\nUse `lookup` to find complete application names mentioned in a rule sentence,\nignoring case. Lookup does not correct misspellings. It ranks matches by\nrelevance and uses the same filters, fields, and pagination as listing.\n`lookup` cannot be combined with `search`.\n\nInvalid UTF-8 or a NUL character (U+0000) in any query parameter name or value\nreturns `400`.\n\nThe authenticated principal must have access to the account identified by\n`account_id`.\n\nGET /accounts/{account_id}/resource-library/applications",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -392,17 +326,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
-              "description": "Opaque value from `result_info.cursor` of the previous response. Returns the\nresults that follow it. Send the same `filter`, `search`, `lookup`, and\n`order_by` values as the request that returned it; `limit` and `fields` may\nchange. An empty value is the same as no cursor. A modified cursor, or one used\nwith different values, returns `400`.\n",
+              "description": "Opaque value from `result_info.cursor` of the previous response. Returns the\nresults that follow it. Send the same `filter`, `search`, `lookup`, and\n`order_by` values as the request that returned it; `limit` and `fields` may\nchange. An empty value is the same as no cursor. A modified cursor, or one used\nwith different values, returns `400`.",
               "type": "string"
             },
             "fields": {
-              "description": "Return only the listed properties on each application, as a comma-separated list.\nUse this to keep responses small when you only need part of each application, for\nexample populating a picker with `fields=id,name` instead of downloading every\nhostname and IP subnet.\n\nOmit this parameter to receive the full application object, including\nwhen lookup is used.\n\n`id` is always returned.\n\nSelectable properties: `id`, `name`, `human_id`, `version`, `hostnames`,\n`support_domains`, `ip_subnets`, `port_protocols`, `supported`, `gen_ai_score`,\n`application_confidence_score`, `created_at`, `updated_at`, `review_status`.\n\nUnknown or empty property names return `400`.\n",
+              "description": "Return only the listed properties on each application, as a comma-separated list.\nUse this to keep responses small when you only need part of each application, for\nexample populating a picker with `fields=id,name` instead of downloading every\nhostname and IP subnet.\n\nOmit this parameter to receive the full application object, including\nwhen lookup is used.\n\n`id` is always returned.\n\nSelectable properties: `id`, `name`, `human_id`, `version`, `hostnames`,\n`support_domains`, `ip_subnets`, `port_protocols`, `supported`, `gen_ai_score`,\n`application_confidence_score`, `created_at`, `updated_at`, `review_status`.\n\nUnknown or empty property names return `400`.",
               "type": "string"
             },
             "filter": {
-              "description": "Filter applications using `key:value` format. Supported filter keys:\n- `name`: application name (for example, `name:HR`).\n- `id`: application ID (for example, `id:498`).\n- `human_id`: human-readable ID (for example, `human_id:HR`).\n- `hostname`: hostname or support domain (for example, `hostname:portal.example.com`).\n- `source`: application source name (for example, `source:cloudflare`).\n- `ip_subnet`: CIDR containment; returns applications where a stored subnet contains the search value (for example, `ip_subnet:10.0.1.5/32` matches `10.0.0.0/16`).\n- `category_id`: category ID (for example, `category_id:12`).\n- `category_name`: category name (for example, `category_name:HR`).\n- `supported`: supported Cloudflare product. Values: `GATEWAY`, `ACCESS`, `CASB`.\n- `review_status`: account-specific Gateway review status. Values: `approved`, `unapproved`, `in_review`, `unreviewed`.\n",
+              "description": "Filter applications using `key:value` format. Supported filter keys:\n- `name`: application name (for example, `name:HR`).\n- `id`: application ID (for example, `id:498`).\n- `human_id`: human-readable ID (for example, `human_id:HR`).\n- `hostname`: hostname or support domain (for example, `hostname:portal.example.com`).\n- `source`: application source name (for example, `source:cloudflare`).\n- `ip_subnet`: CIDR containment; returns applications where a stored subnet contains the search value (for example, `ip_subnet:10.0.1.5/32` matches `10.0.0.0/16`).\n- `category_id`: category ID (for example, `category_id:12`).\n- `category_name`: category name (for example, `category_name:HR`).\n- `supported`: supported Cloudflare product. Values: `GATEWAY`, `ACCESS`, `CASB`.\n- `review_status`: account-specific Gateway review status. Values: `approved`, `unapproved`, `in_review`, `unreviewed`.",
               "type": "string"
             },
             "limit": {
@@ -411,7 +346,7 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "lookup": {
-              "description": "Find complete, case-insensitive application name mentions in a phrase or\nrule sentence. Misspelled names do not match. Returns matching applications\nranked by relevance. Must be between 2 and 1000 characters, with no control\ncharacters other than tab and line breaks. Uses the same\nfilters, fields, and pagination as listing. `search` cannot be combined\nwith lookup. Results are ranked by relevance, so `order_by` is ignored.\nTo keep the text out of URLs, send it to `POST .../applications/lookup` instead.\n",
+              "description": "Find complete, case-insensitive application name mentions in a phrase or\nrule sentence. Misspelled names do not match. Returns matching applications\nranked by relevance. Must be between 2 and 1000 characters, with no control\ncharacters other than tab and line breaks. Uses the same\nfilters, fields, and pagination as listing. `search` cannot be combined\nwith lookup. Results are ranked by relevance, so `order_by` is ignored.\nTo keep the text out of URLs, send it to `POST .../applications/lookup` instead.",
               "type": "string"
             },
             "offset": {
@@ -420,7 +355,7 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "order_by": {
-              "description": "Order results using field:direction format. Supported fields are name, id, human_id,\ncategory_id, application_type, application_confidence_score, and gen_ai_score.\nSupported directions are asc and desc. Ignored when search is provided; results are\nranked by relevance instead. Also ignored when lookup is provided.\n",
+              "description": "Order results using field:direction format. Supported fields are name, id, human_id,\ncategory_id, application_type, application_confidence_score, and gen_ai_score.\nSupported directions are asc and desc. Ignored when search is provided; results are\nranked by relevance instead. Also ignored when lookup is provided.",
               "type": "string"
             },
             "search": {
@@ -434,32 +369,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/alexandria_get_applications_response",
       $defs: {
         "alexandria_api-response-collection": alexandria_api$$response$$collection,
         "alexandria_api-response-common": alexandria_api$$response$$common,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
         "alexandria_application_list_item": alexandria_application_list_item,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
         "alexandria_applications": alexandria_applications,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_applications_response": alexandria_get_applications_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -503,26 +427,14 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-collection": alexandria_api$$response$$collection,
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
         "alexandria_application_list_item": alexandria_application_list_item,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
         "alexandria_applications": alexandria_applications,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_applications_response": alexandria_get_applications_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -544,7 +456,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_applications_lookup",
     title: "Look up applications in a rule sentence",
-    description: "Find complete application names mentioned in a rule sentence, ignoring case.\nLookup does not correct misspellings. Matches are ranked by relevance.\n\nThis endpoint takes the rule sentence in the request body, so the text stays out\nof URLs and request logs. Use it instead of the `lookup` query parameter on the\nlist endpoint when the text may contain sensitive content.\n\n`fields`, `limit`, and `filter` work the same way as on the list endpoint and are\npassed as query parameters. Results are not paged: `offset`, `cursor`, `order_by`,\n`search`, and `lookup` query parameters return `400`. Unknown request body properties also\nreturn `400`. Invalid UTF-8 or a NUL character (U+0000) in any query parameter\nname or value returns `400`.\n\nThe authenticated principal must have access to the account identified by\n`account_id`.\n\nThis method is beta.",
+    description: "Find complete application names mentioned in a rule sentence, ignoring case.\nLookup does not correct misspellings. Matches are ranked by relevance.\n\nThis endpoint takes the rule sentence in the request body, so the text stays out\nof URLs and request logs. Use it instead of the `lookup` query parameter on the\nlist endpoint when the text may contain sensitive content.\n\n`fields`, `limit`, and `filter` work the same way as on the list endpoint and are\npassed as query parameters. Results are not paged: `offset`, `cursor`, `order_by`,\n`search`, and `lookup` query parameters return `400`. Unknown request body properties also\nreturn `400`. Invalid UTF-8 or a NUL character (U+0000) in any query parameter\nname or value returns `400`.\n\nThe authenticated principal must have access to the account identified by\n`account_id`.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/resource-library/applications/lookup",
     inputSchema: {
       type: "object",
       properties: {
@@ -552,6 +464,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/alexandria_lookup_applications_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -564,9 +477,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "fields": {
-              "description": "Return only the listed properties on each application, as a comma-separated list.\nAccepts the same properties as the list endpoint. `id` is always returned.\nOmit this parameter to receive the full application object.\n",
+              "description": "Return only the listed properties on each application, as a comma-separated list.\nAccepts the same properties as the list endpoint. `id` is always returned.\nOmit this parameter to receive the full application object.",
               "type": "string"
             },
             "filter": {
@@ -586,6 +500,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "alexandria_lookup_applications_request": alexandria_lookup_applications_request,
       },
@@ -595,26 +510,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "alexandria_api-response-collection": alexandria_api$$response$$collection,
         "alexandria_api-response-common": alexandria_api$$response$$common,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
         "alexandria_application_list_item": alexandria_application_list_item,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
         "alexandria_applications": alexandria_applications,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_applications_response": alexandria_get_applications_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -658,26 +561,14 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-collection": alexandria_api$$response$$collection,
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
         "alexandria_application_list_item": alexandria_application_list_item,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
         "alexandria_applications": alexandria_applications,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_applications_response": alexandria_get_applications_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -695,7 +586,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_applications_update",
     title: "Update application",
-    description: "Replace the supplied network matchers for a custom application and create a new version. Omitted matcher lists remain unchanged; send an empty list to clear a matcher type.",
+    description: "Replace the supplied network matchers for a custom application and create a new version. Omitted matcher lists remain unchanged; send an empty list to clear a matcher type.\n\nPATCH /accounts/{account_id}/resource-library/applications/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -703,14 +594,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/alexandria_update_application_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
               "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/alexandria_application_id",
-              "description": "Application ID."
+              "description": "Application ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -724,9 +616,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "alexandria_application_hostnames": alexandria_application_hostnames$,
-        "alexandria_application_id": alexandria_application_id$,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets$,
         "alexandria_application_port_protocols": alexandria_application_port_protocols$,
         "alexandria_application_support_domains": alexandria_application_support_domains$,
@@ -738,24 +630,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_application": alexandria_application,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_application_response": alexandria_get_application_response,
         "alexandria_messages": alexandria_messages,
       },
@@ -788,24 +668,12 @@ export const tools: readonly Tool[] = [
         "alexandria_api-response-common": alexandria_api$$response$$common,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure,
         "alexandria_application": alexandria_application,
-        "alexandria_application_confidence_score": alexandria_application_confidence_score,
-        "alexandria_application_created_at": alexandria_application_created_at,
-        "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score,
         "alexandria_application_hostnames": alexandria_application_hostnames,
-        "alexandria_application_human_id": alexandria_application_human_id,
-        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
-        "alexandria_application_name": alexandria_application_name,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_score_composition": alexandria_application_score_composition,
-        "alexandria_application_source": alexandria_application_source,
         "alexandria_application_support_domains": alexandria_application_support_domains,
         "alexandria_application_supported": alexandria_application_supported,
-        "alexandria_application_type": alexandria_application_type,
-        "alexandria_application_type_description": alexandria_application_type_description,
-        "alexandria_application_updated_at": alexandria_application_updated_at,
-        "alexandria_application_version": alexandria_application_version,
-        "alexandria_category_id": alexandria_category_id,
         "alexandria_get_application_response": alexandria_get_application_response,
         "alexandria_messages": alexandria_messages,
       },

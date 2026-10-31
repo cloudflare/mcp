@@ -42,28 +42,20 @@ export const tunnel_mesh_configuration_request_body: JsonSchema = {
       ]
     },
     "ha_mode": {
-      "$ref": "#/$defs/tunnel_mesh_ha_mode",
-      "description": "High-availability mode for the Mesh node. `none` means HA is enabled but no provider is configured yet (newly created nodes default to this). `disabled` means HA is explicitly turned off. `aws` uses AWS ENI move for failover. `local` uses virtual IPs (VIPs) on the local interface."
+      "description": "High-availability mode for the Mesh node. `none` means HA is enabled but no provider is configured yet (newly created nodes default to this). `disabled` means HA is explicitly turned off. `aws` uses AWS ENI move for failover. `local` uses virtual IPs (VIPs) on the local interface.",
+      "enum": [
+        "none",
+        "disabled",
+        "aws",
+        "local"
+      ],
+      "type": "string"
     }
   },
   "required": [
     "ha_mode"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_mesh_ha_mode`.
- */
-export const tunnel_mesh_ha_mode: JsonSchema = {
-  "description": "High-availability mode for the Mesh node. `none` means HA is enabled but no provider is configured yet (newly created nodes default to this). `disabled` means HA is explicitly turned off. `aws` uses AWS ENI move for failover. `local` uses virtual IPs (VIPs) on the local interface.",
-  "enum": [
-    "none",
-    "disabled",
-    "aws",
-    "local"
-  ],
-  "type": "string"
 };
 
 /**

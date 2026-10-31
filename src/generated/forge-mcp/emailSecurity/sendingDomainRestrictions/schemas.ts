@@ -39,15 +39,6 @@ export const email$$security_CreateSendingDomainRestriction: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_SendingDomainRestrictionId`.
- */
-export const email$$security_SendingDomainRestrictionId: JsonSchema = {
-  "description": "Sending domain restriction identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_UpdateSendingDomainRestriction`.
  */
 export const email$$security_UpdateSendingDomainRestriction: JsonSchema = {

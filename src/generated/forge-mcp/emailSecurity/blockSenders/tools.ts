@@ -3,26 +3,18 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  email$$security_PatternType,
   email$$security_api$$response$$collection,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
 import {
-  email$$security_PatternType as email$$security_PatternType$,
-  email$$security_identifier,
-} from "../schemas.js";
-import {
   email$$security_BlockedSender,
-  email$$security_BlockedSenderId,
   email$$security_BlockedSenderList,
   email$$security_DeletedBlockedSender,
 } from "./outputs.js";
 import {
-  email$$security_BlockedSenderId as email$$security_BlockedSenderId$,
   email$$security_CreateBlockedSender,
   email$$security_UpdateBlockedSender,
 } from "./schemas.js";
@@ -34,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_batch",
     title: "Batch blocked sender operations",
-    description: "Executes multiple blocked sender operations atomically: delete, partially update,\nreplace, and create blocked sender patterns in a single request. All four operation\narrays (deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected blocked sender patterns and stop automatically blocking matching emails based on those rules.",
+    description: "Executes multiple blocked sender operations atomically: delete, partially update,\nreplace, and create blocked sender patterns in a single request. All four operation\narrays (deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected blocked sender patterns and stop automatically blocking matching emails based on those rules.\n\nPOST /accounts/{account_id}/email-security/settings/block_senders/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,8 +37,9 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/email-security_BlockedSenderId",
-                    "description": "Blocked sender pattern identifier."
+                    "description": "Blocked sender pattern identifier.",
+                    "format": "uuid",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -67,7 +60,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_BlockedSenderId"
+                        "description": "Blocked sender pattern identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -98,7 +93,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_BlockedSenderId"
+                        "description": "Blocked sender pattern identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -121,10 +118,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -137,12 +135,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId$,
         "email-security_CreateBlockedSender": email$$security_CreateBlockedSender,
-        "email-security_PatternType": email$$security_PatternType$,
         "email-security_UpdateBlockedSender": email$$security_UpdateBlockedSender,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -178,13 +174,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
         "email-security_BlockedSenderList": email$$security_BlockedSenderList,
         "email-security_DeletedBlockedSender": email$$security_DeletedBlockedSender,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -242,14 +235,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
         "email-security_BlockedSenderList": email$$security_BlockedSenderList,
         "email-security_DeletedBlockedSender": email$$security_DeletedBlockedSender,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -260,7 +250,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_create",
     title: "Create blocked email sender",
-    description: "Creates a new blocked sender pattern. Emails matching this pattern will be blocked from delivery. Patterns can be email addresses, domains, or IP addresses, and support regular expressions.\n\nThis method is beta.",
+    description: "Creates a new blocked sender pattern. Emails matching this pattern will be blocked from delivery. Patterns can be email addresses, domains, or IP addresses, and support regular expressions.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/block_senders",
     inputSchema: {
       type: "object",
       properties: {
@@ -268,10 +258,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateBlockedSender"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -284,10 +275,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateBlockedSender": email$$security_CreateBlockedSender,
-        "email-security_PatternType": email$$security_PatternType$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -306,11 +296,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -351,12 +338,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -367,19 +351,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_delete",
     title: "Delete a blocked email sender",
-    description: "Removes a blocked sender pattern. After deletion, emails from this sender will no longer be automatically blocked based on this rule.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the blocked sender pattern and stops automatically blocking matching emails based on this rule.",
+    description: "Removes a blocked sender pattern. After deletion, emails from this sender will no longer be automatically blocked based on this rule.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the blocked sender pattern and stops automatically blocking matching emails based on this rule.\n\nDELETE /accounts/{account_id}/email-security/settings/block_senders/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_BlockedSenderId",
-              "description": "Blocked sender pattern identifier."
+              "description": "Blocked sender pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -392,10 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -412,7 +395,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
         "email-security_DeletedBlockedSender": email$$security_DeletedBlockedSender,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -455,7 +437,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
         "email-security_DeletedBlockedSender": email$$security_DeletedBlockedSender,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
@@ -469,7 +450,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_edit",
     title: "Update a blocked email sender",
-    description: "Updates an existing blocked sender pattern. Only provided fields will be modified. The pattern will continue blocking emails until deleted.\n\nThis method is beta.",
+    description: "Updates an existing blocked sender pattern. Only provided fields will be modified. The pattern will continue blocking emails until deleted.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/block_senders/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -477,14 +458,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateBlockedSender"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_BlockedSenderId",
-              "description": "Blocked sender pattern identifier."
+              "description": "Blocked sender pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -498,11 +481,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId$,
-        "email-security_PatternType": email$$security_PatternType$,
         "email-security_UpdateBlockedSender": email$$security_UpdateBlockedSender,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -521,11 +502,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -566,12 +544,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -582,19 +557,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_get",
     title: "Get a blocked email sender",
-    description: "Retrieves details for a specific blocked sender pattern including its pattern type, value, and metadata.\n\nThis method is beta.",
+    description: "Retrieves details for a specific blocked sender pattern including its pattern type, value, and metadata.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/block_senders/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_BlockedSenderId",
-              "description": "Blocked sender pattern identifier."
+              "description": "Blocked sender pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -607,10 +584,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -628,11 +602,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -674,12 +645,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -689,15 +657,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_list",
     title: "List blocked email senders",
-    description: "Returns a paginated list of blocked email sender patterns. These patterns prevent emails from matching senders from being delivered. Supports filtering by pattern type and searching across patterns.\n\nThis method is beta.",
+    description: "Returns a paginated list of blocked email sender patterns. These patterns prevent emails from matching senders from being delivered. Supports filtering by pattern type and searching across patterns.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/block_senders",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -706,6 +675,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -737,8 +707,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "pattern_type": {
-              "$ref": "#/$defs/email-security_PatternType",
-              "description": "Filter by pattern type."
+              "description": "Filter by pattern type.",
+              "enum": [
+                "EMAIL",
+                "DOMAIN",
+                "IP",
+                "UNKNOWN"
+              ],
+              "type": "string"
             },
             "per_page": {
               "default": 20,
@@ -756,10 +732,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_PatternType": email$$security_PatternType$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -777,13 +750,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
         "email-security_BlockedSenderList": email$$security_BlockedSenderList,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -825,14 +795,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
         "email-security_BlockedSenderList": email$$security_BlockedSenderList,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -852,7 +819,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_blockSenders_update",
     title: "Replace a blocked email sender",
-    description: "Replaces an existing blocked sender pattern in full. Unlike PATCH, every field is taken from the request body, so optional fields that are omitted are reset rather than left untouched. Use this when managing blocked senders declaratively.\n\nThis method is beta.",
+    description: "Replaces an existing blocked sender pattern in full. Unlike PATCH, every field is taken from the request body, so optional fields that are omitted are reset rather than left untouched. Use this when managing blocked senders declaratively.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/email-security/settings/block_senders/{pattern_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -860,14 +827,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateBlockedSender"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "pattern_id": {
-              "$ref": "#/$defs/email-security_BlockedSenderId",
-              "description": "Blocked sender pattern identifier."
+              "description": "Blocked sender pattern identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -881,11 +850,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId$,
         "email-security_CreateBlockedSender": email$$security_CreateBlockedSender,
-        "email-security_PatternType": email$$security_PatternType$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -904,11 +871,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -946,12 +910,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_BlockedSender": email$$security_BlockedSender,
-        "email-security_BlockedSenderId": email$$security_BlockedSenderId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

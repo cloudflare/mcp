@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_commits_get",
     title: "Read a Git commit",
-    description: "Returns decoded metadata for an immutable Git commit object. Commit responses are cacheable forever by hash.\n\nThis method is beta.",
+    description: "Returns decoded metadata for an immutable Git commit object. Commit responses are cacheable forever by hash.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/commit/{hash}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

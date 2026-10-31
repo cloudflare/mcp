@@ -7,30 +7,16 @@ import {
   client$$side$$security_api$$list$$response$$collection,
   client$$side$$security_api$$response$$common,
   client$$side$$security_api$$response$$common$$failure,
-  client$$side$$security_id,
   client$$side$$security_messages,
   client$$side$$security_result_info,
 } from "../outputs.js";
-import { client$$side$$security_id as client$$side$$security_id$ } from "../schemas.js";
 import {
   client$$side$$security_get$$zone$$policy$$response,
   client$$side$$security_list$$zone$$policies$$response,
   client$$side$$security_policy,
-  client$$side$$security_policy$$action,
-  client$$side$$security_policy$$description,
-  client$$side$$security_policy$$enabled,
-  client$$side$$security_policy$$expression,
-  client$$side$$security_policy$$value,
   client$$side$$security_policy$$with$$id,
 } from "./outputs.js";
-import {
-  client$$side$$security_policy as client$$side$$security_policy$,
-  client$$side$$security_policy$$action as client$$side$$security_policy$$action$,
-  client$$side$$security_policy$$description as client$$side$$security_policy$$description$,
-  client$$side$$security_policy$$enabled as client$$side$$security_policy$$enabled$,
-  client$$side$$security_policy$$expression as client$$side$$security_policy$$expression$,
-  client$$side$$security_policy$$value as client$$side$$security_policy$$value$,
-} from "./schemas.js";
+import { client$$side$$security_policy as client$$side$$security_policy$ } from "./schemas.js";
 
 /**
  * The tools of `clientSideSecurity.policies`.
@@ -39,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_policies_create",
     title: "Create a content security rule",
-    description: "Creates a rule that applies a client-side security action when its filter expression matches.",
+    description: "Creates a rule that applies a client-side security action when its filter expression matches.\n\nPOST /zones/{zone_id}/page_shield/policies",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,10 +33,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/client-side-security_policy"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -63,14 +50,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "client-side-security_id": client$$side$$security_id$,
         "client-side-security_policy": client$$side$$security_policy$,
-        "client-side-security_policy-action": client$$side$$security_policy$$action$,
-        "client-side-security_policy-description": client$$side$$security_policy$$description$,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled$,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression$,
-        "client-side-security_policy-value": client$$side$$security_policy$$value$,
       },
     },
     outputSchema: {
@@ -79,14 +61,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_get-zone-policy-response": client$$side$$security_get$$zone$$policy$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
       },
     },
@@ -126,14 +102,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
         "client-side-security_get-zone-policy-response": client$$side$$security_get$$zone$$policy$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
       },
     },
@@ -145,19 +115,20 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_policies_delete",
     title: "Delete a content security rule",
-    description: "Permanently deletes a content security rule by ID.\n\nConfirm with the user before calling this tool. This operation permanently deletes the content security rule from the zone.",
+    description: "Permanently deletes a content security rule by ID.\n\nConfirm with the user before calling this tool. This operation permanently deletes the content security rule from the zone.\n\nDELETE /zones/{zone_id}/page_shield/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "policy_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -170,9 +141,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -215,19 +184,20 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_policies_get",
     title: "Get a content security rule",
-    description: "Returns a content security rule by ID.",
+    description: "Returns a content security rule by ID.\n\nGET /zones/{zone_id}/page_shield/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "policy_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -240,9 +210,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_get-zone-policy-response",
@@ -250,14 +218,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_get-zone-policy-response": client$$side$$security_get$$zone$$policy$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
       },
     },
@@ -300,14 +262,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
         "client-side-security_get-zone-policy-response": client$$side$$security_get$$zone$$policy$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
       },
     },
@@ -318,15 +274,16 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_policies_list",
     title: "List content security rules",
-    description: "Lists content security rules configured for the zone.",
+    description: "Lists content security rules configured for the zone.\n\nGET /zones/{zone_id}/page_shield/policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -338,24 +295,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_list-zone-policies-response",
       $defs: {
         "client-side-security_api-list-response-collection": client$$side$$security_api$$list$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_list-zone-policies-response": client$$side$$security_list$$zone$$policies$$response,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
         "client-side-security_result_info": client$$side$$security_result_info,
       },
@@ -398,15 +347,9 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-list-response-collection": client$$side$$security_api$$list$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_list-zone-policies-response": client$$side$$security_list$$zone$$policies$$response,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
         "client-side-security_result_info": client$$side$$security_result_info,
       },
@@ -418,44 +361,50 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_policies_update",
     title: "Update a content security rule",
-    description: "Updates the description, action, expression, enabled state, and policy value for a content security rule.",
+    description: "Updates the description, action, expression, enabled state, and policy value for a content security rule.\n\nPUT /zones/{zone_id}/page_shield/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "action": {
-              "$ref": "#/$defs/client-side-security_policy-action",
-              "description": "The action to take if the expression matches"
+              "description": "The action to take if the expression matches",
+              "enum": [
+                "allow",
+                "log",
+                "add_reporting_directives"
+              ],
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/client-side-security_policy-description",
-              "description": "A description for the policy"
+              "description": "A description for the policy",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/client-side-security_policy-enabled",
-              "description": "Whether the policy is enabled"
+              "description": "Whether the policy is enabled",
+              "type": "boolean"
             },
             "expression": {
-              "$ref": "#/$defs/client-side-security_policy-expression",
-              "description": "The expression which must match for the policy to be applied, using the Cloudflare Firewall rule expression syntax"
+              "description": "The expression which must match for the policy to be applied, using the Cloudflare Firewall rule expression syntax",
+              "type": "string"
             },
             "value": {
-              "$ref": "#/$defs/client-side-security_policy-value",
-              "description": "The policy which will be applied"
+              "description": "The policy which will be applied",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "policy_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -469,14 +418,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-        "client-side-security_policy-action": client$$side$$security_policy$$action$,
-        "client-side-security_policy-description": client$$side$$security_policy$$description$,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled$,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression$,
-        "client-side-security_policy-value": client$$side$$security_policy$$value$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_get-zone-policy-response",
@@ -484,14 +426,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_get-zone-policy-response": client$$side$$security_get$$zone$$policy$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
       },
     },
@@ -531,14 +467,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
         "client-side-security_get-zone-policy-response": client$$side$$security_get$$zone$$policy$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_policy": client$$side$$security_policy,
-        "client-side-security_policy-action": client$$side$$security_policy$$action,
-        "client-side-security_policy-description": client$$side$$security_policy$$description,
-        "client-side-security_policy-enabled": client$$side$$security_policy$$enabled,
-        "client-side-security_policy-expression": client$$side$$security_policy$$expression,
-        "client-side-security_policy-value": client$$side$$security_policy$$value,
         "client-side-security_policy-with-id": client$$side$$security_policy$$with$$id,
       },
     },

@@ -18,11 +18,12 @@ export const tools: readonly Tool[] = [
   {
     name: "user_tokens_permissionGroups_list",
     title: "List Token Permission Groups",
-    description: "Find all available permission groups for API Tokens.",
+    description: "Find all available permission groups for API Tokens.\n\nGET /user/tokens/permission_groups",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Filter by the name of the permission group.\nThe value must be URL-encoded.",
@@ -36,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_permissions_group_response_collection",

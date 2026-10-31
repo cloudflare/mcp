@@ -4,54 +4,35 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_contents` in responses.
- */
-export const zero$$trust$$gateway_contents: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description-4` in responses.
- */
-export const zero$$trust$$gateway_description$$4: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-7` in responses.
- */
-export const zero$$trust$$gateway_name$$7: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_pacfile` in responses.
  */
 export const zero$$trust$$gateway_pacfile: JsonSchema = {
   "properties": {
     "contents": {
-      "$ref": "#/$defs/zero-trust-gateway_contents"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description-4"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-7"
+      "type": "string"
     },
     "slug": {
-      "$ref": "#/$defs/zero-trust-gateway_slug"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/zero-trust-gateway_url"
+      "type": "string"
     }
   },
   "type": "object"
@@ -71,25 +52,27 @@ export const zero$$trust$$gateway_response_collection$$10: JsonSchema = {
           "items": {
             "properties": {
               "created_at": {
-                "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                "format": "date-time",
+                "type": "string"
               },
               "description": {
-                "$ref": "#/$defs/zero-trust-gateway_description-4"
+                "type": "string"
               },
               "id": {
-                "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+                "type": "string"
               },
               "name": {
-                "$ref": "#/$defs/zero-trust-gateway_name-7"
+                "type": "string"
               },
               "slug": {
-                "$ref": "#/$defs/zero-trust-gateway_slug"
+                "type": "string"
               },
               "updated_at": {
-                "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                "format": "date-time",
+                "type": "string"
               },
               "url": {
-                "$ref": "#/$defs/zero-trust-gateway_url"
+                "type": "string"
               }
             },
             "type": "object"
@@ -132,18 +115,4 @@ export const zero$$trust$$gateway_single_response$$7: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_slug` in responses.
- */
-export const zero$$trust$$gateway_slug: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_url` in responses.
- */
-export const zero$$trust$$gateway_url: JsonSchema = {
-  "type": "string"
 };

@@ -17,7 +17,6 @@ import {
   moq_upstreams,
 } from "./outputs.js";
 import {
-  moq_account_identifier,
   moq_relay_config as moq_relay_config$,
   moq_upstream as moq_upstream$,
   moq_upstreams as moq_upstreams$,
@@ -30,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_create",
     title: "Create a relay",
-    description: "Provisions a new MoQ relay instance. Auto-creates a publish+subscribe\ntoken and a subscribe-only token. Token values are included in the\nresponse (shown once). Config is always set to defaults (upstreams\noff) and cannot be supplied here — sending a non-empty `config` is\nrejected (21014); `null` or `{}` is accepted as absent. Use PUT to\nconfigure the relay after it exists.\n\nThis method is beta.",
+    description: "Provisions a new MoQ relay instance. Auto-creates a publish+subscribe\ntoken and a subscribe-only token. Token values are included in the\nresponse (shown once). Config is always set to defaults (upstreams\noff) and cannot be supplied here — sending a non-empty `config` is\nrejected (21014); `null` or `{}` is accepted as absent. Use PUT to\nconfigure the relay after it exists.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/moq/relays",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,10 +46,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -63,9 +63,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -154,15 +152,16 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_delete",
     title: "Delete a relay",
-    description: "Soft-deletes a MoQ relay. The relay ID goes in the URL path —\n`DELETE /accounts/{account_id}/moq/relays/{relay_id}` — not the\nrequest body; there is no collection-level delete endpoint.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Deleting this relay revokes every token issued for it, so publishers and subscribers can no longer connect. This cannot be undone.",
+    description: "Soft-deletes a MoQ relay. The relay ID goes in the URL path —\n`DELETE /accounts/{account_id}/moq/relays/{relay_id}` — not the\nrequest body; there is no collection-level delete endpoint.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Deleting this relay revokes every token issued for it, so publishers and subscribers can no longer connect. This cannot be undone.\n\nDELETE /accounts/{account_id}/moq/relays/{relay_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             },
             "relay_id": {
               "description": "Relay unique identifier (32 hex characters).",
@@ -179,9 +178,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -266,15 +263,16 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_get",
     title: "Get a relay",
-    description: "Retrieves a single MoQ relay including config and status.\nTokens are NOT included.\n\nThis method is beta.",
+    description: "Retrieves a single MoQ relay including config and status.\nTokens are NOT included.\n\nThis method is beta.\n\nGET /accounts/{account_id}/moq/relays/{relay_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             },
             "relay_id": {
               "description": "Relay unique identifier (32 hex characters).",
@@ -291,9 +289,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -372,15 +368,16 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_list",
     title: "List relays",
-    description: "Lists all MoQ relays for the account. Returns only metadata.\nConfig, status, and tokens are omitted.\n\nResults are cursor-paginated (keyset on the `created` timestamp).\nUse `created_before` / `created_after` with the `created` value of the\nfirst/last item in a page to fetch the adjacent page. `result_info`\nreports the page `count` and the `total` matching the cursor filters.\n\nThis method is beta.",
+    description: "Lists all MoQ relays for the account. Returns only metadata.\nConfig, status, and tokens are omitted.\n\nResults are cursor-paginated (keyset on the `created` timestamp).\nUse `created_before` / `created_after` with the `created` value of the\nfirst/last item in a page to fetch the adjacent page. `result_info`\nreports the page `count` and the `total` matching the cursor filters.\n\nThis method is beta.\n\nGET /accounts/{account_id}/moq/relays",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -389,25 +386,26 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asc": {
               "default": false,
-              "description": "Sort order by `created`. When true, results are returned oldest-first\n(ascending); otherwise newest-first (descending, the default).\n",
+              "description": "Sort order by `created`. When true, results are returned oldest-first\n(ascending); otherwise newest-first (descending, the default).",
               "type": "boolean"
             },
             "created_after": {
-              "description": "Cursor for pagination. Returns relays created strictly after this\nRFC 3339 timestamp (typically the `created` value of the last item\non the current page, to fetch the next page).\n",
+              "description": "Cursor for pagination. Returns relays created strictly after this\nRFC 3339 timestamp (typically the `created` value of the last item\non the current page, to fetch the next page).",
               "format": "date-time",
               "type": "string"
             },
             "created_before": {
-              "description": "Cursor for pagination. Returns relays created strictly before this\nRFC 3339 timestamp (typically the `created` value of the first item\non the current page, to fetch the previous page).\n",
+              "description": "Cursor for pagination. Returns relays created strictly before this\nRFC 3339 timestamp (typically the `created` value of the first item\non the current page, to fetch the previous page).",
               "format": "date-time",
               "type": "string"
             },
             "per_page": {
               "default": 1000,
-              "description": "Maximum number of relays to return per page. Values above the maximum are\nclamped to it rather than rejected.\n",
+              "description": "Maximum number of relays to return per page. Values above the maximum are\nclamped to it rather than rejected.",
               "type": "integer"
             }
           },
@@ -417,9 +415,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -509,7 +505,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_update",
     title: "Update a relay",
-    description: "Updates a relay's name and/or configuration. The relay ID goes in\nthe URL path — `PUT /accounts/{account_id}/moq/relays/{relay_id}` —\nnot the request body; there is no collection-level update endpoint.\nThis is also the only way to set a relay's config (config cannot be\nset at create time). Partial updates: omitted fields are preserved;\nconfig sub-objects replace as whole objects when present.\n\nThis method is beta.",
+    description: "Updates a relay's name and/or configuration. The relay ID goes in\nthe URL path — `PUT /accounts/{account_id}/moq/relays/{relay_id}` —\nnot the request body; there is no collection-level update endpoint.\nThis is also the only way to set a relay's config (config cannot be\nset at create time). Partial updates: omitted fields are preserved;\nconfig sub-objects replace as whole objects when present.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/moq/relays/{relay_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -525,10 +521,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             },
             "relay_id": {
               "description": "Relay unique identifier (32 hex characters).",
@@ -546,8 +543,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "moq_account_identifier": moq_account_identifier,
         "moq_relay_config": moq_relay_config$,
         "moq_upstream": moq_upstream$,
         "moq_upstreams": moq_upstreams$,

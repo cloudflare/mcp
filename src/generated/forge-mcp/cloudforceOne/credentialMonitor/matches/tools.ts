@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_credentialMonitor_matches_list",
     title: "List credential matches",
-    description: "Get credential matches for the account's monitored domains.",
+    description: "Get credential matches for the account's monitored domains.\n\nGET /accounts/{account_id}/cloudforce-one/v2/credential-monitor/matches",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "domain": {
               "description": "Filter by domain (exact match)",
@@ -53,6 +55,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

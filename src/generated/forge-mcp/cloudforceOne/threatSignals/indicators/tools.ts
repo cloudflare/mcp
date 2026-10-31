@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_indicators_list",
     title: "List Threat Signals article indicators",
-    description: "Lists indicators of compromise extracted from the account's Threat Signals articles.",
+    description: "Lists indicators of compromise extracted from the account's Threat Signals articles.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/indicators",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "article_id": {
               "description": "Article UUID filter. Omit to include indicators from every article.",
@@ -67,6 +69,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

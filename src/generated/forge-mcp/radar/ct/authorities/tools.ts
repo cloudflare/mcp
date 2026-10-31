@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ct_authorities_get",
     title: "Get certificate authority details",
-    description: "Retrieves the requested CA information.",
+    description: "Retrieves the requested CA information.\n\nGET /radar/ct/authorities/{ca_slug}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ca_slug": {
               "description": "Certificate authority SHA256 fingerprint.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -446,11 +449,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ct_authorities_list",
     title: "List certificate authorities",
-    description: "Retrieves a list of certificate authorities.",
+    description: "Retrieves a list of certificate authorities.\n\nGET /radar/ct/authorities",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -473,6 +477,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

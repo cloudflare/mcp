@@ -9,16 +9,21 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 export const access_policy_users: JsonSchema = {
   "properties": {
     "email": {
-      "$ref": "#/$defs/access_email-2"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-10"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/access_user_result"
+      "enum": [
+        "approved",
+        "blocked",
+        "error"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -44,16 +49,4 @@ export const access_policy_users_resp: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_user_result` in responses.
- */
-export const access_user_result: JsonSchema = {
-  "enum": [
-    "approved",
-    "blocked",
-    "error"
-  ],
-  "type": "string"
 };

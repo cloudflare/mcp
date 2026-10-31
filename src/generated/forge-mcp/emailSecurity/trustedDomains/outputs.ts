@@ -9,7 +9,8 @@ import type { JsonSchema } from "../../_/tool.js";
 export const email$$security_DeletedTrustedDomain: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_TrustedDomainId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -34,10 +35,12 @@ export const email$$security_TrustedDomain: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/email-security_TrustedDomainId"
+      "format": "uuid",
+      "type": "string"
     },
     "is_recent": {
       "type": "boolean"
@@ -49,24 +52,18 @@ export const email$$security_TrustedDomain: JsonSchema = {
       "type": "boolean"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "pattern": {
       "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `email-security_TrustedDomainId` in responses.
- */
-export const email$$security_TrustedDomainId: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };
 
 /**

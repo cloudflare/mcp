@@ -3,41 +3,19 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$sharing_account_id,
-  resource$$sharing_account_name,
   resource$$sharing_api$$response$$collection,
   resource$$sharing_api$$response$$collection$$info,
   resource$$sharing_api$$response$$common,
   resource$$sharing_api$$response$$common$$failure,
-  resource$$sharing_created,
-  resource$$sharing_modified,
-  resource$$sharing_organization_id,
-  resource$$sharing_resource_id,
   resource$$sharing_resource_meta,
-  resource$$sharing_resource_resource_id,
-  resource$$sharing_resource_status,
-  resource$$sharing_resource_type,
-  resource$$sharing_resource_version,
   resource$$sharing_result_info,
-  resource$$sharing_share_id,
-  resource$$sharing_share_kind,
-  resource$$sharing_share_name,
   resource$$sharing_share_object,
   resource$$sharing_share_resource_object,
   resource$$sharing_share_response_collection,
   resource$$sharing_share_response_collection_result,
-  resource$$sharing_share_status,
-  resource$$sharing_share_target_type,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../../outputs.js";
-import {
-  resource$$sharing_organization_id as resource$$sharing_organization_id$,
-  resource$$sharing_resource_type as resource$$sharing_resource_type$,
-  resource$$sharing_share_kind as resource$$sharing_share_kind$,
-  resource$$sharing_share_status as resource$$sharing_share_status$,
-  resource$$sharing_share_target_type as resource$$sharing_share_target_type$,
-} from "../../schemas.js";
 
 /**
  * The tools of `organization.share`.
@@ -46,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_share_list",
     title: "List organization shares",
-    description: "Lists all organization shares.",
+    description: "Lists all organization shares.\n\nGET /organizations/{organization_id}/shares",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/resource-sharing_organization_id",
-              "description": "Organization identifier."
+              "description": "Organization identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -63,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -74,8 +54,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "kind": {
-              "$ref": "#/$defs/resource-sharing_share_kind",
-              "description": "Filter shares by kind."
+              "description": "Filter shares by kind.",
+              "enum": [
+                "sent",
+                "received"
+              ],
+              "type": "string"
             },
             "order": {
               "default": "created",
@@ -99,17 +83,36 @@ export const tools: readonly Tool[] = [
             "resource_types": {
               "description": "Filter share resources by resource_types.",
               "items": {
-                "$ref": "#/$defs/resource-sharing_resource_type"
+                "description": "Resource Type.",
+                "enum": [
+                  "custom-ruleset",
+                  "gateway-policy",
+                  "gateway-destination-ip",
+                  "gateway-block-page-settings",
+                  "gateway-extended-email-matching",
+                  "idp-federation-grant",
+                  "trust-grant"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
             "status": {
-              "$ref": "#/$defs/resource-sharing_share_status",
-              "description": "Filter shares by status."
+              "description": "Filter shares by status.",
+              "enum": [
+                "active",
+                "deleting",
+                "deleted"
+              ],
+              "type": "string"
             },
             "target_type": {
-              "$ref": "#/$defs/resource-sharing_share_target_type",
-              "description": "Filter shares by target_type."
+              "description": "Filter shares by target_type.",
+              "enum": [
+                "account",
+                "organization"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -118,41 +121,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_organization_id": resource$$sharing_organization_id$,
-        "resource-sharing_resource_type": resource$$sharing_resource_type$,
-        "resource-sharing_share_kind": resource$$sharing_share_kind$,
-        "resource-sharing_share_status": resource$$sharing_share_status$,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_collection",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_result_info": resource$$sharing_result_info,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -187,31 +169,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
-        "resource-sharing_account_name": resource$$sharing_account_name,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_resource_id": resource$$sharing_resource_id,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_status": resource$$sharing_resource_status,
-        "resource-sharing_resource_type": resource$$sharing_resource_type,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_result_info": resource$$sharing_result_info,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-        "resource-sharing_share_kind": resource$$sharing_share_kind,
-        "resource-sharing_share_name": resource$$sharing_share_name,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
-        "resource-sharing_share_status": resource$$sharing_share_status,
-        "resource-sharing_share_target_type": resource$$sharing_share_target_type,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },

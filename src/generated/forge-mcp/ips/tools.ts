@@ -5,7 +5,6 @@ import { type Tool, param } from "../_/tool.js";
 import {
   public$$ip_api$$response$$common$$failure,
   public$$ip_api$$response$$single,
-  public$$ip_etag,
   public$$ip_ips,
   public$$ip_ips_jdcloud,
   public$$ip_ipv4_cidrs,
@@ -21,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ips_list",
     title: "Cloudflare/JD Cloud IP Details",
-    description: "Get IPs used on the Cloudflare/JD Cloud network, see https://www.cloudflare.com/ips for Cloudflare IPs or https://developers.cloudflare.com/china-network/reference/infrastructure/ for JD Cloud IPs.",
+    description: "Get IPs used on the Cloudflare/JD Cloud network, see https://www.cloudflare.com/ips for Cloudflare IPs or https://developers.cloudflare.com/china-network/reference/infrastructure/ for JD Cloud IPs.\n\nGET /ips",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "networks": {
               "description": "Specified as `jdcloud` to list IPs used by JD Cloud data centers.",
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -59,7 +60,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "public-ip_api-response-single": public$$ip_api$$response$$single,
-        "public-ip_etag": public$$ip_etag,
         "public-ip_ips": public$$ip_ips,
         "public-ip_ips_jdcloud": public$$ip_ips_jdcloud,
         "public-ip_ipv4_cidrs": public$$ip_ipv4_cidrs,
@@ -130,7 +130,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "public-ip_api-response-common-failure": public$$ip_api$$response$$common$$failure,
         "public-ip_api-response-single": public$$ip_api$$response$$single,
-        "public-ip_etag": public$$ip_etag,
         "public-ip_ips": public$$ip_ips,
         "public-ip_ips_jdcloud": public$$ip_ips_jdcloud,
         "public-ip_ipv4_cidrs": public$$ip_ipv4_cidrs,

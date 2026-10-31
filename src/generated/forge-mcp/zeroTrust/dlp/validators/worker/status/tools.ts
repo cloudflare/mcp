@@ -7,7 +7,7 @@ import {
   dlp_api$$response$$single,
   dlp_messages,
 } from "../../../../outputs.js";
-import { dlp_WorkerStatus, dlp_WorkerValidatorStatus } from "./outputs.js";
+import { dlp_WorkerValidatorStatus } from "./outputs.js";
 
 /**
  * The tools of `zeroTrust.dlp.validators.worker.status`.
@@ -16,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_worker_status_get",
     title: "Get a worker validator status",
-    description: "Reports whether the validator's Worker can be used. Returns `worker_not_found` if the Worker\ncannot be found, and `worker_error` if the Worker does not have a valid validation entrypoint\nor is returning incorrect responses.",
+    description: "Reports whether the validator's Worker can be used. Returns `worker_not_found` if the Worker\ncannot be found, and `worker_error` if the Worker does not have a valid validation entrypoint\nor is returning incorrect responses.\n\nGET /accounts/{account_id}/dlp/validators/worker/{validator_id}/status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -40,6 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -56,7 +58,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_WorkerStatus": dlp_WorkerStatus,
         "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -99,7 +100,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_WorkerStatus": dlp_WorkerStatus,
         "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

@@ -7,11 +7,9 @@ import {
   email$$auth_api$$response$$single,
   email$$auth_messages,
 } from "../outputs.js";
-import { email$$auth_identifier } from "../schemas.js";
 import {
   email$$auth_InspectError,
   email$$auth_SpfComponent,
-  email$$auth_SpfResult,
   email$$auth_SpfTree,
 } from "./outputs.js";
 
@@ -22,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailAuth_spf_inspect",
     title: "Inspect SPF Record",
-    description: "Inspects a specific SPF TXT record and returns a parsed tree structure\nin the spflimit-worker format.\n\nThe record ID must be provided via the `id` query parameter.\n\nReturns a recursive tree showing:\n- Parsed components with their qualifiers and types\n- Nested includes recursively resolved within components\n- Per-component and total lookup counts\n- Detailed error information with context",
+    description: "Inspects a specific SPF TXT record and returns a parsed tree structure\nin the spflimit-worker format.\n\nThe record ID must be provided via the `id` query parameter.\n\nReturns a recursive tree showing:\n- Parsed components with their qualifiers and types\n- Nested includes recursively resolved within components\n- Per-component and total lookup counts\n- Detailed error information with context\n\nGET /zones/{zone_id}/email/auth/spf/inspect",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email-auth_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "DNS record ID (rec_tag) to inspect",
@@ -55,9 +55,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "email-auth_identifier": email$$auth_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -76,7 +74,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-auth_InspectError": email$$auth_InspectError,
         "email-auth_SpfComponent": email$$auth_SpfComponent,
-        "email-auth_SpfResult": email$$auth_SpfResult,
         "email-auth_SpfTree": email$$auth_SpfTree,
         "email-auth_api-response-single": email$$auth_api$$response$$single,
         "email-auth_messages": email$$auth_messages,
@@ -115,7 +112,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-auth_InspectError": email$$auth_InspectError,
         "email-auth_SpfComponent": email$$auth_SpfComponent,
-        "email-auth_SpfResult": email$$auth_SpfResult,
         "email-auth_SpfTree": email$$auth_SpfTree,
         "email-auth_api-response-common-failure": email$$auth_api$$response$$common$$failure,
         "email-auth_api-response-single": email$$auth_api$$response$$single,

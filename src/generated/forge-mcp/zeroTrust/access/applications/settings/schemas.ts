@@ -9,12 +9,12 @@ import type { JsonSchema } from "../../../../_/tool.js";
 export const access_app_settings_request: JsonSchema = {
   "properties": {
     "allow_iframe": {
-      "$ref": "#/$defs/access_allow_iframe",
-      "description": "Enables loading application content in an iFrame."
+      "description": "Enables loading application content in an iFrame.",
+      "type": "boolean"
     },
     "skip_interstitial": {
-      "$ref": "#/$defs/access_skip_interstitial",
-      "description": "Enables automatic authentication through cloudflared."
+      "description": "Enables automatic authentication through cloudflared.",
+      "type": "boolean"
     }
   },
   "type": "object"

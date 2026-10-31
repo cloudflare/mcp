@@ -35,11 +35,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerUse_pricing_listOperators",
     title: "List pay-per-use operators",
-    description: "Lists a paginated set of enabled pay-per-use operators with verified names, matching billing classification, and their prices for a zone.",
+    description: "Lists a paginated set of enabled pay-per-use operators with verified names, matching billing classification, and their prices for a zone.\n\nGET /zones/{zone_id}/pay-per-use/operators",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
               "description": "zone id",
@@ -52,6 +53,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -70,6 +72,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUOperatorPricesResponse",
@@ -131,11 +134,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerUse_pricing_optOutOperatorPrice",
     title: "Opt out of a pay-per-use operator price",
-    description: "Opts a zone out by scheduling the current accepted pay-per-use operator price to expire at the start of the next UTC month. Use the withdraw action for a pending proposal.",
+    description: "Opts a zone out by scheduling the current accepted pay-per-use operator price to expire at the start of the next UTC month. Use the withdraw action for a pending proposal.\n\nDELETE /zones/{zone_id}/pay-per-use/operators/{operator_id}/price",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "operator_id": {
               "description": "Stable pay-per-use operator identifier.",
@@ -156,6 +160,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
@@ -207,7 +212,7 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerUse_pricing_setOperatorPrice",
     title: "Set a pay-per-use operator price",
-    description: "Proposes a required price, withdraws a pending proposal, accepts an operator's default pay-per-use price, or resumes an accepted price before its scheduled expiry. Propose, accept_default, and resume require an enabled operator with a verified name, an enabled publisher zone, and matching billing classifications.",
+    description: "Proposes a required price, withdraws a pending proposal, accepts an operator's default pay-per-use price, or resumes an accepted price before its scheduled expiry. Propose, accept_default, and resume require an enabled operator with a verified name, an enabled publisher zone, and matching billing classifications.\n\nPOST /zones/{zone_id}/pay-per-use/operators/{operator_id}/price",
     inputSchema: {
       type: "object",
       properties: {
@@ -216,6 +221,7 @@ export const tools: readonly Tool[] = [
           "description": "Pay-per-use publisher price action"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "operator_id": {
               "description": "Stable pay-per-use operator identifier.",
@@ -237,6 +243,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "pay-per-crawl_PPUPublisherPriceAcceptDefaultRequest": pay$$per$$crawl_PPUPublisherPriceAcceptDefaultRequest,
         "pay-per-crawl_PPUPublisherPriceActionRequest": pay$$per$$crawl_PPUPublisherPriceActionRequest,

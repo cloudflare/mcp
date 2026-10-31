@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_getModelSchema",
     title: "Get an AI model's input and output schemas",
-    description: "Retrieves the input and output JSON Schema definitions for an AI model. Use these definitions to determine the model-specific request fields and response format.",
+    description: "Retrieves the input and output JSON Schema definitions for an AI model. Use these definitions to determine the model-specific request fields and response format.\n\nGET /accounts/{account_id}/ai/models/schema",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID used for this AI model request.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "model": {
               "description": "AI model identifier, including its namespace and model name.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -232,11 +235,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_listMarkdownSupportedFormats",
     title: "List supported Markdown conversion formats",
-    description: "Lists the file extensions and MIME types accepted by Workers AI's Markdown conversion endpoint. Use this list to check whether a file can be converted before uploading it.",
+    description: "Lists the file extensions and MIME types accepted by Workers AI's Markdown conversion endpoint. Use this list to check whether a file can be converted before uploading it.\n\nGET /accounts/{account_id}/ai/tomarkdown/supported",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID used for this AI model request.",
@@ -252,6 +256,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -380,7 +385,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_run",
     title: "Run an AI model with request options",
-    description: "Runs an AI model using a JSON body containing model, input, and optional options fields. Unlike the model-specific URL endpoint, this endpoint takes the model identifier in the body and nests the model's inputs under input.\n\nUse options.extraHeaders to pass additional provider headers. Accepts Workers AI model identifiers and AI Gateway provider model identifiers.\n\nSee the [Workers AI model catalog](https://developers.cloudflare.com/workers-ai/models/) for Workers AI model inputs, or the provider's documentation for models accessed through AI Gateway.",
+    description: "Runs an AI model using a JSON body containing model, input, and optional options fields. Unlike the model-specific URL endpoint, this endpoint takes the model identifier in the body and nests the model's inputs under input.\n\nUse options.extraHeaders to pass additional provider headers. Accepts Workers AI model identifiers and AI Gateway provider model identifiers.\n\nSee the [Workers AI model catalog](https://developers.cloudflare.com/workers-ai/models/) for Workers AI model inputs, or the provider's documentation for models accessed through AI Gateway.\n\nPOST /accounts/{account_id}/ai/run",
     inputSchema: {
       type: "object",
       properties: {
@@ -431,6 +436,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID used for this AI model request.",
@@ -446,6 +452,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -573,7 +580,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_runModel",
     title: "Run a Workers AI model",
-    description: "Runs the Workers AI model specified in the URL path. Send the model's inputs directly in the request body, without a model/input/options wrapper.\n\nAccepts model-specific JSON or binary input. The response format depends on the model and the requested output.\n\nSee the [model catalog](https://developers.cloudflare.com/workers-ai/models/) for supported models and their input formats.",
+    description: "Runs the Workers AI model specified in the URL path. Send the model's inputs directly in the request body, without a model/input/options wrapper.\n\nAccepts model-specific JSON or binary input. The response format depends on the model and the requested output.\n\nSee the [model catalog](https://developers.cloudflare.com/workers-ai/models/) for supported models and their input formats.\n\nPOST /accounts/{account_id}/ai/run/{model_name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1368,6 +1375,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID used for this AI model request.",
@@ -1388,6 +1396,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1910,11 +1919,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_toMarkdown",
     title: "Convert uploaded files to Markdown",
-    description: "Converts files uploaded as multipart form data into Markdown using Workers AI. Returns a conversion result for each file. Use the supported-formats endpoint to check accepted file types.",
+    description: "Converts files uploaded as multipart form data into Markdown using Workers AI. Returns a conversion result for each file. Use the supported-formats endpoint to check accepted file types.\n\nPOST /accounts/{account_id}/ai/tomarkdown",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID used for this AI model request.",
@@ -1930,6 +1940,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2082,7 +2093,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_websearch",
     title: "Search the web through AI Gateway",
-    description: "Run a web search through a configured AI Gateway.",
+    description: "Run a web search through a configured AI Gateway.\n\nPOST /accounts/{account_id}/ai/websearch",
     inputSchema: {
       type: "object",
       properties: {
@@ -2127,6 +2138,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2141,6 +2153,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

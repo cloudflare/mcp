@@ -7,7 +7,6 @@ import {
   security$$center_api$$response$$common$$failure,
   security$$center_messages,
 } from "../../../outputs.js";
-import { security$$center_identifier } from "../../../schemas.js";
 import {
   security$$center_partnerSettings,
   security$$center_partnerSettingsGetResponse,
@@ -22,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_partners_settings_get",
     title: "Retrieves Partner Integration Settings",
-    description: "Returns whether the account has enabled the selected partner integration and, if enabled, whether the account has been matched with the partner. An integration that has not been configured is returned as disabled.\n\nThis method is beta.",
+    description: "Returns whether the account has enabled the selected partner integration and, if enabled, whether the account has been matched with the partner. An integration that has not been configured is returned as disabled.\n\nThis method is beta.\n\nGET /accounts/{account_id}/security-center/partners/{partner}/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "partner": {
               "description": "The partner integration identifier.",
@@ -50,9 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_partnerSettingsGetResponse",
@@ -94,7 +92,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_partners_settings_update",
     title: "Updates Partner Integration Settings",
-    description: "Enables or disables the selected partner integration for the account. Enabling the integration for the first time also schedules an account scan for that partner.\n\nThis method is beta.",
+    description: "Enables or disables the selected partner integration for the account. Enabling the integration for the first time also schedules an account scan for that partner.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/security-center/partners/{partner}/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -102,10 +100,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_partnerSettings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "partner": {
               "description": "The partner integration identifier.",
@@ -126,8 +125,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security$$center_identifier,
         "security-center_partnerSettings": security$$center_partnerSettings$,
       },
     },

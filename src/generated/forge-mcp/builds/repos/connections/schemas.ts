@@ -9,24 +9,30 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const builds_UpsertRepoConnectionRequest: JsonSchema = {
   "properties": {
     "provider_account_id": {
-      "$ref": "#/$defs/builds_provider_account_id",
-      "description": "Provider-specific identifier of the account or namespace that owns the repository."
+      "description": "Provider-specific identifier of the account or namespace that owns the repository.",
+      "type": "string"
     },
     "provider_account_name": {
-      "$ref": "#/$defs/builds_provider_account_name",
-      "description": "Human-readable name of the account or namespace that owns the repository."
+      "description": "Human-readable name of the account or namespace that owns the repository.",
+      "type": "string"
     },
     "provider_type": {
-      "$ref": "#/$defs/builds_SCMProviderType",
-      "description": "Source control provider."
+      "description": "Source control provider.",
+      "enum": [
+        "github",
+        "gitlab",
+        "gitlab_internal",
+        "origin"
+      ],
+      "type": "string"
     },
     "repo_id": {
-      "$ref": "#/$defs/builds_repo_id",
-      "description": "Provider-specific repository identifier."
+      "description": "Provider-specific repository identifier.",
+      "type": "string"
     },
     "repo_name": {
-      "$ref": "#/$defs/builds_repo_name",
-      "description": "Human-readable repository name."
+      "description": "Human-readable repository name.",
+      "type": "string"
     }
   },
   "required": [

@@ -8,7 +8,6 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_messages,
 } from "../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../schemas.js";
 import {
   digital$$experience$$monitoring_get_commands_response,
   digital$$experience$$monitoring_post_commands_response,
@@ -21,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_commands_create",
     title: "Create account commands",
-    description: "Initiate commands for up to 10 devices per account.",
+    description: "Initiate commands for up to 10 devices per account.\n\nPOST /accounts/{account_id}/dex/commands",
     inputSchema: {
       type: "object",
       properties: {
@@ -121,10 +120,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -137,9 +137,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -213,15 +211,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_commands_list",
     title: "List account commands",
-    description: "Retrieves a paginated list of commands issued to devices under the specified account, optionally filtered by time range, device, or other parameters",
+    description: "Retrieves a paginated list of commands issued to devices under the specified account, optionally filtered by time range, device, or other parameters\n\nGET /accounts/{account_id}/dex/commands",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -230,6 +229,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "command_type": {
               "description": "Optionally filter executed commands by command type.",
@@ -289,9 +289,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

@@ -23,36 +23,32 @@ export const workers$$kv_api$$response$$collection: JsonSchema = {
 };
 
 /**
- * The schema of `workers-kv_jurisdiction` in responses.
- */
-export const workers$$kv_jurisdiction: JsonSchema = {
-  "enum": [
-    "eu",
-    "fedramp",
-    "us"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_namespace` in responses.
  */
 export const workers$$kv_namespace: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/workers-kv_namespace_identifier"
+      "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/workers-kv_jurisdiction"
+      "enum": [
+        "eu",
+        "fedramp",
+        "us"
+      ],
+      "type": "string"
     },
     "mode": {
-      "$ref": "#/$defs/workers-kv_namespace_mode"
+      "enum": [
+        "instant"
+      ],
+      "type": "string"
     },
     "supports_url_encoding": {
       "type": "boolean"
     },
     "title": {
-      "$ref": "#/$defs/workers-kv_namespace_title"
+      "type": "string"
     }
   },
   "required": [
@@ -60,23 +56,6 @@ export const workers$$kv_namespace: JsonSchema = {
     "title"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers-kv_namespace_mode` in responses.
- */
-export const workers$$kv_namespace_mode: JsonSchema = {
-  "enum": [
-    "instant"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `workers-kv_namespace_title` in responses.
- */
-export const workers$$kv_namespace_title: JsonSchema = {
-  "type": "string"
 };
 
 /**

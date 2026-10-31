@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_finetunes_assets_create",
     title: "Upload a Finetune Asset",
-    description: "Uploads training data assets for a Workers AI fine-tuning job.",
+    description: "Uploads training data assets for a Workers AI fine-tuning job.\n\nPOST /accounts/{account_id}/ai/finetunes/{finetune_id}/finetune-assets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -110,11 +112,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_finetunes_assets_download",
     title: "Download a Finetune Asset",
-    description: "Returns a pre-signed R2 URL for downloading a finetune asset file.",
+    description: "Returns a pre-signed R2 URL for downloading a finetune asset file.\n\nGET /accounts/{account_id}/ai/finetunes/{finetune_id}/finetune-assets/{file_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -137,6 +140,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

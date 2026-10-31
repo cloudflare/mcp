@@ -154,21 +154,6 @@ export const dlp_DataTag: JsonSchema = {
 };
 
 /**
- * The schema of `dlp_DatasetUploadStatus` in responses.
- */
-export const dlp_DatasetUploadStatus: JsonSchema = {
-  "enum": [
-    "empty",
-    "uploading",
-    "pending",
-    "processing",
-    "failed",
-    "complete"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_DocumentFingerprintEntry` in responses.
  */
 export const dlp_DocumentFingerprintEntry: JsonSchema = {
@@ -492,7 +477,10 @@ export const dlp_Pattern: JsonSchema = {
       "type": "string"
     },
     "validation": {
-      "$ref": "#/$defs/dlp_Validation"
+      "enum": [
+        "luhn"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -564,7 +552,11 @@ export const dlp_PredefinedEntryVariant: JsonSchema = {
           ]
         },
         "topic_type": {
-          "$ref": "#/$defs/dlp_PromptTopicType"
+          "enum": [
+            "Intent",
+            "Content"
+          ],
+          "type": "string"
         },
         "type": {
           "enum": [
@@ -604,17 +596,6 @@ export const dlp_PredefinedEntryVariant: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `dlp_PromptTopicType` in responses.
- */
-export const dlp_PromptTopicType: JsonSchema = {
-  "enum": [
-    "Intent",
-    "Content"
-  ],
-  "type": "string"
 };
 
 /**
@@ -676,16 +657,6 @@ export const dlp_SensitivityLevelRef: JsonSchema = {
     "level_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dlp_Validation` in responses.
- */
-export const dlp_Validation: JsonSchema = {
-  "enum": [
-    "luhn"
-  ],
-  "type": "string"
 };
 
 /**

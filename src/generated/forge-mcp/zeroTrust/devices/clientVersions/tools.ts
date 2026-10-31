@@ -16,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_clientVersions_list",
     title: "List client versions",
-    description: "Lists available WARP client versions for a specific target environment and release track. This endpoint is in Beta.\n\nThis method is beta.",
+    description: "Lists available WARP client versions for a specific target environment and release track. This endpoint is in Beta.\n\nThis method is beta.\n\nGET /accounts/{account_id}/devices/client-versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -32,6 +33,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -67,6 +69,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

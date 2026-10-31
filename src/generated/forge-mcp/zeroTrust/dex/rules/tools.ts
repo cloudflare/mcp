@@ -9,12 +9,7 @@ import {
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_uuid as digital$$experience$$monitoring_uuid$,
-} from "../schemas.js";
 import {
   digital$$experience$$monitoring_dex$$rule,
   digital$$experience$$monitoring_dex$$targeted$$test,
@@ -32,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_rules_create",
     title: "Create a DEX Rule",
-    description: "Create a DEX Rule.",
+    description: "Create a DEX Rule.\n\nPOST /accounts/{account_id}/dex/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,10 +35,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/digital-experience-monitoring_create_rule_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,8 +52,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
         "digital-experience-monitoring_create_rule_body": digital$$experience$$monitoring_create_rule_body,
       },
     },
@@ -81,7 +77,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-rule": digital$$experience$$monitoring_dex$$rule,
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -126,7 +121,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-rule": digital$$experience$$monitoring_dex$$rule,
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -137,19 +131,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_rules_delete",
     title: "Delete a DEX Rule",
-    description: "Delete a DEX Rule.",
+    description: "Delete a DEX Rule.\n\nDELETE /accounts/{account_id}/dex/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier of the rule."
+              "description": "Unique identifier of the rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -162,10 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -248,19 +240,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_rules_get",
     title: "Get DEX Rule",
-    description: "Get details for a DEX Rule.",
+    description: "Get details for a DEX Rule.\n\nGET /accounts/{account_id}/dex/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier of the rule."
+              "description": "Unique identifier of the rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -273,10 +266,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -298,7 +288,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-rule": digital$$experience$$monitoring_dex$$rule,
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -346,7 +335,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-rule": digital$$experience$$monitoring_dex$$rule,
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -356,15 +344,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_rules_list",
     title: "List DEX Rules",
-    description: "List DEX Rules.",
+    description: "List DEX Rules.\n\nGET /accounts/{account_id}/dex/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -373,6 +362,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "Filter results by rule name.",
@@ -418,9 +408,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -444,7 +432,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_list_rules_response": digital$$experience$$monitoring_list_rules_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -494,7 +481,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_list_rules_response": digital$$experience$$monitoring_list_rules_response,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({
@@ -511,7 +497,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_rules_update",
     title: "Update a DEX Rule",
-    description: "Update a DEX Rule.",
+    description: "Update a DEX Rule.\n\nPATCH /accounts/{account_id}/dex/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -519,14 +505,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/digital-experience-monitoring_patch_rule_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier of the rule."
+              "description": "Unique identifier of the rule.",
+              "type": "string"
             }
           },
           "required": [
@@ -540,10 +527,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
         "digital-experience-monitoring_patch_rule_body": digital$$experience$$monitoring_patch_rule_body,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
       },
     },
     outputSchema: {
@@ -566,7 +552,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-rule": digital$$experience$$monitoring_dex$$rule,
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -611,7 +596,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_dex-rule": digital$$experience$$monitoring_dex$$rule,
         "digital-experience-monitoring_dex-targeted-test": digital$$experience$$monitoring_dex$$targeted$$test,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({

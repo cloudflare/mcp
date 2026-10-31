@@ -93,20 +93,6 @@ export const cloud$$connector_messages: JsonSchema = {
 };
 
 /**
- * The schema of `cloud-connector_provider` in responses.
- */
-export const cloud$$connector_provider: JsonSchema = {
-  "enum": [
-    "aws_s3",
-    "cloudflare_r2",
-    "gcp_storage",
-    "azure_storage",
-    "oci_storage"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cloud-connector_rule` in responses.
  */
 export const cloud$$connector_rule: JsonSchema = {
@@ -132,7 +118,14 @@ export const cloud$$connector_rule: JsonSchema = {
       "type": "object"
     },
     "provider": {
-      "$ref": "#/$defs/cloud-connector_provider"
+      "enum": [
+        "aws_s3",
+        "cloudflare_r2",
+        "gcp_storage",
+        "azure_storage",
+        "oci_storage"
+      ],
+      "type": "string"
     }
   },
   "type": "object"

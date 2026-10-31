@@ -7,8 +7,6 @@ import {
   logpush_api$$response$$common$$failure,
   logpush_messages,
 } from "../../outputs.js";
-import { logpush_identifier } from "../../schemas.js";
-import { logpush_transformer_identifier } from "../schemas.js";
 import {
   logpush_transformer_version,
   logpush_transformer_version_response_collection,
@@ -21,19 +19,20 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_versions_list",
     title: "List transformer versions",
-    description: "Returns version metadata for a transformer, newest first. Each version corresponds to a SQL query update.",
+    description: "Returns version metadata for a transformer, newest first. Each version corresponds to a SQL query update.\n\nGET /accounts/{account_id}/logpush/transformers/{transformer_id}/versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "transformer_id": {
-              "$ref": "#/$defs/logpush_transformer_identifier",
-              "description": "The transformer ID."
+              "description": "The transformer ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -43,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 10,
@@ -56,10 +56,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_version_response_collection",

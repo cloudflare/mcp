@@ -16,20 +16,6 @@ export const load$$balancing_adaptive_routing: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_components-schemas-description` in responses.
- */
-export const load$$balancing_components$$schemas$$description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_components-schemas-enabled` in responses.
- */
-export const load$$balancing_components$$schemas$$enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_components-schemas-id_response` in responses.
  */
 export const load$$balancing_components$$schemas$$id_response: JsonSchema = {
@@ -42,7 +28,7 @@ export const load$$balancing_components$$schemas$$id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -51,20 +37,6 @@ export const load$$balancing_components$$schemas$$id_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_components-schemas-name` in responses.
- */
-export const load$$balancing_components$$schemas$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_components-schemas-zone-name` in responses.
- */
-export const load$$balancing_components$$schemas$$zone$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -88,13 +60,6 @@ export const load$$balancing_default_pools: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_fallback_pool` in responses.
- */
-export const load$$balancing_fallback_pool: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -130,31 +95,33 @@ export const load$$balancing_load$$balancer: JsonSchema = {
       "$ref": "#/$defs/load-balancing_country_pools"
     },
     "created_on": {
-      "$ref": "#/$defs/load-balancing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "default_pools": {
       "$ref": "#/$defs/load-balancing_default_pools"
     },
     "description": {
-      "$ref": "#/$defs/load-balancing_components-schemas-description"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/load-balancing_components-schemas-enabled"
+      "type": "boolean"
     },
     "fallback_pool": {
-      "$ref": "#/$defs/load-balancing_fallback_pool"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+      "type": "string"
     },
     "location_strategy": {
       "$ref": "#/$defs/load-balancing_location_strategy"
     },
     "modified_on": {
-      "$ref": "#/$defs/load-balancing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/load-balancing_components-schemas-name"
+      "type": "string"
     },
     "networks": {
       "$ref": "#/$defs/load-balancing_networks"
@@ -166,7 +133,7 @@ export const load$$balancing_load$$balancer: JsonSchema = {
       "$ref": "#/$defs/load-balancing_pop_pools"
     },
     "proxied": {
-      "$ref": "#/$defs/load-balancing_proxied"
+      "type": "boolean"
     },
     "random_steering": {
       "$ref": "#/$defs/load-balancing_random_steering"
@@ -178,33 +145,41 @@ export const load$$balancing_load$$balancer: JsonSchema = {
       "$ref": "#/$defs/load-balancing_rules"
     },
     "session_affinity": {
-      "$ref": "#/$defs/load-balancing_session_affinity"
+      "enum": [
+        "none",
+        "cookie",
+        "ip_cookie",
+        "header"
+      ],
+      "type": "string"
     },
     "session_affinity_attributes": {
       "$ref": "#/$defs/load-balancing_session_affinity_attributes"
     },
     "session_affinity_ttl": {
-      "$ref": "#/$defs/load-balancing_session_affinity_ttl"
+      "type": "number"
     },
     "steering_policy": {
-      "$ref": "#/$defs/load-balancing_steering_policy"
+      "enum": [
+        "off",
+        "geo",
+        "random",
+        "dynamic_latency",
+        "proximity",
+        "least_outstanding_requests",
+        "least_connections",
+        ""
+      ],
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/load-balancing_ttl"
+      "type": "number"
     },
     "zone_name": {
-      "$ref": "#/$defs/load-balancing_components-schemas-zone-name"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_load-balancer_components-schemas-identifier` in
- * responses.
- */
-export const load$$balancing_load$$balancer_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -293,13 +268,6 @@ export const load$$balancing_match: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_pool_default_weight` in responses.
- */
-export const load$$balancing_pool_default_weight: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `load-balancing_pool_set` in responses.
  */
 export const load$$balancing_pool_set: JsonSchema = {
@@ -329,10 +297,10 @@ export const load$$balancing_pool_set: JsonSchema = {
 export const load$$balancing_pool_set_overrides: JsonSchema = {
   "properties": {
     "fallback_pool": {
-      "$ref": "#/$defs/load-balancing_fallback_pool"
+      "type": "string"
     },
     "pool_default_weight": {
-      "$ref": "#/$defs/load-balancing_pool_default_weight"
+      "type": "number"
     },
     "pool_weights": {
       "$ref": "#/$defs/load-balancing_pool_weights"
@@ -341,7 +309,17 @@ export const load$$balancing_pool_set_overrides: JsonSchema = {
       "$ref": "#/$defs/load-balancing_pools"
     },
     "steering_policy": {
-      "$ref": "#/$defs/load-balancing_steering_policy"
+      "enum": [
+        "off",
+        "geo",
+        "random",
+        "dynamic_latency",
+        "proximity",
+        "least_outstanding_requests",
+        "least_connections",
+        ""
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -391,13 +369,6 @@ export const load$$balancing_pop_pools: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_proxied` in responses.
- */
-export const load$$balancing_proxied: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_random_steering` in responses.
  */
 export const load$$balancing_random_steering: JsonSchema = {
@@ -443,13 +414,13 @@ export const load$$balancing_rule_overrides: JsonSchema = {
       "$ref": "#/$defs/load-balancing_default_pools"
     },
     "fallback_pool": {
-      "$ref": "#/$defs/load-balancing_fallback_pool"
+      "type": "string"
     },
     "location_strategy": {
       "$ref": "#/$defs/load-balancing_location_strategy"
     },
     "pool_default_weight": {
-      "$ref": "#/$defs/load-balancing_pool_default_weight"
+      "type": "number"
     },
     "pool_weights": {
       "$ref": "#/$defs/load-balancing_pool_weights"
@@ -467,19 +438,35 @@ export const load$$balancing_rule_overrides: JsonSchema = {
       "$ref": "#/$defs/load-balancing_region_pools"
     },
     "session_affinity": {
-      "$ref": "#/$defs/load-balancing_session_affinity"
+      "enum": [
+        "none",
+        "cookie",
+        "ip_cookie",
+        "header"
+      ],
+      "type": "string"
     },
     "session_affinity_attributes": {
       "$ref": "#/$defs/load-balancing_session_affinity_attributes"
     },
     "session_affinity_ttl": {
-      "$ref": "#/$defs/load-balancing_session_affinity_ttl"
+      "type": "number"
     },
     "steering_policy": {
-      "$ref": "#/$defs/load-balancing_steering_policy"
+      "enum": [
+        "off",
+        "geo",
+        "random",
+        "dynamic_latency",
+        "proximity",
+        "least_outstanding_requests",
+        "least_connections",
+        ""
+      ],
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/load-balancing_ttl"
+      "type": "number"
     }
   },
   "type": "object"
@@ -516,19 +503,6 @@ export const load$$balancing_rules: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_session_affinity` in responses.
- */
-export const load$$balancing_session_affinity: JsonSchema = {
-  "enum": [
-    "none",
-    "cookie",
-    "ip_cookie",
-    "header"
-  ],
-  "type": "string"
 };
 
 /**
@@ -578,30 +552,6 @@ export const load$$balancing_session_affinity_attributes: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_session_affinity_ttl` in responses.
- */
-export const load$$balancing_session_affinity_ttl: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `load-balancing_steering_policy` in responses.
- */
-export const load$$balancing_steering_policy: JsonSchema = {
-  "enum": [
-    "off",
-    "geo",
-    "random",
-    "dynamic_latency",
-    "proximity",
-    "least_outstanding_requests",
-    "least_connections",
-    ""
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_topology_match` in responses.
  */
 export const load$$balancing_topology_match: JsonSchema = {
@@ -629,11 +579,4 @@ export const load$$balancing_topology_match: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_ttl` in responses.
- */
-export const load$$balancing_ttl: JsonSchema = {
-  "type": "number"
 };

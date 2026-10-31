@@ -3,17 +3,10 @@
 
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
-  aaa_account$$id,
   aaa_api$$response$$common$$failure$$3,
   aaa_api$$response$$single,
   aaa_messages$$3,
-  aaa_policy$$id,
-  aaa_schemas$$name,
 } from "../../outputs.js";
-import {
-  aaa_account$$id as aaa_account$$id$,
-  aaa_policy$$id as aaa_policy$$id$,
-} from "../../schemas.js";
 import {
   aaa_unsubscribe_email,
   aaa_unsubscribe_email_post,
@@ -28,19 +21,20 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_email_details",
     title: "Show email unsubscribe details",
-    description: "Shows details for unsubscribing an email address from a notification policy.",
+    description: "Shows details for unsubscribing an email address from a notification policy.\n\nGET /accounts/{account_id}/alerting/v3/policies/{policy_id}/email/unsubscribe",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/aaa_policy-id",
-              "description": "The unique identifier of a notification policy"
+              "description": "The unique identifier of a notification policy",
+              "type": "string"
             }
           },
           "required": [
@@ -50,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "email": {
               "type": "string"
@@ -69,19 +64,13 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id$,
-        "aaa_policy-id": aaa_policy$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_unsubscribe_email_single_response",
       $defs: {
-        "aaa_account-id": aaa_account$$id,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_policy-id": aaa_policy$$id,
-        "aaa_schemas-name": aaa_schemas$$name,
         "aaa_unsubscribe_email": aaa_unsubscribe_email,
         "aaa_unsubscribe_email_single_response": aaa_unsubscribe_email_single_response,
       },
@@ -114,12 +103,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_account-id": aaa_account$$id,
         "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_policy-id": aaa_policy$$id,
-        "aaa_schemas-name": aaa_schemas$$name,
         "aaa_unsubscribe_email": aaa_unsubscribe_email,
         "aaa_unsubscribe_email_single_response": aaa_unsubscribe_email_single_response,
       },
@@ -135,19 +121,20 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_policies_email_unsubscribe",
     title: "Unsubscribe email from a Notification policy",
-    description: "Unsubscribes an email address from a notification policy.",
+    description: "Unsubscribes an email address from a notification policy.\n\nPOST /accounts/{account_id}/alerting/v3/policies/{policy_id}/email/unsubscribe",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/aaa_account-id",
-              "description": "The account id"
+              "description": "The account id",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/aaa_policy-id",
-              "description": "The unique identifier of a notification policy"
+              "description": "The unique identifier of a notification policy",
+              "type": "string"
             }
           },
           "required": [
@@ -157,6 +144,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "email": {
               "type": "string"
@@ -176,18 +164,13 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account$$id$,
-        "aaa_policy-id": aaa_policy$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_unsubscribe_email_post_single_response",
       $defs: {
-        "aaa_account-id": aaa_account$$id,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_policy-id": aaa_policy$$id,
         "aaa_unsubscribe_email_post": aaa_unsubscribe_email_post,
         "aaa_unsubscribe_email_post_single_response": aaa_unsubscribe_email_post_single_response,
       },
@@ -211,11 +194,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_account-id": aaa_account$$id,
         "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
-        "aaa_policy-id": aaa_policy$$id,
         "aaa_unsubscribe_email_post": aaa_unsubscribe_email_post,
         "aaa_unsubscribe_email_post_single_response": aaa_unsubscribe_email_post_single_response,
       },

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_create",
     title: "Create a new workflow instance",
-    description: "Creates a new instance of a workflow, starting its execution.",
+    description: "Creates a new instance of a workflow, starting its execution.\n\nPOST /accounts/{account_id}/workflows/{workflow_name}/instances",
     inputSchema: {
       type: "object",
       properties: {
@@ -71,6 +71,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -90,6 +91,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -480,11 +482,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_delete",
     title: "Delete a workflow instance",
-    description: "Deletes a workflow instance and its stored state.",
+    description: "Deletes a workflow instance and its stored state.\n\nDELETE /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -508,6 +511,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -786,11 +790,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_get",
     title: "Get logs and status from instance",
-    description: "Retrieves logs and execution status for a specific workflow instance.",
+    description: "Retrieves logs and execution status for a specific workflow instance.\n\nGET /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -811,6 +816,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order": {
               "default": "asc",
@@ -837,6 +843,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2163,11 +2170,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_list",
     title: "List of workflow instances",
-    description: "Lists all instances of a workflow with their execution status.",
+    description: "Lists all instances of a workflow with their execution status.\n\nGET /accounts/{account_id}/workflows/{workflow_name}/instances",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2183,6 +2191,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque token for cursor-based pagination. Mutually exclusive with `page`.",
@@ -2235,6 +2244,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2702,7 +2712,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_pause",
     title: "Change status of instance",
-    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).",
+    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).\n\nPATCH /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/status",
     inputSchema: {
       type: "object",
       properties: {
@@ -2794,6 +2804,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2818,6 +2829,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3204,7 +3216,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_restart",
     title: "Change status of instance",
-    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).",
+    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).\n\nPATCH /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/status",
     inputSchema: {
       type: "object",
       properties: {
@@ -3296,6 +3308,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3320,6 +3333,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3703,7 +3717,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_resume",
     title: "Change status of instance",
-    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).",
+    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).\n\nPATCH /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/status",
     inputSchema: {
       type: "object",
       properties: {
@@ -3795,6 +3809,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3819,6 +3834,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -4205,7 +4221,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_terminate",
     title: "Change status of instance",
-    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).\n\nConfirm with the user before calling this tool. This operation terminates the running Workflow instance.",
+    description: "Changes the execution status of a workflow instance (e.g., pause, resume, terminate).\n\nConfirm with the user before calling this tool. This operation terminates the running Workflow instance.\n\nPATCH /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/status",
     inputSchema: {
       type: "object",
       properties: {
@@ -4297,6 +4313,7 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -4321,6 +4338,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

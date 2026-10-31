@@ -17,11 +17,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_superSlurper_jobs_logs_list",
     title: "Get job logs",
-    description: "Gets log entries for an R2 Super Slurper migration job, showing migration status changes, errors, etc.",
+    description: "Gets log entries for an R2 Super Slurper migration job, showing migration status changes, errors, etc.\n\nGET /accounts/{account_id}/slurper/jobs/{job_id}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -37,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "type": "integer"
@@ -51,6 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

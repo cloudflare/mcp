@@ -19,13 +19,21 @@ export const access_exclude: JsonSchema = {
 export const access_groups$$2: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "exclude": {
       "$ref": "#/$defs/access_exclude"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "include": {
       "$ref": "#/$defs/access_include"
@@ -34,13 +42,21 @@ export const access_groups$$2: JsonSchema = {
       "$ref": "#/$defs/access_require"
     },
     "name": {
-      "$ref": "#/$defs/access_name-6"
+      "type": "string"
     },
     "require": {
       "$ref": "#/$defs/access_require"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
@@ -54,13 +70,6 @@ export const access_include: JsonSchema = {
     "$ref": "#/$defs/access_rule"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_name-6` in responses.
- */
-export const access_name$$6: JsonSchema = {
-  "type": "string"
 };
 
 /**

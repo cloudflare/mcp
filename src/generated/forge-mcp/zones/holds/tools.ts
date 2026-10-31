@@ -6,7 +6,6 @@ import {
   zones_api$$response$$common$$failure$$2,
   zones_messages$$2,
 } from "../../outputs.js";
-import { zones_identifier$$2 } from "../../schemas.js";
 import { zones_messages } from "../outputs.js";
 import {
   zones_api$$response$$common$$3,
@@ -20,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_holds_create",
     title: "Create Zone Hold",
-    description: "Enforce a zone hold on the zone, blocking the creation and activation of zones with this zone's hostname.\nZone holds cannot be enabled on CDN-only zones.",
+    description: "Enforce a zone hold on the zone, blocking the creation and activation of zones with this zone's hostname.\nZone holds cannot be enabled on CDN-only zones.\n\nPOST /zones/{zone_id}/hold",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Zone ID"
+              "description": "Zone ID",
+              "type": "string"
             }
           },
           "required": [
@@ -37,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_subdomains": {
               "description": "If provided, the zone hold will extend to block any subdomain of the given zone, as well\nas SSL4SaaS Custom Hostnames. For example, a zone hold on a zone with the hostname\n'example.com' and include_subdomains=true will block 'example.com',\n'staging.example.com', 'api.staging.example.com', etc.",
@@ -49,9 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -148,15 +147,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_holds_delete",
     title: "Remove Zone Hold",
-    description: "Stop enforcement of a zone hold on the zone, permanently or temporarily, allowing the\ncreation and activation of zones with this zone's hostname.\nExisting zone holds can be removed from CDN-only zones when `hold_after` is not provided.\nActive holds are automatically disabled when a zone transitions to CDN-only mode.",
+    description: "Stop enforcement of a zone hold on the zone, permanently or temporarily, allowing the\ncreation and activation of zones with this zone's hostname.\nExisting zone holds can be removed from CDN-only zones when `hold_after` is not provided.\nActive holds are automatically disabled when a zone transitions to CDN-only mode.\n\nDELETE /zones/{zone_id}/hold",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Zone ID"
+              "description": "Zone ID",
+              "type": "string"
             }
           },
           "required": [
@@ -165,6 +165,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "hold_after": {
               "description": "If `hold_after` is provided, the hold will be temporarily disabled,\nthen automatically re-enabled by the system at the time specified\nin this RFC3339-formatted timestamp. Otherwise, the hold will be\ndisabled indefinitely. `hold_after` cannot be provided for CDN-only zones.",
@@ -177,9 +178,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -276,7 +275,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_holds_edit",
     title: "Update Zone Hold",
-    description: "Update the `hold_after` and/or `include_subdomains` values on an existing zone hold.\nThe hold is enabled if the `hold_after` date-time value is in the past.\nExisting zone holds can be removed from CDN-only zones by setting `hold_after` to `null`.\nOther zone hold updates cannot be made on CDN-only zones.\nActive holds are automatically disabled when a zone transitions to CDN-only mode.",
+    description: "Update the `hold_after` and/or `include_subdomains` values on an existing zone hold.\nThe hold is enabled if the `hold_after` date-time value is in the past.\nExisting zone holds can be removed from CDN-only zones by setting `hold_after` to `null`.\nOther zone hold updates cannot be made on CDN-only zones.\nActive holds are automatically disabled when a zone transitions to CDN-only mode.\n\nPATCH /zones/{zone_id}/hold",
     inputSchema: {
       type: "object",
       properties: {
@@ -303,10 +302,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Zone ID"
+              "description": "Zone ID",
+              "type": "string"
             }
           },
           "required": [
@@ -319,9 +319,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -424,15 +422,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_holds_get",
     title: "Get Zone Hold",
-    description: "Retrieve whether the zone is subject to a zone hold, and metadata about the hold.",
+    description: "Retrieve whether the zone is subject to a zone hold, and metadata about the hold.\n\nGET /zones/{zone_id}/hold",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Zone ID"
+              "description": "Zone ID",
+              "type": "string"
             }
           },
           "required": [
@@ -444,9 +443,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

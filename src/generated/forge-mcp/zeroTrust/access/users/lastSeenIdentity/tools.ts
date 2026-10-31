@@ -7,7 +7,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
   access_device_posture_check,
   access_device_posture_rule$$2,
@@ -25,19 +24,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_lastSeenIdentity_get",
     title: "Get last seen identity",
-    description: "Get last seen identity for a single user.",
+    description: "Get last seen identity for a single user.\n\nGET /accounts/{account_id}/access/users/{user_id}/last_seen_identity",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,10 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_last_seen_identity_response",

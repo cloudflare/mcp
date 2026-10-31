@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_evaluationTypes_list",
     title: "List evaluator types (deprecated)",
-    description: "Lists the evaluator types that evaluations can use to score AI Gateway responses. Evaluations are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Lists the evaluator types that evaluations can use to score AI Gateway responses. Evaluations are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/ai-gateway/evaluation-types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order_by": {
               "default": "mandatory",
@@ -54,6 +56,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

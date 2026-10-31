@@ -67,8 +67,12 @@ export const posture$$api_FindingInstanceExportOrderFilterRequest: JsonSchema = 
   "description": "Order specification for finding instance exports.",
   "properties": {
     "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+      "description": "Sort direction.",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Which field to use when ordering the finding instances.",

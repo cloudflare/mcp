@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_basicAuthCredentials_create",
     title: "Create a basic-auth credential",
-    description: "Creates a basic-auth credential with the specified username.\n\nThis method is beta.",
+    description: "Creates a basic-auth credential with the specified username.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/basic-auth-credentials",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +32,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreateBasicAuthCredentialInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreateBasicAuthCredentialInputBody": cws_CreateBasicAuthCredentialInputBody,
       },
@@ -101,11 +103,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_basicAuthCredentials_delete",
     title: "Delete a basic-auth credential",
-    description: "Deletes the credential and its secrets if it is not attached to a deployment.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this basic-auth credential?",
+    description: "Deletes the credential and its secrets if it is not attached to a deployment.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this basic-auth credential?\n\nDELETE /accounts/{account_id}/cws/basic-auth-credentials/{credential_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -127,6 +130,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -176,11 +180,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_basicAuthCredentials_get",
     title: "Get a basic-auth credential by ID",
-    description: "Returns the basic-auth credential with the specified ID.\n\nThis method is beta.",
+    description: "Returns the basic-auth credential with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/basic-auth-credentials/{credential_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -202,6 +207,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseBasicAuthCredential",
@@ -251,11 +257,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_basicAuthCredentials_list",
     title: "List basic-auth credentials for an account",
-    description: "Returns a paginated list of basic-auth credentials in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of basic-auth credentials in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/basic-auth-credentials",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -268,6 +275,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -313,6 +321,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseBasicAuthCredential",

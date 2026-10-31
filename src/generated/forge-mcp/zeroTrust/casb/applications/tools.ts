@@ -22,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_applications_get",
     title: "Get application details",
-    description: "Returns full application details including auth methods, use cases, and permissions.",
+    description: "Returns full application details including auth methods, use cases, and permissions.\n\nGET /accounts/{account_id}/one/applications/{application_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -65,6 +66,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_ApplicationDetailResponse",
@@ -112,11 +114,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_applications_list",
     title: "List applications",
-    description: "Returns a list of available applications with use cases and permissions.",
+    description: "Returns a list of available applications with use cases and permissions.\n\nGET /accounts/{account_id}/one/applications",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -129,6 +132,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "environment": {
               "description": "Filter by supported environment (standard, fedramp).",
@@ -149,6 +153,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_PaginatedApplicationListList",

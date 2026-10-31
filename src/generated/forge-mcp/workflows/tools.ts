@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_delete",
     title: "Deletes a Workflow",
-    description: "Deletes a Workflow. This only deletes the Workflow and does not delete or modify any Worker associated to this Workflow or bounded to it.\n\nConfirm with the user before calling this tool. This operation permanently deletes the Workflow.",
+    description: "Deletes a Workflow. This only deletes the Workflow and does not delete or modify any Worker associated to this Workflow or bounded to it.\n\nConfirm with the user before calling this tool. This operation permanently deletes the Workflow.\n\nDELETE /accounts/{account_id}/workflows/{workflow_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -373,11 +375,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_get",
     title: "Get Workflow details",
-    description: "Retrieves configuration and metadata for a specific workflow.",
+    description: "Retrieves configuration and metadata for a specific workflow.\n\nGET /accounts/{account_id}/workflows/{workflow_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -396,6 +399,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -866,11 +870,12 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_list",
     title: "List all Workflows",
-    description: "Lists all workflows configured for the account.",
+    description: "Lists all workflows configured for the account.\n\nGET /accounts/{account_id}/workflows",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -882,6 +887,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -902,6 +908,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

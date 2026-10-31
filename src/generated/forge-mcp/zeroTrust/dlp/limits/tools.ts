@@ -16,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_limits_list",
     title: "Fetch limits associated with DLP for account",
-    description: "Retrieves current DLP usage limits and quotas for the account, including\nmaximum allowed counts and current usage for custom entries, dataset cells,\nand document fingerprints.",
+    description: "Retrieves current DLP usage limits and quotas for the account, including\nmaximum allowed counts and current usage for custom entries, dataset cells,\nand document fingerprints.\n\nGET /accounts/{account_id}/dlp/limits",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

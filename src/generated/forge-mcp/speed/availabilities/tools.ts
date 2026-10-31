@@ -7,9 +7,7 @@ import {
   observatory_api$$response$$single,
   observatory_labeled_region,
   observatory_messages,
-  observatory_region,
 } from "../outputs.js";
-import { observatory_identifier } from "../schemas.js";
 import {
   observatory_availabilities,
   observatory_availabilities$$response,
@@ -23,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "speed_availabilities_list",
     title: "Get quota and availability",
-    description: "Retrieves quota for all plans, as well as the current zone quota.",
+    description: "Retrieves quota for all plans, as well as the current zone quota.\n\nGET /zones/{zone_id}/speed_api/availabilities",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/observatory_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,9 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "observatory_identifier": observatory_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/observatory_availabilities-response",
@@ -56,7 +53,6 @@ export const tools: readonly Tool[] = [
         "observatory_labeled_region": observatory_labeled_region,
         "observatory_messages": observatory_messages,
         "observatory_plan-properties-info": observatory_plan$$properties$$info,
-        "observatory_region": observatory_region,
       },
     },
     annotations: {
@@ -97,7 +93,6 @@ export const tools: readonly Tool[] = [
         "observatory_labeled_region": observatory_labeled_region,
         "observatory_messages": observatory_messages,
         "observatory_plan-properties-info": observatory_plan$$properties$$info,
-        "observatory_region": observatory_region,
       },
     },
     request: (args) => ({

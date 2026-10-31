@@ -12,7 +12,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_categories_create",
     title: "Create a tag category",
-    description: "Creates a tag category. Use `schema` to define the custom fields its tags can have.",
+    description: "Creates a tag category. Use `schema` to define the custom fields its tags can have.\n\nPOST /accounts/{account_id}/cloudforce-one/events/tags/categories/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -53,6 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce$$one$$events_FieldDefinition$,
       },
@@ -224,11 +226,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_categories_delete",
     title: "Delete a tag category",
-    description: "Deletes a tag category by its UUID.",
+    description: "Deletes a tag category by its UUID.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/tag-categories/{category_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -249,6 +252,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -357,11 +361,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_categories_get",
     title: "Get a tag category",
-    description: "Returns a tag category by its UUID, including the custom fields defined in its `schema`.",
+    description: "Returns a tag category by its UUID, including the custom fields defined in its `schema`.\n\nGET /accounts/{account_id}/cloudforce-one/events/tag-categories/{category_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -382,6 +387,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -519,11 +525,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_categories_list",
     title: "List tag categories",
-    description: "Lists the account's tag categories. Use `search` to filter them.",
+    description: "Lists the account's tag categories. Use `search` to filter them.\n\nGET /accounts/{account_id}/cloudforce-one/events/tags/categories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -536,6 +543,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "search": {
               "type": "string"
@@ -547,6 +555,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -709,7 +718,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_categories_update",
     title: "Update a tag category",
-    description: "Updates the given fields of a tag category and leaves the other fields unchanged.",
+    description: "Updates the given fields of a tag category and leaves the other fields unchanged.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/tag-categories/{category_uuid}",
     inputSchema: {
       type: "object",
       properties: {
@@ -732,6 +741,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -752,6 +762,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce$$one$$events_FieldDefinition$,
       },

@@ -6,41 +6,11 @@ import {
   tunnel_api$$response$$collection,
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_created_at,
-  tunnel_deleted_at,
   tunnel_messages,
   tunnel_result_info,
-  tunnel_tunnel_id,
-  tunnel_tunnel_name,
-  tunnel_tunnel_type,
 } from "../../../outputs.js";
-import {
-  tunnel_account_id,
-  tunnel_existed_at,
-  tunnel_page_number,
-  tunnel_per_page,
-  tunnel_tunnel_id as tunnel_tunnel_id$,
-  tunnel_tunnel_type as tunnel_tunnel_type$,
-  tunnel_tunnel_types,
-} from "../../../schemas.js";
-import {
-  tunnel_virtual_network_id,
-  tunnel_virtual_network_name,
-} from "../../outputs.js";
-import { tunnel_virtual_network_id as tunnel_virtual_network_id$ } from "../../schemas.js";
-import {
-  tunnel_ip_network,
-  tunnel_route_comment,
-  tunnel_route_id,
-  tunnel_teamnet,
-  tunnel_virtual_network_id_computed_optional,
-} from "../outputs.js";
-import {
-  tunnel_ip_network as tunnel_ip_network$,
-  tunnel_route_comment as tunnel_route_comment$,
-  tunnel_route_id as tunnel_route_id$,
-  tunnel_virtual_network_id_computed_optional as tunnel_virtual_network_id_computed_optional$,
-} from "../schemas.js";
+import { tunnel_tunnel_types } from "../../../schemas.js";
+import { tunnel_teamnet } from "../outputs.js";
 import {
   tunnel_route,
   tunnel_route_response_single,
@@ -54,24 +24,25 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_cidr_create",
     title: "Create a tunnel route",
-    description: "Routes a private network through a Cloudflare Tunnel.",
+    description: "Routes a private network through a Cloudflare Tunnel.\n\nPOST /accounts/{account_id}/teamnet/routes",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_route_comment",
               "default": "",
-              "description": "Optional remark describing the route."
+              "description": "Optional remark describing the route.",
+              "type": "string"
             },
             "network": {
-              "$ref": "#/$defs/tunnel_ip_network",
-              "description": "The private IPv4 or IPv6 range connected by the route, in CIDR notation."
+              "description": "The private IPv4 or IPv6 range connected by the route, in CIDR notation.",
+              "type": "string"
             },
             "virtual_network_id": {
-              "$ref": "#/$defs/tunnel_virtual_network_id_computed_optional",
-              "description": "UUID of the virtual network."
+              "description": "UUID of the virtual network.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -80,10 +51,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -96,27 +68,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_ip_network": tunnel_ip_network$,
-        "tunnel_route_comment": tunnel_route_comment$,
-        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     annotations: {
@@ -153,16 +113,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -173,19 +126,20 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_cidr_delete",
     title: "Delete a tunnel route",
-    description: "Deletes a private network route from an account.\n\nConfirm with the user before calling this tool. This operation permanently deletes a private network route.",
+    description: "Deletes a private network route from an account.\n\nConfirm with the user before calling this tool. This operation permanently deletes a private network route.\n\nDELETE /accounts/{account_id}/teamnet/routes/{route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "route_id": {
-              "$ref": "#/$defs/tunnel_route_id",
-              "description": "UUID of the route."
+              "description": "UUID of the route.",
+              "type": "string"
             }
           },
           "required": [
@@ -198,25 +152,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_route_id": tunnel_route_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     annotations: {
@@ -253,16 +197,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -272,37 +209,39 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_cidr_edit",
     title: "Update a tunnel route",
-    description: "Updates an existing private network route in an account. The fields that are meant to be updated should be provided in the body of the request.",
+    description: "Updates an existing private network route in an account. The fields that are meant to be updated should be provided in the body of the request.\n\nPATCH /accounts/{account_id}/teamnet/routes/{route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_route_comment",
               "default": "",
-              "description": "Optional remark describing the route."
+              "description": "Optional remark describing the route.",
+              "type": "string"
             },
             "network": {
-              "$ref": "#/$defs/tunnel_ip_network",
-              "description": "The private IPv4 or IPv6 range connected by the route, in CIDR notation."
+              "description": "The private IPv4 or IPv6 range connected by the route, in CIDR notation.",
+              "type": "string"
             },
             "virtual_network_id": {
-              "$ref": "#/$defs/tunnel_virtual_network_id_computed_optional",
-              "description": "UUID of the virtual network."
+              "description": "UUID of the virtual network.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "route_id": {
-              "$ref": "#/$defs/tunnel_route_id",
-              "description": "UUID of the route."
+              "description": "UUID of the route.",
+              "type": "string"
             }
           },
           "required": [
@@ -316,28 +255,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_ip_network": tunnel_ip_network$,
-        "tunnel_route_comment": tunnel_route_comment$,
-        "tunnel_route_id": tunnel_route_id$,
-        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     annotations: {
@@ -374,16 +300,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -394,19 +313,20 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_cidr_get",
     title: "Get tunnel route",
-    description: "Get a private network route in an account.",
+    description: "Get a private network route in an account.\n\nGET /accounts/{account_id}/teamnet/routes/{route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "route_id": {
-              "$ref": "#/$defs/tunnel_route_id",
-              "description": "UUID of the route."
+              "description": "UUID of the route.",
+              "type": "string"
             }
           },
           "required": [
@@ -419,25 +339,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_route_id": tunnel_route_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     annotations: {
@@ -468,16 +378,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_route": tunnel_route,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_route_response_single": tunnel_route_response_single,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -487,15 +390,16 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_cidr_list",
     title: "List tunnel routes",
-    description: "Lists and filters private network routes in an account.",
+    description: "Lists and filters private network routes in an account.\n\nGET /accounts/{account_id}/teamnet/routes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -504,52 +408,55 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_route_comment",
               "default": "",
-              "description": "Optional remark describing the route."
+              "description": "Optional remark describing the route.",
+              "type": "string"
             },
             "existed_at": {
-              "$ref": "#/$defs/tunnel_existed_at",
-              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded."
+              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded.",
+              "type": "string"
             },
             "is_deleted": {
               "description": "If `true`, only include deleted routes. If `false`, exclude deleted routes. If empty, all routes will be included.",
               "type": "boolean"
             },
             "network_subset": {
-              "$ref": "#/$defs/tunnel_ip_network",
-              "description": "If set, only list routes that are contained within this IP range."
+              "description": "If set, only list routes that are contained within this IP range.",
+              "type": "string"
             },
             "network_superset": {
-              "$ref": "#/$defs/tunnel_ip_network",
-              "description": "If set, only list routes that contain this IP range."
+              "description": "If set, only list routes that contain this IP range.",
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/tunnel_page_number",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/tunnel_per_page",
-              "description": "Number of results to display."
+              "description": "Number of results to display.",
+              "type": "number"
             },
             "route_id": {
-              "$ref": "#/$defs/tunnel_route_id",
-              "description": "UUID of the route."
+              "description": "UUID of the route.",
+              "type": "string"
             },
             "tun_types": {
               "$ref": "#/$defs/tunnel_tunnel_types",
               "description": "The types of tunnels to filter by, separated by commas."
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             },
             "virtual_network_id": {
-              "$ref": "#/$defs/tunnel_virtual_network_id",
-              "description": "UUID of the virtual network."
+              "description": "UUID of the virtual network.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
@@ -558,18 +465,9 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_existed_at": tunnel_existed_at,
-        "tunnel_ip_network": tunnel_ip_network$,
-        "tunnel_page_number": tunnel_page_number,
-        "tunnel_per_page": tunnel_per_page,
-        "tunnel_route_comment": tunnel_route_comment$,
-        "tunnel_route_id": tunnel_route_id$,
-        "tunnel_tunnel_id": tunnel_tunnel_id$,
-        "tunnel_tunnel_type": tunnel_tunnel_type$,
         "tunnel_tunnel_types": tunnel_tunnel_types,
-        "tunnel_virtual_network_id": tunnel_virtual_network_id$,
       },
     },
     outputSchema: {
@@ -577,20 +475,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_teamnet": tunnel_teamnet,
         "tunnel_teamnet_response_collection": tunnel_teamnet_response_collection,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_tunnel_name": tunnel_tunnel_name,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
-        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional,
-        "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     annotations: {
@@ -630,20 +518,10 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip_network": tunnel_ip_network,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_route_comment": tunnel_route_comment,
-        "tunnel_route_id": tunnel_route_id,
         "tunnel_teamnet": tunnel_teamnet,
         "tunnel_teamnet_response_collection": tunnel_teamnet_response_collection,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_tunnel_name": tunnel_tunnel_name,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
-        "tunnel_virtual_network_id_computed_optional": tunnel_virtual_network_id_computed_optional,
-        "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     request: (args) => ({

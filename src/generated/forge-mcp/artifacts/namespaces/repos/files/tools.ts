@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_files_get",
     title: "Read a file",
-    description: "Returns raw bytes for a file resolved by ref and path.\n\nThis method is beta.",
+    description: "Returns raw bytes for a file resolved by ref and path.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/file",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -37,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "path": {
               "description": "File path.",
@@ -58,6 +60,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

@@ -34,7 +34,12 @@ export const access_access_group_rule: JsonSchema = {
 export const access_allowed_clipboard_local_to_remote_formats: JsonSchema = {
   "description": "Clipboard formats allowed when copying from local machine to remote RDP session.",
   "items": {
-    "$ref": "#/$defs/access_rdp_clipboard_format"
+    "description": "Clipboard format for RDP connections.",
+    "enum": [
+      "text",
+      "file"
+    ],
+    "type": "string"
   },
   "type": "array"
 };
@@ -45,7 +50,12 @@ export const access_allowed_clipboard_local_to_remote_formats: JsonSchema = {
 export const access_allowed_clipboard_remote_to_local_formats: JsonSchema = {
   "description": "Clipboard formats allowed when copying from remote RDP session to local machine.",
   "items": {
-    "$ref": "#/$defs/access_rdp_clipboard_format"
+    "description": "Clipboard format for RDP connections.",
+    "enum": [
+      "text",
+      "file"
+    ],
+    "type": "string"
   },
   "type": "array"
 };
@@ -104,14 +114,6 @@ export const access_approval_groups: JsonSchema = {
     "$ref": "#/$defs/access_approval_group"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_approval_required`.
- */
-export const access_approval_required: JsonSchema = {
-  "description": "Requires the user to request access from an administrator at the start of each session.",
-  "type": "boolean"
 };
 
 /**
@@ -210,8 +212,14 @@ export const access_azure_group_rule: JsonSchema = {
 export const access_base_policy_req: JsonSchema = {
   "properties": {
     "decision": {
-      "$ref": "#/$defs/access_decision",
-      "description": "The action Access will take if a user matches this policy. Infrastructure application policies can only use the Allow action."
+      "description": "The action Access will take if a user matches this policy. Infrastructure application policies can only use the Allow action.",
+      "enum": [
+        "allow",
+        "deny",
+        "non_identity",
+        "bypass"
+      ],
+      "type": "string"
     },
     "exclude": {
       "$ref": "#/$defs/access_exclude-2",
@@ -224,12 +232,12 @@ export const access_base_policy_req: JsonSchema = {
       "description": "Rules evaluated with an OR logical operator. A user needs to meet only one of the Include rules."
     },
     "name": {
-      "$ref": "#/$defs/access_name-9",
-      "description": "The name of the Access policy."
+      "description": "The name of the Access policy.",
+      "type": "string"
     },
     "policy_resolution_account_id": {
-      "$ref": "#/$defs/access_policy_resolution_account_id",
-      "description": "The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy."
+      "description": "The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy.",
+      "type": "string"
     },
     "require": {
       "$ref": "#/$defs/access_require-2",
@@ -270,8 +278,8 @@ export const access_cloudflare_account_member_rule: JsonSchema = {
     "cloudflare_account_member": {
       "properties": {
         "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
+          "description": "Identifier.",
+          "type": "string"
         }
       },
       "type": "object"
@@ -366,20 +374,6 @@ export const access_country_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_decision`.
- */
-export const access_decision: JsonSchema = {
-  "description": "The action Access will take if a user matches this policy. Infrastructure application policies can only use the Allow action.",
-  "enum": [
-    "allow",
-    "deny",
-    "non_identity",
-    "bypass"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `access_device_posture_rule`.
  */
 export const access_device_posture_rule: JsonSchema = {
@@ -388,8 +382,8 @@ export const access_device_posture_rule: JsonSchema = {
     "device_posture": {
       "properties": {
         "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The ID of the account that owns the device posture integration."
+          "description": "The ID of the account that owns the device posture integration.",
+          "type": "string"
         },
         "integration_uid": {
           "description": "The ID of a device posture integration.",
@@ -431,14 +425,6 @@ export const access_domain_rule: JsonSchema = {
     "email_domain"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_email-2`.
- */
-export const access_email$$2: JsonSchema = {
-  "description": "The email of the user.",
-  "type": "string"
 };
 
 /**
@@ -675,14 +661,6 @@ export const access_ip_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_isolation_required`.
- */
-export const access_isolation_required: JsonSchema = {
-  "description": "Require this application to be served in an isolated browser for users matching this policy. 'Client Web Isolation' must be on for the account in order to use this feature.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_linked_app_token_rule`.
  */
 export const access_linked_app_token_rule: JsonSchema = {
@@ -763,22 +741,6 @@ export const access_mfa_config: JsonSchema = {
 };
 
 /**
- * The schema of `access_name-10`.
- */
-export const access_name$$10: JsonSchema = {
-  "description": "The name of the user.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_name-9`.
- */
-export const access_name$$9: JsonSchema = {
-  "description": "The name of the Access policy.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_oidc_claim_rule`.
  */
 export const access_oidc_claim_rule: JsonSchema = {
@@ -855,32 +817,39 @@ export const access_policy_req: JsonSchema = {
           "description": "Administrators who can approve a temporary authentication request."
         },
         "approval_required": {
-          "$ref": "#/$defs/access_approval_required",
-          "description": "Requires the user to request access from an administrator at the start of each session."
+          "description": "Requires the user to request access from an administrator at the start of each session.",
+          "type": "boolean"
         },
         "connection_rules": {
           "$ref": "#/$defs/access_connection_rules",
           "description": "The rules that define how users may connect to targets secured by your application."
         },
         "isolation_required": {
-          "$ref": "#/$defs/access_isolation_required",
-          "description": "Require this application to be served in an isolated browser for users matching this policy. 'Client Web Isolation' must be on for the account in order to use this feature."
+          "description": "Require this application to be served in an isolated browser for users matching this policy. 'Client Web Isolation' must be on for the account in order to use this feature.",
+          "type": "boolean"
         },
         "mfa_config": {
           "$ref": "#/$defs/access_mfa_config",
           "description": "Configures multi-factor authentication (MFA) settings."
         },
         "purpose_justification_prompt": {
-          "$ref": "#/$defs/access_purpose_justification_prompt",
-          "description": "A custom message that will appear on the purpose justification screen."
+          "description": "A custom message that will appear on the purpose justification screen.",
+          "type": "string"
         },
         "purpose_justification_required": {
-          "$ref": "#/$defs/access_purpose_justification_required",
-          "description": "Require users to enter a justification when they log in to the application."
+          "description": "Require users to enter a justification when they log in to the application.",
+          "type": "boolean"
         },
         "session_duration": {
-          "$ref": "#/$defs/access_session_duration-3",
-          "description": "The amount of time that tokens issued for the application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+          "description": "The amount of time that tokens issued for the application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -889,42 +858,6 @@ export const access_policy_req: JsonSchema = {
       "$ref": "#/$defs/access_base_policy_req"
     }
   ]
-};
-
-/**
- * The schema of `access_policy_resolution_account_id`.
- */
-export const access_policy_resolution_account_id: JsonSchema = {
-  "description": "The account ID used to resolve policy resources and identity for cross-account WARP authentication. The account must be trusted by the account that owns this policy.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_purpose_justification_prompt`.
- */
-export const access_purpose_justification_prompt: JsonSchema = {
-  "description": "A custom message that will appear on the purpose justification screen.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_purpose_justification_required`.
- */
-export const access_purpose_justification_required: JsonSchema = {
-  "description": "Require users to enter a justification when they log in to the application.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_rdp_clipboard_format`.
- */
-export const access_rdp_clipboard_format: JsonSchema = {
-  "description": "Clipboard format for RDP connections.",
-  "enum": [
-    "text",
-    "file"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1118,21 +1051,6 @@ export const access_service_token_tag_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_session_duration-3`.
- */
-export const access_session_duration$$3: JsonSchema = {
-  "description": "The amount of time that tokens issued for the application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `access_user_risk_score_rule`.
  */
 export const access_user_risk_score_rule: JsonSchema = {
@@ -1165,12 +1083,4 @@ export const access_user_risk_score_rule: JsonSchema = {
     "user_risk_score"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_uuid-2`.
- */
-export const access_uuid$$2: JsonSchema = {
-  "description": "The UUID of the policy",
-  "type": "string"
 };

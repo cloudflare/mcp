@@ -39,27 +39,13 @@ export const waf$$product$$api$$bundle_api$$response$$collection$$2: JsonSchema 
 export const waf$$product$$api$$bundle_custom$$scan: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-scan-id"
+      "type": "string"
     },
     "payload": {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-scan-payload"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `waf-product-api-bundle_custom-scan-id` in responses.
- */
-export const waf$$product$$api$$bundle_custom$$scan$$id: JsonSchema = {
-  "$ref": "#/$defs/waf-product-api-bundle_identifier"
-};
-
-/**
- * The schema of `waf-product-api-bundle_custom-scan-payload` in responses.
- */
-export const waf$$product$$api$$bundle_custom$$scan$$payload: JsonSchema = {
-  "type": "string"
 };
 
 /**

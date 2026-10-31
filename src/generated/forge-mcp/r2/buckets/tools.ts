@@ -3,26 +3,12 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  r2_bucket_name,
   r2_errors,
   r2_messages,
-  r2_storage_class,
   r2_v4_response,
   r2_v4_response_failure,
 } from "../outputs.js";
-import {
-  r2_account_identifier,
-  r2_bucket_name as r2_bucket_name$,
-  r2_storage_class as r2_storage_class$,
-} from "../schemas.js";
-import {
-  r2_bucket,
-  r2_bucket_location,
-  r2_jurisdiction,
-  r2_result_info,
-  r2_v4_response_list,
-} from "./outputs.js";
-import { r2_bucket_location as r2_bucket_location$ } from "./schemas.js";
+import { r2_bucket, r2_result_info, r2_v4_response_list } from "./outputs.js";
 
 /**
  * The tools of `r2.buckets`.
@@ -31,24 +17,36 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_create",
     title: "Create Bucket",
-    description: "Creates an R2 bucket in the account and selected jurisdiction, with an optional location hint and default storage class.",
+    description: "Creates an R2 bucket in the account and selected jurisdiction, with an optional location hint and default storage class.\n\nPOST /accounts/{account_id}/r2/buckets",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "locationHint": {
-              "$ref": "#/$defs/r2_bucket_location",
-              "description": "Location of the bucket."
+              "description": "Location of the bucket.",
+              "enum": [
+                "apac",
+                "eeur",
+                "enam",
+                "weur",
+                "wnam",
+                "oc"
+              ],
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "storageClass": {
-              "$ref": "#/$defs/r2_storage_class",
               "default": "Standard",
-              "description": "Storage class for newly uploaded objects, unless specified otherwise."
+              "description": "Storage class for newly uploaded objects, unless specified otherwise.",
+              "enum": [
+                "Standard",
+                "InfrequentAccess"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -57,6 +55,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -74,10 +73,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             }
           },
           "required": [
@@ -90,12 +90,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_location": r2_bucket_location$,
-        "r2_bucket_name": r2_bucket_name$,
-        "r2_storage_class": r2_storage_class$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -113,12 +108,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
       },
     },
@@ -159,12 +150,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
@@ -180,11 +167,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_createByName",
     title: "Create Bucket (by name)",
-    description: "Creates a new R2 bucket using the name from the URL path. Similar to `r2-create-bucket` (POST), but the bucket name comes from the path and the optional storage class is supplied via the `cf-r2-storage-class` header. There is no request body. Unlike the POST variant, this endpoint does not accept a location hint — the bucket is placed in the R2 region for the caller's edge colo. Use the POST variant if you need to set a `locationHint`.",
+    description: "Creates a new R2 bucket using the name from the URL path. Similar to `r2-create-bucket` (POST), but the bucket name comes from the path and the optional storage class is supplied via the `cf-r2-storage-class` header. There is no request body. Unlike the POST variant, this endpoint does not accept a location hint — the bucket is placed in the R2 region for the caller's edge colo. Use the POST variant if you need to set a `locationHint`.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -199,20 +187,26 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "cf-r2-storage-class": {
-              "$ref": "#/$defs/r2_storage_class"
+              "description": "Storage class for newly uploaded objects, unless specified otherwise.",
+              "enum": [
+                "Standard",
+                "InfrequentAccess"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -225,11 +219,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name$,
-        "r2_storage_class": r2_storage_class$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -247,12 +237,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
       },
     },
@@ -293,12 +279,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
@@ -314,11 +296,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_delete",
     title: "Delete Bucket",
-    description: "Deletes an empty R2 bucket and its configuration. The bucket must have no objects, no in-progress multipart uploads, and no event notification rules; otherwise the request fails.\n\nConfirm with the user before calling this tool. This permanently deletes the empty R2 bucket and its configuration.",
+    description: "Deletes an empty R2 bucket and its configuration. The bucket must have no objects, no in-progress multipart uploads, and no event notification rules; otherwise the request fails.\n\nConfirm with the user before calling this tool. This permanently deletes the empty R2 bucket and its configuration.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -336,14 +319,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -356,10 +340,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/r2_v4_response",
@@ -409,11 +390,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_edit",
     title: "Patch Bucket",
-    description: "Changes the default storage class for newly uploaded objects in an existing R2 bucket. Existing objects retain their storage class, and individual uploads can override the bucket default.",
+    description: "Changes the default storage class for newly uploaded objects in an existing R2 bucket. Existing objects retain their storage class, and individual uploads can override the bucket default.\n\nPATCH /accounts/{account_id}/r2/buckets/{bucket_name}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -428,7 +410,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "cf-r2-storage-class": {
-              "$ref": "#/$defs/r2_storage_class"
+              "description": "Storage class for newly uploaded objects, unless specified otherwise.",
+              "enum": [
+                "Standard",
+                "InfrequentAccess"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -437,14 +424,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -458,11 +446,7 @@ export const tools: readonly Tool[] = [
         "path",
         "headers"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name$,
-        "r2_storage_class": r2_storage_class$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -480,12 +464,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
       },
     },
@@ -528,12 +508,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
@@ -549,11 +525,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_get",
     title: "Get Bucket",
-    description: "Gets properties of an existing R2 bucket.",
+    description: "Gets properties of an existing R2 bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -571,14 +548,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -591,10 +569,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -612,12 +587,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
       },
     },
@@ -660,12 +631,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
       },
@@ -680,11 +647,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_list",
     title: "List Buckets",
-    description: "Lists a page of R2 buckets in the account and selected jurisdiction. Use the returned cursor to retrieve the next page.",
+    description: "Lists a page of R2 buckets in the account and selected jurisdiction. Use the returned cursor to retrieve the next page.\n\nGET /accounts/{account_id}/r2/buckets",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -702,10 +670,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             }
           },
           "required": [
@@ -714,6 +683,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor received during the last List Buckets call. R2 buckets are paginated using cursors instead of page numbers.",
@@ -754,9 +724,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -785,13 +753,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
         "r2_result_info": r2_result_info,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_list": r2_v4_response_list,
       },
@@ -845,13 +809,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2_bucket": r2_bucket,
-        "r2_bucket_location": r2_bucket_location,
-        "r2_bucket_name": r2_bucket_name,
         "r2_errors": r2_errors,
-        "r2_jurisdiction": r2_jurisdiction,
         "r2_messages": r2_messages,
         "r2_result_info": r2_result_info,
-        "r2_storage_class": r2_storage_class,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
         "r2_v4_response_list": r2_v4_response_list,

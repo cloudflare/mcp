@@ -4,35 +4,12 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-visibility-mnm_mnm_config_default_sampling`.
- */
-export const magic$$visibility$$mnm_mnm_config_default_sampling: JsonSchema = {
-  "description": "Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.",
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_config_name`.
- */
-export const magic$$visibility$$mnm_mnm_config_name: JsonSchema = {
-  "description": "The account name.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_config_router_ip`.
- */
-export const magic$$visibility$$mnm_mnm_config_router_ip: JsonSchema = {
-  "description": "IPv4 CIDR of the router sourcing flow data. Only /32 addresses are currently supported.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-mnm_mnm_config_router_ips`.
  */
 export const magic$$visibility$$mnm_mnm_config_router_ips: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic-visibility-mnm_mnm_config_router_ip"
+    "description": "IPv4 CIDR of the router sourcing flow data. Only /32 addresses are currently supported.",
+    "type": "string"
   },
   "type": "array"
 };

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_get",
     title: "Get IP address details",
-    description: "Retrieves IP address information.",
+    description: "Retrieves IP address information.\n\nGET /radar/entities/ip",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -38,6 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

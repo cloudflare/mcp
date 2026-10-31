@@ -8,7 +8,6 @@ import {
   rulesets_Messages,
   rulesets_Response,
 } from "../outputs.js";
-import { rulesets_ZoneId } from "../schemas.js";
 import { rulesets_UrlNormalization } from "./outputs.js";
 import { rulesets_UrlNormalization as rulesets_UrlNormalization$ } from "./schemas.js";
 
@@ -19,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "urlNormalization_delete",
     title: "Delete URL Normalization settings",
-    description: "Deletes the URL Normalization settings.",
+    description: "Deletes the URL Normalization settings.\n\nDELETE /zones/{zone_id}/url_normalization",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/rulesets_ZoneId",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rulesets_ZoneId": rulesets_ZoneId,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -122,15 +120,16 @@ export const tools: readonly Tool[] = [
   {
     name: "urlNormalization_get",
     title: "Get URL Normalization settings",
-    description: "Fetches the current URL Normalization settings.",
+    description: "Fetches the current URL Normalization settings.\n\nGET /zones/{zone_id}/url_normalization",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/rulesets_ZoneId",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -142,9 +141,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rulesets_ZoneId": rulesets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -297,7 +294,7 @@ export const tools: readonly Tool[] = [
   {
     name: "urlNormalization_update",
     title: "Update URL Normalization settings",
-    description: "Updates the URL Normalization settings.",
+    description: "Updates the URL Normalization settings.\n\nPUT /zones/{zone_id}/url_normalization",
     inputSchema: {
       type: "object",
       properties: {
@@ -305,10 +302,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rulesets_UrlNormalization"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/rulesets_ZoneId",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -321,9 +319,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "rulesets_UrlNormalization": rulesets_UrlNormalization$,
-        "rulesets_ZoneId": rulesets_ZoneId,
       },
     },
     outputSchema: {

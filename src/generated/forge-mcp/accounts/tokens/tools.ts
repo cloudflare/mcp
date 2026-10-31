@@ -10,23 +10,11 @@ import {
   iam_api$$response$$single$$id,
   iam_cidr_list,
   iam_collection_tokens_response,
-  iam_common_components$$schemas$$identifier,
   iam_condition,
-  iam_creator_email_at_creation,
-  iam_effect,
-  iam_expires_on,
-  iam_issued_on,
-  iam_last_used_on,
   iam_messages$$2,
-  iam_modified_on,
-  iam_name,
-  iam_not_before,
   iam_permission_group,
   iam_permission_groups,
-  iam_policy_identifier,
   iam_policy_with_permission_groups_and_resources,
-  iam_provisioner_id,
-  iam_provisioner_type,
   iam_request_ip,
   iam_resources,
   iam_resources_type_object_nested,
@@ -36,25 +24,14 @@ import {
   iam_single_token_create_response,
   iam_single_token_response,
   iam_token_base,
-  iam_token_identifier,
   iam_token_policies,
-  iam_token_prefix,
-  iam_token_status,
-  iam_token_suffix,
   iam_token_verify_response_single_segment,
   iam_token_with_value,
-  iam_value,
 } from "../../outputs.js";
 import {
-  iam_account_identifier,
   iam_cidr_list as iam_cidr_list$,
-  iam_common_components$$schemas$$identifier as iam_common_components$$schemas$$identifier$,
   iam_condition as iam_condition$,
   iam_create_payload,
-  iam_effect as iam_effect$,
-  iam_expires_on as iam_expires_on$,
-  iam_name as iam_name$,
-  iam_not_before as iam_not_before$,
   iam_permission_group as iam_permission_group$,
   iam_permission_groups as iam_permission_groups$,
   iam_policy_with_permission_groups_and_resources as iam_policy_with_permission_groups_and_resources$,
@@ -63,9 +40,7 @@ import {
   iam_resources_type_object_nested as iam_resources_type_object_nested$,
   iam_resources_type_object_string as iam_resources_type_object_string$,
   iam_token_body,
-  iam_token_identifier as iam_token_identifier$,
   iam_token_policies as iam_token_policies$,
-  iam_token_status as iam_token_status$,
 } from "../../schemas.js";
 
 /**
@@ -75,7 +50,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_create",
     title: "Create Token",
-    description: "Create a new Account Owned API token.",
+    description: "Create a new Account Owned API token.\n\nPOST /accounts/{account_id}/tokens",
     inputSchema: {
       type: "object",
       properties: {
@@ -83,10 +58,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_create_payload"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -99,16 +75,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
         "iam_cidr_list": iam_cidr_list$,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_condition": iam_condition$,
         "iam_create_payload": iam_create_payload,
-        "iam_effect": iam_effect$,
-        "iam_expires_on": iam_expires_on$,
-        "iam_name": iam_name$,
-        "iam_not_before": iam_not_before$,
         "iam_permission_group": iam_permission_group$,
         "iam_permission_groups": iam_permission_groups$,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources$,
@@ -125,34 +96,18 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_single_token_create_response": iam_single_token_create_response,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
         "iam_token_with_value": iam_token_with_value,
-        "iam_value": iam_value,
       },
     },
     annotations: {
@@ -194,34 +149,18 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_single_token_create_response": iam_single_token_create_response,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
         "iam_token_with_value": iam_token_with_value,
-        "iam_value": iam_value,
       },
     },
     request: (args) => ({
@@ -232,19 +171,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_delete",
     title: "Delete Token",
-    description: "Destroy an Account Owned API token.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Destroy an Account Owned API token.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/tokens/{token_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "token_id": {
-              "$ref": "#/$defs/iam_token_identifier",
-              "description": "Token identifier tag."
+              "description": "Token identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -257,18 +197,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_token_identifier": iam_token_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -310,7 +245,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -321,19 +255,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_get",
     title: "Token Details",
-    description: "Get information about a specific Account Owned API token.",
+    description: "Get information about a specific Account Owned API token.\n\nGET /accounts/{account_id}/tokens/{token_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "token_id": {
-              "$ref": "#/$defs/iam_token_identifier",
-              "description": "Token identifier tag."
+              "description": "Token identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -346,11 +281,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_token_identifier": iam_token_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_token_response",
@@ -358,32 +289,17 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_single_token_response": iam_single_token_response,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
       },
     },
     annotations: {
@@ -426,32 +342,17 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_single_token_response": iam_single_token_response,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
       },
     },
     request: (args) => ({
@@ -461,15 +362,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_list",
     title: "List Tokens",
-    description: "List Account Owned API tokens created for this account. Callers with\n`com.cloudflare.api.account.token.list_self` permission only receive\ntokens they created. Results include active, disabled, and\nrecently-expired tokens when `include_expired` is set to true.",
+    description: "List Account Owned API tokens created for this account. Callers with\n`com.cloudflare.api.account.token.list_self` permission only receive\ntokens they created. Results include active, disabled, and\nrecently-expired tokens when `include_expired` is set to true.\n\nGET /accounts/{account_id}/tokens",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -478,6 +380,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Direction to order results.",
@@ -509,10 +412,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_collection_tokens_response",
@@ -522,32 +422,17 @@ export const tools: readonly Tool[] = [
         "iam_cidr_list": iam_cidr_list,
         "iam_collection_tokens_response": iam_collection_tokens_response,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_result_info": iam_result_info,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
       },
     },
     annotations: {
@@ -593,32 +478,17 @@ export const tools: readonly Tool[] = [
         "iam_cidr_list": iam_cidr_list,
         "iam_collection_tokens_response": iam_collection_tokens_response,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_result_info": iam_result_info,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
       },
     },
     request: (args) => ({
@@ -634,19 +504,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_roll",
     title: "Roll Token",
-    description: "Roll the Account Owned API token secret.\n\nConfirm with the user before calling this tool. Rolling this token will invalidate the current secret and generate a new one. Any integrations using the current secret will stop working.",
+    description: "Roll the Account Owned API token secret.\n\nConfirm with the user before calling this tool. Rolling this token will invalidate the current secret and generate a new one. Any integrations using the current secret will stop working.\n\nPUT /accounts/{account_id}/tokens/{token_id}/value",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "token_id": {
-              "$ref": "#/$defs/iam_token_identifier",
-              "description": "Token identifier tag."
+              "description": "Token identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -659,11 +530,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_token_identifier": iam_token_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_response_single_value",
@@ -671,7 +538,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_value": iam_response_single_value,
-        "iam_value": iam_value,
       },
     },
     annotations: {
@@ -713,7 +579,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages-2": iam_messages$$2,
         "iam_response_single_value": iam_response_single_value,
-        "iam_value": iam_value,
       },
     },
     request: (args) => ({
@@ -723,7 +588,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_update",
     title: "Update Token",
-    description: "Update an existing token.",
+    description: "Update an existing token.\n\nPUT /accounts/{account_id}/tokens/{token_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -731,14 +596,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_token_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "token_id": {
-              "$ref": "#/$defs/iam_token_identifier",
-              "description": "Token identifier tag."
+              "description": "Token identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -752,15 +618,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
         "iam_cidr_list": iam_cidr_list$,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_condition": iam_condition$,
-        "iam_effect": iam_effect$,
-        "iam_expires_on": iam_expires_on$,
-        "iam_name": iam_name$,
-        "iam_not_before": iam_not_before$,
         "iam_permission_group": iam_permission_group$,
         "iam_permission_groups": iam_permission_groups$,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources$,
@@ -769,9 +630,7 @@ export const tools: readonly Tool[] = [
         "iam_resources_type_object_nested": iam_resources_type_object_nested$,
         "iam_resources_type_object_string": iam_resources_type_object_string$,
         "iam_token_body": iam_token_body,
-        "iam_token_identifier": iam_token_identifier$,
         "iam_token_policies": iam_token_policies$,
-        "iam_token_status": iam_token_status$,
       },
     },
     outputSchema: {
@@ -780,32 +639,17 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_single_token_response": iam_single_token_response,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
       },
     },
     annotations: {
@@ -847,32 +691,17 @@ export const tools: readonly Tool[] = [
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
-        "iam_creator_email_at_creation": iam_creator_email_at_creation,
-        "iam_effect": iam_effect,
-        "iam_expires_on": iam_expires_on,
-        "iam_issued_on": iam_issued_on,
-        "iam_last_used_on": iam_last_used_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_modified_on": iam_modified_on,
-        "iam_name": iam_name,
-        "iam_not_before": iam_not_before,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
-        "iam_policy_identifier": iam_policy_identifier,
         "iam_policy_with_permission_groups_and_resources": iam_policy_with_permission_groups_and_resources,
-        "iam_provisioner_id": iam_provisioner_id,
-        "iam_provisioner_type": iam_provisioner_type,
         "iam_request_ip": iam_request_ip,
         "iam_resources": iam_resources,
         "iam_resources_type_object_nested": iam_resources_type_object_nested,
         "iam_resources_type_object_string": iam_resources_type_object_string,
         "iam_single_token_response": iam_single_token_response,
         "iam_token_base": iam_token_base,
-        "iam_token_identifier": iam_token_identifier,
         "iam_token_policies": iam_token_policies,
-        "iam_token_prefix": iam_token_prefix,
-        "iam_token_status": iam_token_status,
-        "iam_token_suffix": iam_token_suffix,
       },
     },
     request: (args) => ({
@@ -883,15 +712,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_tokens_verify",
     title: "Verify Token",
-    description: "Test whether a token works.",
+    description: "Test whether a token works.\n\nGET /accounts/{account_id}/tokens/verify",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -903,20 +733,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_token_verify_response_single_segment",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_expires_on": iam_expires_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_not_before": iam_not_before,
-        "iam_token_identifier": iam_token_identifier,
-        "iam_token_status": iam_token_status,
         "iam_token_verify_response_single_segment": iam_token_verify_response_single_segment,
       },
     },
@@ -949,11 +772,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_expires_on": iam_expires_on,
         "iam_messages-2": iam_messages$$2,
-        "iam_not_before": iam_not_before,
-        "iam_token_identifier": iam_token_identifier,
-        "iam_token_status": iam_token_status,
         "iam_token_verify_response_single_segment": iam_token_verify_response_single_segment,
       },
     },

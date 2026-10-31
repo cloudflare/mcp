@@ -6,33 +6,16 @@ import {
   security$$center_api$$response$$common,
   security$$center_api$$response$$common$$failure,
   security$$center_api$$response$$single,
-  security$$center_count,
   security$$center_issue,
-  security$$center_issueClass,
-  security$$center_issueType,
   security$$center_messages,
-  security$$center_page,
-  security$$center_perPage,
-  security$$center_source,
-  security$$center_subject,
-  security$$center_userClassification,
 } from "../outputs.js";
 import {
-  security$$center_dismissed,
-  security$$center_identifier,
-  security$$center_issueClass as security$$center_issueClass$,
   security$$center_issueClasses,
-  security$$center_issueType as security$$center_issueType$,
   security$$center_issueTypes,
-  security$$center_page as security$$center_page$,
-  security$$center_perPage as security$$center_perPage$,
   security$$center_products,
   security$$center_severityQueryParam,
-  security$$center_source as security$$center_source$,
   security$$center_sources,
-  security$$center_subject as security$$center_subject$,
   security$$center_subjects,
-  security$$center_userClassification as security$$center_userClassification$,
 } from "../schemas.js";
 import { security$$center_userClassificationUpdate } from "./schemas.js";
 
@@ -43,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_classify",
     title: "Updates Security Center Insight Classification",
-    description: "Updates the user classification for a Security Center insight. Valid values are 'false_positive' or 'accept_risk'. To reset, set classification to null. Cannot change directly between classification values - must reset to null first.",
+    description: "Updates the user classification for a Security Center insight. Valid values are 'false_positive' or 'accept_risk'. To reset, set classification to null. Cannot change directly between classification values - must reset to null first.\n\nPATCH /{account_or_zone}/{account_or_zone_id}/security-center/insights/{issue_id}/classification",
     inputSchema: {
       type: "object",
       properties: {
@@ -51,6 +34,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_userClassificationUpdate"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -61,8 +45,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "issue_id": {
               "type": "string"
@@ -80,9 +64,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security$$center_identifier,
-        "security-center_userClassification": security$$center_userClassification$,
         "security-center_userClassificationUpdate": security$$center_userClassificationUpdate,
       },
     },
@@ -125,7 +108,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_dismiss",
     title: "Archives Security Center Insight",
-    description: "Archives a Security Center insight for an account or zone, removing it from the active insights list while preserving historical data.",
+    description: "Archives a Security Center insight for an account or zone, removing it from the active insights list while preserving historical data.\n\nPUT /{account_or_zone}/{account_or_zone_id}/security-center/insights/{issue_id}/dismiss",
     inputSchema: {
       type: "object",
       properties: {
@@ -139,6 +122,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -149,8 +133,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "issue_id": {
               "type": "string"
@@ -168,9 +152,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
@@ -218,11 +200,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_list",
     title: "Retrieves Security Center Insights",
-    description: "Lists all Security Center insights for the account or zone, showing security findings and recommendations.",
+    description: "Lists all Security Center insights for the account or zone, showing security findings and recommendations.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -233,8 +216,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -244,9 +227,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dismissed": {
-              "$ref": "#/$defs/security-center_dismissed"
+              "type": "boolean"
             },
             "issue_class": {
               "$ref": "#/$defs/security-center_issueClasses"
@@ -261,12 +245,14 @@ export const tools: readonly Tool[] = [
               "$ref": "#/$defs/security-center_issueTypes"
             },
             "page": {
-              "$ref": "#/$defs/security-center_page",
-              "default": 1
+              "default": 1,
+              "description": "Specifies the current page within paginated list of results.",
+              "type": "integer"
             },
             "per_page": {
-              "$ref": "#/$defs/security-center_perPage",
-              "default": 25
+              "default": 25,
+              "description": "Sets the number of results per page of results.",
+              "type": "integer"
             },
             "product": {
               "$ref": "#/$defs/security-center_products"
@@ -296,20 +282,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_dismissed": security$$center_dismissed,
-        "security-center_identifier": security$$center_identifier,
-        "security-center_issueClass": security$$center_issueClass$,
         "security-center_issueClasses": security$$center_issueClasses,
-        "security-center_issueType": security$$center_issueType$,
         "security-center_issueTypes": security$$center_issueTypes,
-        "security-center_page": security$$center_page$,
-        "security-center_perPage": security$$center_perPage$,
         "security-center_products": security$$center_products,
         "security-center_severityQueryParam": security$$center_severityQueryParam,
-        "security-center_source": security$$center_source$,
         "security-center_sources": security$$center_sources,
-        "security-center_subject": security$$center_subject$,
         "security-center_subjects": security$$center_subjects,
       },
     },
@@ -323,7 +302,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "count": {
-                  "$ref": "#/$defs/security-center_count"
+                  "type": "integer"
                 },
                 "issues": {
                   "items": {
@@ -332,10 +311,10 @@ export const tools: readonly Tool[] = [
                   "type": "array"
                 },
                 "page": {
-                  "$ref": "#/$defs/security-center_page"
+                  "type": "integer"
                 },
                 "per_page": {
-                  "$ref": "#/$defs/security-center_perPage"
+                  "type": "integer"
                 }
               },
               "type": "object"
@@ -346,16 +325,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "security-center_api-response-common": security$$center_api$$response$$common,
-        "security-center_count": security$$center_count,
         "security-center_issue": security$$center_issue,
-        "security-center_issueClass": security$$center_issueClass,
-        "security-center_issueType": security$$center_issueType,
         "security-center_messages": security$$center_messages,
-        "security-center_page": security$$center_page,
-        "security-center_perPage": security$$center_perPage,
-        "security-center_source": security$$center_source,
-        "security-center_subject": security$$center_subject,
-        "security-center_userClassification": security$$center_userClassification,
       },
     },
     annotations: {
@@ -379,7 +350,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "count": {
-                      "$ref": "#/$defs/security-center_count"
+                      "type": "integer"
                     },
                     "issues": {
                       "items": {
@@ -388,10 +359,10 @@ export const tools: readonly Tool[] = [
                       "type": "array"
                     },
                     "page": {
-                      "$ref": "#/$defs/security-center_page"
+                      "type": "integer"
                     },
                     "per_page": {
-                      "$ref": "#/$defs/security-center_perPage"
+                      "type": "integer"
                     }
                   },
                   "type": "object"
@@ -408,16 +379,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "security-center_api-response-common": security$$center_api$$response$$common,
         "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
-        "security-center_count": security$$center_count,
         "security-center_issue": security$$center_issue,
-        "security-center_issueClass": security$$center_issueClass,
-        "security-center_issueType": security$$center_issueType,
         "security-center_messages": security$$center_messages,
-        "security-center_page": security$$center_page,
-        "security-center_perPage": security$$center_perPage,
-        "security-center_source": security$$center_source,
-        "security-center_subject": security$$center_subject,
-        "security-center_userClassification": security$$center_userClassification,
       },
     },
     request: (args) => ({

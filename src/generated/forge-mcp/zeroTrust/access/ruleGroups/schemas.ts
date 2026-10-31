@@ -26,22 +26,6 @@ export const access_include: JsonSchema = {
 };
 
 /**
- * The schema of `access_is_default`.
- */
-export const access_is_default: JsonSchema = {
-  "description": "Whether this is the default group",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_name-6`.
- */
-export const access_name$$6: JsonSchema = {
-  "description": "The name of the Access group.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_require`.
  */
 export const access_require: JsonSchema = {

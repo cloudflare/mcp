@@ -12,11 +12,12 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_settings_get",
     title: "Get the current settings for the active account",
-    description: "Retrieves current settings configuration for the specified resource or service.",
+    description: "Retrieves current settings configuration for the specified resource or service.\n\nGET /accounts/{account_id}/cni/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account tag to retrieve settings for",
@@ -32,6 +33,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_Settings",
@@ -76,7 +78,7 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_settings_update",
     title: "Update the current settings for the active account",
-    description: "Updates configuration settings for the specified resource or service.",
+    description: "Updates configuration settings for the specified resource or service.\n\nPUT /accounts/{account_id}/cni/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -84,6 +86,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/nsc_SettingsRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account tag to update settings for",
@@ -100,6 +103,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "nsc_SettingsRequest": nsc_SettingsRequest,
       },

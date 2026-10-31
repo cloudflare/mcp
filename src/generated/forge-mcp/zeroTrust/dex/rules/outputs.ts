@@ -15,7 +15,7 @@ export const digital$$experience$$monitoring_dex$$rule: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "match": {
       "type": "string"

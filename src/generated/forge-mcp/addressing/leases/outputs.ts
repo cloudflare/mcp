@@ -4,21 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `addressing_cidr-2` in responses.
- */
-export const addressing_cidr$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_created_at` in responses.
- */
-export const addressing_created_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_lease` in responses.
  */
 export const addressing_lease: JsonSchema = {
@@ -29,49 +14,29 @@ export const addressing_lease: JsonSchema = {
     },
     "cidrs": {
       "items": {
-        "$ref": "#/$defs/addressing_cidr-2"
+        "type": "string"
       },
       "type": "array"
     },
     "created_at": {
-      "$ref": "#/$defs/addressing_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_lease_id"
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_modified_at"
+      "format": "date-time",
+      "type": "string"
     },
     "owner_id": {
-      "$ref": "#/$defs/addressing_lease_owner_id"
+      "type": "string"
     },
     "purpose": {
       "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `addressing_lease_id` in responses.
- */
-export const addressing_lease_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_lease_owner_id` in responses.
- */
-export const addressing_lease_owner_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_modified_at` in responses.
- */
-export const addressing_modified_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**

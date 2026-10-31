@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_recording_network_get",
     title: "Get network recording data.",
-    description: "Returns network recording events for the requested target ID. Use ?format=har for a HAR JSON document.",
+    description: "Returns network recording events for the requested target ID. Use ?format=har for a HAR JSON document.\n\nGET /accounts/{account_id}/browser-rendering/recording/{session_id}/network",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -32,6 +33,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Set to `har` to return a HAR JSON document.",
@@ -52,6 +54,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "additionalProperties": {

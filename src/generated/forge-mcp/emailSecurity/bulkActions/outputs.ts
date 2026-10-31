@@ -11,12 +11,31 @@ export const email$$security_BulkJobActionParams: JsonSchema = {
     {
       "properties": {
         "destination": {
-          "$ref": "#/$defs/email-security_MailboxDestination"
+          "enum": [
+            "Inbox",
+            "JunkEmail",
+            "DeletedItems",
+            "RecoverableItemsDeletions",
+            "RecoverableItemsPurges"
+          ],
+          "type": "string"
         },
         "expected_disposition": {
           "oneOf": [
             {
-              "$ref": "#/$defs/email-security_DispositionLabel"
+              "enum": [
+                "MALICIOUS",
+                "MALICIOUS-BEC",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "ENCRYPTED",
+                "EXTERNAL",
+                "UNKNOWN",
+                "NONE"
+              ],
+              "type": "string"
             },
             {
               "type": "null"
@@ -127,7 +146,15 @@ export const email$$security_BulkJobDetail: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/email-security_BulkJobStatus"
+      "enum": [
+        "PENDING",
+        "DISCOVERING",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "type": "string"
     },
     "status_message": {
       "oneOf": [
@@ -161,21 +188,6 @@ export const email$$security_BulkJobDetail: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_BulkJobStatus` in responses.
- */
-export const email$$security_BulkJobStatus: JsonSchema = {
-  "enum": [
-    "PENDING",
-    "DISCOVERING",
-    "PROCESSING",
-    "COMPLETED",
-    "FAILED",
-    "CANCELLED"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_BulkSearchParams` in responses.
  */
 export const email$$security_BulkSearchParams: JsonSchema = {
@@ -196,7 +208,17 @@ export const email$$security_BulkSearchParams: JsonSchema = {
     "delivery_status": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_MessageDeliveryStatus"
+          "enum": [
+            "delivered",
+            "moved",
+            "quarantined",
+            "rejected",
+            "deferred",
+            "bounced",
+            "queued",
+            "move_failed"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -233,7 +255,19 @@ export const email$$security_BulkSearchParams: JsonSchema = {
     "final_disposition": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"

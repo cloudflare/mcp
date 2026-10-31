@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_tags_add",
     title: "Add tag to Threat Signals article",
-    description: "Applies a tag from the account's tag catalog to a Threat Signals article.",
+    description: "Applies a tag from the account's tag catalog to a Threat Signals article.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags",
     inputSchema: {
       type: "object",
       properties: {
@@ -28,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -300,11 +302,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_tags_generate",
     title: "Generate Threat Signals article AI tags",
-    description: "Runs the default AI tagging skill on an article and replaces its AI-applied tags.",
+    description: "Runs the default AI tagging skill on an article and replaces its AI-applied tags.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tag",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -325,6 +328,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -606,11 +610,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_tags_remove",
     title: "Remove tag from Threat Signals article",
-    description: "Removes a tag from a Threat Signals article.",
+    description: "Removes a tag from a Threat Signals article.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags/{tag_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -637,6 +642,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

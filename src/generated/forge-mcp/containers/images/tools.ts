@@ -3,16 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cc_Image,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
 } from "../outputs.js";
-import { cc_Image as cc_Image$ } from "../schemas.js";
-import {
-  cc_ContainerImagePreparation,
-  cc_ContainerImagePreparationStatus,
-} from "./outputs.js";
+import { cc_ContainerImagePreparation } from "./outputs.js";
 import { cc_PrepareContainerImageRequestBody } from "./schemas.js";
 
 /**
@@ -22,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_images_prepare",
     title: "Prepare a container image",
-    description: "Idempotently starts or observes preparation of the runtime artifacts required to run one digest-pinned managed container image on Cloudflare's network. Returns 202 while durable preparation continues and 200 when the image is ready or preparation has reached a terminal error.",
+    description: "Idempotently starts or observes preparation of the runtime artifacts required to run one digest-pinned managed container image on Cloudflare's network. Returns 202 while durable preparation continues and 200 when the image is ready or preparation has reached a terminal error.\n\nPOST /accounts/{account_id}/containers/image-preparations",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,6 +25,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cc_PrepareContainerImageRequestBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -46,8 +42,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cc_Image": cc_Image$,
         "cc_PrepareContainerImageRequestBody": cc_PrepareContainerImageRequestBody,
       },
     },
@@ -70,8 +66,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cc_ContainerImagePreparation": cc_ContainerImagePreparation,
-        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus,
-        "cc_Image": cc_Image,
         "cc_Messages": cc_Messages,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -138,8 +132,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cc_ContainerImagePreparation": cc_ContainerImagePreparation,
-        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus,
-        "cc_Image": cc_Image,
         "cc_Messages": cc_Messages,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,

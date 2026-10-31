@@ -17,16 +17,24 @@ export const email$$security_MissedDetectionSubmission: JsonSchema = {
       "type": "string"
     },
     "expected_disposition": {
-      "$ref": "#/$defs/email-security_SubmissionDisposition",
-      "description": "The disposition a message is submitted to have."
+      "description": "The disposition a message is submitted to have.",
+      "enum": [
+        "MALICIOUS",
+        "SUSPICIOUS",
+        "SPOOF",
+        "SPAM",
+        "BULK",
+        "NONE"
+      ],
+      "type": "string"
     },
     "message_id": {
       "description": "Message-ID header value of the reported message.",
       "type": "string"
     },
     "postfix_id": {
-      "$ref": "#/$defs/email-security_PostfixId",
-      "description": "The identifier of the message."
+      "description": "The identifier of the message.",
+      "type": "string"
     },
     "recipient_emails": {
       "description": "Recipient email addresses of the reported message.",
@@ -60,8 +68,16 @@ export const email$$security_ReclassificationSubmission: JsonSchema = {
       "type": "string"
     },
     "expected_disposition": {
-      "$ref": "#/$defs/email-security_SubmissionDisposition",
-      "description": "The disposition a message is submitted to have."
+      "description": "The disposition a message is submitted to have.",
+      "enum": [
+        "MALICIOUS",
+        "SUSPICIOUS",
+        "SPOOF",
+        "SPAM",
+        "BULK",
+        "NONE"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -69,20 +85,4 @@ export const email$$security_ReclassificationSubmission: JsonSchema = {
     "expected_disposition"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-security_SubmissionDisposition`.
- */
-export const email$$security_SubmissionDisposition: JsonSchema = {
-  "description": "The disposition a message is submitted to have.",
-  "enum": [
-    "MALICIOUS",
-    "SUSPICIOUS",
-    "SPOOF",
-    "SPAM",
-    "BULK",
-    "NONE"
-  ],
-  "type": "string"
 };

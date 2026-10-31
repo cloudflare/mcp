@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_email_security_top_tlds_get",
     title: "Get top TLDs by email message volume",
-    description: "Retrieves the top TLDs by number of email messages.",
+    description: "Retrieves the top TLDs by number of email messages.\n\nGET /radar/email/security/top/tlds",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "arc": {
               "description": "Filters results by ARC (Authenticated Received Chain) validation.",
@@ -132,6 +133,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

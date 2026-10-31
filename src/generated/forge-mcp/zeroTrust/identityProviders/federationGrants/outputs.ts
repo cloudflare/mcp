@@ -9,10 +9,18 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const access_idp_federation_grant: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "id": {
-      "$ref": "#/$defs/access_identifier"
+      "type": "string"
     },
     "idp_id": {
       "format": "uuid",
@@ -40,7 +48,7 @@ export const access_idp_federation_grant_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/access_identifier"
+              "type": "string"
             }
           },
           "type": "object"

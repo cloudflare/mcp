@@ -10,20 +10,12 @@ export const cache_auto_origin_tls_kex_patch: JsonSchema = {
   "description": "Update enablement of Auto-Origin TLS KEX selection.",
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/cache_auto_origin_tls_kex_value",
-      "description": "Controls enablement of Auto-Origin TLS KEX selection for the zone."
+      "description": "Controls enablement of Auto-Origin TLS KEX selection for the zone.",
+      "type": "boolean"
     }
   },
   "required": [
     "enabled"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache_auto_origin_tls_kex_value`.
- */
-export const cache_auto_origin_tls_kex_value: JsonSchema = {
-  "description": "Controls enablement of Auto-Origin TLS KEX selection for the zone.",
-  "type": "boolean"
 };

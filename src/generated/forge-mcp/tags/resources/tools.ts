@@ -3,16 +3,11 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$tagging_access_application_id,
   resource$$tagging_api$$response$$common,
   resource$$tagging_api$$response$$common$$failure,
   resource$$tagging_cursor_result_info,
-  resource$$tagging_etag,
-  resource$$tagging_identifier,
   resource$$tagging_messages,
   resource$$tagging_namespace_worker_navigation,
-  resource$$tagging_resource_id,
-  resource$$tagging_resource_name,
   resource$$tagging_tagged_resource_object,
   resource$$tagging_tagged_resource_object_access_application,
   resource$$tagging_tagged_resource_object_access_application_policy,
@@ -65,16 +60,7 @@ import {
   resource$$tagging_tagged_resource_object_zone_level_base,
   resource$$tagging_tagged_resource_object_zone_ruleset,
   resource$$tagging_tags,
-  resource$$tagging_tags_updated_at,
-  resource$$tagging_worker_id,
-  resource$$tagging_zone_id,
 } from "../outputs.js";
-import {
-  resource$$tagging_account_id,
-  resource$$tagging_identifier as resource$$tagging_identifier$,
-  resource$$tagging_resource_id as resource$$tagging_resource_id$,
-  resource$$tagging_resource_type,
-} from "../schemas.js";
 import { resource$$tagging_tagged_resource_response_collection } from "./outputs.js";
 
 /**
@@ -84,14 +70,16 @@ export const tools: readonly Tool[] = [
   {
     name: "tags_resources_list",
     title: "List tagged resources",
-    description: "Lists all tagged resources for an account.\n\nThis method is beta.",
+    description: "Lists all tagged resources for an account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/tags/resources",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-tagging_account_id"
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -100,6 +88,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "case_insensitive": {
               "default": false,
@@ -113,7 +102,8 @@ export const tools: readonly Tool[] = [
             "id": {
               "description": "Filter by resource ID. Can be repeated up to 50 times to filter by multiple IDs. Example: ?id=abc&id=def",
               "items": {
-                "$ref": "#/$defs/resource-tagging_resource_id"
+                "description": "Identifies the unique resource.",
+                "type": "string"
               },
               "maxItems": 50,
               "type": "array"
@@ -128,7 +118,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "tag": {
-              "description": "Filter resources by tag criteria. This parameter can be repeated multiple times, with AND logic between parameters.\n\nSupported syntax:\n- **Key-only**: `tag=<key>` - Resource must have the tag key (e.g., `tag=production`)\n- **Key-value**: `tag=<key>=<value>` - Resource must have the tag with specific value (e.g., `tag=env=prod`)\n- **Multiple values (OR)**: `tag=<key>=<v1>,<v2>` - Resource must have tag with any of the values (e.g., `tag=env=prod,staging`)\n- **Negate key-only**: `tag=!<key>` - Resource must not have the tag key (e.g., `tag=!archived`)\n- **Negate key-value**: `tag=<key>!=<value>` - Resource must not have the tag with specific value (e.g., `tag=region!=us-west-1`)\n\nMultiple tag parameters are combined with AND logic.\n",
+              "description": "Filter resources by tag criteria. This parameter can be repeated multiple times, with AND logic between parameters.\n\nSupported syntax:\n- **Key-only**: `tag=<key>` - Resource must have the tag key (e.g., `tag=production`)\n- **Key-value**: `tag=<key>=<value>` - Resource must have the tag with specific value (e.g., `tag=env=prod`)\n- **Multiple values (OR)**: `tag=<key>=<v1>,<v2>` - Resource must have tag with any of the values (e.g., `tag=env=prod,staging`)\n- **Negate key-only**: `tag=!<key>` - Resource must not have the tag key (e.g., `tag=!archived`)\n- **Negate key-value**: `tag=<key>!=<value>` - Resource must not have the tag with specific value (e.g., `tag=region!=us-west-1`)\n\nMultiple tag parameters are combined with AND logic.",
               "items": {
                 "type": "string"
               },
@@ -137,7 +127,56 @@ export const tools: readonly Tool[] = [
             "type": {
               "description": "Filter by resource type. Can be repeated to filter by multiple types (OR logic). Example: ?type=zone&type=worker",
               "items": {
-                "$ref": "#/$defs/resource-tagging_resource_type"
+                "description": "Identifies the type of resource.",
+                "enum": [
+                  "access_application",
+                  "access_application_policy",
+                  "access_group",
+                  "access_service_token",
+                  "account",
+                  "account_ruleset",
+                  "ai_gateway",
+                  "ai_search_instance",
+                  "ai_search_namespace",
+                  "alerting_policy",
+                  "alerting_webhook",
+                  "api_gateway_operation",
+                  "cloudflared_tunnel",
+                  "custom_certificate",
+                  "custom_hostname",
+                  "cws_deployment",
+                  "cws_policy",
+                  "cws_policy_set",
+                  "cws_workload",
+                  "d1_database",
+                  "device",
+                  "dns_record",
+                  "durable_object_namespace",
+                  "gateway_list",
+                  "gateway_rule",
+                  "healthcheck",
+                  "image",
+                  "infrastructure_target",
+                  "kv_namespace",
+                  "load_balancer",
+                  "load_balancer_monitor",
+                  "load_balancer_pool",
+                  "managed_client_certificate",
+                  "namespace_worker",
+                  "pages_project",
+                  "queue",
+                  "r2_bucket",
+                  "resource_share",
+                  "stream_live_input",
+                  "stream_video",
+                  "vectorize_index",
+                  "worker",
+                  "worker_route",
+                  "worker_version",
+                  "zone",
+                  "zone_ruleset"
+                ],
+                "type": "string"
               },
               "type": "array"
             }
@@ -148,25 +187,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-tagging_account_id": resource$$tagging_account_id,
-        "resource-tagging_identifier": resource$$tagging_identifier$,
-        "resource-tagging_resource_id": resource$$tagging_resource_id$,
-        "resource-tagging_resource_type": resource$$tagging_resource_type,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-tagging_tagged_resource_response_collection",
       $defs: {
-        "resource-tagging_access_application_id": resource$$tagging_access_application_id,
         "resource-tagging_api-response-common": resource$$tagging_api$$response$$common,
         "resource-tagging_cursor_result_info": resource$$tagging_cursor_result_info,
-        "resource-tagging_etag": resource$$tagging_etag,
-        "resource-tagging_identifier": resource$$tagging_identifier,
         "resource-tagging_messages": resource$$tagging_messages,
         "resource-tagging_namespace_worker_navigation": resource$$tagging_namespace_worker_navigation,
-        "resource-tagging_resource_id": resource$$tagging_resource_id,
-        "resource-tagging_resource_name": resource$$tagging_resource_name,
         "resource-tagging_tagged_resource_object": resource$$tagging_tagged_resource_object,
         "resource-tagging_tagged_resource_object_access_application": resource$$tagging_tagged_resource_object_access_application,
         "resource-tagging_tagged_resource_object_access_application_policy": resource$$tagging_tagged_resource_object_access_application_policy,
@@ -220,9 +249,6 @@ export const tools: readonly Tool[] = [
         "resource-tagging_tagged_resource_object_zone_ruleset": resource$$tagging_tagged_resource_object_zone_ruleset,
         "resource-tagging_tagged_resource_response_collection": resource$$tagging_tagged_resource_response_collection,
         "resource-tagging_tags": resource$$tagging_tags,
-        "resource-tagging_tags_updated_at": resource$$tagging_tags_updated_at,
-        "resource-tagging_worker_id": resource$$tagging_worker_id,
-        "resource-tagging_zone_id": resource$$tagging_zone_id,
       },
     },
     annotations: {
@@ -256,16 +282,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-tagging_access_application_id": resource$$tagging_access_application_id,
         "resource-tagging_api-response-common": resource$$tagging_api$$response$$common,
         "resource-tagging_api-response-common-failure": resource$$tagging_api$$response$$common$$failure,
         "resource-tagging_cursor_result_info": resource$$tagging_cursor_result_info,
-        "resource-tagging_etag": resource$$tagging_etag,
-        "resource-tagging_identifier": resource$$tagging_identifier,
         "resource-tagging_messages": resource$$tagging_messages,
         "resource-tagging_namespace_worker_navigation": resource$$tagging_namespace_worker_navigation,
-        "resource-tagging_resource_id": resource$$tagging_resource_id,
-        "resource-tagging_resource_name": resource$$tagging_resource_name,
         "resource-tagging_tagged_resource_object": resource$$tagging_tagged_resource_object,
         "resource-tagging_tagged_resource_object_access_application": resource$$tagging_tagged_resource_object_access_application,
         "resource-tagging_tagged_resource_object_access_application_policy": resource$$tagging_tagged_resource_object_access_application_policy,
@@ -319,9 +340,6 @@ export const tools: readonly Tool[] = [
         "resource-tagging_tagged_resource_object_zone_ruleset": resource$$tagging_tagged_resource_object_zone_ruleset,
         "resource-tagging_tagged_resource_response_collection": resource$$tagging_tagged_resource_response_collection,
         "resource-tagging_tags": resource$$tagging_tags,
-        "resource-tagging_tags_updated_at": resource$$tagging_tags_updated_at,
-        "resource-tagging_worker_id": resource$$tagging_worker_id,
-        "resource-tagging_zone_id": resource$$tagging_zone_id,
       },
     },
     request: (args) => ({

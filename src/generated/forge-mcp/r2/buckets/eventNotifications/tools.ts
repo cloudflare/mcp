@@ -8,18 +8,8 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
-import {
-  r2_bucket$$config,
-  r2_queues$$config,
-  r2_r2$$action,
-  r2_rule,
-} from "./outputs.js";
-import {
-  r2_queue_identifier,
-  r2_r2$$action as r2_r2$$action$,
-  r2_rule as r2_rule$,
-} from "./schemas.js";
+import { r2_bucket$$config, r2_queues$$config, r2_rule } from "./outputs.js";
+import { r2_rule as r2_rule$ } from "./schemas.js";
 
 /**
  * The tools of `r2.buckets.eventNotifications`.
@@ -28,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_eventNotifications_delete",
     title: "Delete Event Notification Rules",
-    description: "Deletes the specified event notification rules for an R2 bucket and Cloudflare Queue. Provide ruleIds in the request body to select rules. If no body is provided, all rules for that bucket and queue are deleted.\n\nConfirm with the user before calling this tool. This deletes event notification rules for the selected R2 bucket and queue. Without a request body, all rules for that bucket and queue are deleted.",
+    description: "Deletes the specified event notification rules for an R2 bucket and Cloudflare Queue. Provide ruleIds in the request body to select rules. If no body is provided, all rules for that bucket and queue are deleted.\n\nConfirm with the user before calling this tool. This deletes event notification rules for the selected R2 bucket and queue. Without a request body, all rules for that bucket and queue are deleted.\n\nDELETE /accounts/{account_id}/event_notifications/r2/{bucket_name}/configuration/queues/{queue_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,6 +35,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -62,18 +53,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/r2_queue_identifier",
-              "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events."
+              "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
+              "type": "string"
             }
           },
           "required": [
@@ -87,11 +79,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_queue_identifier": r2_queue_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/r2_v4_response",
@@ -142,11 +130,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_eventNotifications_get",
     title: "Get Event Notification Rules for a Queue",
-    description: "Gets the event notification rules for the specified R2 bucket and Cloudflare Queue. The response includes the queue's configuration and its array of rules.",
+    description: "Gets the event notification rules for the specified R2 bucket and Cloudflare Queue. The response includes the queue's configuration and its array of rules.\n\nGET /accounts/{account_id}/event_notifications/r2/{bucket_name}/configuration/queues/{queue_id}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -164,18 +153,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/r2_queue_identifier",
-              "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events."
+              "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
+              "type": "string"
             }
           },
           "required": [
@@ -189,11 +179,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_queue_identifier": r2_queue_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -213,7 +199,6 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors,
         "r2_messages": r2_messages,
         "r2_queues-config": r2_queues$$config,
-        "r2_r2-action": r2_r2$$action,
         "r2_rule": r2_rule,
         "r2_v4_response": r2_v4_response,
       },
@@ -261,7 +246,6 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors,
         "r2_messages": r2_messages,
         "r2_queues-config": r2_queues$$config,
-        "r2_r2-action": r2_r2$$action,
         "r2_rule": r2_rule,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
@@ -277,11 +261,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_eventNotifications_list",
     title: "List Event Notification Rules",
-    description: "Lists event notification rules for an R2 bucket, grouped by the Cloudflare Queue that receives matching object events.",
+    description: "Lists event notification rules for an R2 bucket, grouped by the Cloudflare Queue that receives matching object events.\n\nGET /accounts/{account_id}/event_notifications/r2/{bucket_name}/configuration",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -299,14 +284,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -319,10 +305,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -343,7 +326,6 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors,
         "r2_messages": r2_messages,
         "r2_queues-config": r2_queues$$config,
-        "r2_r2-action": r2_r2$$action,
         "r2_rule": r2_rule,
         "r2_v4_response": r2_v4_response,
       },
@@ -392,7 +374,6 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors,
         "r2_messages": r2_messages,
         "r2_queues-config": r2_queues$$config,
-        "r2_r2-action": r2_r2$$action,
         "r2_rule": r2_rule,
         "r2_v4_response": r2_v4_response,
         "r2_v4_response_failure": r2_v4_response_failure,
@@ -408,7 +389,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_eventNotifications_update",
     title: "Create Event Notification Rules",
-    description: "Creates rules that send notifications for matching R2 object events to the specified Cloudflare Queue. Rules can filter objects by key prefix and suffix. New rules are added to any existing rules for the queue; a rule that overlaps an existing rule is rejected.",
+    description: "Creates rules that send notifications for matching R2 object events to the specified Cloudflare Queue. Rules can filter objects by key prefix and suffix. New rules are added to any existing rules for the queue; a rule that overlaps an existing rule is rejected.\n\nPUT /accounts/{account_id}/event_notifications/r2/{bucket_name}/configuration/queues/{queue_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -429,6 +410,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -446,18 +428,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/r2_queue_identifier",
-              "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events."
+              "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
+              "type": "string"
             }
           },
           "required": [
@@ -472,11 +455,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_queue_identifier": r2_queue_identifier,
-        "r2_r2-action": r2_r2$$action$,
         "r2_rule": r2_rule$,
       },
     },

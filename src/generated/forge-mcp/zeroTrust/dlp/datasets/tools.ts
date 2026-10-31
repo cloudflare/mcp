@@ -7,7 +7,6 @@ import {
   dlp_api$$response$$single,
   dlp_messages,
 } from "../../outputs.js";
-import { dlp_DatasetUploadStatus } from "../outputs.js";
 import {
   dlp_Dataset,
   dlp_DatasetArray,
@@ -25,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_datasets_create",
     title: "Create a new dataset",
-    description: "Creates a new DLP (Data Loss Prevention) dataset for storing custom detection patterns. Datasets can contain exact match data, word lists, or EDM (Exact Data Match) configurations.",
+    description: "Creates a new DLP (Data Loss Prevention) dataset for storing custom detection patterns. Datasets can contain exact match data, word lists, or EDM (Exact Data Match) configurations.\n\nPOST /accounts/{account_id}/dlp/datasets",
     inputSchema: {
       type: "object",
       properties: {
@@ -34,6 +33,7 @@ export const tools: readonly Tool[] = [
           "description": "Dataset description."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -49,6 +49,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewDataset": dlp_NewDataset,
       },
@@ -72,7 +73,6 @@ export const tools: readonly Tool[] = [
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetCreation": dlp_DatasetCreation,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -117,7 +117,6 @@ export const tools: readonly Tool[] = [
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetCreation": dlp_DatasetCreation,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -131,11 +130,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_datasets_delete",
     title: "Delete a dataset",
-    description: "This deletes all versions of the dataset.",
+    description: "This deletes all versions of the dataset.\n\nDELETE /accounts/{account_id}/dlp/datasets/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -155,6 +155,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -189,11 +190,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_datasets_get",
     title: "Fetch a specific dataset",
-    description: "Gets a dataset and its latest upload status.",
+    description: "Gets a dataset and its latest upload status.\n\nGET /accounts/{account_id}/dlp/datasets/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -213,6 +215,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -232,7 +235,6 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -277,7 +279,6 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -290,11 +291,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_datasets_list",
     title: "Fetch all datasets",
-    description: "Lists all DLP datasets configured for the account, including custom word lists and EDM datasets.",
+    description: "Lists all DLP datasets configured for the account, including custom word lists and EDM datasets.\n\nGET /accounts/{account_id}/dlp/datasets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -309,6 +311,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -329,7 +332,6 @@ export const tools: readonly Tool[] = [
         "dlp_DatasetArray": dlp_DatasetArray,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -375,7 +377,6 @@ export const tools: readonly Tool[] = [
         "dlp_DatasetArray": dlp_DatasetArray,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -388,11 +389,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_datasets_prepareUpload",
     title: "Prepare to upload a new version of a dataset",
-    description: "Creates a new version of a DLP dataset, allowing you to stage changes before activation. Used for single-column EDM and custom word lists.",
+    description: "Creates a new version of a DLP dataset, allowing you to stage changes before activation. Used for single-column EDM and custom word lists.\n\nPOST /accounts/{account_id}/dlp/datasets/{dataset_id}/upload",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -412,6 +414,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -430,7 +433,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetNewVersion": dlp_DatasetNewVersion,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -473,7 +475,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetNewVersion": dlp_DatasetNewVersion,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -486,7 +487,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_datasets_update",
     title: "Update details about a dataset",
-    description: "Updates the configuration of an existing DLP dataset, such as its name, description, or detection settings.",
+    description: "Updates the configuration of an existing DLP dataset, such as its name, description, or detection settings.\n\nPUT /accounts/{account_id}/dlp/datasets/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -495,6 +496,7 @@ export const tools: readonly Tool[] = [
           "description": "Dataset description."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -515,6 +517,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_DatasetUpdate": dlp_DatasetUpdate,
       },
@@ -537,7 +540,6 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -581,7 +583,6 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,

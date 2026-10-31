@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_create",
     title: "Create a namespace",
-    description: "Creates an empty Artifacts namespace for an account.\n\nThis method is beta.",
+    description: "Creates an empty Artifacts namespace for an account.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/artifacts/namespaces",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -52,6 +53,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -830,11 +832,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_delete",
     title: "Delete a namespace",
-    description: "Deletes an empty Artifacts namespace.\n\nThis method is beta.",
+    description: "Deletes an empty Artifacts namespace.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/artifacts/namespaces/{namespace}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -855,6 +858,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -1399,11 +1403,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_get",
     title: "Get a namespace",
-    description: "Returns an Artifacts namespace summary.\n\nThis method is beta.",
+    description: "Returns an Artifacts namespace summary.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -1424,6 +1429,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2201,11 +2207,12 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_list",
     title: "List namespaces",
-    description: "Lists Artifacts namespaces for an account.\n\nThis method is beta.",
+    description: "Lists Artifacts namespaces for an account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -2218,6 +2225,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "type": "string"
@@ -2233,6 +2241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -7,12 +7,8 @@ import {
   billing$$spend$$policies_api$$response$$common$$success,
   billing$$spend$$policies_message,
   billing$$spend$$policies_policy,
-  billing$$spend$$policies_policy_action,
   billing$$spend$$policies_policy_current_state,
-  billing$$spend$$policies_policy_id,
-  billing$$spend$$policies_product_id,
 } from "../outputs.js";
-import { billing$$spend$$policies_identifier } from "../schemas.js";
 import {
   billing$$spend$$policies_policy_activity_event,
   billing$$spend$$policies_policy_activity_response,
@@ -25,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_activity_list",
     title: "List Spend Policy Activity",
-    description: "Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint.\n\nThis method is beta.",
+    description: "Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/activity",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             }
           },
           "required": [
@@ -42,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque token from the preceding response's result_info.cursor. Pass it unchanged to retrieve older entries.",
@@ -59,9 +57,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billing-spend-policies_policy_activity_response",
@@ -69,12 +65,9 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_activity_event": billing$$spend$$policies_policy_activity_event,
         "billing-spend-policies_policy_activity_response": billing$$spend$$policies_policy_activity_response,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     annotations: {
@@ -118,12 +111,9 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_activity_event": billing$$spend$$policies_policy_activity_event,
         "billing-spend-policies_policy_activity_response": billing$$spend$$policies_policy_activity_response,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     request: (args) => ({

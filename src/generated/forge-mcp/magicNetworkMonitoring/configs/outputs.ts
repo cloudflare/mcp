@@ -9,10 +9,10 @@ import type { JsonSchema } from "../../_/tool.js";
 export const magic$$visibility$$mnm_mnm_config: JsonSchema = {
   "properties": {
     "default_sampling": {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_config_default_sampling"
+      "type": "number"
     },
     "name": {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_config_name"
+      "type": "string"
     },
     "router_ips": {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_router_ips"
@@ -31,33 +31,11 @@ export const magic$$visibility$$mnm_mnm_config: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-mnm_mnm_config_default_sampling` in
- * responses.
- */
-export const magic$$visibility$$mnm_mnm_config_default_sampling: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_config_name` in responses.
- */
-export const magic$$visibility$$mnm_mnm_config_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_config_router_ip` in responses.
- */
-export const magic$$visibility$$mnm_mnm_config_router_ip: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-mnm_mnm_config_router_ips` in responses.
  */
 export const magic$$visibility$$mnm_mnm_config_router_ips: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic-visibility-mnm_mnm_config_router_ip"
+    "type": "string"
   },
   "type": "array"
 };

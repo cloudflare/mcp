@@ -13,11 +13,6 @@ import {
   iam_result_info,
 } from "../../outputs.js";
 import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier,
-} from "../../schemas.js";
-import { iam_permission_group_identifier } from "../schemas.js";
-import {
   iam_collection_permission_groups_response,
   iam_single_permission_groups_response,
 } from "./outputs.js";
@@ -29,19 +24,20 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_permissionGroups_get",
     title: "Permission Group Details",
-    description: "Get information about a specific permission group in an account.",
+    description: "Get information about a specific permission group in an account.\n\nGET /accounts/{account_id}/iam/permission_groups/{permission_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "permission_group_id": {
-              "$ref": "#/$defs/iam_permission_group_identifier",
-              "description": "Permission Group identifier tag."
+              "description": "Permission Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,11 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-        "iam_permission_group_identifier": iam_permission_group_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_permission_groups_response",
@@ -146,15 +138,16 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_permissionGroups_list",
     title: "List Account Permission Groups",
-    description: "List all the permissions groups for an account.",
+    description: "List all the permissions groups for an account.\n\nGET /accounts/{account_id}/iam/permission_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -163,6 +156,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "ID of the permission group to be fetched.",
@@ -193,10 +187,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_collection_permission_groups_response",

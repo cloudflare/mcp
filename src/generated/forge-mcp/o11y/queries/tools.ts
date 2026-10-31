@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_queries_create",
     title: "Save query",
-    description: "Persist query for later use.",
+    description: "Persist query for later use.\n\nPOST /accounts/{account_id}/workers/observability/queries",
     inputSchema: {
       type: "object",
       properties: {
@@ -294,6 +294,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -310,6 +311,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,
@@ -598,11 +600,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_queries_delete",
     title: "Delete query",
-    description: "Delete a saved query.",
+    description: "Delete a saved query.\n\nDELETE /accounts/{account_id}/workers/observability/queries/{queryId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -622,6 +625,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -905,7 +909,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_queries_edit",
     title: "Update query",
-    description: "Update saved query.",
+    description: "Update saved query.\n\nPATCH /accounts/{account_id}/workers/observability/queries/{queryId}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1180,6 +1184,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1200,6 +1205,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,
@@ -1488,11 +1494,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_queries_get",
     title: "Get query",
-    description: "Retrieve a saved query.",
+    description: "Retrieve a saved query.\n\nGET /accounts/{account_id}/workers/observability/queries/{queryId}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1512,6 +1519,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1795,11 +1803,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_queries_list",
     title: "List queries",
-    description: "List saved queries.",
+    description: "List saved queries.\n\nGET /accounts/{account_id}/workers/observability/queries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1812,6 +1821,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order": {
               "default": "desc",
@@ -1844,6 +1854,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

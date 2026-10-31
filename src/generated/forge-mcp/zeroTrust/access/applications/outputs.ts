@@ -4,55 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_allow_all_headers` in responses.
- */
-export const access_allow_all_headers: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_all_methods` in responses.
- */
-export const access_allow_all_methods: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_all_origins` in responses.
- */
-export const access_allow_all_origins: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_authenticate_via_warp-2` in responses.
- */
-export const access_allow_authenticate_via_warp$$2: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_credentials` in responses.
- */
-export const access_allow_credentials: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_email_alias` in responses.
- */
-export const access_allow_email_alias: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_iframe` in responses.
- */
-export const access_allow_iframe: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_allowed_headers` in responses.
  */
 export const access_allowed_headers: JsonSchema = {
@@ -104,13 +55,6 @@ export const access_allowed_origins: JsonSchema = {
 };
 
 /**
- * The schema of `access_app_launcher_logo_url` in responses.
- */
-export const access_app_launcher_logo_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_app_launcher_props` in responses.
  */
 export const access_app_launcher_props: JsonSchema = {
@@ -121,10 +65,10 @@ export const access_app_launcher_props: JsonSchema = {
     {
       "properties": {
         "app_launcher_logo_url": {
-          "$ref": "#/$defs/access_app_launcher_logo_url"
+          "type": "string"
         },
         "bg_color": {
-          "$ref": "#/$defs/access_bg_color"
+          "type": "string"
         },
         "domain": {
           "type": "string"
@@ -133,7 +77,7 @@ export const access_app_launcher_props: JsonSchema = {
           "$ref": "#/$defs/access_footer_links"
         },
         "header_bg_color": {
-          "$ref": "#/$defs/access_header_bg_color"
+          "type": "string"
         },
         "landing_page_design": {
           "$ref": "#/$defs/access_landing_page_design"
@@ -142,12 +86,29 @@ export const access_app_launcher_props: JsonSchema = {
           "type": "string"
         },
         "skip_app_launcher_login_page": {
-          "$ref": "#/$defs/access_skip_app_launcher_login_page"
+          "type": "boolean"
         },
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -161,13 +122,6 @@ export const access_app_launcher_props: JsonSchema = {
 };
 
 /**
- * The schema of `access_app_launcher_visible` in responses.
- */
-export const access_app_launcher_visible: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_app_policy_response` in responses.
  */
 export const access_app_policy_response: JsonSchema = {
@@ -178,10 +132,10 @@ export const access_app_policy_response: JsonSchema = {
     {
       "properties": {
         "account_id": {
-          "$ref": "#/$defs/access_identifier"
+          "type": "string"
         },
         "precedence": {
-          "$ref": "#/$defs/access_precedence"
+          "type": "integer"
         }
       },
       "type": "object"
@@ -423,45 +377,40 @@ export const access_app_response: JsonSchema = {
 };
 
 /**
- * The schema of `access_aud-2` in responses.
- */
-export const access_aud$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_auto_redirect_to_identity-2` in responses.
- */
-export const access_auto_redirect_to_identity$$2: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_basic_app_response_props` in responses.
  */
 export const access_basic_app_response_props: JsonSchema = {
   "properties": {
     "aud": {
-      "$ref": "#/$defs/access_aud-2"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_bg_color` in responses.
- */
-export const access_bg_color: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -483,7 +432,24 @@ export const access_biso_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -502,16 +468,16 @@ export const access_biso_props: JsonSchema = {
 export const access_bookmark_props: JsonSchema = {
   "properties": {
     "app_launcher_visible": {
-      "$ref": "#/$defs/access_app_launcher_visible"
+      "type": "boolean"
     },
     "domain": {
       "type": "string"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2"
@@ -519,7 +485,24 @@ export const access_bookmark_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -528,20 +511,6 @@ export const access_bookmark_props: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_button_color` in responses.
- */
-export const access_button_color: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_button_text_color` in responses.
- */
-export const access_button_text_color: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -562,7 +531,7 @@ export const access_connection_rules_infra: JsonSchema = {
 export const access_connection_rules_ssh: JsonSchema = {
   "properties": {
     "allow_email_alias": {
-      "$ref": "#/$defs/access_allow_email_alias"
+      "type": "boolean"
     },
     "usernames": {
       "$ref": "#/$defs/access_usernames"
@@ -580,16 +549,16 @@ export const access_connection_rules_ssh: JsonSchema = {
 export const access_cors_headers: JsonSchema = {
   "properties": {
     "allow_all_headers": {
-      "$ref": "#/$defs/access_allow_all_headers"
+      "type": "boolean"
     },
     "allow_all_methods": {
-      "$ref": "#/$defs/access_allow_all_methods"
+      "type": "boolean"
     },
     "allow_all_origins": {
-      "$ref": "#/$defs/access_allow_all_origins"
+      "type": "boolean"
     },
     "allow_credentials": {
-      "$ref": "#/$defs/access_allow_credentials"
+      "type": "boolean"
     },
     "allowed_headers": {
       "$ref": "#/$defs/access_allowed_headers"
@@ -601,31 +570,10 @@ export const access_cors_headers: JsonSchema = {
       "$ref": "#/$defs/access_allowed_origins"
     },
     "max_age": {
-      "$ref": "#/$defs/access_max_age"
+      "type": "number"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_custom_deny_message` in responses.
- */
-export const access_custom_deny_message: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_custom_deny_url` in responses.
- */
-export const access_custom_deny_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_custom_non_identity_deny_url` in responses.
- */
-export const access_custom_non_identity_deny_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -813,20 +761,6 @@ export const access_destinations: JsonSchema = {
 };
 
 /**
- * The schema of `access_domain` in responses.
- */
-export const access_domain: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_eager_redirect_cookie_setting` in responses.
- */
-export const access_eager_redirect_cookie_setting: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_empty_response-2` in responses.
  */
 export const access_empty_response$$2: JsonSchema = {
@@ -850,13 +784,6 @@ export const access_empty_response$$2: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_enable_binding_cookie` in responses.
- */
-export const access_enable_binding_cookie: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -986,10 +913,10 @@ export const access_end_user_props: JsonSchema = {
       "$ref": "#/$defs/access_end_user_destinations"
     },
     "domain": {
-      "$ref": "#/$defs/access_domain"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_end_user_oauth_configuration"
@@ -1000,7 +927,24 @@ export const access_end_user_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "enum": [
@@ -1012,7 +956,7 @@ export const access_end_user_props: JsonSchema = {
     },
     "user_populations": {
       "items": {
-        "$ref": "#/$defs/access_uuid"
+        "type": "string"
       },
       "maxItems": 1,
       "minItems": 1,
@@ -1085,28 +1029,45 @@ export const access_feature_app_props: JsonSchema = {
       "$ref": "#/$defs/access_allowed_idps"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+      "type": "boolean"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url"
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2"
     },
     "domain": {
-      "$ref": "#/$defs/access_domain"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_type"
+      "enum": [
+        "self_hosted",
+        "end_user",
+        "saas",
+        "ssh",
+        "vnc",
+        "app_launcher",
+        "warp",
+        "biso",
+        "bookmark",
+        "dash_sso",
+        "infrastructure",
+        "rdp",
+        "mcp",
+        "mcp_portal",
+        "proxy_endpoint"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -1135,27 +1096,6 @@ export const access_footer_links: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_header_bg_color` in responses.
- */
-export const access_header_bg_color: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_http_only_cookie_attribute` in responses.
- */
-export const access_http_only_cookie_attribute: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_image_url` in responses.
- */
-export const access_image_url: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -1231,7 +1171,7 @@ export const access_infra_props: JsonSchema = {
           "$ref": "#/$defs/access_infra_mfa_config"
         },
         "name": {
-          "$ref": "#/$defs/access_name-8"
+          "type": "string"
         },
         "session_duration": {
           "type": "string"
@@ -1239,7 +1179,24 @@ export const access_infra_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -1261,36 +1218,22 @@ export const access_infra_props: JsonSchema = {
 export const access_landing_page_design: JsonSchema = {
   "properties": {
     "button_color": {
-      "$ref": "#/$defs/access_button_color"
+      "type": "string"
     },
     "button_text_color": {
-      "$ref": "#/$defs/access_button_text_color"
+      "type": "string"
     },
     "image_url": {
-      "$ref": "#/$defs/access_image_url"
+      "type": "string"
     },
     "message": {
-      "$ref": "#/$defs/access_message"
+      "type": "string"
     },
     "title": {
-      "$ref": "#/$defs/access_title"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_logo_url` in responses.
- */
-export const access_logo_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_max_age` in responses.
- */
-export const access_max_age: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -1299,22 +1242,22 @@ export const access_max_age: JsonSchema = {
 export const access_mcp_portal_props: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+      "type": "boolean"
     },
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+      "type": "boolean"
     },
     "custom_deny_message": {
-      "$ref": "#/$defs/access_custom_deny_message"
+      "type": "string"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url"
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2"
@@ -1323,31 +1266,31 @@ export const access_mcp_portal_props: JsonSchema = {
       "$ref": "#/$defs/access_destinations"
     },
     "domain": {
-      "$ref": "#/$defs/access_domain"
+      "type": "string"
     },
     "http_only_cookie_attribute": {
-      "$ref": "#/$defs/access_http_only_cookie_attribute"
+      "type": "boolean"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_oauth_configuration"
     },
     "options_preflight_bypass": {
-      "$ref": "#/$defs/access_options_preflight_bypass"
+      "type": "boolean"
     },
     "same_site_cookie_attribute": {
-      "$ref": "#/$defs/access_same_site_cookie_attribute"
+      "type": "string"
     },
     "scim_config": {
       "$ref": "#/$defs/access_scim_config"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2"
@@ -1355,7 +1298,24 @@ export const access_mcp_portal_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -1375,22 +1335,22 @@ export const access_mcp_portal_props: JsonSchema = {
 export const access_mcp_props: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+      "type": "boolean"
     },
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+      "type": "boolean"
     },
     "custom_deny_message": {
-      "$ref": "#/$defs/access_custom_deny_message"
+      "type": "string"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url"
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2"
@@ -1399,28 +1359,28 @@ export const access_mcp_props: JsonSchema = {
       "$ref": "#/$defs/access_destinations"
     },
     "http_only_cookie_attribute": {
-      "$ref": "#/$defs/access_http_only_cookie_attribute"
+      "type": "boolean"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_oauth_configuration"
     },
     "options_preflight_bypass": {
-      "$ref": "#/$defs/access_options_preflight_bypass"
+      "type": "boolean"
     },
     "same_site_cookie_attribute": {
-      "$ref": "#/$defs/access_same_site_cookie_attribute"
+      "type": "string"
     },
     "scim_config": {
       "$ref": "#/$defs/access_scim_config"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2"
@@ -1428,7 +1388,24 @@ export const access_mcp_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -1440,20 +1417,6 @@ export const access_mcp_props: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_message` in responses.
- */
-export const access_message: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_name-8` in responses.
- */
-export const access_name$$8: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -1527,7 +1490,15 @@ export const access_oidc_saas_app: JsonSchema = {
       "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_claims": {
       "items": {
@@ -1623,58 +1594,18 @@ export const access_oidc_saas_app: JsonSchema = {
       "type": "array"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_options_preflight_bypass` in responses.
- */
-export const access_options_preflight_bypass: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_path_cookie_attribute` in responses.
- */
-export const access_path_cookie_attribute: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_port` in responses.
- */
-export const access_port: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `access_precedence` in responses.
- */
-export const access_precedence: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `access_protocol_infra_app` in responses.
- */
-export const access_protocol_infra_app: JsonSchema = {
-  "enum": [
-    "SSH"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `access_protocol_self_hosted_app` in responses.
- */
-export const access_protocol_self_hosted_app: JsonSchema = {
-  "enum": [
-    "RDP"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1696,7 +1627,24 @@ export const access_proxy_endpoint_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -1725,7 +1673,24 @@ export const access_rdp_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -1736,13 +1701,6 @@ export const access_rdp_props: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_read_service_tokens_from_header` in responses.
- */
-export const access_read_service_tokens_from_header: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -1776,19 +1734,19 @@ export const access_saas_props: JsonSchema = {
       "$ref": "#/$defs/access_allowed_idps"
     },
     "app_launcher_visible": {
-      "$ref": "#/$defs/access_app_launcher_visible"
+      "type": "boolean"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+      "type": "boolean"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "saas_app": {
       "oneOf": [
@@ -1809,7 +1767,24 @@ export const access_saas_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -1818,13 +1793,6 @@ export const access_saas_props: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_same_site_cookie_attribute` in responses.
- */
-export const access_same_site_cookie_attribute: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -1843,7 +1811,15 @@ export const access_saml_saas_app: JsonSchema = {
       "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_attributes": {
       "items": {
@@ -1921,7 +1897,15 @@ export const access_saml_saas_app: JsonSchema = {
       "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
@@ -2175,31 +2159,31 @@ export const access_self_hosted_domains: JsonSchema = {
 export const access_self_hosted_props: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+      "type": "boolean"
     },
     "allow_iframe": {
-      "$ref": "#/$defs/access_allow_iframe"
+      "type": "boolean"
     },
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps"
     },
     "app_launcher_visible": {
-      "$ref": "#/$defs/access_app_launcher_visible"
+      "type": "boolean"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+      "type": "boolean"
     },
     "cors_headers": {
       "$ref": "#/$defs/access_cors_headers"
     },
     "custom_deny_message": {
-      "$ref": "#/$defs/access_custom_deny_message"
+      "type": "string"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url"
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2"
@@ -2208,40 +2192,40 @@ export const access_self_hosted_props: JsonSchema = {
       "$ref": "#/$defs/access_destinations"
     },
     "domain": {
-      "$ref": "#/$defs/access_domain"
+      "type": "string"
     },
     "eager_redirect_cookie_setting": {
-      "$ref": "#/$defs/access_eager_redirect_cookie_setting"
+      "type": "boolean"
     },
     "enable_binding_cookie": {
-      "$ref": "#/$defs/access_enable_binding_cookie"
+      "type": "boolean"
     },
     "http_only_cookie_attribute": {
-      "$ref": "#/$defs/access_http_only_cookie_attribute"
+      "type": "boolean"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url"
+      "type": "string"
     },
     "mfa_config": {
       "$ref": "#/$defs/access_mfa_config"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8"
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_oauth_configuration"
     },
     "options_preflight_bypass": {
-      "$ref": "#/$defs/access_options_preflight_bypass"
+      "type": "boolean"
     },
     "path_cookie_attribute": {
-      "$ref": "#/$defs/access_path_cookie_attribute"
+      "type": "boolean"
     },
     "read_service_tokens_from_header": {
-      "$ref": "#/$defs/access_read_service_tokens_from_header"
+      "type": "string"
     },
     "same_site_cookie_attribute": {
-      "$ref": "#/$defs/access_same_site_cookie_attribute"
+      "type": "string"
     },
     "scim_config": {
       "$ref": "#/$defs/access_scim_config"
@@ -2250,13 +2234,13 @@ export const access_self_hosted_props: JsonSchema = {
       "$ref": "#/$defs/access_self_hosted_domains"
     },
     "service_auth_401_redirect": {
-      "$ref": "#/$defs/access_service_auth_401_redirect"
+      "type": "boolean"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2"
+      "type": "string"
     },
     "skip_interstitial": {
-      "$ref": "#/$defs/access_skip_interstitial"
+      "type": "boolean"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2"
@@ -2264,7 +2248,24 @@ export const access_self_hosted_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -2272,7 +2273,7 @@ export const access_self_hosted_props: JsonSchema = {
       ]
     },
     "use_clientless_isolation_app_launcher_url": {
-      "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url"
+      "type": "boolean"
     }
   },
   "required": [
@@ -2280,20 +2281,6 @@ export const access_self_hosted_props: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_service_auth_401_redirect` in responses.
- */
-export const access_service_auth_401_redirect: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_session_duration-2` in responses.
- */
-export const access_session_duration$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -2316,20 +2303,6 @@ export const access_single_response$$9: JsonSchema = {
 };
 
 /**
- * The schema of `access_skip_app_launcher_login_page` in responses.
- */
-export const access_skip_app_launcher_login_page: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_skip_interstitial` in responses.
- */
-export const access_skip_interstitial: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_ssh_props` in responses.
  */
 export const access_ssh_props: JsonSchema = {
@@ -2342,7 +2315,24 @@ export const access_ssh_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -2390,7 +2380,7 @@ export const access_target_criteria_base: JsonSchema = {
       "$ref": "#/$defs/access_target_rule"
     },
     "port": {
-      "$ref": "#/$defs/access_port"
+      "type": "integer"
     },
     "require": {
       "$ref": "#/$defs/access_target_rule"
@@ -2416,7 +2406,10 @@ export const access_target_criteria_infra_app: JsonSchema = {
     {
       "properties": {
         "protocol": {
-          "$ref": "#/$defs/access_protocol_infra_app"
+          "enum": [
+            "SSH"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -2435,7 +2428,10 @@ export const access_target_criteria_self_hosted_app: JsonSchema = {
     {
       "properties": {
         "protocol": {
-          "$ref": "#/$defs/access_protocol_self_hosted_app"
+          "enum": [
+            "RDP"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -2484,45 +2480,6 @@ export const access_target_rule_attributes: JsonSchema = {
 };
 
 /**
- * The schema of `access_title` in responses.
- */
-export const access_title: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_type` in responses.
- */
-export const access_type: JsonSchema = {
-  "enum": [
-    "self_hosted",
-    "end_user",
-    "saas",
-    "ssh",
-    "vnc",
-    "app_launcher",
-    "warp",
-    "biso",
-    "bookmark",
-    "dash_sso",
-    "infrastructure",
-    "rdp",
-    "mcp",
-    "mcp_portal",
-    "proxy_endpoint"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `access_use_clientless_isolation_app_launcher_url` in
- * responses.
- */
-export const access_use_clientless_isolation_app_launcher_url: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_usernames` in responses.
  */
 export const access_usernames: JsonSchema = {
@@ -2545,7 +2502,24 @@ export const access_vnc_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -2577,7 +2551,24 @@ export const access_warp_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"

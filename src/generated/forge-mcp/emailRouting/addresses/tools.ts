@@ -6,24 +6,15 @@ import {
   email_api$$response$$collection,
   email_api$$response$$common,
   email_api$$response$$single,
-  email_created,
   email_messages,
-  email_modified,
 } from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
 import {
   email_addresses,
-  email_destination_address_identifier,
   email_destination_address_response_single,
-  email_destination_address_tag,
   email_destination_addresses_response_collection,
-  email_email,
-  email_verified,
 } from "./outputs.js";
 import {
   email_create_destination_address_properties,
-  email_destination_address_identifier as email_destination_address_identifier$,
-  email_email as email_email$,
   email_update_destination_address_properties,
 } from "./schemas.js";
 
@@ -34,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_addresses_create",
     title: "Create a destination address",
-    description: "Create a destination address to forward your emails to. Destination addresses need to be verified before they can be used.",
+    description: "Create a destination address to forward your emails to. Destination addresses need to be verified before they can be used.\n\nPOST /accounts/{account_id}/email/routing/addresses",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,10 +33,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_create_destination_address_properties"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -58,10 +50,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email_create_destination_address_properties": email_create_destination_address_properties,
-        "email_email": email_email$,
-        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
@@ -69,14 +60,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     annotations: {
@@ -114,14 +99,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     request: (args) => ({
@@ -132,19 +111,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_addresses_delete",
     title: "Delete destination address",
-    description: "Deletes a specific destination address.\n\nConfirm with the user before calling this tool. This operation permanently deletes a destination address.",
+    description: "Deletes a specific destination address.\n\nConfirm with the user before calling this tool. This operation permanently deletes a destination address.\n\nDELETE /accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "destination_address_identifier": {
-              "$ref": "#/$defs/email_destination_address_identifier",
-              "description": "Destination address identifier."
+              "description": "Destination address identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -157,24 +137,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_destination_address_identifier": email_destination_address_identifier$,
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     annotations: {
@@ -212,14 +183,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     request: (args) => ({
@@ -229,19 +194,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_addresses_get",
     title: "Get a destination address",
-    description: "Gets information for a specific destination email already created.",
+    description: "Gets information for a specific destination email already created.\n\nGET /accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "destination_address_identifier": {
-              "$ref": "#/$defs/email_destination_address_identifier",
-              "description": "Destination address identifier."
+              "description": "Destination address identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -254,24 +220,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_destination_address_identifier": email_destination_address_identifier$,
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     annotations: {
@@ -310,14 +267,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     request: (args) => ({
@@ -327,15 +278,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_addresses_list",
     title: "List destination addresses",
-    description: "Lists destination addresses configured for Email Routing in an account.",
+    description: "Lists destination addresses configured for Email Routing in an account.\n\nGET /accounts/{account_id}/email/routing/addresses",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -344,6 +296,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -380,9 +333,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_destination_addresses_response_collection",
@@ -390,14 +341,8 @@ export const tools: readonly Tool[] = [
         "email_addresses": email_addresses,
         "email_api-response-collection": email_api$$response$$collection,
         "email_api-response-common": email_api$$response$$common,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
-        "email_destination_address_tag": email_destination_address_tag,
         "email_destination_addresses_response_collection": email_destination_addresses_response_collection,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     annotations: {
@@ -437,14 +382,8 @@ export const tools: readonly Tool[] = [
         "email_addresses": email_addresses,
         "email_api-response-collection": email_api$$response$$collection,
         "email_api-response-common": email_api$$response$$common,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
-        "email_destination_address_tag": email_destination_address_tag,
         "email_destination_addresses_response_collection": email_destination_addresses_response_collection,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     request: (args) => ({
@@ -460,7 +399,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailRouting_addresses_update",
     title: "Update destination address",
-    description: "Updates the status of a specific destination address.",
+    description: "Updates the status of a specific destination address.\n\nPATCH /accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -468,14 +407,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_update_destination_address_properties"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "destination_address_identifier": {
-              "$ref": "#/$defs/email_destination_address_identifier",
-              "description": "Destination address identifier."
+              "description": "Destination address identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -489,9 +429,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email_destination_address_identifier": email_destination_address_identifier$,
-        "email_identifier": email_identifier,
         "email_update_destination_address_properties": email_update_destination_address_properties,
       },
     },
@@ -500,14 +439,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     annotations: {
@@ -545,14 +478,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_addresses": email_addresses,
         "email_api-response-single": email_api$$response$$single,
-        "email_created": email_created,
-        "email_destination_address_identifier": email_destination_address_identifier,
         "email_destination_address_response_single": email_destination_address_response_single,
-        "email_destination_address_tag": email_destination_address_tag,
-        "email_email": email_email,
         "email_messages": email_messages,
-        "email_modified": email_modified,
-        "email_verified": email_verified,
       },
     },
     request: (args) => ({

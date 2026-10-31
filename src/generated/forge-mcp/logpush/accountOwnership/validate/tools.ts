@@ -7,11 +7,6 @@ import {
   logpush_api$$response$$common$$failure,
   logpush_messages,
 } from "../../outputs.js";
-import {
-  logpush_destination_conf,
-  logpush_identifier,
-  logpush_ownership_challenge,
-} from "../../schemas.js";
 import { logpush_validate_ownership_response } from "./outputs.js";
 
 /**
@@ -21,19 +16,19 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountOwnership_validate_create",
     title: "Validate ownership challenge",
-    description: "Validates ownership challenge of the destination.",
+    description: "Validates ownership challenge of the destination.\n\nPOST /{account_or_zone}/{account_or_zone_id}/logpush/ownership/validate",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "destination_conf": {
-              "$ref": "#/$defs/logpush_destination_conf",
-              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included."
+              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included.",
+              "type": "string"
             },
             "ownership_challenge": {
-              "$ref": "#/$defs/logpush_ownership_challenge",
-              "description": "Ownership challenge token to prove destination ownership."
+              "description": "Ownership challenge token to prove destination ownership.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -53,8 +49,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -68,11 +64,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_identifier": logpush_identifier,
-        "logpush_ownership_challenge": logpush_ownership_challenge,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_validate_ownership_response",

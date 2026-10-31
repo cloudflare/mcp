@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_ownership_challenge` in
- * responses.
- */
-export const magic$$visibility$$pcaps_pcaps_ownership_challenge: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_collection` in
  * responses.
  */
@@ -47,10 +39,10 @@ export const magic$$visibility$$pcaps_pcaps_ownership_collection: JsonSchema = {
 export const magic$$visibility$$pcaps_pcaps_ownership_response: JsonSchema = {
   "properties": {
     "destination_conf": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf"
+      "type": "string"
     },
     "filename": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_challenge"
+      "type": "string"
     },
     "id": {
       "type": "string"

@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate-4` in responses.
- */
-export const tls$$certificates$$and$$hostnames_certificate$$4: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of
  * `tls-certificates-and-hostnames_certificate_response_collection-2` in
  * responses.
@@ -63,10 +56,11 @@ export const tls$$certificates$$and$$hostnames_certificate_revoke_response: Json
     "result": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_origin_ca_certificate_identifier"
+          "type": "string"
         },
         "revoked_at": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_revoked_at"
+          "format": "date-time",
+          "type": "string"
         }
       },
       "type": "object"
@@ -81,25 +75,39 @@ export const tls$$certificates$$and$$hostnames_certificate_revoke_response: Json
 export const tls$$certificates$$and$$hostnames_certificates: JsonSchema = {
   "properties": {
     "certificate": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-4"
+      "type": "string"
     },
     "csr": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_csr"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on-3"
+      "type": "string"
     },
     "hostnames": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_origin_ca_certificate_identifier"
+      "type": "string"
     },
     "request_type": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_request_type"
+      "enum": [
+        "origin-rsa",
+        "origin-ecc",
+        "keyless-certificate"
+      ],
+      "type": "string"
     },
     "requested_validity": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_requested_validity"
+      "enum": [
+        7,
+        30,
+        90,
+        365,
+        730,
+        1095,
+        5475
+      ],
+      "type": "integer"
     }
   },
   "required": [
@@ -112,20 +120,6 @@ export const tls$$certificates$$and$$hostnames_certificates: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_csr` in responses.
- */
-export const tls$$certificates$$and$$hostnames_csr: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_expires_on-3` in responses.
- */
-export const tls$$certificates$$and$$hostnames_expires_on$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_hostnames` in responses.
  */
 export const tls$$certificates$$and$$hostnames_hostnames: JsonSchema = {
@@ -135,50 +129,4 @@ export const tls$$certificates$$and$$hostnames_hostnames: JsonSchema = {
   "maxItems": 100,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_origin_ca_certificate_identifier` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_request_type` in responses.
- */
-export const tls$$certificates$$and$$hostnames_request_type: JsonSchema = {
-  "enum": [
-    "origin-rsa",
-    "origin-ecc",
-    "keyless-certificate"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_requested_validity` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_requested_validity: JsonSchema = {
-  "enum": [
-    7,
-    30,
-    90,
-    365,
-    730,
-    1095,
-    5475
-  ],
-  "type": "integer"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_revoked_at` in responses.
- */
-export const tls$$certificates$$and$$hostnames_revoked_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

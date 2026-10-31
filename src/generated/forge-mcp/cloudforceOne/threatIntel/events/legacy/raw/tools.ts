@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_legacy_raw_get",
     title: "Get raw event data by raw ID (legacy)",
-    description: "Legacy. Returns raw data stored under a `raw_id`, which new events don't use. Use `threat-intel events raw get` (`GET /events/datasets/{dataset_id}/events/{event_id}/raw`) instead.",
+    description: "Legacy. Returns raw data stored under a `raw_id`, which new events don't use. Use `threat-intel events raw get` (`GET /events/datasets/{dataset_id}/events/{event_id}/raw`) instead.\n\nGET /accounts/{account_id}/cloudforce-one/events/{event_id}/raw/{raw_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -40,6 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -159,7 +161,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_legacy_raw_update",
     title: "Update raw event data by raw ID (legacy)",
-    description: "Legacy. Updates raw data stored under a `raw_id`, which new events don't use. There is no direct replacement.",
+    description: "Legacy. Updates raw data stored under a `raw_id`, which new events don't use. There is no direct replacement.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/{event_id}/raw/{raw_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -178,6 +180,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -203,6 +206,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -6,20 +6,11 @@ import {
   tunnel_api$$response$$collection,
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_arch,
-  tunnel_client_id,
-  tunnel_colo_name,
-  tunnel_connection_id,
   tunnel_features,
-  tunnel_ip,
   tunnel_messages,
   tunnel_result_info,
-  tunnel_run_at,
-  tunnel_version,
 } from "../../../outputs.js";
-import { tunnel_account_id, tunnel_tunnel_id } from "../../../schemas.js";
 import {
-  tunnel_ha_status,
   tunnel_schemas$$warp$$connector$$connection,
   tunnel_tunnel_warp_connector_client,
   tunnel_warp_connector_connections,
@@ -33,19 +24,21 @@ export const tools: readonly Tool[] = [
   {
     name: "mesh_nodes_connections_list",
     title: "List Mesh node connections",
-    description: "Lists connection details for a Mesh node.",
+    description: "Lists connection details for a Mesh node.\n\nGET /accounts/{account_id}/warp_connector/{tunnel_id}/connections",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -58,30 +51,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_tunnel_warp_connector_connections_response",
       $defs: {
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_arch": tunnel_arch,
-        "tunnel_client_id": tunnel_client_id,
-        "tunnel_colo_name": tunnel_colo_name,
-        "tunnel_connection_id": tunnel_connection_id,
         "tunnel_features": tunnel_features,
-        "tunnel_ha_status": tunnel_ha_status,
-        "tunnel_ip": tunnel_ip,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_run_at": tunnel_run_at,
         "tunnel_schemas-warp-connector-connection": tunnel_schemas$$warp$$connector$$connection,
         "tunnel_tunnel_warp_connector_client": tunnel_tunnel_warp_connector_client,
         "tunnel_tunnel_warp_connector_connections_response": tunnel_tunnel_warp_connector_connections_response,
-        "tunnel_version": tunnel_version,
         "tunnel_warp_connector_connections": tunnel_warp_connector_connections,
       },
     },
@@ -122,20 +104,12 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_arch": tunnel_arch,
-        "tunnel_client_id": tunnel_client_id,
-        "tunnel_colo_name": tunnel_colo_name,
-        "tunnel_connection_id": tunnel_connection_id,
         "tunnel_features": tunnel_features,
-        "tunnel_ha_status": tunnel_ha_status,
-        "tunnel_ip": tunnel_ip,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_run_at": tunnel_run_at,
         "tunnel_schemas-warp-connector-connection": tunnel_schemas$$warp$$connector$$connection,
         "tunnel_tunnel_warp_connector_client": tunnel_tunnel_warp_connector_client,
         "tunnel_tunnel_warp_connector_connections_response": tunnel_tunnel_warp_connector_connections_response,
-        "tunnel_version": tunnel_version,
         "tunnel_warp_connector_connections": tunnel_warp_connector_connections,
       },
     },

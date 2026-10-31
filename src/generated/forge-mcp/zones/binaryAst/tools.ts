@@ -8,12 +8,7 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_binary_ast_response,
-  speed_binary_ast_value,
-} from "./outputs.js";
-import { speed_binary_ast_value as speed_binary_ast_value$ } from "./schemas.js";
+import { speed_binary_ast_response } from "./outputs.js";
 
 /**
  * The tools of `zones.binaryAst`.
@@ -22,15 +17,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_binaryAst_edit",
     title: "Change Binary AST setting",
-    description: "Binary AST is a new binary encoding for JavaScript that enables faster parsing of scripts.\nWhen enabled, Cloudflare will serve a binary-encoded version of JavaScript to compatible browsers.",
+    description: "Binary AST is a new binary encoding for JavaScript that enables faster parsing of scripts.\nWhen enabled, Cloudflare will serve a binary-encoded version of JavaScript to compatible browsers.\n\nPATCH /zones/{zone_id}/settings/binary_ast",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_binary_ast_value",
-              "description": "Controls Binary AST behavior:\n- \"off\": Feature disabled.\n- \"on\": Binary AST enabled.\n- \"latest\": Binary AST enabled using the latest version.\n"
+              "description": "Controls Binary AST behavior:\n- \"off\": Feature disabled.\n- \"on\": Binary AST enabled.\n- \"latest\": Binary AST enabled using the latest version.",
+              "enum": [
+                "off",
+                "on",
+                "latest"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -39,10 +39,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +56,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "speed_binary_ast_value": speed_binary_ast_value$,
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -78,7 +76,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common": speed_api$$response$$common,
         "speed_base": speed_base,
         "speed_binary_ast_response": speed_binary_ast_response,
-        "speed_binary_ast_value": speed_binary_ast_value,
         "speed_messages": speed_messages,
       },
     },
@@ -133,7 +130,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common-failure": speed_api$$response$$common$$failure,
         "speed_base": speed_base,
         "speed_binary_ast_response": speed_binary_ast_response,
-        "speed_binary_ast_value": speed_binary_ast_value,
         "speed_messages": speed_messages,
       },
     },
@@ -145,15 +141,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_binaryAst_get",
     title: "Get Binary AST setting",
-    description: "Binary AST is a new binary encoding for JavaScript that enables faster parsing of scripts.\nWhen enabled, Cloudflare will serve a binary-encoded version of JavaScript to compatible browsers.",
+    description: "Binary AST is a new binary encoding for JavaScript that enables faster parsing of scripts.\nWhen enabled, Cloudflare will serve a binary-encoded version of JavaScript to compatible browsers.\n\nGET /zones/{zone_id}/settings/binary_ast",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -165,9 +162,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -187,7 +182,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common": speed_api$$response$$common,
         "speed_base": speed_base,
         "speed_binary_ast_response": speed_binary_ast_response,
-        "speed_binary_ast_value": speed_binary_ast_value,
         "speed_messages": speed_messages,
       },
     },
@@ -243,7 +237,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common-failure": speed_api$$response$$common$$failure,
         "speed_base": speed_base,
         "speed_binary_ast_response": speed_binary_ast_response,
-        "speed_binary_ast_value": speed_binary_ast_value,
         "speed_messages": speed_messages,
       },
     },

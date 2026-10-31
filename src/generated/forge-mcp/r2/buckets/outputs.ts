@@ -12,48 +12,38 @@ export const r2_bucket: JsonSchema = {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/r2_jurisdiction"
+      "enum": [
+        "default",
+        "eu",
+        "us",
+        "fedramp",
+        "fedramp-high"
+      ],
+      "type": "string"
     },
     "location": {
-      "$ref": "#/$defs/r2_bucket_location"
+      "enum": [
+        "apac",
+        "eeur",
+        "enam",
+        "weur",
+        "wnam",
+        "oc"
+      ],
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/r2_bucket_name"
+      "type": "string"
     },
     "storage_class": {
-      "$ref": "#/$defs/r2_storage_class"
+      "enum": [
+        "Standard",
+        "InfrequentAccess"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `r2_bucket_location` in responses.
- */
-export const r2_bucket_location: JsonSchema = {
-  "enum": [
-    "apac",
-    "eeur",
-    "enam",
-    "weur",
-    "wnam",
-    "oc"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `r2_jurisdiction` in responses.
- */
-export const r2_jurisdiction: JsonSchema = {
-  "enum": [
-    "default",
-    "eu",
-    "us",
-    "fedramp",
-    "fedramp-high"
-  ],
-  "type": "string"
 };
 
 /**

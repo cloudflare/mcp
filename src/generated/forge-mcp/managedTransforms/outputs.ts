@@ -12,7 +12,7 @@ export const rulesets_ManagedTransform: JsonSchema = {
       "items": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ManagedTransformId"
+            "type": "string"
           },
           {
             "type": "string"
@@ -29,7 +29,7 @@ export const rulesets_ManagedTransform: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/rulesets_ManagedTransformId"
+      "type": "string"
     }
   },
   "required": [
@@ -38,13 +38,6 @@ export const rulesets_ManagedTransform: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `rulesets_ManagedTransformId` in responses.
- */
-export const rulesets_ManagedTransformId: JsonSchema = {
-  "type": "string"
 };
 
 /**

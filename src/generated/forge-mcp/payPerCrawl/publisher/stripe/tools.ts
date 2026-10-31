@@ -25,11 +25,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_publisher_stripe_create",
     title: "Creates the stripe config for a publisher",
-    description: "Creates the stripe config for a publisher.",
+    description: "Creates the stripe config for a publisher.\n\nPOST /accounts/{account_id}/pay-per-crawl/publisher/stripe",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_createStripeConfigResponse",
@@ -97,11 +99,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_publisher_stripe_delete",
     title: "Deletes the stripe config for a publisher",
-    description: "Deletes the stripe config for a publisher.",
+    description: "Deletes the stripe config for a publisher.\n\nDELETE /accounts/{account_id}/pay-per-crawl/publisher/stripe",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -117,6 +120,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
@@ -167,11 +171,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_publisher_stripe_get",
     title: "Gets the stripe config for a publisher",
-    description: "Gets the stripe config for a publisher.",
+    description: "Gets the stripe config for a publisher.\n\nGET /accounts/{account_id}/pay-per-crawl/publisher/stripe",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -187,6 +192,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getStripeConfigResponse",

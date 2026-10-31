@@ -7,7 +7,6 @@ import {
   zaraz_api$$response$$common$$failure,
   zaraz_messages,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
 
 /**
  * The tools of `zaraz.publish`.
@@ -16,7 +15,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_publish_create",
     title: "Publish Zaraz preview configuration",
-    description: "Publish current Zaraz preview configuration for a zone.",
+    description: "Publish current Zaraz preview configuration for a zone.\n\nPOST /zones/{zone_id}/settings/zaraz/publish",
     inputSchema: {
       type: "object",
       properties: {
@@ -24,10 +23,11 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

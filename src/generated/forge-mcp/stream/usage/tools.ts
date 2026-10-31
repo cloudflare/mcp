@@ -9,7 +9,6 @@ import {
   usage$$analytics_stream_usage_data_point,
   usage$$analytics_stream_usage_response,
 } from "../../outputs.js";
-import { usage$$analytics_identifier } from "../../schemas.js";
 
 /**
  * The tools of `stream.usage`.
@@ -18,11 +17,12 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_usage_get",
     title: "Get account or zone Stream usage",
-    description: "Retrieve Stream usage analytics for an account or zone. Returns time-series data for Stream billable minutes viewed across all zones in the account or zone. The gateway rewrites this path before forwarding to the backend usage handler.\n\nThis method is deprecated.",
+    description: "Retrieve Stream usage analytics for an account or zone. Returns time-series data for Stream billable minutes viewed across all zones in the account or zone. The gateway rewrites this path before forwarding to the backend usage handler.\n\nThis method is deprecated.\n\nGET /{account_or_zone}/{account_or_zone_id}/stream/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -33,8 +33,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/usage-analytics_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,28 +44,29 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "filters": {
-              "description": "Filter expressions to apply to the query. Format: field==value. Multiple filters can be combined.\n",
+              "description": "Filter expressions to apply to the query. Format: field==value. Multiple filters can be combined.",
               "type": "string"
             },
             "limit": {
               "default": 100,
-              "description": "Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.\n",
+              "description": "Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.",
               "type": "integer"
             },
             "metrics": {
-              "description": "Comma-separated list of metrics to include in the response. Available metrics depend on the endpoint. Billing usage supports: streamMinutesViewed, rateLimitingRequestsAllowed, loadBalancingQueries, argoAcceleratedBytes, workersRequests, workersKVReads, imageResizingRequests, spectrumBytesTransferred, mediaUniqueTransformations. Stream/media usage supports: streamMinutesViewed.\n",
+              "description": "Comma-separated list of metrics to include in the response. Available metrics depend on the endpoint. Billing usage supports: streamMinutesViewed, rateLimitingRequestsAllowed, loadBalancingQueries, argoAcceleratedBytes, workersRequests, workersKVReads, imageResizingRequests, spectrumBytesTransferred, mediaUniqueTransformations. Stream/media usage supports: streamMinutesViewed.",
               "type": "string"
             },
             "since": {
-              "description": "Start of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to 6 hours before the current time.\n",
+              "description": "Start of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to 6 hours before the current time.",
               "format": "date-time",
               "type": "string"
             },
             "time_delta": {
               "default": "hour",
-              "description": "Time unit to aggregate usage observations into. Data retention is approximately 18 months. The effective number of data points returned depends on the time range and granularity selected. For example, requesting hourly granularity over 18 months could produce up to ~13,000 data points; use the limit parameter to cap results and be aware that responses may be truncated.\n",
+              "description": "Time unit to aggregate usage observations into. Data retention is approximately 18 months. The effective number of data points returned depends on the time range and granularity selected. For example, requesting hourly granularity over 18 months could produce up to ~13,000 data points; use the limit parameter to cap results and be aware that responses may be truncated.",
               "enum": [
                 "hour",
                 "day",
@@ -77,7 +78,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "until": {
-              "description": "End of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to the current time.\n",
+              "description": "End of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to the current time.",
               "format": "date-time",
               "type": "string"
             }
@@ -88,9 +89,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "usage-analytics_identifier": usage$$analytics_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/usage-analytics_stream_usage_response",

@@ -10,10 +10,10 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const tls$$certificates$$and$$hostnames_associationObject: JsonSchema = {
   "properties": {
     "service": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_service"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-10"
+      "type": "string"
     }
   },
   "type": "object"
@@ -41,18 +41,4 @@ export const tls$$certificates$$and$$hostnames_association_response_collection: 
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_service` in responses.
- */
-export const tls$$certificates$$and$$hostnames_service: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-10` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status$$10: JsonSchema = {
-  "type": "string"
 };

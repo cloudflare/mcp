@@ -4,20 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `access_access_seat` in responses.
- */
-export const access_access_seat: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_gateway_seat` in responses.
- */
-export const access_gateway_seat: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_response_collection-14` in responses.
  */
 export const access_response_collection$$14: JsonSchema = {
@@ -40,31 +26,26 @@ export const access_response_collection$$14: JsonSchema = {
 };
 
 /**
- * The schema of `access_seat_uid` in responses.
- */
-export const access_seat_uid: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_seats` in responses.
  */
 export const access_seats: JsonSchema = {
   "properties": {
     "access_seat": {
-      "$ref": "#/$defs/access_access_seat"
+      "type": "boolean"
     },
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "gateway_seat": {
-      "$ref": "#/$defs/access_gateway_seat"
+      "type": "boolean"
     },
     "seat_uid": {
-      "$ref": "#/$defs/access_seat_uid"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"

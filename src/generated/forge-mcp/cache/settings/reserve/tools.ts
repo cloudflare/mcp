@@ -6,26 +6,16 @@ import {
   cache$$settings_api$$response$$common,
   cache$$settings_api$$response$$common$$failure,
   cache$$settings_base,
-  cache$$settings_editable,
   cache$$settings_messages,
-  cache$$settings_modified_on,
   cache$$settings_result$$object,
-  cache$$settings_setting_id,
-  cache$$settings_setting_value,
   cache$$settings_zone_cache_settings_response_single,
 } from "../../../outputs.js";
-import { cache$$settings_identifier } from "../../../schemas.js";
 import {
   cache$$settings_cache_reserve,
   cache$$settings_cache_reserve_clear,
-  cache$$settings_cache_reserve_clear_end_ts,
   cache$$settings_cache_reserve_clear_response_value,
-  cache$$settings_cache_reserve_clear_start_ts,
-  cache$$settings_cache_reserve_clear_state,
   cache$$settings_cache_reserve_response_value,
-  cache$$settings_cache_reserve_value,
 } from "./outputs.js";
-import { cache$$settings_cache_reserve_value as cache$$settings_cache_reserve_value$ } from "./schemas.js";
 
 /**
  * The tools of `cache.settings.reserve`.
@@ -34,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_reserve_clear",
     title: "Start Cache Reserve Clear",
-    description: "You can use Cache Reserve Clear to clear your Cache Reserve, but you must first disable Cache Reserve. In most cases, this will be accomplished within 24 hours. You cannot re-enable Cache Reserve while this process is ongoing. Keep in mind that you cannot undo or cancel this operation.\n\nConfirm with the user before calling this tool. This operation permanently clears Cache Reserve for this zone and cannot be undone.",
+    description: "You can use Cache Reserve Clear to clear your Cache Reserve, but you must first disable Cache Reserve. In most cases, this will be accomplished within 24 hours. You cannot re-enable Cache Reserve while this process is ongoing. Keep in mind that you cannot undo or cancel this operation.\n\nConfirm with the user before calling this tool. This operation permanently clears Cache Reserve for this zone and cannot be undone.\n\nPOST /zones/{zone_id}/cache/cache_reserve_clear",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,9 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -71,10 +60,7 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve_clear": cache$$settings_cache_reserve_clear,
-        "cache-settings_cache_reserve_clear_end_ts": cache$$settings_cache_reserve_clear_end_ts,
         "cache-settings_cache_reserve_clear_response_value": cache$$settings_cache_reserve_clear_response_value,
-        "cache-settings_cache_reserve_clear_start_ts": cache$$settings_cache_reserve_clear_start_ts,
-        "cache-settings_cache_reserve_clear_state": cache$$settings_cache_reserve_clear_state,
         "cache-settings_messages": cache$$settings_messages,
       },
     },
@@ -125,10 +111,7 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve_clear": cache$$settings_cache_reserve_clear,
-        "cache-settings_cache_reserve_clear_end_ts": cache$$settings_cache_reserve_clear_end_ts,
         "cache-settings_cache_reserve_clear_response_value": cache$$settings_cache_reserve_clear_response_value,
-        "cache-settings_cache_reserve_clear_start_ts": cache$$settings_cache_reserve_clear_start_ts,
-        "cache-settings_cache_reserve_clear_state": cache$$settings_cache_reserve_clear_state,
         "cache-settings_messages": cache$$settings_messages,
       },
     },
@@ -139,16 +122,20 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_reserve_edit",
     title: "Change Cache Reserve setting",
-    description: "Increase cache lifetimes by automatically storing all cacheable files into Cloudflare's persistent object storage buckets. Requires Cache Reserve subscription. Note: using Tiered Cache with Cache Reserve is highly recommended to reduce Reserve operations costs. See the [developer docs](https://developers.cloudflare.com/cache/about/cache-reserve) for more information.",
+    description: "Increase cache lifetimes by automatically storing all cacheable files into Cloudflare's persistent object storage buckets. Requires Cache Reserve subscription. Note: using Tiered Cache with Cache Reserve is highly recommended to reduce Reserve operations costs. See the [developer docs](https://developers.cloudflare.com/cache/about/cache-reserve) for more information.\n\nPATCH /zones/{zone_id}/cache/cache_reserve",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/cache-settings_cache_reserve_value",
               "default": "off",
-              "description": "Value of the Cache Reserve zone setting."
+              "description": "Value of the Cache Reserve zone setting.",
+              "enum": [
+                "on",
+                "off"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -157,10 +144,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -173,10 +161,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "cache-settings_cache_reserve_value": cache$$settings_cache_reserve_value$,
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -192,13 +177,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve": cache$$settings_cache_reserve,
         "cache-settings_cache_reserve_response_value": cache$$settings_cache_reserve_response_value,
-        "cache-settings_cache_reserve_value": cache$$settings_cache_reserve_value,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -250,13 +230,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve": cache$$settings_cache_reserve,
         "cache-settings_cache_reserve_response_value": cache$$settings_cache_reserve_response_value,
-        "cache-settings_cache_reserve_value": cache$$settings_cache_reserve_value,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -268,15 +243,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_reserve_get",
     title: "Get Cache Reserve setting",
-    description: "Increase cache lifetimes by automatically storing all cacheable files into Cloudflare's persistent object storage buckets. Requires Cache Reserve subscription. Note: using Tiered Cache with Cache Reserve is highly recommended to reduce Reserve operations costs. See the [developer docs](https://developers.cloudflare.com/cache/about/cache-reserve) for more information.",
+    description: "Increase cache lifetimes by automatically storing all cacheable files into Cloudflare's persistent object storage buckets. Requires Cache Reserve subscription. Note: using Tiered Cache with Cache Reserve is highly recommended to reduce Reserve operations costs. See the [developer docs](https://developers.cloudflare.com/cache/about/cache-reserve) for more information.\n\nGET /zones/{zone_id}/cache/cache_reserve",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -288,9 +264,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -306,13 +280,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve": cache$$settings_cache_reserve,
         "cache-settings_cache_reserve_response_value": cache$$settings_cache_reserve_response_value,
-        "cache-settings_cache_reserve_value": cache$$settings_cache_reserve_value,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -366,13 +335,8 @@ export const tools: readonly Tool[] = [
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve": cache$$settings_cache_reserve,
         "cache-settings_cache_reserve_response_value": cache$$settings_cache_reserve_response_value,
-        "cache-settings_cache_reserve_value": cache$$settings_cache_reserve_value,
-        "cache-settings_editable": cache$$settings_editable,
         "cache-settings_messages": cache$$settings_messages,
-        "cache-settings_modified_on": cache$$settings_modified_on,
         "cache-settings_result-object": cache$$settings_result$$object,
-        "cache-settings_setting_id": cache$$settings_setting_id,
-        "cache-settings_setting_value": cache$$settings_setting_value,
         "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
@@ -383,15 +347,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_settings_reserve_status",
     title: "Get Cache Reserve Clear",
-    description: "You can use Cache Reserve Clear to clear your Cache Reserve, but you must first disable Cache Reserve. In most cases, this will be accomplished within 24 hours. You cannot re-enable Cache Reserve while this process is ongoing. Keep in mind that you cannot undo or cancel this operation.",
+    description: "You can use Cache Reserve Clear to clear your Cache Reserve, but you must first disable Cache Reserve. In most cases, this will be accomplished within 24 hours. You cannot re-enable Cache Reserve while this process is ongoing. Keep in mind that you cannot undo or cancel this operation.\n\nGET /zones/{zone_id}/cache/cache_reserve_clear",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -403,9 +368,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -420,10 +383,7 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common": cache$$settings_api$$response$$common,
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve_clear": cache$$settings_cache_reserve_clear,
-        "cache-settings_cache_reserve_clear_end_ts": cache$$settings_cache_reserve_clear_end_ts,
         "cache-settings_cache_reserve_clear_response_value": cache$$settings_cache_reserve_clear_response_value,
-        "cache-settings_cache_reserve_clear_start_ts": cache$$settings_cache_reserve_clear_start_ts,
-        "cache-settings_cache_reserve_clear_state": cache$$settings_cache_reserve_clear_state,
         "cache-settings_messages": cache$$settings_messages,
       },
     },
@@ -476,10 +436,7 @@ export const tools: readonly Tool[] = [
         "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
         "cache-settings_base": cache$$settings_base,
         "cache-settings_cache_reserve_clear": cache$$settings_cache_reserve_clear,
-        "cache-settings_cache_reserve_clear_end_ts": cache$$settings_cache_reserve_clear_end_ts,
         "cache-settings_cache_reserve_clear_response_value": cache$$settings_cache_reserve_clear_response_value,
-        "cache-settings_cache_reserve_clear_start_ts": cache$$settings_cache_reserve_clear_start_ts,
-        "cache-settings_cache_reserve_clear_state": cache$$settings_cache_reserve_clear_state,
         "cache-settings_messages": cache$$settings_messages,
       },
     },

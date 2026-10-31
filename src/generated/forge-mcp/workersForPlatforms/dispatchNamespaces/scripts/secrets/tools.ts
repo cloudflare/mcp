@@ -8,7 +8,6 @@ import {
   workers_api$$response$$null$$result,
   workers_binding_kind_secret_key,
   workers_binding_kind_secret_text,
-  workers_binding_name,
   workers_messages,
   workers_secret,
   workers_secret$$patch$$response,
@@ -16,15 +15,9 @@ import {
 import {
   workers_binding_kind_secret_key as workers_binding_kind_secret_key$,
   workers_binding_kind_secret_text as workers_binding_kind_secret_text$,
-  workers_binding_name as workers_binding_name$,
-  workers_identifier,
-  workers_script_name,
   workers_secret as workers_secret$,
   workers_secret$$patch$$request,
-  workers_secret_name,
-  workers_secret_name_url_encoded,
 } from "../../../../schemas.js";
-import { workers_dispatch_namespace_name } from "../../schemas.js";
 
 /**
  * The tools of `workersForPlatforms.dispatchNamespaces.scripts.secrets`.
@@ -33,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_secrets_bulk",
     title: "Patch multiple Workers for Platforms script secrets",
-    description: "Create, update, or delete multiple secrets on a Workers for Platforms script in a single operation using JSON Merge Patch (RFC 7396).\nThis operation creates a single version with all changes included.\nPrefer this API instead of changing many secrets individually.\n\nUsage:\n\n- To create or update a secret, set its value to a secret object.\n- To delete a secret, set its value to `null`.\n- Secrets not included in the request are left unchanged.",
+    description: "Create, update, or delete multiple secrets on a Workers for Platforms script in a single operation using JSON Merge Patch (RFC 7396).\nThis operation creates a single version with all changes included.\nPrefer this API instead of changing many secrets individually.\n\nUsage:\n\n- To create or update a secret, set its value to a secret object.\n- To delete a secret, set its value to `null`.\n- Secrets not included in the request are left unchanged.\n\nPATCH /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets-bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,18 +34,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_secret-patch-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -67,13 +61,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key$,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text$,
-        "workers_binding_name": workers_binding_name$,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
         "workers_secret": workers_secret$,
         "workers_secret-patch-request": workers_secret$$patch$$request,
       },
@@ -99,7 +90,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
         "workers_secret-patch-response": workers_secret$$patch$$response,
@@ -146,7 +136,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
         "workers_secret-patch-response": workers_secret$$patch$$response,
@@ -160,27 +149,28 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_secrets_delete",
     title: "Delete Workers for Platforms script secret",
-    description: "Remove a secret from a Workers for Platforms script by creating a new version without that\nsecret.\n\nWhen changing more than one secret at a time, prefer the \"Patch multiple\nscript secrets\" API instead of changing many secrets individually.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers for Platforms script secret.",
+    description: "Remove a secret from a Workers for Platforms script by creating a new version without that\nsecret.\n\nWhen changing more than one secret at a time, prefer the \"Patch multiple\nscript secrets\" API instead of changing many secrets individually.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers for Platforms script secret.\n\nDELETE /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets/{secret_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             },
             "secret_name": {
-              "$ref": "#/$defs/workers_secret_name",
-              "description": "A JavaScript variable name for the secret binding."
+              "description": "A JavaScript variable name for the secret binding.",
+              "type": "string"
             }
           },
           "required": [
@@ -192,10 +182,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "url_encoded": {
-              "$ref": "#/$defs/workers_secret_name_url_encoded",
-              "description": "Flag that indicates whether the secret name is URL encoded."
+              "description": "Flag that indicates whether the secret name is URL encoded.",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -204,13 +195,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-        "workers_secret_name": workers_secret_name,
-        "workers_secret_name_url_encoded": workers_secret_name_url_encoded,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-null-result",
@@ -260,27 +245,28 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_secrets_get",
     title: "Get Workers for Platforms Script Secret",
-    description: "Get a given secret binding (value omitted) on a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Get a given secret binding (value omitted) on a script uploaded to a Workers for Platforms dispatch namespace.\n\nGET /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets/{secret_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             },
             "secret_name": {
-              "$ref": "#/$defs/workers_secret_name",
-              "description": "A JavaScript variable name for the secret binding."
+              "description": "A JavaScript variable name for the secret binding.",
+              "type": "string"
             }
           },
           "required": [
@@ -292,10 +278,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "url_encoded": {
-              "$ref": "#/$defs/workers_secret_name_url_encoded",
-              "description": "Flag that indicates whether the secret name is URL encoded."
+              "description": "Flag that indicates whether the secret name is URL encoded.",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -304,13 +291,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-        "workers_secret_name": workers_secret_name,
-        "workers_secret_name_url_encoded": workers_secret_name_url_encoded,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -333,7 +314,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
       },
@@ -383,7 +363,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
       },
@@ -398,23 +377,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_secrets_list",
     title: "List Workers for Platforms Script Secrets",
-    description: "List secrets bound to a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "List secrets bound to a script uploaded to a Workers for Platforms dispatch namespace.\n\nGET /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -428,11 +408,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -458,7 +434,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
       },
@@ -511,7 +486,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
       },
@@ -523,7 +497,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_secrets_update",
     title: "Add a secret to a Workers for Platforms script",
-    description: "Add a secret to a Workers for Platforms script by creating a new version with that secret.\n\nWhen changing more than one secret at a time, prefer the \"Patch multiple\nscript secrets\" API instead of changing many secrets individually.",
+    description: "Add a secret to a Workers for Platforms script by creating a new version with that secret.\n\nWhen changing more than one secret at a time, prefer the \"Patch multiple\nscript secrets\" API instead of changing many secrets individually.\n\nPUT /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets",
     inputSchema: {
       type: "object",
       properties: {
@@ -531,18 +505,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_secret"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -557,13 +532,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key$,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text$,
-        "workers_binding_name": workers_binding_name$,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
         "workers_secret": workers_secret$,
       },
     },
@@ -588,7 +560,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
       },
@@ -639,7 +610,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
-        "workers_binding_name": workers_binding_name,
         "workers_messages": workers_messages,
         "workers_secret": workers_secret,
       },

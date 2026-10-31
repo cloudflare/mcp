@@ -13,20 +13,20 @@ export const tls$$certificates$$and$$hostnames_base: JsonSchema = {
       "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled"
+      "type": "boolean"
     },
     "host": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_host"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_name"
+      "type": "string"
     },
     "permissions": {
       "items": {
@@ -35,10 +35,14 @@ export const tls$$certificates$$and$$hostnames_base: JsonSchema = {
       "type": "array"
     },
     "port": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_port"
+      "type": "number"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-2"
+      "enum": [
+        "active",
+        "deleted"
+      ],
+      "type": "string"
     },
     "tunnel": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_tunnel"
@@ -115,7 +119,7 @@ export const tls$$certificates$$and$$hostnames_keyless_response_single_id: JsonS
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
+              "type": "string"
             }
           },
           "type": "object"

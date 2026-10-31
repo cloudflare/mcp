@@ -8,12 +8,8 @@ import {
   magic$$visibility$$mnm_api$$response$$single,
   magic$$visibility$$mnm_messages,
 } from "../../outputs.js";
-import { magic$$visibility$$mnm_account_identifier } from "../../schemas.js";
 import {
   magic$$visibility$$mnm_mnm_config,
-  magic$$visibility$$mnm_mnm_config_default_sampling,
-  magic$$visibility$$mnm_mnm_config_name,
-  magic$$visibility$$mnm_mnm_config_router_ip,
   magic$$visibility$$mnm_mnm_config_router_ips,
   magic$$visibility$$mnm_mnm_config_single_response,
   magic$$visibility$$mnm_mnm_config_warp_device,
@@ -27,14 +23,15 @@ export const tools: readonly Tool[] = [
   {
     name: "magicNetworkMonitoring_configs_full_get",
     title: "List rules and account configuration",
-    description: "Lists default sampling, router IPs, warp devices, and rules for account.",
+    description: "Lists default sampling, router IPs, warp devices, and rules for account.\n\nGET /accounts/{account_id}/mnm/config/full",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -46,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
@@ -57,9 +52,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
         "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
         "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
-        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
-        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
         "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
         "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
         "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
@@ -104,9 +96,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
         "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
         "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
-        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
-        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
         "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
         "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
         "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,

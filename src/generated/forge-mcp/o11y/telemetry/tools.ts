@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_heartbeat",
     title: "Live tail heartbeat",
-    description: "Notify live tail that user is still eligible to receive live events.",
+    description: "Notify live tail that user is still eligible to receive live events.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/live-tail/heartbeat",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -54,6 +55,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -278,7 +280,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_keys",
     title: "List keys",
-    description: "List all the keys in your telemetry events.",
+    description: "List all the keys in your telemetry events.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/keys",
     inputSchema: {
       type: "object",
       properties: {
@@ -437,6 +439,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -453,6 +456,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,
@@ -929,7 +933,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_liveTail",
     title: "Prepare live tail",
-    description: "Prepare websocket server for live tail.",
+    description: "Prepare websocket server for live tail.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/live-tail",
     inputSchema: {
       type: "object",
       properties: {
@@ -1008,6 +1012,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1024,6 +1029,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,
@@ -1318,7 +1324,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_query",
     title: "Run a query",
-    description: "Run a temporary or saved query.",
+    description: "Run a temporary or saved query.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/query",
     inputSchema: {
       type: "object",
       properties: {
@@ -1733,6 +1739,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1749,6 +1756,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,
@@ -2197,7 +2205,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_values",
     title: "List values",
-    description: "List unique values found in your events.",
+    description: "List unique values found in your events.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/values",
     inputSchema: {
       type: "object",
       properties: {
@@ -2343,6 +2351,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -2359,6 +2368,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
         "workers-observability_filter_node": workers$$observability_filter_node$,

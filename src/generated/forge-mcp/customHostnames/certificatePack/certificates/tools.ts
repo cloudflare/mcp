@@ -7,31 +7,20 @@ import {
   tls$$certificates$$and$$hostnames_messages,
   tls$$certificates$$and$$hostnames_validation_record,
 } from "../../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_certificate_authority,
-  tls$$certificates$$and$$hostnames_created_at,
   tls$$certificates$$and$$hostnames_custom$$hostname,
   tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
-  tls$$certificates$$and$$hostnames_custom_hostname_identifier,
   tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
   tls$$certificates$$and$$hostnames_custom_hostname_response_single,
   tls$$certificates$$and$$hostnames_custom_metadata,
-  tls$$certificates$$and$$hostnames_custom_origin_server,
-  tls$$certificates$$and$$hostnames_custom_origin_sni,
   tls$$certificates$$and$$hostnames_customhostname,
-  tls$$certificates$$and$$hostnames_hostname,
   tls$$certificates$$and$$hostnames_ownership_verification,
   tls$$certificates$$and$$hostnames_ownership_verification_http,
   tls$$certificates$$and$$hostnames_ssl,
   tls$$certificates$$and$$hostnames_sslsettings,
-  tls$$certificates$$and$$hostnames_status$$3,
   tls$$certificates$$and$$hostnames_verification_errors,
 } from "../../outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_custom_cert_and_key,
-  tls$$certificates$$and$$hostnames_custom_hostname_identifier as tls$$certificates$$and$$hostnames_custom_hostname_identifier$,
-} from "../../schemas.js";
+import { tls$$certificates$$and$$hostnames_custom_cert_and_key } from "../../schemas.js";
 
 /**
  * The tools of `customHostnames.certificatePack.certificates`.
@@ -40,27 +29,28 @@ export const tools: readonly Tool[] = [
   {
     name: "customHostnames_certificatePack_certificates_delete",
     title: "Delete Single Certificate And Key For Custom Hostname",
-    description: "Delete a single custom certificate from a certificate pack that contains two bundled certificates. Deletion is subject to the following constraints. You cannot delete a certificate if it is the only remaining certificate in the pack. At least one certificate must remain in the pack.",
+    description: "Delete a single custom certificate from a certificate pack that contains two bundled certificates. Deletion is subject to the following constraints. You cannot delete a certificate if it is the only remaining certificate in the pack. At least one certificate must remain in the pack.\n\nDELETE /zones/{zone_id}/custom_hostnames/{custom_hostname_id}/certificate_pack/{certificate_pack_id}/certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-              "description": "Custom hostname identifier tag."
+              "description": "Custom hostname identifier tag.",
+              "type": "string"
             },
             "certificate_pack_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-              "description": "Custom hostname identifier tag."
+              "description": "Custom hostname identifier tag.",
+              "type": "string"
             },
             "custom_hostname_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-              "description": "Custom hostname identifier tag."
+              "description": "Custom hostname identifier tag.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -75,21 +65,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
         "id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier"
+          "type": "string"
         }
       },
       "type": "object",
-      $defs: {
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -116,7 +100,7 @@ export const tools: readonly Tool[] = [
         "202": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -126,7 +110,7 @@ export const tools: readonly Tool[] = [
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -139,7 +123,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
@@ -150,7 +133,7 @@ export const tools: readonly Tool[] = [
   {
     name: "customHostnames_certificatePack_certificates_update",
     title: "Replace Custom Certificate and Custom Key In Custom Hostname",
-    description: "Replace a single custom certificate within a certificate pack that contains two bundled certificates. The replacement must adhere to the following constraints. You can only replace an RSA certificate with another RSA certificate or an ECDSA certificate with another ECDSA certificate.",
+    description: "Replace a single custom certificate within a certificate pack that contains two bundled certificates. The replacement must adhere to the following constraints. You can only replace an RSA certificate with another RSA certificate or an ECDSA certificate with another ECDSA certificate.\n\nPUT /zones/{zone_id}/custom_hostnames/{custom_hostname_id}/certificate_pack/{certificate_pack_id}/certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -158,22 +141,23 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/tls-certificates-and-hostnames_custom_cert_and_key"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-              "description": "Custom hostname identifier tag."
+              "description": "Custom hostname identifier tag.",
+              "type": "string"
             },
             "certificate_pack_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-              "description": "Custom hostname identifier tag."
+              "description": "Custom hostname identifier tag.",
+              "type": "string"
             },
             "custom_hostname_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-              "description": "Custom hostname identifier tag."
+              "description": "Custom hostname identifier tag.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -189,33 +173,25 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "tls-certificates-and-hostnames_custom_cert_and_key": tls$$certificates$$and$$hostnames_custom_cert_and_key,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier$,
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_response_single",
       $defs: {
-        "tls-certificates-and-hostnames_certificate_authority": tls$$certificates$$and$$hostnames_certificate_authority,
-        "tls-certificates-and-hostnames_created_at": tls$$certificates$$and$$hostnames_created_at,
         "tls-certificates-and-hostnames_custom-hostname": tls$$certificates$$and$$hostnames_custom$$hostname,
         "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
         "tls-certificates-and-hostnames_custom_hostname_response_messages": tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
         "tls-certificates-and-hostnames_custom_hostname_response_single": tls$$certificates$$and$$hostnames_custom_hostname_response_single,
         "tls-certificates-and-hostnames_custom_metadata": tls$$certificates$$and$$hostnames_custom_metadata,
-        "tls-certificates-and-hostnames_custom_origin_server": tls$$certificates$$and$$hostnames_custom_origin_server,
-        "tls-certificates-and-hostnames_custom_origin_sni": tls$$certificates$$and$$hostnames_custom_origin_sni,
         "tls-certificates-and-hostnames_customhostname": tls$$certificates$$and$$hostnames_customhostname,
-        "tls-certificates-and-hostnames_hostname": tls$$certificates$$and$$hostnames_hostname,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_ownership_verification": tls$$certificates$$and$$hostnames_ownership_verification,
         "tls-certificates-and-hostnames_ownership_verification_http": tls$$certificates$$and$$hostnames_ownership_verification_http,
         "tls-certificates-and-hostnames_ssl": tls$$certificates$$and$$hostnames_ssl,
         "tls-certificates-and-hostnames_sslsettings": tls$$certificates$$and$$hostnames_sslsettings,
-        "tls-certificates-and-hostnames_status-3": tls$$certificates$$and$$hostnames_status$$3,
         "tls-certificates-and-hostnames_validation_record": tls$$certificates$$and$$hostnames_validation_record,
         "tls-certificates-and-hostnames_verification_errors": tls$$certificates$$and$$hostnames_verification_errors,
       },
@@ -258,24 +234,17 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_certificate_authority": tls$$certificates$$and$$hostnames_certificate_authority,
-        "tls-certificates-and-hostnames_created_at": tls$$certificates$$and$$hostnames_created_at,
         "tls-certificates-and-hostnames_custom-hostname": tls$$certificates$$and$$hostnames_custom$$hostname,
         "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
         "tls-certificates-and-hostnames_custom_hostname_response_messages": tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
         "tls-certificates-and-hostnames_custom_hostname_response_single": tls$$certificates$$and$$hostnames_custom_hostname_response_single,
         "tls-certificates-and-hostnames_custom_metadata": tls$$certificates$$and$$hostnames_custom_metadata,
-        "tls-certificates-and-hostnames_custom_origin_server": tls$$certificates$$and$$hostnames_custom_origin_server,
-        "tls-certificates-and-hostnames_custom_origin_sni": tls$$certificates$$and$$hostnames_custom_origin_sni,
         "tls-certificates-and-hostnames_customhostname": tls$$certificates$$and$$hostnames_customhostname,
-        "tls-certificates-and-hostnames_hostname": tls$$certificates$$and$$hostnames_hostname,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_ownership_verification": tls$$certificates$$and$$hostnames_ownership_verification,
         "tls-certificates-and-hostnames_ownership_verification_http": tls$$certificates$$and$$hostnames_ownership_verification_http,
         "tls-certificates-and-hostnames_ssl": tls$$certificates$$and$$hostnames_ssl,
         "tls-certificates-and-hostnames_sslsettings": tls$$certificates$$and$$hostnames_sslsettings,
-        "tls-certificates-and-hostnames_status-3": tls$$certificates$$and$$hostnames_status$$3,
         "tls-certificates-and-hostnames_validation_record": tls$$certificates$$and$$hostnames_validation_record,
         "tls-certificates-and-hostnames_verification_errors": tls$$certificates$$and$$hostnames_verification_errors,
       },

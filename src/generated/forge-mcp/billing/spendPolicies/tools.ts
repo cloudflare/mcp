@@ -7,21 +7,12 @@ import {
   billing$$spend$$policies_api$$response$$common$$success,
   billing$$spend$$policies_message,
   billing$$spend$$policies_policy,
-  billing$$spend$$policies_policy_action,
   billing$$spend$$policies_policy_current_state,
   billing$$spend$$policies_policy_delete_response,
-  billing$$spend$$policies_policy_id,
   billing$$spend$$policies_policy_list_response,
   billing$$spend$$policies_policy_response,
-  billing$$spend$$policies_product_id,
 } from "./outputs.js";
-import {
-  billing$$spend$$policies_identifier,
-  billing$$spend$$policies_policy_action as billing$$spend$$policies_policy_action$,
-  billing$$spend$$policies_policy_id as billing$$spend$$policies_policy_id$,
-  billing$$spend$$policies_policy_input,
-  billing$$spend$$policies_product_id as billing$$spend$$policies_product_id$,
-} from "./schemas.js";
+import { billing$$spend$$policies_policy_input } from "./schemas.js";
 
 /**
  * The tools of `billing.spendPolicies`.
@@ -30,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_create",
     title: "Create Spend Policy",
-    description: "Creates a spend policy. Each account can have only one enabled `usage_block` policy per product. A second one returns `409`. There is no limit on `notification` policies.\n\nThis method is beta.",
+    description: "Creates a spend policy. Each account can have only one enabled `usage_block` policy per product. A second one returns `409`. There is no limit on `notification` policies.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/billing/spend-policies",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,10 +29,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/billing-spend-policies_policy_input"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             }
           },
           "required": [
@@ -54,11 +46,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action$,
         "billing-spend-policies_policy_input": billing$$spend$$policies_policy_input,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id$,
       },
     },
     outputSchema: {
@@ -67,11 +57,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_response": billing$$spend$$policies_policy_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     annotations: {
@@ -118,11 +105,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_response": billing$$spend$$policies_policy_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     request: (args) => ({
@@ -133,11 +117,12 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_delete",
     title: "Delete Spend Policy",
-    description: "Soft-deletes the spend policy. The policy is disabled and no longer appears in list, get or audit responses. The `If-Match` header must equal the policy's current `version`.\n\nThis method is beta.",
+    description: "Soft-deletes the spend policy. The policy is disabled and no longer appears in list, get or audit responses. The `If-Match` header must equal the policy's current `version`.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/billing/spend-policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "If-Match": {
               "description": "The policy `version` the change is based on, as returned in `ETag`. Quoted (`\"3\"`) and bare (`3`) values are both accepted. Weak ETags (`W/\"3\"`) and `*` are not.",
@@ -150,14 +135,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/billing-spend-policies_policy_id",
-              "description": "Identifies the spend policy."
+              "description": "Identifies the spend policy.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -171,10 +158,7 @@ export const tools: readonly Tool[] = [
         "path",
         "headers"
       ],
-      $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billing-spend-policies_policy_delete_response",
@@ -182,7 +166,6 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy_delete_response": billing$$spend$$policies_policy_delete_response,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
       },
     },
     annotations: {
@@ -232,7 +215,6 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy_delete_response": billing$$spend$$policies_policy_delete_response,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
       },
     },
     request: (args) => ({
@@ -245,19 +227,21 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_get",
     title: "Get Spend Policy",
-    description: "Returns one spend policy. The `ETag` response header holds the current `version`; send it as `If-Match` on a later update or delete.\n\nThis method is beta.",
+    description: "Returns one spend policy. The `ETag` response header holds the current `version`; send it as `If-Match` on a later update or delete.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/billing-spend-policies_policy_id",
-              "description": "Identifies the spend policy."
+              "description": "Identifies the spend policy.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -270,10 +254,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billing-spend-policies_policy_response",
@@ -281,11 +262,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_response": billing$$spend$$policies_policy_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     annotations: {
@@ -329,11 +307,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_response": billing$$spend$$policies_policy_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     request: (args) => ({
@@ -343,15 +318,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_list",
     title: "List Spend Policies",
-    description: "Returns every spend policy on the account that has not been deleted, including disabled ones. Results are sorted by `name`, then `id`. There is no pagination.\n\nThis method is beta.",
+    description: "Returns every spend policy on the account that has not been deleted, including disabled ones. Results are sorted by `name`, then `id`. There is no pagination.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             }
           },
           "required": [
@@ -363,9 +339,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/billing-spend-policies_policy_list_response",
@@ -373,11 +347,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_list_response": billing$$spend$$policies_policy_list_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     annotations: {
@@ -421,11 +392,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_list_response": billing$$spend$$policies_policy_list_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     request: (args) => ({
@@ -435,7 +403,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_update",
     title: "Update Spend Policy",
-    description: "Replaces the whole spend policy. Every field is required, as on create; there are no partial updates and `PATCH` is not supported. The `If-Match` header must equal the policy's current `version`. On success, `version` goes up by one and the new value is returned in `ETag`.\n\nThis method is beta.",
+    description: "Replaces the whole spend policy. Every field is required, as on create; there are no partial updates and `PATCH` is not supported. The `If-Match` header must equal the policy's current `version`. On success, `version` goes up by one and the new value is returned in `ETag`.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/billing/spend-policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -443,6 +411,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/billing-spend-policies_policy_input"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "If-Match": {
               "description": "The policy `version` the change is based on, as returned in `ETag`. Quoted (`\"3\"`) and bare (`3`) values are both accepted. Weak ETags (`W/\"3\"`) and `*` are not.",
@@ -455,14 +424,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/billing-spend-policies_identifier",
-              "description": "Identifies the Cloudflare account (account tag)."
+              "description": "Identifies the Cloudflare account (account tag).",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/billing-spend-policies_policy_id",
-              "description": "Identifies the spend policy."
+              "description": "Identifies the spend policy.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -477,12 +448,9 @@ export const tools: readonly Tool[] = [
         "headers",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "billing-spend-policies_identifier": billing$$spend$$policies_identifier,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action$,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id$,
         "billing-spend-policies_policy_input": billing$$spend$$policies_policy_input,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id$,
       },
     },
     outputSchema: {
@@ -491,11 +459,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_response": billing$$spend$$policies_policy_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     annotations: {
@@ -548,11 +513,8 @@ export const tools: readonly Tool[] = [
         "billing-spend-policies_api-response-common-success": billing$$spend$$policies_api$$response$$common$$success,
         "billing-spend-policies_message": billing$$spend$$policies_message,
         "billing-spend-policies_policy": billing$$spend$$policies_policy,
-        "billing-spend-policies_policy_action": billing$$spend$$policies_policy_action,
         "billing-spend-policies_policy_current_state": billing$$spend$$policies_policy_current_state,
-        "billing-spend-policies_policy_id": billing$$spend$$policies_policy_id,
         "billing-spend-policies_policy_response": billing$$spend$$policies_policy_response,
-        "billing-spend-policies_product_id": billing$$spend$$policies_product_id,
       },
     },
     request: (args) => ({

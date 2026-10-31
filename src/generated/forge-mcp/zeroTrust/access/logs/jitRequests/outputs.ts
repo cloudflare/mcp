@@ -31,28 +31,22 @@ export const access_jit_request_event: JsonSchema = {
       "type": "boolean"
     },
     "timestamp": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_jit_request_event_type"
+      "enum": [
+        "CREATED",
+        "APPROVER_DECISION",
+        "COMMITTED",
+        "CANCELED",
+        "LOGIN_SUCCESS",
+        "REDIRECT_TO_ACTIVE"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_jit_request_event_type` in responses.
- */
-export const access_jit_request_event_type: JsonSchema = {
-  "enum": [
-    "CREATED",
-    "APPROVER_DECISION",
-    "COMMITTED",
-    "CANCELED",
-    "LOGIN_SUCCESS",
-    "REDIRECT_TO_ACTIVE"
-  ],
-  "type": "string"
 };
 
 /**
@@ -76,10 +70,12 @@ export const access_jit_request_log: JsonSchema = {
       "type": "array"
     },
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "expires_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "knock_request_id": {
       "type": "string"
@@ -91,7 +87,14 @@ export const access_jit_request_log: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/access_jit_request_status"
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "DENIED",
+        "CANCELED",
+        "SPENT"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -117,20 +120,6 @@ export const access_jit_request_log_detail: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_jit_request_status` in responses.
- */
-export const access_jit_request_status: JsonSchema = {
-  "enum": [
-    "PENDING",
-    "APPROVED",
-    "DENIED",
-    "CANCELED",
-    "SPENT"
-  ],
-  "type": "string"
 };
 
 /**

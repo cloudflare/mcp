@@ -29,7 +29,7 @@ export const organizations$$api_Member: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/organizations-api_MemberID"
+      "type": "string"
     },
     "meta": {
       "additionalProperties": {

@@ -24,7 +24,13 @@ export const r2$$slurper_JobProgressResponse: JsonSchema = {
       "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/r2-slurper_JobStatus"
+      "enum": [
+        "running",
+        "paused",
+        "aborted",
+        "completed"
+      ],
+      "type": "string"
     },
     "transferredObjects": {
       "type": "integer"
@@ -149,7 +155,13 @@ export const r2$$slurper_JobResponse: JsonSchema = {
               "type": "string"
             },
             "jurisdiction": {
-              "$ref": "#/$defs/r2-slurper_Jurisdiction"
+              "enum": [
+                "default",
+                "eu",
+                "us",
+                "fedramp"
+              ],
+              "type": "string"
             },
             "keys": {
               "oneOf": [
@@ -186,7 +198,13 @@ export const r2$$slurper_JobResponse: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/r2-slurper_JobStatus"
+      "enum": [
+        "running",
+        "paused",
+        "aborted",
+        "completed"
+      ],
+      "type": "string"
     },
     "target": {
       "properties": {
@@ -194,7 +212,13 @@ export const r2$$slurper_JobResponse: JsonSchema = {
           "type": "string"
         },
         "jurisdiction": {
-          "$ref": "#/$defs/r2-slurper_Jurisdiction"
+          "enum": [
+            "default",
+            "eu",
+            "us",
+            "fedramp"
+          ],
+          "type": "string"
         },
         "vendor": {
           "enum": [
@@ -207,17 +231,4 @@ export const r2$$slurper_JobResponse: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `r2-slurper_JobStatus` in responses.
- */
-export const r2$$slurper_JobStatus: JsonSchema = {
-  "enum": [
-    "running",
-    "paused",
-    "aborted",
-    "completed"
-  ],
-  "type": "string"
 };

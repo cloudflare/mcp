@@ -10,10 +10,6 @@ import {
   realtimekit_ValidationIssue,
 } from "../outputs.js";
 import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../schemas.js";
-import {
   realtimekit_Preset,
   realtimekit_PresetListItem,
   realtimekit_PresetPluginConfig,
@@ -31,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_presets_create",
     title: "Create a preset",
-    description: "Creates a preset belonging to the current App\n\nThis method is beta.",
+    description: "Creates a preset belonging to the current App\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/presets",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,14 +35,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/realtimekit_Preset"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -60,11 +57,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_Preset": realtimekit_Preset$,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig$,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -197,19 +193,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_presets_delete",
     title: "Delete a preset",
-    description: "Deletes a preset using the provided preset ID\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the preset.",
+    description: "Deletes a preset using the provided preset ID\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the preset.\n\nDELETE /accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "preset_id": {
               "description": "ID of the preset to fetch",
@@ -228,10 +225,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -362,19 +356,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_presets_get",
     title: "Fetch details of a preset",
-    description: "Fetches details of a preset using the provided preset ID\n\nThis method is beta.",
+    description: "Fetches details of a preset using the provided preset ID\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "preset_id": {
               "description": "ID of the preset to fetch",
@@ -393,10 +388,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -527,19 +519,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_presets_list",
     title: "Fetch all presets",
-    description: "Fetches all the presets belonging to an App.\n\nThis method is beta.",
+    description: "Fetches all the presets belonging to an App.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/presets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -549,6 +542,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_no": {
               "description": "The page number from which you want your page search results to be displayed.",
@@ -569,10 +563,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -656,7 +647,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_presets_replace",
     title: "Replace a preset",
-    description: "Replace all details for the preset using the provided preset ID.\n\nThis method is beta.",
+    description: "Replace all details for the preset using the provided preset ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -664,14 +655,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/realtimekit_Preset"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "preset_id": {
               "description": "ID of the preset to replace",
@@ -691,11 +683,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_Preset": realtimekit_Preset$,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig$,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -828,7 +819,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_presets_update",
     title: "Update a preset",
-    description: "Update a preset by the provided preset ID\n\nThis method is beta.",
+    description: "Update a preset by the provided preset ID\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -836,14 +827,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/realtimekit_UpdatePreset"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "preset_id": {
               "description": "ID of the preset to fetch",
@@ -863,11 +855,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig$,
         "realtimekit_UpdatePreset": realtimekit_UpdatePreset,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {

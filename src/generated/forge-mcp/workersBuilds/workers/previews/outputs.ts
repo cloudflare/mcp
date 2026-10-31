@@ -9,16 +9,16 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const builds_PreviewResponse: JsonSchema = {
   "properties": {
     "auto_build": {
-      "$ref": "#/$defs/builds_preview_auto_build"
+      "type": "boolean"
     },
     "auto_delete": {
-      "$ref": "#/$defs/builds_preview_auto_delete"
+      "type": "boolean"
     },
     "branch": {
-      "$ref": "#/$defs/builds_branch"
+      "type": "string"
     },
     "preview_id": {
-      "$ref": "#/$defs/builds_external_script_id"
+      "type": "string"
     },
     "settings": {
       "$ref": "#/$defs/builds_WorkerBuildSettings"
@@ -33,31 +33,17 @@ export const builds_PreviewResponse: JsonSchema = {
 export const builds_PreviewSummary: JsonSchema = {
   "properties": {
     "auto_build": {
-      "$ref": "#/$defs/builds_preview_auto_build"
+      "type": "boolean"
     },
     "auto_delete": {
-      "$ref": "#/$defs/builds_preview_auto_delete"
+      "type": "boolean"
     },
     "branch": {
-      "$ref": "#/$defs/builds_branch"
+      "type": "string"
     },
     "preview_id": {
-      "$ref": "#/$defs/builds_external_script_id"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_preview_auto_build` in responses.
- */
-export const builds_preview_auto_build: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `builds_preview_auto_delete` in responses.
- */
-export const builds_preview_auto_delete: JsonSchema = {
-  "type": "boolean"
 };

@@ -16,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_overrideCodes_create",
     title: "Generate an uninstall protection override code",
-    description: "Generates an account-wide or device-specific uninstall protection override code.",
+    description: "Generates an account-wide or device-specific uninstall protection override code.\n\nPOST /accounts/{account_id}/devices/override_codes",
     inputSchema: {
       type: "object",
       properties: {
@@ -24,6 +24,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_override_code_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -39,6 +40,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "teams-devices_override_code_create_request": teams$$devices_override_code_create_request,
       },

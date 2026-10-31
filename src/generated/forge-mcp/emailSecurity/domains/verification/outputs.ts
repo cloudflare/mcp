@@ -20,7 +20,20 @@ export const email$$security_DomainVerificationInfo: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/email-security_DomainStatus"
+      "oneOf": [
+        {
+          "enum": [
+            "PENDING",
+            "ACTIVE",
+            "FAILED",
+            "TIMEOUT"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "txt_record_name": {
       "type": "string"

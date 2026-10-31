@@ -16,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_scans_results_get",
     title: "Get the Latest Scan Result",
-    description: "Retrieves the latest scan results for a Cloudforce One scan configuration, including discovered open ports.",
+    description: "Retrieves the latest scan results for a Cloudforce One scan configuration, including discovered open ports.\n\nGET /accounts/{account_id}/cloudforce-one/scans/results/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Defines the Account ID.",
@@ -41,6 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -160,11 +162,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_scans_results_getBanners",
     title: "Get the Latest Banner Grab Result",
-    description: "Retrieves the latest banner grab results for a Cloudforce One scan configuration, including service banners from open ports.",
+    description: "Retrieves the latest banner grab results for a Cloudforce One scan configuration, including service banners from open ports.\n\nGET /accounts/{account_id}/cloudforce-one/banner/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Defines the Account ID.",
@@ -185,6 +188,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

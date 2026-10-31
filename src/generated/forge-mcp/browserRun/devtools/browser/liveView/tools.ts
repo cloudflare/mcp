@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_liveView_create",
     title: "Mint live view URLs for a browser session",
-    description: "Generates time-limited URLs to view a remote browser session. Set `guardrails: { mode: 'readonly' }` to create a view-only link.",
+    description: "Generates time-limited URLs to view a remote browser session. Set `guardrails: { mode: 'readonly' }` to create a view-only link.\n\nPOST /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/live_view",
     inputSchema: {
       type: "object",
       properties: {
@@ -54,6 +54,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -75,6 +76,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

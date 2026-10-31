@@ -45,7 +45,7 @@ export const aaa_audit$$logs$$v2: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/aaa_identifier-2"
+      "type": "string"
     },
     "raw": {
       "$ref": "#/$defs/aaa_audit-log-raw"

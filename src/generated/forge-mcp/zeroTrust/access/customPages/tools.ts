@@ -7,41 +7,22 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_created_at,
   access_messages,
-  access_timestamp,
-  access_updated_at,
-  access_uuid,
 } from "../../outputs.js";
-import {
-  access_created_at as access_created_at$,
-  access_identifier,
-  access_timestamp as access_timestamp$,
-  access_updated_at as access_updated_at$,
-  access_uuid as access_uuid$,
-} from "../../schemas.js";
 import { access_id_response$$3 } from "../outputs.js";
 import {
-  access_app_count$$2,
-  access_contract_version,
   access_custom_page,
   access_custom_page_without_html,
-  access_name$$11,
   access_response_collection$$11,
   access_single_response$$12,
   access_single_response_without_html,
   access_template_violation,
-  access_type$$2,
   access_validate_response,
   access_validation_result,
 } from "./outputs.js";
 import {
-  access_app_count$$2 as access_app_count$$2$,
-  access_contract_version as access_contract_version$,
   access_custom_page as access_custom_page$,
   access_custom_page_validate,
-  access_name$$11 as access_name$$11$,
-  access_type$$2 as access_type$$2$,
 } from "./schemas.js";
 
 /**
@@ -51,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_customPages_create",
     title: "Create a custom page",
-    description: "Create a custom page",
+    description: "Create a custom page\n\nPOST /accounts/{account_id}/access/custom_pages",
     inputSchema: {
       type: "object",
       properties: {
@@ -59,10 +40,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_custom_page"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -74,35 +56,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_app_count-2": access_app_count$$2$,
-        "access_contract_version": access_contract_version$,
-        "access_created_at": access_created_at$,
         "access_custom_page": access_custom_page$,
-        "access_identifier": access_identifier,
-        "access_name-11": access_name$$11$,
-        "access_timestamp": access_timestamp$,
-        "access_type-2": access_type$$2$,
-        "access_updated_at": access_updated_at$,
-        "access_uuid": access_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response_without_html",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_single_response_without_html": access_single_response_without_html,
         "access_template_violation": access_template_violation,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -134,18 +100,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_single_response_without_html": access_single_response_without_html,
         "access_template_violation": access_template_violation,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
         "access_validate_response": access_validate_response,
         "access_validation_result": access_validation_result,
       },
@@ -158,19 +116,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_customPages_delete",
     title: "Delete a custom page",
-    description: "Delete a custom page",
+    description: "Delete a custom page\n\nDELETE /accounts/{account_id}/access/custom_pages/{custom_page_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "custom_page_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -183,10 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response-3",
@@ -194,7 +150,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-common": access_api$$response$$common,
         "access_id_response-3": access_id_response$$3,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -225,7 +180,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_id_response-3": access_id_response$$3,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -235,19 +189,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_customPages_get",
     title: "Get a custom page",
-    description: "Fetches a custom page and also returns its HTML.",
+    description: "Fetches a custom page and also returns its HTML.\n\nGET /accounts/{account_id}/access/custom_pages/{custom_page_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "custom_page_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -260,26 +215,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-12",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page": access_custom_page,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_single_response-12": access_single_response$$12,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -309,17 +253,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page": access_custom_page,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_single_response-12": access_single_response$$12,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -329,15 +265,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_customPages_list",
     title: "List custom pages",
-    description: "List custom pages",
+    description: "List custom pages\n\nGET /accounts/{account_id}/access/custom_pages",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -346,6 +283,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -364,27 +302,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-11",
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_response_collection-11": access_response_collection$$11,
         "access_template_violation": access_template_violation,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -415,18 +343,10 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_response_collection-11": access_response_collection$$11,
         "access_template_violation": access_template_violation,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -440,7 +360,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_customPages_update",
     title: "Update a custom page",
-    description: "Update a custom page",
+    description: "Update a custom page\n\nPUT /accounts/{account_id}/access/custom_pages/{custom_page_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -448,14 +368,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_custom_page"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "custom_page_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -468,35 +389,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_app_count-2": access_app_count$$2$,
-        "access_contract_version": access_contract_version$,
-        "access_created_at": access_created_at$,
         "access_custom_page": access_custom_page$,
-        "access_identifier": access_identifier,
-        "access_name-11": access_name$$11$,
-        "access_timestamp": access_timestamp$,
-        "access_type-2": access_type$$2$,
-        "access_updated_at": access_updated_at$,
-        "access_uuid": access_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response_without_html",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_single_response_without_html": access_single_response_without_html,
         "access_template_violation": access_template_violation,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -528,18 +433,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_app_count-2": access_app_count$$2,
-        "access_contract_version": access_contract_version,
-        "access_created_at": access_created_at,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
-        "access_name-11": access_name$$11,
         "access_single_response_without_html": access_single_response_without_html,
         "access_template_violation": access_template_violation,
-        "access_timestamp": access_timestamp,
-        "access_type-2": access_type$$2,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
         "access_validate_response": access_validate_response,
         "access_validation_result": access_validation_result,
       },
@@ -552,7 +449,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_customPages_validate",
     title: "Validate a custom page template",
-    description: "Validate a Liquid template and return its errors and warnings without persisting it.",
+    description: "Validate a Liquid template and return its errors and warnings without persisting it.\n\nPOST /accounts/{account_id}/access/custom_pages/validate",
     inputSchema: {
       type: "object",
       properties: {
@@ -560,10 +457,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_custom_page_validate"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -575,10 +473,9 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "access_custom_page_validate": access_custom_page_validate,
-        "access_identifier": access_identifier,
-        "access_type-2": access_type$$2$,
       },
     },
     outputSchema: {
@@ -587,7 +484,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_template_violation": access_template_violation,
-        "access_type-2": access_type$$2,
         "access_validate_response": access_validate_response,
         "access_validation_result": access_validation_result,
       },
@@ -620,7 +516,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_template_violation": access_template_violation,
-        "access_type-2": access_type$$2,
         "access_validate_response": access_validate_response,
         "access_validation_result": access_validation_result,
       },

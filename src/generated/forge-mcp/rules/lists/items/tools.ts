@@ -6,21 +6,13 @@ import {
   lists_api$$response$$collection,
   lists_api$$response$$common,
   lists_api$$response$$common$$failure,
-  lists_created_on,
   lists_messages,
-  lists_modified_on,
-  lists_operation_id,
 } from "../outputs.js";
-import { lists_account_id, lists_list_id } from "../schemas.js";
 import {
   lists_item,
   lists_item$$response$$single,
-  lists_item_asn,
   lists_item_base,
-  lists_item_comment,
   lists_item_hostname,
-  lists_item_id,
-  lists_item_ip,
   lists_item_redirect,
   lists_items,
   lists_items$$list$$response$$collection,
@@ -35,12 +27,8 @@ import {
   lists_lists$$async$$response,
 } from "./outputs.js";
 import {
-  lists_item_asn as lists_item_asn$,
-  lists_item_comment as lists_item_comment$,
   lists_item_comment_object,
   lists_item_hostname as lists_item_hostname$,
-  lists_item_id as lists_item_id$,
-  lists_item_ip as lists_item_ip$,
   lists_item_redirect as lists_item_redirect$,
   lists_items$$update$$request$$collection,
   lists_list_item_asn_comment,
@@ -60,7 +48,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_items_create",
     title: "Create list items",
-    description: "Appends new items to the list.\n\nThis operation is asynchronous. To get the current operation status, invoke the `Get bulk operation status` endpoint with the returned `operation_id`.\n\nThere is a limit of 1 pending bulk operation per account. If an outstanding bulk operation is in progress, the request will be rejected.",
+    description: "Appends new items to the list.\n\nThis operation is asynchronous. To get the current operation status, invoke the `Get bulk operation status` endpoint with the returned `operation_id`.\n\nThere is a limit of 1 pending bulk operation per account. If an outstanding bulk operation is in progress, the request will be rejected.\n\nPOST /accounts/{account_id}/rules/lists/{list_id}/items",
     inputSchema: {
       type: "object",
       properties: {
@@ -68,14 +56,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/lists_items-update-request-collection"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/lists_account_id",
-              "description": "The Account ID for this resource."
+              "description": "The Account ID for this resource.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/lists_list_id",
-              "description": "The unique ID of the list."
+              "description": "The unique ID of the list.",
+              "type": "string"
             }
           },
           "required": [
@@ -89,16 +78,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_item_asn": lists_item_asn$,
-        "lists_item_comment": lists_item_comment$,
         "lists_item_comment_object": lists_item_comment_object,
         "lists_item_hostname": lists_item_hostname$,
-        "lists_item_ip": lists_item_ip$,
         "lists_item_redirect": lists_item_redirect$,
         "lists_items-update-request-collection": lists_items$$update$$request$$collection,
-        "lists_list_id": lists_list_id,
         "lists_list_item_asn_comment": lists_list_item_asn_comment,
         "lists_list_item_asn_object": lists_list_item_asn_object$,
         "lists_list_item_hostname_comment": lists_list_item_hostname_comment,
@@ -116,7 +101,6 @@ export const tools: readonly Tool[] = [
         "lists_api-response-common": lists_api$$response$$common,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
-        "lists_operation_id": lists_operation_id,
       },
     },
     annotations: {
@@ -161,7 +145,6 @@ export const tools: readonly Tool[] = [
         "lists_api-response-common-failure": lists_api$$response$$common$$failure,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
-        "lists_operation_id": lists_operation_id,
       },
     },
     request: (args) => ({
@@ -172,7 +155,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_items_delete",
     title: "Delete list items",
-    description: "Removes one or more items from a list.\n\nThis operation is asynchronous. To get the current operation status, invoke the `Get bulk operation status` endpoint with the returned `operation_id`.\n\nThere is a limit of 1 pending bulk operation per account. If an outstanding bulk operation is in progress, the request will be rejected.\n\nConfirm with the user before calling this tool. This operation deletes the selected items from the custom list.",
+    description: "Removes one or more items from a list.\n\nThis operation is asynchronous. To get the current operation status, invoke the `Get bulk operation status` endpoint with the returned `operation_id`.\n\nThere is a limit of 1 pending bulk operation per account. If an outstanding bulk operation is in progress, the request will be rejected.\n\nConfirm with the user before calling this tool. This operation deletes the selected items from the custom list.\n\nDELETE /accounts/{account_id}/rules/lists/{list_id}/items",
     inputSchema: {
       type: "object",
       properties: {
@@ -199,14 +182,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/lists_account_id",
-              "description": "The Account ID for this resource."
+              "description": "The Account ID for this resource.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/lists_list_id",
-              "description": "The unique ID of the list."
+              "description": "The unique ID of the list.",
+              "type": "string"
             }
           },
           "required": [
@@ -220,10 +204,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_list_id": lists_list_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_lists-async-response",
@@ -232,7 +213,6 @@ export const tools: readonly Tool[] = [
         "lists_api-response-common": lists_api$$response$$common,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
-        "lists_operation_id": lists_operation_id,
       },
     },
     annotations: {
@@ -277,7 +257,6 @@ export const tools: readonly Tool[] = [
         "lists_api-response-common-failure": lists_api$$response$$common$$failure,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
-        "lists_operation_id": lists_operation_id,
       },
     },
     request: (args) => ({
@@ -288,23 +267,24 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_items_get",
     title: "Get a list item",
-    description: "Fetches a list item in the list.",
+    description: "Fetches a list item in the list.\n\nGET /accounts/{account_id}/rules/lists/{list_id}/items/{item_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/lists_account_id",
-              "description": "The Account ID for this resource."
+              "description": "The Account ID for this resource.",
+              "type": "string"
             },
             "item_id": {
-              "$ref": "#/$defs/lists_item_id",
-              "description": "Defines the unique ID of the item in the List."
+              "description": "Defines the unique ID of the item in the List.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/lists_list_id",
-              "description": "The unique ID of the list."
+              "description": "The unique ID of the list.",
+              "type": "string"
             }
           },
           "required": [
@@ -318,25 +298,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_item_id": lists_item_id$,
-        "lists_list_id": lists_list_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_item-response-single",
       $defs: {
         "lists_api-response-common": lists_api$$response$$common,
-        "lists_created_on": lists_created_on,
         "lists_item": lists_item,
         "lists_item-response-single": lists_item$$response$$single,
-        "lists_item_asn": lists_item_asn,
         "lists_item_base": lists_item_base,
-        "lists_item_comment": lists_item_comment,
         "lists_item_hostname": lists_item_hostname,
-        "lists_item_id": lists_item_id,
-        "lists_item_ip": lists_item_ip,
         "lists_item_redirect": lists_item_redirect,
         "lists_list_item_asn_full": lists_list_item_asn_full,
         "lists_list_item_asn_object": lists_list_item_asn_object,
@@ -347,7 +318,6 @@ export const tools: readonly Tool[] = [
         "lists_list_item_redirect_full": lists_list_item_redirect_full,
         "lists_list_item_redirect_object": lists_list_item_redirect_object,
         "lists_messages": lists_messages,
-        "lists_modified_on": lists_modified_on,
       },
     },
     annotations: {
@@ -390,15 +360,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "lists_api-response-common": lists_api$$response$$common,
         "lists_api-response-common-failure": lists_api$$response$$common$$failure,
-        "lists_created_on": lists_created_on,
         "lists_item": lists_item,
         "lists_item-response-single": lists_item$$response$$single,
-        "lists_item_asn": lists_item_asn,
         "lists_item_base": lists_item_base,
-        "lists_item_comment": lists_item_comment,
         "lists_item_hostname": lists_item_hostname,
-        "lists_item_id": lists_item_id,
-        "lists_item_ip": lists_item_ip,
         "lists_item_redirect": lists_item_redirect,
         "lists_list_item_asn_full": lists_list_item_asn_full,
         "lists_list_item_asn_object": lists_list_item_asn_object,
@@ -409,7 +374,6 @@ export const tools: readonly Tool[] = [
         "lists_list_item_redirect_full": lists_list_item_redirect_full,
         "lists_list_item_redirect_object": lists_list_item_redirect_object,
         "lists_messages": lists_messages,
-        "lists_modified_on": lists_modified_on,
       },
     },
     request: (args) => ({
@@ -419,19 +383,20 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_items_list",
     title: "Get list items",
-    description: "Fetches all the items in the list.",
+    description: "Fetches all the items in the list.\n\nGET /accounts/{account_id}/rules/lists/{list_id}/items",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/lists_account_id",
-              "description": "The Account ID for this resource."
+              "description": "The Account ID for this resource.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/lists_list_id",
-              "description": "The unique ID of the list."
+              "description": "The unique ID of the list.",
+              "type": "string"
             }
           },
           "required": [
@@ -441,6 +406,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "The pagination cursor. An opaque string token that indicates where to continue when requesting the next/previous set of records. The response provides cursor values under `result_info.cursors`. You should make no assumptions about a cursor's content or length.",
@@ -461,24 +427,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_list_id": lists_list_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_items-list-response-collection",
       $defs: {
         "lists_api-response-collection": lists_api$$response$$collection,
         "lists_api-response-common": lists_api$$response$$common,
-        "lists_created_on": lists_created_on,
         "lists_item": lists_item,
-        "lists_item_asn": lists_item_asn,
         "lists_item_base": lists_item_base,
-        "lists_item_comment": lists_item_comment,
         "lists_item_hostname": lists_item_hostname,
-        "lists_item_id": lists_item_id,
-        "lists_item_ip": lists_item_ip,
         "lists_item_redirect": lists_item_redirect,
         "lists_items": lists_items,
         "lists_items-list-response-collection": lists_items$$list$$response$$collection,
@@ -491,7 +449,6 @@ export const tools: readonly Tool[] = [
         "lists_list_item_redirect_full": lists_list_item_redirect_full,
         "lists_list_item_redirect_object": lists_list_item_redirect_object,
         "lists_messages": lists_messages,
-        "lists_modified_on": lists_modified_on,
       },
     },
     annotations: {
@@ -535,14 +492,9 @@ export const tools: readonly Tool[] = [
         "lists_api-response-collection": lists_api$$response$$collection,
         "lists_api-response-common": lists_api$$response$$common,
         "lists_api-response-common-failure": lists_api$$response$$common$$failure,
-        "lists_created_on": lists_created_on,
         "lists_item": lists_item,
-        "lists_item_asn": lists_item_asn,
         "lists_item_base": lists_item_base,
-        "lists_item_comment": lists_item_comment,
         "lists_item_hostname": lists_item_hostname,
-        "lists_item_id": lists_item_id,
-        "lists_item_ip": lists_item_ip,
         "lists_item_redirect": lists_item_redirect,
         "lists_items": lists_items,
         "lists_items-list-response-collection": lists_items$$list$$response$$collection,
@@ -555,7 +507,6 @@ export const tools: readonly Tool[] = [
         "lists_list_item_redirect_full": lists_list_item_redirect_full,
         "lists_list_item_redirect_object": lists_list_item_redirect_object,
         "lists_messages": lists_messages,
-        "lists_modified_on": lists_modified_on,
       },
     },
     request: (args) => ({
@@ -570,7 +521,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_items_update",
     title: "Update all list items",
-    description: "Removes all existing items from the list and adds the provided items to the list.\n\nThis operation is asynchronous. To get the current operation status, invoke the `Get bulk operation status` endpoint with the returned `operation_id`.\n\nThere is a limit of 1 pending bulk operation per account. If an outstanding bulk operation is in progress, the request will be rejected.",
+    description: "Removes all existing items from the list and adds the provided items to the list.\n\nThis operation is asynchronous. To get the current operation status, invoke the `Get bulk operation status` endpoint with the returned `operation_id`.\n\nThere is a limit of 1 pending bulk operation per account. If an outstanding bulk operation is in progress, the request will be rejected.\n\nPUT /accounts/{account_id}/rules/lists/{list_id}/items",
     inputSchema: {
       type: "object",
       properties: {
@@ -578,14 +529,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/lists_items-update-request-collection"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/lists_account_id",
-              "description": "The Account ID for this resource."
+              "description": "The Account ID for this resource.",
+              "type": "string"
             },
             "list_id": {
-              "$ref": "#/$defs/lists_list_id",
-              "description": "The unique ID of the list."
+              "description": "The unique ID of the list.",
+              "type": "string"
             }
           },
           "required": [
@@ -599,16 +551,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_item_asn": lists_item_asn$,
-        "lists_item_comment": lists_item_comment$,
         "lists_item_comment_object": lists_item_comment_object,
         "lists_item_hostname": lists_item_hostname$,
-        "lists_item_ip": lists_item_ip$,
         "lists_item_redirect": lists_item_redirect$,
         "lists_items-update-request-collection": lists_items$$update$$request$$collection,
-        "lists_list_id": lists_list_id,
         "lists_list_item_asn_comment": lists_list_item_asn_comment,
         "lists_list_item_asn_object": lists_list_item_asn_object$,
         "lists_list_item_hostname_comment": lists_list_item_hostname_comment,
@@ -626,7 +574,6 @@ export const tools: readonly Tool[] = [
         "lists_api-response-common": lists_api$$response$$common,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
-        "lists_operation_id": lists_operation_id,
       },
     },
     annotations: {
@@ -671,7 +618,6 @@ export const tools: readonly Tool[] = [
         "lists_api-response-common-failure": lists_api$$response$$common$$failure,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
-        "lists_operation_id": lists_operation_id,
       },
     },
     request: (args) => ({

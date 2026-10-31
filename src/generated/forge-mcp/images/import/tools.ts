@@ -9,26 +9,16 @@ import {
   images_deleted_response,
   images_messages,
 } from "../outputs.js";
-import { images_account_identifier } from "../schemas.js";
 import {
-  images_sourcingkit_acceptable_content_type,
-  images_sourcingkit_conflict_behaviour,
   images_sourcingkit_migration,
   images_sourcingkit_migration_create_response,
   images_sourcingkit_migration_list_response,
   images_sourcingkit_migration_log,
   images_sourcingkit_migration_log_list_response,
-  images_sourcingkit_migration_log_type,
   images_sourcingkit_migration_progress_response,
   images_sourcingkit_migration_single_response,
-  images_sourcingkit_migration_status,
 } from "./outputs.js";
-import {
-  images_sourcingkit_acceptable_content_type as images_sourcingkit_acceptable_content_type$,
-  images_sourcingkit_conflict_behaviour as images_sourcingkit_conflict_behaviour$,
-  images_sourcingkit_identifier,
-  images_sourcingkit_migration_create_request,
-} from "./schemas.js";
+import { images_sourcingkit_migration_create_request } from "./schemas.js";
 
 /**
  * The tools of `images.import`.
@@ -37,19 +27,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_abort",
     title: "Abort a migration",
-    description: "Abort a running CF Images import. Already imported images will remain.",
+    description: "Abort a running CF Images import. Already imported images will remain.\n\nPATCH /accounts/{account_id}/images/v2/sourcingkit/migrations/{migration_id}/lifecycle/abort",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "migration_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -62,10 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_migration_single_response",
@@ -73,11 +62,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     annotations: {
@@ -108,11 +94,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     request: (args) => ({
@@ -122,7 +105,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_create",
     title: "Create a sourcing kit migration",
-    description: "Create a pending CF Images import from a configured source.",
+    description: "Create a pending CF Images import from a configured source.\n\nPOST /accounts/{account_id}/images/v2/sourcingkit/migrations",
     inputSchema: {
       type: "object",
       properties: {
@@ -130,10 +113,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/images_sourcingkit_migration_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -146,10 +130,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type$,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour$,
         "images_sourcingkit_migration_create_request": images_sourcingkit_migration_create_request,
       },
     },
@@ -159,11 +141,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_create_response": images_sourcingkit_migration_create_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     annotations: {
@@ -201,11 +180,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_create_response": images_sourcingkit_migration_create_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     request: (args) => ({
@@ -216,19 +192,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_delete",
     title: "Delete a sourcing kit migration",
-    description: "Delete a completed, failed, or aborted CF Images import.\n\nConfirm with the user before calling this tool. This operation will delete this import migration.",
+    description: "Delete a completed, failed, or aborted CF Images import.\n\nConfirm with the user before calling this tool. This operation will delete this import migration.\n\nDELETE /accounts/{account_id}/images/v2/sourcingkit/migrations/{migration_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "migration_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -241,10 +219,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_deleted_response",
@@ -300,19 +275,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_get",
     title: "Get sourcing kit migration",
-    description: "Get the configuration and status of a CF Images import.",
+    description: "Get the configuration and status of a CF Images import.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/migrations/{migration_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "migration_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -325,10 +302,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_migration_single_response",
@@ -336,11 +310,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     annotations: {
@@ -379,11 +350,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     request: (args) => ({
@@ -393,15 +361,16 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_list",
     title: "List sourcing kit migrations",
-    description: "List CF Images imports.",
+    description: "List CF Images imports.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/migrations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -410,6 +379,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 25,
@@ -428,20 +398,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_migration_list_response",
       $defs: {
         "images_api-response-common": images_api$$response$$common,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_list_response": images_sourcingkit_migration_list_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     annotations: {
@@ -479,11 +444,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_list_response": images_sourcingkit_migration_list_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     request: (args) => ({
@@ -497,19 +459,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_logs",
     title: "List migration logs",
-    description: "List log entries for a CF Images import.",
+    description: "List log entries for a CF Images import.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/migrations/{migration_id}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "migration_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -519,6 +483,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 25,
@@ -537,10 +502,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_migration_log_list_response",
@@ -549,7 +511,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_migration_log": images_sourcingkit_migration_log,
         "images_sourcingkit_migration_log_list_response": images_sourcingkit_migration_log_list_response,
-        "images_sourcingkit_migration_log_type": images_sourcingkit_migration_log_type,
       },
     },
     annotations: {
@@ -589,7 +550,6 @@ export const tools: readonly Tool[] = [
         "images_messages": images_messages,
         "images_sourcingkit_migration_log": images_sourcingkit_migration_log,
         "images_sourcingkit_migration_log_list_response": images_sourcingkit_migration_log_list_response,
-        "images_sourcingkit_migration_log_type": images_sourcingkit_migration_log_type,
       },
     },
     request: (args) => ({
@@ -603,19 +563,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_progress",
     title: "Get migration progress",
-    description: "Get progress and object counts for a CF Images import.",
+    description: "Get progress and object counts for a CF Images import.\n\nGET /accounts/{account_id}/images/v2/sourcingkit/migrations/{migration_id}/lifecycle",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "migration_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -628,10 +590,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_migration_progress_response",
@@ -640,7 +599,6 @@ export const tools: readonly Tool[] = [
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
         "images_sourcingkit_migration_progress_response": images_sourcingkit_migration_progress_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     annotations: {
@@ -680,7 +638,6 @@ export const tools: readonly Tool[] = [
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
         "images_sourcingkit_migration_progress_response": images_sourcingkit_migration_progress_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     request: (args) => ({
@@ -690,19 +647,21 @@ export const tools: readonly Tool[] = [
   {
     name: "images_import_start",
     title: "Start a migration",
-    description: "Start a pending CF Images import.",
+    description: "Start a pending CF Images import.\n\nPATCH /accounts/{account_id}/images/v2/sourcingkit/migrations/{migration_id}/lifecycle/start",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "migration_id": {
-              "$ref": "#/$defs/images_sourcingkit_identifier",
-              "description": "Sourcing kit resource identifier."
+              "description": "Sourcing kit resource identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -715,10 +674,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_sourcingkit_identifier": images_sourcingkit_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_sourcingkit_migration_single_response",
@@ -726,11 +682,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     annotations: {
@@ -761,11 +714,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_messages": images_messages,
-        "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
-        "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration": images_sourcingkit_migration,
         "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response,
-        "images_sourcingkit_migration_status": images_sourcingkit_migration_status,
       },
     },
     request: (args) => ({

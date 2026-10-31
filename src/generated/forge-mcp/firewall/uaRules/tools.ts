@@ -17,28 +17,14 @@ import {
   firewall_country_configuration,
   firewall_ip_configuration,
   firewall_ipv6_configuration,
-  firewall_schemas$$mode,
 } from "../../schemas.js";
-import { firewall_schemas$$paused } from "../outputs.js";
 import {
-  firewall_description,
-  firewall_identifier,
-  firewall_schemas$$paused as firewall_schemas$$paused$,
-} from "../schemas.js";
-import {
-  firewall_components$$schemas$$mode,
-  firewall_components$$ua$$rule$$id,
   firewall_firewalluablock,
-  firewall_firewalluablock_components$$schemas$$description,
   firewall_firewalluablock_response_collection,
   firewall_firewalluablock_response_single,
   firewall_schemas$$configuration,
 } from "./outputs.js";
-import {
-  firewall_components$$ua$$rule$$id as firewall_components$$ua$$rule$$id$,
-  firewall_description_search,
-  firewall_ua_configuration,
-} from "./schemas.js";
+import { firewall_ua_configuration } from "./schemas.js";
 
 /**
  * The tools of `firewall.uaRules`.
@@ -47,7 +33,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_uaRules_create",
     title: "Create a User Agent Blocking rule",
-    description: "Creates a new User Agent Blocking rule in a zone.",
+    description: "Creates a new User Agent Blocking rule in a zone.\n\nPOST /zones/{zone_id}/firewall/ua_rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -57,15 +43,23 @@ export const tools: readonly Tool[] = [
               "$ref": "#/$defs/firewall_ua_configuration"
             },
             "description": {
-              "$ref": "#/$defs/firewall_description",
-              "description": "An informative summary of the rule. This value is sanitized and any tags will be removed."
+              "description": "An informative summary of the rule. This value is sanitized and any tags will be removed.",
+              "type": "string"
             },
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode"
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "paused": {
-              "$ref": "#/$defs/firewall_schemas-paused",
-              "description": "When true, indicates that the rule is currently paused."
+              "description": "When true, indicates that the rule is currently paused.",
+              "type": "boolean"
             }
           },
           "required": [
@@ -75,10 +69,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -91,11 +86,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "firewall_description": firewall_description,
-        "firewall_identifier": firewall_identifier,
-        "firewall_schemas-mode": firewall_schemas$$mode,
-        "firewall_schemas-paused": firewall_schemas$$paused$,
         "firewall_ua_configuration": firewall_ua_configuration,
       },
     },
@@ -104,14 +96,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     annotations: {
@@ -147,14 +135,10 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     request: (args) => ({
@@ -165,19 +149,20 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_uaRules_delete",
     title: "Delete a User Agent Blocking rule",
-    description: "Deletes an existing User Agent Blocking rule.\n\nConfirm with the user before calling this tool. This operation deletes the User Agent Blocking rule from the zone.",
+    description: "Deletes an existing User Agent Blocking rule.\n\nConfirm with the user before calling this tool. This operation deletes the User Agent Blocking rule from the zone.\n\nDELETE /zones/{zone_id}/firewall/ua_rules/{ua_rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ua_rule_id": {
-              "$ref": "#/$defs/firewall_components-ua-rule-id",
-              "description": "The unique identifier of the User Agent Blocking rule."
+              "description": "The unique identifier of the User Agent Blocking rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -190,10 +175,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id$,
-        "firewall_identifier": firewall_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -202,7 +184,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/firewall_components-ua-rule-id"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -217,14 +199,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     annotations: {
@@ -256,7 +234,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/firewall_components-ua-rule-id"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -277,14 +255,10 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     request: (args) => ({
@@ -294,19 +268,20 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_uaRules_get",
     title: "Get a User Agent Blocking rule",
-    description: "Fetches the details of a User Agent Blocking rule.",
+    description: "Fetches the details of a User Agent Blocking rule.\n\nGET /zones/{zone_id}/firewall/ua_rules/{ua_rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ua_rule_id": {
-              "$ref": "#/$defs/firewall_components-ua-rule-id",
-              "description": "The unique identifier of the User Agent Blocking rule."
+              "description": "The unique identifier of the User Agent Blocking rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -319,24 +294,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id$,
-        "firewall_identifier": firewall_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_firewalluablock_response_single",
       $defs: {
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     annotations: {
@@ -373,14 +341,10 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     request: (args) => ({
@@ -390,15 +354,16 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_uaRules_list",
     title: "List User Agent Blocking rules",
-    description: "Fetches User Agent Blocking rules in a zone. You can filter the results using several optional parameters.",
+    description: "Fetches User Agent Blocking rules in a zone. You can filter the results using several optional parameters.\n\nGET /zones/{zone_id}/firewall/ua_rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -407,9 +372,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "description": {
-              "$ref": "#/$defs/firewall_description_search"
+              "description": "A string to search for in the description of existing rules.",
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -436,25 +403,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_description_search": firewall_description_search,
-        "firewall_identifier": firewall_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_firewalluablock_response_collection",
       $defs: {
         "firewall_api-response-collection": firewall_api$$response$$collection,
         "firewall_api-response-common": firewall_api$$response$$common,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_collection": firewall_firewalluablock_response_collection,
         "firewall_messages": firewall_messages,
         "firewall_result_info": firewall_result_info,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     annotations: {
@@ -491,15 +451,11 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-collection": firewall_api$$response$$collection,
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_collection": firewall_firewalluablock_response_collection,
         "firewall_messages": firewall_messages,
         "firewall_result_info": firewall_result_info,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     request: (args) => ({
@@ -516,7 +472,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_uaRules_update",
     title: "Update a User Agent Blocking rule",
-    description: "Updates an existing User Agent Blocking rule.",
+    description: "Updates an existing User Agent Blocking rule.\n\nPUT /zones/{zone_id}/firewall/ua_rules/{ua_rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -527,15 +483,23 @@ export const tools: readonly Tool[] = [
               "description": "The rule configuration."
             },
             "description": {
-              "$ref": "#/$defs/firewall_description",
-              "description": "An informative summary of the rule. This value is sanitized and any tags will be removed."
+              "description": "An informative summary of the rule. This value is sanitized and any tags will be removed.",
+              "type": "string"
             },
             "mode": {
-              "$ref": "#/$defs/firewall_schemas-mode"
+              "description": "The action to apply to a matched request.",
+              "enum": [
+                "block",
+                "challenge",
+                "whitelist",
+                "js_challenge",
+                "managed_challenge"
+              ],
+              "type": "string"
             },
             "paused": {
-              "$ref": "#/$defs/firewall_schemas-paused",
-              "description": "When true, indicates that the rule is currently paused."
+              "description": "When true, indicates that the rule is currently paused.",
+              "type": "boolean"
             }
           },
           "required": [
@@ -545,14 +509,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ua_rule_id": {
-              "$ref": "#/$defs/firewall_components-ua-rule-id",
-              "description": "The unique identifier of the User Agent Blocking rule."
+              "description": "The unique identifier of the User Agent Blocking rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -566,18 +531,14 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "firewall_asn_configuration": firewall_asn_configuration,
         "firewall_cidr_configuration": firewall_cidr_configuration,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id$,
         "firewall_configuration": firewall_configuration,
         "firewall_country_configuration": firewall_country_configuration,
-        "firewall_description": firewall_description,
-        "firewall_identifier": firewall_identifier,
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
-        "firewall_schemas-mode": firewall_schemas$$mode,
-        "firewall_schemas-paused": firewall_schemas$$paused$,
       },
     },
     outputSchema: {
@@ -585,14 +546,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     annotations: {
@@ -628,14 +585,10 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
-        "firewall_components-schemas-mode": firewall_components$$schemas$$mode,
-        "firewall_components-ua-rule-id": firewall_components$$ua$$rule$$id,
         "firewall_firewalluablock": firewall_firewalluablock,
-        "firewall_firewalluablock_components-schemas-description": firewall_firewalluablock_components$$schemas$$description,
         "firewall_firewalluablock_response_single": firewall_firewalluablock_response_single,
         "firewall_messages": firewall_messages,
         "firewall_schemas-configuration": firewall_schemas$$configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
       },
     },
     request: (args) => ({

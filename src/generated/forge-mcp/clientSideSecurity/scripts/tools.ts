@@ -7,22 +7,12 @@ import {
   client$$side$$security_api$$list$$response$$collection,
   client$$side$$security_api$$response$$common,
   client$$side$$security_api$$response$$common$$failure,
-  client$$side$$security_id,
   client$$side$$security_messages,
   client$$side$$security_result_info,
 } from "../outputs.js";
-import { client$$side$$security_id as client$$side$$security_id$ } from "../schemas.js";
 import {
-  client$$side$$security_cryptomining_score,
-  client$$side$$security_dataflow_score,
-  client$$side$$security_fetched_at,
   client$$side$$security_get$$zone$$script$$response,
-  client$$side$$security_hash,
-  client$$side$$security_js_integrity_score,
   client$$side$$security_list$$zone$$scripts$$response,
-  client$$side$$security_magecart_score,
-  client$$side$$security_malware_score,
-  client$$side$$security_obfuscation_score,
   client$$side$$security_script,
   client$$side$$security_version,
 } from "./outputs.js";
@@ -34,19 +24,20 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_scripts_get",
     title: "Get a detected script",
-    description: "Returns a script detected on the zone by script ID.",
+    description: "Returns a script detected on the zone by script ID.\n\nGET /zones/{zone_id}/page_shield/scripts/{script_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "script_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -59,26 +50,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_get-zone-script-response",
       $defs: {
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
-        "client-side-security_cryptomining_score": client$$side$$security_cryptomining_score,
-        "client-side-security_dataflow_score": client$$side$$security_dataflow_score,
-        "client-side-security_fetched_at": client$$side$$security_fetched_at,
         "client-side-security_get-zone-script-response": client$$side$$security_get$$zone$$script$$response,
-        "client-side-security_hash": client$$side$$security_hash,
-        "client-side-security_id": client$$side$$security_id,
-        "client-side-security_js_integrity_score": client$$side$$security_js_integrity_score,
-        "client-side-security_magecart_score": client$$side$$security_magecart_score,
-        "client-side-security_malware_score": client$$side$$security_malware_score,
         "client-side-security_messages": client$$side$$security_messages,
-        "client-side-security_obfuscation_score": client$$side$$security_obfuscation_score,
         "client-side-security_script": client$$side$$security_script,
         "client-side-security_version": client$$side$$security_version,
       },
@@ -121,17 +101,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
-        "client-side-security_cryptomining_score": client$$side$$security_cryptomining_score,
-        "client-side-security_dataflow_score": client$$side$$security_dataflow_score,
-        "client-side-security_fetched_at": client$$side$$security_fetched_at,
         "client-side-security_get-zone-script-response": client$$side$$security_get$$zone$$script$$response,
-        "client-side-security_hash": client$$side$$security_hash,
-        "client-side-security_id": client$$side$$security_id,
-        "client-side-security_js_integrity_score": client$$side$$security_js_integrity_score,
-        "client-side-security_magecart_score": client$$side$$security_magecart_score,
-        "client-side-security_malware_score": client$$side$$security_malware_score,
         "client-side-security_messages": client$$side$$security_messages,
-        "client-side-security_obfuscation_score": client$$side$$security_obfuscation_score,
         "client-side-security_script": client$$side$$security_script,
         "client-side-security_version": client$$side$$security_version,
       },
@@ -143,15 +114,16 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_scripts_list",
     title: "List detected scripts",
-    description: "Lists scripts detected on webpages in the zone, with filtering and pagination.",
+    description: "Lists scripts detected on webpages in the zone, with filtering and pagination.\n\nGET /zones/{zone_id}/page_shield/scripts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -160,6 +132,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The direction used to sort returned scripts.",
@@ -176,11 +149,11 @@ export const tools: readonly Tool[] = [
             },
             "exclude_duplicates": {
               "default": true,
-              "description": "When true, excludes duplicate scripts. We consider a script duplicate of another if their javascript\ncontent matches and they share the same url host and zone hostname. In such case, we return the most\nrecent script for the URL host and zone hostname combination.\n",
+              "description": "When true, excludes duplicate scripts. We consider a script duplicate of another if their javascript\ncontent matches and they share the same url host and zone hostname. In such case, we return the most\nrecent script for the URL host and zone hostname combination.",
               "type": "boolean"
             },
             "exclude_urls": {
-              "description": "Excludes scripts whose URL contains one of the URL-encoded URLs separated by commas.\n",
+              "description": "Excludes scripts whose URL contains one of the URL-encoded URLs separated by commas.",
               "type": "string"
             },
             "export": {
@@ -191,7 +164,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "hosts": {
-              "description": "Includes scripts that match one or more URL-encoded hostnames separated by commas.\n\nWildcards are supported at the start and end of each hostname to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match\n",
+              "description": "Includes scripts that match one or more URL-encoded hostnames separated by commas.\n\nWildcards are supported at the start and end of each hostname to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match",
               "type": "string"
             },
             "order_by": {
@@ -203,11 +176,11 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "page": {
-              "description": "The current page number of the paginated results.\n\nWe additionally support a special value \"all\". When \"all\" is used, the API will return all the scripts\nwith the applied filters in a single page. This feature is best-effort and it may only work for zones with\na low number of scripts\n",
+              "description": "The current page number of the paginated results.\n\nWe additionally support a special value \"all\". When \"all\" is used, the API will return all the scripts\nwith the applied filters in a single page. This feature is best-effort and it may only work for zones with\na low number of scripts",
               "type": "string"
             },
             "page_url": {
-              "description": "Includes scripts that match one or more page URLs (separated by commas) where they were last seen\n\nWildcards are supported at the start and end of each page URL to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match\n",
+              "description": "Includes scripts that match one or more page URLs (separated by commas) where they were last seen\n\nWildcards are supported at the start and end of each page URL to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match",
               "type": "string"
             },
             "per_page": {
@@ -223,7 +196,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "urls": {
-              "description": "Includes scripts whose URL contain one or more URL-encoded URLs separated by commas.\n",
+              "description": "Includes scripts whose URL contain one or more URL-encoded URLs separated by commas.",
               "type": "string"
             }
           },
@@ -233,26 +206,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_list-zone-scripts-response",
       $defs: {
         "client-side-security_api-list-response-collection": client$$side$$security_api$$list$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
-        "client-side-security_cryptomining_score": client$$side$$security_cryptomining_score,
-        "client-side-security_dataflow_score": client$$side$$security_dataflow_score,
-        "client-side-security_fetched_at": client$$side$$security_fetched_at,
-        "client-side-security_hash": client$$side$$security_hash,
-        "client-side-security_id": client$$side$$security_id,
-        "client-side-security_js_integrity_score": client$$side$$security_js_integrity_score,
         "client-side-security_list-zone-scripts-response": client$$side$$security_list$$zone$$scripts$$response,
-        "client-side-security_magecart_score": client$$side$$security_magecart_score,
-        "client-side-security_malware_score": client$$side$$security_malware_score,
         "client-side-security_messages": client$$side$$security_messages,
-        "client-side-security_obfuscation_score": client$$side$$security_obfuscation_score,
         "client-side-security_result_info": client$$side$$security_result_info,
         "client-side-security_script": client$$side$$security_script,
       },
@@ -295,17 +257,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-list-response-collection": client$$side$$security_api$$list$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
-        "client-side-security_cryptomining_score": client$$side$$security_cryptomining_score,
-        "client-side-security_dataflow_score": client$$side$$security_dataflow_score,
-        "client-side-security_fetched_at": client$$side$$security_fetched_at,
-        "client-side-security_hash": client$$side$$security_hash,
-        "client-side-security_id": client$$side$$security_id,
-        "client-side-security_js_integrity_score": client$$side$$security_js_integrity_score,
         "client-side-security_list-zone-scripts-response": client$$side$$security_list$$zone$$scripts$$response,
-        "client-side-security_magecart_score": client$$side$$security_magecart_score,
-        "client-side-security_malware_score": client$$side$$security_malware_score,
         "client-side-security_messages": client$$side$$security_messages,
-        "client-side-security_obfuscation_score": client$$side$$security_obfuscation_score,
         "client-side-security_result_info": client$$side$$security_result_info,
         "client-side-security_script": client$$side$$security_script,
       },

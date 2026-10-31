@@ -8,7 +8,6 @@ import {
   access_api$$response$$common$$failure,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import { access_failed_login_response } from "./outputs.js";
 
 /**
@@ -18,19 +17,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_failedLogins_list",
     title: "Get failed logins",
-    description: "Get all failed login attempts for a single user.",
+    description: "Get all failed login attempts for a single user.\n\nGET /accounts/{account_id}/access/users/{user_id}/failed_logins",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,10 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_failed_login_response",

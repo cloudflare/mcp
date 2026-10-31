@@ -3,26 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  addressing_account_identifier,
   addressing_api$$response$$collection,
   addressing_api$$response$$common,
   addressing_api$$response$$common$$failure,
-  addressing_loa_document_identifier,
   addressing_messages,
-  addressing_timestamp,
 } from "../outputs.js";
 import {
-  addressing_account_identifier as addressing_account_identifier$,
-  addressing_loa_document_identifier as addressing_loa_document_identifier$,
-} from "../schemas.js";
-import {
-  addressing_auto_generated,
-  addressing_filename,
   addressing_loa_document,
   addressing_loa_document_collection,
-  addressing_size_bytes,
-  addressing_verified,
-  addressing_verified_at,
 } from "./outputs.js";
 
 /**
@@ -32,19 +20,27 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_loaDocuments_get",
     title: "Download LOA Document",
-    description: "Download specified LOA document under the account.",
+    description: "Download specified LOA document under the account.\n\nGET /accounts/{account_id}/addressing/loa_documents/{loa_document_id}/download",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "loa_document_id": {
-              "$ref": "#/$defs/addressing_loa_document_identifier",
-              "description": "Identifier for the uploaded LOA document."
+              "description": "Identifier for the uploaded LOA document.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -57,10 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -96,15 +89,16 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_loaDocuments_list",
     title: "List LOA Documents",
-    description: "List all LOA documents uploaded under the account.",
+    description: "List all LOA documents uploaded under the account.\n\nGET /accounts/{account_id}/addressing/loa_documents",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -116,26 +110,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_loa_document_collection",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
         "addressing_api-response-collection": addressing_api$$response$$collection,
         "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_auto_generated": addressing_auto_generated,
-        "addressing_filename": addressing_filename,
         "addressing_loa_document": addressing_loa_document,
         "addressing_loa_document_collection": addressing_loa_document_collection,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_size_bytes": addressing_size_bytes,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_verified": addressing_verified,
-        "addressing_verified_at": addressing_verified_at,
       },
     },
     annotations: {
@@ -170,20 +154,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
         "addressing_api-response-collection": addressing_api$$response$$collection,
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-        "addressing_auto_generated": addressing_auto_generated,
-        "addressing_filename": addressing_filename,
         "addressing_loa_document": addressing_loa_document,
         "addressing_loa_document_collection": addressing_loa_document_collection,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier,
         "addressing_messages": addressing_messages,
-        "addressing_size_bytes": addressing_size_bytes,
-        "addressing_timestamp": addressing_timestamp,
-        "addressing_verified": addressing_verified,
-        "addressing_verified_at": addressing_verified_at,
       },
     },
     request: (args) => ({

@@ -6,11 +6,9 @@ import {
   intel_api$$response$$collection,
   intel_api$$response$$common,
   intel_api$$response$$common$$failure,
-  intel_domain_name,
   intel_messages,
   intel_result_info,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
 import { intel_domain$$history, intel_response } from "./outputs.js";
 
 /**
@@ -20,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_domainHistory_get",
     title: "Get Domain History",
-    description: "Gets historical security threat and content categories currently and previously assigned to a domain.",
+    description: "Gets historical security threat and content categories currently and previously assigned to a domain.\n\nGET /accounts/{account_id}/intel/domain-history",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -37,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "domain": {
               "type": "string"
@@ -48,9 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_response",
@@ -58,7 +56,6 @@ export const tools: readonly Tool[] = [
         "intel_api-response-collection": intel_api$$response$$collection,
         "intel_api-response-common": intel_api$$response$$common,
         "intel_domain-history": intel_domain$$history,
-        "intel_domain_name": intel_domain_name,
         "intel_messages": intel_messages,
         "intel_response": intel_response,
         "intel_result_info": intel_result_info,
@@ -100,7 +97,6 @@ export const tools: readonly Tool[] = [
         "intel_api-response-common": intel_api$$response$$common,
         "intel_api-response-common-failure": intel_api$$response$$common$$failure,
         "intel_domain-history": intel_domain$$history,
-        "intel_domain_name": intel_domain_name,
         "intel_messages": intel_messages,
         "intel_response": intel_response,
         "intel_result_info": intel_result_info,

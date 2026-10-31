@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiAudit_robots_bulkGet",
     title: "Bulk get robots.txt rules",
-    description: "Fetches and parses robots.txt files for multiple domains within a zone in a single request. Each domain must belong to the specified zone. Results are keyed by hostname.",
+    description: "Fetches and parses robots.txt files for multiple domains within a zone in a single request. Each domain must belong to the specified zone. Results are keyed by hostname.\n\nPOST /zones/{zone_id}/ai-audit/robots/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -31,6 +31,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
               "description": "Identifier of the zone.",
@@ -47,6 +48,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -143,11 +145,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiAudit_robots_get",
     title: "Get robots.txt rules",
-    description: "Fetches and parses the robots.txt file for a zone or a specific subdomain within the zone. Returns parsed user-agent rules, content signals, and sitemaps.",
+    description: "Fetches and parses the robots.txt file for a zone or a specific subdomain within the zone. Returns parsed user-agent rules, content signals, and sitemaps.\n\nGET /zones/{zone_id}/ai-audit/robots",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
               "description": "Identifier of the zone.",
@@ -160,6 +163,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "subdomain": {
               "description": "Optional subdomain to fetch robots.txt for. If omitted, fetches robots.txt for the zone apex domain.",
@@ -172,6 +176,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

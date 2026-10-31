@@ -9,7 +9,6 @@ import {
   load$$balancing_messages,
   load$$balancing_region_components$$schemas$$response_collection,
 } from "../../../outputs.js";
-import { load$$balancing_subdivision_code_a2 } from "../../../schemas.js";
 
 /**
  * The tools of `user.loadBalancers.regions`.
@@ -18,27 +17,26 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_regions_list",
     title: "List Regions",
-    description: "List all region mappings in the user context.",
+    description: "List all region mappings in the user context.\n\nGET /user/load_balancers/regions",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "country_code": {
               "description": "Two-letter alpha-2 country code as defined in ISO 3166-1.",
               "type": "string"
             },
             "subdivision_code": {
-              "$ref": "#/$defs/load-balancing_subdivision_code_a2",
-              "description": "Two-letter subdivision code followed in ISO 3166-2."
+              "description": "Two-letter subdivision code followed in ISO 3166-2.",
+              "type": "string"
             }
           },
           "type": "object"
         }
       },
-      $defs: {
-        "load-balancing_subdivision_code_a2": load$$balancing_subdivision_code_a2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_region_components-schemas-response_collection",

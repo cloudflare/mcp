@@ -20,20 +20,13 @@ export const speed_ut_billing_response: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_ut_billing_value"
+          "enum": [
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_ut_billing_value` in responses.
- */
-export const speed_ut_billing_value: JsonSchema = {
-  "enum": [
-    "on"
-  ],
-  "type": "string"
 };

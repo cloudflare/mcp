@@ -6,18 +6,12 @@ import {
   lists_api$$response$$common,
   lists_api$$response$$common$$failure,
   lists_messages,
-  lists_operation_id,
 } from "../outputs.js";
-import {
-  lists_account_id,
-  lists_operation_id as lists_operation_id$,
-} from "../schemas.js";
 import {
   lists_bulk$$operation$$response$$single,
   lists_bulk_operation_completed,
   lists_bulk_operation_failed,
   lists_bulk_operation_pending_or_running,
-  lists_completed,
   lists_operation,
 } from "./outputs.js";
 
@@ -28,19 +22,20 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_bulkOperations_get",
     title: "Get bulk operation status",
-    description: "Gets the current status of an asynchronous operation on a list.\n\nThe `status` property can have one of the following values: `pending`, `running`, `completed`, or `failed`. If the status is `failed`, the `error` property will contain a message describing the error.",
+    description: "Gets the current status of an asynchronous operation on a list.\n\nThe `status` property can have one of the following values: `pending`, `running`, `completed`, or `failed`. If the status is `failed`, the `error` property will contain a message describing the error.\n\nGET /accounts/{account_id}/rules/lists/bulk_operations/{operation_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/lists_account_id",
-              "description": "The Account ID for this resource."
+              "description": "The Account ID for this resource.",
+              "type": "string"
             },
             "operation_id": {
-              "$ref": "#/$defs/lists_operation_id",
-              "description": "The unique operation ID of the asynchronous action."
+              "description": "The unique operation ID of the asynchronous action.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,10 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_operation_id": lists_operation_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_bulk-operation-response-single",
@@ -66,10 +58,8 @@ export const tools: readonly Tool[] = [
         "lists_bulk_operation_completed": lists_bulk_operation_completed,
         "lists_bulk_operation_failed": lists_bulk_operation_failed,
         "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running,
-        "lists_completed": lists_completed,
         "lists_messages": lists_messages,
         "lists_operation": lists_operation,
-        "lists_operation_id": lists_operation_id,
       },
     },
     annotations: {
@@ -116,10 +106,8 @@ export const tools: readonly Tool[] = [
         "lists_bulk_operation_completed": lists_bulk_operation_completed,
         "lists_bulk_operation_failed": lists_bulk_operation_failed,
         "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running,
-        "lists_completed": lists_completed,
         "lists_messages": lists_messages,
         "lists_operation": lists_operation,
-        "lists_operation_id": lists_operation_id,
       },
     },
     request: (args) => ({

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_netflows_summaryV2",
     title: "Get network traffic distribution by dimension",
-    description: "Retrieves the distribution of network traffic (NetFlows) by the specified dimension.",
+    description: "Retrieves the distribution of network traffic (NetFlows) by the specified dimension.\n\nGET /radar/netflows/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the NetFlows attribute by which to group the results.",
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -122,6 +124,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -570,11 +573,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_netflows_timeseries",
     title: "Get network traffic time series",
-    description: "Retrieves network traffic (NetFlows) over time.",
+    description: "Retrieves network traffic (NetFlows) over time.\n\nGET /radar/netflows/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -675,6 +679,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1178,11 +1183,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_netflows_timeseriesGroups",
     title: "Get time series distribution of network traffic by dimension",
-    description: "Retrieves the distribution of NetFlows traffic, grouped by the specified dimension over time.",
+    description: "Retrieves the distribution of NetFlows traffic, grouped by the specified dimension over time.\n\nGET /radar/netflows/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the NetFlows attribute by which to group the results.",
@@ -1201,6 +1207,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1310,6 +1317,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

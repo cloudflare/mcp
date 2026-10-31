@@ -8,29 +8,12 @@ import {
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
-  access_timestamp,
-  access_uuid,
 } from "../../outputs.js";
 import {
-  access_identifier,
-  access_uuid as access_uuid$,
-} from "../../schemas.js";
-import { access_email$$2, access_name$$10 } from "../outputs.js";
-import {
-  access_email$$2 as access_email$$2$,
-  access_name$$10 as access_name$$10$,
-} from "../schemas.js";
-import {
-  access_access_seat$$2,
-  access_active_device_count,
   access_delete_user_response,
   access_empty_response,
-  access_gateway_seat$$2,
-  access_last_successful_login,
   access_response_collection$$25,
-  access_seat_uid$$2,
   access_single_user_response,
-  access_uid,
   access_users$$2,
 } from "./outputs.js";
 
@@ -41,19 +24,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_create",
     title: "Create a user",
-    description: "Creates a new user.",
+    description: "Creates a new user.\n\nPOST /accounts/{account_id}/access/users",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "email": {
-              "$ref": "#/$defs/access_email-2",
-              "description": "The email of the user."
+              "description": "The email of the user.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/access_name-10",
-              "description": "The name of the user."
+              "description": "The name of the user.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,10 +45,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -78,29 +62,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "access_email-2": access_email$$2$,
-        "access_identifier": access_identifier,
-        "access_name-10": access_name$$10$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_user_response",
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
-        "access_seat_uid-2": access_seat_uid$$2,
         "access_single_user_response": access_single_user_response,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -125,21 +95,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
-        "access_seat_uid-2": access_seat_uid$$2,
         "access_single_user_response": access_single_user_response,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -150,19 +110,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_delete",
     title: "Delete a user",
-    description: "Deletes a specific user for an account. This will also revoke any active seats and tokens for the user.",
+    description: "Deletes a specific user for an account. This will also revoke any active seats and tokens for the user.\n\nDELETE /accounts/{account_id}/access/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -175,10 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_delete_user_response",
@@ -223,19 +181,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_get",
     title: "Get a user",
-    description: "Gets a specific user for an account.",
+    description: "Gets a specific user for an account.\n\nGET /accounts/{account_id}/access/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -248,28 +207,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_user_response",
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
-        "access_seat_uid-2": access_seat_uid$$2,
         "access_single_user_response": access_single_user_response,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -296,21 +242,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
-        "access_seat_uid-2": access_seat_uid$$2,
         "access_single_user_response": access_single_user_response,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -320,15 +256,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_list",
     title: "Get users",
-    description: "Gets a list of users for an account.",
+    description: "Gets a list of users for an account.\n\nGET /accounts/{account_id}/access/users",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -337,6 +274,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "email": {
               "description": "The email of the user.",
@@ -367,28 +305,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-25",
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
         "access_response_collection-25": access_response_collection$$25,
-        "access_seat_uid-2": access_seat_uid$$2,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -415,22 +341,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
         "access_response_collection-25": access_response_collection$$25,
-        "access_seat_uid-2": access_seat_uid$$2,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -447,7 +363,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_revoke",
     title: "Revoke all Access tokens for a user",
-    description: "Revokes a user's access across all applications.\n\nConfirm with the user before calling this tool. This operation revokes all access tokens for a user destructively.",
+    description: "Revokes a user's access across all applications.\n\nConfirm with the user before calling this tool. This operation revokes all access tokens for a user destructively.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/organizations/revoke_user",
     inputSchema: {
       type: "object",
       properties: {
@@ -476,6 +392,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -486,8 +403,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -497,6 +414,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "devices": {
               "description": "When set to `true`, all devices associated with the user will be revoked.",
@@ -510,9 +428,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_empty_response",
@@ -560,19 +476,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_users_update",
     title: "Update a user",
-    description: "Updates a specific user's name for an account. Requires the user's current email as confirmation (email cannot be changed).",
+    description: "Updates a specific user's name for an account. Requires the user's current email as confirmation (email cannot be changed).\n\nPUT /accounts/{account_id}/access/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "email": {
-              "$ref": "#/$defs/access_email-2",
-              "description": "The email of the user."
+              "description": "The email of the user.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/access_name-10",
-              "description": "The name of the user."
+              "description": "The name of the user.",
+              "type": "string"
             }
           },
           "required": [
@@ -582,14 +498,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -603,30 +520,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "access_email-2": access_email$$2$,
-        "access_identifier": access_identifier,
-        "access_name-10": access_name$$10$,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_user_response",
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
-        "access_seat_uid-2": access_seat_uid$$2,
         "access_single_user_response": access_single_user_response,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -653,21 +555,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_access_seat-2": access_access_seat$$2,
-        "access_active_device_count": access_active_device_count,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_email-2": access_email$$2,
-        "access_gateway_seat-2": access_gateway_seat$$2,
-        "access_last_successful_login": access_last_successful_login,
         "access_messages": access_messages,
-        "access_name-10": access_name$$10,
-        "access_seat_uid-2": access_seat_uid$$2,
         "access_single_user_response": access_single_user_response,
-        "access_timestamp": access_timestamp,
-        "access_uid": access_uid,
         "access_users-2": access_users$$2,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

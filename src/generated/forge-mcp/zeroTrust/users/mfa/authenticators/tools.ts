@@ -7,9 +7,7 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import { access_delete_authenticator_response } from "../../outputs.js";
-import { access_authenticator_id } from "../../schemas.js";
 
 /**
  * The tools of `zeroTrust.users.mfa.authenticators`.
@@ -18,23 +16,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_users_mfa_authenticators_delete",
     title: "Delete a user's authenticator",
-    description: "Deletes a specific MFA device or passkey, including a PIV key or FIDO2 key enrollment, for a user. Admin deletion remains available when MFA is disabled. Successful deletion revokes the enrollment and returns a null result.",
+    description: "Deletes a specific MFA device or passkey, including a PIV key or FIDO2 key enrollment, for a user. Admin deletion remains available when MFA is disabled. Successful deletion revokes the enrollment and returns a null result.\n\nDELETE /accounts/{account_id}/access/users/{user_id}/mfa_authenticators/{authenticator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "authenticator_id": {
-              "$ref": "#/$defs/access_authenticator_id",
-              "description": "The unique identifier for the MFA device."
+              "description": "The unique identifier for the MFA device.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,11 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_authenticator_id": access_authenticator_id,
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_delete_authenticator_response",

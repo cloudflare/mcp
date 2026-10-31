@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_models_list",
     title: "Model Search",
-    description: "Searches Workers AI models by name or description.",
+    description: "Searches Workers AI models by name or description.\n\nGET /accounts/{account_id}/ai/models/search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "author": {
               "default": "",
@@ -78,6 +80,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "anyOf": [

@@ -6,34 +6,23 @@ import {
   secrets$$store_api$$response$$collection,
   secrets$$store_api$$response$$common,
   secrets$$store_api$$response$$common$$failure,
-  secrets$$store_created,
   secrets$$store_messages,
-  secrets$$store_modified,
-  secrets$$store_store_identifier,
 } from "../outputs.js";
 import {
-  secrets$$store_SecretStatus,
   secrets$$store_api$$response$$single,
-  secrets$$store_comment,
   secrets$$store_delete_response,
-  secrets$$store_identifier,
   secrets$$store_inheritable_scopes,
   secrets$$store_secretObject,
-  secrets$$store_secret_name,
   secrets$$store_secret_response,
   secrets$$store_secrets_response_collection,
 } from "./outputs.js";
 import {
-  secrets$$store_comment as secrets$$store_comment$,
   secrets$$store_createSecretObject,
   secrets$$store_deleteSecretsRequest,
   secrets$$store_duplicateSecretObject,
-  secrets$$store_identifier as secrets$$store_identifier$,
   secrets$$store_inheritable_scopes as secrets$$store_inheritable_scopes$,
   secrets$$store_patchSecretObject,
   secrets$$store_scopes,
-  secrets$$store_secret_name as secrets$$store_secret_name$,
-  secrets$$store_value,
 } from "./schemas.js";
 
 /**
@@ -43,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_bulkDelete",
     title: "Delete secrets",
-    description: "Deletes one or more secrets.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the specified secrets and cannot be undone.",
+    description: "Deletes one or more secrets.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the specified secrets and cannot be undone.\n\nDELETE /accounts/{account_id}/secrets_store/stores/{store_id}/secrets",
     inputSchema: {
       type: "object",
       properties: {
@@ -51,6 +40,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secrets-store_deleteSecretsRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -72,9 +62,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "secrets-store_deleteSecretsRequest": secrets$$store_deleteSecretsRequest,
-        "secrets-store_identifier": secrets$$store_identifier$,
       },
     },
     outputSchema: {
@@ -130,7 +120,7 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_create",
     title: "Create a secret",
-    description: "Creates a secret in the account.\n\nThis method is beta.",
+    description: "Creates a secret in the account.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/secrets_store/stores/{store_id}/secrets",
     inputSchema: {
       type: "object",
       properties: {
@@ -141,6 +131,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -162,30 +153,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secrets-store_comment": secrets$$store_comment$,
         "secrets-store_createSecretObject": secrets$$store_createSecretObject,
         "secrets-store_scopes": secrets$$store_scopes,
-        "secrets-store_secret_name": secrets$$store_secret_name$,
-        "secrets-store_value": secrets$$store_value,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secrets_response_collection",
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secrets_response_collection": secrets$$store_secrets_response_collection,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     annotations: {
@@ -219,20 +201,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secrets_response_collection": secrets$$store_secrets_response_collection,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     request: (args) => ({
@@ -243,11 +218,12 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_delete",
     title: "Delete a secret",
-    description: "Deletes a single secret.\n\nThis method is beta.",
+    description: "Deletes a single secret.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/secrets_store/stores/{store_id}/secrets/{secret_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -273,6 +249,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_delete_response",
@@ -326,7 +303,7 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_duplicate",
     title: "Duplicate Secret",
-    description: "Creates a duplicate of the secret, keeping the value.\n\nThis method is beta.",
+    description: "Creates a duplicate of the secret, keeping the value.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/secrets_store/stores/{store_id}/secrets/{secret_id}/duplicate",
     inputSchema: {
       type: "object",
       properties: {
@@ -334,6 +311,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secrets-store_duplicateSecretObject"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -360,28 +338,20 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secrets-store_comment": secrets$$store_comment$,
         "secrets-store_duplicateSecretObject": secrets$$store_duplicateSecretObject,
         "secrets-store_scopes": secrets$$store_scopes,
-        "secrets-store_secret_name": secrets$$store_secret_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secret_response",
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secret_response": secrets$$store_secret_response,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     annotations: {
@@ -415,19 +385,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secret_response": secrets$$store_secret_response,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     request: (args) => ({
@@ -438,7 +401,7 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_edit",
     title: "Patch a secret",
-    description: "Updates a single secret.\n\nThis method is beta.",
+    description: "Updates a single secret.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/secrets_store/stores/{store_id}/secrets/{secret_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -446,6 +409,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secrets-store_patchSecretObject"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -472,28 +436,20 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secrets-store_comment": secrets$$store_comment$,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes$,
         "secrets-store_patchSecretObject": secrets$$store_patchSecretObject,
-        "secrets-store_value": secrets$$store_value,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secret_response",
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secret_response": secrets$$store_secret_response,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     annotations: {
@@ -527,19 +483,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secret_response": secrets$$store_secret_response,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     request: (args) => ({
@@ -550,11 +499,12 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_get",
     title: "Get a secret by ID",
-    description: "Returns details of a single secret.\n\nThis method is beta.",
+    description: "Returns details of a single secret.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/stores/{store_id}/secrets/{secret_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -580,22 +530,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secret_response",
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secret_response": secrets$$store_secret_response,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     annotations: {
@@ -630,19 +574,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secret_response": secrets$$store_secret_response,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     request: (args) => ({
@@ -652,11 +589,12 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_secrets_list",
     title: "List store secrets",
-    description: "Lists all store secrets.\n\nThis method is beta.",
+    description: "Lists all store secrets.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/stores/{store_id}/secrets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -674,6 +612,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "desc",
@@ -730,23 +669,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secrets_response_collection",
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secrets_response_collection": secrets$$store_secrets_response_collection,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     annotations: {
@@ -781,20 +714,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_SecretStatus": secrets$$store_SecretStatus,
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
-        "secrets-store_comment": secrets$$store_comment,
-        "secrets-store_created": secrets$$store_created,
-        "secrets-store_identifier": secrets$$store_identifier,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_modified": secrets$$store_modified,
         "secrets-store_secretObject": secrets$$store_secretObject,
-        "secrets-store_secret_name": secrets$$store_secret_name,
         "secrets-store_secrets_response_collection": secrets$$store_secrets_response_collection,
-        "secrets-store_store_identifier": secrets$$store_store_identifier,
       },
     },
     request: (args) => ({

@@ -20,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_remediationTypes_list",
     title: "List remediation types for a finding type",
-    description: "List all remediation types for a given finding type.\nThis endpoint supports both cursor and offset pagination.\nNote that `cursor` and `page` are mutually exclusive.",
+    description: "List all remediation types for a given finding type.\nThis endpoint supports both cursor and offset pagination.\nNote that `cursor` and `page` are mutually exclusive.\n\nGET /accounts/{account_id}/data-security/posture/finding_types/{finding_type_id}/remediation_types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -43,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "A cursor for pagination.",
@@ -68,6 +70,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_PaginatedRemediationTypeList",

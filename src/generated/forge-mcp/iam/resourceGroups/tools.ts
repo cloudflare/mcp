@@ -7,24 +7,14 @@ import {
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_common_components$$schemas$$identifier,
   iam_messages$$2,
   iam_resource_group,
   iam_scope,
-  iam_scope_key,
   iam_scope_object,
-  iam_scope_object_key,
 } from "../../outputs.js";
 import {
-  iam_account_identifier,
-  iam_common_components$$schemas$$identifier as iam_common_components$$schemas$$identifier$,
-} from "../../schemas.js";
-import { iam_resource_group_identifier } from "../schemas.js";
-import {
   iam_create$$scope,
-  iam_create_resource_group_scope_scope_key,
   iam_create_resource_group_scope_scope_object,
-  iam_create_resource_group_scope_scope_object_key,
   iam_request_create_resource_group,
   iam_request_update_resource_group,
 } from "./schemas.js";
@@ -36,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_resourceGroups_create",
     title: "Create Resource Group",
-    description: "Create a new Resource Group under the specified account.",
+    description: "Create a new Resource Group under the specified account.\n\nPOST /accounts/{account_id}/iam/resource_groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_request_create_resource_group"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -60,13 +51,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_create-scope": iam_create$$scope,
-        "iam_create_resource_group_scope_scope_key": iam_create_resource_group_scope_scope_key,
         "iam_create_resource_group_scope_scope_object": iam_create_resource_group_scope_scope_object,
-        "iam_create_resource_group_scope_scope_object_key": iam_create_resource_group_scope_scope_object_key,
         "iam_request_create_resource_group": iam_request_create_resource_group,
       },
     },
@@ -89,9 +77,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     annotations: {
@@ -147,9 +133,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     request: (args) => ({
@@ -160,19 +144,20 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_resourceGroups_delete",
     title: "Remove Resource Group",
-    description: "Remove a resource group from an account.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Remove a resource group from an account.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/iam/resource_groups/{resource_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "resource_group_id": {
-              "$ref": "#/$defs/iam_resource_group_identifier",
-              "description": "Resource Group identifier tag."
+              "description": "Resource Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -185,18 +170,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_resource_group_identifier": iam_resource_group_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -239,7 +219,6 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
         "iam_messages-2": iam_messages$$2,
       },
     },
@@ -250,19 +229,20 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_resourceGroups_get",
     title: "Resource Group Details",
-    description: "Get information about a specific resource group in an account.",
+    description: "Get information about a specific resource group in an account.\n\nGET /accounts/{account_id}/iam/resource_groups/{resource_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "resource_group_id": {
-              "$ref": "#/$defs/iam_resource_group_identifier",
-              "description": "Resource Group identifier tag."
+              "description": "Resource Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -275,11 +255,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_resource_group_identifier": iam_resource_group_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -300,9 +276,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     annotations: {
@@ -359,9 +333,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     request: (args) => ({
@@ -371,15 +343,16 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_resourceGroups_list",
     title: "List Resource Groups",
-    description: "List all the resource groups for an account.",
+    description: "List all the resource groups for an account.\n\nGET /accounts/{account_id}/iam/resource_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -388,10 +361,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "id": {
-              "$ref": "#/$defs/iam_resource_group_identifier",
-              "description": "ID of the resource group to be fetched."
+              "description": "ID of the resource group to be fetched.",
+              "type": "string"
             },
             "name": {
               "description": "Name of the resource group to be fetched.",
@@ -404,11 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
-        "iam_resource_group_identifier": iam_resource_group_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -432,9 +402,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     annotations: {
@@ -494,9 +462,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     request: (args) => ({
@@ -510,7 +476,7 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_resourceGroups_update",
     title: "Update Resource Group",
-    description: "Modify an existing resource group.",
+    description: "Modify an existing resource group.\n\nPUT /accounts/{account_id}/iam/resource_groups/{resource_group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -518,14 +484,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/iam_request_update_resource_group"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/iam_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "resource_group_id": {
-              "$ref": "#/$defs/iam_resource_group_identifier",
-              "description": "Resource Group identifier tag."
+              "description": "Resource Group identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -539,15 +506,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_create-scope": iam_create$$scope,
-        "iam_create_resource_group_scope_scope_key": iam_create_resource_group_scope_scope_key,
         "iam_create_resource_group_scope_scope_object": iam_create_resource_group_scope_scope_object,
-        "iam_create_resource_group_scope_scope_object_key": iam_create_resource_group_scope_scope_object_key,
         "iam_request_update_resource_group": iam_request_update_resource_group,
-        "iam_resource_group_identifier": iam_resource_group_identifier,
       },
     },
     outputSchema: {
@@ -569,9 +532,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     annotations: {
@@ -627,9 +588,7 @@ export const tools: readonly Tool[] = [
         "iam_messages-2": iam_messages$$2,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
-        "iam_scope_key": iam_scope_key,
         "iam_scope_object": iam_scope_object,
-        "iam_scope_object_key": iam_scope_object_key,
       },
     },
     request: (args) => ({

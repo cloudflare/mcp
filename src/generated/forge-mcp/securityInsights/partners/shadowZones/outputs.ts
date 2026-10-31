@@ -43,7 +43,11 @@ export const security$$center_shadowZonesResponse: JsonSchema = {
               "type": "boolean"
             },
             "entitlement": {
-              "$ref": "#/$defs/security-center_partnerEntitlement"
+              "enum": [
+                "baseline",
+                "premium"
+              ],
+              "type": "string"
             },
             "items": {
               "items": {

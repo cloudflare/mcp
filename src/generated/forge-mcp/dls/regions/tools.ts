@@ -9,7 +9,6 @@ import {
   dls_none,
   dls_response,
 } from "../outputs.js";
-import { dls_account_identifier } from "../schemas.js";
 import {
   dls_FetchPublicRegionResponse,
   dls_RegionPublic,
@@ -23,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regions_get",
     title: "Get a DLS region",
-    description: "Retrieve a single DLS region (managed or custom) by ID or region key.",
+    description: "Retrieve a single DLS region (managed or custom) by ID or region key.\n\nGET /accounts/{account_id}/dls/regions/{region_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "region_id": {
               "description": "UUID of the region (custom or managed) or region_key of a managed region.",
@@ -48,9 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_account_identifier": dls_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dls_FetchPublicRegionResponse",
@@ -112,15 +110,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dls_regions_list",
     title: "List DLS regions for an account",
-    description: "List the DLS regions (managed and custom) available to an account.",
+    description: "List the DLS regions (managed and custom) available to an account.\n\nGET /accounts/{account_id}/dls/regions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dls_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -129,6 +128,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque token for cursor-based pagination. Omit for the first page. Pass the value from a previous response to fetch the next page.",
@@ -153,9 +153,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dls_account_identifier": dls_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse",

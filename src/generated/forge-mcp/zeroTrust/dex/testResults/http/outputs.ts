@@ -166,7 +166,7 @@ export const digital$$experience$$monitoring_http_details_response: JsonSchema =
                 "type": "boolean"
               },
               "id": {
-                "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                "type": "string"
               },
               "name": {
                 "type": "string"

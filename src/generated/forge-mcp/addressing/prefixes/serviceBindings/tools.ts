@@ -6,27 +6,12 @@ import {
   addressing_api$$response$$common,
   addressing_api$$response$$common$$failure,
   addressing_messages,
-  addressing_service_identifier,
-  addressing_service_name,
 } from "../../outputs.js";
-import {
-  addressing_account_identifier,
-  addressing_service_identifier as addressing_service_identifier$,
-} from "../../schemas.js";
-import { addressing_cidr } from "../outputs.js";
-import {
-  addressing_cidr as addressing_cidr$,
-  addressing_prefix_identifier,
-} from "../schemas.js";
 import {
   addressing_provisioning,
   addressing_service_binding,
-  addressing_service_binding_identifier,
 } from "./outputs.js";
-import {
-  addressing_create_binding_request,
-  addressing_service_binding_identifier as addressing_service_binding_identifier$,
-} from "./schemas.js";
+import { addressing_create_binding_request } from "./schemas.js";
 
 /**
  * The tools of `addressing.prefixes.serviceBindings`.
@@ -35,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_serviceBindings_create",
     title: "Create Service Binding",
-    description: "Creates a new Service Binding, routing traffic to IPs within the given CIDR to a service running on Cloudflare's network.\n**NOTE:** The first Service Binding created for an IP Prefix must exactly match the IP Prefix's CIDR. Subsequent Service Bindings may be created with a more-specific CIDR. Refer to the  [Service Bindings Documentation](https://developers.cloudflare.com/byoip/service-bindings/) for compatibility details.",
+    description: "Creates a new Service Binding, routing traffic to IPs within the given CIDR to a service running on Cloudflare's network.\n**NOTE:** The first Service Binding created for an IP Prefix must exactly match the IP Prefix's CIDR. Subsequent Service Bindings may be created with a more-specific CIDR. Refer to the  [Service Bindings Documentation](https://developers.cloudflare.com/byoip/service-bindings/) for compatibility details.\n\nPOST /accounts/{account_id}/addressing/prefixes/{prefix_id}/bindings",
     inputSchema: {
       type: "object",
       properties: {
@@ -43,14 +28,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/addressing_create_binding_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -63,12 +49,9 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_cidr": addressing_cidr$,
         "addressing_create_binding_request": addressing_create_binding_request,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-        "addressing_service_identifier": addressing_service_identifier$,
       },
     },
     outputSchema: {
@@ -87,13 +70,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_cidr": addressing_cidr,
         "addressing_messages": addressing_messages,
         "addressing_provisioning": addressing_provisioning,
         "addressing_service_binding": addressing_service_binding,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     annotations: {
@@ -134,13 +113,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-        "addressing_cidr": addressing_cidr,
         "addressing_messages": addressing_messages,
         "addressing_provisioning": addressing_provisioning,
         "addressing_service_binding": addressing_service_binding,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     request: (args) => ({
@@ -151,23 +126,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_serviceBindings_delete",
     title: "Delete Service Binding",
-    description: "Delete a Service Binding",
+    description: "Delete a Service Binding\n\nDELETE /accounts/{account_id}/addressing/prefixes/{prefix_id}/bindings/{binding_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "binding_id": {
-              "$ref": "#/$defs/addressing_service_binding_identifier",
-              "description": "Identifier of a Service Binding."
+              "description": "Identifier of a Service Binding.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -181,11 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-common",
@@ -230,23 +202,24 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_serviceBindings_get",
     title: "Get Service Binding",
-    description: "Fetch a single Service Binding",
+    description: "Fetch a single Service Binding\n\nGET /accounts/{account_id}/addressing/prefixes/{prefix_id}/bindings/{binding_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "binding_id": {
-              "$ref": "#/$defs/addressing_service_binding_identifier",
-              "description": "Identifier of a Service Binding."
+              "description": "Identifier of a Service Binding.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -260,11 +233,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -282,13 +251,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_cidr": addressing_cidr,
         "addressing_messages": addressing_messages,
         "addressing_provisioning": addressing_provisioning,
         "addressing_service_binding": addressing_service_binding,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     annotations: {
@@ -330,13 +295,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-        "addressing_cidr": addressing_cidr,
         "addressing_messages": addressing_messages,
         "addressing_provisioning": addressing_provisioning,
         "addressing_service_binding": addressing_service_binding,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     request: (args) => ({
@@ -346,19 +307,20 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_serviceBindings_list",
     title: "List Service Bindings",
-    description: "List the Cloudflare services this prefix is currently bound to. Traffic sent to an address within an IP prefix will be routed to the Cloudflare service of the most-specific Service Binding matching the address.\n**Example:** binding `192.0.2.0/24` to Cloudflare Magic Transit and `192.0.2.1/32` to the Cloudflare CDN would route traffic for `192.0.2.1` to the CDN, and traffic for all other IPs in the prefix to Cloudflare Magic Transit.",
+    description: "List the Cloudflare services this prefix is currently bound to. Traffic sent to an address within an IP prefix will be routed to the Cloudflare service of the most-specific Service Binding matching the address.\n**Example:** binding `192.0.2.0/24` to Cloudflare Magic Transit and `192.0.2.1/32` to the Cloudflare CDN would route traffic for `192.0.2.1` to the CDN, and traffic for all other IPs in the prefix to Cloudflare Magic Transit.\n\nGET /accounts/{account_id}/addressing/prefixes/{prefix_id}/bindings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             },
             "prefix_id": {
-              "$ref": "#/$defs/addressing_prefix_identifier",
-              "description": "Identifier of an IP Prefix."
+              "description": "Identifier of an IP Prefix.",
+              "type": "string"
             }
           },
           "required": [
@@ -371,10 +333,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -395,13 +354,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_cidr": addressing_cidr,
         "addressing_messages": addressing_messages,
         "addressing_provisioning": addressing_provisioning,
         "addressing_service_binding": addressing_service_binding,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     annotations: {
@@ -446,13 +401,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-        "addressing_cidr": addressing_cidr,
         "addressing_messages": addressing_messages,
         "addressing_provisioning": addressing_provisioning,
         "addressing_service_binding": addressing_service_binding,
-        "addressing_service_binding_identifier": addressing_service_binding_identifier,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     request: (args) => ({

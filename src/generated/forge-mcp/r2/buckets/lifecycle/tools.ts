@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
 import {
   r2_lifecycle$$age$$condition,
   r2_lifecycle$$config,
@@ -30,11 +29,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_lifecycle_get",
     title: "Get Object Lifecycle Rules",
-    description: "Get object lifecycle rules for a bucket.",
+    description: "Get object lifecycle rules for a bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -52,14 +52,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -72,10 +73,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -154,7 +152,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_lifecycle_update",
     title: "Set Object Lifecycle Rules",
-    description: "Replaces the object lifecycle rules for an R2 bucket. Rules match object-key prefixes and can expire objects, abort incomplete multipart uploads, or transition objects to Infrequent Access storage.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's object lifecycle rules and can schedule object deletion or abort multipart uploads.",
+    description: "Replaces the object lifecycle rules for an R2 bucket. Rules match object-key prefixes and can expire objects, abort incomplete multipart uploads, or transition objects to Infrequent Access storage.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's object lifecycle rules and can schedule object deletion or abort multipart uploads.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
     inputSchema: {
       type: "object",
       properties: {
@@ -170,6 +168,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -187,14 +186,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -208,9 +208,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
         "r2_lifecycle-age-condition": r2_lifecycle$$age$$condition$,
         "r2_lifecycle-date-condition": r2_lifecycle$$date$$condition$,
         "r2_lifecycle-rule": r2_lifecycle$$rule$,

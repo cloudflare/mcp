@@ -4,76 +4,39 @@
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   load$$balancing_Host,
-  load$$balancing_address,
   load$$balancing_api$$paginated$$response$$collection,
   load$$balancing_api$$response$$common,
   load$$balancing_api$$response$$common$$failure,
   load$$balancing_api$$response$$single,
   load$$balancing_check_regions,
-  load$$balancing_disabled_at,
-  load$$balancing_enabled,
   load$$balancing_filter_options,
   load$$balancing_health_sources,
-  load$$balancing_latitude,
   load$$balancing_load_shedding,
-  load$$balancing_longitude,
   load$$balancing_messages,
-  load$$balancing_minimum_origins,
-  load$$balancing_monitor_group_id,
-  load$$balancing_monitor_id,
-  load$$balancing_name,
   load$$balancing_networks,
-  load$$balancing_notification_email,
   load$$balancing_notification_filter,
   load$$balancing_origin,
-  load$$balancing_origin_flatten_cname,
-  load$$balancing_origin_port,
   load$$balancing_origin_steering,
   load$$balancing_origins,
   load$$balancing_pool,
   load$$balancing_result_info,
-  load$$balancing_schemas$$description,
-  load$$balancing_schemas$$disabled_at,
-  load$$balancing_schemas$$enabled,
   load$$balancing_schemas$$header,
   load$$balancing_schemas$$id_response,
-  load$$balancing_schemas$$identifier,
-  load$$balancing_schemas$$name,
   load$$balancing_schemas$$response_collection,
   load$$balancing_schemas$$single_response,
-  load$$balancing_timestamp,
-  load$$balancing_virtual_network_id,
-  load$$balancing_weight,
 } from "../../../outputs.js";
 import {
   load$$balancing_Host as load$$balancing_Host$,
-  load$$balancing_address as load$$balancing_address$,
   load$$balancing_check_regions as load$$balancing_check_regions$,
-  load$$balancing_enabled as load$$balancing_enabled$,
   load$$balancing_filter_options as load$$balancing_filter_options$,
   load$$balancing_health_sources as load$$balancing_health_sources$,
-  load$$balancing_latitude as load$$balancing_latitude$,
   load$$balancing_load_shedding as load$$balancing_load_shedding$,
-  load$$balancing_longitude as load$$balancing_longitude$,
-  load$$balancing_minimum_origins as load$$balancing_minimum_origins$,
-  load$$balancing_monitor_group_id as load$$balancing_monitor_group_id$,
-  load$$balancing_monitor_id as load$$balancing_monitor_id$,
-  load$$balancing_name as load$$balancing_name$,
   load$$balancing_networks as load$$balancing_networks$,
-  load$$balancing_notification_email as load$$balancing_notification_email$,
   load$$balancing_notification_filter as load$$balancing_notification_filter$,
   load$$balancing_origin as load$$balancing_origin$,
-  load$$balancing_origin_flatten_cname as load$$balancing_origin_flatten_cname$,
-  load$$balancing_origin_port as load$$balancing_origin_port$,
   load$$balancing_origin_steering as load$$balancing_origin_steering$,
   load$$balancing_origins as load$$balancing_origins$,
-  load$$balancing_schemas$$description as load$$balancing_schemas$$description$,
-  load$$balancing_schemas$$enabled as load$$balancing_schemas$$enabled$,
   load$$balancing_schemas$$header as load$$balancing_schemas$$header$,
-  load$$balancing_schemas$$identifier as load$$balancing_schemas$$identifier$,
-  load$$balancing_schemas$$name as load$$balancing_schemas$$name$,
-  load$$balancing_virtual_network_id as load$$balancing_virtual_network_id$,
-  load$$balancing_weight as load$$balancing_weight$,
 } from "../../../schemas.js";
 
 /**
@@ -83,7 +46,7 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_create",
     title: "Create Pool",
-    description: "Create a new pool.",
+    description: "Create a new pool.\n\nPOST /user/load_balancers/pools",
     inputSchema: {
       type: "object",
       properties: {
@@ -94,56 +57,56 @@ export const tools: readonly Tool[] = [
               "description": "A list of regions from which to run health checks. Null means every Cloudflare data center."
             },
             "description": {
-              "$ref": "#/$defs/load-balancing_schemas-description",
               "default": "",
-              "description": "A human-readable description of the pool."
+              "description": "A human-readable description of the pool.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/load-balancing_enabled",
               "default": true,
-              "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any)."
+              "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any).",
+              "type": "boolean"
             },
             "health_sources": {
               "$ref": "#/$defs/load-balancing_health_sources",
               "description": "A list of health sources, ordered from highest to lowest priority, used to evaluate individual origin health and overall pool health. The load balancer uses the first source that has data and falls back to the next. Currently accepted values are null or the exact array [\"regional\", \"global\"]; any other combination is rejected. Null (the default) behaves like [\"local\", \"global\"]. [\"regional\", \"global\"] makes each region steer on its own health, falling back to the global decision when a region has no fresh data. Setting regional requires at least one region in check_regions."
             },
             "latitude": {
-              "$ref": "#/$defs/load-balancing_latitude",
-              "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set."
+              "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set.",
+              "type": "number"
             },
             "load_shedding": {
               "$ref": "#/$defs/load-balancing_load_shedding",
               "description": "Configures load shedding policies and percentages for the pool."
             },
             "longitude": {
-              "$ref": "#/$defs/load-balancing_longitude",
-              "description": "The longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set."
+              "description": "The longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set.",
+              "type": "number"
             },
             "minimum_origins": {
-              "$ref": "#/$defs/load-balancing_minimum_origins",
               "default": 1,
-              "description": "The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool."
+              "description": "The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool.",
+              "type": "integer"
             },
             "monitor": {
-              "$ref": "#/$defs/load-balancing_monitor_id",
-              "description": "The ID of the Monitor to use for checking the health of origins within this pool."
+              "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
+              "type": "string"
             },
             "monitor_group": {
-              "$ref": "#/$defs/load-balancing_monitor_group_id",
-              "description": "The ID of the Monitor Group to use for checking the health of origins within this pool."
+              "description": "The ID of the Monitor Group to use for checking the health of origins within this pool.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/load-balancing_name",
-              "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed."
+              "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
+              "type": "string"
             },
             "networks": {
               "$ref": "#/$defs/load-balancing_networks",
               "description": "List of networks where Load Balancer or Pool is enabled."
             },
             "notification_email": {
-              "$ref": "#/$defs/load-balancing_notification_email",
               "default": "",
-              "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list."
+              "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
+              "type": "string"
             },
             "notification_filter": {
               "$ref": "#/$defs/load-balancing_notification_filter",
@@ -168,75 +131,40 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "load-balancing_Host": load$$balancing_Host$,
-        "load-balancing_address": load$$balancing_address$,
         "load-balancing_check_regions": load$$balancing_check_regions$,
-        "load-balancing_enabled": load$$balancing_enabled$,
         "load-balancing_filter_options": load$$balancing_filter_options$,
         "load-balancing_health_sources": load$$balancing_health_sources$,
-        "load-balancing_latitude": load$$balancing_latitude$,
         "load-balancing_load_shedding": load$$balancing_load_shedding$,
-        "load-balancing_longitude": load$$balancing_longitude$,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins$,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id$,
-        "load-balancing_monitor_id": load$$balancing_monitor_id$,
-        "load-balancing_name": load$$balancing_name$,
         "load-balancing_networks": load$$balancing_networks$,
-        "load-balancing_notification_email": load$$balancing_notification_email$,
         "load-balancing_notification_filter": load$$balancing_notification_filter$,
         "load-balancing_origin": load$$balancing_origin$,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname$,
-        "load-balancing_origin_port": load$$balancing_origin_port$,
         "load-balancing_origin_steering": load$$balancing_origin_steering$,
         "load-balancing_origins": load$$balancing_origins$,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description$,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled$,
         "load-balancing_schemas-header": load$$balancing_schemas$$header$,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name$,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id$,
-        "load-balancing_weight": load$$balancing_weight$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_schemas-single_response",
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-single_response": load$$balancing_schemas$$single_response,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     annotations: {
@@ -264,42 +192,22 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-single_response": load$$balancing_schemas$$single_response,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     request: (args) => ({
@@ -310,14 +218,15 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_delete",
     title: "Delete Pool",
-    description: "Delete a configured pool.",
+    description: "Delete a configured pool.\n\nDELETE /user/load_balancers/pools/{pool_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -329,9 +238,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_schemas-id_response",
@@ -340,7 +247,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_messages": load$$balancing_messages,
         "load-balancing_schemas-id_response": load$$balancing_schemas$$id_response,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     annotations: {
@@ -372,7 +278,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_messages": load$$balancing_messages,
         "load-balancing_schemas-id_response": load$$balancing_schemas$$id_response,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     request: (args) => ({
@@ -382,14 +287,15 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_get",
     title: "Pool Details",
-    description: "Fetch a single configured pool.",
+    description: "Fetch a single configured pool.\n\nGET /user/load_balancers/pools/{pool_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -401,49 +307,27 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_schemas-single_response",
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-single_response": load$$balancing_schemas$$single_response,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     annotations: {
@@ -472,42 +356,22 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-single_response": load$$balancing_schemas$$single_response,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     request: (args) => ({
@@ -517,11 +381,12 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_list",
     title: "List Pools",
-    description: "List configured pools.",
+    description: "List configured pools.\n\nGET /user/load_balancers/pools",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "monitor": {
               "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
@@ -531,47 +396,28 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_schemas-response_collection",
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
         "load-balancing_result_info": load$$balancing_result_info,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-response_collection": load$$balancing_schemas$$response_collection,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     annotations: {
@@ -600,43 +446,23 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
         "load-balancing_result_info": load$$balancing_result_info,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-response_collection": load$$balancing_schemas$$response_collection,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     request: (args) => ({
@@ -649,7 +475,7 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_update",
     title: "Update Pool",
-    description: "Modify a configured pool.",
+    description: "Modify a configured pool.\n\nPUT /user/load_balancers/pools/{pool_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -660,56 +486,56 @@ export const tools: readonly Tool[] = [
               "description": "A list of regions from which to run health checks. Null means every Cloudflare data center."
             },
             "description": {
-              "$ref": "#/$defs/load-balancing_schemas-description",
               "default": "",
-              "description": "A human-readable description of the pool."
+              "description": "A human-readable description of the pool.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/load-balancing_enabled",
               "default": true,
-              "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any)."
+              "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any).",
+              "type": "boolean"
             },
             "health_sources": {
               "$ref": "#/$defs/load-balancing_health_sources",
               "description": "A list of health sources, ordered from highest to lowest priority, used to evaluate individual origin health and overall pool health. The load balancer uses the first source that has data and falls back to the next. Currently accepted values are null or the exact array [\"regional\", \"global\"]; any other combination is rejected. Null (the default) behaves like [\"local\", \"global\"]. [\"regional\", \"global\"] makes each region steer on its own health, falling back to the global decision when a region has no fresh data. Setting regional requires at least one region in check_regions."
             },
             "latitude": {
-              "$ref": "#/$defs/load-balancing_latitude",
-              "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set."
+              "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set.",
+              "type": "number"
             },
             "load_shedding": {
               "$ref": "#/$defs/load-balancing_load_shedding",
               "description": "Configures load shedding policies and percentages for the pool."
             },
             "longitude": {
-              "$ref": "#/$defs/load-balancing_longitude",
-              "description": "The longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set."
+              "description": "The longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set.",
+              "type": "number"
             },
             "minimum_origins": {
-              "$ref": "#/$defs/load-balancing_minimum_origins",
               "default": 1,
-              "description": "The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool."
+              "description": "The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool.",
+              "type": "integer"
             },
             "monitor": {
-              "$ref": "#/$defs/load-balancing_monitor_id",
-              "description": "The ID of the Monitor to use for checking the health of origins within this pool."
+              "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
+              "type": "string"
             },
             "monitor_group": {
-              "$ref": "#/$defs/load-balancing_monitor_group_id",
-              "description": "The ID of the Monitor Group to use for checking the health of origins within this pool."
+              "description": "The ID of the Monitor Group to use for checking the health of origins within this pool.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/load-balancing_name",
-              "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed."
+              "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
+              "type": "string"
             },
             "networks": {
               "$ref": "#/$defs/load-balancing_networks",
               "description": "List of networks where Load Balancer or Pool is enabled."
             },
             "notification_email": {
-              "$ref": "#/$defs/load-balancing_notification_email",
               "default": "",
-              "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list."
+              "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
+              "type": "string"
             },
             "notification_filter": {
               "$ref": "#/$defs/load-balancing_notification_filter",
@@ -731,9 +557,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -746,76 +573,40 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "load-balancing_Host": load$$balancing_Host$,
-        "load-balancing_address": load$$balancing_address$,
         "load-balancing_check_regions": load$$balancing_check_regions$,
-        "load-balancing_enabled": load$$balancing_enabled$,
         "load-balancing_filter_options": load$$balancing_filter_options$,
         "load-balancing_health_sources": load$$balancing_health_sources$,
-        "load-balancing_latitude": load$$balancing_latitude$,
         "load-balancing_load_shedding": load$$balancing_load_shedding$,
-        "load-balancing_longitude": load$$balancing_longitude$,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins$,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id$,
-        "load-balancing_monitor_id": load$$balancing_monitor_id$,
-        "load-balancing_name": load$$balancing_name$,
         "load-balancing_networks": load$$balancing_networks$,
-        "load-balancing_notification_email": load$$balancing_notification_email$,
         "load-balancing_notification_filter": load$$balancing_notification_filter$,
         "load-balancing_origin": load$$balancing_origin$,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname$,
-        "load-balancing_origin_port": load$$balancing_origin_port$,
         "load-balancing_origin_steering": load$$balancing_origin_steering$,
         "load-balancing_origins": load$$balancing_origins$,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description$,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled$,
         "load-balancing_schemas-header": load$$balancing_schemas$$header$,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier$,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name$,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id$,
-        "load-balancing_weight": load$$balancing_weight$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_schemas-single_response",
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-single_response": load$$balancing_schemas$$single_response,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     annotations: {
@@ -843,42 +634,22 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_Host": load$$balancing_Host,
-        "load-balancing_address": load$$balancing_address,
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
         "load-balancing_check_regions": load$$balancing_check_regions,
-        "load-balancing_disabled_at": load$$balancing_disabled_at,
-        "load-balancing_enabled": load$$balancing_enabled,
         "load-balancing_filter_options": load$$balancing_filter_options,
         "load-balancing_health_sources": load$$balancing_health_sources,
-        "load-balancing_latitude": load$$balancing_latitude,
         "load-balancing_load_shedding": load$$balancing_load_shedding,
-        "load-balancing_longitude": load$$balancing_longitude,
         "load-balancing_messages": load$$balancing_messages,
-        "load-balancing_minimum_origins": load$$balancing_minimum_origins,
-        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
-        "load-balancing_monitor_id": load$$balancing_monitor_id,
-        "load-balancing_name": load$$balancing_name,
         "load-balancing_networks": load$$balancing_networks,
-        "load-balancing_notification_email": load$$balancing_notification_email,
         "load-balancing_notification_filter": load$$balancing_notification_filter,
         "load-balancing_origin": load$$balancing_origin,
-        "load-balancing_origin_flatten_cname": load$$balancing_origin_flatten_cname,
-        "load-balancing_origin_port": load$$balancing_origin_port,
         "load-balancing_origin_steering": load$$balancing_origin_steering,
         "load-balancing_origins": load$$balancing_origins,
         "load-balancing_pool": load$$balancing_pool,
-        "load-balancing_schemas-description": load$$balancing_schemas$$description,
-        "load-balancing_schemas-disabled_at": load$$balancing_schemas$$disabled_at,
-        "load-balancing_schemas-enabled": load$$balancing_schemas$$enabled,
         "load-balancing_schemas-header": load$$balancing_schemas$$header,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_schemas-name": load$$balancing_schemas$$name,
         "load-balancing_schemas-single_response": load$$balancing_schemas$$single_response,
-        "load-balancing_timestamp": load$$balancing_timestamp,
-        "load-balancing_virtual_network_id": load$$balancing_virtual_network_id,
-        "load-balancing_weight": load$$balancing_weight,
       },
     },
     request: (args) => ({

@@ -7,27 +7,15 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_created_at,
   access_id_response,
   access_messages,
-  access_timestamp,
-  access_updated_at,
-  access_uuid,
 } from "../../outputs.js";
-import {
-  access_identifier,
-  access_uuid as access_uuid$,
-} from "../../schemas.js";
 import {
   access_response_collection$$3,
   access_single_response$$5,
   access_user_population,
-  access_user_population_name,
 } from "./outputs.js";
-import {
-  access_user_population_name as access_user_population_name$,
-  access_user_population_request,
-} from "./schemas.js";
+import { access_user_population_request } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.userPopulations`.
@@ -36,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_create",
     title: "Create a user population",
-    description: "Creates a user population in an account.",
+    description: "Creates a user population in an account.\n\nPOST /accounts/{account_id}/access/user_populations",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,10 +32,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_user_population_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -60,9 +49,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier,
-        "access_user_population_name": access_user_population_name$,
         "access_user_population_request": access_user_population_request,
       },
     },
@@ -70,14 +58,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/access_single_response-5",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_single_response-5": access_single_response$$5,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -101,14 +84,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_single_response-5": access_single_response$$5,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -119,19 +97,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_delete",
     title: "Delete a user population",
-    description: "Deletes a user population that is not attached to an application.",
+    description: "Deletes a user population that is not attached to an application.\n\nDELETE /accounts/{account_id}/access/user_populations/{user_population_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -144,10 +123,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response",
@@ -155,7 +131,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -181,7 +156,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -191,19 +165,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_get",
     title: "Get a user population",
-    description: "Fetches a user population.",
+    description: "Fetches a user population.\n\nGET /accounts/{account_id}/access/user_populations/{user_population_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -216,23 +191,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-5",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_single_response-5": access_single_response$$5,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -256,14 +223,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_single_response-5": access_single_response$$5,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -273,15 +235,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_list",
     title: "List user populations",
-    description: "Lists the user populations in an account.",
+    description: "Lists the user populations in an account.\n\nGET /accounts/{account_id}/access/user_populations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -290,6 +253,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -308,23 +272,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-3",
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_response_collection-3": access_response_collection$$3,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -349,14 +306,9 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_response_collection-3": access_response_collection$$3,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -370,7 +322,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_update",
     title: "Update a user population",
-    description: "Updates a user population's name.",
+    description: "Updates a user population's name.\n\nPUT /accounts/{account_id}/access/user_populations/{user_population_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -378,14 +330,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/access_user_population_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "user_population_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -399,25 +352,18 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_identifier": access_identifier,
-        "access_user_population_name": access_user_population_name$,
         "access_user_population_request": access_user_population_request,
-        "access_uuid": access_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-5",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_single_response-5": access_single_response$$5,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -441,14 +387,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_created_at": access_created_at,
         "access_messages": access_messages,
         "access_single_response-5": access_single_response$$5,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_population": access_user_population,
-        "access_user_population_name": access_user_population_name,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

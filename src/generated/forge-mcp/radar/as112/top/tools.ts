@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_top_dnssec",
     title: "Get top locations by AS112 DNS queries with DNSSEC support",
-    description: "Retrieves the top locations of DNS queries to AS112 with DNSSEC (DNS Security Extensions) support.",
+    description: "Retrieves the top locations of DNS queries to AS112 with DNSSEC (DNS Security Extensions) support.\n\nGET /radar/as112/top/locations/dnssec/{dnssec}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dnssec": {
               "description": "DNSSEC (DNS Security Extensions) status.",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continent": {
               "description": "Filters results by continent. Specify a comma-separated list of alpha-2 codes. Prefix with `-` to exclude continents from results. For example, `-EU,NA` excludes results from EU, but includes results from NA.",
@@ -96,6 +98,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -568,11 +571,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_top_edns",
     title: "Get top locations by AS112 DNS queries with EDNS support",
-    description: "Retrieves the top locations of DNS queries to AS112 with EDNS (Extension Mechanisms for DNS) support.",
+    description: "Retrieves the top locations of DNS queries to AS112 with EDNS (Extension Mechanisms for DNS) support.\n\nGET /radar/as112/top/locations/edns/{edns}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "edns": {
               "description": "EDNS (Extension Mechanisms for DNS) status.",
@@ -589,6 +593,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continent": {
               "description": "Filters results by continent. Specify a comma-separated list of alpha-2 codes. Prefix with `-` to exclude continents from results. For example, `-EU,NA` excludes results from EU, but includes results from NA.",
@@ -654,6 +659,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1126,11 +1132,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_top_ipVersion",
     title: "Get top locations by AS112 DNS queries for an IP version",
-    description: "Retrieves the top locations of DNS queries to AS112 for an IP version.",
+    description: "Retrieves the top locations of DNS queries to AS112 for an IP version.\n\nGET /radar/as112/top/locations/ip_version/{ip_version}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "ip_version": {
               "description": "IP version.",
@@ -1147,6 +1154,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continent": {
               "description": "Filters results by continent. Specify a comma-separated list of alpha-2 codes. Prefix with `-` to exclude continents from results. For example, `-EU,NA` excludes results from EU, but includes results from NA.",
@@ -1212,6 +1220,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1684,11 +1693,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_as112_top_locations",
     title: "Get top locations by AS112 DNS queries",
-    description: "Retrieves the top locations by AS112 DNS queries.",
+    description: "Retrieves the top locations by AS112 DNS queries.\n\nGET /radar/as112/top/locations",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continent": {
               "description": "Filters results by continent. Specify a comma-separated list of alpha-2 codes. Prefix with `-` to exclude continents from results. For example, `-EU,NA` excludes results from EU, but includes results from NA.",
@@ -1751,6 +1761,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "images_flows_get",
     title: "Get transformation flows",
-    description: "Get the current transformation flows configuration for a zone.",
+    description: "Get the current transformation flows configuration for a zone.\n\nGET /zones/{zone_id}/images/v1/flows",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
               "description": "Zone identifier.",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -533,7 +535,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_flows_update",
     title: "Update transformation flows",
-    description: "Replace the entire transformation flows configuration for a zone.",
+    description: "Replace the entire transformation flows configuration for a zone.\n\nPUT /zones/{zone_id}/images/v1/flows",
     inputSchema: {
       type: "object",
       properties: {
@@ -758,6 +760,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
               "description": "Zone identifier.",
@@ -773,6 +776,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

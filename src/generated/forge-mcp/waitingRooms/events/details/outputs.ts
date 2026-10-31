@@ -4,35 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `waitingroom_event_details_custom_page_html` in responses.
- */
-export const waitingroom_event_details_custom_page_html: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_details_disable_session_renewal` in
- * responses.
- */
-export const waitingroom_event_details_disable_session_renewal: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_event_details_new_users_per_minute` in responses.
- */
-export const waitingroom_event_details_new_users_per_minute: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_event_details_queueing_method` in responses.
- */
-export const waitingroom_event_details_queueing_method: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_event_details_response` in responses.
  */
 export const waitingroom_event_details_response: JsonSchema = {
@@ -57,67 +28,62 @@ export const waitingroom_event_details_response: JsonSchema = {
 export const waitingroom_event_details_result: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "custom_page_html": {
-      "$ref": "#/$defs/waitingroom_event_details_custom_page_html"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_event_description"
+      "type": "string"
     },
     "disable_session_renewal": {
-      "$ref": "#/$defs/waitingroom_event_details_disable_session_renewal"
+      "type": "boolean"
     },
     "event_end_time": {
-      "$ref": "#/$defs/waitingroom_event_end_time"
+      "type": "string"
     },
     "event_start_time": {
-      "$ref": "#/$defs/waitingroom_event_start_time"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/waitingroom_event_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/waitingroom_event_name"
+      "type": "string"
     },
     "new_users_per_minute": {
-      "$ref": "#/$defs/waitingroom_event_details_new_users_per_minute"
+      "type": "integer"
     },
     "prequeue_start_time": {
-      "$ref": "#/$defs/waitingroom_event_prequeue_start_time"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "queueing_method": {
-      "$ref": "#/$defs/waitingroom_event_details_queueing_method"
+      "type": "string"
     },
     "session_duration": {
-      "$ref": "#/$defs/waitingroom_event_details_session_duration"
+      "type": "integer"
     },
     "shuffle_at_event_start": {
-      "$ref": "#/$defs/waitingroom_event_shuffle_at_event_start"
+      "type": "boolean"
     },
     "suspended": {
-      "$ref": "#/$defs/waitingroom_event_suspended"
+      "type": "boolean"
     },
     "total_active_users": {
-      "$ref": "#/$defs/waitingroom_event_details_total_active_users"
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `waitingroom_event_details_session_duration` in responses.
- */
-export const waitingroom_event_details_session_duration: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_event_details_total_active_users` in responses.
- */
-export const waitingroom_event_details_total_active_users: JsonSchema = {
-  "type": "integer"
 };

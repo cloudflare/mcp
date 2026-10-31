@@ -6,26 +6,12 @@ import {
   secondary$$dns_api$$response$$common$$failure,
   secondary$$dns_api$$response$$single,
   secondary$$dns_id_response,
-  secondary$$dns_identifier,
   secondary$$dns_messages,
-  secondary$$dns_name,
   secondary$$dns_peers,
-  secondary$$dns_soa_serial,
-  secondary$$dns_time,
 } from "../outputs.js";
-import {
-  secondary$$dns_identifier as secondary$$dns_identifier$,
-  secondary$$dns_name as secondary$$dns_name$,
-  secondary$$dns_peers as secondary$$dns_peers$,
-} from "../schemas.js";
-import {
-  secondary$$dns_auto_refresh_seconds,
-  secondary$$dns_single_response_incoming,
-} from "./outputs.js";
-import {
-  secondary$$dns_auto_refresh_seconds as secondary$$dns_auto_refresh_seconds$,
-  secondary$$dns_dns$$secondary$$secondary$$zone,
-} from "./schemas.js";
+import { secondary$$dns_peers as secondary$$dns_peers$ } from "../schemas.js";
+import { secondary$$dns_single_response_incoming } from "./outputs.js";
+import { secondary$$dns_dns$$secondary$$secondary$$zone } from "./schemas.js";
 
 /**
  * The tools of `dns.zoneTransfers.incoming`.
@@ -34,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_incoming_create",
     title: "Create Secondary Zone Configuration",
-    description: "Create secondary zone configuration for incoming zone transfers.",
+    description: "Create secondary zone configuration for incoming zone transfers.\n\nPOST /zones/{zone_id}/secondary_dns/incoming",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,9 +28,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_dns-secondary-secondary-zone"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -57,11 +44,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds$,
         "secondary-dns_dns-secondary-secondary-zone": secondary$$dns_dns$$secondary$$secondary$$zone,
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-        "secondary-dns_name": secondary$$dns_name$,
         "secondary-dns_peers": secondary$$dns_peers$,
       },
     },
@@ -69,14 +54,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/secondary-dns_single_response_incoming",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_incoming": secondary$$dns_single_response_incoming,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     annotations: {
@@ -120,14 +100,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_incoming": secondary$$dns_single_response_incoming,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     request: (args) => ({
@@ -138,14 +113,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_incoming_delete",
     title: "Delete Secondary Zone Configuration",
-    description: "Delete secondary zone configuration for incoming zone transfers.",
+    description: "Delete secondary zone configuration for incoming zone transfers.\n\nDELETE /zones/{zone_id}/secondary_dns/incoming",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -157,16 +133,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_id_response",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response": secondary$$dns_id_response,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -212,7 +185,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response": secondary$$dns_id_response,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -223,14 +195,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_incoming_get",
     title: "Secondary Zone Configuration Details",
-    description: "Get secondary zone configuration for incoming zone transfers.",
+    description: "Get secondary zone configuration for incoming zone transfers.\n\nGET /zones/{zone_id}/secondary_dns/incoming",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -242,22 +215,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response_incoming",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_incoming": secondary$$dns_single_response_incoming,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     annotations: {
@@ -303,14 +269,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_incoming": secondary$$dns_single_response_incoming,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     request: (args) => ({
@@ -320,7 +281,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_incoming_update",
     title: "Update Secondary Zone Configuration",
-    description: "Update secondary zone configuration for incoming zone transfers.",
+    description: "Update secondary zone configuration for incoming zone transfers.\n\nPUT /zones/{zone_id}/secondary_dns/incoming",
     inputSchema: {
       type: "object",
       properties: {
@@ -328,9 +289,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_dns-secondary-secondary-zone"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -343,11 +305,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds$,
         "secondary-dns_dns-secondary-secondary-zone": secondary$$dns_dns$$secondary$$secondary$$zone,
-        "secondary-dns_identifier": secondary$$dns_identifier$,
-        "secondary-dns_name": secondary$$dns_name$,
         "secondary-dns_peers": secondary$$dns_peers$,
       },
     },
@@ -355,14 +315,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/secondary-dns_single_response_incoming",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_incoming": secondary$$dns_single_response_incoming,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     annotations: {
@@ -406,14 +361,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_auto_refresh_seconds": secondary$$dns_auto_refresh_seconds,
-        "secondary-dns_identifier": secondary$$dns_identifier,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name": secondary$$dns_name,
         "secondary-dns_peers": secondary$$dns_peers,
         "secondary-dns_single_response_incoming": secondary$$dns_single_response_incoming,
-        "secondary-dns_soa_serial": secondary$$dns_soa_serial,
-        "secondary-dns_time": secondary$$dns_time,
       },
     },
     request: (args) => ({

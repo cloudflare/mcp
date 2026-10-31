@@ -84,7 +84,7 @@ export const digital$$experience$$monitoring_fleet_status_live_response: JsonSch
                   ]
                 },
                 "uniqueDevicesTotal": {
-                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                  "type": "number"
                 }
               },
               "type": "object"
@@ -104,7 +104,7 @@ export const digital$$experience$$monitoring_fleet_status_live_response: JsonSch
 export const digital$$experience$$monitoring_live_stat: JsonSchema = {
   "properties": {
     "uniqueDevicesTotal": {
-      "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+      "type": "number"
     },
     "value": {
       "type": "string"

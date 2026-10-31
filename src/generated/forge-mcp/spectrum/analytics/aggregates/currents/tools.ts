@@ -5,12 +5,9 @@ import { type Tool, param, pathParam } from "../../../../_/tool.js";
 import {
   spectrum$$analytics_api$$response$$common$$failure,
   spectrum$$analytics_api$$response$$single,
-  spectrum$$analytics_identifier,
   spectrum$$analytics_messages,
 } from "../../outputs.js";
-import { spectrum$$analytics_identifier as spectrum$$analytics_identifier$ } from "../../schemas.js";
 import { spectrum$$analytics_query$$response$$aggregate } from "./outputs.js";
-import { spectrum$$analytics_app_id_param } from "./schemas.js";
 
 /**
  * The tools of `spectrum.analytics.aggregates.currents`.
@@ -19,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_analytics_aggregates_currents_get",
     title: "Get current aggregated analytics",
-    description: "Retrieves analytics aggregated from the last minute of usage on Spectrum applications underneath a given zone.",
+    description: "Retrieves analytics aggregated from the last minute of usage on Spectrum applications underneath a given zone.\n\nGET /zones/{zone_id}/spectrum/analytics/aggregate/current",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/spectrum-analytics_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -36,10 +34,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "appID": {
-              "$ref": "#/$defs/spectrum-analytics_app_id_param",
-              "description": "Comma-delimited list of Spectrum Application Id(s). If provided, the response will be limited to Spectrum Application Id(s) that match."
+              "description": "Comma-delimited list of Spectrum Application Id(s). If provided, the response will be limited to Spectrum Application Id(s) that match.",
+              "type": "string"
             },
             "colo_name": {
               "description": "Co-location identifier.",
@@ -52,16 +51,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "spectrum-analytics_app_id_param": spectrum$$analytics_app_id_param,
-        "spectrum-analytics_identifier": spectrum$$analytics_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-analytics_query-response-aggregate",
       $defs: {
         "spectrum-analytics_api-response-single": spectrum$$analytics_api$$response$$single,
-        "spectrum-analytics_identifier": spectrum$$analytics_identifier,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
         "spectrum-analytics_query-response-aggregate": spectrum$$analytics_query$$response$$aggregate,
       },
@@ -92,7 +87,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "spectrum-analytics_api-response-common-failure": spectrum$$analytics_api$$response$$common$$failure,
         "spectrum-analytics_api-response-single": spectrum$$analytics_api$$response$$single,
-        "spectrum-analytics_identifier": spectrum$$analytics_identifier,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
         "spectrum-analytics_query-response-aggregate": spectrum$$analytics_query$$response$$aggregate,
       },

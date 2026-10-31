@@ -171,7 +171,7 @@ export const digital$$experience$$monitoring_tests_response: JsonSchema = {
             "type": "array"
           },
           "id": {
-            "$ref": "#/$defs/digital-experience-monitoring_uuid"
+            "type": "string"
           },
           "interval": {
             "type": "string"
@@ -198,7 +198,7 @@ export const digital$$experience$$monitoring_tests_response: JsonSchema = {
                       "type": "boolean"
                     },
                     "id": {
-                      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                      "type": "string"
                     },
                     "name": {
                       "type": "string"

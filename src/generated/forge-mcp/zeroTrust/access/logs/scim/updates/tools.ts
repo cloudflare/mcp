@@ -7,26 +7,20 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_messages,
-  access_timestamp,
 } from "../../../../outputs.js";
-import { access_identifier } from "../../../../schemas.js";
 import {
   access_responses,
   access_scim_update_logs_response,
 } from "./outputs.js";
 import {
   access_cf_resource_id$$3,
-  access_direction,
   access_idp_id,
   access_idp_resource_id$$3,
-  access_limit,
   access_request_method,
   access_resource_group_name,
   access_resource_type,
   access_resource_user_email,
-  access_since,
   access_status$$2,
-  access_until,
 } from "./schemas.js";
 
 /**
@@ -36,15 +30,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_logs_scim_updates_list",
     title: "List Access SCIM update logs",
-    description: "Lists Access SCIM update logs that maintain a record of updates made to User and Group resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).",
+    description: "Lists Access SCIM update logs that maintain a record of updates made to User and Group resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).\n\nGET /accounts/{account_id}/access/logs/scim/updates",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -53,15 +48,20 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cf_resource_id": {
               "$ref": "#/$defs/access_cf_resource_id-3",
               "description": "The unique Cloudflare-generated Id of the SCIM resource. Pass once for\na single lookup (`?cf_resource_id=A`) or repeat the parameter\n(`?cf_resource_id=A&cf_resource_id=B`) to filter by multiple resources\nin one request."
             },
             "direction": {
-              "$ref": "#/$defs/access_direction",
               "default": "desc",
-              "description": "The chronological order used to sort the logs."
+              "description": "The chronological order used to sort the logs.",
+              "enum": [
+                "desc",
+                "asc"
+              ],
+              "type": "string"
             },
             "idp_id": {
               "$ref": "#/$defs/access_idp_id",
@@ -72,9 +72,9 @@ export const tools: readonly Tool[] = [
               "description": "The IdP-generated Id of the SCIM resource. Pass once for a single\nlookup (`?idp_resource_id=A`) or repeat the parameter\n(`?idp_resource_id=A&idp_resource_id=B`) to filter by multiple\nresources in one request."
             },
             "limit": {
-              "$ref": "#/$defs/access_limit",
               "default": 20,
-              "description": "The maximum number of update logs to retrieve."
+              "description": "The maximum number of update logs to retrieve.",
+              "type": "integer"
             },
             "page": {
               "default": 1,
@@ -103,16 +103,18 @@ export const tools: readonly Tool[] = [
               "description": "The email address of the SCIM User resource. Pass once for a single\nlookup (`?resource_user_email=A`) or repeat the parameter\n(`?resource_user_email=A&resource_user_email=B`) to filter by multiple\nemails in one request."
             },
             "since": {
-              "$ref": "#/$defs/access_since",
-              "description": "the timestamp of the earliest update log."
+              "description": "the timestamp of the earliest update log.",
+              "format": "date-time",
+              "type": "string"
             },
             "status": {
               "$ref": "#/$defs/access_status-2",
               "description": "The status of the SCIM request."
             },
             "until": {
-              "$ref": "#/$defs/access_until",
-              "description": "the timestamp of the most-recent update log."
+              "description": "the timestamp of the most-recent update log.",
+              "format": "date-time",
+              "type": "string"
             }
           },
           "required": [
@@ -125,20 +127,16 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
       $defs: {
         "access_cf_resource_id-3": access_cf_resource_id$$3,
-        "access_direction": access_direction,
-        "access_identifier": access_identifier,
         "access_idp_id": access_idp_id,
         "access_idp_resource_id-3": access_idp_resource_id$$3,
-        "access_limit": access_limit,
         "access_request_method": access_request_method,
         "access_resource_group_name": access_resource_group_name,
         "access_resource_type": access_resource_type,
         "access_resource_user_email": access_resource_user_email,
-        "access_since": access_since,
         "access_status-2": access_status$$2,
-        "access_until": access_until,
       },
     },
     outputSchema: {
@@ -149,7 +147,6 @@ export const tools: readonly Tool[] = [
         "access_messages": access_messages,
         "access_responses": access_responses,
         "access_scim_update_logs_response": access_scim_update_logs_response,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -182,7 +179,6 @@ export const tools: readonly Tool[] = [
         "access_messages": access_messages,
         "access_responses": access_responses,
         "access_scim_update_logs_response": access_scim_update_logs_response,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({

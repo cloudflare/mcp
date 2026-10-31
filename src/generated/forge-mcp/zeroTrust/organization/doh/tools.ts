@@ -5,25 +5,11 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_client_id,
-  access_created_at,
-  access_duration,
-  access_enabled,
-  access_leak_report_url,
-  access_leak_reported_at,
-  access_leak_reporter,
   access_messages,
-  access_name$$2,
   access_service$$tokens,
   access_single_response$$2,
   access_tags,
-  access_timestamp,
-  access_updated_at,
-  access_uuid,
 } from "../../outputs.js";
-import { access_identifier } from "../../schemas.js";
-import { access_doh_jwt_duration } from "./outputs.js";
-import { access_doh_jwt_duration as access_doh_jwt_duration$ } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.organization.doh`.
@@ -32,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_organization_doh_get",
     title: "Get your Zero Trust organization DoH settings",
-    description: "Returns the DoH settings for your Zero Trust organization.",
+    description: "Returns the DoH settings for your Zero Trust organization.\n\nGET /accounts/{account_id}/access/organizations/doh",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -52,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -77,21 +62,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -139,21 +113,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -163,15 +126,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_organization_doh_update",
     title: "Update your Zero Trust organization DoH settings",
-    description: "Updates the DoH settings for your Zero Trust organization.",
+    description: "Updates the DoH settings for your Zero Trust organization.\n\nPUT /accounts/{account_id}/access/organizations/doh",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "doh_jwt_duration": {
-              "$ref": "#/$defs/access_doh_jwt_duration",
-              "description": "The duration the DoH JWT is valid for. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.  Note that the maximum duration for this setting is the same as the key rotation period on the account. Default expiration is 24h"
+              "description": "The duration the DoH JWT is valid for. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.  Note that the maximum duration for this setting is the same as the key rotation period on the account. Default expiration is 24h",
+              "type": "string"
             },
             "service_token_id": {
               "description": "The uuid of the service token you want to use for DoH authentication",
@@ -181,10 +144,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -196,10 +160,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_doh_jwt_duration": access_doh_jwt_duration$,
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -211,7 +172,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "doh_jwt_duration": {
-                  "$ref": "#/$defs/access_doh_jwt_duration"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -222,22 +183,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_doh_jwt_duration": access_doh_jwt_duration,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -266,7 +215,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "doh_jwt_duration": {
-                      "$ref": "#/$defs/access_doh_jwt_duration"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -283,22 +232,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_client_id": access_client_id,
-        "access_created_at": access_created_at,
-        "access_doh_jwt_duration": access_doh_jwt_duration,
-        "access_duration": access_duration,
-        "access_enabled": access_enabled,
-        "access_leak_report_url": access_leak_report_url,
-        "access_leak_reported_at": access_leak_reported_at,
-        "access_leak_reporter": access_leak_reporter,
         "access_messages": access_messages,
-        "access_name-2": access_name$$2,
         "access_service-tokens": access_service$$tokens,
         "access_single_response-2": access_single_response$$2,
         "access_tags": access_tags,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

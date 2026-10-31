@@ -9,13 +9,9 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
-  access_aud,
   access_ca,
-  access_id$$2,
   access_id_response$$2,
-  access_public_key,
   access_response_collection$$5,
   access_single_response$$6,
 } from "./outputs.js";
@@ -27,11 +23,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_shortLivedCertificates_create",
     title: "Create a short-lived certificate CA",
-    description: "Generates a new short-lived certificate CA and public key.",
+    description: "Generates a new short-lived certificate CA and public key.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}/ca",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -42,12 +39,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,20 +58,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-6",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_aud": access_aud,
         "access_ca": access_ca,
-        "access_id-2": access_id$$2,
         "access_messages": access_messages,
-        "access_public_key": access_public_key,
         "access_single_response-6": access_single_response$$6,
       },
     },
@@ -104,11 +95,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_aud": access_aud,
         "access_ca": access_ca,
-        "access_id-2": access_id$$2,
         "access_messages": access_messages,
-        "access_public_key": access_public_key,
         "access_single_response-6": access_single_response$$6,
       },
     },
@@ -119,11 +107,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_shortLivedCertificates_delete",
     title: "Delete a short-lived certificate CA",
-    description: "Deletes a short-lived certificate CA.",
+    description: "Deletes a short-lived certificate CA.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}/ca",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -134,12 +123,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -153,16 +142,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response-2",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_id-2": access_id$$2,
         "access_id_response-2": access_id_response$$2,
         "access_messages": access_messages,
       },
@@ -193,7 +178,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_id-2": access_id$$2,
         "access_id_response-2": access_id_response$$2,
         "access_messages": access_messages,
       },
@@ -205,11 +189,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_shortLivedCertificates_get",
     title: "Get a short-lived certificate CA",
-    description: "Fetches a short-lived certificate CA and its public key.",
+    description: "Fetches a short-lived certificate CA and its public key.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}/ca",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -220,12 +205,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -239,20 +224,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-6",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_aud": access_aud,
         "access_ca": access_ca,
-        "access_id-2": access_id$$2,
         "access_messages": access_messages,
-        "access_public_key": access_public_key,
         "access_single_response-6": access_single_response$$6,
       },
     },
@@ -283,11 +262,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_aud": access_aud,
         "access_ca": access_ca,
-        "access_id-2": access_id$$2,
         "access_messages": access_messages,
-        "access_public_key": access_public_key,
         "access_single_response-6": access_single_response$$6,
       },
     },
@@ -298,11 +274,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_applications_shortLivedCertificates_list",
     title: "List short-lived certificate CAs",
-    description: "Lists short-lived certificate CAs and their public keys.",
+    description: "Lists short-lived certificate CAs and their public keys.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/apps/ca",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -313,8 +290,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -324,6 +301,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -342,20 +320,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-5",
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_aud": access_aud,
         "access_ca": access_ca,
-        "access_id-2": access_id$$2,
         "access_messages": access_messages,
-        "access_public_key": access_public_key,
         "access_response_collection-5": access_response_collection$$5,
       },
     },
@@ -387,11 +360,8 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_aud": access_aud,
         "access_ca": access_ca,
-        "access_id-2": access_id$$2,
         "access_messages": access_messages,
-        "access_public_key": access_public_key,
         "access_response_collection-5": access_response_collection$$5,
       },
     },

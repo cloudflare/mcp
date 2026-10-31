@@ -7,7 +7,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
 import { workers_subdomain$$2 } from "./outputs.js";
 import { workers_subdomain$$2 as workers_subdomain$$2$ } from "./schemas.js";
 
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_subdomains_delete",
     title: "Delete Workers Subdomain",
-    description: "Deletes a Workers subdomain for an account.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers subdomain.",
+    description: "Deletes a Workers subdomain for an account.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers subdomain.\n\nDELETE /accounts/{account_id}/workers/subdomain",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -78,15 +76,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_subdomains_get",
     title: "Get a Workers Subdomain",
-    description: "Returns a Workers subdomain for an account.",
+    description: "Returns a Workers subdomain for an account.\n\nGET /accounts/{account_id}/workers/subdomain",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -98,9 +97,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -181,7 +178,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_subdomains_update",
     title: "Create a Workers Subdomain",
-    description: "Creates a Workers subdomain for an account.",
+    description: "Creates a Workers subdomain for an account.\n\nPUT /accounts/{account_id}/workers/subdomain",
     inputSchema: {
       type: "object",
       properties: {
@@ -189,10 +186,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_subdomain-2"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -205,8 +203,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_identifier": workers_identifier,
         "workers_subdomain-2": workers_subdomain$$2$,
       },
     },

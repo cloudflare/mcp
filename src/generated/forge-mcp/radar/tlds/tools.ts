@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_tlds_get",
     title: "Get TLD details",
-    description: "Retrieves the requested TLD information.",
+    description: "Retrieves the requested TLD information.\n\nGET /radar/tlds/{tld}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "tld": {
               "description": "Top-level domain.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -168,11 +171,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_tlds_list",
     title: "List TLDs",
-    description: "Retrieves a list of TLDs.",
+    description: "Retrieves a list of TLDs.\n\nGET /radar/tlds",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -214,6 +218,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

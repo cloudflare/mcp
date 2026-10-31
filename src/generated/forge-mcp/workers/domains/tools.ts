@@ -8,7 +8,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
 import { workers_Domain } from "./outputs.js";
 
 /**
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_domains_delete",
     title: "Detach Worker Domain",
-    description: "Detaches a domain from a Worker. Both the Worker and all of its previews are no longer routable using this domain.\n\nConfirm with the user before calling this tool. This will stop routing traffic on this domain to the Worker.",
+    description: "Detaches a domain from a Worker. Both the Worker and all of its previews are no longer routable using this domain.\n\nConfirm with the user before calling this tool. This will stop routing traffic on this domain to the Worker.\n\nDELETE /accounts/{account_id}/workers/domains/{domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "domain_id": {
               "description": "ID of the domain.",
@@ -43,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -93,15 +91,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_domains_get",
     title: "Get Worker Domain",
-    description: "Gets information about a Worker domain.",
+    description: "Gets information about a Worker domain.\n\nGET /accounts/{account_id}/workers/domains/{domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "domain_id": {
               "description": "ID of the domain.",
@@ -118,9 +117,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -201,15 +198,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_domains_list",
     title: "List Worker Domains",
-    description: "Lists all Worker domains for an account.",
+    description: "Lists all Worker domains for an account.\n\nGET /accounts/{account_id}/workers/domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -218,6 +216,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "enabled": {
               "description": "Whether the configured hostname is routable for the domain.",
@@ -255,9 +254,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -355,7 +352,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_domains_update",
     title: "Attach Worker Domain",
-    description: "Attaches a domain that routes traffic to a Worker.",
+    description: "Attaches a domain that routes traffic to a Worker.\n\nPUT /accounts/{account_id}/workers/domains",
     inputSchema: {
       type: "object",
       properties: {
@@ -399,10 +396,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -415,9 +413,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

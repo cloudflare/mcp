@@ -8,39 +8,19 @@ import {
   dns$$firewall_api$$response$$common$$failure,
   dns$$firewall_api$$response$$single,
   dns$$firewall_attack_mitigation,
-  dns$$firewall_deprecate_any_requests,
   dns$$firewall_dns$$firewall$$cluster,
   dns$$firewall_dns$$firewall$$cluster$$response,
   dns$$firewall_dns_firewall_ips,
   dns$$firewall_dns_firewall_response_collection,
   dns$$firewall_dns_firewall_single_response,
-  dns$$firewall_ecs_fallback,
-  dns$$firewall_identifier,
-  dns$$firewall_maximum_cache_ttl,
   dns$$firewall_messages,
-  dns$$firewall_minimum_cache_ttl,
-  dns$$firewall_modified_on,
-  dns$$firewall_name,
-  dns$$firewall_negative_cache_ttl,
-  dns$$firewall_ratelimit,
-  dns$$firewall_retries,
   dns$$firewall_upstream_ips,
 } from "./outputs.js";
 import {
   dns$$firewall_attack_mitigation as dns$$firewall_attack_mitigation$,
-  dns$$firewall_deprecate_any_requests as dns$$firewall_deprecate_any_requests$,
   dns$$firewall_dns$$firewall$$cluster as dns$$firewall_dns$$firewall$$cluster$,
   dns$$firewall_dns$$firewall$$cluster$$patch,
   dns$$firewall_dns$$firewall$$cluster$$post,
-  dns$$firewall_dns_firewall_ip_count,
-  dns$$firewall_ecs_fallback as dns$$firewall_ecs_fallback$,
-  dns$$firewall_identifier as dns$$firewall_identifier$,
-  dns$$firewall_maximum_cache_ttl as dns$$firewall_maximum_cache_ttl$,
-  dns$$firewall_minimum_cache_ttl as dns$$firewall_minimum_cache_ttl$,
-  dns$$firewall_name as dns$$firewall_name$,
-  dns$$firewall_negative_cache_ttl as dns$$firewall_negative_cache_ttl$,
-  dns$$firewall_ratelimit as dns$$firewall_ratelimit$,
-  dns$$firewall_retries as dns$$firewall_retries$,
   dns$$firewall_upstream_ips as dns$$firewall_upstream_ips$,
 } from "./schemas.js";
 
@@ -51,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_create",
     title: "Create DNS Firewall Cluster",
-    description: "Create a DNS Firewall cluster",
+    description: "Create a DNS Firewall cluster\n\nPOST /accounts/{account_id}/dns_firewall",
     inputSchema: {
       type: "object",
       properties: {
@@ -59,10 +39,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-post"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -75,20 +56,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation$,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests$,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster$,
         "dns-firewall_dns-firewall-cluster-post": dns$$firewall_dns$$firewall$$cluster$$post,
-        "dns-firewall_dns_firewall_ip_count": dns$$firewall_dns_firewall_ip_count,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback$,
-        "dns-firewall_identifier": dns$$firewall_identifier$,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl$,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl$,
-        "dns-firewall_name": dns$$firewall_name$,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl$,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit$,
-        "dns-firewall_retries": dns$$firewall_retries$,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips$,
       },
     },
@@ -97,21 +69,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_single_response": dns$$firewall_dns_firewall_single_response,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -153,21 +115,11 @@ export const tools: readonly Tool[] = [
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_single_response": dns$$firewall_dns_firewall_single_response,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -179,19 +131,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_delete",
     title: "Delete DNS Firewall Cluster",
-    description: "Delete a DNS Firewall cluster",
+    description: "Delete a DNS Firewall cluster\n\nDELETE /accounts/{account_id}/dns_firewall/{dns_firewall_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dns_firewall_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -204,9 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-firewall_identifier": dns$$firewall_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -218,7 +169,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/dns-firewall_identifier"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -229,7 +180,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
-        "dns-firewall_identifier": dns$$firewall_identifier,
         "dns-firewall_messages": dns$$firewall_messages,
       },
     },
@@ -270,7 +220,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/dns-firewall_identifier"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -287,7 +237,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
-        "dns-firewall_identifier": dns$$firewall_identifier,
         "dns-firewall_messages": dns$$firewall_messages,
       },
     },
@@ -298,7 +247,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_edit",
     title: "Update DNS Firewall Cluster",
-    description: "Modify the configuration of a DNS Firewall cluster",
+    description: "Modify the configuration of a DNS Firewall cluster\n\nPATCH /accounts/{account_id}/dns_firewall/{dns_firewall_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -306,14 +255,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dns_firewall_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -327,18 +277,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation$,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests$,
         "dns-firewall_dns-firewall-cluster-patch": dns$$firewall_dns$$firewall$$cluster$$patch,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback$,
-        "dns-firewall_identifier": dns$$firewall_identifier$,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl$,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl$,
-        "dns-firewall_name": dns$$firewall_name$,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl$,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit$,
-        "dns-firewall_retries": dns$$firewall_retries$,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips$,
       },
     },
@@ -347,21 +289,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_single_response": dns$$firewall_dns_firewall_single_response,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -403,21 +335,11 @@ export const tools: readonly Tool[] = [
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_single_response": dns$$firewall_dns_firewall_single_response,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -429,19 +351,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_get",
     title: "DNS Firewall Cluster Details",
-    description: "Show a single DNS Firewall cluster for an account",
+    description: "Show a single DNS Firewall cluster for an account\n\nGET /accounts/{account_id}/dns_firewall/{dns_firewall_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dns_firewall_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -454,30 +377,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-firewall_identifier": dns$$firewall_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_single_response",
       $defs: {
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_single_response": dns$$firewall_dns_firewall_single_response,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -520,21 +431,11 @@ export const tools: readonly Tool[] = [
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_single_response": dns$$firewall_dns_firewall_single_response,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -545,15 +446,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dnsFirewall_list",
     title: "List DNS Firewall Clusters",
-    description: "List DNS Firewall clusters for an account",
+    description: "List DNS Firewall clusters for an account\n\nGET /accounts/{account_id}/dns_firewall",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-firewall_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -562,6 +464,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -580,9 +483,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-firewall_identifier": dns$$firewall_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_response_collection",
@@ -590,21 +491,11 @@ export const tools: readonly Tool[] = [
         "dns-firewall_api-response-collection": dns$$firewall_api$$response$$collection,
         "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_response_collection": dns$$firewall_dns_firewall_response_collection,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },
@@ -648,21 +539,11 @@ export const tools: readonly Tool[] = [
         "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
-        "dns-firewall_deprecate_any_requests": dns$$firewall_deprecate_any_requests,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
         "dns-firewall_dns-firewall-cluster-response": dns$$firewall_dns$$firewall$$cluster$$response,
         "dns-firewall_dns_firewall_ips": dns$$firewall_dns_firewall_ips,
         "dns-firewall_dns_firewall_response_collection": dns$$firewall_dns_firewall_response_collection,
-        "dns-firewall_ecs_fallback": dns$$firewall_ecs_fallback,
-        "dns-firewall_identifier": dns$$firewall_identifier,
-        "dns-firewall_maximum_cache_ttl": dns$$firewall_maximum_cache_ttl,
         "dns-firewall_messages": dns$$firewall_messages,
-        "dns-firewall_minimum_cache_ttl": dns$$firewall_minimum_cache_ttl,
-        "dns-firewall_modified_on": dns$$firewall_modified_on,
-        "dns-firewall_name": dns$$firewall_name,
-        "dns-firewall_negative_cache_ttl": dns$$firewall_negative_cache_ttl,
-        "dns-firewall_ratelimit": dns$$firewall_ratelimit,
-        "dns-firewall_retries": dns$$firewall_retries,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips,
       },
     },

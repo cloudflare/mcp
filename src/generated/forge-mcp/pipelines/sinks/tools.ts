@@ -4,36 +4,25 @@
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   cloudflare$$pipelines_ConnectionSchema,
-  cloudflare$$pipelines_DecimalEncoding,
   cloudflare$$pipelines_FieldType,
   cloudflare$$pipelines_JsonFormat,
   cloudflare$$pipelines_ListField,
-  cloudflare$$pipelines_ParquetCompression,
   cloudflare$$pipelines_ParquetFormat,
   cloudflare$$pipelines_SourceField,
   cloudflare$$pipelines_StructField,
   cloudflare$$pipelines_TimestampField,
-  cloudflare$$pipelines_TimestampFormat,
-  cloudflare$$pipelines_TimestampUnit,
-  cloudflare$$pipelines_worker$$pipelines$$common$$success,
 } from "../outputs.js";
 import {
   cloudflare$$pipelines_ConnectionSchema as cloudflare$$pipelines_ConnectionSchema$,
-  cloudflare$$pipelines_DecimalEncoding as cloudflare$$pipelines_DecimalEncoding$,
   cloudflare$$pipelines_FieldType as cloudflare$$pipelines_FieldType$,
   cloudflare$$pipelines_JsonFormat as cloudflare$$pipelines_JsonFormat$,
   cloudflare$$pipelines_ListField as cloudflare$$pipelines_ListField$,
-  cloudflare$$pipelines_ParquetCompression as cloudflare$$pipelines_ParquetCompression$,
   cloudflare$$pipelines_ParquetFormat as cloudflare$$pipelines_ParquetFormat$,
   cloudflare$$pipelines_SourceField as cloudflare$$pipelines_SourceField$,
   cloudflare$$pipelines_StructField as cloudflare$$pipelines_StructField$,
   cloudflare$$pipelines_TimestampField as cloudflare$$pipelines_TimestampField$,
-  cloudflare$$pipelines_TimestampFormat as cloudflare$$pipelines_TimestampFormat$,
-  cloudflare$$pipelines_TimestampUnit as cloudflare$$pipelines_TimestampUnit$,
-  cloudflare$$pipelines_workers$$pipelines$$account$$id,
 } from "../schemas.js";
 import {
-  cloudflare$$pipelines_JsonCompression,
   cloudflare$$pipelines_SinkFormat,
   cloudflare$$pipelines_SinkJsonFormat,
   cloudflare$$pipelines_SinkParquetFormat,
@@ -43,13 +32,11 @@ import {
   cloudflare$$pipelines_r2_data_catalogTablePublic,
 } from "./outputs.js";
 import {
-  cloudflare$$pipelines_JsonCompression as cloudflare$$pipelines_JsonCompression$,
   cloudflare$$pipelines_SinkFormat as cloudflare$$pipelines_SinkFormat$,
   cloudflare$$pipelines_SinkJsonFormat as cloudflare$$pipelines_SinkJsonFormat$,
   cloudflare$$pipelines_SinkParquetFormat as cloudflare$$pipelines_SinkParquetFormat$,
   cloudflare$$pipelines_r2Table as cloudflare$$pipelines_r2Table$,
   cloudflare$$pipelines_r2_data_catalogTable as cloudflare$$pipelines_r2_data_catalogTable$,
-  cloudflare$$pipelines_workers$$pipelines$$sink$$id,
 } from "./schemas.js";
 
 /**
@@ -59,7 +46,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_sinks_create",
     title: "Create Sink",
-    description: "Create a new Sink.",
+    description: "Create a new Sink.\n\nPOST /accounts/{account_id}/pipelines/v1/sinks",
     inputSchema: {
       type: "object",
       properties: {
@@ -105,10 +92,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -120,14 +108,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema$,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding$,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType$,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression$,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat$,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField$,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression$,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat$,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat$,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat$,
@@ -135,11 +121,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField$,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField$,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField$,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat$,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit$,
         "cloudflare-pipelines_r2Table": cloudflare$$pipelines_r2Table$,
         "cloudflare-pipelines_r2_data_catalogTable": cloudflare$$pipelines_r2_data_catalogTable$,
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
       },
     },
     outputSchema: {
@@ -195,7 +178,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -205,12 +188,9 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
@@ -218,11 +198,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit,
         "cloudflare-pipelines_r2Table": cloudflare$$pipelines_r2Table,
         "cloudflare-pipelines_r2_data_catalogTable": cloudflare$$pipelines_r2_data_catalogTable,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     annotations: {
@@ -300,7 +277,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -313,12 +290,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
@@ -326,11 +300,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit,
         "cloudflare-pipelines_r2Table": cloudflare$$pipelines_r2Table,
         "cloudflare-pipelines_r2_data_catalogTable": cloudflare$$pipelines_r2_data_catalogTable,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     request: (args) => ({
@@ -341,19 +312,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_sinks_delete",
     title: "Delete Sink",
-    description: "Delete Sink in Account.",
+    description: "Delete Sink in Account.\n\nDELETE /accounts/{account_id}/pipelines/v1/sinks/{sink_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "sink_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-sink-id",
-              "description": "Specifies the publid ID of the sink."
+              "description": "Specifies the publid ID of the sink.",
+              "type": "string"
             }
           },
           "required": [
@@ -366,10 +338,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-        "cloudflare-pipelines_workers-pipelines-sink-id": cloudflare$$pipelines_workers$$pipelines$$sink$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -377,7 +346,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -385,9 +354,6 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -414,7 +380,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -425,9 +391,6 @@ export const tools: readonly Tool[] = [
         },
         "4XX": null
       },
-      $defs: {
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
-      },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/pipelines/v1/sinks/${pathParam(args, "sink_id")}`,
@@ -436,19 +399,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_sinks_get",
     title: "Get Sink Details",
-    description: "Get Sink Details.",
+    description: "Get Sink Details.\n\nGET /accounts/{account_id}/pipelines/v1/sinks/{sink_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             },
             "sink_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-sink-id",
-              "description": "Specifies the publid ID of the sink."
+              "description": "Specifies the publid ID of the sink.",
+              "type": "string"
             }
           },
           "required": [
@@ -461,10 +425,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-        "cloudflare-pipelines_workers-pipelines-sink-id": cloudflare$$pipelines_workers$$pipelines$$sink$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -519,7 +480,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -529,12 +490,9 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
@@ -542,11 +500,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit,
         "cloudflare-pipelines_r2TablePublic": cloudflare$$pipelines_r2TablePublic,
         "cloudflare-pipelines_r2_data_catalogTablePublic": cloudflare$$pipelines_r2_data_catalogTablePublic,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     annotations: {
@@ -625,7 +580,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -638,12 +593,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
@@ -651,11 +603,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit,
         "cloudflare-pipelines_r2TablePublic": cloudflare$$pipelines_r2TablePublic,
         "cloudflare-pipelines_r2_data_catalogTablePublic": cloudflare$$pipelines_r2_data_catalogTablePublic,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     request: (args) => ({
@@ -665,15 +614,16 @@ export const tools: readonly Tool[] = [
   {
     name: "pipelines_sinks_list",
     title: "List Sinks",
-    description: "List/Filter Sinks in Account.",
+    description: "List/Filter Sinks in Account.\n\nGET /accounts/{account_id}/pipelines/v1/sinks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
-              "description": "Specifies the public ID of the account."
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -682,6 +632,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -721,9 +672,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare$$pipelines_workers$$pipelines$$account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -804,7 +753,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "success": {
-          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+          "type": "boolean"
         }
       },
       "required": [
@@ -815,12 +764,9 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
@@ -828,11 +774,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit,
         "cloudflare-pipelines_r2TablePublic": cloudflare$$pipelines_r2TablePublic,
         "cloudflare-pipelines_r2_data_catalogTablePublic": cloudflare$$pipelines_r2_data_catalogTablePublic,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     annotations: {
@@ -937,7 +880,7 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             "success": {
-              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+              "type": "boolean"
             }
           },
           "required": [
@@ -951,12 +894,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare$$pipelines_DecimalEncoding,
         "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
-        "cloudflare-pipelines_JsonCompression": cloudflare$$pipelines_JsonCompression,
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
-        "cloudflare-pipelines_ParquetCompression": cloudflare$$pipelines_ParquetCompression,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
@@ -964,11 +904,8 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
-        "cloudflare-pipelines_TimestampFormat": cloudflare$$pipelines_TimestampFormat,
-        "cloudflare-pipelines_TimestampUnit": cloudflare$$pipelines_TimestampUnit,
         "cloudflare-pipelines_r2TablePublic": cloudflare$$pipelines_r2TablePublic,
         "cloudflare-pipelines_r2_data_catalogTablePublic": cloudflare$$pipelines_r2_data_catalogTablePublic,
-        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare$$pipelines_worker$$pipelines$$common$$success,
       },
     },
     request: (args) => ({

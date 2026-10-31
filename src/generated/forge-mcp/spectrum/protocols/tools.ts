@@ -9,10 +9,6 @@ import {
   spectrum$$config_messages,
 } from "../outputs.js";
 import {
-  spectrum$$config_identifier,
-  spectrum$$config_zone_identifier,
-} from "../schemas.js";
-import {
   spectrum$$config_app_protocol,
   spectrum$$config_protocol_collection,
 } from "./outputs.js";
@@ -24,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_protocols_list",
     title: "List Spectrum application protocols",
-    description: "Retrieves a list of Spectrum application protocols available for a zone.",
+    description: "Retrieves a list of Spectrum application protocols available for a zone.\n\nGET /zones/{zone_id}/spectrum/protocols",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/spectrum-config_zone_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,10 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_zone_identifier": spectrum$$config_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_protocol_collection",

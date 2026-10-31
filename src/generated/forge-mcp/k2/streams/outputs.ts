@@ -19,7 +19,7 @@ export const cloudflare$$k2_K2Stream: JsonSchema = {
       "$ref": "#/$defs/cloudflare-k2_K2StreamHttpInput"
     },
     "id": {
-      "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id"
+      "type": "string"
     },
     "modified_at": {
       "format": "date-time",
@@ -126,7 +126,7 @@ export const cloudflare$$k2_K2StreamListResponse: JsonSchema = {
       "type": "object"
     },
     "success": {
-      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+      "type": "boolean"
     }
   },
   "required": [
@@ -154,7 +154,7 @@ export const cloudflare$$k2_K2StreamResponse: JsonSchema = {
       "$ref": "#/$defs/cloudflare-k2_K2Stream"
     },
     "success": {
-      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+      "type": "boolean"
     }
   },
   "required": [
@@ -203,13 +203,6 @@ export const cloudflare$$k2_K2StreamWorkerBindingInput: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-k2_workers-k2-common-success` in responses.
- */
-export const cloudflare$$k2_workers$$k2$$common$$success: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `cloudflare-k2_workers-k2-messages` in responses.
  */
 export const cloudflare$$k2_workers$$k2$$messages: JsonSchema = {
@@ -228,11 +221,4 @@ export const cloudflare$$k2_workers$$k2$$messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `cloudflare-k2_workers-k2-stream-id` in responses.
- */
-export const cloudflare$$k2_workers$$k2$$stream$$id: JsonSchema = {
-  "type": "string"
 };

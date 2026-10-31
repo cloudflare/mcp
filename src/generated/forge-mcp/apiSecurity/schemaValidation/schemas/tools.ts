@@ -7,17 +7,7 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_messages,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../outputs.js";
-import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid as api$$shield_uuid$,
-  api$$shield_uuid$$2 as api$$shield_uuid$$2$,
-} from "../../../schemas.js";
 import { api$$shield_api$$response$$single } from "../../outputs.js";
 import {
   api$$shield_public_schema,
@@ -32,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_create",
     title: "Upload a schema",
-    description: "Uploads an OpenAPI schema that defines expected request formats for API operations.",
+    description: "Uploads an OpenAPI schema that defines expected request formats for API operations.\n\nPOST /zones/{zone_id}/schema_validation/schemas",
     inputSchema: {
       type: "object",
       properties: {
@@ -67,9 +57,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -82,10 +81,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -119,10 +115,6 @@ export const tools: readonly Tool[] = [
         "api-shield_public_schema": api$$shield_public_schema,
         "api-shield_public_schema_success_result": api$$shield_public_schema_success_result,
         "api-shield_schema_issue_notification": api$$shield_schema_issue_notification,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -204,10 +196,6 @@ export const tools: readonly Tool[] = [
         "api-shield_public_schema": api$$shield_public_schema,
         "api-shield_public_schema_success_result": api$$shield_public_schema_success_result,
         "api-shield_schema_issue_notification": api$$shield_schema_issue_notification,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -218,16 +206,25 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_delete",
     title: "Delete a schema",
-    description: "Permanently removes an uploaded OpenAPI schema from API Security. Operations using this schema will lose their validation rules.\n\nConfirm with the user before calling this tool. This operation permanently deletes the uploaded schema and removes its validation coverage.",
+    description: "Permanently removes an uploaded OpenAPI schema from API Security. Operations using this schema will lose their validation rules.\n\nConfirm with the user before calling this tool. This operation permanently deletes the uploaded schema and removes its validation coverage.\n\nDELETE /zones/{zone_id}/schema_validation/schemas/{schema_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "schema_id": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "description": "UUID.",
+                      "type": "string"
+                    }
+                  ]
                 },
                 {
                   "format": "uuid",
@@ -237,7 +234,15 @@ export const tools: readonly Tool[] = [
               "description": "The unique identifier of the schema"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -250,12 +255,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -345,16 +345,25 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_get",
     title: "Get details of a schema",
-    description: "Gets the contents and metadata of a specific OpenAPI schema uploaded to API Security.",
+    description: "Gets the contents and metadata of a specific OpenAPI schema uploaded to API Security.\n\nGET /zones/{zone_id}/schema_validation/schemas/{schema_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "schema_id": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "description": "UUID.",
+                      "type": "string"
+                    }
+                  ]
                 },
                 {
                   "format": "uuid",
@@ -364,7 +373,15 @@ export const tools: readonly Tool[] = [
               "description": "The unique identifier of the schema"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -374,6 +391,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "omit_source": {
               "default": false,
@@ -387,12 +405,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_public_schema_success_result",
@@ -401,10 +414,6 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api$$shield_messages,
         "api-shield_public_schema": api$$shield_public_schema,
         "api-shield_public_schema_success_result": api$$shield_public_schema_success_result,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -439,10 +448,6 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api$$shield_messages,
         "api-shield_public_schema": api$$shield_public_schema,
         "api-shield_public_schema_success_result": api$$shield_public_schema_success_result,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -455,14 +460,23 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_list",
     title: "List all uploaded schemas",
-    description: "Lists all OpenAPI schemas uploaded to API Security.",
+    description: "Lists all OpenAPI schemas uploaded to API Security.\n\nGET /zones/{zone_id}/schema_validation/schemas",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -471,6 +485,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "omit_source": {
               "default": false,
@@ -498,10 +513,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -528,10 +540,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_messages": api$$shield_messages,
         "api-shield_public_schema": api$$shield_public_schema,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -584,10 +592,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_messages": api$$shield_messages,
         "api-shield_public_schema": api$$shield_public_schema,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -603,7 +607,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_setValidation",
     title: "Set schema validation state",
-    description: "Enables or disables validation for an uploaded OpenAPI schema without changing the schema document.",
+    description: "Enables or disables validation for an uploaded OpenAPI schema without changing the schema document.\n\nPATCH /zones/{zone_id}/schema_validation/schemas/{schema_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -617,11 +621,20 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "schema_id": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "description": "UUID.",
+                      "type": "string"
+                    }
+                  ]
                 },
                 {
                   "format": "uuid",
@@ -631,7 +644,15 @@ export const tools: readonly Tool[] = [
               "description": "The unique identifier of the schema"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -645,12 +666,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_public_schema_success_result",
@@ -659,10 +675,6 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api$$shield_messages,
         "api-shield_public_schema": api$$shield_public_schema,
         "api-shield_public_schema_success_result": api$$shield_public_schema_success_result,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -695,10 +707,6 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api$$shield_messages,
         "api-shield_public_schema": api$$shield_public_schema,
         "api-shield_public_schema_success_result": api$$shield_public_schema_success_result,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

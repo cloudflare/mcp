@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_getRequestList",
     title: "List RFIs",
-    description: "Retrieves a paginated list of RFIs with filtering and sorting options.",
+    description: "Retrieves a paginated list of RFIs with filtering and sorting options.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -46,6 +47,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "accountId": {
               "type": "string"
@@ -106,6 +108,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -336,11 +339,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_getRequestRead",
     title: "Get an RFI by ID",
-    description: "Retrieves a specific RFI by its UUID with related data.",
+    description: "Retrieves a specific RFI by its UUID with related data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -380,6 +384,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -857,7 +862,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_postRequestCreate",
     title: "Creates a new RFI",
-    description: "Creates a new Request for Information with the specified project type and details.",
+    description: "Creates a new Request for Information with the specified project type and details.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
     inputSchema: {
       type: "object",
       properties: {
@@ -939,6 +944,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -973,6 +979,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1450,7 +1457,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_putRequestUpdate",
     title: "Update an RFI",
-    description: "Updates an existing RFI with the provided fields. Only provided fields will be updated.",
+    description: "Updates an existing RFI with the provided fields. Only provided fields will be updated.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1511,6 +1518,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -1550,6 +1558,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

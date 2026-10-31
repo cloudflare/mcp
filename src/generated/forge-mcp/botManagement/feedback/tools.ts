@@ -6,10 +6,8 @@ import {
   bot$$management_api$$response$$common$$failure,
   bot$$management_messages,
 } from "../outputs.js";
-import { bot$$management_identifier } from "../schemas.js";
 import {
   bot$$management_feedback_report,
-  bot$$management_feedback_type,
   bot$$management_metric_requests,
   bot$$management_requests_by_attribute,
   bot$$management_requests_by_score,
@@ -17,7 +15,6 @@ import {
 } from "./outputs.js";
 import {
   bot$$management_feedback_report as bot$$management_feedback_report$,
-  bot$$management_feedback_type as bot$$management_feedback_type$,
   bot$$management_metric_requests as bot$$management_metric_requests$,
   bot$$management_requests_by_attribute as bot$$management_requests_by_attribute$,
   bot$$management_requests_by_score as bot$$management_requests_by_score$,
@@ -31,7 +28,7 @@ export const tools: readonly Tool[] = [
   {
     name: "botManagement_feedback_create",
     title: "Submit a feedback report",
-    description: "Submit a feedback report for the specified zone. Use `type` to indicate whether the report is a false positive (good traffic flagged as bot) or a false negative (bot traffic missed). Furthermore, you can also use `expression` as a wirefilter to identify the affected traffic sample.\n\nSee more accepted API fields and expression types at https://developers.cloudflare.com/bots/concepts/feedback-loop/#api-fields and https://developers.cloudflare.com/bots/concepts/feedback-loop/#expression-fields, respectively.",
+    description: "Submit a feedback report for the specified zone. Use `type` to indicate whether the report is a false positive (good traffic flagged as bot) or a false negative (bot traffic missed). Furthermore, you can also use `expression` as a wirefilter to identify the affected traffic sample.\n\nSee more accepted API fields and expression types at https://developers.cloudflare.com/bots/concepts/feedback-loop/#api-fields and https://developers.cloudflare.com/bots/concepts/feedback-loop/#expression-fields, respectively.\n\nPOST /zones/{zone_id}/bot_management/feedback",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,10 +36,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bot-management_feedback_report"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/bot-management_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +53,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "bot-management_feedback_report": bot$$management_feedback_report$,
-        "bot-management_feedback_type": bot$$management_feedback_type$,
-        "bot-management_identifier": bot$$management_identifier,
         "bot-management_metric_requests": bot$$management_metric_requests$,
         "bot-management_requests_by_attribute": bot$$management_requests_by_attribute$,
         "bot-management_requests_by_score": bot$$management_requests_by_score$,
@@ -108,15 +105,16 @@ export const tools: readonly Tool[] = [
   {
     name: "botManagement_feedback_list",
     title: "List zone feedback reports",
-    description: "Returns all feedback reports previously submitted for the specified zone. Feedback reports help improve detection by sharing samples of traffic that were misclassified as bots or humans.",
+    description: "Returns all feedback reports previously submitted for the specified zone. Feedback reports help improve detection by sharing samples of traffic that were misclassified as bots or humans.\n\nGET /zones/{zone_id}/bot_management/feedback",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/bot-management_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -128,9 +126,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bot-management_identifier": bot$$management_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -139,7 +135,6 @@ export const tools: readonly Tool[] = [
       "type": "array",
       $defs: {
         "bot-management_feedback_report": bot$$management_feedback_report,
-        "bot-management_feedback_type": bot$$management_feedback_type,
         "bot-management_metric_requests": bot$$management_metric_requests,
         "bot-management_requests_by_attribute": bot$$management_requests_by_attribute,
         "bot-management_requests_by_score": bot$$management_requests_by_score,
@@ -184,7 +179,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "bot-management_api-response-common-failure": bot$$management_api$$response$$common$$failure,
         "bot-management_feedback_report": bot$$management_feedback_report,
-        "bot-management_feedback_type": bot$$management_feedback_type,
         "bot-management_messages": bot$$management_messages,
         "bot-management_metric_requests": bot$$management_metric_requests,
         "bot-management_requests_by_attribute": bot$$management_requests_by_attribute,

@@ -12,11 +12,11 @@ export const vectorize_create$$index$$request: JsonSchema = {
       "$ref": "#/$defs/vectorize_index-configuration"
     },
     "description": {
-      "$ref": "#/$defs/vectorize_index-description",
-      "description": "Specifies the description of the index."
+      "description": "Specifies the description of the index.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/vectorize_index-name"
+      "type": "string"
     }
   },
   "required": [
@@ -24,14 +24,6 @@ export const vectorize_create$$index$$request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `vectorize_identifier`.
- */
-export const vectorize_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
 };
 
 /**
@@ -57,7 +49,8 @@ export const vectorize_index$$delete$$vectors$$by$$id$$request: JsonSchema = {
     "ids": {
       "description": "A list of vector identifiers to delete from the index indicated by the path.",
       "items": {
-        "$ref": "#/$defs/vectorize_vector-identifier"
+        "description": "Identifier for a Vector",
+        "type": "string"
       },
       "type": "array"
     }
@@ -66,25 +59,22 @@ export const vectorize_index$$delete$$vectors$$by$$id$$request: JsonSchema = {
 };
 
 /**
- * The schema of `vectorize_index-description`.
- */
-export const vectorize_index$$description: JsonSchema = {
-  "description": "Specifies the description of the index.",
-  "type": "string"
-};
-
-/**
  * The schema of `vectorize_index-dimension-configuration`.
  */
 export const vectorize_index$$dimension$$configuration: JsonSchema = {
   "properties": {
     "dimensions": {
-      "$ref": "#/$defs/vectorize_index-dimensions",
-      "description": "Specifies the number of dimensions for the index"
+      "description": "Specifies the number of dimensions for the index",
+      "type": "integer"
     },
     "metric": {
-      "$ref": "#/$defs/vectorize_index-metric",
-      "description": "Specifies the type of metric to use calculating distance."
+      "description": "Specifies the type of metric to use calculating distance.",
+      "enum": [
+        "cosine",
+        "euclidean",
+        "dot-product"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -95,14 +85,6 @@ export const vectorize_index$$dimension$$configuration: JsonSchema = {
 };
 
 /**
- * The schema of `vectorize_index-dimensions`.
- */
-export const vectorize_index$$dimensions: JsonSchema = {
-  "description": "Specifies the number of dimensions for the index",
-  "type": "integer"
-};
-
-/**
  * The schema of `vectorize_index-get-vectors-by-id-request`.
  */
 export const vectorize_index$$get$$vectors$$by$$id$$request: JsonSchema = {
@@ -110,7 +92,8 @@ export const vectorize_index$$get$$vectors$$by$$id$$request: JsonSchema = {
     "ids": {
       "description": "A list of vector identifiers to retrieve from the index indicated by the path.",
       "items": {
-        "$ref": "#/$defs/vectorize_vector-identifier"
+        "description": "Identifier for a Vector",
+        "type": "string"
       },
       "type": "array"
     }
@@ -119,48 +102,20 @@ export const vectorize_index$$get$$vectors$$by$$id$$request: JsonSchema = {
 };
 
 /**
- * The schema of `vectorize_index-metric`.
- */
-export const vectorize_index$$metric: JsonSchema = {
-  "description": "Specifies the type of metric to use calculating distance.",
-  "enum": [
-    "cosine",
-    "euclidean",
-    "dot-product"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `vectorize_index-name`.
- */
-export const vectorize_index$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `vectorize_index-preset`.
- */
-export const vectorize_index$$preset: JsonSchema = {
-  "description": "Specifies the preset to use for the index.",
-  "enum": [
-    "@cf/baai/bge-small-en-v1.5",
-    "@cf/baai/bge-base-en-v1.5",
-    "@cf/baai/bge-large-en-v1.5",
-    "openai/text-embedding-ada-002",
-    "cohere/embed-multilingual-v2.0"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `vectorize_index-preset-configuration`.
  */
 export const vectorize_index$$preset$$configuration: JsonSchema = {
   "properties": {
     "preset": {
-      "$ref": "#/$defs/vectorize_index-preset",
-      "description": "Specifies the preset to use for the index."
+      "description": "Specifies the preset to use for the index.",
+      "enum": [
+        "@cf/baai/bge-small-en-v1.5",
+        "@cf/baai/bge-base-en-v1.5",
+        "@cf/baai/bge-large-en-v1.5",
+        "openai/text-embedding-ada-002",
+        "cohere/embed-multilingual-v2.0"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -210,12 +165,4 @@ export const vectorize_index$$query$$v2$$request: JsonSchema = {
     "vector"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `vectorize_vector-identifier`.
- */
-export const vectorize_vector$$identifier: JsonSchema = {
-  "description": "Identifier for a Vector",
-  "type": "string"
 };

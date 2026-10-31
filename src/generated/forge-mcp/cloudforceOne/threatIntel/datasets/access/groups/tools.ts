@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_create",
     title: "Create an account group",
-    description: "Creates a named group of accounts. To give the group access to a dataset, use `threat-intel datasets access permissions create`.",
+    description: "Creates a named group of accounts. To give the group access to a dataset, use `threat-intel datasets access permissions create`.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/-/groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,6 +30,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -45,6 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -161,11 +163,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_delete",
     title: "Delete an account group",
-    description: "Deletes an account group by its ID.",
+    description: "Deletes an account group by its ID.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/-/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -185,6 +188,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -263,11 +267,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_get",
     title: "Get an account group",
-    description: "Returns an account group by its ID.",
+    description: "Returns an account group by its ID.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/-/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -287,6 +292,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -462,11 +468,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_list",
     title: "List account groups",
-    description: "Lists the account groups. A group is a set of accounts that can be given access to a dataset with `threat-intel datasets access permissions create`.",
+    description: "Lists the account groups. A group is a set of accounts that can be given access to a dataset with `threat-intel datasets access permissions create`.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/-/groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -482,6 +489,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -603,7 +611,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_groups_update",
     title: "Update an account group",
-    description: "Replaces an account group's `name` and `description`.",
+    description: "Replaces an account group's `name` and `description`.\n\nPUT /accounts/{account_id}/cloudforce-one/events/dataset/-/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -623,6 +631,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -642,6 +651,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

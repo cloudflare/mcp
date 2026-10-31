@@ -43,28 +43,21 @@ export const lists_item$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `lists_item_asn` in responses.
- */
-export const lists_item_asn: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `lists_item_base` in responses.
  */
 export const lists_item_base: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/lists_item_comment"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/lists_created_on"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/lists_item_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/lists_modified_on"
+      "type": "string"
     }
   },
   "required": [
@@ -73,13 +66,6 @@ export const lists_item_base: JsonSchema = {
     "modified_on"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `lists_item_comment` in responses.
- */
-export const lists_item_comment: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -98,20 +84,6 @@ export const lists_item_hostname: JsonSchema = {
     "url_hostname"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `lists_item_id` in responses.
- */
-export const lists_item_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `lists_item_ip` in responses.
- */
-export const lists_item_ip: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -219,7 +191,7 @@ export const lists_list_item_asn_full: JsonSchema = {
 export const lists_list_item_asn_object: JsonSchema = {
   "properties": {
     "asn": {
-      "$ref": "#/$defs/lists_item_asn"
+      "type": "integer"
     }
   },
   "required": [
@@ -277,7 +249,7 @@ export const lists_list_item_ip_full: JsonSchema = {
 export const lists_list_item_ip_object: JsonSchema = {
   "properties": {
     "ip": {
-      "$ref": "#/$defs/lists_item_ip"
+      "type": "string"
     }
   },
   "required": [
@@ -325,7 +297,7 @@ export const lists_lists$$async$$response: JsonSchema = {
         "result": {
           "properties": {
             "operation_id": {
-              "$ref": "#/$defs/lists_operation_id"
+              "type": "string"
             }
           },
           "required": [

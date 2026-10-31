@@ -26,7 +26,7 @@ export const snippets_SnippetRules: JsonSchema = {
         "type": "string"
       },
       "snippet_name": {
-        "$ref": "#/$defs/snippets_SnippetName"
+        "type": "string"
       }
     },
     "required": [

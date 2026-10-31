@@ -42,23 +42,3 @@ export const infra_IPInfo: JsonSchema = {
   },
   "type": "object"
 };
-
-/**
- * The schema of `infra_SortingDirection`.
- */
-export const infra_SortingDirection: JsonSchema = {
-  "enum": [
-    "asc",
-    "desc"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `infra_TargetId`.
- */
-export const infra_TargetId: JsonSchema = {
-  "description": "Target identifier",
-  "format": "uuid",
-  "type": "string"
-};

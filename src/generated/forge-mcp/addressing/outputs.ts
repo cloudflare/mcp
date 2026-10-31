@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `addressing_account_identifier` in responses.
- */
-export const addressing_account_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_api-response-collection` in responses.
  */
 export const addressing_api$$response$$collection: JsonSchema = {
@@ -129,20 +122,6 @@ export const addressing_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `addressing_loa_document_identifier` in responses.
- */
-export const addressing_loa_document_identifier: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `addressing_messages` in responses.
  */
 export const addressing_messages: JsonSchema = {
@@ -173,26 +152,4 @@ export const addressing_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `addressing_service_identifier` in responses.
- */
-export const addressing_service_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_service_name` in responses.
- */
-export const addressing_service_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_timestamp` in responses.
- */
-export const addressing_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

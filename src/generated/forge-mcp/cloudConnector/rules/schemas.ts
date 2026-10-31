@@ -4,29 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `cloud-connector_identifier`.
- */
-export const cloud$$connector_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `cloud-connector_provider`.
- */
-export const cloud$$connector_provider: JsonSchema = {
-  "description": "Cloud Provider type",
-  "enum": [
-    "aws_s3",
-    "cloudflare_r2",
-    "gcp_storage",
-    "azure_storage",
-    "oci_storage"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cloud-connector_rule`.
  */
 export const cloud$$connector_rule: JsonSchema = {
@@ -54,8 +31,15 @@ export const cloud$$connector_rule: JsonSchema = {
       "type": "object"
     },
     "provider": {
-      "$ref": "#/$defs/cloud-connector_provider",
-      "description": "Cloud Provider type"
+      "description": "Cloud Provider type",
+      "enum": [
+        "aws_s3",
+        "cloudflare_r2",
+        "gcp_storage",
+        "azure_storage",
+        "oci_storage"
+      ],
+      "type": "string"
     }
   },
   "type": "object"

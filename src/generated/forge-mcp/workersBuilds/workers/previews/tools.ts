@@ -5,74 +5,28 @@ import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   builds_APIResponse,
   builds_ApiError,
-  builds_BuildOutcome,
   builds_BuildResponse,
-  builds_BuildStatus,
   builds_BuildTriggerMetadataResponse,
-  builds_BuildTriggerSource,
   builds_EnvironmentVariablesResponse,
   builds_ErrorResponse,
   builds_PaginationInfo,
-  builds_SCMProviderType,
   builds_UpsertRepoConnectionResponse,
   builds_WorkerBuildSettings,
-  builds_branch,
   builds_branch_excludes,
   builds_branch_includes,
-  builds_build_caching_enabled,
-  builds_build_command,
-  builds_build_token_name,
-  builds_build_token_uuid,
-  builds_build_uuid,
-  builds_commit_hash,
-  builds_created_on,
-  builds_deleted_on,
-  builds_deploy_command,
-  builds_deploy_hook_name,
-  builds_external_script_id,
-  builds_is_secret,
-  builds_modified_on,
   builds_path_excludes,
   builds_path_includes,
-  builds_provider_account_id,
-  builds_provider_account_name,
-  builds_repo_connection_uuid,
-  builds_repo_id,
-  builds_repo_name,
-  builds_root_directory,
-  builds_stopped_on,
-  builds_trigger_name,
-  builds_trigger_uuid,
 } from "../../../outputs.js";
 import {
   builds_BuildSeedRepoInput,
   builds_BuildSeedRepoInputFile,
   builds_CreateBuildRequest,
   builds_UpdateWorkerBuildSettingsInput,
-  builds_account_id,
-  builds_branch as builds_branch$,
-  builds_build_caching_enabled as builds_build_caching_enabled$,
-  builds_build_command as builds_build_command$,
-  builds_build_token_uuid as builds_build_token_uuid$,
-  builds_commit_hash as builds_commit_hash$,
-  builds_deploy_command as builds_deploy_command$,
-  builds_external_script_id as builds_external_script_id$,
-  builds_is_secret as builds_is_secret$,
   builds_path_excludes as builds_path_excludes$,
   builds_path_includes as builds_path_includes$,
-  builds_root_directory as builds_root_directory$,
 } from "../../../schemas.js";
-import {
-  builds_PreviewResponse,
-  builds_PreviewSummary,
-  builds_preview_auto_build,
-  builds_preview_auto_delete,
-} from "./outputs.js";
-import {
-  builds_UpdatePreviewRequest,
-  builds_preview_auto_build as builds_preview_auto_build$,
-  builds_preview_auto_delete as builds_preview_auto_delete$,
-} from "./schemas.js";
+import { builds_PreviewResponse, builds_PreviewSummary } from "./outputs.js";
+import { builds_UpdatePreviewRequest } from "./schemas.js";
 
 /**
  * The tools of `workersBuilds.workers.previews`.
@@ -81,7 +35,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersBuilds_workers_previews_createBuild",
     title: "Create preview build",
-    description: "Trigger a build for a single Preview.",
+    description: "Trigger a build for a single Preview.\n\nPOST /accounts/{account_id}/builds/workers/{script_tag}/previews/{preview_id}/builds",
     inputSchema: {
       type: "object",
       properties: {
@@ -89,18 +43,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_CreateBuildRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "preview_id": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The script tag of the Preview, which is a Worker in its own right"
+              "description": "The script tag of the Preview, which is a Worker in its own right",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -115,14 +70,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_BuildSeedRepoInput": builds_BuildSeedRepoInput,
         "builds_BuildSeedRepoInputFile": builds_BuildSeedRepoInputFile,
         "builds_CreateBuildRequest": builds_CreateBuildRequest,
-        "builds_account_id": builds_account_id,
-        "builds_branch": builds_branch$,
-        "builds_commit_hash": builds_commit_hash$,
-        "builds_external_script_id": builds_external_script_id$,
       },
     },
     outputSchema: {
@@ -142,40 +94,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
-        "builds_BuildOutcome": builds_BuildOutcome,
         "builds_BuildResponse": builds_BuildResponse,
-        "builds_BuildStatus": builds_BuildStatus,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
-        "builds_BuildTriggerSource": builds_BuildTriggerSource,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch": builds_branch,
         "builds_branch_excludes": builds_branch_excludes,
         "builds_branch_includes": builds_branch_includes,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_commit_hash": builds_commit_hash,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_modified_on": builds_modified_on,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
-        "builds_stopped_on": builds_stopped_on,
-        "builds_trigger_name": builds_trigger_name,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     annotations: {
@@ -222,41 +148,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
-        "builds_BuildOutcome": builds_BuildOutcome,
         "builds_BuildResponse": builds_BuildResponse,
-        "builds_BuildStatus": builds_BuildStatus,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
-        "builds_BuildTriggerSource": builds_BuildTriggerSource,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch": builds_branch,
         "builds_branch_excludes": builds_branch_excludes,
         "builds_branch_includes": builds_branch_includes,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_commit_hash": builds_commit_hash,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_modified_on": builds_modified_on,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
-        "builds_stopped_on": builds_stopped_on,
-        "builds_trigger_name": builds_trigger_name,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     request: (args) => ({
@@ -267,7 +167,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersBuilds_workers_previews_edit",
     title: "Update preview",
-    description: "Update a single Preview of a Worker. Supports partial updates to the tracked branch, the automation flags, and the build settings.",
+    description: "Update a single Preview of a Worker. Supports partial updates to the tracked branch, the automation flags, and the build settings.\n\nPATCH /accounts/{account_id}/builds/workers/{script_tag}/previews/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -275,18 +175,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_UpdatePreviewRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "preview_id": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The script tag of the Preview, which is a Worker in its own right"
+              "description": "The script tag of the Preview, which is a Worker in its own right",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -301,21 +202,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_UpdatePreviewRequest": builds_UpdatePreviewRequest,
         "builds_UpdateWorkerBuildSettingsInput": builds_UpdateWorkerBuildSettingsInput,
-        "builds_account_id": builds_account_id,
-        "builds_build_caching_enabled": builds_build_caching_enabled$,
-        "builds_build_command": builds_build_command$,
-        "builds_build_token_uuid": builds_build_token_uuid$,
-        "builds_deploy_command": builds_deploy_command$,
-        "builds_external_script_id": builds_external_script_id$,
-        "builds_is_secret": builds_is_secret$,
         "builds_path_excludes": builds_path_excludes$,
         "builds_path_includes": builds_path_includes$,
-        "builds_preview_auto_build": builds_preview_auto_build$,
-        "builds_preview_auto_delete": builds_preview_auto_delete$,
-        "builds_root_directory": builds_root_directory$,
       },
     },
     outputSchema: {
@@ -339,19 +231,8 @@ export const tools: readonly Tool[] = [
         "builds_PaginationInfo": builds_PaginationInfo,
         "builds_PreviewResponse": builds_PreviewResponse,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
-        "builds_branch": builds_branch,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_preview_auto_build": builds_preview_auto_build,
-        "builds_preview_auto_delete": builds_preview_auto_delete,
-        "builds_root_directory": builds_root_directory,
       },
     },
     annotations: {
@@ -406,19 +287,8 @@ export const tools: readonly Tool[] = [
         "builds_PaginationInfo": builds_PaginationInfo,
         "builds_PreviewResponse": builds_PreviewResponse,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
-        "builds_branch": builds_branch,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_preview_auto_build": builds_preview_auto_build,
-        "builds_preview_auto_delete": builds_preview_auto_delete,
-        "builds_root_directory": builds_root_directory,
       },
     },
     request: (args) => ({
@@ -429,23 +299,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersBuilds_workers_previews_get",
     title: "Get preview",
-    description: "Retrieve a single Preview of a Worker, including the build settings it currently uses.",
+    description: "Retrieve a single Preview of a Worker, including the build settings it currently uses.\n\nGET /accounts/{account_id}/builds/workers/{script_tag}/previews/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "preview_id": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The script tag of the Preview, which is a Worker in its own right"
+              "description": "The script tag of the Preview, which is a Worker in its own right",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -459,10 +330,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_external_script_id": builds_external_script_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -485,19 +353,8 @@ export const tools: readonly Tool[] = [
         "builds_PaginationInfo": builds_PaginationInfo,
         "builds_PreviewResponse": builds_PreviewResponse,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
-        "builds_branch": builds_branch,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_preview_auto_build": builds_preview_auto_build,
-        "builds_preview_auto_delete": builds_preview_auto_delete,
-        "builds_root_directory": builds_root_directory,
       },
     },
     annotations: {
@@ -547,19 +404,8 @@ export const tools: readonly Tool[] = [
         "builds_PaginationInfo": builds_PaginationInfo,
         "builds_PreviewResponse": builds_PreviewResponse,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
-        "builds_branch": builds_branch,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_created_on": builds_created_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_is_secret": builds_is_secret,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_preview_auto_build": builds_preview_auto_build,
-        "builds_preview_auto_delete": builds_preview_auto_delete,
-        "builds_root_directory": builds_root_directory,
       },
     },
     request: (args) => ({
@@ -569,19 +415,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workersBuilds_workers_previews_list",
     title: "List previews",
-    description: "List the Previews of a Worker with pagination.",
+    description: "List the Previews of a Worker with pagination.\n\nGET /accounts/{account_id}/builds/workers/{script_tag}/previews",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -591,6 +438,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -609,10 +457,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_external_script_id": builds_external_script_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -639,10 +484,6 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_PaginationInfo": builds_PaginationInfo,
         "builds_PreviewSummary": builds_PreviewSummary,
-        "builds_branch": builds_branch,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_preview_auto_build": builds_preview_auto_build,
-        "builds_preview_auto_delete": builds_preview_auto_delete,
       },
     },
     annotations: {
@@ -693,10 +534,6 @@ export const tools: readonly Tool[] = [
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
         "builds_PreviewSummary": builds_PreviewSummary,
-        "builds_branch": builds_branch,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_preview_auto_build": builds_preview_auto_build,
-        "builds_preview_auto_delete": builds_preview_auto_delete,
       },
     },
     request: (args) => ({
@@ -710,23 +547,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersBuilds_workers_previews_listBuilds",
     title: "List builds by preview",
-    description: "List the builds of a single Preview with pagination.",
+    description: "List the builds of a single Preview with pagination.\n\nGET /accounts/{account_id}/builds/workers/{script_tag}/previews/{preview_id}/builds",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "preview_id": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The script tag of the Preview, which is a Worker in its own right"
+              "description": "The script tag of the Preview, which is a Worker in its own right",
+              "type": "string"
             },
             "script_tag": {
-              "$ref": "#/$defs/builds_external_script_id",
-              "description": "The Worker script tag (external script ID)"
+              "description": "The Worker script tag (external script ID)",
+              "type": "string"
             }
           },
           "required": [
@@ -737,6 +575,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -755,10 +594,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_external_script_id": builds_external_script_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -783,40 +619,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
-        "builds_BuildOutcome": builds_BuildOutcome,
         "builds_BuildResponse": builds_BuildResponse,
-        "builds_BuildStatus": builds_BuildStatus,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
-        "builds_BuildTriggerSource": builds_BuildTriggerSource,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch": builds_branch,
         "builds_branch_excludes": builds_branch_excludes,
         "builds_branch_includes": builds_branch_includes,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_commit_hash": builds_commit_hash,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_modified_on": builds_modified_on,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
-        "builds_stopped_on": builds_stopped_on,
-        "builds_trigger_name": builds_trigger_name,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     annotations: {
@@ -867,41 +677,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
-        "builds_BuildOutcome": builds_BuildOutcome,
         "builds_BuildResponse": builds_BuildResponse,
-        "builds_BuildStatus": builds_BuildStatus,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
-        "builds_BuildTriggerSource": builds_BuildTriggerSource,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch": builds_branch,
         "builds_branch_excludes": builds_branch_excludes,
         "builds_branch_includes": builds_branch_includes,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
-        "builds_build_command": builds_build_command,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_commit_hash": builds_commit_hash,
-        "builds_created_on": builds_created_on,
-        "builds_deleted_on": builds_deleted_on,
-        "builds_deploy_command": builds_deploy_command,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_external_script_id": builds_external_script_id,
-        "builds_modified_on": builds_modified_on,
         "builds_path_excludes": builds_path_excludes,
         "builds_path_includes": builds_path_includes,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
-        "builds_root_directory": builds_root_directory,
-        "builds_stopped_on": builds_stopped_on,
-        "builds_trigger_name": builds_trigger_name,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     request: (args) => ({

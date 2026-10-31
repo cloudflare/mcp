@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_skills_get",
     title: "Get Threat Signals feed skills",
-    description: "Retrieves active non-IOC-context Managed Default Skills followed by active Custom Skills assigned to the feed, with each entry's source. Free Threat Signals accounts receive only those Managed Default Skills.",
+    description: "Retrieves active non-IOC-context Managed Default Skills followed by active Custom Skills assigned to the feed, with each entry's source. Free Threat Signals accounts receive only those Managed Default Skills.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}/skills",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -375,7 +377,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_feeds_skills_update",
     title: "Set Threat Signals feed skills",
-    description: "Replaces the ordered custom skills assigned to a Threat Signals feed. Requires a paid Threat Signals subscription.",
+    description: "Replaces the ordered custom skills assigned to a Threat Signals feed. Requires a paid Threat Signals subscription.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}/skills",
     inputSchema: {
       type: "object",
       properties: {
@@ -397,6 +399,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -417,6 +420,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

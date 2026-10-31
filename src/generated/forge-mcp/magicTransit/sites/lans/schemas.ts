@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic_bond_id`.
- */
-export const magic_bond_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `magic_dhcp_option`.
  */
 export const magic_dhcp_option: JsonSchema = {
@@ -21,7 +14,7 @@ export const magic_dhcp_option: JsonSchema = {
       "type": "integer"
     },
     "type": {
-      "description": "The type of the option value. text: a string (max 255 bytes). hex: colon-separated hex bytes (e.g. \"01:04:aa:bb:cc\", max 255 bytes). ip: an IPv4 address (e.g. \"10.20.30.40\"). byte: an unsigned integer 0-255 (1 byte). short: an unsigned integer 0-65535 (2 bytes). integer: an unsigned integer 0-4294967295 (4 bytes).\n",
+      "description": "The type of the option value. text: a string (max 255 bytes). hex: colon-separated hex bytes (e.g. \"01:04:aa:bb:cc\", max 255 bytes). ip: an IPv4 address (e.g. \"10.20.30.40\"). byte: an unsigned integer 0-255 (1 byte). short: an unsigned integer 0-65535 (2 bytes). integer: an unsigned integer 0-4294967295 (4 bytes).",
       "enum": [
         "text",
         "hex",
@@ -53,7 +46,8 @@ export const magic_lan_dhcp_relay: JsonSchema = {
     "server_addresses": {
       "description": "List of DHCP server IPs.",
       "items": {
-        "$ref": "#/$defs/magic_ip-address"
+        "description": "A valid IPv4 address.",
+        "type": "string"
       },
       "type": "array"
     }
@@ -74,20 +68,22 @@ export const magic_lan_dhcp_server: JsonSchema = {
       "type": "array"
     },
     "dhcp_pool_end": {
-      "$ref": "#/$defs/magic_ip-address",
-      "description": "A valid IPv4 address."
+      "description": "A valid IPv4 address.",
+      "type": "string"
     },
     "dhcp_pool_start": {
-      "$ref": "#/$defs/magic_ip-address",
-      "description": "A valid IPv4 address."
+      "description": "A valid IPv4 address.",
+      "type": "string"
     },
     "dns_server": {
-      "$ref": "#/$defs/magic_ip-address",
-      "deprecated": true
+      "deprecated": true,
+      "description": "A valid IPv4 address.",
+      "type": "string"
     },
     "dns_servers": {
       "items": {
-        "$ref": "#/$defs/magic_ip-address"
+        "description": "A valid IPv4 address.",
+        "type": "string"
       },
       "type": "array"
     },
@@ -109,8 +105,8 @@ export const magic_lan_static_addressing: JsonSchema = {
   "description": "If the site is not configured in high availability mode, this configuration is optional (if omitted, use DHCP). However, if in high availability mode, static_address is required along with secondary and virtual address.",
   "properties": {
     "address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "dhcp_relay": {
       "$ref": "#/$defs/magic_lan_dhcp_relay"
@@ -119,12 +115,12 @@ export const magic_lan_static_addressing: JsonSchema = {
       "$ref": "#/$defs/magic_lan_dhcp_server"
     },
     "secondary_address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "virtual_address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     }
   },
   "required": [
@@ -139,7 +135,7 @@ export const magic_lan_static_addressing: JsonSchema = {
 export const magic_lan_update_request: JsonSchema = {
   "properties": {
     "bond_id": {
-      "$ref": "#/$defs/magic_bond_id"
+      "type": "integer"
     },
     "ha_link": {
       "description": "mark true to use this LAN for HA probing. only works for site with HA turned on. only one LAN can be set as the ha_link.",
@@ -160,7 +156,7 @@ export const magic_lan_update_request: JsonSchema = {
       "$ref": "#/$defs/magic_nat"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "remote_subnets": {
       "items": {
@@ -179,8 +175,8 @@ export const magic_lan_update_request: JsonSchema = {
       "description": "If the site is not configured in high availability mode, this configuration is optional (if omitted, use DHCP). However, if in high availability mode, static_address is required along with secondary and virtual address."
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag",
-      "description": "VLAN ID. Use zero for untagged."
+      "description": "VLAN ID. Use zero for untagged.",
+      "type": "integer"
     }
   },
   "type": "object"
@@ -192,7 +188,7 @@ export const magic_lan_update_request: JsonSchema = {
 export const magic_lans_add_single_request: JsonSchema = {
   "properties": {
     "bond_id": {
-      "$ref": "#/$defs/magic_bond_id"
+      "type": "integer"
     },
     "ha_link": {
       "description": "mark true to use this LAN for HA probing. only works for site with HA turned on. only one LAN can be set as the ha_link.",
@@ -213,7 +209,7 @@ export const magic_lans_add_single_request: JsonSchema = {
       "$ref": "#/$defs/magic_nat"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "remote_subnets": {
       "items": {
@@ -232,8 +228,8 @@ export const magic_lans_add_single_request: JsonSchema = {
       "description": "If the site is not configured in high availability mode, this configuration is optional (if omitted, use DHCP). However, if in high availability mode, static_address is required along with secondary and virtual address."
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag",
-      "description": "VLAN ID. Use zero for untagged."
+      "description": "VLAN ID. Use zero for untagged.",
+      "type": "integer"
     }
   },
   "type": "object"
@@ -245,8 +241,8 @@ export const magic_lans_add_single_request: JsonSchema = {
 export const magic_nat: JsonSchema = {
   "properties": {
     "static_prefix": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -259,12 +255,12 @@ export const magic_remote_subnet: JsonSchema = {
   "description": "A remote subnet reachable through Cloudflare that is addressed from this LAN by a local alias prefix of the same size. The local alias prefix must not overlap other subnets on the LAN, and the remote prefix must not overlap other remote prefixes on the LAN.",
   "properties": {
     "local_alias_prefix": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "remote_prefix": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     }
   },
   "required": [
@@ -283,12 +279,12 @@ export const magic_routed_subnet: JsonSchema = {
       "$ref": "#/$defs/magic_nat"
     },
     "next_hop": {
-      "$ref": "#/$defs/magic_ip-address",
-      "description": "A valid IPv4 address."
+      "description": "A valid IPv4 address.",
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     }
   },
   "required": [

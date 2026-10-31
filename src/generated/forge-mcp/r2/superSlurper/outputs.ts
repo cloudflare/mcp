@@ -4,19 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `r2-slurper_Jurisdiction` in responses.
- */
-export const r2$$slurper_Jurisdiction: JsonSchema = {
-  "enum": [
-    "default",
-    "eu",
-    "us",
-    "fedramp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2-slurper_api-v4-error` in responses.
  */
 export const r2$$slurper_api$$v4$$error: JsonSchema = {

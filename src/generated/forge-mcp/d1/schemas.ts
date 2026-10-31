@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `d1_account-identifier`.
- */
-export const d1_account$$identifier: JsonSchema = {
-  "description": "Account identifier tag.",
-  "type": "string"
-};
-
-/**
  * The schema of `d1_batch-query`.
  */
 export const d1_batch$$query: JsonSchema = {
@@ -35,22 +27,6 @@ export const d1_batch$$query: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `d1_database-identifier`.
- */
-export const d1_database$$identifier: JsonSchema = {
-  "description": "D1 database identifier (UUID).",
-  "type": "string"
-};
-
-/**
- * The schema of `d1_database-name`.
- */
-export const d1_database$$name: JsonSchema = {
-  "description": "D1 database name.",
-  "type": "string"
 };
 
 /**
@@ -83,19 +59,6 @@ export const d1_database$$update$$request$$body: JsonSchema = {
 };
 
 /**
- * The schema of `d1_jurisdiction`.
- */
-export const d1_jurisdiction: JsonSchema = {
-  "description": "Specify the location to restrict the D1 database to run and store data. If this option is present, the location hint is ignored.",
-  "enum": [
-    "eu",
-    "fedramp",
-    "us"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `d1_params`.
  */
 export const d1_params: JsonSchema = {
@@ -103,22 +66,6 @@ export const d1_params: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `d1_primary-location-hint`.
- */
-export const d1_primary$$location$$hint: JsonSchema = {
-  "description": "Specify the region to create the D1 primary, if available. If this option is omitted, the D1 will be created as close as possible to the current user.",
-  "enum": [
-    "wnam",
-    "enam",
-    "weur",
-    "eeur",
-    "apac",
-    "oc"
-  ],
-  "type": "string"
 };
 
 /**
@@ -152,20 +99,12 @@ export const d1_single$$query: JsonSchema = {
       "$ref": "#/$defs/d1_params"
     },
     "sql": {
-      "$ref": "#/$defs/d1_sql",
-      "description": "Your SQL query. Supports multiple statements, joined by semicolons, which will be executed as a batch."
+      "description": "Your SQL query. Supports multiple statements, joined by semicolons, which will be executed as a batch.",
+      "type": "string"
     }
   },
   "required": [
     "sql"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `d1_sql`.
- */
-export const d1_sql: JsonSchema = {
-  "description": "Your SQL query. Supports multiple statements, joined by semicolons, which will be executed as a batch.",
-  "type": "string"
 };

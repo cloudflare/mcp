@@ -8,20 +8,7 @@ import {
   rum_messages,
   rum_messages$$2,
 } from "../../outputs.js";
-import { rum_identifier } from "../../schemas.js";
-import {
-  rum_rule,
-  rum_rule_identifier,
-  rum_rules,
-  rum_ruleset,
-  rum_ruleset_identifier,
-  rum_timestamp,
-  rum_zone_tag,
-} from "../outputs.js";
-import {
-  rum_rule_identifier as rum_rule_identifier$,
-  rum_ruleset_identifier as rum_ruleset_identifier$,
-} from "../schemas.js";
+import { rum_rule, rum_rules, rum_ruleset } from "../outputs.js";
 import {
   rum_rule$$id$$response$$single,
   rum_rule$$response$$single,
@@ -39,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_rules_bulkCreate",
     title: "Update Web Analytics rules",
-    description: "Modifies one or more rules in a Web Analytics ruleset with a single request.",
+    description: "Modifies one or more rules in a Web Analytics ruleset with a single request.\n\nPOST /accounts/{account_id}/rum/v2/{ruleset_id}/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,14 +34,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rum_modify-rules-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "ruleset_id": {
-              "$ref": "#/$defs/rum_ruleset_identifier",
-              "description": "The Web Analytics ruleset identifier."
+              "description": "The Web Analytics ruleset identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -68,11 +56,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "rum_identifier": rum_identifier,
         "rum_modify-rules-request": rum_modify$$rules$$request,
-        "rum_rule_identifier": rum_rule_identifier$,
-        "rum_ruleset_identifier": rum_ruleset_identifier$,
       },
     },
     outputSchema: {
@@ -81,13 +67,9 @@ export const tools: readonly Tool[] = [
         "rum_api-response-common": rum_api$$response$$common,
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_rules-response-collection": rum_rules$$response$$collection,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -125,13 +107,9 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_rules-response-collection": rum_rules$$response$$collection,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -142,7 +120,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_rules_create",
     title: "Create a Web Analytics rule",
-    description: "Creates a new rule in a Web Analytics ruleset.",
+    description: "Creates a new rule in a Web Analytics ruleset.\n\nPOST /accounts/{account_id}/rum/v2/{ruleset_id}/rule",
     inputSchema: {
       type: "object",
       properties: {
@@ -150,14 +128,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rum_create-rule-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "ruleset_id": {
-              "$ref": "#/$defs/rum_ruleset_identifier",
-              "description": "The Web Analytics ruleset identifier."
+              "description": "The Web Analytics ruleset identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -171,10 +150,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "rum_create-rule-request": rum_create$$rule$$request,
-        "rum_identifier": rum_identifier,
-        "rum_ruleset_identifier": rum_ruleset_identifier$,
       },
     },
     outputSchema: {
@@ -184,8 +162,6 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
         "rum_rule-response-single": rum_rule$$response$$single,
-        "rum_rule_identifier": rum_rule_identifier,
-        "rum_timestamp": rum_timestamp,
       },
     },
     annotations: {
@@ -221,8 +197,6 @@ export const tools: readonly Tool[] = [
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
         "rum_rule-response-single": rum_rule$$response$$single,
-        "rum_rule_identifier": rum_rule_identifier,
-        "rum_timestamp": rum_timestamp,
       },
     },
     request: (args) => ({
@@ -233,23 +207,24 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_rules_delete",
     title: "Delete a Web Analytics rule",
-    description: "Deletes an existing rule from a Web Analytics ruleset.",
+    description: "Deletes an existing rule from a Web Analytics ruleset.\n\nDELETE /accounts/{account_id}/rum/v2/{ruleset_id}/rule/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/rum_rule_identifier",
-              "description": "The Web Analytics rule identifier."
+              "description": "The Web Analytics rule identifier.",
+              "type": "string"
             },
             "ruleset_id": {
-              "$ref": "#/$defs/rum_ruleset_identifier",
-              "description": "The Web Analytics ruleset identifier."
+              "description": "The Web Analytics ruleset identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -263,11 +238,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-        "rum_rule_identifier": rum_rule_identifier$,
-        "rum_ruleset_identifier": rum_ruleset_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_rule-id-response-single",
@@ -275,7 +246,6 @@ export const tools: readonly Tool[] = [
         "rum_api-response-common": rum_api$$response$$common,
         "rum_messages": rum_messages,
         "rum_rule-id-response-single": rum_rule$$id$$response$$single,
-        "rum_rule_identifier": rum_rule_identifier,
       },
     },
     annotations: {
@@ -310,7 +280,6 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_rule-id-response-single": rum_rule$$id$$response$$single,
-        "rum_rule_identifier": rum_rule_identifier,
       },
     },
     request: (args) => ({
@@ -320,19 +289,20 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_rules_list",
     title: "List rules in Web Analytics ruleset",
-    description: "Lists all the rules in a Web Analytics ruleset.",
+    description: "Lists all the rules in a Web Analytics ruleset.\n\nGET /accounts/{account_id}/rum/v2/{ruleset_id}/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "ruleset_id": {
-              "$ref": "#/$defs/rum_ruleset_identifier",
-              "description": "The Web Analytics ruleset identifier."
+              "description": "The Web Analytics ruleset identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -345,10 +315,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-        "rum_ruleset_identifier": rum_ruleset_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_rules-response-collection",
@@ -356,13 +323,9 @@ export const tools: readonly Tool[] = [
         "rum_api-response-common": rum_api$$response$$common,
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_rules-response-collection": rum_rules$$response$$collection,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -397,13 +360,9 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_rules-response-collection": rum_rules$$response$$collection,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -413,7 +372,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_rules_update",
     title: "Update a Web Analytics rule",
-    description: "Updates a rule in a Web Analytics ruleset.",
+    description: "Updates a rule in a Web Analytics ruleset.\n\nPUT /accounts/{account_id}/rum/v2/{ruleset_id}/rule/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -421,18 +380,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rum_create-rule-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/rum_rule_identifier",
-              "description": "The Web Analytics rule identifier."
+              "description": "The Web Analytics rule identifier.",
+              "type": "string"
             },
             "ruleset_id": {
-              "$ref": "#/$defs/rum_ruleset_identifier",
-              "description": "The Web Analytics ruleset identifier."
+              "description": "The Web Analytics ruleset identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -447,11 +407,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "rum_create-rule-request": rum_create$$rule$$request,
-        "rum_identifier": rum_identifier,
-        "rum_rule_identifier": rum_rule_identifier$,
-        "rum_ruleset_identifier": rum_ruleset_identifier$,
       },
     },
     outputSchema: {
@@ -461,8 +419,6 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
         "rum_rule-response-single": rum_rule$$response$$single,
-        "rum_rule_identifier": rum_rule_identifier,
-        "rum_timestamp": rum_timestamp,
       },
     },
     annotations: {
@@ -498,8 +454,6 @@ export const tools: readonly Tool[] = [
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
         "rum_rule-response-single": rum_rule$$response$$single,
-        "rum_rule_identifier": rum_rule_identifier,
-        "rum_timestamp": rum_timestamp,
       },
     },
     request: (args) => ({

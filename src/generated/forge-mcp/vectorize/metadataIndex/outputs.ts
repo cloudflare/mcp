@@ -9,7 +9,8 @@ import type { JsonSchema } from "../../_/tool.js";
 export const vectorize_create$$metadata$$index$$response: JsonSchema = {
   "properties": {
     "mutationId": {
-      "$ref": "#/$defs/vectorize_mutation-uuid"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"
@@ -21,7 +22,8 @@ export const vectorize_create$$metadata$$index$$response: JsonSchema = {
 export const vectorize_delete$$metadata$$index$$response: JsonSchema = {
   "properties": {
     "mutationId": {
-      "$ref": "#/$defs/vectorize_mutation-uuid"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"

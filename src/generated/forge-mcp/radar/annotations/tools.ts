@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_annotations_get",
     title: "Get annotation by ID",
-    description: "Retrieves a single annotation by ID.",
+    description: "Retrieves a single annotation by ID.\n\nGET /radar/annotations/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "Annotation ID.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -654,11 +657,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_annotations_list",
     title: "Get latest annotations",
-    description: "Retrieves the latest annotations.",
+    description: "Retrieves the latest annotations.\n\nGET /radar/annotations",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify a single Autonomous System Number (ASN) as integer.",
@@ -912,6 +916,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

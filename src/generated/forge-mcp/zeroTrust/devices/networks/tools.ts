@@ -9,24 +9,15 @@ import {
   teams$$devices_api$$response$$single,
   teams$$devices_messages,
   teams$$devices_result_info,
-  teams$$devices_uuid,
 } from "../outputs.js";
-import {
-  teams$$devices_identifier,
-  teams$$devices_uuid as teams$$devices_uuid$,
-} from "../schemas.js";
 import {
   teams$$devices_components$$schemas$$response_collection,
   teams$$devices_components$$schemas$$single_response,
-  teams$$devices_components$$schemas$$type,
   teams$$devices_device$$managed$$networks,
-  teams$$devices_device$$managed$$networks_components$$schemas$$name,
   teams$$devices_schemas$$config_response,
   teams$$devices_tls_config_response,
 } from "./outputs.js";
 import {
-  teams$$devices_components$$schemas$$type as teams$$devices_components$$schemas$$type$,
-  teams$$devices_device$$managed$$networks_components$$schemas$$name as teams$$devices_device$$managed$$networks_components$$schemas$$name$,
   teams$$devices_schemas$$config_request,
   teams$$devices_tls_config_request,
 } from "./schemas.js";
@@ -38,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_networks_create",
     title: "Create a device managed network",
-    description: "Creates a new device managed network.",
+    description: "Creates a new device managed network.\n\nPOST /accounts/{account_id}/devices/networks",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,12 +39,15 @@ export const tools: readonly Tool[] = [
               "$ref": "#/$defs/teams-devices_schemas-config_request"
             },
             "name": {
-              "$ref": "#/$defs/teams-devices_device-managed-networks_components-schemas-name",
-              "description": "The name of the device managed network. This name must be unique."
+              "description": "The name of the device managed network. This name must be unique.",
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/teams-devices_components-schemas-type",
-              "description": "The type of device managed network."
+              "description": "The type of device managed network.",
+              "enum": [
+                "tls"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -64,9 +58,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -79,10 +74,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type$,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name$,
-        "teams-devices_identifier": teams$$devices_identifier,
         "teams-devices_schemas-config_request": teams$$devices_schemas$$config_request,
         "teams-devices_tls_config_request": teams$$devices_tls_config_request,
       },
@@ -93,13 +86,10 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
         "teams-devices_components-schemas-single_response": teams$$devices_components$$schemas$$single_response,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     annotations: {
@@ -130,13 +120,10 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
         "teams-devices_components-schemas-single_response": teams$$devices_components$$schemas$$single_response,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     request: (args) => ({
@@ -147,18 +134,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_networks_delete",
     title: "Delete a device managed network",
-    description: "Deletes a device managed network and fetches a list of the remaining device managed networks for an account.",
+    description: "Deletes a device managed network and fetches a list of the remaining device managed networks for an account.\n\nDELETE /accounts/{account_id}/devices/networks/{network_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             },
             "network_id": {
-              "$ref": "#/$defs/teams-devices_uuid",
-              "description": "API UUID."
+              "description": "API UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -171,10 +159,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-        "teams-devices_uuid": teams$$devices_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_components-schemas-response_collection",
@@ -182,14 +167,11 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-collection": teams$$devices_api$$response$$collection,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_components-schemas-response_collection": teams$$devices_components$$schemas$$response_collection,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_result_info": teams$$devices_result_info,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     annotations: {
@@ -220,14 +202,11 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_components-schemas-response_collection": teams$$devices_components$$schemas$$response_collection,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_result_info": teams$$devices_result_info,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     request: (args) => ({
@@ -237,18 +216,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_networks_get",
     title: "Get device managed network details",
-    description: "Fetches details for a single managed network.",
+    description: "Fetches details for a single managed network.\n\nGET /accounts/{account_id}/devices/networks/{network_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             },
             "network_id": {
-              "$ref": "#/$defs/teams-devices_uuid",
-              "description": "API UUID."
+              "description": "API UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -261,10 +241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-        "teams-devices_uuid": teams$$devices_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_components-schemas-single_response",
@@ -272,13 +249,10 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
         "teams-devices_components-schemas-single_response": teams$$devices_components$$schemas$$single_response,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     annotations: {
@@ -304,13 +278,10 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
         "teams-devices_components-schemas-single_response": teams$$devices_components$$schemas$$single_response,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     request: (args) => ({
@@ -320,14 +291,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_networks_list",
     title: "List your device managed networks",
-    description: "Fetches a list of managed networks for an account.",
+    description: "Fetches a list of managed networks for an account.\n\nGET /accounts/{account_id}/devices/networks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -339,9 +311,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_identifier": teams$$devices_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/teams-devices_components-schemas-response_collection",
@@ -349,14 +319,11 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-collection": teams$$devices_api$$response$$collection,
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_components-schemas-response_collection": teams$$devices_components$$schemas$$response_collection,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_result_info": teams$$devices_result_info,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     annotations: {
@@ -382,14 +349,11 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_components-schemas-response_collection": teams$$devices_components$$schemas$$response_collection,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_result_info": teams$$devices_result_info,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     request: (args) => ({
@@ -399,7 +363,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_networks_update",
     title: "Update a device managed network",
-    description: "Updates a configured device managed network.",
+    description: "Updates a configured device managed network.\n\nPUT /accounts/{account_id}/devices/networks/{network_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -409,24 +373,28 @@ export const tools: readonly Tool[] = [
               "$ref": "#/$defs/teams-devices_schemas-config_request"
             },
             "name": {
-              "$ref": "#/$defs/teams-devices_device-managed-networks_components-schemas-name",
-              "description": "The name of the device managed network. This name must be unique."
+              "description": "The name of the device managed network. This name must be unique.",
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/teams-devices_components-schemas-type",
-              "description": "The type of device managed network."
+              "description": "The type of device managed network.",
+              "enum": [
+                "tls"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/teams-devices_identifier"
+              "type": "string"
             },
             "network_id": {
-              "$ref": "#/$defs/teams-devices_uuid",
-              "description": "API UUID."
+              "description": "API UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -440,13 +408,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type$,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name$,
-        "teams-devices_identifier": teams$$devices_identifier,
         "teams-devices_schemas-config_request": teams$$devices_schemas$$config_request,
         "teams-devices_tls_config_request": teams$$devices_tls_config_request,
-        "teams-devices_uuid": teams$$devices_uuid$,
       },
     },
     outputSchema: {
@@ -455,13 +420,10 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common": teams$$devices_api$$response$$common,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
         "teams-devices_components-schemas-single_response": teams$$devices_components$$schemas$$single_response,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     annotations: {
@@ -492,13 +454,10 @@ export const tools: readonly Tool[] = [
         "teams-devices_api-response-common-failure": teams$$devices_api$$response$$common$$failure,
         "teams-devices_api-response-single": teams$$devices_api$$response$$single,
         "teams-devices_components-schemas-single_response": teams$$devices_components$$schemas$$single_response,
-        "teams-devices_components-schemas-type": teams$$devices_components$$schemas$$type,
         "teams-devices_device-managed-networks": teams$$devices_device$$managed$$networks,
-        "teams-devices_device-managed-networks_components-schemas-name": teams$$devices_device$$managed$$networks_components$$schemas$$name,
         "teams-devices_messages": teams$$devices_messages,
         "teams-devices_schemas-config_response": teams$$devices_schemas$$config_response,
         "teams-devices_tls_config_response": teams$$devices_tls_config_response,
-        "teams-devices_uuid": teams$$devices_uuid,
       },
     },
     request: (args) => ({

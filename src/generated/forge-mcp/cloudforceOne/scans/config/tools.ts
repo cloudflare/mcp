@@ -8,13 +8,11 @@ import {
   cloudforce$$one$$port$$scan$$api_messages,
 } from "../outputs.js";
 import {
-  cloudforce$$one$$port$$scan$$api_frequency,
   cloudforce$$one$$port$$scan$$api_ips,
   cloudforce$$one$$port$$scan$$api_ports,
   cloudforce$$one$$port$$scan$$api_scan$$config,
 } from "./outputs.js";
 import {
-  cloudforce$$one$$port$$scan$$api_frequency as cloudforce$$one$$port$$scan$$api_frequency$,
   cloudforce$$one$$port$$scan$$api_ips as cloudforce$$one$$port$$scan$$api_ips$,
   cloudforce$$one$$port$$scan$$api_ports as cloudforce$$one$$port$$scan$$api_ports$,
 } from "./schemas.js";
@@ -26,15 +24,15 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_scans_config_create",
     title: "Create a new Scan Config",
-    description: "Creates a new scan configuration for Cloudforce One's network scanning service.",
+    description: "Creates a new scan configuration for Cloudforce One's network scanning service.\n\nPOST /accounts/{account_id}/cloudforce-one/scans/config",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "frequency": {
-              "$ref": "#/$defs/cloudforce-one-port-scan-api_frequency",
-              "description": "Defines the number of days between each scan (0 = One-off scan)."
+              "description": "Defines the number of days between each scan (0 = One-off scan).",
+              "type": "number"
             },
             "ips": {
               "$ref": "#/$defs/cloudforce-one-port-scan-api_ips",
@@ -51,6 +49,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Defines the Account ID.",
@@ -66,8 +65,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency$,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips$,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports$,
       },
@@ -88,7 +87,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports,
@@ -133,7 +131,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports,
@@ -148,11 +145,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_scans_config_delete",
     title: "Delete a Scan Config",
-    description: "Deletes a scan configuration from Cloudforce One's network scanning service.",
+    description: "Deletes a scan configuration from Cloudforce One's network scanning service.\n\nDELETE /accounts/{account_id}/cloudforce-one/scans/config/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Defines the Account ID.",
@@ -173,6 +171,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -265,15 +264,15 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_scans_config_edit",
     title: "Update an existing Scan Config",
-    description: "Updates an existing scan configuration in Cloudforce One's network scanning service.",
+    description: "Updates an existing scan configuration in Cloudforce One's network scanning service.\n\nPATCH /accounts/{account_id}/cloudforce-one/scans/config/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "frequency": {
-              "$ref": "#/$defs/cloudforce-one-port-scan-api_frequency",
-              "description": "Defines the number of days between each scan (0 = One-off scan)."
+              "description": "Defines the number of days between each scan (0 = One-off scan).",
+              "type": "number"
             },
             "ips": {
               "$ref": "#/$defs/cloudforce-one-port-scan-api_ips",
@@ -287,6 +286,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Defines the Account ID.",
@@ -307,8 +307,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency$,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips$,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports$,
       },
@@ -329,7 +329,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports,
@@ -374,7 +373,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports,
@@ -389,11 +387,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_scans_config_list",
     title: "List Scan Configs",
-    description: "Lists scan configurations for Cloudforce One's network scanning service.",
+    description: "Lists scan configurations for Cloudforce One's network scanning service.\n\nGET /accounts/{account_id}/cloudforce-one/scans/config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Defines the Account ID.",
@@ -409,6 +408,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -429,7 +429,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports,
@@ -478,7 +477,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
-        "cloudforce-one-port-scan-api_frequency": cloudforce$$one$$port$$scan$$api_frequency,
         "cloudforce-one-port-scan-api_ips": cloudforce$$one$$port$$scan$$api_ips,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_ports": cloudforce$$one$$port$$scan$$api_ports,

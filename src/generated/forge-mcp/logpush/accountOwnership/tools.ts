@@ -7,7 +7,6 @@ import {
   logpush_api$$response$$common$$failure,
   logpush_messages,
 } from "../outputs.js";
-import { logpush_destination_conf, logpush_identifier } from "../schemas.js";
 import { logpush_get_ownership_response } from "./outputs.js";
 
 /**
@@ -17,15 +16,15 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountOwnership_create",
     title: "Get ownership challenge",
-    description: "Gets a new ownership challenge sent to your destination.",
+    description: "Gets a new ownership challenge sent to your destination.\n\nPOST /{account_or_zone}/{account_or_zone_id}/logpush/ownership",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "destination_conf": {
-              "$ref": "#/$defs/logpush_destination_conf",
-              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included."
+              "description": "Uniquely identifies a resource (such as an s3 bucket) where data. will be pushed. Additional configuration parameters supported by the destination may be included.",
+              "type": "string"
             }
           },
           "required": [
@@ -34,6 +33,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -44,8 +44,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,10 +59,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "logpush_destination_conf": logpush_destination_conf,
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_get_ownership_response",

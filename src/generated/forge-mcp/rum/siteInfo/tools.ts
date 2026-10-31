@@ -8,40 +8,19 @@ import {
   rum_messages,
   rum_messages$$2,
 } from "../../outputs.js";
-import { rum_identifier } from "../../schemas.js";
+import { rum_rule, rum_rules, rum_ruleset } from "../outputs.js";
 import {
-  rum_rule,
-  rum_rule_identifier,
-  rum_rules,
-  rum_ruleset,
-  rum_ruleset_identifier,
-  rum_timestamp,
-  rum_zone_tag,
-} from "../outputs.js";
-import { rum_zone_tag as rum_zone_tag$ } from "../schemas.js";
-import {
-  rum_auto_install,
   rum_empty$$response,
   rum_result_info,
   rum_site,
   rum_site$$response$$single,
   rum_site$$tag$$list$$response,
   rum_site$$tag$$response$$single,
-  rum_site_tag,
-  rum_site_token,
   rum_sites$$response$$collection,
-  rum_snippet,
   rum_zone$$tag$$list$$response,
 } from "./outputs.js";
 import {
-  rum_auto_install as rum_auto_install$,
   rum_create$$site$$request,
-  rum_enabled,
-  rum_host,
-  rum_lite,
-  rum_order_by,
-  rum_page,
-  rum_per_page,
   rum_update$$site$$request,
 } from "./schemas.js";
 
@@ -52,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_create",
     title: "Create a Web Analytics site",
-    description: "Creates a new Web Analytics site.",
+    description: "Creates a new Web Analytics site.\n\nPOST /accounts/{account_id}/rum/site_info",
     inputSchema: {
       type: "object",
       properties: {
@@ -60,10 +39,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rum_create-site-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -76,32 +56,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "rum_auto_install": rum_auto_install$,
         "rum_create-site-request": rum_create$$site$$request,
-        "rum_host": rum_host,
-        "rum_identifier": rum_identifier,
-        "rum_zone_tag": rum_zone_tag$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/rum_site-response-single",
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
         "rum_site-response-single": rum_site$$response$$single,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -136,21 +105,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
         "rum_api-response-common-failure": rum_api$$response$$common$$failure,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
         "rum_site-response-single": rum_site$$response$$single,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -161,19 +122,20 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_delete",
     title: "Delete a Web Analytics site",
-    description: "Deletes an existing Web Analytics site.",
+    description: "Deletes an existing Web Analytics site.\n\nDELETE /accounts/{account_id}/rum/site_info/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -186,9 +148,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_site-tag-response-single",
@@ -196,7 +156,6 @@ export const tools: readonly Tool[] = [
         "rum_api-response-common": rum_api$$response$$common,
         "rum_messages": rum_messages,
         "rum_site-tag-response-single": rum_site$$tag$$response$$single,
-        "rum_site_tag": rum_site_tag,
       },
     },
     annotations: {
@@ -234,7 +193,6 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_site-tag-response-single": rum_site$$tag$$response$$single,
-        "rum_site_tag": rum_site_tag,
       },
     },
     request: (args) => ({
@@ -244,19 +202,20 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_get",
     title: "Get a Web Analytics site",
-    description: "Retrieves a Web Analytics site.",
+    description: "Retrieves a Web Analytics site.\n\nGET /accounts/{account_id}/rum/site_info/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -269,28 +228,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_site-response-single",
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
         "rum_site-response-single": rum_site$$response$$single,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -325,21 +274,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
         "rum_api-response-common-failure": rum_api$$response$$common$$failure,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
         "rum_site-response-single": rum_site$$response$$single,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -349,15 +290,16 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_list",
     title: "List Web Analytics sites",
-    description: "Lists all Web Analytics sites of an account.",
+    description: "Lists all Web Analytics sites of an account.\n\nGET /accounts/{account_id}/rum/site_info/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -366,18 +308,23 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order_by": {
-              "$ref": "#/$defs/rum_order_by",
-              "description": "The property used to sort the list of results."
+              "description": "The property used to sort the list of results.",
+              "enum": [
+                "host",
+                "created"
+              ],
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/rum_page",
-              "description": "Current page within the paginated list of results."
+              "description": "Current page within the paginated list of results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/rum_per_page",
-              "description": "Number of items to return per page of results."
+              "description": "Number of items to return per page of results.",
+              "type": "number"
             }
           },
           "type": "object"
@@ -386,32 +333,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-        "rum_order_by": rum_order_by,
-        "rum_page": rum_page,
-        "rum_per_page": rum_per_page,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_sites-response-collection",
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_result_info": rum_result_info,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
         "rum_sites-response-collection": rum_sites$$response$$collection,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -446,22 +380,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
         "rum_api-response-common-failure": rum_api$$response$$common$$failure,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_result_info": rum_result_info,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
         "rum_sites-response-collection": rum_sites$$response$$collection,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -476,15 +402,16 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_listSiteTags",
     title: "List Web Analytics site tags",
-    description: "Returns all site tags for an account as an array of site tag strings. This endpoint returns all results without pagination.",
+    description: "Returns all site tags for an account as an array of site tag strings. This endpoint returns all results without pagination.\n\nGET /accounts/{account_id}/rum/site_info/site_tag/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -493,6 +420,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "all": {
               "description": "When true, includes sites that are disabled or paused.",
@@ -505,9 +433,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_site-tag-list-response",
@@ -515,7 +441,6 @@ export const tools: readonly Tool[] = [
         "rum_api-response-common": rum_api$$response$$common,
         "rum_messages": rum_messages,
         "rum_site-tag-list-response": rum_site$$tag$$list$$response,
-        "rum_site_tag": rum_site_tag,
       },
     },
     annotations: {
@@ -553,7 +478,6 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_site-tag-list-response": rum_site$$tag$$list$$response,
-        "rum_site_tag": rum_site_tag,
       },
     },
     request: (args) => ({
@@ -566,15 +490,16 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_listZoneTags",
     title: "List Web Analytics zone tags",
-    description: "Returns all zone tags associated with Web Analytics sites for an account. These can be used to filter or exclude zones in the zone selection input. This endpoint returns all results without pagination.",
+    description: "Returns all zone tags associated with Web Analytics sites for an account. These can be used to filter or exclude zones in the zone selection input. This endpoint returns all results without pagination.\n\nGET /accounts/{account_id}/rum/site_info/zone_tag/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -586,9 +511,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_zone-tag-list-response",
@@ -596,7 +519,6 @@ export const tools: readonly Tool[] = [
         "rum_api-response-common": rum_api$$response$$common,
         "rum_messages": rum_messages,
         "rum_zone-tag-list-response": rum_zone$$tag$$list$$response,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -634,7 +556,6 @@ export const tools: readonly Tool[] = [
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_zone-tag-list-response": rum_zone$$tag$$list$$response,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -644,7 +565,7 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_update",
     title: "Update a Web Analytics site",
-    description: "Updates an existing Web Analytics site.",
+    description: "Updates an existing Web Analytics site.\n\nPUT /accounts/{account_id}/rum/site_info/{site_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -652,14 +573,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rum_update-site-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "site_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -673,34 +595,21 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "rum_auto_install": rum_auto_install$,
-        "rum_enabled": rum_enabled,
-        "rum_host": rum_host,
-        "rum_identifier": rum_identifier,
-        "rum_lite": rum_lite,
         "rum_update-site-request": rum_update$$site$$request,
-        "rum_zone_tag": rum_zone_tag$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/rum_site-response-single",
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
         "rum_site-response-single": rum_site$$response$$single,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     annotations: {
@@ -735,21 +644,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rum_api-response-common": rum_api$$response$$common,
         "rum_api-response-common-failure": rum_api$$response$$common$$failure,
-        "rum_auto_install": rum_auto_install,
         "rum_messages": rum_messages,
         "rum_messages-2": rum_messages$$2,
         "rum_rule": rum_rule,
-        "rum_rule_identifier": rum_rule_identifier,
         "rum_rules": rum_rules,
         "rum_ruleset": rum_ruleset,
-        "rum_ruleset_identifier": rum_ruleset_identifier,
         "rum_site": rum_site,
         "rum_site-response-single": rum_site$$response$$single,
-        "rum_site_tag": rum_site_tag,
-        "rum_site_token": rum_site_token,
-        "rum_snippet": rum_snippet,
-        "rum_timestamp": rum_timestamp,
-        "rum_zone_tag": rum_zone_tag,
       },
     },
     request: (args) => ({
@@ -760,18 +661,19 @@ export const tools: readonly Tool[] = [
   {
     name: "rum_siteInfo_validateHostname",
     title: "Validate a Web Analytics site hostname",
-    description: "Validates that the provided hostname is well-formed, does not contain wildcards, and has a valid TLD. Returns an empty result on success.",
+    description: "Validates that the provided hostname is well-formed, does not contain wildcards, and has a valid TLD. Returns an empty result on success.\n\nGET /accounts/{account_id}/rum/site_info/validate/{hostname}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/rum_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "hostname": {
-              "description": "The hostname to validate (e.g. example.com). The `pattern` below validates the hostname's structure (label syntax) only. In addition, the hostname must end in a valid public suffix (TLD). For the list of valid suffixes and how it is used, see the Public Suffix List: https://wiki.mozilla.org/Public_Suffix_List/Use_Cases\n",
+              "description": "The hostname to validate (e.g. example.com). The `pattern` below validates the hostname's structure (label syntax) only. In addition, the hostname must end in a valid public suffix (TLD). For the list of valid suffixes and how it is used, see the Public Suffix List: https://wiki.mozilla.org/Public_Suffix_List/Use_Cases",
               "type": "string"
             }
           },
@@ -785,9 +687,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_empty-response",

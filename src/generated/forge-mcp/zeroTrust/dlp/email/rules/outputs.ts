@@ -106,10 +106,21 @@ export const dlp_EmailRuleArray: JsonSchema = {
 export const dlp_EmailRuleCondition: JsonSchema = {
   "properties": {
     "operator": {
-      "$ref": "#/$defs/dlp_EmailRuleOperator"
+      "enum": [
+        "InList",
+        "NotInList",
+        "MatchRegex",
+        "NotMatchRegex"
+      ],
+      "type": "string"
     },
     "selector": {
-      "$ref": "#/$defs/dlp_EmailRuleSelector"
+      "enum": [
+        "Recipients",
+        "Sender",
+        "DLPProfiles"
+      ],
+      "type": "string"
     },
     "value": {
       "$ref": "#/$defs/dlp_EmailRuleValue"
@@ -121,31 +132,6 @@ export const dlp_EmailRuleCondition: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dlp_EmailRuleOperator` in responses.
- */
-export const dlp_EmailRuleOperator: JsonSchema = {
-  "enum": [
-    "InList",
-    "NotInList",
-    "MatchRegex",
-    "NotMatchRegex"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `dlp_EmailRuleSelector` in responses.
- */
-export const dlp_EmailRuleSelector: JsonSchema = {
-  "enum": [
-    "Recipients",
-    "Sender",
-    "DLPProfiles"
-  ],
-  "type": "string"
 };
 
 /**

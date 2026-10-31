@@ -7,11 +7,7 @@ import {
   secondary$$dns_api$$response$$single,
   secondary$$dns_messages,
 } from "../outputs.js";
-import { secondary$$dns_identifier } from "../schemas.js";
-import {
-  secondary$$dns_force_response,
-  secondary$$dns_force_result,
-} from "./outputs.js";
+import { secondary$$dns_force_response } from "./outputs.js";
 
 /**
  * The tools of `dns.zoneTransfers.forceAxfr`.
@@ -20,14 +16,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_forceAxfr_create",
     title: "Force AXFR",
-    description: "Sends AXFR zone transfer request to primary nameserver(s).",
+    description: "Sends AXFR zone transfer request to primary nameserver(s).\n\nPOST /zones/{zone_id}/secondary_dns/force_axfr",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -39,16 +36,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary$$dns_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_force_response",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_force_response": secondary$$dns_force_response,
-        "secondary-dns_force_result": secondary$$dns_force_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -94,7 +88,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_force_response": secondary$$dns_force_response,
-        "secondary-dns_force_result": secondary$$dns_force_result,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },

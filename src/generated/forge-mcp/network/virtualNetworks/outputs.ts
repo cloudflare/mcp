@@ -4,34 +4,30 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tunnel_is_default_network` in responses.
- */
-export const tunnel_is_default_network: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tunnel_virtual-network` in responses.
  */
 export const tunnel_virtual$$network: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/tunnel_virtual_network_comment"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_virtual_network_id"
+      "format": "uuid",
+      "type": "string"
     },
     "is_default_network": {
-      "$ref": "#/$defs/tunnel_is_default_network"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/tunnel_virtual_network_name"
+      "type": "string"
     }
   },
   "required": [
@@ -42,13 +38,6 @@ export const tunnel_virtual$$network: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_virtual_network_comment` in responses.
- */
-export const tunnel_virtual_network_comment: JsonSchema = {
-  "type": "string"
 };
 
 /**

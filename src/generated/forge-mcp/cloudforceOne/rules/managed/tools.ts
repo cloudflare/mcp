@@ -11,11 +11,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_managed_get",
     title: "Get managed rules",
-    description: "Get DFP managed rule metadata (name and description) from YARA rules.",
+    description: "Get DFP managed rule metadata (name and description) from YARA rules.\n\nGET /accounts/{account_id}/cloudforce-one/rules/managed",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -31,6 +32,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

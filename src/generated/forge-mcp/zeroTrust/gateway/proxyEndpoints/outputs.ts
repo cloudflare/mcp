@@ -14,22 +14,16 @@ export const zero$$trust$$gateway_ips: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_name-6` in responses.
- */
-export const zero$$trust$$gateway_name$$6: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_proxy-endpoint-identity` in responses.
  */
 export const zero$$trust$$gateway_proxy$$endpoint$$identity: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+      "type": "string"
     },
     "kind": {
       "enum": [
@@ -38,13 +32,14 @@ export const zero$$trust$$gateway_proxy$$endpoint$$identity: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-6"
+      "type": "string"
     },
     "subdomain": {
-      "$ref": "#/$defs/zero-trust-gateway_subdomain-2"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -60,10 +55,11 @@ export const zero$$trust$$gateway_proxy$$endpoint$$identity: JsonSchema = {
 export const zero$$trust$$gateway_proxy$$endpoint$$ip: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+      "type": "string"
     },
     "ips": {
       "$ref": "#/$defs/zero-trust-gateway_ips"
@@ -75,13 +71,14 @@ export const zero$$trust$$gateway_proxy$$endpoint$$ip: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-6"
+      "type": "string"
     },
     "subdomain": {
-      "$ref": "#/$defs/zero-trust-gateway_subdomain-2"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -144,11 +141,4 @@ export const zero$$trust$$gateway_single_response$$5: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_subdomain-2` in responses.
- */
-export const zero$$trust$$gateway_subdomain$$2: JsonSchema = {
-  "type": "string"
 };

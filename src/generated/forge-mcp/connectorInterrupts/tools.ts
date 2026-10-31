@@ -9,7 +9,6 @@ import {
   mconn_none,
   mconn_response,
 } from "../outputs.js";
-import { mconn_account_id, mconn_uuid } from "../schemas.js";
 import {
   mconn_connector_interrupts_create_response,
   mconn_connector_interrupts_list_response,
@@ -25,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "connectorInterrupts_create",
     title: "Create Interrupt",
-    description: "Creates an interrupt for a Magic WAN Connector.",
+    description: "Creates an interrupt for a Magic WAN Connector.\n\nPOST /accounts/{account_id}/magic/connectors/{connector_id}/interrupts",
     inputSchema: {
       type: "object",
       properties: {
@@ -33,12 +32,13 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/mconn_interrupt"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             },
             "connector_id": {
-              "$ref": "#/$defs/mconn_uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -52,10 +52,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "mconn_account_id": mconn_account_id,
         "mconn_interrupt": mconn_interrupt$,
-        "mconn_uuid": mconn_uuid,
       },
     },
     outputSchema: {
@@ -129,17 +128,18 @@ export const tools: readonly Tool[] = [
   {
     name: "connectorInterrupts_list",
     title: "List Interrupts",
-    description: "Lists interrupts for a Magic WAN Connector.",
+    description: "Lists interrupts for a Magic WAN Connector.\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}/interrupts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn_account_id"
+              "type": "string"
             },
             "connector_id": {
-              "$ref": "#/$defs/mconn_uuid"
+              "type": "string"
             }
           },
           "required": [
@@ -152,10 +152,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mconn_account_id": mconn_account_id,
-        "mconn_uuid": mconn_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn_connector_interrupts_list_response",

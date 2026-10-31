@@ -45,19 +45,19 @@ export const workers_PreviewDeploymentConfig: JsonSchema = {
     },
     "assets": {
       "$ref": "#/$defs/workers_assets",
-      "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n"
+      "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`."
     },
     "bindings": {
       "$ref": "#/$defs/workers_bindings",
-      "description": "Bindings attached to the deployment, as an array of objects\nthat each name themselves. An upload can send `env` or\n`bindings`, and a read returns both. Uploads to a Preview whose\nparent Worker has a previews base config must use `env`.\n"
+      "description": "Bindings attached to the deployment, as an array of objects\nthat each name themselves. An upload can send `env` or\n`bindings`, and a read returns both. Uploads to a Preview whose\nparent Worker has a previews base config must use `env`."
     },
     "cache_options": {
       "$ref": "#/$defs/workers_cache_options",
-      "description": "Global CacheW configuration for the Worker. When caching is on,\nthe platform provisions a `cloudflare.app` zone for the Worker.\nA `type: worker` entry in the `exports` map can override this\nvalue for a single entrypoint.\n"
+      "description": "Global CacheW configuration for the Worker. When caching is on,\nthe platform provisions a `cloudflare.app` zone for the Worker.\nA `type: worker` entry in the `exports` map can override this\nvalue for a single entrypoint."
     },
     "compatibility_date": {
-      "$ref": "#/$defs/workers_compatibility_date",
-      "description": "Date indicating targeted support in the Workers runtime. Backwards incompatible fixes to the runtime following this date will not affect this Worker."
+      "description": "Date indicating targeted support in the Workers runtime. Backwards incompatible fixes to the runtime following this date will not affect this Worker.",
+      "type": "string"
     },
     "compatibility_flags": {
       "$ref": "#/$defs/workers_compatibility_flags",
@@ -70,11 +70,11 @@ export const workers_PreviewDeploymentConfig: JsonSchema = {
     },
     "env": {
       "$ref": "#/$defs/workers_env",
-      "description": "Bindings attached to the deployment, keyed by binding name. An\nupload can send `env` or `bindings`, and a read returns both.\n"
+      "description": "Bindings attached to the deployment, keyed by binding name. An\nupload can send `env` or `bindings`, and a read returns both."
     },
     "exports": {
       "$ref": "#/$defs/workers_exports_config_map",
-      "description": "Declarative exports for the deployment, including Durable\nObject classes (with their `storage` backend) and named Worker\nentrypoints. On reads, tombstoned lifecycle entries are\nomitted, so only live exports (`created` and\n`expecting-transfer`) are returned. `exports` and `migrations`\nare mutually exclusive on upload.\n"
+      "description": "Declarative exports for the deployment, including Durable\nObject classes (with their `storage` backend) and named Worker\nentrypoints. On reads, tombstoned lifecycle entries are\nomitted, so only live exports (`created` and\n`expecting-transfer`) are returned. `exports` and `migrations`\nare mutually exclusive on upload."
     },
     "limits": {
       "description": "Resource limits enforced at runtime.",
@@ -172,7 +172,7 @@ export const workers_PreviewDeploymentRequest: JsonSchema = {
  * The schema of `workers_assets`.
  */
 export const workers_assets: JsonSchema = {
-  "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n",
+  "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.",
   "properties": {
     "config": {
       "description": "Configuration for assets within a Worker.",

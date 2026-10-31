@@ -14,7 +14,16 @@ export const mconn_customer_connector_fields: JsonSchema = {
     "interrupt_window_days_of_week": {
       "description": "Allowed days of the week for upgrades. Default is all days.",
       "items": {
-        "$ref": "#/$defs/mconn_day_of_week"
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -24,7 +33,7 @@ export const mconn_customer_connector_fields: JsonSchema = {
     "interrupt_window_embargo_dates": {
       "description": "List of dates (YYYY-MM-DD) when upgrades are blocked.",
       "items": {
-        "$ref": "#/$defs/mconn_embargo_date"
+        "type": "string"
       },
       "maxItems": 100,
       "type": "array"
@@ -123,27 +132,4 @@ export const mconn_customer_device_options: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `mconn_day_of_week`.
- */
-export const mconn_day_of_week: JsonSchema = {
-  "enum": [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `mconn_embargo_date`.
- */
-export const mconn_embargo_date: JsonSchema = {
-  "type": "string"
 };

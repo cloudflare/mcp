@@ -8,7 +8,6 @@ import {
   load$$balancing_api$$response$$single,
   load$$balancing_messages,
 } from "../../../outputs.js";
-import { load$$balancing_components$$schemas$$identifier } from "../../schemas.js";
 import { load$$balancing_load$$balancer_components$$schemas$$usage_response } from "./outputs.js";
 
 /**
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_account_usage_list",
     title: "List Load Balancer Usage",
-    description: "Get current load balancer resource usage counts for an account.",
+    description: "Get current load balancer resource usage counts for an account.\n\nGET /accounts/{account_id}/load_balancers/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-usage_response",

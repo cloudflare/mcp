@@ -7,7 +7,6 @@ import {
   dns$$records_api$$response$$single,
   dns$$records_messages,
 } from "../../outputs.js";
-import { dns$$records_identifier } from "../../schemas.js";
 import { dns$$records_dns_response_account_usage } from "./outputs.js";
 
 /**
@@ -17,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_usage_account_get",
     title: "Get DNS Record Usage for account or zone",
-    description: "Get the current DNS record usage and quota for an account or zone. May include internal DNS usage and quota.",
+    description: "Get the current DNS record usage and quota for an account or zone. May include internal DNS usage and quota.\n\nGET /{account_or_zone}/{account_or_zone_id}/dns_records/usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -32,8 +32,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/dns-records_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,9 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns$$records_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_account_usage",

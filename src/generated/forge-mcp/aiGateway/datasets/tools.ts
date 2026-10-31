@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_datasets_create",
     title: "Create a dataset (deprecated)",
-    description: "Creates a dataset that selects gateway logs matching the specified filters for use in evaluations. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Creates a dataset that selects gateway logs matching the specified filters for use in evaluations. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets",
     inputSchema: {
       type: "object",
       properties: {
@@ -87,6 +87,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -106,6 +107,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -385,11 +387,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_datasets_delete",
     title: "Delete a dataset (deprecated)",
-    description: "Deletes a dataset. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Deletes a dataset. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -413,6 +416,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -684,11 +688,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_datasets_get",
     title: "Get a dataset (deprecated)",
-    description: "Retrieves a dataset and its log filters. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Retrieves a dataset and its log filters. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -712,6 +717,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -984,11 +990,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_datasets_list",
     title: "List datasets (deprecated)",
-    description: "Lists the datasets defined for an AI Gateway. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Lists the datasets defined for an AI Gateway. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1005,6 +1012,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "enable": {
               "type": "boolean"
@@ -1031,6 +1039,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1316,7 +1325,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_datasets_update",
     title: "Update a dataset (deprecated)",
-    description: "Replaces the name, log filters, and enabled state of a dataset. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.",
+    description: "Replaces the name, log filters, and enabled state of a dataset. Evaluations and datasets are deprecated and unavailable to new accounts.\n\nThis method is deprecated.\n\nPUT /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1393,6 +1402,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1416,6 +1426,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

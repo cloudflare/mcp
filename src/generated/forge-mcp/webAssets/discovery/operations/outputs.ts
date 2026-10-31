@@ -4,18 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `api-shield_api_discovery_origin` in responses.
- */
-export const api$$shield_api_discovery_origin: JsonSchema = {
-  "enum": [
-    "ML",
-    "SessionIdentifier",
-    "LabelDiscovery"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `api-shield_api_discovery_patch_multiple_request` in responses.
  */
 export const api$$shield_api_discovery_patch_multiple_request: JsonSchema = {
@@ -32,33 +20,14 @@ export const api$$shield_api_discovery_patch_multiple_request: JsonSchema = {
 export const api$$shield_api_discovery_patch_multiple_request_entry: JsonSchema = {
   "properties": {
     "state": {
-      "$ref": "#/$defs/api-shield_api_discovery_state_patch"
+      "enum": [
+        "review",
+        "ignored"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_api_discovery_state` in responses.
- */
-export const api$$shield_api_discovery_state: JsonSchema = {
-  "enum": [
-    "review",
-    "saved",
-    "ignored"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_api_discovery_state_patch` in responses.
- */
-export const api$$shield_api_discovery_state_patch: JsonSchema = {
-  "enum": [
-    "review",
-    "ignored"
-  ],
-  "type": "string"
 };
 
 /**
@@ -72,19 +41,44 @@ export const api$$shield_discovery_operation: JsonSchema = {
           "$ref": "#/$defs/api-shield_traffic_stats"
         },
         "id": {
-          "$ref": "#/$defs/api-shield_uuid-2"
+          "allOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp-2"
+          "allOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "origin": {
           "items": {
-            "$ref": "#/$defs/api-shield_api_discovery_origin"
+            "enum": [
+              "ML",
+              "SessionIdentifier",
+              "LabelDiscovery"
+            ],
+            "type": "string"
           },
           "type": "array"
         },
         "state": {
-          "$ref": "#/$defs/api-shield_api_discovery_state"
+          "enum": [
+            "review",
+            "saved",
+            "ignored"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -136,7 +130,12 @@ export const api$$shield_patch_discovery_response: JsonSchema = {
         "result": {
           "properties": {
             "state": {
-              "$ref": "#/$defs/api-shield_api_discovery_state"
+              "enum": [
+                "review",
+                "saved",
+                "ignored"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -158,7 +157,15 @@ export const api$$shield_traffic_stats: JsonSchema = {
     "traffic_stats": {
       "properties": {
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp-2"
+          "allOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "period_seconds": {
           "type": "integer"

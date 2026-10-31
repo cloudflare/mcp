@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_interests_backtests_create",
     title: "Backtest account-interest change detection",
-    description: "Uses bounded full-span top-N candidates and daily event-date buckets. Results are conservative rather than an exact historical replay.",
+    description: "Uses bounded full-span top-N candidates and daily event-date buckets. Results are conservative rather than an exact historical replay.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/interests/backtests",
     inputSchema: {
       type: "object",
       properties: {
@@ -62,6 +62,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -77,6 +78,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -106,11 +108,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_interests_backtests_get",
     title: "Get a persisted account-interest backtest",
-    description: "Returns a previously completed account-interest backtest by ID. The backtest must belong to this account.",
+    description: "Returns a previously completed account-interest backtest by ID. The backtest must belong to this account.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/interests/backtests/{backtest_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -132,6 +135,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_agentReadiness_summary",
     title: "Get agent readiness summary",
-    description: "Returns a summary of AI agent readiness scores across scanned domains, grouped by the specified dimension. Data is sourced from weekly bulk scans. All values are raw domain counts.",
+    description: "Returns a summary of AI agent readiness scores across scanned domains, grouped by the specified dimension. Data is sourced from weekly bulk scans. All values are raw domain counts.\n\nGET /radar/agent_readiness/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the agent readiness data dimension by which to group the results.",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
               "description": "Filters results by the specified date.",
@@ -65,6 +67,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

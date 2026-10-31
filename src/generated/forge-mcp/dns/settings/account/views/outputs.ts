@@ -4,26 +4,20 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `dns-settings_created_time` in responses.
- */
-export const dns$$settings_created_time: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `dns-settings_dns-view` in responses.
  */
 export const dns$$settings_dns$$view: JsonSchema = {
   "properties": {
     "created_time": {
-      "$ref": "#/$defs/dns-settings_created_time"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_time": {
-      "$ref": "#/$defs/dns-settings_modified_time"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/dns-settings_name"
+      "type": "string"
     },
     "zones": {
       "$ref": "#/$defs/dns-settings_zones"
@@ -43,7 +37,7 @@ export const dns$$settings_dns$$view$$response: JsonSchema = {
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/dns-settings_identifier"
+          "type": "string"
         }
       },
       "required": [
@@ -93,21 +87,6 @@ export const dns$$settings_dns_view_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `dns-settings_modified_time` in responses.
- */
-export const dns$$settings_modified_time: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-settings_name` in responses.
- */
-export const dns$$settings_name: JsonSchema = {
-  "type": "string"
 };
 
 /**

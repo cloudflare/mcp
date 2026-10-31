@@ -11,8 +11,6 @@ import {
   load$$balancing_preview_result,
   load$$balancing_preview_result_response,
 } from "../../outputs.js";
-import { load$$balancing_components$$schemas$$identifier } from "../schemas.js";
-import { load$$balancing_schemas$$preview_id } from "./schemas.js";
 
 /**
  * The tools of `loadBalancers.previews`.
@@ -21,18 +19,19 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_previews_get",
     title: "Preview Result",
-    description: "Get the result of a previous preview operation using the provided preview_id.",
+    description: "Get the result of a previous preview operation using the provided preview_id.\n\nGET /accounts/{account_id}/load_balancers/preview/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "preview_id": {
-              "$ref": "#/$defs/load-balancing_schemas-preview_id"
+              "type": "string"
             }
           },
           "required": [
@@ -45,10 +44,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-        "load-balancing_schemas-preview_id": load$$balancing_schemas$$preview_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_preview_result_response",

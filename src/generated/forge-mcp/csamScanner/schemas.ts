@@ -7,7 +7,7 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `csam-config-service_csam_scanner_third_party_update_request`.
  */
 export const csam$$config$$service_csam_scanner_third_party_update_request: JsonSchema = {
-  "description": "Request body for updating CSAM Scanner configuration.\n",
+  "description": "Request body for updating CSAM Scanner configuration.",
   "properties": {
     "id": {
       "description": "The feature identifier.",
@@ -18,7 +18,7 @@ export const csam$$config$$service_csam_scanner_third_party_update_request: Json
     },
     "value": {
       "$ref": "#/$defs/csam-config-service_csam_scanner_third_party_update_value",
-      "description": "Writable CSAM Scanner feature configuration values.\n"
+      "description": "Writable CSAM Scanner feature configuration values."
     }
   },
   "type": "object"
@@ -28,10 +28,10 @@ export const csam$$config$$service_csam_scanner_third_party_update_request: Json
  * The schema of `csam-config-service_csam_scanner_third_party_update_value`.
  */
 export const csam$$config$$service_csam_scanner_third_party_update_value: JsonSchema = {
-  "description": "Writable CSAM Scanner feature configuration values.\n",
+  "description": "Writable CSAM Scanner feature configuration values.",
   "properties": {
     "email": {
-      "description": "Notification email address for CSAM scan results. When changed,\nemail verification is triggered automatically.\n",
+      "description": "Notification email address for CSAM scan results. When changed,\nemail verification is triggered automatically.",
       "type": "string"
     },
     "enabled": {
@@ -39,7 +39,7 @@ export const csam$$config$$service_csam_scanner_third_party_update_value: JsonSc
       "type": "boolean"
     },
     "resend_email": {
-      "description": "Set to true to trigger re-sending the email verification.\nWrite-only; never appears in responses (omitted when false).\n",
+      "description": "Set to true to trigger re-sending the email verification.\nWrite-only; never appears in responses (omitted when false).",
       "type": "boolean"
     },
     "sources": {
@@ -51,12 +51,4 @@ export const csam$$config$$service_csam_scanner_third_party_update_value: JsonSc
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `csam-config-service_zone_identifier`.
- */
-export const csam$$config$$service_zone_identifier: JsonSchema = {
-  "description": "Identifier for the zone.",
-  "type": "string"
 };

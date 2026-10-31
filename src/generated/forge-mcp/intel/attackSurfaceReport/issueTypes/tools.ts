@@ -7,7 +7,6 @@ import {
   security$$center_api$$response$$common$$failure,
   security$$center_messages,
 } from "../../../outputs.js";
-import { security$$center_identifier } from "../../../schemas.js";
 
 /**
  * The tools of `intel.attackSurfaceReport.issueTypes`.
@@ -16,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_attackSurfaceReport_issueTypes_get",
     title: "Retrieves Security Center Issues Types",
-    description: "Lists all available issue types in Security Center, describing categories of security issues.",
+    description: "Lists all available issue types in Security Center, describing categories of security issues.\n\nGET /accounts/{account_id}/intel/attack-surface-report/issue-types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -36,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

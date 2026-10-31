@@ -10,16 +10,11 @@ import {
   zero$$trust$$gateway_api$$response$$collection,
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_result_info,
-  zero$$trust$$gateway_timestamp,
 } from "../outputs.js";
-import { zero$$trust$$gateway_identifier$$3 } from "../schemas.js";
 import {
   zero$$trust$$gateway_app$$types,
-  zero$$trust$$gateway_app_id,
-  zero$$trust$$gateway_app_type_id,
   zero$$trust$$gateway_application,
   zero$$trust$$gateway_application_type,
-  zero$$trust$$gateway_name$$4,
   zero$$trust$$gateway_response_collection$$7,
 } from "./outputs.js";
 
@@ -30,15 +25,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_appTypes_list",
     title: "List application and application type mappings",
-    description: "List all application and application type mappings.",
+    description: "List all application and application type mappings.\n\nGET /accounts/{account_id}/gateway/app_types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-3",
-              "description": "Provide the identifier string."
+              "description": "Provide the identifier string.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-3": zero$$trust$$gateway_identifier$$3,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-7",
@@ -60,15 +54,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_app-types": zero$$trust$$gateway_app$$types,
-        "zero-trust-gateway_app_id": zero$$trust$$gateway_app_id,
-        "zero-trust-gateway_app_type_id": zero$$trust$$gateway_app_type_id,
         "zero-trust-gateway_application": zero$$trust$$gateway_application,
         "zero-trust-gateway_application_type": zero$$trust$$gateway_application_type,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-4": zero$$trust$$gateway_name$$4,
         "zero-trust-gateway_response_collection-7": zero$$trust$$gateway_response_collection$$7,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
       },
     },
     annotations: {
@@ -107,15 +97,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_app-types": zero$$trust$$gateway_app$$types,
-        "zero-trust-gateway_app_id": zero$$trust$$gateway_app_id,
-        "zero-trust-gateway_app_type_id": zero$$trust$$gateway_app_type_id,
         "zero-trust-gateway_application": zero$$trust$$gateway_application,
         "zero-trust-gateway_application_type": zero$$trust$$gateway_application_type,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-4": zero$$trust$$gateway_name$$4,
         "zero-trust-gateway_response_collection-7": zero$$trust$$gateway_response_collection$$7,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
       },
     },
     request: (args) => ({

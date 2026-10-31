@@ -44,7 +44,6 @@ import {
   workers_binding_kind_vpc_service,
   workers_binding_kind_wasm_module,
   workers_binding_kind_workflow,
-  workers_binding_name,
   workers_bindings,
   workers_durable_object_deleted_export,
   workers_durable_object_expecting_transfer_export,
@@ -54,23 +53,16 @@ import {
   workers_durable_object_transferred_export,
   workers_entrypoint_cache_options,
   workers_export_config,
-  workers_export_storage,
   workers_exports_config_map,
   workers_messages,
-  workers_namespace_identifier,
   workers_worker_export,
 } from "../../../../outputs.js";
-import { workers_identifier } from "../../../../schemas.js";
 import {
   workers_version$$item$$full,
   workers_version$$item$$short,
   workers_versions$$list$$response,
   workers_versions$$single$$response,
 } from "./outputs.js";
-import {
-  workers_script_name$$2,
-  workers_version_identifier,
-} from "./schemas.js";
 
 /**
  * The tools of `workers.legacy.scripts.versions`.
@@ -79,22 +71,23 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_versions_get",
     title: "Get Worker Script Version",
-    description: "Retrieves detailed information about a specific version of a Worker script.\n\nThis method is deprecated.",
+    description: "Retrieves detailed information about a specific version of a Worker script.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/versions/{version_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name-2",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             },
             "version_id": {
-              "$ref": "#/$defs/workers_version_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -108,11 +101,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name-2": workers_script_name$$2,
-        "workers_version_identifier": workers_version_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_versions-single-response",
@@ -157,7 +146,6 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
@@ -167,10 +155,8 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_messages": workers_messages,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_version-item-full": workers_version$$item$$full,
         "workers_version-item-short": workers_version$$item$$short,
         "workers_versions-single-response": workers_versions$$single$$response,
@@ -260,7 +246,6 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
@@ -270,10 +255,8 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_messages": workers_messages,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_version-item-full": workers_version$$item$$full,
         "workers_version-item-short": workers_version$$item$$short,
         "workers_versions-single-response": workers_versions$$single$$response,
@@ -287,19 +270,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_versions_list",
     title: "List Versions",
-    description: "List of Worker Versions. The first version in the list is the latest version.\n\nThis method is deprecated.",
+    description: "List of Worker Versions. The first version in the list is the latest version.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name-2",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -309,6 +293,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "deployable": {
               "default": false,
@@ -331,10 +316,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name-2": workers_script_name$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_versions-list-response",

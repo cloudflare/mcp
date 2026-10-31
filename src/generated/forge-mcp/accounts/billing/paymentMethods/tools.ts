@@ -10,7 +10,6 @@ import {
   bill$$subs$$api_messages,
   bill$$subs$$api_result_info,
 } from "../../../outputs.js";
-import { bill$$subs$$api_identifier } from "../../../schemas.js";
 import {
   bill$$subs$$api_payment_method,
   bill$$subs$$api_payment_method_response_collection,
@@ -25,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_paymentMethods_create",
     title: "Create Payment Method",
-    description: "Creates a new payment method for an account.",
+    description: "Creates a new payment method for an account.\n\nPOST /accounts/{account_id}/payment-methods",
     inputSchema: {
       type: "object",
       properties: {
@@ -33,10 +32,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bill-subs-api_payment_method"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -49,8 +49,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
         "bill-subs-api_payment_method": bill$$subs$$api_payment_method$,
       },
     },
@@ -116,19 +116,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_paymentMethods_delete",
     title: "Delete Payment Method",
-    description: "Deletes a payment method from an account.",
+    description: "Deletes a payment method from an account.\n\nDELETE /accounts/{account_id}/payment-methods/{payment_method_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "payment_method_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Payment method identifier."
+              "description": "Payment method identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -141,9 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -194,19 +193,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_paymentMethods_get",
     title: "Get Payment Method",
-    description: "Gets a specific payment method for an account.",
+    description: "Gets a specific payment method for an account.\n\nGET /accounts/{account_id}/payment-methods/{payment_method_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "payment_method_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Payment method identifier."
+              "description": "Payment method identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -219,9 +219,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_payment_method_response_single",
@@ -284,15 +282,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_paymentMethods_list",
     title: "List Payment Methods",
-    description: "Lists all payment methods for an account.",
+    description: "Lists all payment methods for an account.\n\nGET /accounts/{account_id}/payment-methods",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -301,6 +300,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -319,9 +319,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_payment_method_response_collection",
@@ -390,19 +388,20 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_paymentMethods_setDefault",
     title: "Set Default Payment Method",
-    description: "Sets a payment method as the default for an account.",
+    description: "Sets a payment method as the default for an account.\n\nPOST /accounts/{account_id}/payment-methods/{payment_method_id}/set-as-default",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "payment_method_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Payment method identifier."
+              "description": "Payment method identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -415,9 +414,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -469,7 +466,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_billing_paymentMethods_update",
     title: "Update Payment Method",
-    description: "Updates a payment method for an account.",
+    description: "Updates a payment method for an account.\n\nPUT /accounts/{account_id}/payment-methods/{payment_method_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -477,14 +474,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bill-subs-api_payment_method"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "payment_method_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Payment method identifier."
+              "description": "Payment method identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -498,8 +496,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
         "bill-subs-api_payment_method": bill$$subs$$api_payment_method$,
       },
     },

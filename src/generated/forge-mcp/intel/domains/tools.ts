@@ -5,11 +5,9 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   intel_api$$response$$common$$failure,
   intel_api$$response$$single,
-  intel_domain_name,
   intel_messages,
   intel_schemas$$messages,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
 import {
   intel_additional_information,
   intel_application,
@@ -17,13 +15,9 @@ import {
   intel_category_with_super_category_id,
   intel_content_categories,
   intel_domain,
-  intel_inherited_from,
-  intel_popularity_rank,
   intel_resolves_to_ref,
   intel_resolves_to_refs,
-  intel_risk_score,
   intel_single_response,
-  intel_stix_identifier,
 } from "./outputs.js";
 
 /**
@@ -33,15 +27,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_domains_get",
     title: "Get Domain Details",
-    description: "Gets security details and statistics about a domain.",
+    description: "Gets security details and statistics about a domain.\n\nGET /accounts/{account_id}/intel/domain",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,6 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "domain": {
               "type": "string"
@@ -60,7 +56,7 @@ export const tools: readonly Tool[] = [
             },
             "skip_ranking": {
               "default": false,
-              "description": "Skip the domain ranking lookup for faster responses. Defaults to\n`false` (ranking is included). Set to `true` to opt out — primarily\nused by callers like Cloudflare Radar that need to avoid a\ncircular dependency when building the domain details page.\nNote: the bulk endpoint (`/intel/domain/bulk`) uses opposite\ndefaults — see `include_ranking` there.\n",
+              "description": "Skip the domain ranking lookup for faster responses. Defaults to\n`false` (ranking is included). Set to `true` to opt out — primarily\nused by callers like Cloudflare Radar that need to avoid a\ncircular dependency when building the domain details page.\nNote: the bulk endpoint (`/intel/domain/bulk`) uses opposite\ndefaults — see `include_ranking` there.",
               "type": "boolean"
             }
           },
@@ -70,9 +66,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_single_response",
@@ -84,15 +78,10 @@ export const tools: readonly Tool[] = [
         "intel_category_with_super_category_id": intel_category_with_super_category_id,
         "intel_content_categories": intel_content_categories,
         "intel_domain": intel_domain,
-        "intel_domain_name": intel_domain_name,
-        "intel_inherited_from": intel_inherited_from,
-        "intel_popularity_rank": intel_popularity_rank,
         "intel_resolves_to_ref": intel_resolves_to_ref,
         "intel_resolves_to_refs": intel_resolves_to_refs,
-        "intel_risk_score": intel_risk_score,
         "intel_schemas-messages": intel_schemas$$messages,
         "intel_single_response": intel_single_response,
-        "intel_stix_identifier": intel_stix_identifier,
       },
     },
     annotations: {
@@ -135,16 +124,11 @@ export const tools: readonly Tool[] = [
         "intel_category_with_super_category_id": intel_category_with_super_category_id,
         "intel_content_categories": intel_content_categories,
         "intel_domain": intel_domain,
-        "intel_domain_name": intel_domain_name,
-        "intel_inherited_from": intel_inherited_from,
         "intel_messages": intel_messages,
-        "intel_popularity_rank": intel_popularity_rank,
         "intel_resolves_to_ref": intel_resolves_to_ref,
         "intel_resolves_to_refs": intel_resolves_to_refs,
-        "intel_risk_score": intel_risk_score,
         "intel_schemas-messages": intel_schemas$$messages,
         "intel_single_response": intel_single_response,
-        "intel_stix_identifier": intel_stix_identifier,
       },
     },
     request: (args) => ({

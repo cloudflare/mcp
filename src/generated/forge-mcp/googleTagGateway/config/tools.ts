@@ -8,10 +8,7 @@ import {
   google$$tag$$gateway_google$$tag$$gateway$$config,
   google$$tag$$gateway_messages,
 } from "./outputs.js";
-import {
-  google$$tag$$gateway_google$$tag$$gateway$$config as google$$tag$$gateway_google$$tag$$gateway$$config$,
-  google$$tag$$gateway_identifier,
-} from "./schemas.js";
+import { google$$tag$$gateway_google$$tag$$gateway$$config as google$$tag$$gateway_google$$tag$$gateway$$config$ } from "./schemas.js";
 
 /**
  * The tools of `googleTagGateway.config`.
@@ -20,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "googleTagGateway_config_get",
     title: "Get Google Tag Gateway configuration",
-    description: "Gets the Google Tag Gateway configuration for a zone.",
+    description: "Gets the Google Tag Gateway configuration for a zone.\n\nGET /zones/{zone_id}/settings/google-tag-gateway/config",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/google-tag-gateway_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -40,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "google-tag-gateway_identifier": google$$tag$$gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -126,7 +122,7 @@ export const tools: readonly Tool[] = [
   {
     name: "googleTagGateway_config_update",
     title: "Update Google Tag Gateway configuration",
-    description: "Updates the Google Tag Gateway configuration for a zone.",
+    description: "Updates the Google Tag Gateway configuration for a zone.\n\nPUT /zones/{zone_id}/settings/google-tag-gateway/config",
     inputSchema: {
       type: "object",
       properties: {
@@ -134,10 +130,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/google-tag-gateway_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -150,9 +147,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config$,
-        "google-tag-gateway_identifier": google$$tag$$gateway_identifier,
       },
     },
     outputSchema: {

@@ -8,11 +8,8 @@ import {
   access_api$$response$$common$$failure,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier } from "../../../schemas.js";
 import {
-  access_aaguid,
   access_authenticator_device_aaguid,
-  access_name$$14,
   access_response_collection$$17,
 } from "./outputs.js";
 
@@ -23,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_mfa_authenticatorCatalog_list",
     title: "List authenticator device AAGUIDs",
-    description: "Returns a list of Authenticator Device AAGUIDs for MFA configuration.",
+    description: "Returns a list of Authenticator Device AAGUIDs for MFA configuration.\n\nGET /accounts/{account_id}/access/authenticator_device_aaguids",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,19 +41,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-17",
       $defs: {
-        "access_aaguid": access_aaguid,
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_authenticator_device_aaguid": access_authenticator_device_aaguid,
         "access_messages": access_messages,
-        "access_name-14": access_name$$14,
         "access_response_collection-17": access_response_collection$$17,
       },
     },
@@ -78,13 +72,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_aaguid": access_aaguid,
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_authenticator_device_aaguid": access_authenticator_device_aaguid,
         "access_messages": access_messages,
-        "access_name-14": access_name$$14,
         "access_response_collection-17": access_response_collection$$17,
       },
     },

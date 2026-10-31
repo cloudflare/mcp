@@ -8,10 +8,6 @@ import {
   api$$shield_messages,
 } from "../../outputs.js";
 import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-} from "../../schemas.js";
-import {
   api$$shield_openapi$$with$$thresholds,
   api$$shield_schema$$response$$with$$thresholds,
 } from "./outputs.js";
@@ -23,14 +19,23 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_schemas_list",
     title: "Export web and API operations as OpenAPI schemas",
-    description: "Returns tracked web and API operations and their feature configuration rendered as OpenAPI schemas.",
+    description: "Returns tracked web and API operations and their feature configuration rendered as OpenAPI schemas.\n\nGET /zones/{zone_id}/api_gateway/schemas",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -39,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "feature": {
               "description": "Add feature(s) to the results. The feature name that is given here corresponds to the resulting feature object. Have a look at the top-level object description for more details on the specific meaning.",
@@ -77,10 +83,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_schema-response-with-thresholds",

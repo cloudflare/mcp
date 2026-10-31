@@ -32,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_create",
     title: "Create a rule",
-    description: "Create a new detection rule.",
+    description: "Create a new detection rule.\n\nPOST /accounts/{account_id}/cloudforce-one/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,6 +40,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_CreateRule"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -55,6 +56,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_CreateRule": cloudforce$$one_CreateRule,
         "cloudforce-one_MetaInputEntry": cloudforce$$one_MetaInputEntry,
@@ -117,7 +119,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_delete",
     title: "Delete a rule",
-    description: "Delete an existing rule.",
+    description: "Delete an existing rule.\n\nDELETE /accounts/{account_id}/cloudforce-one/rules/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -125,6 +127,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_DeleteRuleBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -146,6 +149,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_DeleteRuleBody": cloudforce$$one_DeleteRuleBody,
       },
@@ -209,11 +213,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_deleteAll",
     title: "Delete all rules",
-    description: "Delete all rules in an account.",
+    description: "Delete all rules in an account.\n\nDELETE /accounts/{account_id}/cloudforce-one/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -229,6 +234,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_DeleteAllResponse",
@@ -269,11 +275,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_get",
     title: "Get a rule",
-    description: "Get a single rule by ID.",
+    description: "Get a single rule by ID.\n\nGET /accounts/{account_id}/cloudforce-one/rules/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -295,6 +302,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_RulePreview",
@@ -339,11 +347,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_list",
     title: "List rules",
-    description: "Returns all rules for an account with optional filtering.",
+    description: "Returns all rules for an account with optional filtering.\n\nGET /accounts/{account_id}/cloudforce-one/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -356,6 +365,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "is_public": {
               "description": "Limits rules to the specified public visibility.",
@@ -428,6 +438,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_RulesPreviewListResponse",
@@ -480,11 +491,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_search",
     title: "Search rules",
-    description: "Search rules using hybrid, vector, keyword, or exact retrieval, backed by AI Search with a SQL fallback.",
+    description: "Search rules using hybrid, vector, keyword, or exact retrieval, backed by AI Search with a SQL fallback.\n\nGET /accounts/{account_id}/cloudforce-one/rules/search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -497,6 +509,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "is_public": {
               "description": "Limits rules to the specified public visibility.",
@@ -596,6 +609,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_RulesSearchResponse",
@@ -656,7 +670,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_update",
     title: "Update a rule",
-    description: "Updates an existing rule.",
+    description: "Updates an existing rule.\n\nPUT /accounts/{account_id}/cloudforce-one/rules/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -664,6 +678,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_UpdateRule"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -685,6 +700,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_MetaInputEntry": cloudforce$$one_MetaInputEntry,
         "cloudforce-one_UpdateRule": cloudforce$$one_UpdateRule,
@@ -750,7 +766,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_validate",
     title: "Validate rule with context",
-    description: "Validates rule syntax, name uniqueness, namespace, and metadata.",
+    description: "Validates rule syntax, name uniqueness, namespace, and metadata.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/validate",
     inputSchema: {
       type: "object",
       properties: {
@@ -784,6 +800,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -799,6 +816,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_ValidationResponse",

@@ -24,7 +24,6 @@ import {
   zaraz_zaraz$$config$$response,
   zaraz_zaraz$$config$$return,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
 import {
   zaraz_zaraz$$config$$row$$base,
   zaraz_zaraz$$history$$response,
@@ -37,15 +36,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_history_list",
     title: "List Zaraz historical configuration records",
-    description: "Lists a history of published Zaraz configuration records for a zone.",
+    description: "Lists a history of published Zaraz configuration records for a zone.\n\nGET /zones/{zone_id}/settings/zaraz/history",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,6 +54,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "description": "Maximum amount of results to list. Default value is 10.",
@@ -89,9 +90,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-history-response",
@@ -148,7 +147,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_history_update",
     title: "Restore Zaraz historical configuration by ID",
-    description: "Restores a historical published Zaraz configuration by ID for a zone.",
+    description: "Restores a historical published Zaraz configuration by ID for a zone.\n\nPUT /zones/{zone_id}/settings/zaraz/history",
     inputSchema: {
       type: "object",
       properties: {
@@ -156,10 +155,11 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -172,9 +172,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-config-response",

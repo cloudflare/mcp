@@ -9,8 +9,8 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const dns$$settings_account_settings_patch: JsonSchema = {
   "properties": {
     "enforce_dns_only": {
-      "$ref": "#/$defs/dns-settings_enforce_dns_only",
-      "description": "When enabled, forces all proxied DNS records in the account to behave as DNS-only at the edge, regardless of each record's individual proxy setting. Note that this account-level override does not modify the records themselves; it only affects how they are served at the edge. See more on [Enforce DNS-only](https://developers.cloudflare.com/dns/proxy-status/enforce-dns-only)."
+      "description": "When enabled, forces all proxied DNS records in the account to behave as DNS-only at the edge, regardless of each record's individual proxy setting. Note that this account-level override does not modify the records themselves; it only affects how they are served at the edge. See more on [Enforce DNS-only](https://developers.cloudflare.com/dns/proxy-status/enforce-dns-only).",
+      "type": "boolean"
     },
     "zone_defaults": {
       "$ref": "#/$defs/dns-settings_dns-settings-account-patch",
@@ -60,72 +60,45 @@ export const dns$$settings_dns$$settings$$account$$patch: JsonSchema = {
 export const dns$$settings_dns$$settings$$patch: JsonSchema = {
   "properties": {
     "flatten_all_cnames": {
-      "$ref": "#/$defs/dns-settings_flatten_all_cnames",
-      "description": "Whether to flatten all CNAME records in the zone. Note that, due to DNS limitations, a CNAME record at the zone apex will always be flattened."
+      "description": "Whether to flatten all CNAME records in the zone. Note that, due to DNS limitations, a CNAME record at the zone apex will always be flattened.",
+      "type": "boolean"
     },
     "foundation_dns": {
-      "$ref": "#/$defs/dns-settings_foundation_dns",
-      "description": "Deprecated. Use nameservers.type to configure Advanced Nameservers."
+      "deprecated": true,
+      "description": "Deprecated. Use nameservers.type to configure Advanced Nameservers.",
+      "type": "boolean"
     },
     "internal_dns": {
       "$ref": "#/$defs/dns-settings_internal_dns_base",
       "description": "Settings for this internal zone."
     },
     "multi_provider": {
-      "$ref": "#/$defs/dns-settings_multi_provider",
-      "description": "Whether to enable multi-provider DNS, which causes Cloudflare to activate the zone even when non-Cloudflare NS records exist, and to respect NS records at the zone apex during outbound zone transfers."
+      "description": "Whether to enable multi-provider DNS, which causes Cloudflare to activate the zone even when non-Cloudflare NS records exist, and to respect NS records at the zone apex during outbound zone transfers.",
+      "type": "boolean"
     },
     "ns_ttl": {
-      "$ref": "#/$defs/dns-settings_ns_ttl",
-      "description": "The time to live (TTL) of the zone's nameserver (NS) records."
+      "description": "The time to live (TTL) of the zone's nameserver (NS) records.",
+      "type": "number"
     },
     "secondary_overrides": {
-      "$ref": "#/$defs/dns-settings_secondary_overrides",
-      "description": "Allows a Secondary DNS zone to use (proxied) override records and CNAME flattening at the zone apex."
+      "description": "Allows a Secondary DNS zone to use (proxied) override records and CNAME flattening at the zone apex.",
+      "type": "boolean"
     },
     "soa": {
       "$ref": "#/$defs/dns-settings_soa-base",
       "description": "Components of the zone's SOA record."
     },
     "zone_mode": {
-      "$ref": "#/$defs/dns-settings_zone_mode",
-      "description": "Whether the zone mode is a regular or CDN/DNS only zone."
+      "description": "Whether the zone mode is a regular or CDN/DNS only zone.",
+      "enum": [
+        "standard",
+        "cdn_only",
+        "dns_only"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_enforce_dns_only`.
- */
-export const dns$$settings_enforce_dns_only: JsonSchema = {
-  "description": "When enabled, forces all proxied DNS records in the account to behave as DNS-only at the edge, regardless of each record's individual proxy setting. Note that this account-level override does not modify the records themselves; it only affects how they are served at the edge. See more on [Enforce DNS-only](https://developers.cloudflare.com/dns/proxy-status/enforce-dns-only).",
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_flatten_all_cnames`.
- */
-export const dns$$settings_flatten_all_cnames: JsonSchema = {
-  "description": "Whether to flatten all CNAME records in the zone. Note that, due to DNS limitations, a CNAME record at the zone apex will always be flattened.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_foundation_dns`.
- */
-export const dns$$settings_foundation_dns: JsonSchema = {
-  "deprecated": true,
-  "description": "Deprecated. Use nameservers.type to configure Advanced Nameservers.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_identifier`.
- */
-export const dns$$settings_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
 };
 
 /**
@@ -140,38 +113,6 @@ export const dns$$settings_internal_dns_base: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_multi_provider`.
- */
-export const dns$$settings_multi_provider: JsonSchema = {
-  "description": "Whether to enable multi-provider DNS, which causes Cloudflare to activate the zone even when non-Cloudflare NS records exist, and to respect NS records at the zone apex during outbound zone transfers.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_ns_ttl`.
- */
-export const dns$$settings_ns_ttl: JsonSchema = {
-  "description": "The time to live (TTL) of the zone's nameserver (NS) records.",
-  "type": "number"
-};
-
-/**
- * The schema of `dns-settings_page`.
- */
-export const dns$$settings_page: JsonSchema = {
-  "description": "Page number of paginated results.",
-  "type": "integer"
-};
-
-/**
- * The schema of `dns-settings_secondary_overrides`.
- */
-export const dns$$settings_secondary_overrides: JsonSchema = {
-  "description": "Allows a Secondary DNS zone to use (proxied) override records and CNAME flattening at the zone apex.",
-  "type": "boolean"
 };
 
 /**
@@ -217,17 +158,4 @@ export const dns$$settings_soa$$base: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_zone_mode`.
- */
-export const dns$$settings_zone_mode: JsonSchema = {
-  "description": "Whether the zone mode is a regular or CDN/DNS only zone.",
-  "enum": [
-    "standard",
-    "cdn_only",
-    "dns_only"
-  ],
-  "type": "string"
 };

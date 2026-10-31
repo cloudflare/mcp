@@ -4,21 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `monetization_identifier`.
- */
-export const monetization_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `monetization_monetization-price`.
- */
-export const monetization_monetization$$price: JsonSchema = {
-  "description": "Price in the smallest indivisible unit of the configured payment token, encoded as a decimal string. Must be a canonical decimal integer in [1000, 100000000]: no leading zeros, and a bare JSON number is rejected. The price is required for the fixed-price schemes (\"exact\" and \"upto\") and must be at least 1000, the smallest amount the payment facilitator can settle ($0.001 for a 6-decimal token such as USDC), and at most 100000000 ($100 for a 6-decimal token). When the scheme is \"origin_controlled\" the origin server sets pricing dynamically and the rule carries no price: the field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced. Responses always encode this as a string and omit it for \"origin_controlled\" rules; the pattern matches exactly the set of values the server accepts.",
-  "type": "string"
-};
-
-/**
  * The schema of `monetization_monetization-rule-input`.
  */
 export const monetization_monetization$$rule$$input: JsonSchema = {
@@ -54,12 +39,12 @@ export const monetization_monetization$$rule$$input$$fixed$$price: JsonSchema = 
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/monetization_identifier",
-      "description": "Optional on input. Include the ID of an existing payment rule to update it in place, preserving its stable identity across the full-ruleset replacement; omit it to create a new rule. An ID that does not match an existing payment rule in the zone is rejected. Rules omitted from the request are deleted."
+      "description": "Optional on input. Include the ID of an existing payment rule to update it in place, preserving its stable identity across the full-ruleset replacement; omit it to create a new rule. An ID that does not match an existing payment rule in the zone is rejected. Rules omitted from the request are deleted.",
+      "type": "string"
     },
     "price": {
-      "$ref": "#/$defs/monetization_monetization-price",
-      "description": "Price in the smallest indivisible unit of the configured payment token, encoded as a decimal string. Must be a canonical decimal integer in [1000, 100000000]: no leading zeros, and a bare JSON number is rejected. The price is required for the fixed-price schemes (\"exact\" and \"upto\") and must be at least 1000, the smallest amount the payment facilitator can settle ($0.001 for a 6-decimal token such as USDC), and at most 100000000 ($100 for a 6-decimal token). When the scheme is \"origin_controlled\" the origin server sets pricing dynamically and the rule carries no price: the field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced. Responses always encode this as a string and omit it for \"origin_controlled\" rules; the pattern matches exactly the set of values the server accepts."
+      "description": "Price in the smallest indivisible unit of the configured payment token, encoded as a decimal string. Must be a canonical decimal integer in [1000, 100000000]: no leading zeros, and a bare JSON number is rejected. The price is required for the fixed-price schemes (\"exact\" and \"upto\") and must be at least 1000, the smallest amount the payment facilitator can settle ($0.001 for a 6-decimal token such as USDC), and at most 100000000 ($100 for a 6-decimal token). When the scheme is \"origin_controlled\" the origin server sets pricing dynamically and the rule carries no price: the field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced. Responses always encode this as a string and omit it for \"origin_controlled\" rules; the pattern matches exactly the set of values the server accepts.",
+      "type": "string"
     },
     "scheme": {
       "description": "X402 payment scheme. \"exact\" requires the specified payment amount; \"upto\" permits a payment up to the specified amount. Both fixed-price schemes require the price field.",
@@ -101,8 +86,8 @@ export const monetization_monetization$$rule$$input$$origin$$controlled: JsonSch
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/monetization_identifier",
-      "description": "Optional on input. Include the ID of an existing payment rule to update it in place, preserving its stable identity across the full-ruleset replacement; omit it to create a new rule. An ID that does not match an existing payment rule in the zone is rejected. Rules omitted from the request are deleted."
+      "description": "Optional on input. Include the ID of an existing payment rule to update it in place, preserving its stable identity across the full-ruleset replacement; omit it to create a new rule. An ID that does not match an existing payment rule in the zone is rejected. Rules omitted from the request are deleted.",
+      "type": "string"
     },
     "scheme": {
       "description": "X402 payment scheme. \"origin_controlled\" lets the origin server set pricing dynamically; the rule carries no price and the price field must be omitted.",
@@ -141,12 +126,17 @@ export const monetization_monetization$$rule$$patch: JsonSchema = {
       "type": "string"
     },
     "price": {
-      "$ref": "#/$defs/monetization_monetization-price",
-      "description": "Price in the smallest indivisible unit of the configured payment token, encoded as a decimal string. Must be a canonical decimal integer in [1000, 100000000]: no leading zeros, and a bare JSON number is rejected. The price is required for the fixed-price schemes (\"exact\" and \"upto\") and must be at least 1000, the smallest amount the payment facilitator can settle ($0.001 for a 6-decimal token such as USDC), and at most 100000000 ($100 for a 6-decimal token). When the scheme is \"origin_controlled\" the origin server sets pricing dynamically and the rule carries no price: the field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced. Responses always encode this as a string and omit it for \"origin_controlled\" rules; the pattern matches exactly the set of values the server accepts."
+      "description": "Price in the smallest indivisible unit of the configured payment token, encoded as a decimal string. Must be a canonical decimal integer in [1000, 100000000]: no leading zeros, and a bare JSON number is rejected. The price is required for the fixed-price schemes (\"exact\" and \"upto\") and must be at least 1000, the smallest amount the payment facilitator can settle ($0.001 for a 6-decimal token such as USDC), and at most 100000000 ($100 for a 6-decimal token). When the scheme is \"origin_controlled\" the origin server sets pricing dynamically and the rule carries no price: the field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced. Responses always encode this as a string and omit it for \"origin_controlled\" rules; the pattern matches exactly the set of values the server accepts.",
+      "type": "string"
     },
     "scheme": {
-      "$ref": "#/$defs/monetization_monetization-scheme",
-      "description": "X402 payment scheme. \"exact\" requires the specified payment amount; \"upto\" permits a payment up to the specified amount; \"origin_controlled\" lets the origin server set pricing dynamically, in which case the rule carries no price and the price field must be omitted."
+      "description": "X402 payment scheme. \"exact\" requires the specified payment amount; \"upto\" permits a payment up to the specified amount; \"origin_controlled\" lets the origin server set pricing dynamically, in which case the rule carries no price and the price field must be omitted.",
+      "enum": [
+        "exact",
+        "upto",
+        "origin_controlled"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -169,25 +159,4 @@ export const monetization_monetization$$ruleset$$input: JsonSchema = {
     "rules"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `monetization_monetization-scheme`.
- */
-export const monetization_monetization$$scheme: JsonSchema = {
-  "description": "X402 payment scheme. \"exact\" requires the specified payment amount; \"upto\" permits a payment up to the specified amount; \"origin_controlled\" lets the origin server set pricing dynamically, in which case the rule carries no price and the price field must be omitted.",
-  "enum": [
-    "exact",
-    "upto",
-    "origin_controlled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `monetization_zone-identifier`.
- */
-export const monetization_zone$$identifier: JsonSchema = {
-  "description": "The unique ID of the zone.",
-  "type": "string"
 };

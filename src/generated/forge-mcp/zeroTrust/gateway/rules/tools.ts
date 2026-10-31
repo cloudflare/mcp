@@ -6,59 +6,31 @@ import {
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
-  zero$$trust$$gateway_read_only_timestamp,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier$$2 } from "../../schemas.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
-  zero$$trust$$gateway_timestamp,
 } from "../outputs.js";
-import { zero$$trust$$gateway_timestamp as zero$$trust$$gateway_timestamp$ } from "../schemas.js";
 import {
-  zero$$trust$$gateway_action,
-  zero$$trust$$gateway_deleted_at,
-  zero$$trust$$gateway_description$$2,
-  zero$$trust$$gateway_device_posture,
   zero$$trust$$gateway_dns_resolver_settings_v4,
   zero$$trust$$gateway_dns_resolver_settings_v6,
-  zero$$trust$$gateway_enabled,
   zero$$trust$$gateway_expiration,
   zero$$trust$$gateway_filters,
-  zero$$trust$$gateway_identity,
-  zero$$trust$$gateway_name$$3,
-  zero$$trust$$gateway_precedence,
-  zero$$trust$$gateway_read_only,
   zero$$trust$$gateway_response_collection$$6,
   zero$$trust$$gateway_rule$$settings,
   zero$$trust$$gateway_rules,
   zero$$trust$$gateway_schedule,
-  zero$$trust$$gateway_sharable,
   zero$$trust$$gateway_single_response$$4,
-  zero$$trust$$gateway_source_account,
-  zero$$trust$$gateway_traffic,
-  zero$$trust$$gateway_uuid$$4,
-  zero$$trust$$gateway_version,
-  zero$$trust$$gateway_warning_status,
 } from "./outputs.js";
 import {
-  zero$$trust$$gateway_action as zero$$trust$$gateway_action$,
-  zero$$trust$$gateway_description$$2 as zero$$trust$$gateway_description$$2$,
-  zero$$trust$$gateway_device_posture as zero$$trust$$gateway_device_posture$,
   zero$$trust$$gateway_dns_resolver_settings_v4 as zero$$trust$$gateway_dns_resolver_settings_v4$,
   zero$$trust$$gateway_dns_resolver_settings_v6 as zero$$trust$$gateway_dns_resolver_settings_v6$,
-  zero$$trust$$gateway_enabled as zero$$trust$$gateway_enabled$,
   zero$$trust$$gateway_expiration as zero$$trust$$gateway_expiration$,
   zero$$trust$$gateway_filters as zero$$trust$$gateway_filters$,
-  zero$$trust$$gateway_identity as zero$$trust$$gateway_identity$,
-  zero$$trust$$gateway_name$$3 as zero$$trust$$gateway_name$$3$,
-  zero$$trust$$gateway_precedence as zero$$trust$$gateway_precedence$,
   zero$$trust$$gateway_rule$$settings as zero$$trust$$gateway_rule$$settings$,
   zero$$trust$$gateway_schedule as zero$$trust$$gateway_schedule$,
-  zero$$trust$$gateway_traffic as zero$$trust$$gateway_traffic$,
-  zero$$trust$$gateway_uuid$$4 as zero$$trust$$gateway_uuid$$4$,
 } from "./schemas.js";
 
 /**
@@ -68,29 +40,48 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_create",
     title: "Create a Zero Trust Gateway rule",
-    description: "Create a new Zero Trust Gateway rule.",
+    description: "Create a new Zero Trust Gateway rule.\n\nPOST /accounts/{account_id}/gateway/rules",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "action": {
-              "$ref": "#/$defs/zero-trust-gateway_action",
-              "description": "Specify the action to perform when the associated traffic, identity, and device posture expressions either absent or evaluate to `true`."
+              "description": "Specify the action to perform when the associated traffic, identity, and device posture expressions either absent or evaluate to `true`.",
+              "enum": [
+                "on",
+                "off",
+                "allow",
+                "block",
+                "scan",
+                "noscan",
+                "safesearch",
+                "ytrestricted",
+                "isolate",
+                "noisolate",
+                "override",
+                "l4_override",
+                "egress",
+                "resolve",
+                "quarantine",
+                "redirect",
+                "forward"
+              ],
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description-2",
-              "description": "Specify the rule description."
+              "description": "Specify the rule description.",
+              "type": "string"
             },
             "device_posture": {
-              "$ref": "#/$defs/zero-trust-gateway_device_posture",
               "default": "",
-              "description": "Specify the wirefilter expression used for device posture check. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response."
+              "description": "Specify the wirefilter expression used for device posture check. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/zero-trust-gateway_enabled",
               "default": false,
-              "description": "Specify whether the rule is enabled."
+              "description": "Specify whether the rule is enabled.",
+              "type": "boolean"
             },
             "expiration": {
               "$ref": "#/$defs/zero-trust-gateway_expiration",
@@ -101,17 +92,17 @@ export const tools: readonly Tool[] = [
               "description": "Specify the protocol or layer to evaluate the traffic, identity, and device posture expressions. Can only contain a single value."
             },
             "identity": {
-              "$ref": "#/$defs/zero-trust-gateway_identity",
               "default": "",
-              "description": "Specify the wirefilter expression used for identity matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response."
+              "description": "Specify the wirefilter expression used for identity matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-3",
-              "description": "Specify the rule name."
+              "description": "Specify the rule name.",
+              "type": "string"
             },
             "precedence": {
-              "$ref": "#/$defs/zero-trust-gateway_precedence",
-              "description": "Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform."
+              "description": "Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform.",
+              "type": "integer"
             },
             "rule_settings": {
               "$ref": "#/$defs/zero-trust-gateway_rule-settings",
@@ -122,9 +113,9 @@ export const tools: readonly Tool[] = [
               "description": "Defines the schedule for activating DNS policies. Settable only for `dns` and `dns_resolver` rules."
             },
             "traffic": {
-              "$ref": "#/$defs/zero-trust-gateway_traffic",
               "default": "",
-              "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response."
+              "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+              "type": "string"
             }
           },
           "required": [
@@ -134,10 +125,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -150,55 +142,29 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action$,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2$,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture$,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4$,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6$,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled$,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration$,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity$,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3$,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence$,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings$,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule$,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp$,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     annotations: {
@@ -227,34 +193,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     request: (args) => ({
@@ -265,19 +214,21 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_delete",
     title: "Delete a Zero Trust Gateway rule",
-    description: "Delete a Zero Trust Gateway rule.",
+    description: "Delete a Zero Trust Gateway rule.\n\nDELETE /accounts/{account_id}/gateway/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-4",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -290,10 +241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
@@ -342,19 +290,21 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_get",
     title: "Get Zero Trust Gateway rule details.",
-    description: "Get a single Zero Trust Gateway rule.",
+    description: "Get a single Zero Trust Gateway rule.\n\nGET /accounts/{account_id}/gateway/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-4",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -367,41 +317,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     annotations: {
@@ -430,34 +360,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     request: (args) => ({
@@ -467,15 +380,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_list",
     title: "List Zero Trust Gateway rules",
-    description: "List Zero Trust Gateway rules for an account.",
+    description: "List Zero Trust Gateway rules for an account.\n\nGET /accounts/{account_id}/gateway/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -484,6 +398,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Sort direction. When `order_by` is omitted, this controls the direction\nof the existing precedence ordering. Shared rules remain first in either\ndirection. Accepted values are `asc` and `desc`.",
@@ -521,42 +436,23 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-6",
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-6": zero$$trust$$gateway_response_collection$$6,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     annotations: {
@@ -585,36 +481,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-6": zero$$trust$$gateway_response_collection$$6,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     request: (args) => ({
@@ -630,15 +509,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_listTenant",
     title: "List Zero Trust Gateway rules inherited from the parent account",
-    description: "List Zero Trust Gateway rules for the parent account of an account in the MSP configuration.",
+    description: "List Zero Trust Gateway rules for the parent account of an account in the MSP configuration.\n\nGET /accounts/{account_id}/gateway/rules/tenant",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -650,42 +530,23 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-6",
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-6": zero$$trust$$gateway_response_collection$$6,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     annotations: {
@@ -714,36 +575,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-6": zero$$trust$$gateway_response_collection$$6,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     request: (args) => ({
@@ -753,19 +597,21 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_resetExpiration",
     title: "Reset the expiration of a Zero Trust Gateway Rule",
-    description: "Resets the expiration of a Zero Trust Gateway Rule if its duration elapsed and it has a default duration. The Zero Trust Gateway Rule must have values  for both `expiration.expires_at` and `expiration.duration`.",
+    description: "Resets the expiration of a Zero Trust Gateway Rule if its duration elapsed and it has a default duration. The Zero Trust Gateway Rule must have values  for both `expiration.expires_at` and `expiration.duration`.\n\nPOST /accounts/{account_id}/gateway/rules/{rule_id}/reset_expiration",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-4",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -778,41 +624,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     annotations: {
@@ -841,34 +667,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     request: (args) => ({
@@ -878,29 +687,48 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_update",
     title: "Update a Zero Trust Gateway rule",
-    description: "Update a configured Zero Trust Gateway rule.",
+    description: "Update a configured Zero Trust Gateway rule.\n\nPUT /accounts/{account_id}/gateway/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "action": {
-              "$ref": "#/$defs/zero-trust-gateway_action",
-              "description": "Specify the action to perform when the associated traffic, identity, and device posture expressions either absent or evaluate to `true`."
+              "description": "Specify the action to perform when the associated traffic, identity, and device posture expressions either absent or evaluate to `true`.",
+              "enum": [
+                "on",
+                "off",
+                "allow",
+                "block",
+                "scan",
+                "noscan",
+                "safesearch",
+                "ytrestricted",
+                "isolate",
+                "noisolate",
+                "override",
+                "l4_override",
+                "egress",
+                "resolve",
+                "quarantine",
+                "redirect",
+                "forward"
+              ],
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description-2",
-              "description": "Specify the rule description."
+              "description": "Specify the rule description.",
+              "type": "string"
             },
             "device_posture": {
-              "$ref": "#/$defs/zero-trust-gateway_device_posture",
               "default": "",
-              "description": "Specify the wirefilter expression used for device posture check. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response."
+              "description": "Specify the wirefilter expression used for device posture check. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/zero-trust-gateway_enabled",
               "default": false,
-              "description": "Specify whether the rule is enabled."
+              "description": "Specify whether the rule is enabled.",
+              "type": "boolean"
             },
             "expiration": {
               "$ref": "#/$defs/zero-trust-gateway_expiration",
@@ -911,17 +739,17 @@ export const tools: readonly Tool[] = [
               "description": "Specify the protocol or layer to evaluate the traffic, identity, and device posture expressions. Can only contain a single value."
             },
             "identity": {
-              "$ref": "#/$defs/zero-trust-gateway_identity",
               "default": "",
-              "description": "Specify the wirefilter expression used for identity matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response."
+              "description": "Specify the wirefilter expression used for identity matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-3",
-              "description": "Specify the rule name."
+              "description": "Specify the rule name.",
+              "type": "string"
             },
             "precedence": {
-              "$ref": "#/$defs/zero-trust-gateway_precedence",
-              "description": "Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform."
+              "description": "Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform.",
+              "type": "integer"
             },
             "rule_settings": {
               "$ref": "#/$defs/zero-trust-gateway_rule-settings",
@@ -932,9 +760,9 @@ export const tools: readonly Tool[] = [
               "description": "Defines the schedule for activating DNS policies. Settable only for `dns` and `dns_resolver` rules."
             },
             "traffic": {
-              "$ref": "#/$defs/zero-trust-gateway_traffic",
               "default": "",
-              "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response."
+              "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+              "type": "string"
             }
           },
           "required": [
@@ -944,14 +772,16 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "rule_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-4",
-              "description": "Identify the API resource with a UUID."
+              "description": "Identify the API resource with a UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -965,56 +795,29 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action$,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2$,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture$,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4$,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6$,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled$,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration$,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity$,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3$,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence$,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings$,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule$,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp$,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic$,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     annotations: {
@@ -1043,34 +846,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_action": zero$$trust$$gateway_action,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_deleted_at": zero$$trust$$gateway_deleted_at,
-        "zero-trust-gateway_description-2": zero$$trust$$gateway_description$$2,
-        "zero-trust-gateway_device_posture": zero$$trust$$gateway_device_posture,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
-        "zero-trust-gateway_enabled": zero$$trust$$gateway_enabled,
         "zero-trust-gateway_expiration": zero$$trust$$gateway_expiration,
         "zero-trust-gateway_filters": zero$$trust$$gateway_filters,
-        "zero-trust-gateway_identity": zero$$trust$$gateway_identity,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-3": zero$$trust$$gateway_name$$3,
-        "zero-trust-gateway_precedence": zero$$trust$$gateway_precedence,
-        "zero-trust-gateway_read_only": zero$$trust$$gateway_read_only,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_rule-settings": zero$$trust$$gateway_rule$$settings,
         "zero-trust-gateway_rules": zero$$trust$$gateway_rules,
         "zero-trust-gateway_schedule": zero$$trust$$gateway_schedule,
-        "zero-trust-gateway_sharable": zero$$trust$$gateway_sharable,
         "zero-trust-gateway_single_response-4": zero$$trust$$gateway_single_response$$4,
-        "zero-trust-gateway_source_account": zero$$trust$$gateway_source_account,
-        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
-        "zero-trust-gateway_traffic": zero$$trust$$gateway_traffic,
-        "zero-trust-gateway_uuid-4": zero$$trust$$gateway_uuid$$4,
-        "zero-trust-gateway_version": zero$$trust$$gateway_version,
-        "zero-trust-gateway_warning_status": zero$$trust$$gateway_warning_status,
       },
     },
     request: (args) => ({

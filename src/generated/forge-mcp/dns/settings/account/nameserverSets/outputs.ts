@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `dns-settings_nameserver-name` in responses.
- */
-export const dns$$settings_nameserver$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-settings_nameserver-set-address-groups` in responses.
  */
 export const dns$$settings_nameserver$$set$$address$$groups: JsonSchema = {
@@ -79,7 +72,7 @@ export const dns$$settings_nameserver$$set$$advanced$$response$$member: JsonSche
       "$ref": "#/$defs/dns-settings_nameserver-set-address-groups"
     },
     "name": {
-      "$ref": "#/$defs/dns-settings_nameserver-name"
+      "type": "string"
     }
   },
   "required": [
@@ -90,20 +83,6 @@ export const dns$$settings_nameserver$$set$$advanced$$response$$member: JsonSche
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_nameserver-set-id` in responses.
- */
-export const dns$$settings_nameserver$$set$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dns-settings_nameserver-set-ip-set` in responses.
- */
-export const dns$$settings_nameserver$$set$$ip$$set: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -126,13 +105,6 @@ export const dns$$settings_nameserver$$set$$ipv6$$addresses: JsonSchema = {
   },
   "maxItems": 3,
   "type": "array"
-};
-
-/**
- * The schema of `dns-settings_nameserver-set-name` in responses.
- */
-export const dns$$settings_nameserver$$set$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -159,13 +131,13 @@ export const dns$$settings_nameserver$$set$$response$$base: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-id"
+      "type": "string"
     },
     "ip_set": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-ip-set"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-name"
+      "type": "string"
     }
   },
   "required": [
@@ -189,7 +161,7 @@ export const dns$$settings_nameserver$$set$$response$$member: JsonSchema = {
       "$ref": "#/$defs/dns-settings_nameserver-set-ipv6-addresses"
     },
     "name": {
-      "$ref": "#/$defs/dns-settings_nameserver-name"
+      "type": "string"
     }
   },
   "required": [
@@ -247,7 +219,7 @@ export const dns$$settings_nameserver_set_delete_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/dns-settings_nameserver-set-id"
+              "type": "string"
             }
           },
           "required": [

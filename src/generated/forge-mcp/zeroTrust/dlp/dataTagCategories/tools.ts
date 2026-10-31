@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategories_create",
     title: "Creates a new data tag category.",
-    description: "Creates a data tag category, optionally from a template.",
+    description: "Creates a data tag category, optionally from a template.\n\nPOST /accounts/{account_id}/dlp/data_tag_categories",
     inputSchema: {
       type: "object",
       properties: {
@@ -33,6 +33,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new data tag category."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewDataTag": dlp_NewDataTag,
         "dlp_NewDataTagCategory": dlp_NewDataTagCategory,
@@ -125,11 +127,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategories_delete",
     title: "Delete a single data tag category.",
-    description: "Deletes a data tag category and its tags.",
+    description: "Deletes a data tag category and its tags.\n\nDELETE /accounts/{account_id}/dlp/data_tag_categories/{category_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -149,6 +152,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -219,11 +223,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategories_get",
     title: "Retrieve a specific data tag category.",
-    description: "Gets a data tag category and its tags.",
+    description: "Gets a data tag category and its tags.\n\nGET /accounts/{account_id}/dlp/data_tag_categories/{category_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -243,6 +248,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -316,11 +322,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategories_list",
     title: "Retrieve all data tag categories in an account",
-    description: "Lists data tag categories configured for the account.",
+    description: "Lists data tag categories configured for the account.\n\nGET /accounts/{account_id}/dlp/data_tag_categories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -335,6 +342,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -410,7 +418,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_dataTagCategories_update",
     title: "Update the attributes of a single data tag category.",
-    description: "Updates a data tag category and its tags.",
+    description: "Updates a data tag category and its tags.\n\nPUT /accounts/{account_id}/dlp/data_tag_categories/{category_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -419,6 +427,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the data tag category to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -439,6 +448,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_DataTagCategoryTagUpdate": dlp_DataTagCategoryTagUpdate,
         "dlp_DataTagCategoryUpdate": dlp_DataTagCategoryUpdate,

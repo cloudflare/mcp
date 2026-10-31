@@ -4,35 +4,21 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `access_aud` in responses.
- */
-export const access_aud: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_ca` in responses.
  */
 export const access_ca: JsonSchema = {
   "properties": {
     "aud": {
-      "$ref": "#/$defs/access_aud"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_id-2"
+      "type": "string"
     },
     "public_key": {
-      "$ref": "#/$defs/access_public_key"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_id-2` in responses.
- */
-export const access_id$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -48,7 +34,7 @@ export const access_id_response$$2: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/access_id-2"
+              "type": "string"
             }
           },
           "type": "object"
@@ -57,13 +43,6 @@ export const access_id_response$$2: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_public_key` in responses.
- */
-export const access_public_key: JsonSchema = {
-  "type": "string"
 };
 
 /**

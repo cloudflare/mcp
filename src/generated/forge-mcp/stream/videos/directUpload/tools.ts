@@ -5,29 +5,12 @@ import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   stream_api$$response$$common$$failure,
   stream_api$$response$$single,
-  stream_downloadedFrom,
-  stream_height,
   stream_messages,
-  stream_name,
-  stream_opacity,
-  stream_padding,
-  stream_position,
-  stream_scale,
-  stream_watermark_created,
-  stream_watermark_identifier,
-  stream_watermark_size,
   stream_watermarks,
-  stream_width,
 } from "../../outputs.js";
-import { stream_account_identifier, stream_creator } from "../../schemas.js";
-import { stream_identifier, stream_scheduledDeletion } from "../outputs.js";
 import {
   stream_allowedOrigins,
-  stream_maxDurationSeconds,
   stream_media_metadata,
-  stream_requireSignedURLs,
-  stream_scheduledDeletion as stream_scheduledDeletion$,
-  stream_thumbnailTimestampPct,
   stream_watermark_at_upload,
 } from "../schemas.js";
 import { stream_direct_upload_response } from "./outputs.js";
@@ -40,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_directUpload_create",
     title: "Upload videos via direct upload URLs",
-    description: "Creates a direct upload endpoint that allows an end-user to upload a video without an API key.",
+    description: "Creates a direct upload endpoint that allows an end-user to upload a video without an API key.\n\nPOST /accounts/{account_id}/stream/direct_upload",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,19 +31,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_direct_upload_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Upload-Creator": {
-              "$ref": "#/$defs/stream_creator",
-              "description": "A user-defined identifier for the media creator."
+              "description": "A user-defined identifier for the media creator.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -73,16 +58,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
         "stream_allowedOrigins": stream_allowedOrigins,
-        "stream_creator": stream_creator,
         "stream_direct_upload_request": stream_direct_upload_request,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scheduledDeletion": stream_scheduledDeletion$,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
         "stream_watermark_at_upload": stream_watermark_at_upload,
       },
     },
@@ -91,21 +71,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
         "stream_direct_upload_response": stream_direct_upload_response,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -135,21 +102,8 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_direct_upload_response": stream_direct_upload_response,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_messages": stream_messages,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({

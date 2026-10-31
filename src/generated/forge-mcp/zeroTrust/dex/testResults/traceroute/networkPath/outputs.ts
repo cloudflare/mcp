@@ -4,18 +4,6 @@
 import type { JsonSchema } from "../../../../../_/tool.js";
 
 /**
- * The schema of `digital-experience-monitoring_execution_context` in responses.
- */
-export const digital$$experience$$monitoring_execution_context: JsonSchema = {
-  "enum": [
-    "EXECUTION_CONTEXT_INVALID",
-    "OUT_OF_TUNNEL",
-    "IN_TUNNEL"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of
  * `digital-experience-monitoring_traceroute_test_result_network_path_response`
  * in responses.
@@ -23,13 +11,18 @@ export const digital$$experience$$monitoring_execution_context: JsonSchema = {
 export const digital$$experience$$monitoring_traceroute_test_result_network_path_response: JsonSchema = {
   "properties": {
     "colo": {
-      "$ref": "#/$defs/digital-experience-monitoring_colo"
+      "type": "string"
     },
     "deviceName": {
       "type": "string"
     },
     "execution_context": {
-      "$ref": "#/$defs/digital-experience-monitoring_execution_context"
+      "enum": [
+        "EXECUTION_CONTEXT_INVALID",
+        "OUT_OF_TUNNEL",
+        "IN_TUNNEL"
+      ],
+      "type": "string"
     },
     "hops": {
       "items": {
@@ -164,10 +157,10 @@ export const digital$$experience$$monitoring_traceroute_test_result_network_path
       "type": "array"
     },
     "resultId": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "testId": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "testName": {
       "type": "string"

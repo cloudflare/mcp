@@ -15,22 +15,6 @@ export const alexandria_application_hostnames: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_application_human_id`.
- */
-export const alexandria_application_human_id: JsonSchema = {
-  "description": "Human-readable identifier for the application.",
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_application_id`.
- */
-export const alexandria_application_id: JsonSchema = {
-  "description": "Numeric identifier for the application.",
-  "type": "integer"
-};
-
-/**
  * The schema of `alexandria_application_ip_subnets`.
  */
 export const alexandria_application_ip_subnets: JsonSchema = {
@@ -39,14 +23,6 @@ export const alexandria_application_ip_subnets: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `alexandria_application_name`.
- */
-export const alexandria_application_name: JsonSchema = {
-  "description": "Application name.",
-  "type": "string"
 };
 
 /**
@@ -79,24 +55,24 @@ export const alexandria_create_application_request: JsonSchema = {
     {
       "properties": {
         "category_id": {
-          "$ref": "#/$defs/alexandria_category_id",
-          "description": "Numeric identifier for an application category."
+          "description": "Numeric identifier for an application category.",
+          "type": "integer"
         },
         "hostnames": {
           "$ref": "#/$defs/alexandria_application_hostnames",
           "description": "Hostnames matched by the application."
         },
         "human_id": {
-          "$ref": "#/$defs/alexandria_application_human_id",
-          "description": "Human-readable identifier for the application."
+          "description": "Human-readable identifier for the application.",
+          "type": "string"
         },
         "ip_subnets": {
           "$ref": "#/$defs/alexandria_application_ip_subnets",
           "description": "IP subnets for this application. Custom application create and update requests accept IPv4 prefix lengths /8 through /32 and IPv6 prefix lengths /32 through /128."
         },
         "name": {
-          "$ref": "#/$defs/alexandria_application_name",
-          "description": "Application name."
+          "description": "Application name.",
+          "type": "string"
         },
         "port_protocols": {
           "$ref": "#/$defs/alexandria_application_port_protocols",
@@ -163,7 +139,7 @@ export const alexandria_create_application_request: JsonSchema = {
       ]
     }
   ],
-  "description": "Defines a custom application. At least one hostname or IP subnet is required.\nSupport domains and port/protocol pairs do not satisfy this requirement.\nA NUL character (U+0000) in any string value returns `400`.\n"
+  "description": "Defines a custom application. At least one hostname or IP subnet is required.\nSupport domains and port/protocol pairs do not satisfy this requirement.\nA NUL character (U+0000) in any string value returns `400`."
 };
 
 /**
@@ -172,7 +148,7 @@ export const alexandria_create_application_request: JsonSchema = {
 export const alexandria_lookup_applications_request: JsonSchema = {
   "properties": {
     "lookup": {
-      "description": "Rule sentence to search for complete application names. Leading and trailing\nwhitespace is trimmed before the length is checked. Control characters other\nthan tab and line breaks return `400`.\n",
+      "description": "Rule sentence to search for complete application names. Leading and trailing\nwhitespace is trimmed before the length is checked. Control characters other\nthan tab and line breaks return `400`.",
       "type": "string"
     }
   },
@@ -186,7 +162,7 @@ export const alexandria_lookup_applications_request: JsonSchema = {
  * The schema of `alexandria_update_application_request`.
  */
 export const alexandria_update_application_request: JsonSchema = {
-  "description": "Update the network matchers for the application. The service preserves omitted\nmatcher lists; send an empty array to clear a list. The resulting application must\ncontain at least one hostname or IP subnet. Support domains and port/protocol pairs\ndo not satisfy this requirement.\nA NUL character (U+0000) in any string value returns `400`.\n",
+  "description": "Update the network matchers for the application. The service preserves omitted\nmatcher lists; send an empty array to clear a list. The resulting application must\ncontain at least one hostname or IP subnet. Support domains and port/protocol pairs\ndo not satisfy this requirement.\nA NUL character (U+0000) in any string value returns `400`.",
   "properties": {
     "hostnames": {
       "$ref": "#/$defs/alexandria_application_hostnames",

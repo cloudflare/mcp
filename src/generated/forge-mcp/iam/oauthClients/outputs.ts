@@ -36,7 +36,7 @@ export const iam_oauth_client: JsonSchema = {
     {
       "properties": {
         "client_id": {
-          "$ref": "#/$defs/iam_oauth_client_identifier"
+          "type": "string"
         },
         "client_uri_verification": {
           "$ref": "#/$defs/iam_oauth_client_uri_verification"
@@ -127,7 +127,12 @@ export const iam_oauth_client_common: JsonSchema = {
       "type": "array"
     },
     "token_endpoint_auth_method": {
-      "$ref": "#/$defs/iam_oauth_client_token_endpoint_auth_method"
+      "enum": [
+        "none",
+        "client_secret_basic",
+        "client_secret_post"
+      ],
+      "type": "string"
     },
     "tos_uri": {
       "type": "string"
@@ -148,13 +153,6 @@ export const iam_oauth_client_grant_types: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `iam_oauth_client_identifier` in responses.
- */
-export const iam_oauth_client_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -194,18 +192,6 @@ export const iam_oauth_client_rotate_secret_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `iam_oauth_client_token_endpoint_auth_method` in responses.
- */
-export const iam_oauth_client_token_endpoint_auth_method: JsonSchema = {
-  "enum": [
-    "none",
-    "client_secret_basic",
-    "client_secret_post"
-  ],
-  "type": "string"
 };
 
 /**

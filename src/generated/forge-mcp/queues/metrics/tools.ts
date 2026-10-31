@@ -9,7 +9,6 @@ import {
   mq_api$$v4$$success,
   mq_queue$$metrics,
 } from "../outputs.js";
-import { mq_identifier } from "../schemas.js";
 
 /**
  * The tools of `queues.metrics`.
@@ -18,19 +17,20 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_metrics_get",
     title: "Get Queue Metrics",
-    description: "Returns best-effort metrics for a Queue. Values may be approximate due to the distributed nature of Queues.",
+    description: "Returns best-effort metrics for a Queue. Values may be approximate due to the distributed nature of Queues.\n\nGET /accounts/{account_id}/queues/{queue_id}/metrics",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "queue_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

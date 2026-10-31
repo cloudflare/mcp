@@ -13,18 +13,14 @@ import {
   pages_messages,
   pages_plain_text_env_var,
   pages_project,
-  pages_project_name,
   pages_secret_text_env_var,
   pages_source,
   pages_source_config,
-  pages_source_type,
   pages_stage,
 } from "./outputs.js";
 import {
   pages_deployment_config_values_request,
-  pages_identifier,
   pages_plain_text_env_var as pages_plain_text_env_var$,
-  pages_project_name as pages_project_name$,
   pages_secret_text_env_var as pages_secret_text_env_var$,
 } from "./schemas.js";
 
@@ -35,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_create",
     title: "Create a Cloudflare Pages project",
-    description: "Create a Cloudflare Pages project for configuring and deploying a site or application.",
+    description: "Create a Cloudflare Pages project for configuring and deploying a site or application.\n\nPOST /accounts/{account_id}/pages/projects",
     inputSchema: {
       type: "object",
       properties: {
@@ -114,7 +110,7 @@ export const tools: readonly Tool[] = [
                   "properties": {
                     "deployments_enabled": {
                       "deprecated": true,
-                      "description": "Whether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically.\n",
+                      "description": "Whether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically.",
                       "type": "boolean"
                     },
                     "owner": {
@@ -208,10 +204,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -224,9 +221,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "pages_deployment_config_values_request": pages_deployment_config_values_request,
-        "pages_identifier": pages_identifier,
         "pages_plain_text_env_var": pages_plain_text_env_var$,
         "pages_secret_text_env_var": pages_secret_text_env_var$,
       },
@@ -257,11 +254,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -313,11 +308,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -329,19 +322,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_delete",
     title: "Delete a Cloudflare Pages project",
-    description: "Permanently delete a Cloudflare Pages project and its deployments.",
+    description: "Permanently delete a Cloudflare Pages project and its deployments.\n\nDELETE /accounts/{account_id}/pages/projects/{project_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -354,10 +348,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -446,7 +437,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_edit",
     title: "Update a Cloudflare Pages project",
-    description: "Update the build, deployment, source, or environment settings for a Cloudflare Pages project. To delete an environment variable, set its key to `null`.",
+    description: "Update the build, deployment, source, or environment settings for a Cloudflare Pages project. To delete an environment variable, set its key to `null`.\n\nPATCH /accounts/{account_id}/pages/projects/{project_name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -525,7 +516,7 @@ export const tools: readonly Tool[] = [
                   "properties": {
                     "deployments_enabled": {
                       "deprecated": true,
-                      "description": "Whether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically.\n",
+                      "description": "Whether to enable automatic deployments when pushing to the source repository.\nWhen disabled, no deployments (production or preview) will be triggered automatically.",
                       "type": "boolean"
                     },
                     "owner": {
@@ -615,14 +606,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -636,11 +628,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "pages_deployment_config_values_request": pages_deployment_config_values_request,
-        "pages_identifier": pages_identifier,
         "pages_plain_text_env_var": pages_plain_text_env_var$,
-        "pages_project_name": pages_project_name$,
         "pages_secret_text_env_var": pages_secret_text_env_var$,
       },
     },
@@ -670,11 +661,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -726,11 +715,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -742,19 +729,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_get",
     title: "Get a Cloudflare Pages project",
-    description: "Retrieve the configuration and deployment settings for a Cloudflare Pages project.",
+    description: "Retrieve the configuration and deployment settings for a Cloudflare Pages project.\n\nGET /accounts/{account_id}/pages/projects/{project_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -767,10 +755,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -798,11 +783,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -855,11 +838,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -870,15 +851,16 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_list",
     title: "List Cloudflare Pages projects",
-    description: "List the Cloudflare Pages projects in an account.",
+    description: "List the Cloudflare Pages projects in an account.\n\nGET /accounts/{account_id}/pages/projects",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -887,6 +869,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "description": "Page number of results to return.",
@@ -903,9 +886,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -937,11 +918,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },
@@ -998,11 +977,9 @@ export const tools: readonly Tool[] = [
         "pages_messages": pages_messages,
         "pages_plain_text_env_var": pages_plain_text_env_var,
         "pages_project": pages_project,
-        "pages_project_name": pages_project_name,
         "pages_secret_text_env_var": pages_secret_text_env_var,
         "pages_source": pages_source,
         "pages_source_config": pages_source_config,
-        "pages_source_type": pages_source_type,
         "pages_stage": pages_stage,
       },
     },

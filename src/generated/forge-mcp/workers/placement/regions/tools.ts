@@ -7,7 +7,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../../outputs.js";
-import { workers_identifier } from "../../../schemas.js";
 import {
   workers_placement$$provider,
   workers_placement$$region,
@@ -21,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_placement_regions_list",
     title: "List Workers Smart Placement Regions",
-    description: "Returns a list of available placement regions organized by cloud provider. These regions can be used to configure Smart Placement for Workers.",
+    description: "Returns a list of available placement regions organized by cloud provider. These regions can be used to configure Smart Placement for Workers.\n\nGET /accounts/{account_id}/workers/placement/regions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,9 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

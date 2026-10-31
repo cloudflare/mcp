@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_deployments_create",
     title: "Create a new deployment",
-    description: "Creates a deployment with the specified policy sets, domain ACL, and basic-auth credentials.\n\nThis method is beta.",
+    description: "Creates a deployment with the specified policy sets, domain ACL, and basic-auth credentials.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/cws/deployments",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_CreateDeploymentInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_CreateDeploymentInputBody": cws_CreateDeploymentInputBody,
       },
@@ -104,11 +106,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_deployments_delete",
     title: "Delete a deployment",
-    description: "Deletes the deployment and detaches its associated resources. The resources are not deleted.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this deployment?",
+    description: "Deletes the deployment and detaches its associated resources. The resources are not deleted.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this deployment?\n\nDELETE /accounts/{account_id}/cws/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -130,6 +133,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeletedResult",
@@ -179,11 +183,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_deployments_get",
     title: "Get a deployment by ID",
-    description: "Returns the deployment with the specified ID.\n\nThis method is beta.",
+    description: "Returns the deployment with the specified ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -205,6 +210,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_ResponseDeployment",
@@ -254,11 +260,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_deployments_list",
     title: "List deployments",
-    description: "Returns a paginated list of deployments in the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of deployments in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/cws/deployments",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -271,6 +278,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Pagination cursor from previous response",
@@ -311,6 +319,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cws_PageResponseDeployment",
@@ -369,7 +378,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_cws_deployments_update",
     title: "Update a deployment",
-    description: "Replaces the deployment's mutable configuration and resource attachments.\n\nThis method is beta.",
+    description: "Replaces the deployment's mutable configuration and resource attachments.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/cws/deployments/{deployment_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -377,6 +386,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cws_UpdateDeploymentInputBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID (32-character hexadecimal string)",
@@ -399,6 +409,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cws_UpdateDeploymentInputBody": cws_UpdateDeploymentInputBody,
       },

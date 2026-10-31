@@ -23,7 +23,10 @@ export const dlp_RiskScoreIntegration: JsonSchema = {
       "type": "string"
     },
     "integration_type": {
-      "$ref": "#/$defs/dlp_RiskScoreIntegrationType"
+      "enum": [
+        "Okta"
+      ],
+      "type": "string"
     },
     "reference_id": {
       "type": "string"
@@ -56,14 +59,4 @@ export const dlp_RiskScoreIntegrationArray: JsonSchema = {
     "$ref": "#/$defs/dlp_RiskScoreIntegration"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dlp_RiskScoreIntegrationType` in responses.
- */
-export const dlp_RiskScoreIntegrationType: JsonSchema = {
-  "enum": [
-    "Okta"
-  ],
-  "type": "string"
 };

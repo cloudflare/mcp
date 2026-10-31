@@ -3,42 +3,16 @@
 
 import { type Tool, param, pathParam } from "../_/tool.js";
 import {
-  tunnel_account_id,
   tunnel_api$$response$$collection,
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
   tunnel_cfd_tunnel,
-  tunnel_client_id,
-  tunnel_colo_name,
-  tunnel_config_src,
-  tunnel_connection_id,
   tunnel_connections_deprecated,
-  tunnel_conns_active_at,
-  tunnel_conns_inactive_at,
-  tunnel_created_at,
-  tunnel_deleted_at,
-  tunnel_ip,
-  tunnel_is_pending_reconnect,
   tunnel_messages,
   tunnel_metadata,
-  tunnel_remote_config,
   tunnel_result_info,
   tunnel_schemas$$connection,
-  tunnel_status,
-  tunnel_tunnel_id,
-  tunnel_tunnel_name,
-  tunnel_tunnel_type,
-  tunnel_version,
 } from "../outputs.js";
-import {
-  tunnel_account_id as tunnel_account_id$,
-  tunnel_existed_at,
-  tunnel_page_number,
-  tunnel_per_page,
-  tunnel_status as tunnel_status$,
-  tunnel_tunnel_id as tunnel_tunnel_id$,
-  tunnel_tunnel_name as tunnel_tunnel_name$,
-} from "../schemas.js";
 import { tunnel_cfd$$tunnel$$response$$collection } from "./outputs.js";
 
 /**
@@ -48,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnel_list",
     title: "List Cloudflare Tunnels",
-    description: "Lists and filters Cloudflare Tunnels in an account.",
+    description: "Lists and filters Cloudflare Tunnels in an account.\n\nGET /accounts/{account_id}/cfd_tunnel",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -65,13 +40,14 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "exclude_prefix": {
               "type": "string"
             },
             "existed_at": {
-              "$ref": "#/$defs/tunnel_existed_at",
-              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded."
+              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded.",
+              "type": "string"
             },
             "include_prefix": {
               "type": "string"
@@ -81,25 +57,32 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/tunnel_tunnel_name",
-              "description": "A user-friendly name for a tunnel."
+              "description": "A user-friendly name for a tunnel.",
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/tunnel_page_number",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/tunnel_per_page",
-              "description": "Number of results to display."
+              "description": "Number of results to display.",
+              "type": "number"
             },
             "status": {
-              "$ref": "#/$defs/tunnel_status",
-              "description": "The status of the tunnel. Valid values are `inactive` (tunnel has never been run), `degraded` (tunnel is active and able to serve traffic but in an unhealthy state), `healthy` (tunnel is active and able to serve traffic), or `down` (tunnel can not serve traffic as it has no connections to the Cloudflare Edge)."
+              "description": "The status of the tunnel. Valid values are `inactive` (tunnel has never been run), `degraded` (tunnel is active and able to serve traffic but in an unhealthy state), `healthy` (tunnel is active and able to serve traffic), or `down` (tunnel can not serve traffic as it has no connections to the Cloudflare Edge).",
+              "enum": [
+                "inactive",
+                "degraded",
+                "healthy",
+                "down"
+              ],
+              "type": "string"
             },
             "uuid": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             },
             "was_active_at": {
               "format": "date-time",
@@ -116,45 +99,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id$,
-        "tunnel_existed_at": tunnel_existed_at,
-        "tunnel_page_number": tunnel_page_number,
-        "tunnel_per_page": tunnel_per_page,
-        "tunnel_status": tunnel_status$,
-        "tunnel_tunnel_id": tunnel_tunnel_id$,
-        "tunnel_tunnel_name": tunnel_tunnel_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_cfd-tunnel-response-collection",
       $defs: {
-        "tunnel_account_id": tunnel_account_id,
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_cfd-tunnel-response-collection": tunnel_cfd$$tunnel$$response$$collection,
         "tunnel_cfd_tunnel": tunnel_cfd_tunnel,
-        "tunnel_client_id": tunnel_client_id,
-        "tunnel_colo_name": tunnel_colo_name,
-        "tunnel_config_src": tunnel_config_src,
-        "tunnel_connection_id": tunnel_connection_id,
         "tunnel_connections_deprecated": tunnel_connections_deprecated,
-        "tunnel_conns_active_at": tunnel_conns_active_at,
-        "tunnel_conns_inactive_at": tunnel_conns_inactive_at,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip": tunnel_ip,
-        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect,
         "tunnel_messages": tunnel_messages,
         "tunnel_metadata": tunnel_metadata,
-        "tunnel_remote_config": tunnel_remote_config,
         "tunnel_result_info": tunnel_result_info,
         "tunnel_schemas-connection": tunnel_schemas$$connection,
-        "tunnel_status": tunnel_status,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_tunnel_name": tunnel_tunnel_name,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
-        "tunnel_version": tunnel_version,
       },
     },
     annotations: {
@@ -196,33 +154,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_account_id": tunnel_account_id,
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
         "tunnel_cfd-tunnel-response-collection": tunnel_cfd$$tunnel$$response$$collection,
         "tunnel_cfd_tunnel": tunnel_cfd_tunnel,
-        "tunnel_client_id": tunnel_client_id,
-        "tunnel_colo_name": tunnel_colo_name,
-        "tunnel_config_src": tunnel_config_src,
-        "tunnel_connection_id": tunnel_connection_id,
         "tunnel_connections_deprecated": tunnel_connections_deprecated,
-        "tunnel_conns_active_at": tunnel_conns_active_at,
-        "tunnel_conns_inactive_at": tunnel_conns_inactive_at,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_ip": tunnel_ip,
-        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect,
         "tunnel_messages": tunnel_messages,
         "tunnel_metadata": tunnel_metadata,
-        "tunnel_remote_config": tunnel_remote_config,
         "tunnel_result_info": tunnel_result_info,
         "tunnel_schemas-connection": tunnel_schemas$$connection,
-        "tunnel_status": tunnel_status,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-        "tunnel_tunnel_name": tunnel_tunnel_name,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
-        "tunnel_version": tunnel_version,
       },
     },
     request: (args) => ({

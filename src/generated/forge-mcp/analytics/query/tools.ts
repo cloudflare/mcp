@@ -28,7 +28,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_summary",
     title: "Query analytics summary",
-    description: "Returns aggregate summary stats for a dataset. Includes current-period and previous-period totals for trend comparison.\n\nThis method is beta.",
+    description: "Returns aggregate summary stats for a dataset. Includes current-period and previous-period totals for trend comparison.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/{dataset}/summary",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,13 +36,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/art_QuerySummary"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
               "type": "string"
             },
             "dataset": {
-              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
+              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.",
               "type": "string"
             }
           },
@@ -57,6 +58,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_Filter": art_Filter,
         "art_QuerySummary": art_QuerySummary,
@@ -119,7 +121,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_timeseries",
     title: "Query analytics timeseries",
-    description: "Returns time-bucketed analytics data for a dataset. Includes time slots, each containing the requested stats, group-by dimensions, and resolution-controlled bucket size (e.g. `hour`, `day`).\n\nThis method is beta.",
+    description: "Returns time-bucketed analytics data for a dataset. Includes time slots, each containing the requested stats, group-by dimensions, and resolution-controlled bucket size (e.g. `hour`, `day`).\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/{dataset}/timeseries",
     inputSchema: {
       type: "object",
       properties: {
@@ -127,13 +129,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/art_QueryTimeseries"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
               "type": "string"
             },
             "dataset": {
-              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
+              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.",
               "type": "string"
             }
           },
@@ -148,6 +151,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,
@@ -211,7 +215,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_topN",
     title: "Query analytics top-N",
-    description: "Returns the top N results for a dataset by a specified stat. Includes an array of result rows, each containing the requested stats and group-by dimensions.\n\nThis method is beta.",
+    description: "Returns the top N results for a dataset by a specified stat. Includes an array of result rows, each containing the requested stats and group-by dimensions.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/{dataset}/top-n",
     inputSchema: {
       type: "object",
       properties: {
@@ -219,13 +223,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/art_QueryTopN"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
               "type": "string"
             },
             "dataset": {
-              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
+              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.",
               "type": "string"
             }
           },
@@ -240,6 +245,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,

@@ -32,7 +32,7 @@ export const aaa_audit$$logs$$v2$$org: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/aaa_identifier-2"
+      "type": "string"
     },
     "organization": {
       "properties": {

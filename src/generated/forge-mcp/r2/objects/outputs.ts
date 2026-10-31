@@ -70,7 +70,11 @@ export const r2_r2_object: JsonSchema = {
       "type": "boolean"
     },
     "storage_class": {
-      "$ref": "#/$defs/r2_storage_class"
+      "enum": [
+        "Standard",
+        "InfrequentAccess"
+      ],
+      "type": "string"
     }
   },
   "type": "object"

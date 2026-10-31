@@ -7,10 +7,6 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../schemas.js";
 
 /**
  * The tools of `realtime.kit.sessions`.
@@ -19,19 +15,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_get",
     title: "Fetch details of a session",
-    description: "Returns data of the given session ID including recording details.\n\nThis method is beta.",
+    description: "Returns data of the given session ID including recording details.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "session_id": {
               "description": "ID of the session",
@@ -47,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_breakout_rooms": {
               "default": false,
@@ -60,10 +58,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -127,19 +122,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_list",
     title: "Fetch all sessions of an App",
-    description: "Returns details of all sessions of an App.\n\nThis method is beta.",
+    description: "Returns details of all sessions of an App.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -149,6 +145,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "associated_id": {
               "description": "ID of the meeting that sessions should be associated with",
@@ -208,10 +205,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

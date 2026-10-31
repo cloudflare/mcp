@@ -5,22 +5,12 @@ import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
   posture$$api_BaseFindingType,
   posture$$api_FindingCategory,
-  posture$$api_FindingCategoryTypeEnum,
-  posture$$api_FindingTypeVendorsEnum,
-  posture$$api_ObservationEnum,
-  posture$$api_ProductEnum,
-  posture$$api_SeverityEnum,
   posture$$api_api$$response$$collection,
   posture$$api_api$$response$$common,
   posture$$api_error$$response,
   posture$$api_messages,
   posture$$api_result$$info,
 } from "../outputs.js";
-import {
-  posture$$api_FindingCategoryTypeEnum as posture$$api_FindingCategoryTypeEnum$,
-  posture$$api_FindingTypeVendorsEnum as posture$$api_FindingTypeVendorsEnum$,
-  posture$$api_SeverityEnum as posture$$api_SeverityEnum$,
-} from "../schemas.js";
 import {
   posture$$api_FindingTypeValidationError,
   posture$$api_ValidateFindingTypeResponse,
@@ -31,8 +21,6 @@ import {
   posture$$api_paginated$$finding$$type$$list,
 } from "./outputs.js";
 import {
-  posture$$api_FindingTypeOriginEnum,
-  posture$$api_FindingTypeSeverityEnum,
   posture$$api_create$$finding$$type$$request,
   posture$$api_update$$finding$$type$$request,
 } from "./schemas.js";
@@ -44,7 +32,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_create",
     title: "Create a custom finding type",
-    description: "Create a new custom finding type with policy definition.",
+    description: "Create a new custom finding type with policy definition.\n\nPOST /accounts/{account_id}/data-security/posture/finding_types",
     inputSchema: {
       type: "object",
       properties: {
@@ -52,6 +40,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_create-finding-type-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -68,9 +57,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum$,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum$,
         "posture-api_create-finding-type-request": posture$$api_create$$finding$$type$$request,
       },
     },
@@ -78,11 +66,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_custom-finding-type-single-response",
       $defs: {
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_custom-finding-type-response": posture$$api_custom$$finding$$type$$response,
         "posture-api_custom-finding-type-single-response": posture$$api_custom$$finding$$type$$single$$response,
@@ -132,11 +115,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_custom-finding-type-response": posture$$api_custom$$finding$$type$$response,
         "posture-api_custom-finding-type-single-response": posture$$api_custom$$finding$$type$$single$$response,
@@ -152,11 +130,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_delete",
     title: "Delete a custom finding type",
-    description: "Delete an existing custom finding type.\n\n**Security**: Only custom finding types (not system-managed) can be deleted.",
+    description: "Delete an existing custom finding type.\n\n**Security**: Only custom finding types (not system-managed) can be deleted.\n\nDELETE /accounts/{account_id}/data-security/posture/finding_types/{finding_type_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -178,6 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -228,11 +208,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_get",
     title: "Get finding by ID",
-    description: "Retrieve a specific finding type by its unique identifier.",
+    description: "Retrieve a specific finding type by its unique identifier.\n\nGET /accounts/{account_id}/data-security/posture/finding_types/{finding_type_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -254,17 +235,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_finding-type-response",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_finding-type-response": posture$$api_finding$$type$$response,
         "posture-api_messages": posture$$api_messages,
@@ -299,11 +276,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_finding-type-response": posture$$api_finding$$type$$response,
         "posture-api_messages": posture$$api_messages,
@@ -316,11 +288,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_list",
     title: "List all finding types",
-    description: "List all available finding types with pagination support.",
+    description: "List all available finding types with pagination support.\n\nGET /accounts/{account_id}/data-security/posture/finding_types",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -333,6 +306,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Sort direction for the primary field. Defaults to 'desc'.\nTies are resolved by case-insensitive name, then ID, both ascending regardless of direction.",
@@ -369,7 +343,12 @@ export const tools: readonly Tool[] = [
             "origins": {
               "description": "Filter finding types by origin. Supports multiple comma-separated, case-insensitive values.",
               "items": {
-                "$ref": "#/$defs/posture-api_FindingTypeOriginEnum"
+                "description": "Finding type origins for list filters.",
+                "enum": [
+                  "custom",
+                  "system"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
@@ -392,21 +371,52 @@ export const tools: readonly Tool[] = [
             "severities": {
               "description": "Filter finding types by severity. Supports multiple comma-separated, case-insensitive values.",
               "items": {
-                "$ref": "#/$defs/posture-api_FindingTypeSeverityEnum"
+                "description": "Finding type severities for list filters.",
+                "enum": [
+                  "critical",
+                  "high",
+                  "medium",
+                  "low"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
             "types": {
               "description": "Filter finding types by category type. Supports multiple comma-separated, case-insensitive values.",
               "items": {
-                "$ref": "#/$defs/posture-api_FindingCategoryTypeEnum"
+                "description": "The type of the finding category.",
+                "enum": [
+                  "Content",
+                  "Posture"
+                ],
+                "type": "string"
               },
               "type": "array"
             },
             "vendors": {
               "description": "Filter finding types by vendor. Supports multiple comma-separated values. Each value may be either the vendor enum (GOOGLE_WORKSPACE) or the friendly name returned by the read routes (Google Workspace).",
               "items": {
-                "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+                "description": "Vendors whose assets a finding type can evaluate.",
+                "enum": [
+                  "ANTHROPIC",
+                  "AWS",
+                  "BITBUCKET",
+                  "BOX",
+                  "CONFLUENCE",
+                  "DROPBOX",
+                  "GITHUB",
+                  "GOOGLE_CLOUD_PLATFORM",
+                  "GOOGLE_WORKSPACE",
+                  "JIRA",
+                  "MICROSOFT",
+                  "OPENAI",
+                  "SALESFORCE",
+                  "SERVICENOW",
+                  "SLACK",
+                  "ZOOM"
+                ],
+                "type": "string"
               },
               "type": "array"
             }
@@ -417,23 +427,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum$,
-        "posture-api_FindingTypeOriginEnum": posture$$api_FindingTypeOriginEnum,
-        "posture-api_FindingTypeSeverityEnum": posture$$api_FindingTypeSeverityEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_paginated-finding-type-list",
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
         "posture-api_messages": posture$$api_messages,
         "posture-api_paginated-finding-type-list": posture$$api_paginated$$finding$$type$$list,
@@ -471,11 +471,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_BaseFindingType": posture$$api_BaseFindingType,
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_error-response": posture$$api_error$$response,
@@ -505,7 +500,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_update",
     title: "Update a custom finding type",
-    description: "Update an existing custom finding type.\n\n**Immutable fields**: asset_vendor, asset_class, expression, and category cannot be changed after creation.\n\n**Security**: Only custom finding types (not system-managed) can be updated.",
+    description: "Update an existing custom finding type.\n\n**Immutable fields**: asset_vendor, asset_class, expression, and category cannot be changed after creation.\n\n**Security**: Only custom finding types (not system-managed) can be updated.\n\nPUT /accounts/{account_id}/data-security/posture/finding_types/{finding_type_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -513,6 +508,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_update-finding-type-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -535,8 +531,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum$,
         "posture-api_update-finding-type-request": posture$$api_update$$finding$$type$$request,
       },
     },
@@ -544,11 +540,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_custom-finding-type-single-response",
       $defs: {
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_custom-finding-type-response": posture$$api_custom$$finding$$type$$response,
         "posture-api_custom-finding-type-single-response": posture$$api_custom$$finding$$type$$single$$response,
@@ -601,11 +592,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_FindingCategory": posture$$api_FindingCategory,
-        "posture-api_FindingCategoryTypeEnum": posture$$api_FindingCategoryTypeEnum,
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum,
-        "posture-api_ObservationEnum": posture$$api_ObservationEnum,
-        "posture-api_ProductEnum": posture$$api_ProductEnum,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_custom-finding-type-response": posture$$api_custom$$finding$$type$$response,
         "posture-api_custom-finding-type-single-response": posture$$api_custom$$finding$$type$$single$$response,
@@ -621,7 +607,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findingTypes_validate",
     title: "Validate a custom finding type",
-    description: "Check a candidate custom finding type without creating it, so problems can\nbe corrected before publishing. The request body is the same shape as\n`CreateFindingType`, and the candidate is checked against the same rules, so\na valid result means the definition itself is sound. It is not a reservation:\na create can still be rejected for a reason that does not belong to the\ndefinition, such as the account already holding the maximum number of custom\nfinding types.\n\nA candidate that fails validation is still a **200** with\n`result.valid: false` and one entry in `result.errors` per problem — that is\nthe answer this endpoint exists to give. `4xx` is reserved for a request\nthat could not be processed at all, such as a body that will not parse.",
+    description: "Check a candidate custom finding type without creating it, so problems can\nbe corrected before publishing. The request body is the same shape as\n`CreateFindingType`, and the candidate is checked against the same rules, so\na valid result means the definition itself is sound. It is not a reservation:\na create can still be rejected for a reason that does not belong to the\ndefinition, such as the account already holding the maximum number of custom\nfinding types.\n\nA candidate that fails validation is still a **200** with\n`result.valid: false` and one entry in `result.errors` per problem — that is\nthe answer this endpoint exists to give. `4xx` is reserved for a request\nthat could not be processed at all, such as a body that will not parse.\n\nPOST /accounts/{account_id}/data-security/posture/finding_types/validate",
     inputSchema: {
       type: "object",
       properties: {
@@ -629,6 +615,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_create-finding-type-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -645,9 +632,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_FindingTypeVendorsEnum": posture$$api_FindingTypeVendorsEnum$,
-        "posture-api_SeverityEnum": posture$$api_SeverityEnum$,
         "posture-api_create-finding-type-request": posture$$api_create$$finding$$type$$request,
       },
     },

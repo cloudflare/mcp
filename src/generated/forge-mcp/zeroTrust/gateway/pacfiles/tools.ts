@@ -6,32 +6,18 @@ import {
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
-  zero$$trust$$gateway_read_only_timestamp,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier$$2 } from "../../schemas.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
-  zero$$trust$$gateway_uuid$$3,
 } from "../outputs.js";
-import { zero$$trust$$gateway_uuid$$3 as zero$$trust$$gateway_uuid$$3$ } from "../schemas.js";
 import {
-  zero$$trust$$gateway_contents,
-  zero$$trust$$gateway_description$$4,
-  zero$$trust$$gateway_name$$7,
   zero$$trust$$gateway_pacfile,
   zero$$trust$$gateway_response_collection$$10,
   zero$$trust$$gateway_single_response$$7,
-  zero$$trust$$gateway_slug,
-  zero$$trust$$gateway_url,
 } from "./outputs.js";
-import {
-  zero$$trust$$gateway_contents as zero$$trust$$gateway_contents$,
-  zero$$trust$$gateway_description$$4 as zero$$trust$$gateway_description$$4$,
-  zero$$trust$$gateway_name$$7 as zero$$trust$$gateway_name$$7$,
-} from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.gateway.pacfiles`.
@@ -40,23 +26,23 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_pacfiles_create",
     title: "Create a PAC file",
-    description: "Create a new Zero Trust Gateway PAC file.",
+    description: "Create a new Zero Trust Gateway PAC file.\n\nPOST /accounts/{account_id}/gateway/pacfiles",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "contents": {
-              "$ref": "#/$defs/zero-trust-gateway_contents",
-              "description": "Actual contents of the PAC file"
+              "description": "Actual contents of the PAC file",
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description-4",
-              "description": "Detailed description of the PAC file."
+              "description": "Detailed description of the PAC file.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-7",
-              "description": "Name of the PAC file."
+              "description": "Name of the PAC file.",
+              "type": "string"
             },
             "slug": {
               "description": "URL-friendly version of the PAC file name. If not provided, it will be auto-generated",
@@ -70,10 +56,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -86,27 +73,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents$,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-7",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-7": zero$$trust$$gateway_single_response$$7,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -142,16 +117,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-7": zero$$trust$$gateway_single_response$$7,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -162,18 +130,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_pacfiles_delete",
     title: "Delete a PAC file",
-    description: "Delete a configured Zero Trust Gateway PAC file.",
+    description: "Delete a configured Zero Trust Gateway PAC file.\n\nDELETE /accounts/{account_id}/gateway/pacfiles/{pacfile_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "pacfile_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -186,10 +155,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
@@ -243,18 +209,19 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_pacfiles_get",
     title: "Get a PAC file",
-    description: "Get a single Zero Trust Gateway PAC file.",
+    description: "Get a single Zero Trust Gateway PAC file.\n\nGET /accounts/{account_id}/gateway/pacfiles/{pacfile_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "pacfile_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -267,25 +234,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-7",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-7": zero$$trust$$gateway_single_response$$7,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -322,16 +279,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-7": zero$$trust$$gateway_single_response$$7,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -341,15 +291,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_pacfiles_list",
     title: "List PAC files",
-    description: "List all Zero Trust Gateway PAC files for an account.",
+    description: "List all Zero Trust Gateway PAC files for an account.\n\nGET /accounts/{account_id}/gateway/pacfiles",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -358,6 +309,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -376,24 +328,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-10",
       $defs: {
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-10": zero$$trust$$gateway_response_collection$$10,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -431,15 +375,9 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_response_collection-10": zero$$trust$$gateway_response_collection$$10,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({
@@ -453,23 +391,23 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_pacfiles_update",
     title: "Update a Zero Trust Gateway PAC file",
-    description: "Update a configured Zero Trust Gateway PAC file.",
+    description: "Update a configured Zero Trust Gateway PAC file.\n\nPUT /accounts/{account_id}/gateway/pacfiles/{pacfile_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "contents": {
-              "$ref": "#/$defs/zero-trust-gateway_contents",
-              "description": "Actual contents of the PAC file"
+              "description": "Actual contents of the PAC file",
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description-4",
-              "description": "Detailed description of the PAC file."
+              "description": "Detailed description of the PAC file.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name-7",
-              "description": "Name of the PAC file."
+              "description": "Name of the PAC file.",
+              "type": "string"
             }
           },
           "required": [
@@ -480,13 +418,14 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-2",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             },
             "pacfile_id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-3"
+              "type": "string"
             }
           },
           "required": [
@@ -500,28 +439,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents$,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4$,
-        "zero-trust-gateway_identifier-2": zero$$trust$$gateway_identifier$$2,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7$,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-7",
       $defs: {
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-7": zero$$trust$$gateway_single_response$$7,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     annotations: {
@@ -557,16 +483,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
-        "zero-trust-gateway_contents": zero$$trust$$gateway_contents,
-        "zero-trust-gateway_description-4": zero$$trust$$gateway_description$$4,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-7": zero$$trust$$gateway_name$$7,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_single_response-7": zero$$trust$$gateway_single_response$$7,
-        "zero-trust-gateway_slug": zero$$trust$$gateway_slug,
-        "zero-trust-gateway_url": zero$$trust$$gateway_url,
-        "zero-trust-gateway_uuid-3": zero$$trust$$gateway_uuid$$3,
       },
     },
     request: (args) => ({

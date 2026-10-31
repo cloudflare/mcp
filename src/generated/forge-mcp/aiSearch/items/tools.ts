@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_chunks",
     title: "List Item Chunks.",
-    description: "Lists chunks for a specific item in an AI Search instance, including their text content.\n\nThis method is beta.",
+    description: "Lists chunks for a specific item in an AI Search instance, including their text content.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}/chunks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -41,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "default": 20,
@@ -57,6 +59,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -395,11 +398,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_delete",
     title: "Delete Item.",
-    description: "Deletes a file from a managed AI Search instance and removes its indexed data.\n\nThis method is beta.",
+    description: "Deletes a file from a managed AI Search instance and removes its indexed data.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -429,6 +433,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -678,11 +683,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_download",
     title: "Download Item Content.",
-    description: "Downloads the raw file content for a specific item from the managed AI Search instance storage.\n\nThis method is beta.",
+    description: "Downloads the raw file content for a specific item from the managed AI Search instance storage.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}/download",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -712,6 +718,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -967,11 +974,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_get",
     title: "Get Item.",
-    description: "Retrieves a specific indexed item from an AI Search instance.\n\nThis method is beta.",
+    description: "Retrieves a specific indexed item from an AI Search instance.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1001,6 +1009,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1377,11 +1386,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_list",
     title: "Items List.",
-    description: "Lists indexed items in an AI Search instance.\n\nThis method is beta.",
+    description: "Lists indexed items in an AI Search instance.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1404,6 +1414,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "item_id": {
               "description": "Return only the item with this unique ID. Returns at most one item.",
@@ -1459,6 +1470,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1928,11 +1940,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_logs",
     title: "Item Logs.",
-    description: "Lists processing logs for a specific item in an AI Search instance.\n\nThis method is beta.",
+    description: "Lists processing logs for a specific item in an AI Search instance.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1959,6 +1972,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "type": "string"
@@ -1974,6 +1988,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2350,7 +2365,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_sync",
     title: "Sync Item.",
-    description: "Synchronizes an item to an AI Search instance index.\n\nThis method is beta.",
+    description: "Synchronizes an item to an AI Search instance index.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -2374,6 +2389,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2403,6 +2419,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2900,11 +2917,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_upload",
     title: "Upload Item.",
-    description: "Uploads a file to a managed AI Search instance via multipart/form-data.\n\nThis method is beta.",
+    description: "Uploads a file to a managed AI Search instance via multipart/form-data.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2930,6 +2948,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3726,7 +3745,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_items_upsert",
     title: "Create or Update Item.",
-    description: "Creates or updates an indexed item in an AI Search instance.\n\nThis method is beta.",
+    description: "Creates or updates an indexed item in an AI Search instance.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
     inputSchema: {
       type: "object",
       properties: {
@@ -3755,6 +3774,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3780,6 +3800,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

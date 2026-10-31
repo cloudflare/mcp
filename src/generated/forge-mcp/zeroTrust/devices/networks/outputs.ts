@@ -47,16 +47,6 @@ export const teams$$devices_components$$schemas$$single_response: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_components-schemas-type` in responses.
- */
-export const teams$$devices_components$$schemas$$type: JsonSchema = {
-  "enum": [
-    "tls"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_device-managed-networks` in responses.
  */
 export const teams$$devices_device$$managed$$networks: JsonSchema = {
@@ -65,24 +55,19 @@ export const teams$$devices_device$$managed$$networks: JsonSchema = {
       "$ref": "#/$defs/teams-devices_schemas-config_response"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_device-managed-networks_components-schemas-name"
+      "type": "string"
     },
     "network_id": {
-      "$ref": "#/$defs/teams-devices_uuid"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/teams-devices_components-schemas-type"
+      "enum": [
+        "tls"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_device-managed-networks_components-schemas-name`
- * in responses.
- */
-export const teams$$devices_device$$managed$$networks_components$$schemas$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**

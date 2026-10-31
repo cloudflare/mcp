@@ -15,76 +15,44 @@ export const magic$$transit_colos: JsonSchema = {
 };
 
 /**
- * The schema of `magic-transit_max_ttl`.
- */
-export const magic$$transit_max_ttl: JsonSchema = {
-  "description": "Max TTL.",
-  "type": "integer"
-};
-
-/**
  * The schema of `magic-transit_options`.
  */
 export const magic$$transit_options: JsonSchema = {
   "properties": {
     "max_ttl": {
-      "$ref": "#/$defs/magic-transit_max_ttl",
       "default": 15,
-      "description": "Max TTL."
+      "description": "Max TTL.",
+      "type": "integer"
     },
     "packet_type": {
-      "$ref": "#/$defs/magic-transit_packet_type",
       "default": "icmp",
-      "description": "Type of packet sent."
+      "description": "Type of packet sent.",
+      "enum": [
+        "icmp",
+        "tcp",
+        "udp",
+        "gre",
+        "gre+icmp"
+      ],
+      "type": "string"
     },
     "packets_per_ttl": {
-      "$ref": "#/$defs/magic-transit_packets_per_ttl",
       "default": 3,
-      "description": "Number of packets sent at each TTL."
+      "description": "Number of packets sent at each TTL.",
+      "type": "integer"
     },
     "port": {
-      "$ref": "#/$defs/magic-transit_port",
       "default": 0,
-      "description": "For UDP and TCP, specifies the destination port. For ICMP, specifies the initial ICMP sequence value. Default value 0 will choose the best value to use for each protocol."
+      "description": "For UDP and TCP, specifies the destination port. For ICMP, specifies the initial ICMP sequence value. Default value 0 will choose the best value to use for each protocol.",
+      "type": "integer"
     },
     "wait_time": {
-      "$ref": "#/$defs/magic-transit_wait_time",
       "default": 1,
-      "description": "Set the time (in seconds) to wait for a response to a probe."
+      "description": "Set the time (in seconds) to wait for a response to a probe.",
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic-transit_packet_type`.
- */
-export const magic$$transit_packet_type: JsonSchema = {
-  "description": "Type of packet sent.",
-  "enum": [
-    "icmp",
-    "tcp",
-    "udp",
-    "gre",
-    "gre+icmp"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-transit_packets_per_ttl`.
- */
-export const magic$$transit_packets_per_ttl: JsonSchema = {
-  "description": "Number of packets sent at each TTL.",
-  "type": "integer"
-};
-
-/**
- * The schema of `magic-transit_port`.
- */
-export const magic$$transit_port: JsonSchema = {
-  "description": "For UDP and TCP, specifies the destination port. For ICMP, specifies the initial ICMP sequence value. Default value 0 will choose the best value to use for each protocol.",
-  "type": "integer"
 };
 
 /**
@@ -96,12 +64,4 @@ export const magic$$transit_targets: JsonSchema = {
   },
   "maxItems": 10,
   "type": "array"
-};
-
-/**
- * The schema of `magic-transit_wait_time`.
- */
-export const magic$$transit_wait_time: JsonSchema = {
-  "description": "Set the time (in seconds) to wait for a response to a probe.",
-  "type": "integer"
 };

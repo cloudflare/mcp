@@ -60,58 +60,49 @@ export const d1_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `d1_created-at` in responses.
- */
-export const d1_created$$at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `d1_database-details-response` in responses.
  */
 export const d1_database$$details$$response: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/d1_created-at"
+      "format": "date-time",
+      "type": "string"
     },
     "file_size": {
-      "$ref": "#/$defs/d1_file-size"
+      "type": "number"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/d1_jurisdiction-nullable"
+      "oneOf": [
+        {
+          "enum": [
+            "eu",
+            "fedramp",
+            "us"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "name": {
-      "$ref": "#/$defs/d1_database-name"
+      "type": "string"
     },
     "num_tables": {
-      "$ref": "#/$defs/d1_table-count"
+      "type": "number"
     },
     "read_replication": {
       "$ref": "#/$defs/d1_read-replication-details-for-response"
     },
     "uuid": {
-      "$ref": "#/$defs/d1_database-identifier"
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/d1_database-version"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `d1_database-identifier` in responses.
- */
-export const d1_database$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `d1_database-name` in responses.
- */
-export const d1_database$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -120,55 +111,35 @@ export const d1_database$$name: JsonSchema = {
 export const d1_database$$response: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/d1_created-at"
+      "format": "date-time",
+      "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/d1_jurisdiction-nullable"
+      "oneOf": [
+        {
+          "enum": [
+            "eu",
+            "fedramp",
+            "us"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "name": {
-      "$ref": "#/$defs/d1_database-name"
+      "type": "string"
     },
     "uuid": {
-      "$ref": "#/$defs/d1_database-identifier"
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/d1_database-version"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `d1_database-version` in responses.
- */
-export const d1_database$$version: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `d1_file-size` in responses.
- */
-export const d1_file$$size: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `d1_jurisdiction-nullable` in responses.
- */
-export const d1_jurisdiction$$nullable: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "eu",
-        "fedramp",
-        "us"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -217,13 +188,21 @@ export const d1_query$$meta: JsonSchema = {
       "type": "number"
     },
     "served_by_colo": {
-      "$ref": "#/$defs/d1_served-by-colo"
+      "type": "string"
     },
     "served_by_primary": {
       "type": "boolean"
     },
     "served_by_region": {
-      "$ref": "#/$defs/d1_served-by-region"
+      "enum": [
+        "WNAM",
+        "ENAM",
+        "WEUR",
+        "EEUR",
+        "APAC",
+        "OC"
+      ],
+      "type": "string"
     },
     "size_after": {
       "type": "number"
@@ -323,33 +302,4 @@ export const d1_read$$replication$$details$$for$$response: JsonSchema = {
     "mode"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `d1_served-by-colo` in responses.
- */
-export const d1_served$$by$$colo: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `d1_served-by-region` in responses.
- */
-export const d1_served$$by$$region: JsonSchema = {
-  "enum": [
-    "WNAM",
-    "ENAM",
-    "WEUR",
-    "EEUR",
-    "APAC",
-    "OC"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `d1_table-count` in responses.
- */
-export const d1_table$$count: JsonSchema = {
-  "type": "number"
 };

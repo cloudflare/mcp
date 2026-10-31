@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_targetIndustries_legacy_list",
     title: "List target industries in a dataset (legacy)",
-    description: "Legacy. Use `threat-intel events target-industries list` (`GET /events/targetIndustries`) instead.\n\nThis method is deprecated.",
+    description: "Legacy. Use `threat-intel events target-industries list` (`GET /events/targetIndustries`) instead.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/targetIndustries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -36,6 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

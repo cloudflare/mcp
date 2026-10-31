@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_tags_actors_list",
     title: "List threat actors",
-    description: "Lists threat actors from the Cloudforce One actor catalog. Use `value` to match actor names and `filters` to filter by fields such as origin country. Accounts outside Cloudforce One receive only public fields: identity, description, discovery date, TLP, confidence, custom properties, origin country, public aliases, and external references. Fields such as internal aliases, attribution, motive, and OPSEC level are omitted.",
+    description: "Lists threat actors from the Cloudforce One actor catalog. Use `value` to match actor names and `filters` to filter by fields such as origin country. Accounts outside Cloudforce One receive only public fields: identity, description, discovery date, TLP, confidence, custom properties, origin country, public aliases, and external references. Fields such as internal aliases, attribution, motive, and OPSEC level are omitted.\n\nGET /accounts/{account_id}/cloudforce-one/events/tags/categories/actors",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "filters": {
               "description": "Structured filters as a JSON array of {field, op, value} objects. Same shape as the events search API. Common use: filter actors by country with filters=[{\"field\":\"originCountryISO\",\"op\":\"in\",\"value\":[\"IR\",\"CN\"]}]. Country values may be passed as alpha-2, alpha-3, name, or alias (e.g. \"iran\"). Max 10 entries per request, max 100 values per 'in'. Accounts other than the catalog owner may only filter on fields that are also public-readable (`uuid`, `value`, `categoryName`, `aliasGroupNames`, `originCountryISO`); filtering on a redacted field returns 400. `uuid` filters accept only the `equals` and `in` operators. Performance notes: `originCountryISO` uses its B-tree index for equals/in. `endsWith` and `aliasGroupNames` contains/like are leading-wildcard scans and slow on large result sets. `aliasGroupNames` matches on JSON-encoded text, so substrings can cross alias boundaries (\"apt28\" also matches \"apt280\" when both appear in the same tag's alias list).",
@@ -104,6 +106,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

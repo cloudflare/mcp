@@ -7,7 +7,6 @@ import {
   logpush_api$$response$$common$$failure,
   logpush_messages,
 } from "../../outputs.js";
-import { logpush_identifier, logpush_logpull_options } from "../../schemas.js";
 import { logpush_validate_response } from "../outputs.js";
 
 /**
@@ -17,15 +16,23 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountValidate_origin_create",
     title: "Validate origin",
-    description: "Validates logpull origin with logpull_options.",
+    description: "Validates logpull origin with logpull_options.\n\nPOST /{account_or_zone}/{account_or_zone_id}/logpush/validate/origin",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "logpull_options": {
-              "$ref": "#/$defs/logpush_logpull_options",
-              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately."
+              "deprecated": true,
+              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -34,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -44,8 +52,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,10 +67,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_logpull_options": logpush_logpull_options,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_validate_response",

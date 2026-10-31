@@ -4,57 +4,33 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `images_sourcingkit_acceptable_content_type`.
- */
-export const images_sourcingkit_acceptable_content_type: JsonSchema = {
-  "description": "A MIME type that can be excluded from migration.",
-  "enum": [
-    "image/jpeg",
-    "image/png",
-    "image/webp",
-    "image/gif",
-    "image/avif",
-    "image/heic",
-    "image/svg+xml"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_sourcingkit_conflict_behaviour`.
- */
-export const images_sourcingkit_conflict_behaviour: JsonSchema = {
-  "description": "How to handle objects that already exist at the destination.",
-  "enum": [
-    "skip",
-    "overwrite"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_sourcingkit_identifier`.
- */
-export const images_sourcingkit_identifier: JsonSchema = {
-  "description": "Sourcing kit resource identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `images_sourcingkit_migration_create_request`.
  */
 export const images_sourcingkit_migration_create_request: JsonSchema = {
   "properties": {
     "conflictBehaviour": {
-      "$ref": "#/$defs/images_sourcingkit_conflict_behaviour",
       "default": "skip",
-      "description": "How to handle objects that already exist at the destination."
+      "description": "How to handle objects that already exist at the destination.",
+      "enum": [
+        "skip",
+        "overwrite"
+      ],
+      "type": "string"
     },
     "excludedContentTypes": {
       "description": "Content types to skip during migration.",
       "items": {
-        "$ref": "#/$defs/images_sourcingkit_acceptable_content_type"
+        "description": "A MIME type that can be excluded from migration.",
+        "enum": [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/gif",
+          "image/avif",
+          "image/heic",
+          "image/svg+xml"
+        ],
+        "type": "string"
       },
       "type": "array"
     },

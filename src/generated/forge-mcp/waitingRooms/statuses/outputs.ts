@@ -4,47 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waitingroom_estimated_queued_users` in responses.
- */
-export const waitingroom_estimated_queued_users: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_estimated_total_active_users` in responses.
- */
-export const waitingroom_estimated_total_active_users: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_max_estimated_time_minutes` in responses.
- */
-export const waitingroom_max_estimated_time_minutes: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_status` in responses.
- */
-export const waitingroom_status: JsonSchema = {
-  "enum": [
-    "event_prequeueing",
-    "not_queueing",
-    "queueing",
-    "suspended"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_status_event_id` in responses.
- */
-export const waitingroom_status_event_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_status_response` in responses.
  */
 export const waitingroom_status_response: JsonSchema = {
@@ -57,19 +16,25 @@ export const waitingroom_status_response: JsonSchema = {
         "result": {
           "properties": {
             "estimated_queued_users": {
-              "$ref": "#/$defs/waitingroom_estimated_queued_users"
+              "type": "integer"
             },
             "estimated_total_active_users": {
-              "$ref": "#/$defs/waitingroom_estimated_total_active_users"
+              "type": "integer"
             },
             "event_id": {
-              "$ref": "#/$defs/waitingroom_status_event_id"
+              "type": "string"
             },
             "max_estimated_time_minutes": {
-              "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
+              "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/waitingroom_status"
+              "enum": [
+                "event_prequeueing",
+                "not_queueing",
+                "queueing",
+                "suspended"
+              ],
+              "type": "string"
             }
           },
           "type": "object"

@@ -15,16 +15,17 @@ export const builds_CreateWorkerBuildSettingsInput: JsonSchema = {
       "type": "boolean"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command",
-      "description": "Command to build the Worker."
+      "description": "Command to build the Worker.",
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid",
-      "description": "UUID of the build token used when deploying the Worker."
+      "description": "UUID of the build token used when deploying the Worker.",
+      "format": "uuid",
+      "type": "string"
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command",
-      "description": "Command to deploy the Worker."
+      "description": "Command to deploy the Worker.",
+      "type": "string"
     },
     "environment_variables": {
       "$ref": "#/$defs/builds_EnvironmentVariablesRequest",
@@ -42,8 +43,9 @@ export const builds_CreateWorkerBuildSettingsInput: JsonSchema = {
       "description": "Path patterns that can start builds."
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory",
-      "default": "/"
+      "default": "/",
+      "description": "Repository directory in which build and deploy commands run.",
+      "type": "string"
     }
   },
   "required": [
@@ -65,12 +67,12 @@ export const builds_CreateWorkerGitRepositoryFunfettiInput: JsonSchema = {
       "type": "string"
     },
     "provider_account_id": {
-      "$ref": "#/$defs/builds_provider_account_id",
-      "description": "Provider-specific identifier of the account or namespace that owns the repository."
+      "description": "Provider-specific identifier of the account or namespace that owns the repository.",
+      "type": "string"
     },
     "provider_account_name": {
-      "$ref": "#/$defs/builds_provider_account_name",
-      "description": "Human-readable name of the account or namespace that owns the repository."
+      "description": "Human-readable name of the account or namespace that owns the repository.",
+      "type": "string"
     },
     "provider_type": {
       "enum": [
@@ -80,12 +82,12 @@ export const builds_CreateWorkerGitRepositoryFunfettiInput: JsonSchema = {
       "type": "string"
     },
     "repo_id": {
-      "$ref": "#/$defs/builds_repo_id",
-      "description": "Provider-specific repository identifier."
+      "description": "Provider-specific repository identifier.",
+      "type": "string"
     },
     "repo_name": {
-      "$ref": "#/$defs/builds_repo_name",
-      "description": "Human-readable repository name."
+      "description": "Human-readable repository name.",
+      "type": "string"
     }
   },
   "required": [
@@ -114,12 +116,12 @@ export const builds_CreateWorkerGitRepositoryGrantInput: JsonSchema = {
       "type": "string"
     },
     "provider_account_id": {
-      "$ref": "#/$defs/builds_provider_account_id",
-      "description": "Provider-specific identifier of the account or namespace that owns the repository."
+      "description": "Provider-specific identifier of the account or namespace that owns the repository.",
+      "type": "string"
     },
     "provider_account_name": {
-      "$ref": "#/$defs/builds_provider_account_name",
-      "description": "Human-readable name of the account or namespace that owns the repository."
+      "description": "Human-readable name of the account or namespace that owns the repository.",
+      "type": "string"
     },
     "provider_type": {
       "enum": [
@@ -129,12 +131,12 @@ export const builds_CreateWorkerGitRepositoryGrantInput: JsonSchema = {
       "type": "string"
     },
     "repo_id": {
-      "$ref": "#/$defs/builds_repo_id",
-      "description": "Provider-specific repository identifier."
+      "description": "Provider-specific repository identifier.",
+      "type": "string"
     },
     "repo_name": {
-      "$ref": "#/$defs/builds_repo_name",
-      "description": "Human-readable repository name."
+      "description": "Human-readable repository name.",
+      "type": "string"
     }
   },
   "required": [
@@ -185,8 +187,8 @@ export const builds_CreateWorkerRequest: JsonSchema = {
       "description": "Build and deploy settings when creating a Worker build configuration"
     },
     "script_tag": {
-      "$ref": "#/$defs/builds_external_script_id",
-      "description": "System-generated tag of the Worker. This is not the Worker name."
+      "description": "System-generated tag of the Worker. This is not the Worker name.",
+      "type": "string"
     }
   },
   "required": [

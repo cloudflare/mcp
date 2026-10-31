@@ -6,12 +6,7 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
-  digital$$experience$$monitoring_uuid,
 } from "../../outputs.js";
-import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_uuid as digital$$experience$$monitoring_uuid$,
-} from "../../schemas.js";
 import { digital$$experience$$monitoring_traceroute_test_network_path_response } from "./outputs.js";
 
 /**
@@ -21,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_tests_networkPath_get",
     title: "Get network path breakdown for a traceroute test",
-    description: "Get a breakdown of metrics by hop for individual traceroute test runs.",
+    description: "Get a breakdown of metrics by hop for individual traceroute test runs.\n\nGET /accounts/{account_id}/dex/traceroute-tests/{test_id}/network-path",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "test_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_uuid",
-              "description": "Unique identifier for a specific test."
+              "description": "Unique identifier for a specific test.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "deviceId": {
               "description": "Device to filter traceroute result runs to.",
@@ -78,10 +75,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -101,7 +95,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_traceroute_test_network_path_response": digital$$experience$$monitoring_traceroute_test_network_path_response,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     annotations: {
@@ -147,7 +140,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_traceroute_test_network_path_response": digital$$experience$$monitoring_traceroute_test_network_path_response,
-        "digital-experience-monitoring_uuid": digital$$experience$$monitoring_uuid,
       },
     },
     request: (args) => ({

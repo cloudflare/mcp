@@ -4,31 +4,31 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_beta` in responses.
- */
-export const zero$$trust$$gateway_beta: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_categories` in responses.
  */
 export const zero$$trust$$gateway_categories: JsonSchema = {
   "properties": {
     "beta": {
-      "$ref": "#/$defs/zero-trust-gateway_beta"
+      "type": "boolean"
     },
     "class": {
-      "$ref": "#/$defs/zero-trust-gateway_class"
+      "enum": [
+        "free",
+        "premium",
+        "blocked",
+        "removalPending",
+        "noBlock"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description-3"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-5"
+      "type": "string"
     },
     "subcategories": {
       "items": {
@@ -38,41 +38,6 @@ export const zero$$trust$$gateway_categories: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_class` in responses.
- */
-export const zero$$trust$$gateway_class: JsonSchema = {
-  "enum": [
-    "free",
-    "premium",
-    "blocked",
-    "removalPending",
-    "noBlock"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description-3` in responses.
- */
-export const zero$$trust$$gateway_description$$3: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_id` in responses.
- */
-export const zero$$trust$$gateway_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-5` in responses.
- */
-export const zero$$trust$$gateway_name$$5: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -103,19 +68,26 @@ export const zero$$trust$$gateway_response_collection$$8: JsonSchema = {
 export const zero$$trust$$gateway_subcategory: JsonSchema = {
   "properties": {
     "beta": {
-      "$ref": "#/$defs/zero-trust-gateway_beta"
+      "type": "boolean"
     },
     "class": {
-      "$ref": "#/$defs/zero-trust-gateway_class"
+      "enum": [
+        "free",
+        "premium",
+        "blocked",
+        "removalPending",
+        "noBlock"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description-3"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-5"
+      "type": "string"
     }
   },
   "type": "object"

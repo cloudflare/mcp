@@ -7,18 +7,9 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
-  access_created_at,
   access_id_response,
-  access_identifier,
   access_messages,
-  access_timestamp,
-  access_updated_at,
-  access_uuid,
 } from "../../outputs.js";
-import {
-  access_identifier as access_identifier$,
-  access_uuid as access_uuid$,
-} from "../../schemas.js";
 import {
   access_access_group_rule,
   access_any_valid_service_token_rule,
@@ -83,7 +74,6 @@ import {
   access_exclude,
   access_groups$$2,
   access_include,
-  access_name$$6,
   access_require,
   access_response_collection$$2,
   access_single_response$$4,
@@ -91,8 +81,6 @@ import {
 import {
   access_exclude as access_exclude$,
   access_include as access_include$,
-  access_is_default,
-  access_name$$6 as access_name$$6$,
   access_require as access_require$,
 } from "./schemas.js";
 
@@ -103,7 +91,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_ruleGroups_create",
     title: "Create an Access group",
-    description: "Creates a new Access group.",
+    description: "Creates a new Access group.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -118,12 +106,12 @@ export const tools: readonly Tool[] = [
               "description": "Rules evaluated with an OR logical operator. A user needs to meet only one of the Include rules."
             },
             "is_default": {
-              "$ref": "#/$defs/access_is_default",
-              "description": "Whether this is the default group"
+              "description": "Whether this is the default group",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/access_name-6",
-              "description": "The name of the Access group."
+              "description": "The name of the Access group.",
+              "type": "string"
             },
             "require": {
               "$ref": "#/$defs/access_require",
@@ -137,6 +125,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -147,8 +136,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -162,6 +151,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_access_group_rule": access_access_group_rule$,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule$,
@@ -181,14 +171,11 @@ export const tools: readonly Tool[] = [
         "access_external_evaluation_rule": access_external_evaluation_rule$,
         "access_github_organization_rule": access_github_organization_rule$,
         "access_gsuite_group_rule": access_gsuite_group_rule$,
-        "access_identifier": access_identifier$,
         "access_include": access_include$,
         "access_ip_list_rule": access_ip_list_rule$,
         "access_ip_rule": access_ip_rule$,
-        "access_is_default": access_is_default,
         "access_linked_app_token_rule": access_linked_app_token_rule$,
         "access_login_method_rule": access_login_method_rule$,
-        "access_name-6": access_name$$6$,
         "access_oidc_claim_rule": access_oidc_claim_rule$,
         "access_okta_group_rule": access_okta_group_rule$,
         "access_require": access_require$,
@@ -212,7 +199,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -223,14 +209,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -239,10 +223,7 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_single_response-4": access_single_response$$4,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -280,7 +261,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -291,14 +271,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -307,10 +285,7 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_single_response-4": access_single_response$$4,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -321,11 +296,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_ruleGroups_delete",
     title: "Delete an Access group",
-    description: "Deletes an Access group.",
+    description: "Deletes an Access group.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/access/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -336,12 +312,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -355,10 +331,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier$,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response",
@@ -366,7 +339,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -397,7 +369,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -407,11 +378,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_ruleGroups_get",
     title: "Get an Access group",
-    description: "Fetches a single Access group.",
+    description: "Fetches a single Access group.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -422,12 +394,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -441,10 +413,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier$,
-        "access_uuid": access_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-4",
@@ -459,7 +428,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -470,14 +438,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -486,10 +452,7 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_single_response-4": access_single_response$$4,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -528,7 +491,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -539,14 +501,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -555,10 +515,7 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_single_response-4": access_single_response$$4,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -568,11 +525,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_ruleGroups_list",
     title: "List Access groups",
-    description: "Lists all Access groups.",
+    description: "Lists all Access groups.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -583,8 +541,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -594,6 +552,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "The name of the group.",
@@ -620,9 +579,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-2",
@@ -638,7 +595,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -649,14 +605,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -665,10 +619,7 @@ export const tools: readonly Tool[] = [
         "access_saml_group_rule": access_saml_group_rule,
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -708,7 +659,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -719,14 +669,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -735,10 +683,7 @@ export const tools: readonly Tool[] = [
         "access_saml_group_rule": access_saml_group_rule,
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({
@@ -754,7 +699,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_ruleGroups_update",
     title: "Update an Access group",
-    description: "Updates a configured Access group.",
+    description: "Updates a configured Access group.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/groups/{group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -769,12 +714,12 @@ export const tools: readonly Tool[] = [
               "description": "Rules evaluated with an OR logical operator. A user needs to meet only one of the Include rules."
             },
             "is_default": {
-              "$ref": "#/$defs/access_is_default",
-              "description": "Whether this is the default group"
+              "description": "Whether this is the default group",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/access_name-6",
-              "description": "The name of the Access group."
+              "description": "The name of the Access group.",
+              "type": "string"
             },
             "require": {
               "$ref": "#/$defs/access_require",
@@ -788,6 +733,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -798,12 +744,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "group_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -818,6 +764,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "access_access_group_rule": access_access_group_rule$,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule$,
@@ -837,14 +784,11 @@ export const tools: readonly Tool[] = [
         "access_external_evaluation_rule": access_external_evaluation_rule$,
         "access_github_organization_rule": access_github_organization_rule$,
         "access_gsuite_group_rule": access_gsuite_group_rule$,
-        "access_identifier": access_identifier$,
         "access_include": access_include$,
         "access_ip_list_rule": access_ip_list_rule$,
         "access_ip_rule": access_ip_rule$,
-        "access_is_default": access_is_default,
         "access_linked_app_token_rule": access_linked_app_token_rule$,
         "access_login_method_rule": access_login_method_rule$,
-        "access_name-6": access_name$$6$,
         "access_oidc_claim_rule": access_oidc_claim_rule$,
         "access_okta_group_rule": access_okta_group_rule$,
         "access_require": access_require$,
@@ -853,7 +797,6 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule$,
         "access_service_token_tag_rule": access_service_token_tag_rule$,
         "access_user_risk_score_rule": access_user_risk_score_rule$,
-        "access_uuid": access_uuid$,
       },
     },
     outputSchema: {
@@ -869,7 +812,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -880,14 +822,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -896,10 +836,7 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_single_response-4": access_single_response$$4,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     annotations: {
@@ -937,7 +874,6 @@ export const tools: readonly Tool[] = [
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
         "access_common_name_rule": access_common_name_rule,
         "access_country_rule": access_country_rule,
-        "access_created_at": access_created_at,
         "access_device_posture_rule": access_device_posture_rule,
         "access_domain_rule": access_domain_rule,
         "access_email_list_rule": access_email_list_rule,
@@ -948,14 +884,12 @@ export const tools: readonly Tool[] = [
         "access_github_organization_rule": access_github_organization_rule,
         "access_groups-2": access_groups$$2,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_identifier": access_identifier,
         "access_include": access_include,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_messages": access_messages,
-        "access_name-6": access_name$$6,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_require": access_require,
@@ -964,10 +898,7 @@ export const tools: readonly Tool[] = [
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_single_response-4": access_single_response$$4,
-        "access_timestamp": access_timestamp,
-        "access_updated_at": access_updated_at,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_uuid": access_uuid,
       },
     },
     request: (args) => ({

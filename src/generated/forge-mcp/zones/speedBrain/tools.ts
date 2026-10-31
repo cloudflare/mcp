@@ -8,7 +8,6 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
 import { speed_cloudflare_speed_brain_response } from "./outputs.js";
 
 /**
@@ -18,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_speedBrain_edit",
     title: "Change Cloudflare Speed Brain setting",
-    description: "Speed Brain lets compatible browsers speculate on content which can be prefetched or preloaded, making website\nnavigation faster. Refer to the Cloudflare Speed Brain documentation for more information.",
+    description: "Speed Brain lets compatible browsers speculate on content which can be prefetched or preloaded, making website\nnavigation faster. Refer to the Cloudflare Speed Brain documentation for more information.\n\nPATCH /zones/{zone_id}/settings/speed_brain",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,10 +38,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,9 +55,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -142,15 +140,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_speedBrain_get",
     title: "Get Cloudflare Speed Brain setting",
-    description: "Speed Brain lets compatible browsers speculate on content which can be prefetched or preloaded, making website\nnavigation faster. Refer to the Cloudflare Speed Brain documentation for more information.",
+    description: "Speed Brain lets compatible browsers speculate on content which can be prefetched or preloaded, making website\nnavigation faster. Refer to the Cloudflare Speed Brain documentation for more information.\n\nGET /zones/{zone_id}/settings/speed_brain",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -162,9 +161,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

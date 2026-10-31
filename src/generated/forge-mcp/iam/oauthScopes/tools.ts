@@ -21,10 +21,11 @@ export const tools: readonly Tool[] = [
   {
     name: "iam_oauthScopes_list",
     title: "List OAuth Scopes",
-    description: "List all available OAuth scopes. This endpoint requires authentication but has no authorization role requirements.",
+    description: "List all available OAuth scopes. This endpoint requires authentication but has no authorization role requirements.\n\nGET /oauth/scopes",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_collection_oauth_scopes_response",

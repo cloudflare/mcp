@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_namespace_create",
     title: "Create a namespace",
-    description: "Create a namespace for organizing AI Search instances.\n\nThis method is beta.",
+    description: "Create a namespace for organizing AI Search instances.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-search/namespaces",
     inputSchema: {
       type: "object",
       properties: {
@@ -133,6 +133,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -147,6 +148,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -583,11 +585,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_namespace_delete",
     title: "Delete a namespace",
-    description: "Deletes a namespace permanently. The namespace must not contain any instances (instances whose deletion is still in progress do not count), and the default namespace cannot be deleted.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the namespace.",
+    description: "Deletes a namespace permanently. The namespace must not contain any instances (instances whose deletion is still in progress do not count), and the default namespace cannot be deleted.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the namespace.\n\nDELETE /accounts/{account_id}/ai-search/namespaces/{name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -606,6 +609,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -780,11 +784,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_namespace_get",
     title: "Get a namespace",
-    description: "Retrieve a namespace and its description.\n\nThis method is beta.",
+    description: "Retrieve a namespace and its description.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces/{name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -803,6 +808,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1171,11 +1177,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_namespace_list",
     title: "List namespaces",
-    description: "Lists namespaces in the account, including their descriptions and creation times.\n\nThis method is beta.",
+    description: "Lists namespaces in the account, including their descriptions and creation times.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-search/namespaces",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1187,6 +1194,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -1209,6 +1217,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1638,7 +1647,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSearch_namespace_update",
     title: "Update a namespace",
-    description: "Updates the description and/or the public endpoint configuration of an existing namespace. The default namespace's description cannot be modified, but its public endpoint can.\n\nThis method is beta.",
+    description: "Updates the description and/or the public endpoint configuration of an existing namespace. The default namespace's description cannot be modified, but its public endpoint can.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/ai-search/namespaces/{name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1762,6 +1771,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1780,6 +1790,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

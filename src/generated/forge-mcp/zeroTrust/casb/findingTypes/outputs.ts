@@ -89,7 +89,25 @@ export const posture$$api_custom$$finding$$type$$response: JsonSchema = {
     "asset_vendor": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+          "enum": [
+            "ANTHROPIC",
+            "AWS",
+            "BITBUCKET",
+            "BOX",
+            "CONFLUENCE",
+            "DROPBOX",
+            "GITHUB",
+            "GOOGLE_CLOUD_PLATFORM",
+            "GOOGLE_WORKSPACE",
+            "JIRA",
+            "MICROSOFT",
+            "OPENAI",
+            "SALESFORCE",
+            "SERVICENOW",
+            "SLACK",
+            "ZOOM"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -146,7 +164,13 @@ export const posture$$api_custom$$finding$$type$$response: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"

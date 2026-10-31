@@ -8,8 +8,6 @@ import {
   monetization_response$$info,
 } from "../outputs.js";
 import {
-  monetization_identifier,
-  monetization_monetization$$price,
   monetization_monetization$$rule,
   monetization_monetization$$rule$$collection,
   monetization_monetization$$rule$$collection$$response,
@@ -19,15 +17,11 @@ import {
   monetization_monetization$$rule$$response,
 } from "./outputs.js";
 import {
-  monetization_identifier as monetization_identifier$,
-  monetization_monetization$$price as monetization_monetization$$price$,
   monetization_monetization$$rule$$input as monetization_monetization$$rule$$input$,
   monetization_monetization$$rule$$input$$fixed$$price as monetization_monetization$$rule$$input$$fixed$$price$,
   monetization_monetization$$rule$$input$$origin$$controlled as monetization_monetization$$rule$$input$$origin$$controlled$,
   monetization_monetization$$rule$$patch,
   monetization_monetization$$ruleset$$input,
-  monetization_monetization$$scheme,
-  monetization_zone$$identifier,
 } from "./schemas.js";
 
 /**
@@ -37,19 +31,20 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_rules_delete",
     title: "Delete a payment rule",
-    description: "Removes a single Payment Required rule identified by its ID. Every other rule is preserved. Returns the resulting rule collection.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the selected Monetization Gateway rule.",
+    description: "Removes a single Payment Required rule identified by its ID. Every other rule is preserved. Returns the resulting rule collection.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the selected Monetization Gateway rule.\n\nDELETE /zones/{zone_id}/monetization/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/monetization_identifier",
-              "description": "The unique ID of the payment rule."
+              "description": "The unique ID of the payment rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/monetization_zone-identifier",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,17 +57,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "monetization_identifier": monetization_identifier$,
-        "monetization_zone-identifier": monetization_zone$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -112,8 +102,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
         "monetization_api-response-common-failure": monetization_api$$response$$common$$failure,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -130,15 +118,16 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_rules_deleteAll",
     title: "Delete all payment rules",
-    description: "Removes every Payment Required rule from the zone. Any rules the service does not own are preserved. Deleting a zone with no payment rules is a no-op. Returns the resulting (empty) rule collection.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes every Monetization Gateway rule for the zone.",
+    description: "Removes every Payment Required rule from the zone. Any rules the service does not own are preserved. Deleting a zone with no payment rules is a no-op. Returns the resulting (empty) rule collection.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes every Monetization Gateway rule for the zone.\n\nDELETE /zones/{zone_id}/monetization/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/monetization_zone-identifier",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -150,16 +139,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "monetization_zone-identifier": monetization_zone$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -196,8 +181,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
         "monetization_api-response-common-failure": monetization_api$$response$$common$$failure,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -214,7 +197,7 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_rules_edit",
     title: "Update a payment rule",
-    description: "Applies a partial update to a single Payment Required rule. Only the fields present in the request body are changed; omitted fields keep their current values. Returns the full resulting rule collection.\n\nThis method is beta.",
+    description: "Applies a partial update to a single Payment Required rule. Only the fields present in the request body are changed; omitted fields keep their current values. Returns the full resulting rule collection.\n\nThis method is beta.\n\nPATCH /zones/{zone_id}/monetization/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -222,14 +205,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/monetization_monetization-rule-patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/monetization_identifier",
-              "description": "The unique ID of the payment rule."
+              "description": "The unique ID of the payment rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/monetization_zone-identifier",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -243,20 +227,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "monetization_identifier": monetization_identifier$,
-        "monetization_monetization-price": monetization_monetization$$price$,
         "monetization_monetization-rule-patch": monetization_monetization$$rule$$patch,
-        "monetization_monetization-scheme": monetization_monetization$$scheme,
-        "monetization_zone-identifier": monetization_zone$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -299,8 +278,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
         "monetization_api-response-common-failure": monetization_api$$response$$common$$failure,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -318,19 +295,20 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_rules_get",
     title: "Get a payment rule",
-    description: "Returns a single Payment Required rule identified by its ID.\n\nThis method is beta.",
+    description: "Returns a single Payment Required rule identified by its ID.\n\nThis method is beta.\n\nGET /zones/{zone_id}/monetization/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/monetization_identifier",
-              "description": "The unique ID of the payment rule."
+              "description": "The unique ID of the payment rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/monetization_zone-identifier",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -343,17 +321,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "monetization_identifier": monetization_identifier$,
-        "monetization_zone-identifier": monetization_zone$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-rule-response",
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-input": monetization_monetization$$rule$$input,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization$$rule$$input$$fixed$$price,
@@ -392,8 +365,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
         "monetization_api-response-common-failure": monetization_api$$response$$common$$failure,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-input": monetization_monetization$$rule$$input,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization$$rule$$input$$fixed$$price,
@@ -409,15 +380,16 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_rules_list",
     title: "List payment rules",
-    description: "Returns the currently deployed Payment Required rules for a zone. A zone with no Payment Required ruleset returns 404.\n\nThis method is beta.",
+    description: "Returns the currently deployed Payment Required rules for a zone. A zone with no Payment Required ruleset returns 404.\n\nThis method is beta.\n\nGET /zones/{zone_id}/monetization/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/monetization_zone-identifier",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -429,16 +401,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "monetization_zone-identifier": monetization_zone$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -478,8 +446,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
         "monetization_api-response-common-failure": monetization_api$$response$$common$$failure,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -496,7 +462,7 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_rules_update",
     title: "Deploy payment ruleset",
-    description: "Replaces the zone's Payment Required ruleset with the submitted desired state. Submit an empty rules array to clear all payment rules.\n\nThis method is beta.",
+    description: "Replaces the zone's Payment Required ruleset with the submitted desired state. Submit an empty rules array to clear all payment rules.\n\nThis method is beta.\n\nPUT /zones/{zone_id}/monetization/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -504,10 +470,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/monetization_monetization-ruleset-input"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/monetization_zone-identifier",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -520,22 +487,18 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "monetization_identifier": monetization_identifier$,
-        "monetization_monetization-price": monetization_monetization$$price$,
         "monetization_monetization-rule-input": monetization_monetization$$rule$$input$,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization$$rule$$input$$fixed$$price$,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization$$rule$$input$$origin$$controlled$,
         "monetization_monetization-ruleset-input": monetization_monetization$$ruleset$$input,
-        "monetization_zone-identifier": monetization_zone$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,
@@ -575,8 +538,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "monetization_api-response-common": monetization_api$$response$$common,
         "monetization_api-response-common-failure": monetization_api$$response$$common$$failure,
-        "monetization_identifier": monetization_identifier,
-        "monetization_monetization-price": monetization_monetization$$price,
         "monetization_monetization-rule": monetization_monetization$$rule,
         "monetization_monetization-rule-collection": monetization_monetization$$rule$$collection,
         "monetization_monetization-rule-collection-response": monetization_monetization$$rule$$collection$$response,

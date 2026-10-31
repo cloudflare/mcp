@@ -96,13 +96,6 @@ export const spectrum$$config_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-config_identifier` in responses.
- */
-export const spectrum$$config_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-config_messages` in responses.
  */
 export const spectrum$$config_messages: JsonSchema = {

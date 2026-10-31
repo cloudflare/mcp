@@ -8,22 +8,12 @@ import {
   client$$side$$security_api$$response$$common$$failure,
   client$$side$$security_messages,
 } from "../outputs.js";
-import { client$$side$$security_id } from "../schemas.js";
 import {
   client$$side$$security_api$$response$$single,
-  client$$side$$security_enabled,
   client$$side$$security_get$$zone$$settings$$response,
   client$$side$$security_update$$zone$$settings$$response,
-  client$$side$$security_updated_at,
-  client$$side$$security_use_cloudflare_reporting_endpoint,
-  client$$side$$security_use_connection_url_path,
   client$$side$$security_zone_settings_response_single,
 } from "./outputs.js";
-import {
-  client$$side$$security_enabled as client$$side$$security_enabled$,
-  client$$side$$security_use_cloudflare_reporting_endpoint as client$$side$$security_use_cloudflare_reporting_endpoint$,
-  client$$side$$security_use_connection_url_path as client$$side$$security_use_connection_url_path$,
-} from "./schemas.js";
 
 /**
  * The tools of `clientSideSecurity.settings`.
@@ -32,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_settings_get",
     title: "Get client-side security settings",
-    description: "Returns the client-side security product enablement status and reporting behaviors.",
+    description: "Returns the client-side security product enablement status and reporting behaviors.\n\nGET /zones/{zone_id}/page_shield",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -52,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -73,12 +62,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
-        "client-side-security_enabled": client$$side$$security_enabled,
         "client-side-security_get-zone-settings-response": client$$side$$security_get$$zone$$settings$$response,
         "client-side-security_messages": client$$side$$security_messages,
-        "client-side-security_updated_at": client$$side$$security_updated_at,
-        "client-side-security_use_cloudflare_reporting_endpoint": client$$side$$security_use_cloudflare_reporting_endpoint,
-        "client-side-security_use_connection_url_path": client$$side$$security_use_connection_url_path,
       },
     },
     annotations: {
@@ -131,12 +116,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-get-response-collection": client$$side$$security_api$$get$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
-        "client-side-security_enabled": client$$side$$security_enabled,
         "client-side-security_get-zone-settings-response": client$$side$$security_get$$zone$$settings$$response,
         "client-side-security_messages": client$$side$$security_messages,
-        "client-side-security_updated_at": client$$side$$security_updated_at,
-        "client-side-security_use_cloudflare_reporting_endpoint": client$$side$$security_use_cloudflare_reporting_endpoint,
-        "client-side-security_use_connection_url_path": client$$side$$security_use_connection_url_path,
       },
     },
     request: (args) => ({
@@ -146,32 +127,33 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_settings_update",
     title: "Update client-side security settings",
-    description: "Updates client-side security enablement and reporting behaviors for the zone.",
+    description: "Updates client-side security enablement and reporting behaviors for the zone.\n\nPUT /zones/{zone_id}/page_shield",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "enabled": {
-              "$ref": "#/$defs/client-side-security_enabled",
-              "description": "When true, indicates that Client-Side Security is enabled."
+              "description": "When true, indicates that Client-Side Security is enabled.",
+              "type": "boolean"
             },
             "use_cloudflare_reporting_endpoint": {
-              "$ref": "#/$defs/client-side-security_use_cloudflare_reporting_endpoint",
-              "description": "When true, CSP reports will be sent to https://csp-reporting.cloudflare.com/cdn-cgi/script_monitor/report"
+              "description": "When true, CSP reports will be sent to https://csp-reporting.cloudflare.com/cdn-cgi/script_monitor/report",
+              "type": "boolean"
             },
             "use_connection_url_path": {
-              "$ref": "#/$defs/client-side-security_use_connection_url_path",
-              "description": "When true, the paths associated with connections URLs will also be analyzed."
+              "description": "When true, the paths associated with connections URLs will also be analyzed.",
+              "type": "boolean"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -184,12 +166,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "client-side-security_enabled": client$$side$$security_enabled$,
-        "client-side-security_id": client$$side$$security_id,
-        "client-side-security_use_cloudflare_reporting_endpoint": client$$side$$security_use_cloudflare_reporting_endpoint$,
-        "client-side-security_use_connection_url_path": client$$side$$security_use_connection_url_path$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -208,12 +185,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-single": client$$side$$security_api$$response$$single,
-        "client-side-security_enabled": client$$side$$security_enabled,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_update-zone-settings-response": client$$side$$security_update$$zone$$settings$$response,
-        "client-side-security_updated_at": client$$side$$security_updated_at,
-        "client-side-security_use_cloudflare_reporting_endpoint": client$$side$$security_use_cloudflare_reporting_endpoint,
-        "client-side-security_use_connection_url_path": client$$side$$security_use_connection_url_path,
         "client-side-security_zone_settings_response_single": client$$side$$security_zone_settings_response_single,
       },
     },
@@ -264,12 +237,8 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
         "client-side-security_api-response-single": client$$side$$security_api$$response$$single,
-        "client-side-security_enabled": client$$side$$security_enabled,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_update-zone-settings-response": client$$side$$security_update$$zone$$settings$$response,
-        "client-side-security_updated_at": client$$side$$security_updated_at,
-        "client-side-security_use_cloudflare_reporting_endpoint": client$$side$$security_use_cloudflare_reporting_endpoint,
-        "client-side-security_use_connection_url_path": client$$side$$security_use_connection_url_path,
         "client-side-security_zone_settings_response_single": client$$side$$security_zone_settings_response_single,
       },
     },

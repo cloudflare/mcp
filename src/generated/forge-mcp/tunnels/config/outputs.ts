@@ -23,45 +23,33 @@ export const tunnel_config: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_config_src-2` in responses.
- */
-export const tunnel_config_src$$2: JsonSchema = {
-  "enum": [
-    "local",
-    "cloudflare"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_config_version-2` in responses.
- */
-export const tunnel_config_version$$2: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `tunnel_configuration` in responses.
  */
 export const tunnel_configuration: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/tunnel_identifier"
+      "type": "string"
     },
     "config": {
       "$ref": "#/$defs/tunnel_config"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/tunnel_config_src-2"
+      "enum": [
+        "local",
+        "cloudflare"
+      ],
+      "type": "string"
     },
     "tunnel_id": {
-      "$ref": "#/$defs/tunnel_tunnel_id-2"
+      "format": "uuid",
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/tunnel_config_version-2"
+      "type": "integer"
     }
   },
   "type": "object"
@@ -181,12 +169,4 @@ export const tunnel_originRequest: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_timestamp` in responses.
- */
-export const tunnel_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

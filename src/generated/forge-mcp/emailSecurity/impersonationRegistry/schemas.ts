@@ -70,7 +70,13 @@ export const email$$security_CreateImpersonationRegistry: JsonSchema = {
       "description": "Source the entry was created from.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_Provenance"
+          "enum": [
+            "A1S_INTERNAL",
+            "SNOOPY-CASB_OFFICE_365",
+            "SNOOPY-OFFICE_365",
+            "SNOOPY-GOOGLE_DIRECTORY"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -84,28 +90,6 @@ export const email$$security_CreateImpersonationRegistry: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-security_ImpersonationRegistryId`.
- */
-export const email$$security_ImpersonationRegistryId: JsonSchema = {
-  "description": "Impersonation registry entry identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_Provenance`.
- */
-export const email$$security_Provenance: JsonSchema = {
-  "enum": [
-    "A1S_INTERNAL",
-    "SNOOPY-CASB_OFFICE_365",
-    "SNOOPY-OFFICE_365",
-    "SNOOPY-GOOGLE_DIRECTORY"
-  ],
-  "type": "string"
 };
 
 /**
@@ -175,7 +159,13 @@ export const email$$security_UpdateImpersonationRegistry: JsonSchema = {
       "description": "Source the entry was created from.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_Provenance"
+          "enum": [
+            "A1S_INTERNAL",
+            "SNOOPY-CASB_OFFICE_365",
+            "SNOOPY-OFFICE_365",
+            "SNOOPY-GOOGLE_DIRECTORY"
+          ],
+          "type": "string"
         },
         {
           "type": "null"

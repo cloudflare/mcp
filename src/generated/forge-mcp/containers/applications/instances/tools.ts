@@ -3,30 +3,19 @@
 
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
-  cc_ISO8601Timestamp,
-  cc_Image,
   cc_Messages,
   cc_V4BaseErrorResponse,
   cc_V4BaseResponse,
 } from "../../outputs.js";
-import {
-  cc_ApplicationID,
-  cc_Region,
-  cc_V4PaginatedResultInfo,
-} from "../outputs.js";
-import { cc_ApplicationID as cc_ApplicationID$ } from "../schemas.js";
+import { cc_V4PaginatedResultInfo } from "../outputs.js";
 import {
   cc_ContainerInstance,
   cc_ContainerInstanceBase,
   cc_ContainerInstanceConfiguration,
-  cc_ContainerInstanceID,
   cc_ContainerInstanceLocation,
   cc_ContainerInstanceStatus,
-  cc_ContainerInstanceStatusState,
   cc_ContainersListContainerInstancesV2,
-  cc_LocationID,
 } from "./outputs.js";
-import { cc_ContainerInstanceID as cc_ContainerInstanceID$ } from "./schemas.js";
 
 /**
  * The tools of `containers.applications.instances`.
@@ -35,23 +24,24 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_instances_get",
     title: "Get a container instance",
-    description: "Returns a container instance belonging to an application.",
+    description: "Returns a container instance belonging to an application.\n\nGET /accounts/{account_id}/containers/applications/{application_id}/instances/{instance_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             },
             "instance_id": {
-              "$ref": "#/$defs/cc_ContainerInstanceID",
-              "description": "A container instance ID (64-character hex Durable Object actor ID)."
+              "description": "A container instance ID (64-character hex Durable Object actor ID).",
+              "type": "string"
             }
           },
           "required": [
@@ -65,10 +55,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cc_ApplicationID": cc_ApplicationID$,
-        "cc_ContainerInstanceID": cc_ContainerInstanceID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -88,19 +75,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_ApplicationID": cc_ApplicationID,
         "cc_ContainerInstance": cc_ContainerInstance,
         "cc_ContainerInstanceBase": cc_ContainerInstanceBase,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration,
-        "cc_ContainerInstanceID": cc_ContainerInstanceID,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation,
         "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus,
-        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_LocationID": cc_LocationID,
         "cc_Messages": cc_Messages,
-        "cc_Region": cc_Region,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
@@ -153,19 +133,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_ApplicationID": cc_ApplicationID,
         "cc_ContainerInstance": cc_ContainerInstance,
         "cc_ContainerInstanceBase": cc_ContainerInstanceBase,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration,
-        "cc_ContainerInstanceID": cc_ContainerInstanceID,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation,
         "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus,
-        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_LocationID": cc_LocationID,
         "cc_Messages": cc_Messages,
-        "cc_Region": cc_Region,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,
       },
@@ -177,19 +150,20 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_applications_instances_list",
     title: "List container instances",
-    description: "Lists container instances belonging to an application.",
+    description: "Lists container instances belonging to an application.\n\nGET /accounts/{account_id}/containers/applications/{application_id}/instances-v2",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
               "type": "string"
             },
             "application_id": {
-              "$ref": "#/$defs/cc_ApplicationID",
-              "description": "An Application ID represents an identifier of an application."
+              "description": "An Application ID represents an identifier of an application.",
+              "type": "string"
             }
           },
           "required": [
@@ -199,9 +173,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name_prefix": {
-              "description": "Filter instances by a case-sensitive name prefix, falling back to the actor ID when no name is known. Keep the same prefix when using a page token.\n",
+              "description": "Filter instances by a case-sensitive name prefix, falling back to the actor ID when no name is known. Keep the same prefix when using a page token.",
               "type": "string"
             },
             "page_token": {
@@ -213,7 +188,7 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "state": {
-              "description": "Filters instances by lifecycle state. `active` includes provisioning, running, and stopping instances; `not-active` includes stopped and failed instances. When omitted, all instances are returned.\n",
+              "description": "Filters instances by lifecycle state. `active` includes provisioning, running, and stopping instances; `not-active` includes stopped and failed instances. When omitted, all instances are returned.",
               "enum": [
                 "active",
                 "not-active"
@@ -227,9 +202,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cc_ApplicationID": cc_ApplicationID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -253,20 +226,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_ApplicationID": cc_ApplicationID,
         "cc_ContainerInstance": cc_ContainerInstance,
         "cc_ContainerInstanceBase": cc_ContainerInstanceBase,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration,
-        "cc_ContainerInstanceID": cc_ContainerInstanceID,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation,
         "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus,
-        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState,
         "cc_ContainersListContainerInstancesV2": cc_ContainersListContainerInstancesV2,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_LocationID": cc_LocationID,
         "cc_Messages": cc_Messages,
-        "cc_Region": cc_Region,
         "cc_V4BaseResponse": cc_V4BaseResponse,
         "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo,
       },
@@ -329,20 +295,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_ApplicationID": cc_ApplicationID,
         "cc_ContainerInstance": cc_ContainerInstance,
         "cc_ContainerInstanceBase": cc_ContainerInstanceBase,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration,
-        "cc_ContainerInstanceID": cc_ContainerInstanceID,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation,
         "cc_ContainerInstanceStatus": cc_ContainerInstanceStatus,
-        "cc_ContainerInstanceStatusState": cc_ContainerInstanceStatusState,
         "cc_ContainersListContainerInstancesV2": cc_ContainersListContainerInstancesV2,
-        "cc_ISO8601Timestamp": cc_ISO8601Timestamp,
-        "cc_Image": cc_Image,
-        "cc_LocationID": cc_LocationID,
         "cc_Messages": cc_Messages,
-        "cc_Region": cc_Region,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
         "cc_V4BaseResponse": cc_V4BaseResponse,
         "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo,

@@ -8,7 +8,6 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
 import {
   speed_automatic_platform_optimization_response,
   speed_automatic_platform_optimization_value,
@@ -22,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_automaticPlatformOptimization_edit",
     title: "Change Automatic Platform Optimization setting",
-    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.",
+    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.\n\nPATCH /zones/{zone_id}/settings/automatic_platform_optimization",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,7 +29,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "value": {
               "$ref": "#/$defs/speed_automatic_platform_optimization_value",
-              "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.\n"
+              "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings."
             }
           },
           "required": [
@@ -39,10 +38,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,9 +55,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value$,
-        "speed_identifier": speed_identifier,
       },
     },
     outputSchema: {
@@ -145,15 +145,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_automaticPlatformOptimization_get",
     title: "Get Automatic Platform Optimization setting",
-    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.",
+    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.\n\nGET /zones/{zone_id}/settings/automatic_platform_optimization",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -165,9 +166,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

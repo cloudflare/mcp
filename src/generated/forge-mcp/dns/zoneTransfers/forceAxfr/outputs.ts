@@ -14,17 +14,10 @@ export const secondary$$dns_force_response: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/secondary-dns_force_result"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `secondary-dns_force_result` in responses.
- */
-export const secondary$$dns_force_result: JsonSchema = {
-  "type": "string"
 };

@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `mq_lease-id` in responses.
- */
-export const mq_lease$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `mq_queue-peek-batch` in responses.
  */
 export const mq_queue$$peek$$batch: JsonSchema = {
@@ -29,7 +22,7 @@ export const mq_queue$$peek$$batch: JsonSchema = {
         "type": "object"
       },
       "ref": {
-        "$ref": "#/$defs/mq_ref"
+        "type": "string"
       },
       "timestamp_ms": {
         "type": "number"
@@ -56,7 +49,7 @@ export const mq_queue$$pull$$batch: JsonSchema = {
         "type": "string"
       },
       "lease_id": {
-        "$ref": "#/$defs/mq_lease-id"
+        "type": "string"
       },
       "metadata": {
         "type": "object"
@@ -68,11 +61,4 @@ export const mq_queue$$pull$$batch: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `mq_ref` in responses.
- */
-export const mq_ref: JsonSchema = {
-  "type": "string"
 };

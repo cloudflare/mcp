@@ -16,7 +16,7 @@ export const tls$$certificates$$and$$hostnames_enabled_response: JsonSchema = {
         "result": {
           "properties": {
             "enabled": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
+              "type": "boolean"
             }
           },
           "type": "object"

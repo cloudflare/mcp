@@ -134,19 +134,3 @@ export const cloudflare$$k2_UpdateK2StreamRequest: JsonSchema = {
   },
   "type": "object"
 };
-
-/**
- * The schema of `cloudflare-k2_workers-k2-account-id`.
- */
-export const cloudflare$$k2_workers$$k2$$account$$id: JsonSchema = {
-  "description": "Specifies the public ID of the account.",
-  "type": "string"
-};
-
-/**
- * The schema of `cloudflare-k2_workers-k2-stream-id`.
- */
-export const cloudflare$$k2_workers$$k2$$stream$$id: JsonSchema = {
-  "description": "Specifies the public ID of the K2 stream.",
-  "type": "string"
-};

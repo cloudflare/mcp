@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_json_get",
     title: "List targets.",
-    description: "Returns a list of all debuggable targets including tabs, pages, service workers, and other browser contexts.",
+    description: "Returns a list of all debuggable targets including tabs, pages, service workers, and other browser contexts.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "liveViewUrlExpiresInMs": {
               "default": 300000,
@@ -46,6 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

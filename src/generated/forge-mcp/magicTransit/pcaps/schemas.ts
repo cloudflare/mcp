@@ -4,38 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-visibility-pcaps_identifier`.
- */
-export const magic$$visibility$$pcaps_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_byte_limit`.
- */
-export const magic$$visibility$$pcaps_pcaps_byte_limit: JsonSchema = {
-  "description": "The maximum number of bytes to capture. This field only applies to `full` packet captures.",
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_colo_name`.
- */
-export const magic$$visibility$$pcaps_pcaps_colo_name: JsonSchema = {
-  "description": "The name of the data center used for the packet capture. This can be a specific colo (ord02) or a multi-colo name (ORD). This field only applies to `full` packet captures.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_destination_conf`.
- */
-export const magic$$visibility$$pcaps_pcaps_destination_conf: JsonSchema = {
-  "description": "The full URI for the bucket. This field only applies to `full` packet captures.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_filter_v1`.
  */
 export const magic$$visibility$$pcaps_pcaps_filter_v1: JsonSchema = {
@@ -66,58 +34,48 @@ export const magic$$visibility$$pcaps_pcaps_filter_v1: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_offset_time`.
- */
-export const magic$$visibility$$pcaps_pcaps_offset_time: JsonSchema = {
-  "description": "The RFC 3339 offset timestamp from which to query backwards for packets. Must be within the last 24h. When this field is empty, defaults to time of request.",
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_packet_limit`.
- */
-export const magic$$visibility$$pcaps_pcaps_packet_limit: JsonSchema = {
-  "description": "The limit of packets contained in a packet capture.",
-  "type": "number"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_request_full`.
  */
 export const magic$$visibility$$pcaps_pcaps_request_full: JsonSchema = {
   "properties": {
     "byte_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_byte_limit",
-      "description": "The maximum number of bytes to capture. This field only applies to `full` packet captures."
+      "description": "The maximum number of bytes to capture. This field only applies to `full` packet captures.",
+      "type": "number"
     },
     "colo_name": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_colo_name",
-      "description": "The name of the data center used for the packet capture. This can be a specific colo (ord02) or a multi-colo name (ORD). This field only applies to `full` packet captures."
+      "description": "The name of the data center used for the packet capture. This can be a specific colo (ord02) or a multi-colo name (ORD). This field only applies to `full` packet captures.",
+      "type": "string"
     },
     "destination_conf": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf",
-      "description": "The full URI for the bucket. This field only applies to `full` packet captures."
+      "description": "The full URI for the bucket. This field only applies to `full` packet captures.",
+      "type": "string"
     },
     "filter_v1": {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_filter_v1",
       "description": "The packet capture filter. When this field is empty, all packets are captured."
     },
     "packet_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_packet_limit",
-      "description": "The limit of packets contained in a packet capture."
+      "description": "The limit of packets contained in a packet capture.",
+      "type": "number"
     },
     "system": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_system",
-      "description": "The system used to collect packet captures."
+      "description": "The system used to collect packet captures.",
+      "enum": [
+        "magic-transit"
+      ],
+      "type": "string"
     },
     "time_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_time_limit_full",
-      "description": "The packet capture duration in seconds."
+      "description": "The packet capture duration in seconds.",
+      "type": "number"
     },
     "type": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_type",
-      "description": "The type of packet capture. `Simple` captures sampled packets, and `full` captures entire payloads and non-sampled packets."
+      "description": "The type of packet capture. `Simple` captures sampled packets, and `full` captures entire payloads and non-sampled packets.",
+      "enum": [
+        "simple",
+        "full"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -154,24 +112,32 @@ export const magic$$visibility$$pcaps_pcaps_request_simple: JsonSchema = {
       "description": "The packet capture filter. When this field is empty, all packets are captured."
     },
     "offset_time": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_offset_time",
-      "description": "The RFC 3339 offset timestamp from which to query backwards for packets. Must be within the last 24h. When this field is empty, defaults to time of request."
+      "description": "The RFC 3339 offset timestamp from which to query backwards for packets. Must be within the last 24h. When this field is empty, defaults to time of request.",
+      "format": "date-time",
+      "type": "string"
     },
     "packet_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_packet_limit",
-      "description": "The limit of packets contained in a packet capture."
+      "description": "The limit of packets contained in a packet capture.",
+      "type": "number"
     },
     "system": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_system",
-      "description": "The system used to collect packet captures."
+      "description": "The system used to collect packet captures.",
+      "enum": [
+        "magic-transit"
+      ],
+      "type": "string"
     },
     "time_limit": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_time_limit_sampled",
-      "description": "The packet capture duration in seconds."
+      "description": "The packet capture duration in seconds.",
+      "type": "number"
     },
     "type": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_type",
-      "description": "The type of packet capture. `Simple` captures sampled packets, and `full` captures entire payloads and non-sampled packets."
+      "description": "The type of packet capture. `Simple` captures sampled packets, and `full` captures entire payloads and non-sampled packets.",
+      "enum": [
+        "simple",
+        "full"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -181,43 +147,4 @@ export const magic$$visibility$$pcaps_pcaps_request_simple: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_system`.
- */
-export const magic$$visibility$$pcaps_pcaps_system: JsonSchema = {
-  "description": "The system used to collect packet captures.",
-  "enum": [
-    "magic-transit"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_time_limit_full`.
- */
-export const magic$$visibility$$pcaps_pcaps_time_limit_full: JsonSchema = {
-  "description": "The packet capture duration in seconds.",
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_time_limit_sampled`.
- */
-export const magic$$visibility$$pcaps_pcaps_time_limit_sampled: JsonSchema = {
-  "description": "The packet capture duration in seconds.",
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-pcaps_pcaps_type`.
- */
-export const magic$$visibility$$pcaps_pcaps_type: JsonSchema = {
-  "description": "The type of packet capture. `Simple` captures sampled packets, and `full` captures entire payloads and non-sampled packets.",
-  "enum": [
-    "simple",
-    "full"
-  ],
-  "type": "string"
 };

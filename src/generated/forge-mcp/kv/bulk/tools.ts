@@ -7,27 +7,18 @@ import {
   workers$$kv_api$$response$$common,
   workers$$kv_api$$response$$common$$failure,
   workers$$kv_api$$response$$common$$no$$result,
-  workers$$kv_expiration,
   workers$$kv_messages,
 } from "../outputs.js";
 import {
   workers$$kv_any as workers$$kv_any$,
-  workers$$kv_expiration as workers$$kv_expiration$,
-  workers$$kv_expiration_ttl,
-  workers$$kv_identifier,
   workers$$kv_list_metadata,
-  workers$$kv_namespace_identifier,
 } from "../schemas.js";
 import {
   workers$$kv_bulk$$get$$result,
   workers$$kv_bulk$$get$$result$$with$$metadata,
   workers$$kv_bulk$$result,
 } from "./outputs.js";
-import {
-  workers$$kv_bulk_delete,
-  workers$$kv_bulk_write,
-  workers$$kv_key_name_bulk,
-} from "./schemas.js";
+import { workers$$kv_bulk_delete, workers$$kv_bulk_write } from "./schemas.js";
 
 /**
  * The tools of `kv.bulk`.
@@ -36,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_bulk_delete",
     title: "Delete multiple key-value pairs",
-    description: "Deletes up to 10,000 key-value pairs from the specified Workers KV namespace. Send a JSON array of the key names to delete. The result reports the number of successful deletions and any keys that failed and should be retried.\n\nConfirm with the user before calling this tool. This operation deletes the specified keys and their values from the Workers KV namespace.",
+    description: "Deletes up to 10,000 key-value pairs from the specified Workers KV namespace. Send a JSON array of the key names to delete. The result reports the number of successful deletions and any keys that failed and should be retried.\n\nConfirm with the user before calling this tool. This operation deletes the specified keys and their values from the Workers KV namespace.\n\nPOST /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/bulk/delete",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,14 +35,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers-kv_bulk_delete"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -65,11 +57,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-kv_bulk_delete": workers$$kv_bulk_delete,
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_key_name_bulk": workers$$kv_key_name_bulk,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
       },
     },
     outputSchema: {
@@ -155,7 +145,7 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_bulk_get",
     title: "Get multiple key-value pairs",
-    description: "Retrieves the text-based values of up to 100 keys from the specified Workers KV namespace. The result maps each requested key to its value. Set `type` to `json` to parse JSON values instead of returning strings, and set `withMetadata` to `true` to include metadata with each value. Binary values are not supported by this operation.",
+    description: "Retrieves the text-based values of up to 100 keys from the specified Workers KV namespace. The result maps each requested key to its value. Set `type` to `json` to parse JSON values instead of returning strings, and set `withMetadata` to `true` to include metadata with each value. Binary values are not supported by this operation.\n\nPOST /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/bulk/get",
     inputSchema: {
       type: "object",
       properties: {
@@ -164,7 +154,8 @@ export const tools: readonly Tool[] = [
             "keys": {
               "description": "Array of keys to retrieve (maximum of 100).",
               "items": {
-                "$ref": "#/$defs/workers-kv_key_name_bulk"
+                "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
+                "type": "string"
               },
               "maxItems": 100,
               "type": "array"
@@ -190,14 +181,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -211,11 +203,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_key_name_bulk": workers$$kv_key_name_bulk,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -244,7 +232,6 @@ export const tools: readonly Tool[] = [
         "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
         "workers-kv_bulk-get-result": workers$$kv_bulk$$get$$result,
         "workers-kv_bulk-get-result-with-metadata": workers$$kv_bulk$$get$$result$$with$$metadata,
-        "workers-kv_expiration": workers$$kv_expiration,
         "workers-kv_messages": workers$$kv_messages,
       },
     },
@@ -298,7 +285,6 @@ export const tools: readonly Tool[] = [
         "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
         "workers-kv_bulk-get-result": workers$$kv_bulk$$get$$result,
         "workers-kv_bulk-get-result-with-metadata": workers$$kv_bulk$$get$$result$$with$$metadata,
-        "workers-kv_expiration": workers$$kv_expiration,
         "workers-kv_messages": workers$$kv_messages,
       },
     },
@@ -310,7 +296,7 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_bulk_put",
     title: "Write multiple key-value pairs",
-    description: "Writes up to 10,000 key-value pairs to the specified Workers KV namespace from a JSON array, with optional metadata and expiration settings for each pair. Existing values and expirations are overwritten. If neither `expiration` nor `expiration_ttl` is specified, the key-value pair will not expire. If both are set, `expiration_ttl` takes precedence. The entire request must be 100 megabytes or less. The result reports the number of successful writes and any keys that failed and should be retried.",
+    description: "Writes up to 10,000 key-value pairs to the specified Workers KV namespace from a JSON array, with optional metadata and expiration settings for each pair. Existing values and expirations are overwritten. If neither `expiration` nor `expiration_ttl` is specified, the key-value pair will not expire. If both are set, `expiration_ttl` takes precedence. The entire request must be 100 megabytes or less. The result reports the number of successful writes and any keys that failed and should be retried.\n\nPUT /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -318,14 +304,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers-kv_bulk_write"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -339,15 +326,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers-kv_any": workers$$kv_any$,
         "workers-kv_bulk_write": workers$$kv_bulk_write,
-        "workers-kv_expiration": workers$$kv_expiration$,
-        "workers-kv_expiration_ttl": workers$$kv_expiration_ttl,
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_key_name_bulk": workers$$kv_key_name_bulk,
         "workers-kv_list_metadata": workers$$kv_list_metadata,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
       },
     },
     outputSchema: {

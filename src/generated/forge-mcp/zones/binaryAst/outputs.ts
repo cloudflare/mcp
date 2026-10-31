@@ -20,22 +20,15 @@ export const speed_binary_ast_response: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_binary_ast_value"
+          "enum": [
+            "off",
+            "on",
+            "latest"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_binary_ast_value` in responses.
- */
-export const speed_binary_ast_value: JsonSchema = {
-  "enum": [
-    "off",
-    "on",
-    "latest"
-  ],
-  "type": "string"
 };

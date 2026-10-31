@@ -8,12 +8,6 @@ import {
   api$$shield_messages,
 } from "../../../../outputs.js";
 import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
-} from "../../../../schemas.js";
-import {
   api$$shield_credentials,
   api$$shield_credentials$$JWT$$Key$$EC$$ES256,
   api$$shield_credentials$$JWT$$Key$$EC$$ES384,
@@ -46,7 +40,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_credentials_edit",
     title: "Edit token validation credentials",
-    description: "Updates the configuration's complete key set while allowing omitted fields on existing keys to retain stored values. Omitted key identities are removed.",
+    description: "Updates the configuration's complete key set while allowing omitted fields on existing keys to retain stored values. Omitted key identities are removed.\n\nPATCH /zones/{zone_id}/token_validation/config/{config_id}/credentials",
     inputSchema: {
       type: "object",
       properties: {
@@ -54,13 +48,30 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_credentials-patch-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "config_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Configuration ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -74,6 +85,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
@@ -83,10 +95,6 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-oct-patch-request": api$$shield_credentials$$JWT$$Key$$oct$$patch$$request,
         "api-shield_credentials-JWT-Key-patch-request": api$$shield_credentials$$JWT$$Key$$patch$$request,
         "api-shield_credentials-patch-request": api$$shield_credentials$$patch$$request,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     outputSchema: {
@@ -180,7 +188,7 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_tokenValidation_configurations_credentials_update",
     title: "Replace token validation credentials",
-    description: "Replaces the configuration's complete key set. Symmetric keys must include their key material.",
+    description: "Replaces the configuration's complete key set. Symmetric keys must include their key material.\n\nPUT /zones/{zone_id}/token_validation/config/{config_id}/credentials",
     inputSchema: {
       type: "object",
       properties: {
@@ -188,13 +196,30 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_credentials-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "config_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Token Configuration ID"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -208,6 +233,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
         "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
@@ -217,10 +243,6 @@ export const tools: readonly Tool[] = [
         "api-shield_credentials-JWT-Key-oct-request": api$$shield_credentials$$JWT$$Key$$oct$$request,
         "api-shield_credentials-JWT-Key-request": api$$shield_credentials$$JWT$$Key$$request,
         "api-shield_credentials-request": api$$shield_credentials$$request,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     outputSchema: {

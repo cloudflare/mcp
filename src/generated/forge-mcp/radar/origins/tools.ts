@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_origins_get",
     title: "Get Origin details",
-    description: "Retrieves the requested origin information with its regions.",
+    description: "Retrieves the requested origin information with its regions.\n\nGET /radar/origins/{slug}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "slug": {
               "description": "Origin slug.",
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -49,6 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -188,11 +191,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_origins_list",
     title: "List Origins",
-    description: "Retrieves a list of origins with their regions.",
+    description: "Retrieves a list of origins with their regions.\n\nGET /radar/origins",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -215,6 +219,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -381,11 +386,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_origins_summary",
     title: "Get origin metrics distribution by dimension",
-    description: "Retrieves an aggregated summary of origin metrics grouped by the specified dimension.",
+    description: "Retrieves an aggregated summary of origin metrics grouped by the specified dimension.\n\nGET /radar/origins/summary/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the origin attribute by which to group the results. `ORIGIN` groups across all providers and does not accept an `origin` or `region`. `REGION` requires an `origin`. `SUCCESS_RATE` and `PERCENTILE` require both an `origin` and a `region` and constrain the `metric` (`SUCCESS_RATE` supports only `REQUESTS`; `PERCENTILE` supports any metric except `REQUESTS`). `limitPerGroup` is only supported on the `REGION` dimension.",
@@ -404,6 +410,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`. When requesting comparison series, every series must resolve to the same duration as the main series. Each `dateStart`/`dateEnd` is floored to the nearest 15 minutes before evaluation, so windows whose durations match only before alignment may be rejected.",
@@ -490,6 +497,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -936,11 +944,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_origins_timeseries",
     title: "Get origin metrics time series",
-    description: "Retrieves the time series of origin metrics for the specified origin.",
+    description: "Retrieves the time series of origin metrics for the specified origin.\n\nGET /radar/origins/timeseries",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1033,6 +1042,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1531,11 +1541,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_origins_timeseriesGroups",
     title: "Get origin metrics time series grouped by dimension",
-    description: "Retrieves the distribution of origin metrics grouped by the specified dimension over time.",
+    description: "Retrieves the distribution of origin metrics grouped by the specified dimension over time.\n\nGET /radar/origins/timeseries_groups/{dimension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "dimension": {
               "description": "Specifies the origin attribute by which to group the results. `ORIGIN` groups across all providers and does not accept an `origin` or `region`. `REGION` requires an `origin`. `SUCCESS_RATE` and `PERCENTILE` require both an `origin` and a `region` and constrain the `metric` (`SUCCESS_RATE` supports only `REQUESTS`; `PERCENTILE` supports any metric except `REQUESTS`). `limitPerGroup` is only supported on the `REGION` dimension.",
@@ -1554,6 +1565,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "aggInterval": {
               "description": "Aggregation interval of the results (e.g., in 15 minutes or 1 hour intervals). Refer to [Aggregation intervals](https://developers.cloudflare.com/radar/concepts/aggregation-intervals/). When omitted, the interval is auto-selected from the requested date range; finer intervals are only available for shorter ranges. If the requested interval is too granular for the date range, the request is rejected.",
@@ -1659,6 +1671,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

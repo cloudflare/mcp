@@ -108,7 +108,11 @@ export const fraud_fraud_settings: JsonSchema = {
       "$ref": "#/$defs/fraud_authentication_settings"
     },
     "user_profiles": {
-      "$ref": "#/$defs/fraud_user_profiles_status"
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "username_expressions": {
       "$ref": "#/$defs/fraud_username_expressions"
@@ -167,17 +171,6 @@ export const fraud_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `fraud_user_profiles_status` in responses.
- */
-export const fraud_user_profiles_status: JsonSchema = {
-  "enum": [
-    "enabled",
-    "disabled"
-  ],
-  "type": "string"
 };
 
 /**

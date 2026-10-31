@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `r2_bucket_name` in responses.
- */
-export const r2_bucket_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `r2_errors` in responses.
  */
 export const r2_errors: JsonSchema = {
@@ -83,7 +76,14 @@ export const r2_prefix_delete_job: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/r2_r2_bucket_job_status"
+      "enum": [
+        "ENQUEUED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -94,31 +94,6 @@ export const r2_prefix_delete_job: JsonSchema = {
     "status"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2_r2_bucket_job_status` in responses.
- */
-export const r2_r2_bucket_job_status: JsonSchema = {
-  "enum": [
-    "ENQUEUED",
-    "RUNNING",
-    "COMPLETED",
-    "FAILED",
-    "CANCELLED"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `r2_storage_class` in responses.
- */
-export const r2_storage_class: JsonSchema = {
-  "enum": [
-    "Standard",
-    "InfrequentAccess"
-  ],
-  "type": "string"
 };
 
 /**

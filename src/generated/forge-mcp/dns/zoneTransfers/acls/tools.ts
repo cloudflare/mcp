@@ -8,25 +8,14 @@ import {
   secondary$$dns_api$$response$$common$$failure,
   secondary$$dns_api$$response$$single,
   secondary$$dns_id_response$$3,
-  secondary$$dns_identifier$$3,
   secondary$$dns_messages,
 } from "../outputs.js";
 import {
-  secondary$$dns_account_identifier,
-  secondary$$dns_identifier$$3 as secondary$$dns_identifier$$3$,
-} from "../schemas.js";
-import {
   secondary$$dns_acl,
-  secondary$$dns_ip_range,
-  secondary$$dns_name$$4,
   secondary$$dns_response_collection$$3,
   secondary$$dns_single_response$$3,
 } from "./outputs.js";
-import {
-  secondary$$dns_acl as secondary$$dns_acl$,
-  secondary$$dns_ip_range as secondary$$dns_ip_range$,
-  secondary$$dns_name$$4 as secondary$$dns_name$$4$,
-} from "./schemas.js";
+import { secondary$$dns_acl as secondary$$dns_acl$ } from "./schemas.js";
 
 /**
  * The tools of `dns.zoneTransfers.acls`.
@@ -35,19 +24,19 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_acls_create",
     title: "Create ACL",
-    description: "Create ACL.",
+    description: "Create ACL.\n\nPOST /accounts/{account_id}/secondary_dns/acls",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "ip_range": {
-              "$ref": "#/$defs/secondary-dns_ip_range",
-              "description": "Allowed IPv4/IPv6 address range of primary or secondary nameservers. This will be applied for the entire account. The IP range is used to allow additional NOTIFY IPs for secondary zones and IPs Cloudflare allows AXFR/IXFR requests from for primary zones. CIDRs are limited to a maximum of /24 for IPv4 and /64 for IPv6 respectively."
+              "description": "Allowed IPv4/IPv6 address range of primary or secondary nameservers. This will be applied for the entire account. The IP range is used to allow additional NOTIFY IPs for secondary zones and IPs Cloudflare allows AXFR/IXFR requests from for primary zones. CIDRs are limited to a maximum of /24 for IPv4 and /64 for IPv6 respectively.",
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/secondary-dns_name-4",
-              "description": "The name of the acl."
+              "description": "The name of the acl.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,9 +46,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -72,21 +62,14 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_ip_range": secondary$$dns_ip_range$,
-        "secondary-dns_name-4": secondary$$dns_name$$4$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-3",
       $defs: {
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_single_response-3": secondary$$dns_single_response$$3,
       },
     },
@@ -130,10 +113,7 @@ export const tools: readonly Tool[] = [
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_single_response-3": secondary$$dns_single_response$$3,
       },
     },
@@ -145,17 +125,18 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_acls_delete",
     title: "Delete ACL",
-    description: "Delete ACL.",
+    description: "Delete ACL.\n\nDELETE /accounts/{account_id}/secondary_dns/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/secondary-dns_identifier-3"
+              "type": "string"
             }
           },
           "required": [
@@ -168,17 +149,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_id_response-3",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response-3": secondary$$dns_id_response$$3,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -222,7 +199,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response-3": secondary$$dns_id_response$$3,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -233,17 +209,18 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_acls_get",
     title: "ACL Details",
-    description: "Get ACL.",
+    description: "Get ACL.\n\nGET /accounts/{account_id}/secondary_dns/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/secondary-dns_identifier-3"
+              "type": "string"
             }
           },
           "required": [
@@ -256,20 +233,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-3",
       $defs: {
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_single_response-3": secondary$$dns_single_response$$3,
       },
     },
@@ -314,10 +285,7 @@ export const tools: readonly Tool[] = [
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_single_response-3": secondary$$dns_single_response$$3,
       },
     },
@@ -328,14 +296,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_acls_list",
     title: "List ACLs",
-    description: "List ACLs.",
+    description: "List ACLs.\n\nGET /accounts/{account_id}/secondary_dns/acls",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -347,9 +316,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_response_collection-3",
@@ -357,10 +324,7 @@ export const tools: readonly Tool[] = [
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-collection": secondary$$dns_api$$response$$collection,
         "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_response_collection-3": secondary$$dns_response_collection$$3,
       },
     },
@@ -406,10 +370,7 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-collection": secondary$$dns_api$$response$$collection,
         "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_response_collection-3": secondary$$dns_response_collection$$3,
       },
     },
@@ -420,7 +381,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_acls_update",
     title: "Update ACL",
-    description: "Modify ACL.",
+    description: "Modify ACL.\n\nPUT /accounts/{account_id}/secondary_dns/acls/{acl_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -428,12 +389,13 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_acl"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             },
             "acl_id": {
-              "$ref": "#/$defs/secondary-dns_identifier-3"
+              "type": "string"
             }
           },
           "required": [
@@ -447,12 +409,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
         "secondary-dns_acl": secondary$$dns_acl$,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3$,
-        "secondary-dns_ip_range": secondary$$dns_ip_range$,
-        "secondary-dns_name-4": secondary$$dns_name$$4$,
       },
     },
     outputSchema: {
@@ -460,10 +419,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_single_response-3": secondary$$dns_single_response$$3,
       },
     },
@@ -507,10 +463,7 @@ export const tools: readonly Tool[] = [
         "secondary-dns_acl": secondary$$dns_acl,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
-        "secondary-dns_ip_range": secondary$$dns_ip_range,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-4": secondary$$dns_name$$4,
         "secondary-dns_single_response-3": secondary$$dns_single_response$$3,
       },
     },

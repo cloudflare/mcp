@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_created_at-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_created_at$$2: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_errors` in responses.
  */
 export const tls$$certificates$$and$$hostnames_errors: JsonSchema = {
@@ -47,50 +39,30 @@ export const tls$$certificates$$and$$hostnames_fallback_origin_response: JsonSch
 export const tls$$certificates$$and$$hostnames_fallbackorigin: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-2"
+      "format": "date-time",
+      "type": "string"
     },
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_errors"
     },
     "origin": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_origin"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-4"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "pending_deletion",
+        "active",
+        "deployment_timed_out",
+        "deletion_timed_out"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_origin` in responses.
- */
-export const tls$$certificates$$and$$hostnames_origin: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-4` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status$$4: JsonSchema = {
-  "enum": [
-    "initializing",
-    "pending_deployment",
-    "pending_deletion",
-    "active",
-    "deployment_timed_out",
-    "deletion_timed_out"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_updated_at` in responses.
- */
-export const tls$$certificates$$and$$hostnames_updated_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

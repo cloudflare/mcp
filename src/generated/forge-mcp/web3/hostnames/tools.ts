@@ -9,27 +9,12 @@ import {
   web3_api$$response$$single,
   web3_api$$response$$single$$id,
   web3_collection_response,
-  web3_description,
-  web3_dnslink,
-  web3_identifier,
   web3_messages,
-  web3_name,
   web3_result_info,
   web3_single_response,
-  web3_status,
-  web3_target,
-  web3_timestamp,
   web3_web3$$hostname,
 } from "./outputs.js";
-import {
-  web3_create_request,
-  web3_description as web3_description$,
-  web3_dnslink as web3_dnslink$,
-  web3_identifier as web3_identifier$,
-  web3_modify_request,
-  web3_name as web3_name$,
-  web3_target as web3_target$,
-} from "./schemas.js";
+import { web3_create_request, web3_modify_request } from "./schemas.js";
 
 /**
  * The tools of `web3.hostnames`.
@@ -38,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_create",
     title: "Create Web3 Hostname",
-    description: "Create Web3 Hostname",
+    description: "Create Web3 Hostname\n\nPOST /zones/{zone_id}/web3/hostnames",
     inputSchema: {
       type: "object",
       properties: {
@@ -46,10 +31,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/web3_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,13 +48,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "web3_create_request": web3_create_request,
-        "web3_description": web3_description$,
-        "web3_dnslink": web3_dnslink$,
-        "web3_identifier": web3_identifier$,
-        "web3_name": web3_name$,
-        "web3_target": web3_target$,
       },
     },
     outputSchema: {
@@ -76,15 +58,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_single_response": web3_single_response,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -140,16 +115,9 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_api-response-single": web3_api$$response$$single,
         "web3_collection_response": web3_collection_response,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_result_info": web3_result_info,
         "web3_single_response": web3_single_response,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -161,20 +129,21 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_delete",
     title: "Delete Web3 Hostname",
-    description: "Delete Web3 Hostname",
+    description: "Delete Web3 Hostname\n\nDELETE /zones/{zone_id}/web3/hostnames/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {},
         "path": {
+          "additionalProperties": false,
           "properties": {
             "identifier": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -188,16 +157,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_api-response-single-id",
       $defs: {
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-single-id": web3_api$$response$$single$$id,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
       },
     },
@@ -253,15 +219,8 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_api-response-single-id": web3_api$$response$$single$$id,
         "web3_collection_response": web3_collection_response,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_result_info": web3_result_info,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -273,7 +232,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_edit",
     title: "Edit Web3 Hostname",
-    description: "Edit Web3 Hostname",
+    description: "Edit Web3 Hostname\n\nPATCH /zones/{zone_id}/web3/hostnames/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -281,14 +240,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/web3_modify_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "identifier": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -302,10 +262,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "web3_description": web3_description$,
-        "web3_dnslink": web3_dnslink$,
-        "web3_identifier": web3_identifier$,
         "web3_modify_request": web3_modify_request,
       },
     },
@@ -314,15 +272,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_single_response": web3_single_response,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -378,16 +329,9 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_api-response-single": web3_api$$response$$single,
         "web3_collection_response": web3_collection_response,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_result_info": web3_result_info,
         "web3_single_response": web3_single_response,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -399,19 +343,20 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_get",
     title: "Web3 Hostname Details",
-    description: "Web3 Hostname Details",
+    description: "Web3 Hostname Details\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "identifier": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -424,24 +369,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_single_response",
       $defs: {
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-single": web3_api$$response$$single,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_single_response": web3_single_response,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -498,16 +434,9 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_api-response-single": web3_api$$response$$single,
         "web3_collection_response": web3_collection_response,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_result_info": web3_result_info,
         "web3_single_response": web3_single_response,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -518,15 +447,16 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_list",
     title: "List Web3 Hostnames",
-    description: "List Web3 Hostnames",
+    description: "List Web3 Hostnames\n\nGET /zones/{zone_id}/web3/hostnames",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/web3_identifier",
-              "description": "Specify the identifier of the hostname."
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
             }
           },
           "required": [
@@ -538,9 +468,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_collection_response",
@@ -548,15 +476,8 @@ export const tools: readonly Tool[] = [
         "web3_api-response-collection": web3_api$$response$$collection,
         "web3_api-response-common": web3_api$$response$$common,
         "web3_collection_response": web3_collection_response,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_result_info": web3_result_info,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },
@@ -612,15 +533,8 @@ export const tools: readonly Tool[] = [
         "web3_api-response-common": web3_api$$response$$common,
         "web3_api-response-common-failure": web3_api$$response$$common$$failure,
         "web3_collection_response": web3_collection_response,
-        "web3_description": web3_description,
-        "web3_dnslink": web3_dnslink,
-        "web3_identifier": web3_identifier,
         "web3_messages": web3_messages,
-        "web3_name": web3_name,
         "web3_result_info": web3_result_info,
-        "web3_status": web3_status,
-        "web3_target": web3_target,
-        "web3_timestamp": web3_timestamp,
         "web3_web3-hostname": web3_web3$$hostname,
       },
     },

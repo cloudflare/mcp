@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_categories_create",
     title: "Create an event category",
-    description: "Creates an event category for classifying events. `name` and `killChain` are required.",
+    description: "Creates an event category for classifying events. `name` and `killChain` are required.\n\nPOST /accounts/{account_id}/cloudforce-one/events/categories/create",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,6 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -60,6 +61,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -186,11 +188,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_categories_delete",
     title: "Delete an event category",
-    description: "Deletes an event category by its ID.",
+    description: "Deletes an event category by its ID.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/event-categories/by-id/{category_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -212,6 +215,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -290,11 +294,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_categories_get",
     title: "Get an event category",
-    description: "Returns an event category by its ID.",
+    description: "Returns an event category by its ID.\n\nGET /accounts/{account_id}/cloudforce-one/events/event-categories/by-id/{category_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -316,6 +321,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -441,11 +447,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_categories_list",
     title: "List event categories used in datasets",
-    description: "Lists the event categories used by events in the datasets given by `datasetIds`, or in the default dataset when `datasetIds` is omitted. Dataset scope values are not supported. To list every category, use `threat-intel events categories catalog list`.",
+    description: "Lists the event categories used by events in the datasets given by `datasetIds`, or in the default dataset when `datasetIds` is omitted. Dataset scope values are not supported. To list every category, use `threat-intel events categories catalog list`.\n\nGET /accounts/{account_id}/cloudforce-one/events/categories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -458,6 +465,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetIds": {
               "description": "Array of dataset IDs to query categories from. If not provided, uses the default dataset.",
@@ -473,6 +481,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -607,7 +616,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_categories_update",
     title: "Update an event category",
-    description: "Updates the given fields of an event category and leaves the other fields unchanged.",
+    description: "Updates the given fields of an event category and leaves the other fields unchanged.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/event-categories/by-id/{category_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -638,6 +647,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -659,6 +669,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

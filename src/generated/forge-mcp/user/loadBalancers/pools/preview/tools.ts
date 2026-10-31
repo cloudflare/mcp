@@ -6,29 +6,12 @@ import {
   load$$balancing_api$$response$$common,
   load$$balancing_api$$response$$common$$failure,
   load$$balancing_api$$response$$single,
-  load$$balancing_identifier,
   load$$balancing_messages,
   load$$balancing_preview_response,
 } from "../../../../outputs.js";
 import {
-  load$$balancing_allow_insecure,
-  load$$balancing_consecutive_down,
-  load$$balancing_consecutive_up,
-  load$$balancing_description,
-  load$$balancing_expected_body,
-  load$$balancing_expected_codes,
-  load$$balancing_follow_redirects,
   load$$balancing_header,
-  load$$balancing_interval,
-  load$$balancing_method,
   load$$balancing_monitor$$editable,
-  load$$balancing_path,
-  load$$balancing_port,
-  load$$balancing_probe_zone,
-  load$$balancing_retries,
-  load$$balancing_schemas$$identifier,
-  load$$balancing_timeout,
-  load$$balancing_type,
 } from "../../../../schemas.js";
 
 /**
@@ -38,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "user_loadBalancers_pools_preview_create",
     title: "Preview Pool",
-    description: "Preview pool health using provided monitor details. The returned preview_id can be used in the preview endpoint to retrieve the results.",
+    description: "Preview pool health using provided monitor details. The returned preview_id can be used in the preview endpoint to retrieve the results.\n\nPOST /user/load_balancers/pools/{pool_id}/preview",
     inputSchema: {
       type: "object",
       properties: {
@@ -46,9 +29,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -61,25 +45,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_allow_insecure": load$$balancing_allow_insecure,
-        "load-balancing_consecutive_down": load$$balancing_consecutive_down,
-        "load-balancing_consecutive_up": load$$balancing_consecutive_up,
-        "load-balancing_description": load$$balancing_description,
-        "load-balancing_expected_body": load$$balancing_expected_body,
-        "load-balancing_expected_codes": load$$balancing_expected_codes,
-        "load-balancing_follow_redirects": load$$balancing_follow_redirects,
         "load-balancing_header": load$$balancing_header,
-        "load-balancing_interval": load$$balancing_interval,
-        "load-balancing_method": load$$balancing_method,
         "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
-        "load-balancing_path": load$$balancing_path,
-        "load-balancing_port": load$$balancing_port,
-        "load-balancing_probe_zone": load$$balancing_probe_zone,
-        "load-balancing_retries": load$$balancing_retries,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-        "load-balancing_timeout": load$$balancing_timeout,
-        "load-balancing_type": load$$balancing_type,
       },
     },
     outputSchema: {
@@ -87,7 +56,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
-        "load-balancing_identifier": load$$balancing_identifier,
         "load-balancing_messages": load$$balancing_messages,
         "load-balancing_preview_response": load$$balancing_preview_response,
       },
@@ -114,7 +82,6 @@ export const tools: readonly Tool[] = [
         "load-balancing_api-response-common": load$$balancing_api$$response$$common,
         "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
         "load-balancing_api-response-single": load$$balancing_api$$response$$single,
-        "load-balancing_identifier": load$$balancing_identifier,
         "load-balancing_messages": load$$balancing_messages,
         "load-balancing_preview_response": load$$balancing_preview_response,
       },

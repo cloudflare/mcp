@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_providers_create",
     title: "Store a provider key",
-    description: "Stores an upstream AI provider API key for an AI Gateway in the Secrets Store configured on the gateway, with an optional rate limit. Pass `secret` to store a new key, or omit it to use an existing Secrets Store secret.",
+    description: "Stores an upstream AI provider API key for an AI Gateway in the Secrets Store configured on the gateway, with an optional rate limit. Pass `secret` to store a new key, or omit it to use an existing Secrets Store secret.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,6 +48,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -67,6 +68,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -280,11 +282,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_providers_delete",
     title: "Delete a provider key",
-    description: "Deletes a provider key configuration from an AI Gateway and deletes its secret from the Secrets Store.\n\nConfirm with the user before calling this tool. This deletes the stored provider key and its Secrets Store secret. Requests that rely on this key will stop authenticating with it.",
+    description: "Deletes a provider key configuration from an AI Gateway and deletes its secret from the Secrets Store.\n\nConfirm with the user before calling this tool. This deletes the stored provider key and its Secrets Store secret. Requests that rely on this key will stop authenticating with it.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -308,6 +311,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -513,11 +517,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_providers_get",
     title: "Get a provider key",
-    description: "Retrieves a provider key configuration for an AI Gateway. The response shows a masked preview of the key, never the key itself.",
+    description: "Retrieves a provider key configuration for an AI Gateway. The response shows a masked preview of the key, never the key itself.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -541,6 +546,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -743,11 +749,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_providers_list",
     title: "List provider keys",
-    description: "Lists the provider keys stored for an AI Gateway. Responses show a masked preview of each key, never the key itself.",
+    description: "Lists the provider keys stored for an AI Gateway. Responses show a masked preview of each key, never the key itself.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -764,6 +771,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -780,6 +788,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -992,7 +1001,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_providers_update",
     title: "Rotate a provider key",
-    description: "Replaces the stored API key of a provider key configuration. Only the key can change.",
+    description: "Replaces the stored API key of a provider key configuration. Only the key can change.\n\nPUT /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1009,6 +1018,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1032,6 +1042,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

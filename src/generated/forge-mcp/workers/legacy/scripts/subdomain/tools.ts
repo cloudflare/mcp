@@ -7,10 +7,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../../../outputs.js";
-import {
-  workers_identifier,
-  workers_script_name,
-} from "../../../../schemas.js";
 import { workers_subdomain } from "./outputs.js";
 
 /**
@@ -20,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_subdomain_create",
     title: "Update Worker Script Subdomain",
-    description: "Enable or disable a Worker script on the workers.dev subdomain.\n\nThis method is deprecated.",
+    description: "Enable or disable a Worker script on the workers.dev subdomain.\n\nThis method is deprecated.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/subdomain",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,14 +37,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,10 +59,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -150,19 +144,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_subdomain_delete",
     title: "Delete Worker Script Subdomain",
-    description: "Disable all workers.dev subdomains for a Worker script.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. This will disable all workers.dev subdomains for the Worker script.",
+    description: "Disable all workers.dev subdomains for a Worker script.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. This will disable all workers.dev subdomains for the Worker script.\n\nDELETE /accounts/{account_id}/workers/scripts/{script_name}/subdomain",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -175,10 +170,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -262,19 +254,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_subdomain_get",
     title: "Get Worker Script Subdomain",
-    description: "Get whether a Worker script is available on the workers.dev subdomain.\n\nThis method is deprecated.",
+    description: "Get whether a Worker script is available on the workers.dev subdomain.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/subdomain",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -287,10 +280,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

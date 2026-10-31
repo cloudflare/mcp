@@ -26,11 +26,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_datasets_available",
     title: "List available account or zone datasets",
-    description: "Returns all dataset types that this account or zone can create. Each entry\nincludes the dataset schema and timestamp field.\n\nThe schema shows all possible fields for a dataset. However, not all\nfields may be available for your account or zone. When creating or updating a\ndataset, only fields available to your account or zone can be enabled. If you\nrequest a field that is not available, you will receive an error.",
+    description: "Returns all dataset types that this account or zone can create. Each entry\nincludes the dataset schema and timestamp field.\n\nThe schema shows all possible fields for a dataset. However, not all\nfields may be available for your account or zone. When creating or updating a\ndataset, only fields available to your account or zone can be enabled. If you\nrequest a field that is not available, you will receive an error.\n\nGET /{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets/available",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -55,6 +56,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lex_AvailableDestinationListResponse",
@@ -108,7 +110,7 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_datasets_create",
     title: "Create an account or zone dataset",
-    description: "Create a new Log Explorer dataset for the account or zone.\n\nList available account or zone datasets to see the dataset types and fields you\ncan use.\n\nThe `fields` property is optional. If not specified, all available fields\nwill be enabled.\n\nFor dataset field definitions, see: https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/",
+    description: "Create a new Log Explorer dataset for the account or zone.\n\nList available account or zone datasets to see the dataset types and fields you\ncan use.\n\nThe `fields` property is optional. If not specified, all available fields\nwill be enabled.\n\nFor dataset field definitions, see: https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/\n\nPOST /{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets",
     inputSchema: {
       type: "object",
       properties: {
@@ -116,6 +118,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/lex_CreateDatasetRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -141,6 +144,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "lex_CreateDatasetRequest": lex_CreateDatasetRequest,
         "lex_LogField": lex_LogField$,
@@ -205,11 +209,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_datasets_delete",
     title: "Delete an account or zone dataset",
-    description: "Deletes a Log Explorer dataset for the account or zone. Dataset deletion must not\nbe protected.\n\nConfirm with the user before calling this tool. This operation deletes a Log Explorer dataset for the account.",
+    description: "Deletes a Log Explorer dataset for the account or zone. Dataset deletion must not\nbe protected.\n\nConfirm with the user before calling this tool. This operation deletes a Log Explorer dataset for the account.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -239,6 +244,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lex_DatasetDetailResponse",
@@ -293,11 +299,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_datasets_get",
     title: "Get an account or zone dataset",
-    description: "Retrieve a single Log Explorer dataset by ID for the account or zone.",
+    description: "Retrieve a single Log Explorer dataset by ID for the account or zone.\n\nGET /{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -327,6 +334,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lex_DatasetDetailResponse",
@@ -383,11 +391,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_datasets_list",
     title: "List account or zone datasets",
-    description: "Returns all Log Explorer datasets configured for the account or zone.\n\nPass `include_zones=true` to also include zone-level datasets that\nbelong to this account or zone. List responses omit the `fields` property;\nuse the single-dataset endpoint to retrieve field configuration.",
+    description: "Returns all Log Explorer datasets configured for the account or zone.\n\nPass `include_zones=true` to also include zone-level datasets that\nbelong to this account or zone. List responses omit the `fields` property;\nuse the single-dataset endpoint to retrieve field configuration.\n\nGET /{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -409,6 +418,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_zones": {
               "description": "Set to true to include zone-scoped datasets belonging to this account.",
@@ -421,6 +431,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lex_DatasetSummaryListResponse",
@@ -477,7 +488,7 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_datasets_update",
     title: "Update an account or zone dataset",
-    description: "Updates the enabled state and/or field configuration of an account or zone dataset.",
+    description: "Updates the enabled state and/or field configuration of an account or zone dataset.\n\nPUT /{account_or_zone}/{account_or_zone_id}/logs/explorer/datasets/{dataset_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -485,6 +496,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/lex_UpdateDatasetRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -515,6 +527,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "lex_LogField": lex_LogField$,
         "lex_UpdateDatasetRequest": lex_UpdateDatasetRequest,

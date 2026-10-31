@@ -15,10 +15,10 @@ export const aaa_silence: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_silence-id"
+      "type": "string"
     },
     "policy_id": {
-      "$ref": "#/$defs/aaa_policy-id"
+      "type": "string"
     },
     "start_time": {
       "type": "string"
@@ -28,13 +28,6 @@ export const aaa_silence: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `aaa_silence-id` in responses.
- */
-export const aaa_silence$$id: JsonSchema = {
-  "type": "string"
 };
 
 /**

@@ -17,7 +17,25 @@ export const posture$$api_BaseFindingType: JsonSchema = {
     "asset_vendor": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+          "enum": [
+            "ANTHROPIC",
+            "AWS",
+            "BITBUCKET",
+            "BOX",
+            "CONFLUENCE",
+            "DROPBOX",
+            "GITHUB",
+            "GOOGLE_CLOUD_PLATFORM",
+            "GOOGLE_WORKSPACE",
+            "JIRA",
+            "MICROSOFT",
+            "OPENAI",
+            "SALESFORCE",
+            "SERVICENOW",
+            "SLACK",
+            "ZOOM"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -74,7 +92,13 @@ export const posture$$api_BaseFindingType: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -100,18 +124,6 @@ export const posture$$api_BaseFindingType: JsonSchema = {
     "vendor"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_CredentialHealthStatusEnum` in responses.
- */
-export const posture$$api_CredentialHealthStatusEnum: JsonSchema = {
-  "enum": [
-    "Initializing",
-    "Healthy",
-    "Unhealthy"
-  ],
-  "type": "string"
 };
 
 /**
@@ -243,10 +255,23 @@ export const posture$$api_ExportJob: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/posture-api_StatusEnum"
+      "enum": [
+        "Pending",
+        "Success",
+        "Failure",
+        "Rescheduled",
+        "In-Progress"
+      ],
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/posture-api_ExportJobTypeEnum"
+      "enum": [
+        "finding",
+        "findingInstance",
+        "content",
+        "remediationJob"
+      ],
+      "type": "string"
     },
     "user_id": {
       "type": "string"
@@ -262,31 +287,31 @@ export const posture$$api_ExportJob: JsonSchema = {
 };
 
 /**
- * The schema of `posture-api_ExportJobTypeEnum` in responses.
- */
-export const posture$$api_ExportJobTypeEnum: JsonSchema = {
-  "enum": [
-    "finding",
-    "findingInstance",
-    "content",
-    "remediationJob"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `posture-api_FindingCategory` in responses.
  */
 export const posture$$api_FindingCategory: JsonSchema = {
   "properties": {
     "observation": {
-      "$ref": "#/$defs/posture-api_ObservationEnum"
+      "enum": [
+        "Issue",
+        "Insight",
+        "Activity"
+      ],
+      "type": "string"
     },
     "product": {
-      "$ref": "#/$defs/posture-api_ProductEnum"
+      "enum": [
+        "SaaS",
+        "Cloud"
+      ],
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/posture-api_FindingCategoryTypeEnum"
+      "enum": [
+        "Content",
+        "Posture"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -295,42 +320,6 @@ export const posture$$api_FindingCategory: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_FindingCategoryTypeEnum` in responses.
- */
-export const posture$$api_FindingCategoryTypeEnum: JsonSchema = {
-  "enum": [
-    "Content",
-    "Posture"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_FindingTypeVendorsEnum` in responses.
- */
-export const posture$$api_FindingTypeVendorsEnum: JsonSchema = {
-  "enum": [
-    "ANTHROPIC",
-    "AWS",
-    "BITBUCKET",
-    "BOX",
-    "CONFLUENCE",
-    "DROPBOX",
-    "GITHUB",
-    "GOOGLE_CLOUD_PLATFORM",
-    "GOOGLE_WORKSPACE",
-    "JIRA",
-    "MICROSOFT",
-    "OPENAI",
-    "SALESFORCE",
-    "SERVICENOW",
-    "SLACK",
-    "ZOOM"
-  ],
-  "type": "string"
 };
 
 /**
@@ -391,7 +380,12 @@ export const posture$$api_IntegrationSummary: JsonSchema = {
       "type": "string"
     },
     "credential_health_status": {
-      "$ref": "#/$defs/posture-api_CredentialHealthStatusEnum"
+      "enum": [
+        "Initializing",
+        "Healthy",
+        "Unhealthy"
+      ],
+      "type": "string"
     },
     "credentials_expiry": {
       "oneOf": [
@@ -463,70 +457,6 @@ export const posture$$api_IntegrationSummary: JsonSchema = {
     "zt_enrollments"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_ObservationEnum` in responses.
- */
-export const posture$$api_ObservationEnum: JsonSchema = {
-  "enum": [
-    "Issue",
-    "Insight",
-    "Activity"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_ProductEnum` in responses.
- */
-export const posture$$api_ProductEnum: JsonSchema = {
-  "enum": [
-    "SaaS",
-    "Cloud"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_RemediationJobStatusEnum` in responses.
- */
-export const posture$$api_RemediationJobStatusEnum: JsonSchema = {
-  "enum": [
-    "pending",
-    "processing",
-    "completed",
-    "failed",
-    "validating"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_SeverityEnum` in responses.
- */
-export const posture$$api_SeverityEnum: JsonSchema = {
-  "enum": [
-    "Critical",
-    "High",
-    "Medium",
-    "Low"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_StatusEnum` in responses.
- */
-export const posture$$api_StatusEnum: JsonSchema = {
-  "enum": [
-    "Pending",
-    "Success",
-    "Failure",
-    "Rescheduled",
-    "In-Progress"
-  ],
-  "type": "string"
 };
 
 /**

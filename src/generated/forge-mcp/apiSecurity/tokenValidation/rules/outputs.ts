@@ -9,31 +9,58 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const api$$shield_Rule: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/api-shield_action"
+      "enum": [
+        "log",
+        "block"
+      ],
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/api-shield_description-2"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/api-shield_enabled"
+      "type": "boolean"
     },
     "expression": {
-      "$ref": "#/$defs/api-shield_expression"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/api-shield_uuid-2"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "selector": {
       "$ref": "#/$defs/api-shield_selector"
     },
     "title": {
-      "$ref": "#/$defs/api-shield_title-2"
+      "type": "string"
     }
   },
   "required": [
@@ -45,17 +72,6 @@ export const api$$shield_Rule: JsonSchema = {
     "title"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_action` in responses.
- */
-export const api$$shield_action: JsonSchema = {
-  "enum": [
-    "log",
-    "block"
-  ],
-  "type": "string"
 };
 
 /**
@@ -75,27 +91,6 @@ export const api$$shield_api$$response$$single$$obj: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `api-shield_description-2` in responses.
- */
-export const api$$shield_description$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_enabled` in responses.
- */
-export const api$$shield_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `api-shield_expression` in responses.
- */
-export const api$$shield_expression: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -140,7 +135,14 @@ export const api$$shield_selector$$exclude: JsonSchema = {
   "properties": {
     "operation_ids": {
       "items": {
-        "$ref": "#/$defs/api-shield_uuid-2"
+        "allOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ]
       },
       "type": "array"
     }
@@ -155,17 +157,10 @@ export const api$$shield_selector$$include: JsonSchema = {
   "properties": {
     "host": {
       "items": {
-        "$ref": "#/$defs/api-shield_host"
+        "type": "string"
       },
       "type": "array"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_title-2` in responses.
- */
-export const api$$shield_title$$2: JsonSchema = {
-  "type": "string"
 };

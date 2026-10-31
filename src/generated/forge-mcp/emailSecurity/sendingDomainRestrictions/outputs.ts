@@ -9,7 +9,8 @@ import type { JsonSchema } from "../../_/tool.js";
 export const email$$security_DeletedSendingDomainRestriction: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_SendingDomainRestrictionId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -34,7 +35,8 @@ export const email$$security_SendingDomainRestriction: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "domain": {
       "type": "string"
@@ -46,24 +48,19 @@ export const email$$security_SendingDomainRestriction: JsonSchema = {
       "type": "array"
     },
     "id": {
-      "$ref": "#/$defs/email-security_SendingDomainRestrictionId"
+      "format": "uuid",
+      "type": "string"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `email-security_SendingDomainRestrictionId` in responses.
- */
-export const email$$security_SendingDomainRestrictionId: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };
 
 /**

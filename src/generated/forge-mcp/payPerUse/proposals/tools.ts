@@ -28,7 +28,7 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerUse_proposals_decide",
     title: "Decide a pay-per-use price proposal",
-    description: "Accepts or rejects the pending pay-per-use price proposal identified by price_id in the request body. Acceptance requires an enabled operator with a verified name, an enabled publisher zone, and matching billing classifications; rejection remains available for cleanup.",
+    description: "Accepts or rejects the pending pay-per-use price proposal identified by price_id in the request body. Acceptance requires an enabled operator with a verified name, an enabled publisher zone, and matching billing classifications; rejection remains available for cleanup.\n\nPOST /accounts/{account_id}/pay-per-use/proposals",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,6 +37,7 @@ export const tools: readonly Tool[] = [
           "description": "Pay-per-use operator proposal decision"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -53,6 +54,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "pay-per-crawl_PPUOperatorProposalActionRequest": pay$$per$$crawl_PPUOperatorProposalActionRequest,
       },
@@ -113,11 +115,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerUse_proposals_list",
     title: "List pay-per-use price proposals",
-    description: "Lists a paginated set of outstanding pay-per-use publisher price proposals for an operator. Listing remains available while the operator is disabled or its name is unverified so proposals can be rejected.",
+    description: "Lists a paginated set of outstanding pay-per-use publisher price proposals for an operator. Listing remains available while the operator is disabled or its name is unverified so proposals can be rejected.\n\nGET /accounts/{account_id}/pay-per-use/proposals",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -130,6 +133,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -148,6 +152,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUProposalsResponse",

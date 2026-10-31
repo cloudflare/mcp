@@ -6,7 +6,6 @@ import {
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../../outputs.js";
-import { organizations$$api_OrganizationID } from "../../schemas.js";
 import { organizations$$api_PageTokenResultInfo } from "../outputs.js";
 import {
   organizations$$api_Account,
@@ -22,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_account_list",
     title: "List organization accounts",
-    description: "Retrieve the accounts immediately attached to a specific organization. Accounts\nattached to sub-organizations are not included. Use `page_token` and `page_size` for cursor\npagination, or provide `page` and `per_page` together for legacy offset pagination. Cursor\npagination takes precedence when requested. The default response uses Account fields;\n`Accept: application/json; legacy=true` requests the LegacyAccount representation.",
+    description: "Retrieve the accounts immediately attached to a specific organization. Accounts\nattached to sub-organizations are not included. Use `page_token` and `page_size` for cursor\npagination, or provide `page` and `per_page` together for legacy offset pagination. Cursor\npagination takes precedence when requested. The default response uses Account fields;\n`Accept: application/json; legacy=true` requests the LegacyAccount representation.\n\nGET /organizations/{organization_id}/accounts",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Accept": {
               "description": "Request `application/json; legacy=true` for the LegacyAccount representation.",
@@ -36,10 +36,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID",
-              "description": "The ID of the organization to retrieve a list of accounts for."
+              "description": "The ID of the organization to retrieve a list of accounts for.",
+              "type": "string"
             }
           },
           "required": [
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "account_pubname": {
               "deprecated": true,
@@ -140,9 +142,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

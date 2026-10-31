@@ -9,7 +9,6 @@ import {
   moq_cloudflare_jwt_token,
   moq_issuer,
 } from "../outputs.js";
-import { moq_account_identifier } from "../schemas.js";
 import { moq_tokens_envelope } from "./outputs.js";
 
 /**
@@ -19,14 +18,14 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_tokens_create",
     title: "Create a token",
-    description: "Mints a new relay-scoped token and adds it to the relay's accepted-auth\nregistry. The token value (secret) is shown once in the response. A relay\nmay hold up to 10 tokens; creating an 11th is rejected.\n\nThis method is beta.",
+    description: "Mints a new relay-scoped token and adds it to the relay's accepted-auth\nregistry. The token value (secret) is shown once in the response. A relay\nmay hold up to 10 tokens; creating an 11th is rejected.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/moq/relays/{relay_id}/tokens",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "expires": {
-              "description": "Optional expiry (RFC 3339). Defaults to 1 year from creation;\nrejected if more than 1 year in the future.\n",
+              "description": "Optional expiry (RFC 3339). Defaults to 1 year from creation;\nrejected if more than 1 year in the future.",
               "format": "date-time",
               "type": "string"
             },
@@ -35,7 +34,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "operations": {
-              "description": "Non-empty subset of the V1 roles the token is allowed to\nperform. Signed into the token.\n",
+              "description": "Non-empty subset of the V1 roles the token is allowed to\nperform. Signed into the token.",
               "items": {
                 "enum": [
                   "publish",
@@ -53,10 +52,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             },
             "relay_id": {
               "description": "Relay unique identifier (32 hex characters).",
@@ -74,9 +74,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -159,15 +157,16 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_tokens_delete",
     title: "Revoke a token",
-    description: "Revokes a token by removing it from the set the relay accepts. Relays\ncache that set, so revocation takes effect within seconds rather than\ninstantly, and connections already established with the token are not\nclosed. Revoking an unknown token succeeds, so the call is idempotent.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Revoking this token blocks new connections that present it. Sessions already connected with it stay up.",
+    description: "Revokes a token by removing it from the set the relay accepts. Relays\ncache that set, so revocation takes effect within seconds rather than\ninstantly, and connections already established with the token are not\nclosed. Revoking an unknown token succeeds, so the call is idempotent.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Revoking this token blocks new connections that present it. Sessions already connected with it stay up.\n\nDELETE /accounts/{account_id}/moq/relays/{relay_id}/tokens/{jti}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             },
             "jti": {
               "description": "Token identifier (jti — 32 hex characters).",
@@ -189,9 +188,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/moq_api-response-common",
@@ -238,15 +235,16 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_tokens_list",
     title: "List tokens",
-    description: "Returns metadata for every token the relay accepts. Secrets are never\nreturned, so a token that has been lost cannot be recovered here. There\nis no expiry filter: compare each token's `expires` to the current time\nto tell which ones have lapsed.\n\nThis method is beta.",
+    description: "Returns metadata for every token the relay accepts. Secrets are never\nreturned, so a token that has been lost cannot be recovered here. There\nis no expiry filter: compare each token's `expires` to the current time\nto tell which ones have lapsed.\n\nThis method is beta.\n\nGET /accounts/{account_id}/moq/relays/{relay_id}/tokens",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/moq_account_identifier",
-              "description": "Cloudflare account identifier."
+              "description": "Cloudflare account identifier.",
+              "type": "string"
             },
             "relay_id": {
               "description": "Relay unique identifier (32 hex characters).",
@@ -263,9 +261,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

@@ -8,11 +8,6 @@ import {
   security$$center_messages,
 } from "../../outputs.js";
 import {
-  security$$center_identifier,
-  security$$center_issueClass,
-  security$$center_issueType,
-} from "../../schemas.js";
-import {
   security$$center_newScanResponse,
   security$$center_scanQuota,
   security$$center_scanStatusResponse,
@@ -27,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_scans_list",
     title: "Get Recent account or zone Scans",
-    description: "Returns the most recent on-demand scans for the account or zone, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account or zone-wide and zone-scoped scans. Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.",
+    description: "Returns the most recent on-demand scans for the account or zone, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account or zone-wide and zone-scoped scans. Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.\n\nGET /{account_or_zone}/{account_or_zone_id}/security-center/insights/scans",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -42,8 +38,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,9 +52,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -128,7 +122,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_scans_start",
     title: "Start On-Demand account or zone Scan",
-    description: "Initiates an on-demand security scan for the entire account or zone, scanning all zones associated with the account or zone. Rate limited to 5 scans per account or zone per 24-hour window.",
+    description: "Initiates an on-demand security scan for the entire account or zone, scanning all zones associated with the account or zone. Rate limited to 5 scans per account or zone per 24-hour window.\n\nPOST /{account_or_zone}/{account_or_zone_id}/security-center/insights/scans",
     inputSchema: {
       type: "object",
       properties: {
@@ -136,6 +130,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_newScanRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -146,8 +141,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -161,10 +156,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security$$center_identifier,
-        "security-center_issueClass": security$$center_issueClass,
-        "security-center_issueType": security$$center_issueType,
         "security-center_newScanRequest": security$$center_newScanRequest,
       },
     },

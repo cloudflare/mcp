@@ -10,18 +10,8 @@ import {
   firewall_messages,
   firewall_result_info,
 } from "../../outputs.js";
-import { firewall_schemas$$paused } from "../outputs.js";
-import {
-  firewall_description,
-  firewall_identifier,
-  firewall_schemas$$paused as firewall_schemas$$paused$,
-} from "../schemas.js";
 import {
   firewall_configurations,
-  firewall_created_on,
-  firewall_lockdowns_components$$schemas$$description,
-  firewall_lockdowns_components$$schemas$$id,
-  firewall_modified_on,
   firewall_schemas$$cidr_configuration,
   firewall_schemas$$ip_configuration,
   firewall_schemas$$urls,
@@ -31,15 +21,8 @@ import {
 } from "./outputs.js";
 import {
   firewall_configurations as firewall_configurations$,
-  firewall_ip_range_search,
-  firewall_ip_search,
-  firewall_lockdowns_components$$schemas$$id as firewall_lockdowns_components$$schemas$$id$,
-  firewall_modified_on as firewall_modified_on$,
   firewall_schemas$$cidr_configuration as firewall_schemas$$cidr_configuration$,
-  firewall_schemas$$description_search,
   firewall_schemas$$ip_configuration as firewall_schemas$$ip_configuration$,
-  firewall_schemas$$priority,
-  firewall_uri_search,
   firewall_urls,
 } from "./schemas.js";
 
@@ -50,7 +33,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_lockdowns_create",
     title: "Create a Zone Lockdown rule",
-    description: "Creates a new Zone Lockdown rule.",
+    description: "Creates a new Zone Lockdown rule.\n\nPOST /zones/{zone_id}/firewall/lockdowns",
     inputSchema: {
       type: "object",
       properties: {
@@ -61,16 +44,16 @@ export const tools: readonly Tool[] = [
               "description": "A list of IP addresses or CIDR ranges that will be allowed to access the URLs specified in the Zone Lockdown rule. You can include any number of `ip` or `ip_range` configurations."
             },
             "description": {
-              "$ref": "#/$defs/firewall_description",
-              "description": "An informative summary of the rule. This value is sanitized and any tags will be removed."
+              "description": "An informative summary of the rule. This value is sanitized and any tags will be removed.",
+              "type": "string"
             },
             "paused": {
-              "$ref": "#/$defs/firewall_schemas-paused",
-              "description": "When true, indicates that the rule is currently paused."
+              "description": "When true, indicates that the rule is currently paused.",
+              "type": "boolean"
             },
             "priority": {
-              "$ref": "#/$defs/firewall_schemas-priority",
-              "description": "The priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority."
+              "description": "The priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority.",
+              "type": "number"
             },
             "urls": {
               "$ref": "#/$defs/firewall_urls",
@@ -84,10 +67,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -100,14 +84,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "firewall_configurations": firewall_configurations$,
-        "firewall_description": firewall_description,
-        "firewall_identifier": firewall_identifier,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration$,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration$,
-        "firewall_schemas-paused": firewall_schemas$$paused$,
-        "firewall_schemas-priority": firewall_schemas$$priority,
         "firewall_urls": firewall_urls,
       },
     },
@@ -117,14 +98,9 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_single": firewall_zonelockdown_response_single,
@@ -164,14 +140,9 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_single": firewall_zonelockdown_response_single,
@@ -185,19 +156,20 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_lockdowns_delete",
     title: "Delete a Zone Lockdown rule",
-    description: "Deletes an existing Zone Lockdown rule.\n\nConfirm with the user before calling this tool. This operation deletes the Zone Lockdown rule from the zone.",
+    description: "Deletes an existing Zone Lockdown rule.\n\nConfirm with the user before calling this tool. This operation deletes the Zone Lockdown rule from the zone.\n\nDELETE /zones/{zone_id}/firewall/lockdowns/{lock_downs_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "lock_downs_id": {
-              "$ref": "#/$defs/firewall_lockdowns_components-schemas-id",
-              "description": "The unique identifier of the Zone Lockdown rule."
+              "description": "The unique identifier of the Zone Lockdown rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -210,26 +182,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_identifier": firewall_identifier,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/firewall_lockdowns_components-schemas-id"
+              "type": "string"
             }
           },
           "type": "object"
         }
       },
       "type": "object",
-      $defs: {
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -258,7 +224,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/firewall_lockdowns_components-schemas-id"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -272,7 +238,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
       },
     },
@@ -283,19 +248,20 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_lockdowns_get",
     title: "Get a Zone Lockdown rule",
-    description: "Fetches the details of a Zone Lockdown rule.",
+    description: "Fetches the details of a Zone Lockdown rule.\n\nGET /zones/{zone_id}/firewall/lockdowns/{lock_downs_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "lock_downs_id": {
-              "$ref": "#/$defs/firewall_lockdowns_components-schemas-id",
-              "description": "The unique identifier of the Zone Lockdown rule."
+              "description": "The unique identifier of the Zone Lockdown rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -308,10 +274,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_identifier": firewall_identifier,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_zonelockdown_response_single",
@@ -319,14 +282,9 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_single": firewall_zonelockdown_response_single,
@@ -367,14 +325,9 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_single": firewall_zonelockdown_response_single,
@@ -387,15 +340,16 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_lockdowns_list",
     title: "List Zone Lockdown rules",
-    description: "Fetches Zone Lockdown rules. You can filter the results using several optional parameters.",
+    description: "Fetches Zone Lockdown rules. You can filter the results using several optional parameters.\n\nGET /zones/{zone_id}/firewall/lockdowns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -404,6 +358,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "created_on": {
               "description": "The timestamp of when the rule was created.",
@@ -411,24 +366,29 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/firewall_schemas-description_search"
+              "description": "A string to search for in the description of existing rules.",
+              "type": "string"
             },
             "description_search": {
               "description": "A string to search for in the description of existing rules.",
               "type": "string"
             },
             "ip": {
-              "$ref": "#/$defs/firewall_ip_search"
+              "description": "A single IP address to search for in existing rules.",
+              "type": "string"
             },
             "ip_range_search": {
-              "$ref": "#/$defs/firewall_ip_range_search"
+              "description": "A single IP address range to search for in existing rules.",
+              "type": "string"
             },
             "ip_search": {
               "description": "A single IP address to search for in existing rules.",
               "type": "string"
             },
             "modified_on": {
-              "$ref": "#/$defs/firewall_modified_on"
+              "description": "The timestamp of when the rule was last modified.",
+              "format": "date-time",
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -441,10 +401,12 @@ export const tools: readonly Tool[] = [
               "type": "number"
             },
             "priority": {
-              "$ref": "#/$defs/firewall_schemas-priority"
+              "description": "The priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority.",
+              "type": "number"
             },
             "uri_search": {
-              "$ref": "#/$defs/firewall_uri_search"
+              "description": "A single URI to search for in the list of URLs of existing rules.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -453,15 +415,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "firewall_identifier": firewall_identifier,
-        "firewall_ip_range_search": firewall_ip_range_search,
-        "firewall_ip_search": firewall_ip_search,
-        "firewall_modified_on": firewall_modified_on$,
-        "firewall_schemas-description_search": firewall_schemas$$description_search,
-        "firewall_schemas-priority": firewall_schemas$$priority,
-        "firewall_uri_search": firewall_uri_search,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_zonelockdown_response_collection",
@@ -469,15 +423,10 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-collection": firewall_api$$response$$collection,
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_result_info": firewall_result_info,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_collection": firewall_zonelockdown_response_collection,
@@ -518,15 +467,10 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_result_info": firewall_result_info,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_collection": firewall_zonelockdown_response_collection,
@@ -552,7 +496,7 @@ export const tools: readonly Tool[] = [
   {
     name: "firewall_lockdowns_update",
     title: "Update a Zone Lockdown rule",
-    description: "Updates an existing Zone Lockdown rule.",
+    description: "Updates an existing Zone Lockdown rule.\n\nPUT /zones/{zone_id}/firewall/lockdowns/{lock_downs_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -574,14 +518,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "lock_downs_id": {
-              "$ref": "#/$defs/firewall_lockdowns_components-schemas-id",
-              "description": "The unique identifier of the Zone Lockdown rule."
+              "description": "The unique identifier of the Zone Lockdown rule.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/firewall_identifier",
-              "description": "Defines an identifier."
+              "description": "Defines an identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -595,10 +540,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "firewall_configurations": firewall_configurations$,
-        "firewall_identifier": firewall_identifier,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id$,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration$,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration$,
         "firewall_urls": firewall_urls,
@@ -610,14 +554,9 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common": firewall_api$$response$$common,
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_single": firewall_zonelockdown_response_single,
@@ -657,14 +596,9 @@ export const tools: readonly Tool[] = [
         "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
         "firewall_api-response-single": firewall_api$$response$$single,
         "firewall_configurations": firewall_configurations,
-        "firewall_created_on": firewall_created_on,
-        "firewall_lockdowns_components-schemas-description": firewall_lockdowns_components$$schemas$$description,
-        "firewall_lockdowns_components-schemas-id": firewall_lockdowns_components$$schemas$$id,
         "firewall_messages": firewall_messages,
-        "firewall_modified_on": firewall_modified_on,
         "firewall_schemas-cidr_configuration": firewall_schemas$$cidr_configuration,
         "firewall_schemas-ip_configuration": firewall_schemas$$ip_configuration,
-        "firewall_schemas-paused": firewall_schemas$$paused,
         "firewall_schemas-urls": firewall_schemas$$urls,
         "firewall_zonelockdown": firewall_zonelockdown,
         "firewall_zonelockdown_response_single": firewall_zonelockdown_response_single,

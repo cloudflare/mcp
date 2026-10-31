@@ -17,7 +17,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_patterns_validate",
     title: "Validate a DLP regex pattern",
-    description: "Validates whether this pattern is a valid regular expression. Rejects it if\nthe regular expression is too complex or can match an unbounded-length\nstring. The regex will be rejected if it uses `*` or `+`. Bound the maximum\nnumber of characters that can be matched using a range, e.g. `{1,100}`.",
+    description: "Validates whether this pattern is a valid regular expression. Rejects it if\nthe regular expression is too complex or can match an unbounded-length\nstring. The regex will be rejected if it uses `*` or `+`. Bound the maximum\nnumber of characters that can be matched using a range, e.g. `{1,100}`.\n\nPOST /accounts/{account_id}/dlp/patterns/validate",
     inputSchema: {
       type: "object",
       properties: {
@@ -26,6 +26,7 @@ export const tools: readonly Tool[] = [
           "description": "Validation query."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -42,6 +43,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_RegexValidationQuery": dlp_RegexValidationQuery,
       },

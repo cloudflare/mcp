@@ -19,7 +19,8 @@ export const email$$security_BlockedSender: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [
@@ -33,33 +34,34 @@ export const email$$security_BlockedSender: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_BlockedSenderId"
+      "format": "uuid",
+      "type": "string"
     },
     "is_regex": {
       "type": "boolean"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "pattern": {
       "type": "string"
     },
     "pattern_type": {
-      "$ref": "#/$defs/email-security_PatternType"
+      "enum": [
+        "EMAIL",
+        "DOMAIN",
+        "IP",
+        "UNKNOWN"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `email-security_BlockedSenderId` in responses.
- */
-export const email$$security_BlockedSenderId: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };
 
 /**
@@ -78,7 +80,8 @@ export const email$$security_BlockedSenderList: JsonSchema = {
 export const email$$security_DeletedBlockedSender: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_BlockedSenderId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [

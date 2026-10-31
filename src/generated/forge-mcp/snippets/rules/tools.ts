@@ -7,12 +7,7 @@ import {
   snippets_Message,
   snippets_Messages,
   snippets_Response,
-  snippets_SnippetName,
 } from "../outputs.js";
-import {
-  snippets_SnippetName as snippets_SnippetName$,
-  snippets_ZoneId,
-} from "../schemas.js";
 import { snippets_SnippetRules } from "./outputs.js";
 import { snippets_SnippetRules as snippets_SnippetRules$ } from "./schemas.js";
 
@@ -23,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_rules_delete",
     title: "Delete zone snippet rules",
-    description: "Deletes all snippet rules belonging to the zone.",
+    description: "Deletes all snippet rules belonging to the zone.\n\nDELETE /zones/{zone_id}/snippets/snippet_rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "snippets_ZoneId": snippets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -73,7 +67,6 @@ export const tools: readonly Tool[] = [
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
-        "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
       },
     },
@@ -169,7 +162,6 @@ export const tools: readonly Tool[] = [
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
-        "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
       },
     },
@@ -180,15 +172,16 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_rules_list",
     title: "List zone snippet rules",
-    description: "Fetches all snippet rules belonging to the zone.",
+    description: "Fetches all snippet rules belonging to the zone.\n\nGET /zones/{zone_id}/snippets/snippet_rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -200,9 +193,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "snippets_ZoneId": snippets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -230,7 +221,6 @@ export const tools: readonly Tool[] = [
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
-        "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
       },
     },
@@ -327,7 +317,6 @@ export const tools: readonly Tool[] = [
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
-        "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
       },
     },
@@ -338,7 +327,7 @@ export const tools: readonly Tool[] = [
   {
     name: "snippets_rules_update",
     title: "Update zone snippet rules",
-    description: "Updates all snippet rules belonging to the zone.",
+    description: "Updates all snippet rules belonging to the zone.\n\nPUT /zones/{zone_id}/snippets/snippet_rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -355,10 +344,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/snippets_ZoneId",
-              "description": "Use this field to specify the unique ID of the zone."
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -371,10 +361,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "snippets_SnippetName": snippets_SnippetName$,
         "snippets_SnippetRules": snippets_SnippetRules$,
-        "snippets_ZoneId": snippets_ZoneId,
       },
     },
     outputSchema: {
@@ -403,7 +392,6 @@ export const tools: readonly Tool[] = [
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
-        "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
       },
     },
@@ -499,7 +487,6 @@ export const tools: readonly Tool[] = [
         "snippets_Message": snippets_Message,
         "snippets_Messages": snippets_Messages,
         "snippets_Response": snippets_Response,
-        "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
       },
     },

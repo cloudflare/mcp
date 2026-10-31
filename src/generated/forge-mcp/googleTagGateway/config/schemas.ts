@@ -45,11 +45,3 @@ export const google$$tag$$gateway_google$$tag$$gateway$$config: JsonSchema = {
   ],
   "type": "object"
 };
-
-/**
- * The schema of `google-tag-gateway_identifier`.
- */
-export const google$$tag$$gateway_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};

@@ -38,7 +38,7 @@ export const firewall_rule_single_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/firewall_schemas-identifier"
+              "type": "string"
             }
           },
           "type": "object"

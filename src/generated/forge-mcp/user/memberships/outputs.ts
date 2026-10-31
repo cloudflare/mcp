@@ -4,20 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `iam_api_access_enabled` in responses.
- */
-export const iam_api_access_enabled: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `iam_collection_membership_response` in responses.
  */
 export const iam_collection_membership_response: JsonSchema = {
@@ -71,10 +57,17 @@ export const iam_membership: JsonSchema = {
       "$ref": "#/$defs/iam_schemas-account"
     },
     "api_access_enabled": {
-      "$ref": "#/$defs/iam_api_access_enabled"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "id": {
-      "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+      "type": "string"
     },
     "permissions": {
       "$ref": "#/$defs/iam_permissions"
@@ -83,7 +76,12 @@ export const iam_membership: JsonSchema = {
       "$ref": "#/$defs/iam_role_names"
     },
     "status": {
-      "$ref": "#/$defs/iam_schemas-status"
+      "enum": [
+        "accepted",
+        "pending",
+        "rejected"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -98,10 +96,17 @@ export const iam_membership$$with$$policies: JsonSchema = {
       "$ref": "#/$defs/iam_schemas-account"
     },
     "api_access_enabled": {
-      "$ref": "#/$defs/iam_api_access_enabled"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "id": {
-      "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+      "type": "string"
     },
     "permissions": {
       "$ref": "#/$defs/iam_permissions"
@@ -116,7 +121,12 @@ export const iam_membership$$with$$policies: JsonSchema = {
       "$ref": "#/$defs/iam_role_names"
     },
     "status": {
-      "$ref": "#/$defs/iam_schemas-status"
+      "enum": [
+        "accepted",
+        "pending",
+        "rejected"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -132,7 +142,7 @@ export const iam_schemas$$account: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_common_components-schemas-identifier"
+      "type": "string"
     },
     "managed_by": {
       "properties": {
@@ -166,7 +176,11 @@ export const iam_schemas$$account: JsonSchema = {
       "type": "object"
     },
     "type": {
-      "$ref": "#/$defs/iam_account-type"
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -175,18 +189,6 @@ export const iam_schemas$$account: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_schemas-status` in responses.
- */
-export const iam_schemas$$status: JsonSchema = {
-  "enum": [
-    "accepted",
-    "pending",
-    "rejected"
-  ],
-  "type": "string"
 };
 
 /**

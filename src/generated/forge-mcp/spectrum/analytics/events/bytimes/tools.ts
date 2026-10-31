@@ -6,20 +6,10 @@ import {
   spectrum$$analytics_api$$response$$common$$failure,
   spectrum$$analytics_api$$response$$single,
   spectrum$$analytics_messages,
-  spectrum$$analytics_since,
-  spectrum$$analytics_timestamp,
-  spectrum$$analytics_until,
 } from "../../outputs.js";
-import {
-  spectrum$$analytics_identifier,
-  spectrum$$analytics_since as spectrum$$analytics_since$,
-  spectrum$$analytics_timestamp as spectrum$$analytics_timestamp$,
-  spectrum$$analytics_until as spectrum$$analytics_until$,
-} from "../../schemas.js";
 import {
   spectrum$$analytics_column,
   spectrum$$analytics_dimensions,
-  spectrum$$analytics_filters,
   spectrum$$analytics_metrics,
   spectrum$$analytics_query,
   spectrum$$analytics_query$$response$$single,
@@ -28,7 +18,6 @@ import {
 } from "../outputs.js";
 import {
   spectrum$$analytics_dimensions as spectrum$$analytics_dimensions$,
-  spectrum$$analytics_filters as spectrum$$analytics_filters$,
   spectrum$$analytics_metrics as spectrum$$analytics_metrics$,
   spectrum$$analytics_sort as spectrum$$analytics_sort$,
 } from "../schemas.js";
@@ -40,15 +29,16 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_analytics_events_bytimes_get",
     title: "Get analytics by time",
-    description: "Retrieves a list of aggregate metrics grouped by time interval.",
+    description: "Retrieves a list of aggregate metrics grouped by time interval.\n\nGET /zones/{zone_id}/spectrum/analytics/events/bytime",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/spectrum-analytics_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,21 +47,30 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dimensions": {
               "$ref": "#/$defs/spectrum-analytics_dimensions",
               "description": "Can be used to break down the data by given attributes. Options are:\n\nDimension                 | Name                            | Example\n--------------------------|---------------------------------|--------------------------\nevent                     | Connection Event                | connect, progress, disconnect, originError, clientFiltered\nappID                     | Application ID                  | 40d67c87c6cd4b889a4fd57805225e85\ncoloName                  | Colo Name                       | SFO\nipVersion                 | IP version used by the client   | 4, 6."
             },
             "filters": {
-              "$ref": "#/$defs/spectrum-analytics_filters",
-              "description": "Used to filter rows by one or more dimensions. Filters can be combined using OR and AND boolean logic. AND takes precedence over OR in all the expressions. The OR operator is defined using a comma (,) or OR keyword surrounded by whitespace. The AND operator is defined using a semicolon (;) or AND keyword surrounded by whitespace. Note that the semicolon is a reserved character in URLs (rfc1738) and needs to be percent-encoded as %3B. Comparison options are:\n\nOperator                  | Name                            | URL Encoded\n--------------------------|---------------------------------|--------------------------\n==                        | Equals                          | %3D%3D\n!=                        | Does not equals                 | !%3D\n\\>                        | Greater Than                    | %3E\n\\<                        | Less Than                       | %3C\n\\>=                       | Greater than or equal to        | %3E%3D\n\\<=                       | Less than or equal to           | %3C%3D\n\nUse the above to construct filters."
+              "description": "Used to filter rows by one or more dimensions. Filters can be combined using OR and AND boolean logic. AND takes precedence over OR in all the expressions. The OR operator is defined using a comma (,) or OR keyword surrounded by whitespace. The AND operator is defined using a semicolon (;) or AND keyword surrounded by whitespace. Note that the semicolon is a reserved character in URLs (rfc1738) and needs to be percent-encoded as %3B. Comparison options are:\n\nOperator                  | Name                            | URL Encoded\n--------------------------|---------------------------------|--------------------------\n==                        | Equals                          | %3D%3D\n!=                        | Does not equals                 | !%3D\n\\>                        | Greater Than                    | %3E\n\\<                        | Less Than                       | %3C\n\\>=                       | Greater than or equal to        | %3E%3D\n\\<=                       | Less than or equal to           | %3C%3D\n\nUse the above to construct filters.",
+              "type": "string"
             },
             "metrics": {
               "$ref": "#/$defs/spectrum-analytics_metrics",
               "description": "One or more metrics to compute. Options are:\n\nMetric                    | Name                                | Example                  | Unit\n--------------------------|-------------------------------------|--------------------------|--------------------------\ncount                     | Count of total events               | 1000                     | Count\nbytesIngress              | Sum of ingress bytes                | 1000                     | Sum\nbytesEgress               | Sum of egress bytes                 | 1000                     | Sum\ndurationAvg               | Average connection duration         | 1.0                      | Time in milliseconds\ndurationMedian            | Median connection duration          | 1.0                      | Time in milliseconds\nduration90th              | 90th percentile connection duration | 1.0                      | Time in milliseconds\nduration99th              | 99th percentile connection duration | 1.0                      | Time in milliseconds."
             },
             "since": {
-              "$ref": "#/$defs/spectrum-analytics_since"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             },
             "sort": {
               "$ref": "#/$defs/spectrum-analytics_sort",
@@ -92,7 +91,15 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "until": {
-              "$ref": "#/$defs/spectrum-analytics_until"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -105,15 +112,11 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
       $defs: {
         "spectrum-analytics_dimensions": spectrum$$analytics_dimensions$,
-        "spectrum-analytics_filters": spectrum$$analytics_filters$,
-        "spectrum-analytics_identifier": spectrum$$analytics_identifier,
         "spectrum-analytics_metrics": spectrum$$analytics_metrics$,
-        "spectrum-analytics_since": spectrum$$analytics_since$,
         "spectrum-analytics_sort": spectrum$$analytics_sort$,
-        "spectrum-analytics_timestamp": spectrum$$analytics_timestamp$,
-        "spectrum-analytics_until": spectrum$$analytics_until$,
       },
     },
     outputSchema: {
@@ -122,16 +125,12 @@ export const tools: readonly Tool[] = [
         "spectrum-analytics_api-response-single": spectrum$$analytics_api$$response$$single,
         "spectrum-analytics_column": spectrum$$analytics_column,
         "spectrum-analytics_dimensions": spectrum$$analytics_dimensions,
-        "spectrum-analytics_filters": spectrum$$analytics_filters,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
         "spectrum-analytics_metrics": spectrum$$analytics_metrics,
         "spectrum-analytics_query": spectrum$$analytics_query,
         "spectrum-analytics_query-response-single": spectrum$$analytics_query$$response$$single,
-        "spectrum-analytics_since": spectrum$$analytics_since,
         "spectrum-analytics_sort": spectrum$$analytics_sort,
         "spectrum-analytics_stat": spectrum$$analytics_stat,
-        "spectrum-analytics_timestamp": spectrum$$analytics_timestamp,
-        "spectrum-analytics_until": spectrum$$analytics_until,
       },
     },
     annotations: {
@@ -162,16 +161,12 @@ export const tools: readonly Tool[] = [
         "spectrum-analytics_api-response-single": spectrum$$analytics_api$$response$$single,
         "spectrum-analytics_column": spectrum$$analytics_column,
         "spectrum-analytics_dimensions": spectrum$$analytics_dimensions,
-        "spectrum-analytics_filters": spectrum$$analytics_filters,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
         "spectrum-analytics_metrics": spectrum$$analytics_metrics,
         "spectrum-analytics_query": spectrum$$analytics_query,
         "spectrum-analytics_query-response-single": spectrum$$analytics_query$$response$$single,
-        "spectrum-analytics_since": spectrum$$analytics_since,
         "spectrum-analytics_sort": spectrum$$analytics_sort,
         "spectrum-analytics_stat": spectrum$$analytics_stat,
-        "spectrum-analytics_timestamp": spectrum$$analytics_timestamp,
-        "spectrum-analytics_until": spectrum$$analytics_until,
       },
     },
     request: (args) => ({

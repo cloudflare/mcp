@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_profile_delete",
     title: "Delete the organization profile",
-    description: "Deletes the account's organization profile. Succeeds when the account has no profile.",
+    description: "Deletes the account's organization profile. Succeeds when the account has no profile.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -29,6 +30,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -58,11 +60,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_profile_get",
     title: "Get the organization profile",
-    description: "Returns the account's organization profile, which all of its Priority Intelligence Requirements share to judge how relevant intelligence is to the organization. `result` is null when the account has no profile.",
+    description: "Returns the account's organization profile, which all of its Priority Intelligence Requirements share to judge how relevant intelligence is to the organization. `result` is null when the account has no profile.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -77,6 +80,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -107,7 +111,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_profile_update",
     title: "Create or replace the organization profile",
-    description: "Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota.",
+    description: "Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
@@ -124,6 +128,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -138,6 +143,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,

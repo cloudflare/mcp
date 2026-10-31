@@ -32,7 +32,11 @@ export const access_access_group_rule: JsonSchema = {
  */
 export const access_allowed_clipboard_local_to_remote_formats: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/access_rdp_clipboard_format"
+    "enum": [
+      "text",
+      "file"
+    ],
+    "type": "string"
   },
   "type": "array"
 };
@@ -43,7 +47,11 @@ export const access_allowed_clipboard_local_to_remote_formats: JsonSchema = {
  */
 export const access_allowed_clipboard_remote_to_local_formats: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/access_rdp_clipboard_format"
+    "enum": [
+      "text",
+      "file"
+    ],
+    "type": "string"
   },
   "type": "array"
 };
@@ -95,13 +103,6 @@ export const access_approval_groups: JsonSchema = {
     "$ref": "#/$defs/access_approval_group"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_approval_required` in responses.
- */
-export const access_approval_required: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -191,31 +192,39 @@ export const access_azure_group_rule: JsonSchema = {
 export const access_base_policy_resp: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "decision": {
-      "$ref": "#/$defs/access_decision"
+      "enum": [
+        "allow",
+        "deny",
+        "non_identity",
+        "bypass"
+      ],
+      "type": "string"
     },
     "exclude": {
       "$ref": "#/$defs/access_exclude-2"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid-2"
+      "type": "string"
     },
     "include": {
       "$ref": "#/$defs/access_include-2"
     },
     "name": {
-      "$ref": "#/$defs/access_name-9"
+      "type": "string"
     },
     "policy_resolution_account_id": {
-      "$ref": "#/$defs/access_policy_resolution_account_id"
+      "type": "string"
     },
     "require": {
       "$ref": "#/$defs/access_require-2"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -244,7 +253,7 @@ export const access_cloudflare_account_member_rule: JsonSchema = {
     "cloudflare_account_member": {
       "properties": {
         "account_id": {
-          "$ref": "#/$defs/access_identifier"
+          "type": "string"
         }
       },
       "type": "object"
@@ -330,19 +339,6 @@ export const access_country_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_decision` in responses.
- */
-export const access_decision: JsonSchema = {
-  "enum": [
-    "allow",
-    "deny",
-    "non_identity",
-    "bypass"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `access_device_posture_rule` in responses.
  */
 export const access_device_posture_rule: JsonSchema = {
@@ -350,7 +346,7 @@ export const access_device_posture_rule: JsonSchema = {
     "device_posture": {
       "properties": {
         "account_id": {
-          "$ref": "#/$defs/access_identifier"
+          "type": "string"
         },
         "integration_uid": {
           "type": "string"
@@ -389,13 +385,6 @@ export const access_domain_rule: JsonSchema = {
     "email_domain"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_email-2` in responses.
- */
-export const access_email$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -566,7 +555,7 @@ export const access_id_response$$3: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/access_uuid"
+              "type": "string"
             }
           },
           "type": "object"
@@ -631,13 +620,6 @@ export const access_ip_rule: JsonSchema = {
     "ip"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_isolation_required` in responses.
- */
-export const access_isolation_required: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -713,20 +695,6 @@ export const access_mfa_config: JsonSchema = {
 };
 
 /**
- * The schema of `access_name-10` in responses.
- */
-export const access_name$$10: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_name-9` in responses.
- */
-export const access_name$$9: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_oidc_claim_rule` in responses.
  */
 export const access_oidc_claim_rule: JsonSchema = {
@@ -785,13 +753,6 @@ export const access_okta_group_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_policy_resolution_account_id` in responses.
- */
-export const access_policy_resolution_account_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_policy_resp` in responses.
  */
 export const access_policy_resp: JsonSchema = {
@@ -802,25 +763,32 @@ export const access_policy_resp: JsonSchema = {
           "$ref": "#/$defs/access_approval_groups"
         },
         "approval_required": {
-          "$ref": "#/$defs/access_approval_required"
+          "type": "boolean"
         },
         "connection_rules": {
           "$ref": "#/$defs/access_connection_rules"
         },
         "isolation_required": {
-          "$ref": "#/$defs/access_isolation_required"
+          "type": "boolean"
         },
         "mfa_config": {
           "$ref": "#/$defs/access_mfa_config"
         },
         "purpose_justification_prompt": {
-          "$ref": "#/$defs/access_purpose_justification_prompt"
+          "type": "string"
         },
         "purpose_justification_required": {
-          "$ref": "#/$defs/access_purpose_justification_required"
+          "type": "boolean"
         },
         "session_duration": {
-          "$ref": "#/$defs/access_session_duration-3"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -829,31 +797,6 @@ export const access_policy_resp: JsonSchema = {
       "$ref": "#/$defs/access_base_policy_resp"
     }
   ]
-};
-
-/**
- * The schema of `access_purpose_justification_prompt` in responses.
- */
-export const access_purpose_justification_prompt: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_purpose_justification_required` in responses.
- */
-export const access_purpose_justification_required: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_rdp_clipboard_format` in responses.
- */
-export const access_rdp_clipboard_format: JsonSchema = {
-  "enum": [
-    "text",
-    "file"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1037,20 +980,6 @@ export const access_service_token_tag_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_session_duration-3` in responses.
- */
-export const access_session_duration$$3: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `access_user_risk_score_rule` in responses.
  */
 export const access_user_risk_score_rule: JsonSchema = {
@@ -1081,11 +1010,4 @@ export const access_user_risk_score_rule: JsonSchema = {
     "user_risk_score"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_uuid-2` in responses.
- */
-export const access_uuid$$2: JsonSchema = {
-  "type": "string"
 };

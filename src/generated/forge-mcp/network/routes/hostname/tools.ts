@@ -6,35 +6,14 @@ import {
   tunnel_api$$response$$collection,
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_created_at,
-  tunnel_deleted_at,
   tunnel_messages,
   tunnel_result_info,
-  tunnel_tunnel_type,
 } from "../../../outputs.js";
 import {
-  tunnel_account_id,
-  tunnel_existed_at,
-  tunnel_page_number,
-  tunnel_per_page,
-} from "../../../schemas.js";
-import {
-  tunnel_hostname,
-  tunnel_hostname_comment,
   tunnel_hostname_route,
-  tunnel_hostname_route_id,
   tunnel_hostname_route_response_collection,
   tunnel_hostname_route_response_single,
-  tunnel_tunnel_id$$3,
-  tunnel_tunnel_name$$2,
 } from "./outputs.js";
-import {
-  tunnel_hostname as tunnel_hostname$,
-  tunnel_hostname_comment as tunnel_hostname_comment$,
-  tunnel_hostname_query_comment,
-  tunnel_hostname_route_id as tunnel_hostname_route_id$,
-  tunnel_tunnel_id$$3 as tunnel_tunnel_id$$3$,
-} from "./schemas.js";
 
 /**
  * The tools of `network.routes.hostname`.
@@ -43,32 +22,34 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_hostname_create",
     title: "Create hostname route",
-    description: "Create a hostname route.",
+    description: "Create a hostname route.\n\nPOST /accounts/{account_id}/zerotrust/routes/hostname",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_hostname_comment",
-              "description": "An optional description of the hostname route."
+              "description": "An optional description of the hostname route.",
+              "type": "string"
             },
             "hostname": {
-              "$ref": "#/$defs/tunnel_hostname",
-              "description": "The hostname of the route."
+              "description": "The hostname of the route.",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id-3",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -81,28 +62,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_hostname": tunnel_hostname$,
-        "tunnel_hostname_comment": tunnel_hostname_comment$,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_hostname_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     annotations: {
@@ -139,17 +107,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     request: (args) => ({
@@ -160,19 +120,21 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_hostname_delete",
     title: "Delete hostname route",
-    description: "Delete a hostname route.\n\nConfirm with the user before calling this tool. This operation permanently deletes a hostname route.",
+    description: "Delete a hostname route.\n\nConfirm with the user before calling this tool. This operation permanently deletes a hostname route.\n\nDELETE /accounts/{account_id}/zerotrust/routes/hostname/{hostname_route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "hostname_route_id": {
-              "$ref": "#/$defs/tunnel_hostname_route_id",
-              "description": "The hostname route ID."
+              "description": "The hostname route ID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -185,26 +147,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_hostname_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     annotations: {
@@ -241,17 +192,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     request: (args) => ({
@@ -261,36 +204,39 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_hostname_edit",
     title: "Update hostname route",
-    description: "Updates a hostname route.",
+    description: "Updates a hostname route.\n\nPATCH /accounts/{account_id}/zerotrust/routes/hostname/{hostname_route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_hostname_comment",
-              "description": "An optional description of the hostname route."
+              "description": "An optional description of the hostname route.",
+              "type": "string"
             },
             "hostname": {
-              "$ref": "#/$defs/tunnel_hostname",
-              "description": "The hostname of the route."
+              "description": "The hostname of the route.",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id-3",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "hostname_route_id": {
-              "$ref": "#/$defs/tunnel_hostname_route_id",
-              "description": "The hostname route ID."
+              "description": "The hostname route ID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -304,29 +250,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_hostname": tunnel_hostname$,
-        "tunnel_hostname_comment": tunnel_hostname_comment$,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id$,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_hostname_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     annotations: {
@@ -363,17 +295,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     request: (args) => ({
@@ -384,19 +308,21 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_hostname_get",
     title: "Get hostname route",
-    description: "Get a hostname route.",
+    description: "Get a hostname route.\n\nGET /accounts/{account_id}/zerotrust/routes/hostname/{hostname_route_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "hostname_route_id": {
-              "$ref": "#/$defs/tunnel_hostname_route_id",
-              "description": "The hostname route ID."
+              "description": "The hostname route ID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -409,26 +335,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_hostname_route_response_single",
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     annotations: {
@@ -467,17 +382,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_single": tunnel_hostname_route_response_single,
         "tunnel_messages": tunnel_messages,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     request: (args) => ({
@@ -487,15 +394,16 @@ export const tools: readonly Tool[] = [
   {
     name: "network_routes_hostname_list",
     title: "List hostname routes",
-    description: "Lists and filters hostname routes in an account.",
+    description: "Lists and filters hostname routes in an account.\n\nGET /accounts/{account_id}/zerotrust/routes/hostname",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -504,22 +412,24 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_hostname_query_comment",
-              "description": "If set, only list hostname routes with the given comment."
+              "description": "If set, only list hostname routes with the given comment.",
+              "type": "string"
             },
             "existed_at": {
-              "$ref": "#/$defs/tunnel_existed_at",
-              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded."
+              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded.",
+              "type": "string"
             },
             "hostname": {
-              "$ref": "#/$defs/tunnel_hostname",
-              "description": "If set, only list hostname routes that contain a substring of the given value, the filter is case-insensitive."
+              "description": "If set, only list hostname routes that contain a substring of the given value, the filter is case-insensitive.",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/tunnel_hostname_route_id",
-              "description": "The hostname route ID."
+              "description": "The hostname route ID.",
+              "format": "uuid",
+              "type": "string"
             },
             "is_deleted": {
               "default": false,
@@ -527,17 +437,18 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "page": {
-              "$ref": "#/$defs/tunnel_page_number",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/tunnel_per_page",
-              "description": "Number of results to display."
+              "description": "Number of results to display.",
+              "type": "number"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id-3",
-              "description": "If set, only list hostname routes that point to a specific tunnel."
+              "description": "If set, only list hostname routes that point to a specific tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
@@ -546,34 +457,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_existed_at": tunnel_existed_at,
-        "tunnel_hostname": tunnel_hostname$,
-        "tunnel_hostname_query_comment": tunnel_hostname_query_comment,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id$,
-        "tunnel_page_number": tunnel_page_number,
-        "tunnel_per_page": tunnel_per_page,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_hostname_route_response_collection",
       $defs: {
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_collection": tunnel_hostname_route_response_collection,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     annotations: {
@@ -613,18 +507,10 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
-        "tunnel_hostname": tunnel_hostname,
-        "tunnel_hostname_comment": tunnel_hostname_comment,
         "tunnel_hostname_route": tunnel_hostname_route,
-        "tunnel_hostname_route_id": tunnel_hostname_route_id,
         "tunnel_hostname_route_response_collection": tunnel_hostname_route_response_collection,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_tunnel_id-3": tunnel_tunnel_id$$3,
-        "tunnel_tunnel_name-2": tunnel_tunnel_name$$2,
-        "tunnel_tunnel_type": tunnel_tunnel_type,
       },
     },
     request: (args) => ({

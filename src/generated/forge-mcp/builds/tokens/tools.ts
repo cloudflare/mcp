@@ -7,24 +7,12 @@ import {
   builds_ApiError,
   builds_ErrorResponse,
   builds_PaginationInfo,
-  builds_build_token_name,
-  builds_build_token_uuid,
 } from "../../outputs.js";
-import {
-  builds_account_id,
-  builds_build_token_name as builds_build_token_name$,
-  builds_build_token_uuid as builds_build_token_uuid$,
-} from "../../schemas.js";
 import {
   builds_CreateBuildTokenResponse,
   builds_ListTokensResponse,
-  builds_cloudflare_token_id,
-  builds_owner_type,
 } from "./outputs.js";
-import {
-  builds_CreateBuildTokenRequest,
-  builds_cloudflare_token_id as builds_cloudflare_token_id$,
-} from "./schemas.js";
+import { builds_CreateBuildTokenRequest } from "./schemas.js";
 
 /**
  * The tools of `builds.tokens`.
@@ -33,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_tokens_create",
     title: "Create build token",
-    description: "Create a new build authentication token",
+    description: "Create a new build authentication token\n\nPOST /accounts/{account_id}/builds/tokens",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,10 +29,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/builds_CreateBuildTokenRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,11 +46,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_CreateBuildTokenRequest": builds_CreateBuildTokenRequest,
-        "builds_account_id": builds_account_id,
-        "builds_build_token_name": builds_build_token_name$,
-        "builds_cloudflare_token_id": builds_cloudflare_token_id$,
       },
     },
     outputSchema: {
@@ -83,10 +70,6 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_CreateBuildTokenResponse": builds_CreateBuildTokenResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_cloudflare_token_id": builds_cloudflare_token_id,
-        "builds_owner_type": builds_owner_type,
       },
     },
     annotations: {
@@ -130,10 +113,6 @@ export const tools: readonly Tool[] = [
         "builds_CreateBuildTokenResponse": builds_CreateBuildTokenResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_cloudflare_token_id": builds_cloudflare_token_id,
-        "builds_owner_type": builds_owner_type,
       },
     },
     request: (args) => ({
@@ -144,19 +123,21 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_tokens_delete",
     title: "Delete a build token",
-    description: "Delete a stored build token owned by the current user.",
+    description: "Delete a stored build token owned by the current user.\n\nDELETE /accounts/{account_id}/builds/tokens/{build_token_uuid}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "build_token_uuid": {
-              "$ref": "#/$defs/builds_build_token_uuid",
-              "description": "UUID of the build token used when deploying the Worker."
+              "description": "UUID of the build token used when deploying the Worker.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -169,10 +150,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_build_token_uuid": builds_build_token_uuid$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/builds_APIResponse",
@@ -222,15 +200,16 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_tokens_list",
     title: "List build tokens",
-    description: "List metadata for build tokens available to the current user without returning their secrets.",
+    description: "List metadata for build tokens available to the current user without returning their secrets.\n\nGET /accounts/{account_id}/builds/tokens",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -239,6 +218,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -257,9 +237,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -286,10 +264,6 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_ListTokensResponse": builds_ListTokensResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_cloudflare_token_id": builds_cloudflare_token_id,
-        "builds_owner_type": builds_owner_type,
       },
     },
     annotations: {
@@ -340,10 +314,6 @@ export const tools: readonly Tool[] = [
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_ListTokensResponse": builds_ListTokensResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_build_token_name": builds_build_token_name,
-        "builds_build_token_uuid": builds_build_token_uuid,
-        "builds_cloudflare_token_id": builds_cloudflare_token_id,
-        "builds_owner_type": builds_owner_type,
       },
     },
     request: (args) => ({

@@ -2,18 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
-import { nsc_AccountTag } from "../outputs.js";
-import { nsc_AccountTag as nsc_AccountTag$ } from "../schemas.js";
 import {
   nsc_BgpControl,
-  nsc_BgpMode,
   nsc_Cni,
   nsc_CniList,
   nsc_MagicSettings,
 } from "./outputs.js";
 import {
   nsc_BgpControl as nsc_BgpControl$,
-  nsc_BgpMode as nsc_BgpMode$,
   nsc_Cni as nsc_Cni$,
   nsc_CniCreate,
   nsc_MagicSettings as nsc_MagicSettings$,
@@ -26,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_cnis_create",
     title: "Create a new CNI object",
-    description: "Creates a new Cloud Network Interconnect (CNI) for private network connectivity between\nCloudflare and your infrastructure. CNIs enable dedicated, high-performance network links.",
+    description: "Creates a new Cloud Network Interconnect (CNI) for private network connectivity between\nCloudflare and your infrastructure. CNIs enable dedicated, high-performance network links.\n\nPOST /accounts/{account_id}/cni/cnis",
     inputSchema: {
       type: "object",
       properties: {
@@ -34,10 +30,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/nsc_CniCreate"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             }
           },
           "required": [
@@ -50,8 +47,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
         "nsc_BgpControl": nsc_BgpControl$,
         "nsc_CniCreate": nsc_CniCreate,
         "nsc_MagicSettings": nsc_MagicSettings$,
@@ -60,9 +57,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/nsc_Cni",
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
       },
@@ -92,9 +87,7 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
       },
@@ -107,15 +100,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_cnis_delete",
     title: "Delete a specified CNI object",
-    description: "Permanently removes a Cloud Network Interconnect (CNI) configuration. The private network\nconnection will be terminated.",
+    description: "Permanently removes a Cloud Network Interconnect (CNI) configuration. The private network\nconnection will be terminated.\n\nDELETE /accounts/{account_id}/cni/cnis/{cni}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "cni": {
               "description": "CNI ID to retrieve information about",
@@ -133,9 +127,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -167,15 +159,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_cnis_get",
     title: "Get information about a CNI object",
-    description: "Retrieves configuration details for a specific Cloud Network Interconnect (CNI), including\nconnection status and parameters.",
+    description: "Retrieves configuration details for a specific Cloud Network Interconnect (CNI), including\nconnection status and parameters.\n\nGET /accounts/{account_id}/cni/cnis/{cni}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "cni": {
               "description": "CNI ID to retrieve information about",
@@ -193,16 +186,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_Cni",
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
       },
@@ -234,9 +223,7 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
       },
@@ -248,15 +235,16 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_cnis_list",
     title: "List existing CNI objects",
-    description: "Lists all Cloud Network Interconnects (CNIs) configured for the account, showing connection\nstatus and parameters.",
+    description: "Lists all Cloud Network Interconnects (CNIs) configured for the account, showing connection\nstatus and parameters.\n\nGET /accounts/{account_id}/cni/cnis",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             }
           },
           "required": [
@@ -265,6 +253,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "oneOf": [
@@ -315,16 +304,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_CniList",
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_CniList": nsc_CniList,
         "nsc_MagicSettings": nsc_MagicSettings,
@@ -357,9 +342,7 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_CniList": nsc_CniList,
         "nsc_MagicSettings": nsc_MagicSettings,
@@ -378,7 +361,7 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_cnis_update",
     title: "Modify stored information about a CNI object",
-    description: "Updates the configuration of an existing Cloud Network Interconnect (CNI), including\nconnection parameters and routing settings.",
+    description: "Updates the configuration of an existing Cloud Network Interconnect (CNI), including\nconnection parameters and routing settings.\n\nPUT /accounts/{account_id}/cni/cnis/{cni}",
     inputSchema: {
       type: "object",
       properties: {
@@ -386,10 +369,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/nsc_Cni"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/nsc_AccountTag",
-              "description": "Customer account tag"
+              "description": "Customer account tag",
+              "type": "string"
             },
             "cni": {
               "description": "CNI ID to retrieve information about",
@@ -408,10 +392,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag$,
         "nsc_BgpControl": nsc_BgpControl$,
-        "nsc_BgpMode": nsc_BgpMode$,
         "nsc_Cni": nsc_Cni$,
         "nsc_MagicSettings": nsc_MagicSettings$,
       },
@@ -419,9 +402,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/nsc_Cni",
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
       },
@@ -451,9 +432,7 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_AccountTag": nsc_AccountTag,
         "nsc_BgpControl": nsc_BgpControl,
-        "nsc_BgpMode": nsc_BgpMode,
         "nsc_Cni": nsc_Cni,
         "nsc_MagicSettings": nsc_MagicSettings,
       },

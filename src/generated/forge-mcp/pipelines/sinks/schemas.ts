@@ -4,18 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `cloudflare-pipelines_JsonCompression`.
- */
-export const cloudflare$$pipelines_JsonCompression: JsonSchema = {
-  "description": "Specifies the compression applied to JSON sink output.",
-  "enum": [
-    "uncompressed",
-    "gzip"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cloudflare-pipelines_SinkFormat`.
  */
 export const cloudflare$$pipelines_SinkFormat: JsonSchema = {
@@ -41,9 +29,13 @@ export const cloudflare$$pipelines_SinkJsonFormat: JsonSchema = {
     {
       "properties": {
         "compression": {
-          "$ref": "#/$defs/cloudflare-pipelines_JsonCompression",
           "default": "uncompressed",
-          "description": "Specifies the compression applied to JSON sink output."
+          "description": "Specifies the compression applied to JSON sink output.",
+          "enum": [
+            "uncompressed",
+            "gzip"
+          ],
+          "type": "string"
         },
         "type": {
           "enum": [
@@ -239,12 +231,4 @@ export const cloudflare$$pipelines_r2_data_catalogTable: JsonSchema = {
     "token"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_workers-pipelines-sink-id`.
- */
-export const cloudflare$$pipelines_workers$$pipelines$$sink$$id: JsonSchema = {
-  "description": "Specifies the publid ID of the sink.",
-  "type": "string"
 };

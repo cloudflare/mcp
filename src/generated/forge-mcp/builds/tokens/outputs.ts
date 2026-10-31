@@ -9,16 +9,17 @@ import type { JsonSchema } from "../../_/tool.js";
 export const builds_CreateBuildTokenResponse: JsonSchema = {
   "properties": {
     "build_token_name": {
-      "$ref": "#/$defs/builds_build_token_name"
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "cloudflare_token_id": {
-      "$ref": "#/$defs/builds_cloudflare_token_id"
+      "type": "string"
     },
     "owner_type": {
-      "$ref": "#/$defs/builds_owner_type"
+      "type": "string"
     }
   },
   "type": "object"
@@ -30,31 +31,18 @@ export const builds_CreateBuildTokenResponse: JsonSchema = {
 export const builds_ListTokensResponse: JsonSchema = {
   "properties": {
     "build_token_name": {
-      "$ref": "#/$defs/builds_build_token_name"
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "cloudflare_token_id": {
-      "$ref": "#/$defs/builds_cloudflare_token_id"
+      "type": "string"
     },
     "owner_type": {
-      "$ref": "#/$defs/builds_owner_type"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_cloudflare_token_id` in responses.
- */
-export const builds_cloudflare_token_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_owner_type` in responses.
- */
-export const builds_owner_type: JsonSchema = {
-  "type": "string"
 };

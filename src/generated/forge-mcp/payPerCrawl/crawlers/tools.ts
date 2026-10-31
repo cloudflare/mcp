@@ -22,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "payPerCrawl_crawlers_list",
     title: "List pay-per-crawl crawlers",
-    description: "Lists the crawlers known to pay-per-crawl.",
+    description: "Lists the crawlers known to pay-per-crawl.\n\nGET /accounts/{account_id}/pay-per-crawl/crawlers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "account id",
@@ -42,6 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse",

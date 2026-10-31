@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_targets_activate",
     title: "Activate a browser target.",
-    description: "Activates (brings to front) a specific browser target by its ID.",
+    description: "Activates (brings to front) a specific browser target by its ID.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/activate/{target_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -41,6 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -189,11 +191,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_targets_close",
     title: "Close a browser target.",
-    description: "Closes a specific browser target (tab, page, etc.) by its ID. Returns 'Target is closing' on success or an error if the target is not found.",
+    description: "Closes a specific browser target (tab, page, etc.) by its ID. Returns 'Target is closing' on success or an error if the target is not found.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/close/{target_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -220,6 +223,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -368,11 +372,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_targets_create",
     title: "Open a new browser tab.",
-    description: "Opens a new tab in the browser. Optionally specify a URL to navigate to.",
+    description: "Opens a new tab in the browser. Optionally specify a URL to navigate to.\n\nPUT /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/new",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -391,6 +396,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "liveViewUrlExpiresInMs": {
               "default": 300000,
@@ -407,6 +413,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -566,11 +573,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_targets_get",
     title: "Get a target by ID.",
-    description: "Returns the debuggable target with the given ID.",
+    description: "Returns the debuggable target with the given ID.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/list/{target_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -597,6 +605,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -785,11 +794,12 @@ export const tools: readonly Tool[] = [
   {
     name: "browserRun_devtools_browser_targets_list",
     title: "List targets.",
-    description: "Returns a list of all debuggable targets including tabs, pages, service workers, and other browser contexts.",
+    description: "Returns a list of all debuggable targets including tabs, pages, service workers, and other browser contexts.\n\nGET /accounts/{account_id}/browser-rendering/devtools/browser/{session_id}/json/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -808,6 +818,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "liveViewUrlExpiresInMs": {
               "default": 300000,
@@ -821,6 +832,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

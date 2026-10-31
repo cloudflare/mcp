@@ -4,30 +4,18 @@
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   email$$security_CursorResultInfo,
-  email$$security_DispositionLabel,
-  email$$security_MailboxDestination,
-  email$$security_MessageDeliveryStatus,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
 } from "../outputs.js";
 import {
-  email$$security_DispositionLabel as email$$security_DispositionLabel$,
-  email$$security_MailboxDestination as email$$security_MailboxDestination$,
-  email$$security_MessageDeliveryStatus as email$$security_MessageDeliveryStatus$,
-  email$$security_identifier,
-} from "../schemas.js";
-import {
   email$$security_BulkJobActionParams,
   email$$security_BulkJobDetail,
-  email$$security_BulkJobStatus,
   email$$security_BulkSearchParams,
 } from "./outputs.js";
 import {
   email$$security_BulkActionRequest,
-  email$$security_BulkJobId,
-  email$$security_BulkJobStatus as email$$security_BulkJobStatus$,
   email$$security_BulkSearchParams as email$$security_BulkSearchParams$,
 } from "./schemas.js";
 
@@ -38,19 +26,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_bulkActions_cancel",
     title: "Cancel a bulk action job",
-    description: "Cancels the job, marking it as cancelled and stopping any pending message processing. The job record remains visible in list and detail endpoints.\n\nThis method is beta.",
+    description: "Cancels the job, marking it as cancelled and stopping any pending message processing. The job record remains visible in list and detail endpoints.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/investigate/bulk/{job_id}/cancel",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/email-security_BulkJobId",
-              "description": "Identifier of the bulk action job to cancel."
+              "description": "Identifier of the bulk action job to cancel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -63,10 +53,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BulkJobId": email$$security_BulkJobId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -88,11 +75,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -139,11 +122,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -156,7 +135,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_bulkActions_create",
     title: "Create a bulk action job",
-    description: "Creates a new bulk action job to move or release messages that match the provided search parameters. To move or release an explicit list of known messages instead of a search, use the move or release endpoints.\n\nThis method is beta.",
+    description: "Creates a new bulk action job to move or release messages that match the provided search parameters. To move or release an explicit list of known messages instead of a search, use the move or release endpoints.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/investigate/bulk",
     inputSchema: {
       type: "object",
       properties: {
@@ -164,10 +143,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_BulkActionRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -180,13 +160,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_BulkActionRequest": email$$security_BulkActionRequest,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams$,
-        "email-security_DispositionLabel": email$$security_DispositionLabel$,
-        "email-security_MailboxDestination": email$$security_MailboxDestination$,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -209,11 +186,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -260,11 +233,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -278,19 +247,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_bulkActions_delete",
     title: "Delete a bulk action job",
-    description: "Deletes the job, removing it from all list and detail endpoints. Only jobs in a terminal state (`COMPLETED`, `CANCELLED`, or `FAILED`) can be deleted. To stop an in-progress job without removing it, use the cancel endpoint instead.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the completed, cancelled, or failed bulk action job from all list and detail endpoints.",
+    description: "Deletes the job, removing it from all list and detail endpoints. Only jobs in a terminal state (`COMPLETED`, `CANCELLED`, or `FAILED`) can be deleted. To stop an in-progress job without removing it, use the cancel endpoint instead.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the completed, cancelled, or failed bulk action job from all list and detail endpoints.\n\nDELETE /accounts/{account_id}/email-security/investigate/bulk/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/email-security_BulkJobId",
-              "description": "Identifier of the bulk action job."
+              "description": "Identifier of the bulk action job.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -303,10 +274,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BulkJobId": email$$security_BulkJobId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -397,19 +365,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_bulkActions_get",
     title: "Get bulk action job details",
-    description: "Returns the status and details of a specific bulk action job.\n\nThis method is beta.",
+    description: "Returns the status and details of a specific bulk action job.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/bulk/{job_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "job_id": {
-              "$ref": "#/$defs/email-security_BulkJobId",
-              "description": "Identifier of the bulk action job."
+              "description": "Identifier of the bulk action job.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -422,10 +392,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BulkJobId": email$$security_BulkJobId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -447,11 +414,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -499,11 +462,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -516,15 +475,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_bulkActions_list",
     title: "List bulk action jobs",
-    description: "Returns a paginated list of bulk action jobs for the account.\n\nThis method is beta.",
+    description: "Returns a paginated list of bulk action jobs for the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/bulk",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -533,6 +493,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "action_type": {
               "description": "Filter jobs by the action they perform.",
@@ -553,8 +514,16 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/email-security_BulkJobStatus",
-              "description": "Filter jobs by their processing status."
+              "description": "Filter jobs by their processing status.",
+              "enum": [
+                "PENDING",
+                "DISCOVERING",
+                "PROCESSING",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -563,10 +532,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -595,12 +561,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
         "email-security_CursorResultInfo": email$$security_CursorResultInfo,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
       },
@@ -655,12 +617,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
-        "email-security_BulkJobStatus": email$$security_BulkJobStatus,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
         "email-security_CursorResultInfo": email$$security_CursorResultInfo,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
-        "email-security_MailboxDestination": email$$security_MailboxDestination,
-        "email-security_MessageDeliveryStatus": email$$security_MessageDeliveryStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,

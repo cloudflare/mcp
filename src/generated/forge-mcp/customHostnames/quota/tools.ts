@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { tls$$certificates$$and$$hostnames_messages } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
   tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
   tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
@@ -21,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "customHostnames_quota_get",
     title: "Get Custom Hostname Quota",
-    description: "Returns custom hostname quota usage for a zone. The allocated quota is a soft limit; creating custom hostnames after usage exceeds this limit can still succeed until the hard cap is reached. Use the exceeded and hard_cap fields to track when usage is above the soft limit and when new custom hostname creation will be rejected.",
+    description: "Returns custom hostname quota usage for a zone. The allocated quota is a soft limit; creating custom hostnames after usage exceeds this limit can still succeed until the hard cap is reached. Use the exceeded and hard_cap fields to track when usage is above the soft limit and when new custom hostname creation will be rejected.\n\nGET /zones/{zone_id}/custom_hostnames/quota",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,9 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_quota_response",

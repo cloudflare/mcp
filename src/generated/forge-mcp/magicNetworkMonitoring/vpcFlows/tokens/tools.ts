@@ -8,11 +8,7 @@ import {
   magic$$visibility$$mnm_api$$response$$single,
   magic$$visibility$$mnm_messages,
 } from "../../outputs.js";
-import { magic$$visibility$$mnm_account_identifier } from "../../schemas.js";
-import {
-  magic$$visibility$$mnm_mnm_vpc_flows_single_response,
-  magic$$visibility$$mnm_mnm_vpc_flows_token,
-} from "./outputs.js";
+import { magic$$visibility$$mnm_mnm_vpc_flows_single_response } from "./outputs.js";
 
 /**
  * The tools of `magicNetworkMonitoring.vpcFlows.tokens`.
@@ -21,14 +17,15 @@ export const tools: readonly Tool[] = [
   {
     name: "magicNetworkMonitoring_vpcFlows_tokens_create",
     title: "Generate authentication token for VPC flow logs export.",
-    description: "Generate authentication token for VPC flow logs export.",
+    description: "Generate authentication token for VPC flow logs export.\n\nPOST /accounts/{account_id}/mnm/vpc-flows/token",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -40,9 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_single_response",
@@ -51,7 +46,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
         "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
         "magic-visibility-mnm_mnm_vpc_flows_single_response": magic$$visibility$$mnm_mnm_vpc_flows_single_response,
-        "magic-visibility-mnm_mnm_vpc_flows_token": magic$$visibility$$mnm_mnm_vpc_flows_token,
       },
     },
     annotations: {
@@ -90,7 +84,6 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
         "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
         "magic-visibility-mnm_mnm_vpc_flows_single_response": magic$$visibility$$mnm_mnm_vpc_flows_single_response,
-        "magic-visibility-mnm_mnm_vpc_flows_token": magic$$visibility$$mnm_mnm_vpc_flows_token,
       },
     },
     request: (args) => ({

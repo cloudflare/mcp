@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logos_create",
     title: "Insert logo query",
-    description: "Create a new saved brand protection logo query for visual similarity matching",
+    description: "Create a new saved brand protection logo query for visual similarity matching\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -56,6 +57,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -120,11 +122,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logos_delete",
     title: "Delete logo query",
-    description: "Delete a saved brand protection logo query. Returns 404 if the query ID doesn't exist.",
+    description: "Delete a saved brand protection logo query. Returns 404 if the query ID doesn't exist.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries/{query_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -143,6 +146,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -200,11 +204,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logos_get",
     title: "Get logo queries",
-    description: "Get all saved brand protection logo queries for an account. Optionally specify id to get a single query. Set download=true to include base64-encoded image data.",
+    description: "Get all saved brand protection logo queries for an account. Optionally specify id to get a single query. Set download=true to include base64-encoded image data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -216,6 +221,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "download": {
               "description": "If true, include base64-encoded image data in the response",
@@ -232,6 +238,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

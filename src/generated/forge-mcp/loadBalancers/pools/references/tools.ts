@@ -8,8 +8,6 @@ import {
   load$$balancing_messages,
   load$$balancing_pools$$references$$response,
 } from "../../../outputs.js";
-import { load$$balancing_schemas$$identifier } from "../../../schemas.js";
-import { load$$balancing_components$$schemas$$identifier } from "../../schemas.js";
 
 /**
  * The tools of `loadBalancers.pools.references`.
@@ -18,18 +16,19 @@ export const tools: readonly Tool[] = [
   {
     name: "loadBalancers_pools_references_get",
     title: "List Pool References",
-    description: "Get the list of resources that reference the provided pool.",
+    description: "Get the list of resources that reference the provided pool.\n\nGET /accounts/{account_id}/load_balancers/pools/{pool_id}/references",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "pool_id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -42,10 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
-        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_pools-references-response",

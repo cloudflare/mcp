@@ -16,7 +16,7 @@ export const r2_create_prefix_delete_job_request: JsonSchema = {
       "type": "string"
     },
     "prefix": {
-      "description": "Prefix matched against object keys. A non-empty value must end in `/`.\nAn empty string empties the entire bucket.\n",
+      "description": "Prefix matched against object keys. A non-empty value must end in `/`.\nAn empty string empties the entire bucket.",
       "type": "string"
     }
   },

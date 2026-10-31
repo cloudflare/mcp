@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_create",
     title: "Create a gateway",
-    description: "Creates an AI Gateway in the account with the specified caching, rate limiting, logging, and authentication settings. The gateway ID appears in request URLs and must be unique within the account.",
+    description: "Creates an AI Gateway in the account with the specified caching, rate limiting, logging, and authentication settings. The gateway ID appears in request URLs and must be unique within the account.\n\nPOST /accounts/{account_id}/ai-gateway/gateways",
     inputSchema: {
       type: "object",
       properties: {
@@ -729,6 +729,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -743,6 +744,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2322,11 +2324,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_delete",
     title: "Delete a gateway",
-    description: "Permanently deletes an AI Gateway, its configuration, and its stored logs.\n\nConfirm with the user before calling this tool. This permanently deletes the gateway, its configuration, and its stored logs. Requests sent to this gateway will fail. This action cannot be undone.",
+    description: "Permanently deletes an AI Gateway, its configuration, and its stored logs.\n\nConfirm with the user before calling this tool. This permanently deletes the gateway, its configuration, and its stored logs. Requests sent to this gateway will fail. This action cannot be undone.\n\nDELETE /accounts/{account_id}/ai-gateway/gateways/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2346,6 +2349,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3954,11 +3958,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_get",
     title: "Get a gateway",
-    description: "Retrieves the configuration of an AI Gateway.",
+    description: "Retrieves the configuration of an AI Gateway.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3978,6 +3983,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -5587,11 +5593,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_getUrl",
     title: "Get Gateway URL",
-    description: "Retrieves the endpoint URL for an AI Gateway.\n\nThis method is beta.",
+    description: "Retrieves the endpoint URL for an AI Gateway.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/url/{provider}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -5615,6 +5622,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -5713,11 +5721,12 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_list",
     title: "List gateways",
-    description: "Lists the AI Gateways in the account. Use `search` to filter by gateway ID.",
+    description: "Lists the AI Gateways in the account. Use `search` to filter by gateway ID.\n\nGET /accounts/{account_id}/ai-gateway/gateways",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -5729,6 +5738,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -5749,6 +5759,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -7339,7 +7350,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_update",
     title: "Update a gateway",
-    description: "Updates the configuration of an AI Gateway, such as its caching, rate limiting, logging, and authentication settings.",
+    description: "Updates the configuration of an AI Gateway, such as its caching, rate limiting, logging, and authentication settings.\n\nPUT /accounts/{account_id}/ai-gateway/gateways/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -8053,6 +8064,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -8072,6 +8084,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

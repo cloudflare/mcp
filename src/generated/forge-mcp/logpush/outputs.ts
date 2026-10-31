@@ -86,175 +86,6 @@ export const logpush_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `logpush_dataset` in responses.
- */
-export const logpush_dataset: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "access_requests",
-        "account_abuse_protection_events",
-        "ai_gateway_events",
-        "audit_logs",
-        "audit_logs_v2",
-        "biso_user_actions",
-        "casb_findings",
-        "device_posture_results",
-        "dex_application_tests",
-        "dex_device_state_events",
-        "dlp_forensic_copies",
-        "dns_firewall_logs",
-        "dns_logs",
-        "email_security_alerts",
-        "email_security_post_delivery_events",
-        "firewall_events",
-        "gateway_dns",
-        "gateway_http",
-        "gateway_network",
-        "http_requests",
-        "ipsec_logs",
-        "magic_bgp_logs",
-        "magic_ids_detections",
-        "mcp_portal_logs",
-        "mnm_flow_logs",
-        "nel_reports",
-        "network_analytics_logs",
-        "page_shield_events",
-        "sinkhole_http_logs",
-        "spectrum_events",
-        "ssh_logs",
-        "turnstile_events",
-        "warp_config_changes",
-        "warp_toggle_changes",
-        "websocket_analytics",
-        "workers_trace_events",
-        "zaraz_events",
-        "zero_trust_network_sessions"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_destination_conf` in responses.
- */
-export const logpush_destination_conf: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_enabled` in responses.
- */
-export const logpush_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `logpush_error_message` in responses.
- */
-export const logpush_error_message: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_filter_attack_traffic` in responses.
- */
-export const logpush_filter_attack_traffic: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `logpush_frequency` in responses.
- */
-export const logpush_frequency: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "high",
-        "low"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_id` in responses.
- */
-export const logpush_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `logpush_kind` in responses.
- */
-export const logpush_kind: JsonSchema = {
-  "enum": [
-    "",
-    "edge"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_last_complete` in responses.
- */
-export const logpush_last_complete: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_last_error` in responses.
- */
-export const logpush_last_error: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_logpull_options` in responses.
- */
-export const logpush_logpull_options: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `logpush_logpush_job` in responses.
  */
 export const logpush_logpush_job: JsonSchema = {
@@ -262,49 +93,187 @@ export const logpush_logpush_job: JsonSchema = {
     {
       "properties": {
         "dataset": {
-          "$ref": "#/$defs/logpush_dataset"
+          "oneOf": [
+            {
+              "enum": [
+                "access_requests",
+                "account_abuse_protection_events",
+                "ai_gateway_events",
+                "audit_logs",
+                "audit_logs_v2",
+                "biso_user_actions",
+                "casb_findings",
+                "device_posture_results",
+                "dex_application_tests",
+                "dex_device_state_events",
+                "dlp_forensic_copies",
+                "dns_firewall_logs",
+                "dns_logs",
+                "email_security_alerts",
+                "email_security_post_delivery_events",
+                "firewall_events",
+                "gateway_dns",
+                "gateway_http",
+                "gateway_network",
+                "http_requests",
+                "ipsec_logs",
+                "magic_bgp_logs",
+                "magic_ids_detections",
+                "mcp_portal_logs",
+                "mnm_flow_logs",
+                "nel_reports",
+                "network_analytics_logs",
+                "page_shield_events",
+                "sinkhole_http_logs",
+                "spectrum_events",
+                "ssh_logs",
+                "turnstile_events",
+                "warp_config_changes",
+                "warp_toggle_changes",
+                "websocket_analytics",
+                "workers_trace_events",
+                "zaraz_events",
+                "zero_trust_network_sessions"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "destination_conf": {
-          "$ref": "#/$defs/logpush_destination_conf"
+          "type": "string"
         },
         "enabled": {
-          "$ref": "#/$defs/logpush_enabled"
+          "type": "boolean"
         },
         "error_message": {
-          "$ref": "#/$defs/logpush_error_message"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "filter_attack_traffic": {
-          "$ref": "#/$defs/logpush_filter_attack_traffic"
+          "type": "boolean"
         },
         "frequency": {
-          "$ref": "#/$defs/logpush_frequency"
+          "oneOf": [
+            {
+              "enum": [
+                "high",
+                "low"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "id": {
-          "$ref": "#/$defs/logpush_id"
+          "type": "integer"
         },
         "kind": {
-          "$ref": "#/$defs/logpush_kind"
+          "enum": [
+            "",
+            "edge"
+          ],
+          "type": "string"
         },
         "last_complete": {
-          "$ref": "#/$defs/logpush_last_complete"
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "last_error": {
-          "$ref": "#/$defs/logpush_last_error"
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "logpull_options": {
-          "$ref": "#/$defs/logpush_logpull_options"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "max_upload_bytes": {
-          "$ref": "#/$defs/logpush_max_upload_bytes"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": [
+                0
+              ],
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "max_upload_interval_seconds": {
-          "$ref": "#/$defs/logpush_max_upload_interval_seconds"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": [
+                0
+              ],
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "max_upload_records": {
-          "$ref": "#/$defs/logpush_max_upload_records"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": [
+                0
+              ],
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "name": {
-          "$ref": "#/$defs/logpush_name"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "output_options": {
           "$ref": "#/$defs/logpush_output_options"
@@ -348,66 +317,6 @@ export const logpush_logpush_job_response_collection: JsonSchema = {
 };
 
 /**
- * The schema of `logpush_max_upload_bytes` in responses.
- */
-export const logpush_max_upload_bytes: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "enum": [
-        0
-      ],
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_max_upload_interval_seconds` in responses.
- */
-export const logpush_max_upload_interval_seconds: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "enum": [
-        0
-      ],
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `logpush_max_upload_records` in responses.
- */
-export const logpush_max_upload_records: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "enum": [
-        0
-      ],
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `logpush_messages` in responses.
  */
 export const logpush_messages: JsonSchema = {
@@ -438,20 +347,6 @@ export const logpush_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `logpush_name` in responses.
- */
-export const logpush_name: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**

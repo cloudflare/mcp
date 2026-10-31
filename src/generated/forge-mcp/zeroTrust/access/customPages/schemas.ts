@@ -4,55 +4,61 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_app_count-2`.
- */
-export const access_app_count$$2: JsonSchema = {
-  "description": "Number of apps the custom page is assigned to.",
-  "type": "integer"
-};
-
-/**
- * The schema of `access_contract_version`.
- */
-export const access_contract_version: JsonSchema = {
-  "description": "Contract version of the page's Liquid template. Present (>= 1) marks a sanitized template; absent or 0 marks a legacy page served verbatim.",
-  "type": "integer"
-};
-
-/**
  * The schema of `access_custom_page`.
  */
 export const access_custom_page: JsonSchema = {
   "properties": {
     "app_count": {
-      "$ref": "#/$defs/access_app_count-2",
-      "description": "Number of apps the custom page is assigned to."
+      "description": "Number of apps the custom page is assigned to.",
+      "type": "integer"
     },
     "contract_version": {
-      "$ref": "#/$defs/access_contract_version",
-      "description": "Contract version of the page's Liquid template. Present (>= 1) marks a sanitized template; absent or 0 marks a legacy page served verbatim."
+      "description": "Contract version of the page's Liquid template. Present (>= 1) marks a sanitized template; absent or 0 marks a legacy page served verbatim.",
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_html": {
       "description": "Custom page HTML.",
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-11",
-      "description": "Custom page name."
+      "description": "Custom page name.",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_type-2",
-      "description": "Custom page type."
+      "description": "Custom page type.",
+      "enum": [
+        "identity_denied",
+        "forbidden",
+        "login",
+        "interstitial"
+      ],
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
+      "description": "UUID.",
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "required": [
@@ -74,8 +80,14 @@ export const access_custom_page_validate: JsonSchema = {
       "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_type-2",
-      "description": "Custom page type."
+      "description": "Custom page type.",
+      "enum": [
+        "identity_denied",
+        "forbidden",
+        "login",
+        "interstitial"
+      ],
+      "type": "string"
     },
     "version": {
       "description": "Contract version to validate against; omit for the latest.",
@@ -87,26 +99,4 @@ export const access_custom_page_validate: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_name-11`.
- */
-export const access_name$$11: JsonSchema = {
-  "description": "Custom page name.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_type-2`.
- */
-export const access_type$$2: JsonSchema = {
-  "description": "Custom page type.",
-  "enum": [
-    "identity_denied",
-    "forbidden",
-    "login",
-    "interstitial"
-  ],
-  "type": "string"
 };

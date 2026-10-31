@@ -9,33 +9,19 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const stream_output: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/stream_output_enabled"
+      "type": "boolean"
     },
     "streamKey": {
-      "$ref": "#/$defs/stream_output_streamKey"
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/stream_output_identifier"
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_output_url"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_output_enabled` in responses.
- */
-export const stream_output_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_output_identifier` in responses.
- */
-export const stream_output_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -77,18 +63,4 @@ export const stream_output_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `stream_output_streamKey` in responses.
- */
-export const stream_output_streamKey: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_output_url` in responses.
- */
-export const stream_output_url: JsonSchema = {
-  "type": "string"
 };

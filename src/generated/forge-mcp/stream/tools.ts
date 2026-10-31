@@ -5,14 +5,9 @@ import { type Tool, param, pathParam } from "../_/tool.js";
 import {
   stream_api$$response$$common$$failure,
   stream_api$$response$$single,
-  stream_creator,
   stream_messages,
   stream_storage_use_response,
 } from "./outputs.js";
-import {
-  stream_account_identifier,
-  stream_creator as stream_creator$,
-} from "./schemas.js";
 
 /**
  * The tools of `stream`.
@@ -21,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_storageUsage",
     title: "Storage use",
-    description: "Returns information about an account's storage use.",
+    description: "Returns information about an account's storage use.\n\nGET /accounts/{account_id}/stream/storage-usage",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,10 +34,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "creator": {
-              "$ref": "#/$defs/stream_creator",
-              "description": "A user-defined identifier for the media creator."
+              "description": "A user-defined identifier for the media creator.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -50,16 +47,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_creator": stream_creator$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_storage_use_response",
       $defs: {
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_creator": stream_creator,
         "stream_messages": stream_messages,
         "stream_storage_use_response": stream_storage_use_response,
       },
@@ -91,7 +84,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_creator": stream_creator,
         "stream_messages": stream_messages,
         "stream_storage_use_response": stream_storage_use_response,
       },

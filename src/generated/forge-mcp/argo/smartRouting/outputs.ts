@@ -94,13 +94,6 @@ export const argo$$config_count_zones_response: JsonSchema = {
 };
 
 /**
- * The schema of `argo-config_editable` in responses.
- */
-export const argo$$config_editable: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `argo-config_messages` in responses.
  */
 export const argo$$config_messages: JsonSchema = {
@@ -123,29 +116,26 @@ export const argo$$config_messages: JsonSchema = {
 };
 
 /**
- * The schema of `argo-config_modified_on` in responses.
- */
-export const argo$$config_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `argo-config_result_object` in responses.
  */
 export const argo$$config_result_object: JsonSchema = {
   "properties": {
     "editable": {
-      "$ref": "#/$defs/argo-config_editable"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/argo-config_setting_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/argo-config_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/argo-config_setting_value"
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -154,22 +144,4 @@ export const argo$$config_result_object: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `argo-config_setting_id` in responses.
- */
-export const argo$$config_setting_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `argo-config_setting_value` in responses.
- */
-export const argo$$config_setting_value: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

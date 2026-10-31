@@ -60,13 +60,6 @@ export const dns$$records_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_identifier` in responses.
- */
-export const dns$$records_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_messages` in responses.
  */
 export const dns$$records_messages: JsonSchema = {

@@ -8,7 +8,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
 import {
   workers_namespace,
   workers_query$$result,
@@ -18,8 +17,6 @@ import {
   workers_query,
   workers_query$$by$$id,
   workers_query$$by$$name,
-  workers_query$$param,
-  workers_schemas$$id,
 } from "./schemas.js";
 
 /**
@@ -29,15 +26,16 @@ export const tools: readonly Tool[] = [
   {
     name: "durableObjects_namespaces_list",
     title: "List Durable Object Namespaces",
-    description: "Returns the Durable Object namespaces owned by an account.",
+    description: "Returns the Durable Object namespaces owned by an account.\n\nGET /accounts/{account_id}/workers/durable_objects/namespaces",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -64,9 +63,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -176,7 +173,7 @@ export const tools: readonly Tool[] = [
   {
     name: "durableObjects_namespaces_query",
     title: "Query a Durable Object",
-    description: "Executes one or more SQL queries against a Durable Object.",
+    description: "Executes one or more SQL queries against a Durable Object.\n\nPOST /accounts/{account_id}/workers/durable_objects/namespaces/{id}/query/v2",
     inputSchema: {
       type: "object",
       properties: {
@@ -191,14 +188,15 @@ export const tools: readonly Tool[] = [
           ]
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/workers_schemas-id",
-              "description": "ID of the namespace."
+              "description": "ID of the namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -212,13 +210,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_identifier": workers_identifier,
         "workers_query": workers_query,
         "workers_query-by-id": workers_query$$by$$id,
         "workers_query-by-name": workers_query$$by$$name,
-        "workers_query-param": workers_query$$param,
-        "workers_schemas-id": workers_schemas$$id,
       },
     },
     outputSchema: {

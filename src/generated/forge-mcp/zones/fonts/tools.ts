@@ -8,12 +8,7 @@ import {
   speed_base,
   speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_cloudflare_fonts,
-  speed_cloudflare_fonts_value,
-} from "./outputs.js";
-import { speed_cloudflare_fonts_value as speed_cloudflare_fonts_value$ } from "./schemas.js";
+import { speed_cloudflare_fonts } from "./outputs.js";
 
 /**
  * The tools of `zones.fonts`.
@@ -22,16 +17,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_fonts_edit",
     title: "Change Cloudflare Fonts setting",
-    description: "Enhance your website's font delivery with Cloudflare Fonts. Deliver Google Hosted fonts from your own domain,\nboost performance, and enhance user privacy. Refer to the Cloudflare Fonts documentation for more information.",
+    description: "Enhance your website's font delivery with Cloudflare Fonts. Deliver Google Hosted fonts from your own domain,\nboost performance, and enhance user privacy. Refer to the Cloudflare Fonts documentation for more information.\n\nPATCH /zones/{zone_id}/settings/fonts",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_cloudflare_fonts_value",
               "default": "off",
-              "description": "Whether the feature is enabled or disabled."
+              "description": "Whether the feature is enabled or disabled.",
+              "enum": [
+                "on",
+                "off"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -40,10 +39,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,10 +56,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value$,
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -79,7 +76,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common": speed_api$$response$$common,
         "speed_base": speed_base,
         "speed_cloudflare_fonts": speed_cloudflare_fonts,
-        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value,
         "speed_messages": speed_messages,
       },
     },
@@ -134,7 +130,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common-failure": speed_api$$response$$common$$failure,
         "speed_base": speed_base,
         "speed_cloudflare_fonts": speed_cloudflare_fonts,
-        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value,
         "speed_messages": speed_messages,
       },
     },
@@ -146,15 +141,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_fonts_get",
     title: "Get Cloudflare Fonts setting",
-    description: "Enhance your website's font delivery with Cloudflare Fonts. Deliver Google Hosted fonts from your own domain,\nboost performance, and enhance user privacy. Refer to the Cloudflare Fonts documentation for more information.",
+    description: "Enhance your website's font delivery with Cloudflare Fonts. Deliver Google Hosted fonts from your own domain,\nboost performance, and enhance user privacy. Refer to the Cloudflare Fonts documentation for more information.\n\nGET /zones/{zone_id}/settings/fonts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/speed_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -166,9 +162,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -188,7 +182,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common": speed_api$$response$$common,
         "speed_base": speed_base,
         "speed_cloudflare_fonts": speed_cloudflare_fonts,
-        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value,
         "speed_messages": speed_messages,
       },
     },
@@ -244,7 +237,6 @@ export const tools: readonly Tool[] = [
         "speed_api-response-common-failure": speed_api$$response$$common$$failure,
         "speed_base": speed_base,
         "speed_cloudflare_fonts": speed_cloudflare_fonts,
-        "speed_cloudflare_fonts_value": speed_cloudflare_fonts_value,
         "speed_messages": speed_messages,
       },
     },

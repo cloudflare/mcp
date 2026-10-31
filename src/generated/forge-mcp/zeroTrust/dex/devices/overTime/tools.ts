@@ -8,18 +8,12 @@ import {
   digital$$experience$$monitoring_messages,
 } from "../../outputs.js";
 import {
-  digital$$experience$$monitoring_account_identifier,
-  digital$$experience$$monitoring_colo,
-  digital$$experience$$monitoring_timestamp,
-} from "../../schemas.js";
-import {
   digital$$experience$$monitoring_cpu_pct_by_app,
   digital$$experience$$monitoring_directional_stat,
   digital$$experience$$monitoring_ram_used_pct_by_app,
   digital$$experience$$monitoring_rtt_stats,
   digital$$experience$$monitoring_tunnel_stats,
 } from "../outputs.js";
-import { digital$$experience$$monitoring_device_id } from "../schemas.js";
 import {
   digital$$experience$$monitoring_device_state_over_time,
   digital$$experience$$monitoring_device_state_top_networks_summary,
@@ -40,19 +34,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_devices_overTime_get",
     title: "Get the status over time for a device",
-    description: "Get time-bucketed status metrics for a specific device.",
+    description: "Get time-bucketed status metrics for a specific device.\n\nGET /accounts/{account_id}/dex/devices/{device_id}/fleet-status/over-time",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             },
             "device_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_device_id",
-              "description": "Device-specific ID, given as UUID."
+              "description": "Device-specific ID, given as UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,14 +57,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "colo": {
-              "$ref": "#/$defs/digital-experience-monitoring_colo",
-              "description": "List of data centers to filter results."
+              "description": "List of data centers to filter results.",
+              "type": "string"
             },
             "from": {
-              "$ref": "#/$defs/digital-experience-monitoring_timestamp",
-              "description": "Start of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch."
+              "description": "Start of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
+              "type": "string"
             },
             "interval": {
               "description": "Time interval for aggregate time slots.",
@@ -80,8 +76,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "to": {
-              "$ref": "#/$defs/digital-experience-monitoring_timestamp",
-              "description": "End of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch."
+              "description": "End of the time range to query. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
+              "type": "string"
             }
           },
           "required": [
@@ -96,12 +92,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-        "digital-experience-monitoring_colo": digital$$experience$$monitoring_colo,
-        "digital-experience-monitoring_device_id": digital$$experience$$monitoring_device_id,
-        "digital-experience-monitoring_timestamp": digital$$experience$$monitoring_timestamp,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

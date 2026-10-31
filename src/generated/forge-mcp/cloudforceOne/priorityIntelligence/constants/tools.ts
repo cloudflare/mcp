@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_constants_get",
     title: "Get PIR constants (methods, dimensions, and TLP values)",
-    description: "Requirements is the existing free-form PIR method. Interests is the experimental structured-interest method, evaluated independently from requirements.",
+    description: "Requirements is the existing free-form PIR method. Interests is the experimental structured-interest method, evaluated independently from requirements.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/constants",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -29,6 +30,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

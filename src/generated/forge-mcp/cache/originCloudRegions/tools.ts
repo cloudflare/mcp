@@ -7,7 +7,6 @@ import {
   cache$$settings_api$$response$$common$$failure,
   cache$$settings_messages,
 } from "../../outputs.js";
-import { cache$$settings_identifier } from "../../schemas.js";
 import {
   cache$$settings_origin_cloud_region_v2_delete_result,
   cache$$settings_origin_cloud_region_v2_entry,
@@ -22,19 +21,20 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_originCloudRegions_delete",
     title: "Delete an origin cloud region mapping",
-    description: "Removes the cloud region mapping for a single origin IP address. The IP path parameter is normalized before lookup. Returns the deleted IP on success. Returns 404 if no mapping exists for the specified IP. When the last mapping for the zone is removed the underlying rule record is also deleted.\n\nConfirm with the user before calling this tool. Are you sure you want to delete this Origin Cloud Region configuration?",
+    description: "Removes the cloud region mapping for a single origin IP address. The IP path parameter is normalized before lookup. Returns the deleted IP on success. Returns 404 if no mapping exists for the specified IP. When the last mapping for the zone is removed the underlying rule record is also deleted.\n\nConfirm with the user before calling this tool. Are you sure you want to delete this Origin Cloud Region configuration?\n\nDELETE /zones/{zone_id}/origin/cloud_regions/{origin_ip}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "origin_ip": {
               "description": "Origin IP address whose mapping should be deleted.",
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,9 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -123,19 +121,20 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_originCloudRegions_get",
     title: "Get an origin cloud region mapping",
-    description: "Returns the cloud region mapping for a single origin IP address. The IP path parameter is normalized before lookup (RFC 5952 for IPv6). Returns 404 if the zone has no mappings or if the specified IP has no mapping.",
+    description: "Returns the cloud region mapping for a single origin IP address. The IP path parameter is normalized before lookup (RFC 5952 for IPv6). Returns 404 if the zone has no mappings or if the specified IP has no mapping.\n\nGET /zones/{zone_id}/origin/cloud_regions/{origin_ip}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "origin_ip": {
               "description": "Origin IP address to look up. IPv4 and IPv6 are supported.",
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -148,9 +147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -224,15 +221,16 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_originCloudRegions_list",
     title: "List origin cloud region mappings",
-    description: "Returns all IP-to-cloud-region mappings configured for the zone with pagination support. Each mapping tells Cloudflare which cloud vendor and region hosts the origin at that IP, enabling the edge to route via the nearest Tiered Cache upper-tier co-located with that cloud provider. Returns an empty array when no mappings exist.",
+    description: "Returns all IP-to-cloud-region mappings configured for the zone with pagination support. Each mapping tells Cloudflare which cloud vendor and region hosts the origin at that IP, enabling the edge to route via the nearest Tiered Cache upper-tier co-located with that cloud provider. Returns an empty array when no mappings exist.\n\nGET /zones/{zone_id}/origin/cloud_regions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -241,6 +239,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -259,9 +258,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -361,7 +358,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_originCloudRegions_update",
     title: "Create or replace an origin cloud region mapping",
-    description: "Creates a new IP-to-cloud-region mapping or replaces the existing mapping for the specified IP. PUT is idempotent — calling it repeatedly with the same body produces the same result. The IP path parameter is normalized to canonical form (RFC 5952 for IPv6) before storage. The vendor and region are validated against the list from `GET /zones/{zone_id}/origin/cloud_regions/supported_regions`. Returns 400 if the `origin_ip` in the body does not match the URL path parameter. Returns 403 (code 1164) when the zone has reached the limit of 3,500 IP mappings.",
+    description: "Creates a new IP-to-cloud-region mapping or replaces the existing mapping for the specified IP. PUT is idempotent — calling it repeatedly with the same body produces the same result. The IP path parameter is normalized to canonical form (RFC 5952 for IPv6) before storage. The vendor and region are validated against the list from `GET /zones/{zone_id}/origin/cloud_regions/supported_regions`. Returns 400 if the `origin_ip` in the body does not match the URL path parameter. Returns 403 (code 1164) when the zone has reached the limit of 3,500 IP mappings.\n\nPUT /zones/{zone_id}/origin/cloud_regions/{origin_ip}",
     inputSchema: {
       type: "object",
       properties: {
@@ -369,14 +366,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "origin_ip": {
               "description": "Origin IP address to create or replace.",
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/cache-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -390,8 +388,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-settings_identifier": cache$$settings_identifier,
         "cache-settings_origin_cloud_region_v2_request": cache$$settings_origin_cloud_region_v2_request,
       },
     },

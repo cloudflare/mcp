@@ -20,17 +20,10 @@ export const speed_transformations_allowed_origins_response: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_transformations_allowed_origins_value"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_transformations_allowed_origins_value` in responses.
- */
-export const speed_transformations_allowed_origins_value: JsonSchema = {
-  "type": "string"
 };

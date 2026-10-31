@@ -9,13 +9,29 @@ import type { JsonSchema } from "../_/tool.js";
 export const builds_CanceledBuildResponse: JsonSchema = {
   "properties": {
     "build_outcome": {
-      "$ref": "#/$defs/builds_BuildOutcome"
+      "enum": [
+        "success",
+        "fail",
+        "skipped",
+        "cancelled",
+        "terminated"
+      ],
+      "type": "string"
     },
     "build_uuid": {
-      "$ref": "#/$defs/builds_build_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "stopped_on": {
-      "$ref": "#/$defs/builds_stopped_on"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"

@@ -7,7 +7,6 @@ import {
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
 } from "../../../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../../../schemas.js";
 import { digital$$experience$$monitoring_unique_devices_response } from "./outputs.js";
 
 /**
@@ -17,15 +16,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_overview_tests_uniqueDevices_get",
     title: "Get count of devices targeted",
-    description: "Returns unique count of devices that have run synthetic application monitoring tests in the past 7 days.",
+    description: "Returns unique count of devices that have run synthetic application monitoring tests in the past 7 days.\n\nGET /accounts/{account_id}/dex/tests/unique-devices",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -34,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "deviceId": {
               "description": "Optionally filter result stats to a specific device(s). Cannot be used in combination with colo param.",
@@ -53,9 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

@@ -6,56 +6,31 @@ import {
   smartshield_api$$response$$common,
   smartshield_api$$response$$common$$failure,
   smartshield_api$$response$$result,
-  smartshield_identifier,
   smartshield_messages,
 } from "../outputs.js";
 import {
   smartshield_api$$response$$common as smartshield_api$$response$$common$,
   smartshield_api$$response$$result as smartshield_api$$response$$result$,
-  smartshield_identifier as smartshield_identifier$,
   smartshield_messages as smartshield_messages$,
 } from "../schemas.js";
 import {
-  smartshield_address,
   smartshield_api$$response$$collection,
   smartshield_check_regions,
-  smartshield_consecutive_fails,
-  smartshield_consecutive_successes,
-  smartshield_description,
-  smartshield_failure_reason,
   smartshield_healthchecks,
   smartshield_http_config,
-  smartshield_interval,
-  smartshield_name,
   smartshield_response_collection,
   smartshield_result_info,
-  smartshield_retries,
   smartshield_single_hc_id_response,
   smartshield_single_hc_response,
-  smartshield_status,
-  smartshield_suspended,
   smartshield_tcp_config,
-  smartshield_timeout,
-  smartshield_timestamp,
-  smartshield_type,
 } from "./outputs.js";
 import {
-  smartshield_address as smartshield_address$,
   smartshield_check_regions as smartshield_check_regions$,
-  smartshield_consecutive_fails as smartshield_consecutive_fails$,
-  smartshield_consecutive_successes as smartshield_consecutive_successes$,
-  smartshield_description as smartshield_description$,
   smartshield_healthchecks as smartshield_healthchecks$,
   smartshield_http_config as smartshield_http_config$,
-  smartshield_interval as smartshield_interval$,
-  smartshield_name as smartshield_name$,
   smartshield_query_healthcheck,
-  smartshield_retries as smartshield_retries$,
   smartshield_single_hc_response as smartshield_single_hc_response$,
-  smartshield_suspended as smartshield_suspended$,
   smartshield_tcp_config as smartshield_tcp_config$,
-  smartshield_timeout as smartshield_timeout$,
-  smartshield_type as smartshield_type$,
 } from "./schemas.js";
 
 /**
@@ -65,7 +40,7 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_healthChecks_create",
     title: "Create Health Check",
-    description: "Create a new health check.",
+    description: "Create a new health check.\n\nPOST /zones/{zone_id}/smart_shield/healthchecks",
     inputSchema: {
       type: "object",
       properties: {
@@ -73,10 +48,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_query_healthcheck"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -89,49 +65,25 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "smartshield_address": smartshield_address$,
         "smartshield_check_regions": smartshield_check_regions$,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails$,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes$,
-        "smartshield_description": smartshield_description$,
         "smartshield_http_config": smartshield_http_config$,
-        "smartshield_identifier": smartshield_identifier$,
-        "smartshield_interval": smartshield_interval$,
-        "smartshield_name": smartshield_name$,
         "smartshield_query_healthcheck": smartshield_query_healthcheck,
-        "smartshield_retries": smartshield_retries$,
-        "smartshield_suspended": smartshield_suspended$,
         "smartshield_tcp_config": smartshield_tcp_config$,
-        "smartshield_timeout": smartshield_timeout$,
-        "smartshield_type": smartshield_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/smartshield_single_hc_response",
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     annotations: {
@@ -164,29 +116,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     request: (args) => ({
@@ -197,19 +135,20 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_healthChecks_delete",
     title: "Delete Health Check",
-    description: "Delete a health check.",
+    description: "Delete a health check.\n\nDELETE /zones/{zone_id}/smart_shield/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -222,16 +161,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "smartshield_identifier": smartshield_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/smartshield_single_hc_id_response",
       $defs: {
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-result": smartshield_api$$response$$result,
-        "smartshield_identifier": smartshield_identifier,
         "smartshield_messages": smartshield_messages,
         "smartshield_single_hc_id_response": smartshield_single_hc_id_response,
       },
@@ -269,7 +205,6 @@ export const tools: readonly Tool[] = [
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
         "smartshield_api-response-result": smartshield_api$$response$$result,
-        "smartshield_identifier": smartshield_identifier,
         "smartshield_messages": smartshield_messages,
         "smartshield_single_hc_id_response": smartshield_single_hc_id_response,
       },
@@ -281,7 +216,7 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_healthChecks_edit",
     title: "Patch Health Check",
-    description: "Patch a configured health check.",
+    description: "Patch a configured health check.\n\nPATCH /zones/{zone_id}/smart_shield/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -289,14 +224,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_query_healthcheck"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -310,49 +246,25 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "smartshield_address": smartshield_address$,
         "smartshield_check_regions": smartshield_check_regions$,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails$,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes$,
-        "smartshield_description": smartshield_description$,
         "smartshield_http_config": smartshield_http_config$,
-        "smartshield_identifier": smartshield_identifier$,
-        "smartshield_interval": smartshield_interval$,
-        "smartshield_name": smartshield_name$,
         "smartshield_query_healthcheck": smartshield_query_healthcheck,
-        "smartshield_retries": smartshield_retries$,
-        "smartshield_suspended": smartshield_suspended$,
         "smartshield_tcp_config": smartshield_tcp_config$,
-        "smartshield_timeout": smartshield_timeout$,
-        "smartshield_type": smartshield_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/smartshield_single_hc_response",
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     annotations: {
@@ -385,29 +297,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     request: (args) => ({
@@ -418,19 +316,20 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_healthChecks_get",
     title: "Health Check Details",
-    description: "Fetch a single configured health check.",
+    description: "Fetch a single configured health check.\n\nGET /zones/{zone_id}/smart_shield/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -443,35 +342,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "smartshield_identifier": smartshield_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/smartshield_single_hc_response",
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     annotations: {
@@ -505,29 +388,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     request: (args) => ({
@@ -537,15 +406,16 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_healthChecks_list",
     title: "List Health Checks",
-    description: "List configured health checks.",
+    description: "List configured health checks.\n\nGET /zones/{zone_id}/smart_shield/healthchecks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -554,6 +424,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -572,37 +443,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "smartshield_identifier": smartshield_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/smartshield_response_collection",
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-collection": smartshield_api$$response$$collection,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
         "smartshield_response_collection": smartshield_response_collection,
         "smartshield_result_info": smartshield_result_info,
-        "smartshield_retries": smartshield_retries,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     annotations: {
@@ -636,31 +491,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-collection": smartshield_api$$response$$collection,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
         "smartshield_response_collection": smartshield_response_collection,
         "smartshield_result_info": smartshield_result_info,
-        "smartshield_retries": smartshield_retries,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     request: (args) => ({
@@ -674,7 +515,7 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_healthChecks_update",
     title: "Update Health Check",
-    description: "Update a configured health check.",
+    description: "Update a configured health check.\n\nPUT /zones/{zone_id}/smart_shield/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -682,14 +523,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_single_hc_response"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -703,53 +545,29 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "smartshield_address": smartshield_address$,
         "smartshield_api-response-common": smartshield_api$$response$$common$,
         "smartshield_api-response-result": smartshield_api$$response$$result$,
         "smartshield_check_regions": smartshield_check_regions$,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails$,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes$,
-        "smartshield_description": smartshield_description$,
         "smartshield_healthchecks": smartshield_healthchecks$,
         "smartshield_http_config": smartshield_http_config$,
-        "smartshield_identifier": smartshield_identifier$,
-        "smartshield_interval": smartshield_interval$,
         "smartshield_messages": smartshield_messages$,
-        "smartshield_name": smartshield_name$,
-        "smartshield_retries": smartshield_retries$,
         "smartshield_single_hc_response": smartshield_single_hc_response$,
-        "smartshield_suspended": smartshield_suspended$,
         "smartshield_tcp_config": smartshield_tcp_config$,
-        "smartshield_timeout": smartshield_timeout$,
-        "smartshield_type": smartshield_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/smartshield_single_hc_response",
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     annotations: {
@@ -782,29 +600,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_address": smartshield_address,
         "smartshield_api-response-common": smartshield_api$$response$$common,
         "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
         "smartshield_api-response-result": smartshield_api$$response$$result,
         "smartshield_check_regions": smartshield_check_regions,
-        "smartshield_consecutive_fails": smartshield_consecutive_fails,
-        "smartshield_consecutive_successes": smartshield_consecutive_successes,
-        "smartshield_description": smartshield_description,
-        "smartshield_failure_reason": smartshield_failure_reason,
         "smartshield_healthchecks": smartshield_healthchecks,
         "smartshield_http_config": smartshield_http_config,
-        "smartshield_identifier": smartshield_identifier,
-        "smartshield_interval": smartshield_interval,
         "smartshield_messages": smartshield_messages,
-        "smartshield_name": smartshield_name,
-        "smartshield_retries": smartshield_retries,
         "smartshield_single_hc_response": smartshield_single_hc_response,
-        "smartshield_status": smartshield_status,
-        "smartshield_suspended": smartshield_suspended,
         "smartshield_tcp_config": smartshield_tcp_config,
-        "smartshield_timeout": smartshield_timeout,
-        "smartshield_timestamp": smartshield_timestamp,
-        "smartshield_type": smartshield_type,
       },
     },
     request: (args) => ({

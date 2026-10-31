@@ -57,54 +57,26 @@ export const load$$balancing_components$$schemas$$response_collection: JsonSchem
 export const load$$balancing_origin$$analytics: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/load-balancing_address"
+      "type": "string"
     },
     "changed": {
-      "$ref": "#/$defs/load-balancing_origin-changed"
+      "type": "boolean"
     },
     "enabled": {
-      "$ref": "#/$defs/load-balancing_schemas-enabled"
+      "type": "boolean"
     },
     "failure_reason": {
-      "$ref": "#/$defs/load-balancing_origin-failure-reason"
+      "type": "string"
     },
     "healthy": {
-      "$ref": "#/$defs/load-balancing_origin-healthy"
+      "type": "boolean"
     },
     "ip": {
-      "$ref": "#/$defs/load-balancing_origin-ip"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/load-balancing_schemas-name"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_origin-changed` in responses.
- */
-export const load$$balancing_origin$$changed: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `load-balancing_origin-failure-reason` in responses.
- */
-export const load$$balancing_origin$$failure$$reason: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_origin-healthy` in responses.
- */
-export const load$$balancing_origin$$healthy: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `load-balancing_origin-ip` in responses.
- */
-export const load$$balancing_origin$$ip: JsonSchema = {
-  "type": "string"
 };

@@ -3,50 +3,25 @@
 
 import { type Tool, param, pathParam } from "../_/tool.js";
 import {
-  healthchecks_address,
   healthchecks_api$$response$$collection,
   healthchecks_api$$response$$common,
   healthchecks_api$$response$$common$$failure,
   healthchecks_api$$response$$single,
   healthchecks_check_regions,
-  healthchecks_consecutive_fails,
-  healthchecks_consecutive_successes,
-  healthchecks_description,
-  healthchecks_failure_reason,
   healthchecks_healthchecks,
   healthchecks_http_config,
   healthchecks_id_response,
-  healthchecks_identifier,
-  healthchecks_interval,
   healthchecks_messages,
-  healthchecks_name,
   healthchecks_response_collection,
   healthchecks_result_info,
-  healthchecks_retries,
   healthchecks_single_response,
-  healthchecks_status,
-  healthchecks_suspended,
   healthchecks_tcp_config,
-  healthchecks_timeout,
-  healthchecks_timestamp,
-  healthchecks_type,
 } from "./outputs.js";
 import {
-  healthchecks_address as healthchecks_address$,
   healthchecks_check_regions as healthchecks_check_regions$,
-  healthchecks_consecutive_fails as healthchecks_consecutive_fails$,
-  healthchecks_consecutive_successes as healthchecks_consecutive_successes$,
-  healthchecks_description as healthchecks_description$,
   healthchecks_http_config as healthchecks_http_config$,
-  healthchecks_identifier as healthchecks_identifier$,
-  healthchecks_interval as healthchecks_interval$,
-  healthchecks_name as healthchecks_name$,
   healthchecks_query_healthcheck,
-  healthchecks_retries as healthchecks_retries$,
-  healthchecks_suspended as healthchecks_suspended$,
   healthchecks_tcp_config as healthchecks_tcp_config$,
-  healthchecks_timeout as healthchecks_timeout$,
-  healthchecks_type as healthchecks_type$,
 } from "./schemas.js";
 
 /**
@@ -56,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "healthchecks_create",
     title: "Create Health Check",
-    description: "Create a new health check.",
+    description: "Create a new health check.\n\nPOST /zones/{zone_id}/healthchecks",
     inputSchema: {
       type: "object",
       properties: {
@@ -64,10 +39,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/healthchecks_query_healthcheck"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -80,49 +56,25 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "healthchecks_address": healthchecks_address$,
         "healthchecks_check_regions": healthchecks_check_regions$,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails$,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes$,
-        "healthchecks_description": healthchecks_description$,
         "healthchecks_http_config": healthchecks_http_config$,
-        "healthchecks_identifier": healthchecks_identifier$,
-        "healthchecks_interval": healthchecks_interval$,
-        "healthchecks_name": healthchecks_name$,
         "healthchecks_query_healthcheck": healthchecks_query_healthcheck,
-        "healthchecks_retries": healthchecks_retries$,
-        "healthchecks_suspended": healthchecks_suspended$,
         "healthchecks_tcp_config": healthchecks_tcp_config$,
-        "healthchecks_timeout": healthchecks_timeout$,
-        "healthchecks_type": healthchecks_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/healthchecks_single_response",
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     annotations: {
@@ -155,29 +107,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-common-failure": healthchecks_api$$response$$common$$failure,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     request: (args) => ({
@@ -188,19 +126,20 @@ export const tools: readonly Tool[] = [
   {
     name: "healthchecks_delete",
     title: "Delete Health Check",
-    description: "Delete a health check.",
+    description: "Delete a health check.\n\nDELETE /zones/{zone_id}/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -213,9 +152,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "healthchecks_identifier": healthchecks_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/healthchecks_id_response",
@@ -223,7 +160,6 @@ export const tools: readonly Tool[] = [
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_id_response": healthchecks_id_response,
-        "healthchecks_identifier": healthchecks_identifier,
         "healthchecks_messages": healthchecks_messages,
       },
     },
@@ -261,7 +197,6 @@ export const tools: readonly Tool[] = [
         "healthchecks_api-response-common-failure": healthchecks_api$$response$$common$$failure,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_id_response": healthchecks_id_response,
-        "healthchecks_identifier": healthchecks_identifier,
         "healthchecks_messages": healthchecks_messages,
       },
     },
@@ -272,7 +207,7 @@ export const tools: readonly Tool[] = [
   {
     name: "healthchecks_edit",
     title: "Patch Health Check",
-    description: "Patch a configured health check.",
+    description: "Patch a configured health check.\n\nPATCH /zones/{zone_id}/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -280,14 +215,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/healthchecks_query_healthcheck"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -301,49 +237,25 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "healthchecks_address": healthchecks_address$,
         "healthchecks_check_regions": healthchecks_check_regions$,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails$,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes$,
-        "healthchecks_description": healthchecks_description$,
         "healthchecks_http_config": healthchecks_http_config$,
-        "healthchecks_identifier": healthchecks_identifier$,
-        "healthchecks_interval": healthchecks_interval$,
-        "healthchecks_name": healthchecks_name$,
         "healthchecks_query_healthcheck": healthchecks_query_healthcheck,
-        "healthchecks_retries": healthchecks_retries$,
-        "healthchecks_suspended": healthchecks_suspended$,
         "healthchecks_tcp_config": healthchecks_tcp_config$,
-        "healthchecks_timeout": healthchecks_timeout$,
-        "healthchecks_type": healthchecks_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/healthchecks_single_response",
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     annotations: {
@@ -376,29 +288,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-common-failure": healthchecks_api$$response$$common$$failure,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     request: (args) => ({
@@ -409,19 +307,20 @@ export const tools: readonly Tool[] = [
   {
     name: "healthchecks_get",
     title: "Health Check Details",
-    description: "Fetch a single configured health check.",
+    description: "Fetch a single configured health check.\n\nGET /zones/{zone_id}/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -434,35 +333,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "healthchecks_identifier": healthchecks_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/healthchecks_single_response",
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     annotations: {
@@ -496,29 +379,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-common-failure": healthchecks_api$$response$$common$$failure,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     request: (args) => ({
@@ -528,15 +397,16 @@ export const tools: readonly Tool[] = [
   {
     name: "healthchecks_list",
     title: "List Health Checks",
-    description: "List configured health checks.",
+    description: "List configured health checks.\n\nGET /zones/{zone_id}/healthchecks",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -545,6 +415,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -563,36 +434,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "healthchecks_identifier": healthchecks_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/healthchecks_response_collection",
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-collection": healthchecks_api$$response$$collection,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
         "healthchecks_response_collection": healthchecks_response_collection,
         "healthchecks_result_info": healthchecks_result_info,
-        "healthchecks_retries": healthchecks_retries,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     annotations: {
@@ -626,30 +481,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-collection": healthchecks_api$$response$$collection,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-common-failure": healthchecks_api$$response$$common$$failure,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
         "healthchecks_response_collection": healthchecks_response_collection,
         "healthchecks_result_info": healthchecks_result_info,
-        "healthchecks_retries": healthchecks_retries,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     request: (args) => ({
@@ -663,7 +504,7 @@ export const tools: readonly Tool[] = [
   {
     name: "healthchecks_update",
     title: "Update Health Check",
-    description: "Update a configured health check.",
+    description: "Update a configured health check.\n\nPUT /zones/{zone_id}/healthchecks/{healthcheck_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -671,14 +512,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/healthchecks_query_healthcheck"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "healthcheck_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/healthchecks_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -692,49 +534,25 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "healthchecks_address": healthchecks_address$,
         "healthchecks_check_regions": healthchecks_check_regions$,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails$,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes$,
-        "healthchecks_description": healthchecks_description$,
         "healthchecks_http_config": healthchecks_http_config$,
-        "healthchecks_identifier": healthchecks_identifier$,
-        "healthchecks_interval": healthchecks_interval$,
-        "healthchecks_name": healthchecks_name$,
         "healthchecks_query_healthcheck": healthchecks_query_healthcheck,
-        "healthchecks_retries": healthchecks_retries$,
-        "healthchecks_suspended": healthchecks_suspended$,
         "healthchecks_tcp_config": healthchecks_tcp_config$,
-        "healthchecks_timeout": healthchecks_timeout$,
-        "healthchecks_type": healthchecks_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/healthchecks_single_response",
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     annotations: {
@@ -767,29 +585,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "healthchecks_address": healthchecks_address,
         "healthchecks_api-response-common": healthchecks_api$$response$$common,
         "healthchecks_api-response-common-failure": healthchecks_api$$response$$common$$failure,
         "healthchecks_api-response-single": healthchecks_api$$response$$single,
         "healthchecks_check_regions": healthchecks_check_regions,
-        "healthchecks_consecutive_fails": healthchecks_consecutive_fails,
-        "healthchecks_consecutive_successes": healthchecks_consecutive_successes,
-        "healthchecks_description": healthchecks_description,
-        "healthchecks_failure_reason": healthchecks_failure_reason,
         "healthchecks_healthchecks": healthchecks_healthchecks,
         "healthchecks_http_config": healthchecks_http_config,
-        "healthchecks_identifier": healthchecks_identifier,
-        "healthchecks_interval": healthchecks_interval,
         "healthchecks_messages": healthchecks_messages,
-        "healthchecks_name": healthchecks_name,
-        "healthchecks_retries": healthchecks_retries,
         "healthchecks_single_response": healthchecks_single_response,
-        "healthchecks_status": healthchecks_status,
-        "healthchecks_suspended": healthchecks_suspended,
         "healthchecks_tcp_config": healthchecks_tcp_config,
-        "healthchecks_timeout": healthchecks_timeout,
-        "healthchecks_timestamp": healthchecks_timestamp,
-        "healthchecks_type": healthchecks_type,
       },
     },
     request: (args) => ({

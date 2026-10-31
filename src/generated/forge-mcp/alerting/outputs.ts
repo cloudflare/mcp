@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `aaa_account-id` in responses.
- */
-export const aaa_account$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_api-response-collection` in responses.
  */
 export const aaa_api$$response$$collection: JsonSchema = {
@@ -120,7 +113,7 @@ export const aaa_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/aaa_uuid"
+              "type": "string"
             }
           },
           "type": "object"
@@ -153,13 +146,6 @@ export const aaa_messages$$3: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_policy-id` in responses.
- */
-export const aaa_policy$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_result_info-2` in responses.
  */
 export const aaa_result_info$$2: JsonSchema = {
@@ -178,18 +164,4 @@ export const aaa_result_info$$2: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `aaa_schemas-name` in responses.
- */
-export const aaa_schemas$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_uuid` in responses.
- */
-export const aaa_uuid: JsonSchema = {
-  "type": "string"
 };

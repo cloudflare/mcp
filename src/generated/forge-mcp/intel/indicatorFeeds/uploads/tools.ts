@@ -5,14 +5,9 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   custom$$indicator$$feeds_api$$response$$single,
   custom$$indicator$$feeds_api_response_common_failure,
-  custom$$indicator$$feeds_feed_id,
   custom$$indicator$$feeds_messages,
   custom$$indicator$$feeds_messages$$2,
 } from "../outputs.js";
-import {
-  custom$$indicator$$feeds_feed_id as custom$$indicator$$feeds_feed_id$,
-  custom$$indicator$$feeds_identifier,
-} from "../schemas.js";
 import {
   custom$$indicator$$feeds_upload_status,
   custom$$indicator$$feeds_upload_status_response,
@@ -25,19 +20,20 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_uploads_get",
     title: "Get indicator feed upload status",
-    description: "Polls an asynchronously accepted upload. Continue polling after the\nrecommended `poll_after_seconds` delay until status is `Unified` or\n`Error`. `Unified` is returned only after the durable loader finishes.",
+    description: "Polls an asynchronously accepted upload. Continue polling after the\nrecommended `poll_after_seconds` delay until status is `Unified` or\n`Error`. `Unified` is returned only after the durable loader finishes.\n\nGET /accounts/{account_id}/intel/indicator-feeds/{feed_id}/uploads/{upload_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "feed_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-              "description": "Indicator feed ID"
+              "description": "Indicator feed ID",
+              "type": "integer"
             },
             "upload_id": {
               "type": "integer"
@@ -54,16 +50,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id$,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_upload_status_response",
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
         "custom-indicator-feeds_upload_status": custom$$indicator$$feeds_upload_status,
         "custom-indicator-feeds_upload_status_response": custom$$indicator$$feeds_upload_status_response,
@@ -103,7 +95,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
         "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
         "custom-indicator-feeds_upload_status": custom$$indicator$$feeds_upload_status,

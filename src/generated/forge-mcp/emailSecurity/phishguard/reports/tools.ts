@@ -3,13 +3,11 @@
 
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
-  email$$security_DispositionLabel,
   email$$security_api$$response$$collection,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_messages,
 } from "../../outputs.js";
-import { email$$security_identifier } from "../../schemas.js";
 import {
   email$$security_PhishGuardReport,
   email$$security_PhishGuardReportTag,
@@ -22,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_phishguard_reports_list",
     title: "List PhishGuard reports",
-    description: "Retrieves PhishGuard security alert reports for a specified date range. Reports include detected threats, dispositions, and contextual information. Use for security monitoring and threat analysis.\n\nThis method is beta.",
+    description: "Retrieves PhishGuard security alert reports for a specified date range. Reports include detected threats, dispositions, and contextual information. Use for security monitoring and threat analysis.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/phishguard/reports",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "end": {
               "description": "End of the time range (RFC3339). Takes precedence over to_date.",
@@ -79,9 +79,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -104,7 +102,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
         "email-security_PhishGuardReport": email$$security_PhishGuardReport,
         "email-security_PhishGuardReportTag": email$$security_PhishGuardReportTag,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
@@ -156,7 +153,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
         "email-security_PhishGuardReport": email$$security_PhishGuardReport,
         "email-security_PhishGuardReportTag": email$$security_PhishGuardReportTag,
         "email-security_api-response-collection": email$$security_api$$response$$collection,

@@ -13,10 +13,7 @@ import {
   smartshield_smart_shield_settings_get_response,
   smartshield_smart_shield_settings_patch_response,
 } from "./outputs.js";
-import {
-  smartshield_identifier,
-  smartshield_smart_shield_settings_patch_body,
-} from "./schemas.js";
+import { smartshield_smart_shield_settings_patch_body } from "./schemas.js";
 
 /**
  * The tools of `smartShield`.
@@ -25,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_get",
     title: "Get Smart Shield Settings",
-    description: "Retrieve Smart Shield Settings.",
+    description: "Retrieve Smart Shield Settings.\n\nGET /zones/{zone_id}/smart_shield",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -45,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "smartshield_identifier": smartshield_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -134,7 +130,7 @@ export const tools: readonly Tool[] = [
   {
     name: "smartShield_update",
     title: "Patch Smart Shield Settings",
-    description: "Set Smart Shield Settings.",
+    description: "Set Smart Shield Settings.\n\nPATCH /zones/{zone_id}/smart_shield",
     inputSchema: {
       type: "object",
       properties: {
@@ -142,10 +138,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_smart_shield_settings_patch_body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/smartshield_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -158,8 +155,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "smartshield_identifier": smartshield_identifier,
         "smartshield_smart_shield_settings_patch_body": smartshield_smart_shield_settings_patch_body,
       },
     },

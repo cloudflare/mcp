@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_locations_get",
     title: "Get location details",
-    description: "Retrieves the requested location information. (A confidence level below `5` indicates a low level of confidence in the traffic data - normally this happens because Cloudflare has a small amount of traffic from/to this location).",
+    description: "Retrieves the requested location information. (A confidence level below `5` indicates a low level of confidence in the traffic data - normally this happens because Cloudflare has a small amount of traffic from/to this location).\n\nGET /radar/entities/locations/{location}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "location": {
               "description": "Location alpha-2 code.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -208,11 +211,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_entities_locations_list",
     title: "List locations",
-    description: "Retrieves a list of locations.",
+    description: "Retrieves a list of locations.\n\nGET /radar/entities/locations",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continent": {
               "description": "Filters results by continent code.",
@@ -259,6 +263,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

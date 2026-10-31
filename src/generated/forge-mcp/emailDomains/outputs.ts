@@ -9,7 +9,7 @@ import type { JsonSchema } from "../_/tool.js";
 export const email_email_domain: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/email_identifier"
+      "type": "string"
     },
     "claim_release_at": {
       "format": "date-time",

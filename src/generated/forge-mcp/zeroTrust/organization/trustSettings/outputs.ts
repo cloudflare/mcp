@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_grant_trust_to_all_accounts_in_org` in responses.
- */
-export const access_grant_trust_to_all_accounts_in_org: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_trust_settings_response` in responses.
  */
 export const access_trust_settings_response: JsonSchema = {
@@ -23,7 +16,7 @@ export const access_trust_settings_response: JsonSchema = {
         "result": {
           "properties": {
             "grant_trust_to_all_accounts_in_org": {
-              "$ref": "#/$defs/access_grant_trust_to_all_accounts_in_org"
+              "type": "boolean"
             },
             "trusting_accounts": {
               "$ref": "#/$defs/access_trusting_accounts"

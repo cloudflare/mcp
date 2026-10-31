@@ -54,13 +54,6 @@ export const spectrum$$analytics_dimensions: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-analytics_filters` in responses.
- */
-export const spectrum$$analytics_filters: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-analytics_metrics` in responses.
  */
 export const spectrum$$analytics_metrics: JsonSchema = {
@@ -88,7 +81,7 @@ export const spectrum$$analytics_query: JsonSchema = {
       "$ref": "#/$defs/spectrum-analytics_dimensions"
     },
     "filters": {
-      "$ref": "#/$defs/spectrum-analytics_filters"
+      "type": "string"
     },
     "limit": {
       "type": "number"
@@ -97,13 +90,29 @@ export const spectrum$$analytics_query: JsonSchema = {
       "$ref": "#/$defs/spectrum-analytics_metrics"
     },
     "since": {
-      "$ref": "#/$defs/spectrum-analytics_since"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "sort": {
       "$ref": "#/$defs/spectrum-analytics_sort"
     },
     "until": {
-      "$ref": "#/$defs/spectrum-analytics_until"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
@@ -145,7 +154,8 @@ export const spectrum$$analytics_query$$response$$single: JsonSchema = {
             "time_intervals": {
               "items": {
                 "items": {
-                  "$ref": "#/$defs/spectrum-analytics_timestamp"
+                  "format": "date-time",
+                  "type": "string"
                 },
                 "type": "array"
               },

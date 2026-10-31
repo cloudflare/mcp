@@ -3,9 +3,7 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  teams$$devices_components$$schemas$$uuid,
   teams$$devices_cursor_result_info,
-  teams$$devices_email,
   teams$$devices_empty_body,
   teams$$devices_physical_device,
   teams$$devices_policy_summary,
@@ -14,10 +12,7 @@ import {
   teams$$devices_v4_error_response,
   teams$$devices_v4_response_message,
 } from "./outputs.js";
-import {
-  teams$$devices_physical_device_update_request,
-  teams$$devices_registration_type,
-} from "./schemas.js";
+import { teams$$devices_physical_device_update_request } from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.devices`.
@@ -26,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_delete",
     title: "Delete device",
-    description: "Deletes a WARP device.",
+    description: "Deletes a WARP device.\n\nDELETE /accounts/{account_id}/devices/physical-devices/{device_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -49,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -143,11 +140,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_get",
     title: "Get device",
-    description: "Fetches a single WARP device.",
+    description: "Fetches a single WARP device.\n\nGET /accounts/{account_id}/devices/physical-devices/{device_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -163,9 +161,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include": {
-              "description": "Comma-separated list of additional information that should be included in the device response. Supported values are: \"last_seen_registration.policy\".\n",
+              "description": "Comma-separated list of additional information that should be included in the device response. Supported values are: \"last_seen_registration.policy\".",
               "type": "string"
             }
           },
@@ -175,6 +174,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -205,8 +205,6 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_physical_device": teams$$devices_physical_device,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration_details": teams$$devices_registration_details,
@@ -259,8 +257,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_physical_device": teams$$devices_physical_device,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration_details": teams$$devices_registration_details,
@@ -279,11 +275,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_list",
     title: "List devices",
-    description: "Lists WARP devices.",
+    description: "Lists WARP devices.\n\nGET /accounts/{account_id}/devices/physical-devices",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -295,6 +292,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "active_registrations": {
               "description": "Include or exclude devices with active registrations. The default is \"only\" - return only devices with active registrations.",
@@ -310,8 +308,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "has_registration_type": {
-              "$ref": "#/$defs/teams-devices_registration_type",
-              "description": "Filter by the type of active registration associated with the device."
+              "description": "Filter by the type of active registration associated with the device.",
+              "enum": [
+                "warp",
+                "browser_extension"
+              ],
+              "type": "string"
             },
             "id": {
               "description": "Filter by a one or more device IDs.",
@@ -321,7 +323,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "include": {
-              "description": "Comma-separated list of additional information that should be included in the device response. Supported values are: \"last_seen_registration.policy\".\n",
+              "description": "Comma-separated list of additional information that should be included in the device response. Supported values are: \"last_seen_registration.policy\".",
               "type": "string"
             },
             "last_seen_registration.policy.id": {
@@ -385,9 +387,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "teams-devices_registration_type": teams$$devices_registration_type,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -424,9 +424,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
         "teams-devices_cursor_result_info": teams$$devices_cursor_result_info,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_physical_device": teams$$devices_physical_device,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration_details": teams$$devices_registration_details,
@@ -485,9 +483,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
         "teams-devices_cursor_result_info": teams$$devices_cursor_result_info,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_physical_device": teams$$devices_physical_device,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration_details": teams$$devices_registration_details,
@@ -519,7 +515,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_update",
     title: "Update device",
-    description: "Updates properties of a WARP device.\n\nThis method is beta.",
+    description: "Updates properties of a WARP device.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/devices/physical-devices/{device_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -527,6 +523,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/teams-devices_physical_device_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -546,6 +543,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "teams-devices_physical_device_update_request": teams$$devices_physical_device_update_request,
       },
@@ -579,8 +577,6 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_physical_device": teams$$devices_physical_device,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration_details": teams$$devices_registration_details,
@@ -639,8 +635,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_components-schemas-uuid": teams$$devices_components$$schemas$$uuid,
-        "teams-devices_email": teams$$devices_email,
         "teams-devices_physical_device": teams$$devices_physical_device,
         "teams-devices_policy_summary": teams$$devices_policy_summary,
         "teams-devices_registration_details": teams$$devices_registration_details,

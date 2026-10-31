@@ -3,13 +3,10 @@
 
 import { type Tool, param, pathParam } from "../../../_/tool.js";
 import {
-  posture$$api_CredentialHealthStatusEnum,
   posture$$api_DlpContext,
   posture$$api_ExportJob,
-  posture$$api_ExportJobTypeEnum,
   posture$$api_IntegrationPolicy,
   posture$$api_IntegrationSummary,
-  posture$$api_StatusEnum,
   posture$$api_Vendor,
   posture$$api_ZeroTrustProduct,
   posture$$api_api$$response$$collection,
@@ -18,10 +15,6 @@ import {
   posture$$api_messages,
   posture$$api_result$$info,
 } from "../outputs.js";
-import {
-  posture$$api_DirectionEnum,
-  posture$$api_VendorsEnum,
-} from "../schemas.js";
 import {
   posture$$api_ContentAsset,
   posture$$api_PaginatedContentAssetList,
@@ -41,7 +34,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_content_export",
     title: "Create a content export",
-    description: "Creates a CSV export for content and accepts optional filters in the payload.",
+    description: "Creates a CSV export for content and accepts optional filters in the payload.\n\nPOST /accounts/{account_id}/data-security/posture/content/export",
     inputSchema: {
       type: "object",
       properties: {
@@ -49,6 +42,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_ContentExportRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -64,22 +58,19 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_ContentExportRequest": posture$$api_ContentExportRequest,
         "posture-api_ContentOrder": posture$$api_ContentOrder,
         "posture-api_DLPProfile": posture$$api_DLPProfile,
         "posture-api_DLPProfileEntry": posture$$api_DLPProfileEntry,
-        "posture-api_DirectionEnum": posture$$api_DirectionEnum,
         "posture-api_Order": posture$$api_Order,
-        "posture-api_VendorsEnum": posture$$api_VendorsEnum,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -112,8 +103,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -127,11 +116,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_content_list",
     title: "List DLP content findings",
-    description: "List DLP content findings",
+    description: "List DLP content findings\n\nGET /accounts/{account_id}/data-security/posture/content",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -144,6 +134,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "Direction to order results.",
@@ -196,8 +187,27 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "vendor": {
-              "$ref": "#/$defs/posture-api_VendorsEnum",
-              "description": "Filter by vendor"
+              "description": "Filter by vendor",
+              "enum": [
+                "ANTHROPIC",
+                "AWS",
+                "BITBUCKET",
+                "BOX",
+                "CONFLUENCE",
+                "DROPBOX",
+                "GITHUB",
+                "GOOGLE_CLOUD_PLATFORM",
+                "GOOGLE_WORKSPACE",
+                "JIRA",
+                "MICROSOFT",
+                "MICROSOFT_INTERNAL",
+                "OPENAI",
+                "SALESFORCE",
+                "SERVICENOW",
+                "SLACK",
+                "ZOOM"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -206,15 +216,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "posture-api_VendorsEnum": posture$$api_VendorsEnum,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_PaginatedContentAssetList",
       $defs: {
         "posture-api_ContentAsset": posture$$api_ContentAsset,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,
@@ -253,7 +260,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ContentAsset": posture$$api_ContentAsset,
-        "posture-api_CredentialHealthStatusEnum": posture$$api_CredentialHealthStatusEnum,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_IntegrationPolicy": posture$$api_IntegrationPolicy,
         "posture-api_IntegrationSummary": posture$$api_IntegrationSummary,

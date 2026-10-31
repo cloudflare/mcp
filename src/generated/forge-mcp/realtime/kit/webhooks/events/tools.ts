@@ -6,10 +6,6 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
 import { realtimekit_WebhookEventsSuccessResponse } from "./outputs.js";
 
 /**
@@ -19,19 +15,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_events_list",
     title: "Fetch all supported webhook events",
-    description: "Returns the list of webhook event names supported by RealtimeKit.\n\nThis method is beta.",
+    description: "Returns the list of webhook event names supported by RealtimeKit.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/webhooks/all",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,10 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookEventsSuccessResponse",

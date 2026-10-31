@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_ases_browserFamily_get",
     title: "Get top ASes by HTTP requests for a browser family",
-    description: "Retrieves the top autonomous systems, by HTTP requests, of the requested browser family.",
+    description: "Retrieves the top autonomous systems, by HTTP requests, of the requested browser family.\n\nGET /radar/http/top/ases/browser_family/{browser_family}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "browser_family": {
               "description": "Browser family.",
@@ -33,6 +34,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -199,6 +201,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -9,10 +9,8 @@ import {
   secrets$$store_messages,
 } from "../outputs.js";
 import {
-  secrets$$store_quota,
   secrets$$store_quota_response,
   secrets$$store_secretsUsageObject,
-  secrets$$store_usage,
   secrets$$store_usageQuotaObject,
 } from "./outputs.js";
 
@@ -23,11 +21,12 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_quota_get",
     title: "View secret usage",
-    description: "Lists the number of secrets used in the account.\n\nThis method is beta.",
+    description: "Lists the number of secrets used in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/quota",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account identifier.",
@@ -43,6 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_quota_response",
@@ -50,10 +50,8 @@ export const tools: readonly Tool[] = [
         "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_quota": secrets$$store_quota,
         "secrets-store_quota_response": secrets$$store_quota_response,
         "secrets-store_secretsUsageObject": secrets$$store_secretsUsageObject,
-        "secrets-store_usage": secrets$$store_usage,
         "secrets-store_usageQuotaObject": secrets$$store_usageQuotaObject,
       },
     },
@@ -93,10 +91,8 @@ export const tools: readonly Tool[] = [
         "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
         "secrets-store_messages": secrets$$store_messages,
-        "secrets-store_quota": secrets$$store_quota,
         "secrets-store_quota_response": secrets$$store_quota_response,
         "secrets-store_secretsUsageObject": secrets$$store_secretsUsageObject,
-        "secrets-store_usage": secrets$$store_usage,
         "secrets-store_usageQuotaObject": secrets$$store_usageQuotaObject,
       },
     },

@@ -45,11 +45,8 @@ import {
   workers_binding_kind_vpc_service,
   workers_binding_kind_wasm_module,
   workers_binding_kind_workflow,
-  workers_binding_name,
   workers_bindings,
   workers_cache_options,
-  workers_compatibility_date,
-  workers_compatibility_flag,
   workers_compatibility_flags,
   workers_durable_object_deleted_export,
   workers_durable_object_expecting_transfer_export,
@@ -59,14 +56,12 @@ import {
   workers_durable_object_transferred_export,
   workers_entrypoint_cache_options,
   workers_export_config,
-  workers_export_storage,
   workers_exports_config_map,
   workers_exports_reconciliation_error,
   workers_exports_reconciliation_error_response,
   workers_exports_reconciliation_info,
   workers_exports_reconciliation_rename,
   workers_exports_reconciliation_result,
-  workers_exports_reconciliation_scenario,
   workers_exports_reconciliation_transfer,
   workers_exports_reconciliation_transfer_pending,
   workers_exports_reconciliation_warning,
@@ -74,7 +69,6 @@ import {
   workers_migration_step,
   workers_migration_tag_conditions,
   workers_multiple_step_migrations,
-  workers_namespace_identifier,
   workers_placement_info_no_status,
   workers_placement_target,
   workers_single_step_migrations,
@@ -120,11 +114,8 @@ import {
   workers_binding_kind_vpc_service as workers_binding_kind_vpc_service$,
   workers_binding_kind_wasm_module as workers_binding_kind_wasm_module$,
   workers_binding_kind_workflow as workers_binding_kind_workflow$,
-  workers_binding_name as workers_binding_name$,
   workers_bindings as workers_bindings$,
   workers_cache_options as workers_cache_options$,
-  workers_compatibility_date as workers_compatibility_date$,
-  workers_compatibility_flag as workers_compatibility_flag$,
   workers_compatibility_flags as workers_compatibility_flags$,
   workers_durable_object_deleted_export as workers_durable_object_deleted_export$,
   workers_durable_object_expecting_transfer_export as workers_durable_object_expecting_transfer_export$,
@@ -134,20 +125,16 @@ import {
   workers_durable_object_transferred_export as workers_durable_object_transferred_export$,
   workers_entrypoint_cache_options as workers_entrypoint_cache_options$,
   workers_export_config as workers_export_config$,
-  workers_export_storage as workers_export_storage$,
   workers_exports_config_map as workers_exports_config_map$,
   workers_exports_reconciliation_info as workers_exports_reconciliation_info$,
   workers_exports_reconciliation_rename as workers_exports_reconciliation_rename$,
   workers_exports_reconciliation_result as workers_exports_reconciliation_result$,
-  workers_exports_reconciliation_scenario as workers_exports_reconciliation_scenario$,
   workers_exports_reconciliation_transfer as workers_exports_reconciliation_transfer$,
   workers_exports_reconciliation_transfer_pending as workers_exports_reconciliation_transfer_pending$,
   workers_exports_reconciliation_warning as workers_exports_reconciliation_warning$,
-  workers_identifier,
   workers_migration_step as workers_migration_step$,
   workers_migration_tag_conditions as workers_migration_tag_conditions$,
   workers_multiple_step_migrations as workers_multiple_step_migrations$,
-  workers_namespace_identifier as workers_namespace_identifier$,
   workers_placement_info_no_status as workers_placement_info_no_status$,
   workers_placement_target as workers_placement_target$,
   workers_single_step_migrations as workers_single_step_migrations$,
@@ -173,7 +160,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_versions_create",
     title: "Create Worker Version",
-    description: "Create a new version for a Worker.",
+    description: "Create a new version for a Worker.\n\nPOST /accounts/{account_id}/workers/workers/{worker_id}/versions",
     inputSchema: {
       type: "object",
       properties: {
@@ -182,10 +169,11 @@ export const tools: readonly Tool[] = [
           "description": "Version creation parameters."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -199,6 +187,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "deploy": {
               "description": "If true, a deployment will be created that sends 100% of traffic to the new version.",
@@ -212,6 +201,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "workers_Version": workers_Version$,
         "workers_binding_item": workers_binding_item$,
@@ -253,11 +243,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service$,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module$,
         "workers_binding_kind_workflow": workers_binding_kind_workflow$,
-        "workers_binding_name": workers_binding_name$,
         "workers_bindings": workers_bindings$,
         "workers_cache_options": workers_cache_options$,
-        "workers_compatibility_date": workers_compatibility_date$,
-        "workers_compatibility_flag": workers_compatibility_flag$,
         "workers_compatibility_flags": workers_compatibility_flags$,
         "workers_container_item": workers_container_item$,
         "workers_containers": workers_containers$,
@@ -269,20 +256,16 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export$,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options$,
         "workers_export_config": workers_export_config$,
-        "workers_export_storage": workers_export_storage$,
         "workers_exports_config_map": workers_exports_config_map$,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info$,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename$,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result$,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario$,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer$,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending$,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning$,
-        "workers_identifier": workers_identifier,
         "workers_migration_step": workers_migration_step$,
         "workers_migration_tag_conditions": workers_migration_tag_conditions$,
         "workers_multiple_step_migrations": workers_multiple_step_migrations$,
-        "workers_namespace_identifier": workers_namespace_identifier$,
         "workers_placement_info_no_status": workers_placement_info_no_status$,
         "workers_placement_target": workers_placement_target$,
         "workers_single_step_migrations": workers_single_step_migrations$,
@@ -348,11 +331,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
         "workers_container_item": workers_container_item,
         "workers_containers": workers_containers,
@@ -364,12 +344,10 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
@@ -377,7 +355,6 @@ export const tools: readonly Tool[] = [
         "workers_migration_step": workers_migration_step,
         "workers_migration_tag_conditions": workers_migration_tag_conditions,
         "workers_multiple_step_migrations": workers_multiple_step_migrations,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
         "workers_single_step_migrations": workers_single_step_migrations,
@@ -479,11 +456,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
         "workers_container_item": workers_container_item,
         "workers_containers": workers_containers,
@@ -495,14 +469,12 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_error": workers_exports_reconciliation_error,
         "workers_exports_reconciliation_error_response": workers_exports_reconciliation_error_response,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
@@ -510,7 +482,6 @@ export const tools: readonly Tool[] = [
         "workers_migration_step": workers_migration_step,
         "workers_migration_tag_conditions": workers_migration_tag_conditions,
         "workers_multiple_step_migrations": workers_multiple_step_migrations,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
         "workers_single_step_migrations": workers_single_step_migrations,
@@ -528,15 +499,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_versions_delete",
     title: "Delete Worker Version",
-    description: "Delete a Worker version.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker version.",
+    description: "Delete a Worker version.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker version.\n\nDELETE /accounts/{account_id}/workers/workers/{worker_id}/versions/{version_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "version_id": {
               "description": "Identifier for the version, which can be a UUID, a UUID prefix (minimum length 8), or the literal \"latest\" to operate on the most recently created version.",
@@ -558,9 +530,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -608,15 +578,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_versions_get",
     title: "Get Worker Version",
-    description: "Get details about a specific Worker version.",
+    description: "Get details about a specific Worker version.\n\nGET /accounts/{account_id}/workers/workers/{worker_id}/versions/{version_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "version_id": {
               "description": "Identifier for the version, which can be a UUID, a UUID prefix (minimum length 8), or the literal \"latest\" to operate on the most recently created version.",
@@ -635,6 +606,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include": {
               "description": "Whether to include the `modules` property of the version in the response, which contains code and sourcemap content and may add several megabytes to the response size.",
@@ -650,9 +622,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -713,11 +683,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
         "workers_container_item": workers_container_item,
         "workers_containers": workers_containers,
@@ -729,12 +696,10 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
@@ -742,7 +707,6 @@ export const tools: readonly Tool[] = [
         "workers_migration_step": workers_migration_step,
         "workers_migration_tag_conditions": workers_migration_tag_conditions,
         "workers_multiple_step_migrations": workers_multiple_step_migrations,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
         "workers_single_step_migrations": workers_single_step_migrations,
@@ -838,11 +802,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
         "workers_container_item": workers_container_item,
         "workers_containers": workers_containers,
@@ -854,12 +815,10 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
@@ -867,7 +826,6 @@ export const tools: readonly Tool[] = [
         "workers_migration_step": workers_migration_step,
         "workers_migration_tag_conditions": workers_migration_tag_conditions,
         "workers_multiple_step_migrations": workers_multiple_step_migrations,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
         "workers_single_step_migrations": workers_single_step_migrations,
@@ -884,15 +842,16 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_versions_list",
     title: "List Worker Versions",
-    description: "List all versions for a Worker.",
+    description: "List all versions for a Worker.\n\nGET /accounts/{account_id}/workers/workers/{worker_id}/versions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "worker_id": {
               "description": "Identifier for the Worker, which can be ID or name.",
@@ -906,6 +865,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -924,9 +884,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -991,11 +949,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
         "workers_container_item": workers_container_item,
         "workers_containers": workers_containers,
@@ -1007,12 +962,10 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
@@ -1020,7 +973,6 @@ export const tools: readonly Tool[] = [
         "workers_migration_step": workers_migration_step,
         "workers_migration_tag_conditions": workers_migration_tag_conditions,
         "workers_multiple_step_migrations": workers_multiple_step_migrations,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
         "workers_single_step_migrations": workers_single_step_migrations,
@@ -1122,11 +1074,8 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
-        "workers_binding_name": workers_binding_name,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
         "workers_container_item": workers_container_item,
         "workers_containers": workers_containers,
@@ -1138,12 +1087,10 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
         "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
         "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
         "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
         "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
         "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
         "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
@@ -1151,7 +1098,6 @@ export const tools: readonly Tool[] = [
         "workers_migration_step": workers_migration_step,
         "workers_migration_tag_conditions": workers_migration_tag_conditions,
         "workers_multiple_step_migrations": workers_multiple_step_migrations,
-        "workers_namespace_identifier": workers_namespace_identifier,
         "workers_placement_info_no_status": workers_placement_info_no_status,
         "workers_placement_target": workers_placement_target,
         "workers_single_step_migrations": workers_single_step_migrations,
@@ -1169,7 +1115,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_versions_profile",
     title: "Profile Worker Version",
-    description: "Captures a CPU or heap profile from a recently active isolate running the specified Worker version. This endpoint requires the Worker profiling feature to be enabled for the account.\n\nThis method is alpha.",
+    description: "Captures a CPU or heap profile from a recently active isolate running the specified Worker version. This endpoint requires the Worker profiling feature to be enabled for the account.\n\nThis method is alpha.\n\nPOST /accounts/{account_id}/workers/workers/{worker_id}/versions/{version_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
@@ -1202,10 +1148,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "version_id": {
               "description": "Identifies the version by UUID or UUID prefix with a minimum length of eight characters. Use \"latest\" to select the most recently created version, which may not be deployed. Use \"latest-deployed\" to profile a version in the active deployment. Versions are tried in order of traffic share until one has a loaded isolate.",
@@ -1228,9 +1175,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

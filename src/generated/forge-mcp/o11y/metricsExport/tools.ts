@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_metricsExport_list",
     title: "List Metrics Exports",
-    description: "List resources configured for Workers Observability metrics export.",
+    description: "List resources configured for Workers Observability metrics export.\n\nGET /accounts/{account_id}/workers/observability/metricsexport",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -327,7 +329,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_metricsExport_upsert",
     title: "Upsert Metrics Exports",
-    description: "Create or replace resources configured for Workers Observability metrics export.",
+    description: "Create or replace resources configured for Workers Observability metrics export.\n\nPOST /accounts/{account_id}/workers/observability/metricsexport",
     inputSchema: {
       type: "object",
       properties: {
@@ -391,6 +393,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -406,6 +409,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

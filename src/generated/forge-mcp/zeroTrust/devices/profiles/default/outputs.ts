@@ -9,31 +9,31 @@ import type { JsonSchema } from "../../../../_/tool.js";
 export const teams$$devices_default_device_settings_policy: JsonSchema = {
   "properties": {
     "allow_mode_switch": {
-      "$ref": "#/$defs/teams-devices_allow_mode_switch"
+      "type": "boolean"
     },
     "allow_updates": {
-      "$ref": "#/$defs/teams-devices_allow_updates"
+      "type": "boolean"
     },
     "allowed_to_leave": {
-      "$ref": "#/$defs/teams-devices_allowed_to_leave"
+      "type": "boolean"
     },
     "auto_connect": {
-      "$ref": "#/$defs/teams-devices_auto_connect"
+      "type": "number"
     },
     "captive_portal": {
-      "$ref": "#/$defs/teams-devices_captive_portal"
+      "type": "number"
     },
     "default": {
       "type": "boolean"
     },
     "disable_auto_fallback": {
-      "$ref": "#/$defs/teams-devices_disable_auto_fallback"
+      "type": "boolean"
     },
     "dns_search_suffixes": {
       "$ref": "#/$defs/teams-devices_dns_search_suffixes"
     },
     "enable_device_credential_authentication": {
-      "$ref": "#/$defs/teams-devices_enable_device_credential_authentication"
+      "type": "boolean"
     },
     "enabled": {
       "type": "boolean"
@@ -42,13 +42,13 @@ export const teams$$devices_default_device_settings_policy: JsonSchema = {
       "$ref": "#/$defs/teams-devices_exclude"
     },
     "exclude_office_ips": {
-      "$ref": "#/$defs/teams-devices_exclude_office_ips"
+      "type": "boolean"
     },
     "fallback_domains": {
       "$ref": "#/$defs/teams-devices_fallback_domains"
     },
     "gateway_unique_id": {
-      "$ref": "#/$defs/teams-devices_gateway_unique_id"
+      "type": "string"
     },
     "global_acceleration": {
       "$ref": "#/$defs/teams-devices_global_acceleration"
@@ -57,31 +57,35 @@ export const teams$$devices_default_device_settings_policy: JsonSchema = {
       "$ref": "#/$defs/teams-devices_include"
     },
     "policy_id": {
-      "$ref": "#/$defs/teams-devices_schemas-uuid"
+      "type": "string"
     },
     "profile_type": {
-      "$ref": "#/$defs/teams-devices_profile_type"
+      "enum": [
+        "warp",
+        "browser_extension"
+      ],
+      "type": "string"
     },
     "register_interface_ip_with_dns": {
-      "$ref": "#/$defs/teams-devices_register_interface_ip_with_dns"
+      "type": "boolean"
     },
     "sccm_vpn_boundary_support": {
-      "$ref": "#/$defs/teams-devices_sccm_vpn_boundary_support"
+      "type": "boolean"
     },
     "service_mode_v2": {
       "$ref": "#/$defs/teams-devices_service_mode_v2"
     },
     "support_url": {
-      "$ref": "#/$defs/teams-devices_support_url"
+      "type": "string"
     },
     "switch_locked": {
-      "$ref": "#/$defs/teams-devices_switch_locked"
+      "type": "boolean"
     },
     "tunnel_protocol": {
-      "$ref": "#/$defs/teams-devices_tunnel_protocol"
+      "type": "string"
     },
     "uninstall_protection": {
-      "$ref": "#/$defs/teams-devices_uninstall_protection"
+      "type": "boolean"
     },
     "virtual_networks": {
       "$ref": "#/$defs/teams-devices_virtual_networks"

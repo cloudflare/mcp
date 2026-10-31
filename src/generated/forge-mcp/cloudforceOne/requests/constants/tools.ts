@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_constants_get",
     title: "Get request constants",
-    description: "Returns available priorities, statuses, and TLP levels for request workflows",
+    description: "Returns available priorities, statuses, and TLP levels for request workflows\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/constants",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

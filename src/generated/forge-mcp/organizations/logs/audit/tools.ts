@@ -10,8 +10,6 @@ import {
   aaa_audit$$logs$$response$$collection,
   aaa_audit$$logs$$v2$$history$$not$$found,
   aaa_audit$$logs$$v2$$history$$result$$info,
-  aaa_history$$status,
-  aaa_identifier$$2,
   aaa_messages$$2,
   aaa_result_info,
 } from "../../../outputs.js";
@@ -28,11 +26,12 @@ export const tools: readonly Tool[] = [
   {
     name: "organizations_logs_audit_get",
     title: "Get organization audit logs (Version 2)",
-    description: "Gets a list of audit logs for an organization.",
+    description: "Gets a list of audit logs for an organization.\n\nGET /organizations/{organization_id}/logs/audit",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
               "description": "The unique id that identifies the organization.",
@@ -45,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "action_result": {
               "description": "Filters by whether the action was successful or not.",
@@ -95,7 +95,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "actor_context": {
-              "description": "Filters by the actor context.\n- `api`: The action was performed through the API. The specific credential type was not recorded.\n- `api_key`: The action was authenticated with a Cloudflare Global API Key.\n- `api_token`: The action was authenticated with an API token.\n- `dash`: The action was performed through the Cloudflare dashboard.\n- `oauth`: The action was authenticated with an OAuth token.\n- `origin_ca_key`: The action was authenticated with an Origin CA key.\n",
+              "description": "Filters by the actor context.\n- `api`: The action was performed through the API. The specific credential type was not recorded.\n- `api_key`: The action was authenticated with a Cloudflare Global API Key.\n- `api_token`: The action was authenticated with an API token.\n- `dash`: The action was performed through the Cloudflare dashboard.\n- `oauth`: The action was authenticated with an OAuth token.\n- `origin_ca_key`: The action was authenticated with an Origin CA key.",
               "items": {
                 "enum": [
                   "api",
@@ -110,7 +110,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "actor_context.not": {
-              "description": "Filters out audit logs by the actor context.\n- `api`: The action was performed through the API. The specific credential type was not recorded.\n- `api_key`: The action was authenticated with a Cloudflare Global API Key.\n- `api_token`: The action was authenticated with an API token.\n- `dash`: The action was performed through the Cloudflare dashboard.\n- `oauth`: The action was authenticated with an OAuth token.\n- `origin_ca_key`: The action was authenticated with an Origin CA key.\n",
+              "description": "Filters out audit logs by the actor context.\n- `api`: The action was performed through the API. The specific credential type was not recorded.\n- `api_key`: The action was authenticated with a Cloudflare Global API Key.\n- `api_token`: The action was authenticated with an API token.\n- `dash`: The action was performed through the Cloudflare dashboard.\n- `oauth`: The action was authenticated with an OAuth token.\n- `origin_ca_key`: The action was authenticated with an Origin CA key.",
               "items": {
                 "enum": [
                   "api",
@@ -390,6 +390,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_audit-logs-v2-org-response-collection",
@@ -400,7 +401,6 @@ export const tools: readonly Tool[] = [
         "aaa_audit-logs-response-collection": aaa_audit$$logs$$response$$collection,
         "aaa_audit-logs-v2-org": aaa_audit$$logs$$v2$$org,
         "aaa_audit-logs-v2-org-response-collection": aaa_audit$$logs$$v2$$org$$response$$collection,
-        "aaa_identifier-2": aaa_identifier$$2,
         "aaa_messages-2": aaa_messages$$2,
         "aaa_result_info": aaa_result_info,
       },
@@ -439,7 +439,6 @@ export const tools: readonly Tool[] = [
         "aaa_audit-logs-response-collection": aaa_audit$$logs$$response$$collection,
         "aaa_audit-logs-v2-org": aaa_audit$$logs$$v2$$org,
         "aaa_audit-logs-v2-org-response-collection": aaa_audit$$logs$$v2$$org$$response$$collection,
-        "aaa_identifier-2": aaa_identifier$$2,
         "aaa_messages-2": aaa_messages$$2,
         "aaa_result_info": aaa_result_info,
       },
@@ -494,11 +493,12 @@ export const tools: readonly Tool[] = [
   {
     name: "organizations_logs_audit_history",
     title: "Get resource change history from an organization audit log entry (Version 2)",
-    description: "Returns the chronological change history for the resource identified by the given organization-scoped audit log entry.\n\nThe endpoint first locates the source audit log entry by `id` (using `action_time` to narrow the lookup window), derives identifying filters from that entry, and then returns matching audit logs within the `since`/`before` window.\n\nThe `result_info.history_status` field indicates the quality of the resource identification used:\n- `exact`: Resource was identified by the resource URI.\n- `approximate`: Resource was identified without the resource URI.\n- `unavailable`: The source audit log entry did not contain enough information to identify the resource; an empty result is returned.",
+    description: "Returns the chronological change history for the resource identified by the given organization-scoped audit log entry.\n\nThe endpoint first locates the source audit log entry by `id` (using `action_time` to narrow the lookup window), derives identifying filters from that entry, and then returns matching audit logs within the `since`/`before` window.\n\nThe `result_info.history_status` field indicates the quality of the resource identification used:\n- `exact`: Resource was identified by the resource URI.\n- `approximate`: Resource was identified without the resource URI.\n- `unavailable`: The source audit log entry did not contain enough information to identify the resource; an empty result is returned.\n\nGET /organizations/{organization_id}/logs/audit/{id}/history",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "id": {
               "description": "The ID of the audit log to fetch resource history for.",
@@ -517,6 +517,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "action_time": {
               "description": "RFC3339 timestamp of the source audit log entry's action time. Used to narrow the source-entry lookup window. Provide the `action.time` value from the audit log identified by `id`.",
@@ -564,6 +565,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_audit-logs-v2-org-history-response-collection",
@@ -574,8 +576,6 @@ export const tools: readonly Tool[] = [
         "aaa_audit-logs-v2-history-result-info": aaa_audit$$logs$$v2$$history$$result$$info,
         "aaa_audit-logs-v2-org": aaa_audit$$logs$$v2$$org,
         "aaa_audit-logs-v2-org-history-response-collection": aaa_audit$$logs$$v2$$org$$history$$response$$collection,
-        "aaa_history-status": aaa_history$$status,
-        "aaa_identifier-2": aaa_identifier$$2,
         "aaa_messages-2": aaa_messages$$2,
       },
     },
@@ -617,8 +617,6 @@ export const tools: readonly Tool[] = [
         "aaa_audit-logs-v2-history-result-info": aaa_audit$$logs$$v2$$history$$result$$info,
         "aaa_audit-logs-v2-org": aaa_audit$$logs$$v2$$org,
         "aaa_audit-logs-v2-org-history-response-collection": aaa_audit$$logs$$v2$$org$$history$$response$$collection,
-        "aaa_history-status": aaa_history$$status,
-        "aaa_identifier-2": aaa_identifier$$2,
         "aaa_messages-2": aaa_messages$$2,
       },
     },

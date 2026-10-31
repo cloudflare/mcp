@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_raw_get",
     title: "Get raw data for an event",
-    description: "Returns the raw source data stored with an event.",
+    description: "Returns the raw source data stored with an event.\n\nGET /accounts/{account_id}/cloudforce-one/events/datasets/{dataset_id}/events/{event_id}/raw",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -40,6 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

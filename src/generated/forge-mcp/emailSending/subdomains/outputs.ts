@@ -9,7 +9,8 @@ import type { JsonSchema } from "../../_/tool.js";
 export const email_sending_subdomain: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/email_created"
+      "format": "date-time",
+      "type": "string"
     },
     "dkim_selector": {
       "type": "string"
@@ -21,7 +22,8 @@ export const email_sending_subdomain: JsonSchema = {
       "type": "boolean"
     },
     "modified": {
-      "$ref": "#/$defs/email_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -33,7 +35,7 @@ export const email_sending_subdomain: JsonSchema = {
       "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_sending_subdomain_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -86,13 +88,6 @@ export const email_sending_subdomain_config_error: JsonSchema = {
     "code"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email_sending_subdomain_identifier` in responses.
- */
-export const email_sending_subdomain_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**

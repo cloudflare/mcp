@@ -15,11 +15,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_applications_authMethods_list",
     title: "Get auth methods",
-    description: "Returns available auth methods for the specified vendor, including credential schema, instructions, and example payloads. Use this to understand what credentials are required before calling POST /v2/integrations.",
+    description: "Returns available auth methods for the specified vendor, including credential schema, instructions, and example payloads. Use this to understand what credentials are required before calling POST /v2/integrations.\n\nGET /accounts/{account_id}/one/applications/{application_id}/auth-methods",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -55,6 +56,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "description": "A page number within the paginated result set.",
@@ -71,6 +73,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_PaginatedAuthMethodDetailList",

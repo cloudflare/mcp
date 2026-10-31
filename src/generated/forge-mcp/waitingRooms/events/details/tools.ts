@@ -7,32 +7,10 @@ import {
   waitingroom_api$$response$$common$$failure,
   waitingroom_api$$response$$single,
   waitingroom_messages,
-  waitingroom_timestamp,
 } from "../../outputs.js";
 import {
-  waitingroom_identifier,
-  waitingroom_waiting_room_id,
-} from "../../schemas.js";
-import {
-  waitingroom_event_description,
-  waitingroom_event_end_time,
-  waitingroom_event_id,
-  waitingroom_event_name,
-  waitingroom_event_prequeue_start_time,
-  waitingroom_event_shuffle_at_event_start,
-  waitingroom_event_start_time,
-  waitingroom_event_suspended,
-} from "../outputs.js";
-import { waitingroom_event_id as waitingroom_event_id$ } from "../schemas.js";
-import {
-  waitingroom_event_details_custom_page_html,
-  waitingroom_event_details_disable_session_renewal,
-  waitingroom_event_details_new_users_per_minute,
-  waitingroom_event_details_queueing_method,
   waitingroom_event_details_response,
   waitingroom_event_details_result,
-  waitingroom_event_details_session_duration,
-  waitingroom_event_details_total_active_users,
 } from "./outputs.js";
 
 /**
@@ -42,21 +20,22 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_events_details_get",
     title: "Preview active event details",
-    description: "Previews an event's configuration as if it was active. Inherited fields from the waiting room will be displayed with their current values.",
+    description: "Previews an event's configuration as if it was active. Inherited fields from the waiting room will be displayed with their current values.\n\nGET /zones/{zone_id}/waiting_rooms/{waiting_room_id}/events/{event_id}/details",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "event_id": {
-              "$ref": "#/$defs/waitingroom_event_id"
+              "type": "string"
             },
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -70,35 +49,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waitingroom_event_id": waitingroom_event_id$,
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_event_details_response",
       $defs: {
         "waitingroom_api-response-common": waitingroom_api$$response$$common,
         "waitingroom_api-response-single": waitingroom_api$$response$$single,
-        "waitingroom_event_description": waitingroom_event_description,
-        "waitingroom_event_details_custom_page_html": waitingroom_event_details_custom_page_html,
-        "waitingroom_event_details_disable_session_renewal": waitingroom_event_details_disable_session_renewal,
-        "waitingroom_event_details_new_users_per_minute": waitingroom_event_details_new_users_per_minute,
-        "waitingroom_event_details_queueing_method": waitingroom_event_details_queueing_method,
         "waitingroom_event_details_response": waitingroom_event_details_response,
         "waitingroom_event_details_result": waitingroom_event_details_result,
-        "waitingroom_event_details_session_duration": waitingroom_event_details_session_duration,
-        "waitingroom_event_details_total_active_users": waitingroom_event_details_total_active_users,
-        "waitingroom_event_end_time": waitingroom_event_end_time,
-        "waitingroom_event_id": waitingroom_event_id,
-        "waitingroom_event_name": waitingroom_event_name,
-        "waitingroom_event_prequeue_start_time": waitingroom_event_prequeue_start_time,
-        "waitingroom_event_shuffle_at_event_start": waitingroom_event_shuffle_at_event_start,
-        "waitingroom_event_start_time": waitingroom_event_start_time,
-        "waitingroom_event_suspended": waitingroom_event_suspended,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     annotations: {
@@ -142,24 +102,9 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common": waitingroom_api$$response$$common,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_api-response-single": waitingroom_api$$response$$single,
-        "waitingroom_event_description": waitingroom_event_description,
-        "waitingroom_event_details_custom_page_html": waitingroom_event_details_custom_page_html,
-        "waitingroom_event_details_disable_session_renewal": waitingroom_event_details_disable_session_renewal,
-        "waitingroom_event_details_new_users_per_minute": waitingroom_event_details_new_users_per_minute,
-        "waitingroom_event_details_queueing_method": waitingroom_event_details_queueing_method,
         "waitingroom_event_details_response": waitingroom_event_details_response,
         "waitingroom_event_details_result": waitingroom_event_details_result,
-        "waitingroom_event_details_session_duration": waitingroom_event_details_session_duration,
-        "waitingroom_event_details_total_active_users": waitingroom_event_details_total_active_users,
-        "waitingroom_event_end_time": waitingroom_event_end_time,
-        "waitingroom_event_id": waitingroom_event_id,
-        "waitingroom_event_name": waitingroom_event_name,
-        "waitingroom_event_prequeue_start_time": waitingroom_event_prequeue_start_time,
-        "waitingroom_event_shuffle_at_event_start": waitingroom_event_shuffle_at_event_start,
-        "waitingroom_event_start_time": waitingroom_event_start_time,
-        "waitingroom_event_suspended": waitingroom_event_suspended,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     request: (args) => ({

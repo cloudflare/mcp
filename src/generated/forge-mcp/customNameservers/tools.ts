@@ -7,23 +7,15 @@ import {
   dns$$custom$$nameservers_api$$response$$common,
   dns$$custom$$nameservers_api$$response$$common$$failure,
   dns$$custom$$nameservers_api$$response$$single,
-  dns$$custom$$nameservers_identifier$$2,
   dns$$custom$$nameservers_messages,
-  dns$$custom$$nameservers_ns_name,
-  dns$$custom$$nameservers_ns_set,
 } from "../outputs.js";
-import {
-  dns$$custom$$nameservers_CustomNSInput,
-  dns$$custom$$nameservers_ns_name as dns$$custom$$nameservers_ns_name$,
-  dns$$custom$$nameservers_ns_set as dns$$custom$$nameservers_ns_set$,
-} from "../schemas.js";
+import { dns$$custom$$nameservers_CustomNSInput } from "../schemas.js";
 import {
   dns$$custom$$nameservers_CustomNS,
   dns$$custom$$nameservers_acns_response_collection,
   dns$$custom$$nameservers_acns_response_single,
   dns$$custom$$nameservers_empty_response,
 } from "./outputs.js";
-import { dns$$custom$$nameservers_identifier } from "./schemas.js";
 
 /**
  * The tools of `customNameservers`.
@@ -32,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "customNameservers_create",
     title: "Add account or zone Custom Nameserver",
-    description: "Adds a custom nameserver to the account or zone for use as a vanity nameserver on zones.",
+    description: "Adds a custom nameserver to the account or zone for use as a vanity nameserver on zones.\n\nPOST /{account_or_zone}/{account_or_zone_id}/custom_ns",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,6 +32,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-custom-nameservers_CustomNSInput"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -50,8 +43,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -65,11 +58,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-custom-nameservers_CustomNSInput": dns$$custom$$nameservers_CustomNSInput,
-        "dns-custom-nameservers_identifier": dns$$custom$$nameservers_identifier,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name$,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set$,
       },
     },
     outputSchema: {
@@ -78,10 +69,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_CustomNS": dns$$custom$$nameservers_CustomNS,
         "dns-custom-nameservers_acns_response_single": dns$$custom$$nameservers_acns_response_single,
         "dns-custom-nameservers_api-response-single": dns$$custom$$nameservers_api$$response$$single,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
       },
     },
     annotations: {
@@ -130,10 +118,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_acns_response_single": dns$$custom$$nameservers_acns_response_single,
         "dns-custom-nameservers_api-response-common-failure": dns$$custom$$nameservers_api$$response$$common$$failure,
         "dns-custom-nameservers_api-response-single": dns$$custom$$nameservers_api$$response$$single,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
       },
     },
     request: (args) => ({
@@ -144,19 +129,20 @@ export const tools: readonly Tool[] = [
   {
     name: "customNameservers_delete",
     title: "Delete Account Custom Nameserver",
-    description: "Removes a custom nameserver from the account.",
+    description: "Removes a custom nameserver from the account.\n\nDELETE /accounts/{account_id}/custom_ns/{custom_ns_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "custom_ns_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_ns_name",
-              "description": "The FQDN of the name server."
+              "description": "The FQDN of the name server.",
+              "type": "string"
             }
           },
           "required": [
@@ -169,10 +155,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-custom-nameservers_identifier": dns$$custom$$nameservers_identifier,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-custom-nameservers_empty_response",
@@ -231,11 +214,12 @@ export const tools: readonly Tool[] = [
   {
     name: "customNameservers_get",
     title: "List account or zone Custom Nameservers",
-    description: "List an account or zone's custom nameservers.",
+    description: "List an account or zone's custom nameservers.\n\nGET /{account_or_zone}/{account_or_zone_id}/custom_ns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -246,8 +230,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/dns-custom-nameservers_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -260,9 +244,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-custom-nameservers_identifier": dns$$custom$$nameservers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-custom-nameservers_acns_response_collection",
@@ -271,10 +253,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_acns_response_collection": dns$$custom$$nameservers_acns_response_collection,
         "dns-custom-nameservers_api-response-collection": dns$$custom$$nameservers_api$$response$$collection,
         "dns-custom-nameservers_api-response-common": dns$$custom$$nameservers_api$$response$$common,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
       },
     },
     annotations: {
@@ -325,10 +304,7 @@ export const tools: readonly Tool[] = [
         "dns-custom-nameservers_api-response-collection": dns$$custom$$nameservers_api$$response$$collection,
         "dns-custom-nameservers_api-response-common": dns$$custom$$nameservers_api$$response$$common,
         "dns-custom-nameservers_api-response-common-failure": dns$$custom$$nameservers_api$$response$$common$$failure,
-        "dns-custom-nameservers_identifier-2": dns$$custom$$nameservers_identifier$$2,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
-        "dns-custom-nameservers_ns_name": dns$$custom$$nameservers_ns_name,
-        "dns-custom-nameservers_ns_set": dns$$custom$$nameservers_ns_set,
       },
     },
     request: (args) => ({

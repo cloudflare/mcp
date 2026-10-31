@@ -21,37 +21,6 @@ export const firewall_configurations: JsonSchema = {
 };
 
 /**
- * The schema of `firewall_created_on` in responses.
- */
-export const firewall_created_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `firewall_lockdowns_components-schemas-description` in
- * responses.
- */
-export const firewall_lockdowns_components$$schemas$$description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `firewall_lockdowns_components-schemas-id` in responses.
- */
-export const firewall_lockdowns_components$$schemas$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `firewall_modified_on` in responses.
- */
-export const firewall_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `firewall_schemas-cidr_configuration` in responses.
  */
 export const firewall_schemas$$cidr_configuration: JsonSchema = {
@@ -106,19 +75,21 @@ export const firewall_zonelockdown: JsonSchema = {
       "$ref": "#/$defs/firewall_configurations"
     },
     "created_on": {
-      "$ref": "#/$defs/firewall_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/firewall_lockdowns_components-schemas-description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/firewall_lockdowns_components-schemas-id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/firewall_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "paused": {
-      "$ref": "#/$defs/firewall_schemas-paused"
+      "type": "boolean"
     },
     "urls": {
       "$ref": "#/$defs/firewall_schemas-urls"

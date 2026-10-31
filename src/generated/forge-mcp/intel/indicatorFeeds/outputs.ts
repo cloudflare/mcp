@@ -106,27 +106,6 @@ export const custom$$indicator$$feeds_create_feed_response: JsonSchema = {
 };
 
 /**
- * The schema of `custom-indicator-feeds_description` in responses.
- */
-export const custom$$indicator$$feeds_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `custom-indicator-feeds_feed_id` in responses.
- */
-export const custom$$indicator$$feeds_feed_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `custom-indicator-feeds_id` in responses.
- */
-export const custom$$indicator$$feeds_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `custom-indicator-feeds_indicator_feed_item` in responses.
  */
 export const custom$$indicator$$feeds_indicator_feed_item: JsonSchema = {
@@ -136,26 +115,26 @@ export const custom$$indicator$$feeds_indicator_feed_item: JsonSchema = {
       "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/custom-indicator-feeds_id"
+      "type": "integer"
     },
     "is_attributable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_attributable"
+      "type": "boolean"
     },
     "is_downloadable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_downloadable"
+      "type": "boolean"
     },
     "is_public": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_public"
+      "type": "boolean"
     },
     "modified_on": {
       "format": "date-time",
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -171,19 +150,19 @@ export const custom$$indicator$$feeds_indicator_feed_metadata: JsonSchema = {
       "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/custom-indicator-feeds_id"
+      "type": "integer"
     },
     "is_attributable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_attributable"
+      "type": "boolean"
     },
     "is_downloadable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_downloadable"
+      "type": "boolean"
     },
     "is_public": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_public"
+      "type": "boolean"
     },
     "last_upload_summary": {
       "$ref": "#/$defs/custom-indicator-feeds_last_upload_summary"
@@ -207,13 +186,13 @@ export const custom$$indicator$$feeds_indicator_feed_metadata: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name"
+      "type": "string"
     },
     "provider_id": {
-      "$ref": "#/$defs/custom-indicator-feeds_provider_id"
+      "type": "integer"
     },
     "provider_name": {
-      "$ref": "#/$defs/custom-indicator-feeds_provider_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -259,27 +238,6 @@ export const custom$$indicator$$feeds_indicator_feed_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `custom-indicator-feeds_is_attributable` in responses.
- */
-export const custom$$indicator$$feeds_is_attributable: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `custom-indicator-feeds_is_downloadable` in responses.
- */
-export const custom$$indicator$$feeds_is_downloadable: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `custom-indicator-feeds_is_public` in responses.
- */
-export const custom$$indicator$$feeds_is_public: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -395,27 +353,6 @@ export const custom$$indicator$$feeds_messages$$2: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `custom-indicator-feeds_name` in responses.
- */
-export const custom$$indicator$$feeds_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `custom-indicator-feeds_provider_id` in responses.
- */
-export const custom$$indicator$$feeds_provider_id: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `custom-indicator-feeds_provider_name` in responses.
- */
-export const custom$$indicator$$feeds_provider_name: JsonSchema = {
-  "type": "string"
 };
 
 /**

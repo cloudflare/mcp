@@ -126,13 +126,6 @@ export const digital$$experience$$monitoring_api$$response$$single: JsonSchema =
 };
 
 /**
- * The schema of `digital-experience-monitoring_colo` in responses.
- */
-export const digital$$experience$$monitoring_colo: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-data` in
  * responses.
  */
@@ -193,39 +186,4 @@ export const digital$$experience$$monitoring_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `digital-experience-monitoring_platform` in responses.
- */
-export const digital$$experience$$monitoring_platform: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_status` in responses.
- */
-export const digital$$experience$$monitoring_status: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_timestamp` in responses.
- */
-export const digital$$experience$$monitoring_timestamp: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_uuid` in responses.
- */
-export const digital$$experience$$monitoring_uuid: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_version` in responses.
- */
-export const digital$$experience$$monitoring_version: JsonSchema = {
-  "type": "string"
 };

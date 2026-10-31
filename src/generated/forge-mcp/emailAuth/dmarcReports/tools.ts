@@ -7,11 +7,9 @@ import {
   email$$auth_api$$response$$single,
   email$$auth_messages,
 } from "../outputs.js";
-import { email$$auth_identifier } from "../schemas.js";
 import {
   email$$auth_ApprovedSourceResponse,
   email$$auth_DmarcReportResponse,
-  email$$auth_DmarcStatus,
   email$$auth_DnsRecordInfo,
   email$$auth_ResolvedDmarcRecord,
   email$$auth_ZoneDnsRecords,
@@ -25,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailAuth_dmarcReports_edit",
     title: "Configure DMARC Reports",
-    description: "Updates the DMARC report configuration for a zone.\nAt least one of `enabled` or `skip_wizard` must be provided.\nWhen enabling, the handler will ensure the DMARC RUA record exists in DNS.",
+    description: "Updates the DMARC report configuration for a zone.\nAt least one of `enabled` or `skip_wizard` must be provided.\nWhen enabling, the handler will ensure the DMARC RUA record exists in DNS.\n\nPATCH /zones/{zone_id}/email/auth/dmarc-reports",
     inputSchema: {
       type: "object",
       properties: {
@@ -33,10 +31,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-auth_ConfigureDmarcReportsRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email-auth_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -49,9 +48,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-auth_ConfigureDmarcReportsRequest": email$$auth_ConfigureDmarcReportsRequest,
-        "email-auth_identifier": email$$auth_identifier,
       },
     },
     outputSchema: {
@@ -71,7 +70,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
         "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
-        "email-auth_DmarcStatus": email$$auth_DmarcStatus,
         "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
         "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
         "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
@@ -112,7 +110,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
         "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
-        "email-auth_DmarcStatus": email$$auth_DmarcStatus,
         "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
         "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
         "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
@@ -129,15 +126,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailAuth_dmarcReports_get",
     title: "Get DMARC Report Status",
-    description: "Retrieves the current DMARC report configuration and status for a zone.\nReturns the RUA prefix, enabled status, approved sources, and DNS records.",
+    description: "Retrieves the current DMARC report configuration and status for a zone.\nReturns the RUA prefix, enabled status, approved sources, and DNS records.\n\nGET /zones/{zone_id}/email/auth/dmarc-reports",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/email-auth_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -149,9 +147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-auth_identifier": email$$auth_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -170,7 +166,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
         "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
-        "email-auth_DmarcStatus": email$$auth_DmarcStatus,
         "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
         "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
         "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
@@ -211,7 +206,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
         "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
-        "email-auth_DmarcStatus": email$$auth_DmarcStatus,
         "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
         "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
         "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,

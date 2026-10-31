@@ -7,22 +7,14 @@ import {
   r2$$data$$catalog_api$$response$$errors,
   r2$$data$$catalog_api$$response$$messages,
   r2$$data$$catalog_api$$response$$single,
-  r2$$data$$catalog_api$$response$$success,
   r2$$data$$catalog_catalog,
   r2$$data$$catalog_catalog$$activation$$response,
   r2$$data$$catalog_catalog$$compaction$$config,
   r2$$data$$catalog_catalog$$list,
   r2$$data$$catalog_catalog$$maintenance$$config,
-  r2$$data$$catalog_catalog$$maintenance$$state,
-  r2$$data$$catalog_catalog$$status,
-  r2$$data$$catalog_catalog$$target$$file$$size,
-  r2$$data$$catalog_credential$$status,
-  r2$$data$$catalog_maintenance$$interval,
   r2$$data$$catalog_snapshot$$expiration$$config,
 } from "../outputs.js";
 import {
-  r2$$data$$catalog_account$$id,
-  r2$$data$$catalog_bucket$$name,
   r2$$data$$catalog_catalog$$activation$$request,
   r2$$data$$catalog_catalog$$credential$$request,
 } from "../schemas.js";
@@ -34,19 +26,20 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_delete",
     title: "Delete Basin Catalog metadata",
-    description: "Removes the catalog from the control plane without deleting R2 bucket objects.\nSet force=true to remove catalog namespaces, tables, views, and maintenance\nmetadata. Force deletion is limited to a configured catalog object count.\n\nConfirm with the user before calling this tool. This removes catalog metadata. R2 bucket objects are retained.",
+    description: "Removes the catalog from the control plane without deleting R2 bucket objects.\nSet force=true to remove catalog namespaces, tables, views, and maintenance\nmetadata. Force deletion is limited to a configured catalog object count.\n\nConfirm with the user before calling this tool. This removes catalog metadata. R2 bucket objects are retained.\n\nPOST /accounts/{account_id}/basin-catalog/{bucket_name}/delete",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Use this to identify the account."
+              "description": "Use this to identify the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,6 +49,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "default": false,
@@ -69,10 +63,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -115,19 +106,20 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_disable",
     title: "Disable Basin Catalog",
-    description: "Disable an R2 bucket as a catalog. This operation deactivates the catalog\nbut preserves existing metadata and data files. The catalog can be\nre-enabled later.\n\nConfirm with the user before calling this tool. This operation turns off the data catalog for the bucket. Existing namespace or table state remains, but writes stop.",
+    description: "Disable an R2 bucket as a catalog. This operation deactivates the catalog\nbut preserves existing metadata and data files. The catalog can be\nre-enabled later.\n\nConfirm with the user before calling this tool. This operation turns off the data catalog for the bucket. Existing namespace or table state remains, but writes stop.\n\nPOST /accounts/{account_id}/basin-catalog/{bucket_name}/disable",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name to disable as catalog."
+              "description": "Specifies the R2 bucket name to disable as catalog.",
+              "type": "string"
             }
           },
           "required": [
@@ -140,10 +132,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -189,7 +178,7 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_enable",
     title: "Enable R2 bucket as a catalog",
-    description: "Enable an R2 bucket as an Apache Iceberg catalog. This operation creates\nthe necessary catalog infrastructure and activates the bucket for storing\nIceberg metadata and data files.",
+    description: "Enable an R2 bucket as an Apache Iceberg catalog. This operation creates\nthe necessary catalog infrastructure and activates the bucket for storing\nIceberg metadata and data files.\n\nPOST /accounts/{account_id}/basin-catalog/{bucket_name}/enable",
     inputSchema: {
       type: "object",
       properties: {
@@ -197,14 +186,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2-data-catalog_catalog-activation-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name to enable as catalog."
+              "description": "Specifies the R2 bucket name to enable as catalog.",
+              "type": "string"
             }
           },
           "required": [
@@ -217,9 +207,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
         "r2-data-catalog_catalog-activation-request": r2$$data$$catalog_catalog$$activation$$request,
         "r2-data-catalog_catalog-credential-request": r2$$data$$catalog_catalog$$credential$$request,
       },
@@ -242,7 +231,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_catalog-activation-response": r2$$data$$catalog_catalog$$activation$$response,
       },
     },
@@ -301,7 +289,6 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_catalog-activation-response": r2$$data$$catalog_catalog$$activation$$response,
       },
     },
@@ -313,19 +300,20 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_get",
     title: "Get Basin Catalog details",
-    description: "Retrieve detailed information about a specific Basin Catalog by bucket name.\nReturns catalog status, maintenance configuration, and credential status.",
+    description: "Retrieve detailed information about a specific Basin Catalog by bucket name.\nReturns catalog status, maintenance configuration, and credential status.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2-data-catalog_bucket-name",
-              "description": "Specifies the R2 bucket name."
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
             }
           },
           "required": [
@@ -338,10 +326,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -361,15 +346,9 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_catalog": r2$$data$$catalog_catalog,
         "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
         "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-status": r2$$data$$catalog_catalog$$status,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_credential-status": r2$$data$$catalog_credential$$status,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
@@ -426,15 +405,9 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_catalog": r2$$data$$catalog_catalog,
         "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
         "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-status": r2$$data$$catalog_catalog$$status,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_credential-status": r2$$data$$catalog_credential$$status,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
@@ -445,15 +418,16 @@ export const tools: readonly Tool[] = [
   {
     name: "basinCatalog_list",
     title: "List Basin Catalogs",
-    description: "Returns a list of R2 buckets that have been enabled as Apache Iceberg catalogs\nfor the specified account. Each catalog represents an R2 bucket configured\nto store Iceberg metadata and data files.",
+    description: "Returns a list of R2 buckets that have been enabled as Apache Iceberg catalogs\nfor the specified account. Each catalog represents an R2 bucket configured\nto store Iceberg metadata and data files.\n\nGET /accounts/{account_id}/basin-catalog",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2-data-catalog_account-id",
-              "description": "Identifies the account."
+              "description": "Identifies the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -465,9 +439,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -487,16 +459,10 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_catalog": r2$$data$$catalog_catalog,
         "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
         "r2-data-catalog_catalog-list": r2$$data$$catalog_catalog$$list,
         "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-status": r2$$data$$catalog_catalog$$status,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_credential-status": r2$$data$$catalog_credential$$status,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
@@ -550,16 +516,10 @@ export const tools: readonly Tool[] = [
         "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
         "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
         "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
-        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
         "r2-data-catalog_catalog": r2$$data$$catalog_catalog,
         "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
         "r2-data-catalog_catalog-list": r2$$data$$catalog_catalog$$list,
         "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
-        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
-        "r2-data-catalog_catalog-status": r2$$data$$catalog_catalog$$status,
-        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
-        "r2-data-catalog_credential-status": r2$$data$$catalog_credential$$status,
-        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
         "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },

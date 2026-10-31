@@ -17,16 +17,16 @@ export const magic_app_add_single_request: JsonSchema = {
       "description": "IPv4 CIDRs to associate with traffic decisions. (IPv6 CIDRs are currently unsupported)"
     },
     "name": {
-      "$ref": "#/$defs/magic_app_name",
-      "description": "Display name for the app."
+      "description": "Display name for the app.",
+      "type": "string"
     },
     "source_subnets": {
       "$ref": "#/$defs/magic_app_source_subnets",
       "description": "IPv4 CIDRs to associate with traffic decisions. (IPv6 CIDRs are currently unsupported)"
     },
     "type": {
-      "$ref": "#/$defs/magic_app_type",
-      "description": "Category of the app."
+      "description": "Category of the app.",
+      "type": "string"
     }
   },
   "required": [
@@ -48,14 +48,6 @@ export const magic_app_hostnames: JsonSchema = {
 };
 
 /**
- * The schema of `magic_app_name`.
- */
-export const magic_app_name: JsonSchema = {
-  "description": "Display name for the app.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_app_source_subnets`.
  */
 export const magic_app_source_subnets: JsonSchema = {
@@ -63,7 +55,8 @@ export const magic_app_source_subnets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/magic_cidr"
+        "description": "A valid CIDR notation representing an IP range.",
+        "type": "string"
       },
       {
         "type": "string"
@@ -81,7 +74,8 @@ export const magic_app_subnets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/magic_cidr"
+        "description": "A valid CIDR notation representing an IP range.",
+        "type": "string"
       },
       {
         "type": "string"
@@ -89,14 +83,6 @@ export const magic_app_subnets: JsonSchema = {
     ]
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic_app_type`.
- */
-export const magic_app_type: JsonSchema = {
-  "description": "Category of the app.",
-  "type": "string"
 };
 
 /**
@@ -113,16 +99,16 @@ export const magic_app_update_request: JsonSchema = {
       "description": "IPv4 CIDRs to associate with traffic decisions. (IPv6 CIDRs are currently unsupported)"
     },
     "name": {
-      "$ref": "#/$defs/magic_app_name",
-      "description": "Display name for the app."
+      "description": "Display name for the app.",
+      "type": "string"
     },
     "source_subnets": {
       "$ref": "#/$defs/magic_app_source_subnets",
       "description": "IPv4 CIDRs to associate with traffic decisions. (IPv6 CIDRs are currently unsupported)"
     },
     "type": {
-      "$ref": "#/$defs/magic_app_type",
-      "description": "Category of the app."
+      "description": "Category of the app.",
+      "type": "string"
     }
   },
   "type": "object"

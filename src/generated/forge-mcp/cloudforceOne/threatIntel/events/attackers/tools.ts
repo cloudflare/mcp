@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_events_attackers_list",
     title: "List attackers",
-    description: "Lists the attackers referenced by events in the datasets given by `datasetIds`, or in the default dataset when `datasetIds` is omitted.",
+    description: "Lists the attackers referenced by events in the datasets given by `datasetIds`, or in the default dataset when `datasetIds` is omitted.\n\nGET /accounts/{account_id}/cloudforce-one/events/attackers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "datasetIds": {
               "description": "Array of dataset IDs to query attackers from. If not provided, uses the default dataset.",
@@ -42,6 +44,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

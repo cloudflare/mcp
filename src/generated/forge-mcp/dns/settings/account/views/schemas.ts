@@ -4,25 +4,13 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `dns-settings_direction`.
- */
-export const dns$$settings_direction: JsonSchema = {
-  "description": "Direction to order DNS views in.",
-  "enum": [
-    "asc",
-    "desc"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dns-settings_dns-view-patch`.
  */
 export const dns$$settings_dns$$view$$patch: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/dns-settings_name",
-      "description": "The name of the view."
+      "description": "The name of the view.",
+      "type": "string"
     },
     "zones": {
       "$ref": "#/$defs/dns-settings_zones",
@@ -38,8 +26,8 @@ export const dns$$settings_dns$$view$$patch: JsonSchema = {
 export const dns$$settings_dns$$view$$post: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/dns-settings_name",
-      "description": "The name of the view."
+      "description": "The name of the view.",
+      "type": "string"
     },
     "zones": {
       "$ref": "#/$defs/dns-settings_zones",
@@ -51,47 +39,6 @@ export const dns$$settings_dns$$view$$post: JsonSchema = {
     "zones"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_match`.
- */
-export const dns$$settings_match: JsonSchema = {
-  "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead.\n",
-  "enum": [
-    "any",
-    "all"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `dns-settings_name`.
- */
-export const dns$$settings_name: JsonSchema = {
-  "description": "The name of the view.",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-settings_order`.
- */
-export const dns$$settings_order: JsonSchema = {
-  "description": "Field to order DNS views by.",
-  "enum": [
-    "name",
-    "created_on",
-    "modified_on"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `dns-settings_per_page`.
- */
-export const dns$$settings_per_page: JsonSchema = {
-  "description": "Number of results per page.",
-  "type": "integer"
 };
 
 /**

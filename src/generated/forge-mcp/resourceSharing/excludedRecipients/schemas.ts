@@ -9,22 +9,14 @@ import type { JsonSchema } from "../../_/tool.js";
 export const resource$$sharing_create_share_excluded_recipient_request: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id",
-      "description": "The account to exclude from the organization-targeted share."
+      "description": "The account to exclude from the organization-targeted share.",
+      "type": "string"
     }
   },
   "required": [
     "account_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `resource-sharing_excluded_recipient_id`.
- */
-export const resource$$sharing_excluded_recipient_id: JsonSchema = {
-  "description": "Share Excluded Recipient identifier tag.",
-  "type": "string"
 };
 
 /**

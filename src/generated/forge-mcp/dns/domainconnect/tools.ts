@@ -16,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_domainconnect_getDomainSettings",
     title: "Provide settings if domain is served by Cloudflare",
-    description: "Checks whether a domain is in Quicksilver and returns its settings.",
+    description: "Checks whether a domain is in Quicksilver and returns its settings.\n\nGET /v2/{domain}/settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "domain": {
               "description": "Domain name.",
@@ -36,6 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "object",
@@ -75,10 +77,11 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_domainconnect_getHeartbeat",
     title: "Heartbeat response",
-    description: "Used by Kubernetes readiness and liveness probes, and CI builder by executing test/staging.sh.",
+    description: "Used by Kubernetes readiness and liveness probes, and CI builder by executing test/staging.sh.\n\nGET /_heartbeat",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -102,11 +105,12 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_domainconnect_getProviderConfiguration",
     title: "Serve a provider configuration",
-    description: "Provides Stratus with extra information about domain connect provider(s).",
+    description: "Provides Stratus with extra information about domain connect provider(s).\n\nGET /v2/provconf/{provider}/{service}/{account}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account": {
               "description": "Account ID.",
@@ -132,6 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/domain-connect_neededByStratus",
@@ -180,11 +185,12 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_domainconnect_getProviderTemplate",
     title: "Serve a provider template",
-    description: "Providers are the external parties that are configured to interact with Cloudflare.",
+    description: "Providers are the external parties that are configured to interact with Cloudflare.\n\nGET /v2/domainTemplates/providers/{provider}/services/{service}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "provider": {
               "description": "Provider name.",
@@ -202,6 +208,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dump": {
               "description": "Dump raw template.",
@@ -214,6 +221,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "object",
@@ -253,7 +261,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_domainconnect_postVerify",
     title: "Request domain connect validation",
-    description: "Validates a Domain Connect signed request using DNS TXT public keys.",
+    description: "Validates a Domain Connect signed request using DNS TXT public keys.\n\nPOST /v1/verify",
     inputSchema: {
       type: "object",
       properties: {
@@ -264,6 +272,7 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "domain-connect_PostData": domain$$connect_PostData,
       },

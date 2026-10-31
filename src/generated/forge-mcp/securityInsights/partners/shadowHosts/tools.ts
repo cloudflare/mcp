@@ -7,10 +7,8 @@ import {
   security$$center_api$$response$$common$$failure,
   security$$center_messages,
 } from "../../../outputs.js";
-import { security$$center_identifier } from "../../../schemas.js";
 import {
   security$$center_partnerAssetResultInfo,
-  security$$center_partnerEntitlement,
   security$$center_shadowHost,
   security$$center_shadowHostsResponse,
 } from "../outputs.js";
@@ -22,11 +20,12 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_partners_shadowHosts_list",
     title: "Lists Partner-Discovered Shadow Hosts for a Zone",
-    description: "Lists partner-discovered hosts beneath the zone that are not in the account.\n\nThis method is beta.",
+    description: "Lists partner-discovered hosts beneath the zone that are not in the account.\n\nThis method is beta.\n\nGET /zones/{zone_id}/security-center/partners/{partner}/shadow-hosts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "partner": {
               "description": "The partner integration identifier.",
@@ -36,8 +35,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/security-center_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,6 +46,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque cursor from the previous response's `result_info.cursor`. Omit for the first page.",
@@ -64,9 +64,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "security-center_identifier": security$$center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_shadowHostsResponse",
@@ -74,7 +72,6 @@ export const tools: readonly Tool[] = [
         "security-center_api-response-common": security$$center_api$$response$$common,
         "security-center_messages": security$$center_messages,
         "security-center_partnerAssetResultInfo": security$$center_partnerAssetResultInfo,
-        "security-center_partnerEntitlement": security$$center_partnerEntitlement,
         "security-center_shadowHost": security$$center_shadowHost,
         "security-center_shadowHostsResponse": security$$center_shadowHostsResponse,
       },
@@ -108,7 +105,6 @@ export const tools: readonly Tool[] = [
         "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
         "security-center_messages": security$$center_messages,
         "security-center_partnerAssetResultInfo": security$$center_partnerAssetResultInfo,
-        "security-center_partnerEntitlement": security$$center_partnerEntitlement,
         "security-center_shadowHost": security$$center_shadowHost,
         "security-center_shadowHostsResponse": security$$center_shadowHostsResponse,
       },

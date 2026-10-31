@@ -11,14 +11,8 @@ import {
   zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
-import { zero$$trust$$gateway_identifier$$3 } from "../schemas.js";
 import {
-  zero$$trust$$gateway_beta,
   zero$$trust$$gateway_categories,
-  zero$$trust$$gateway_class,
-  zero$$trust$$gateway_description$$3,
-  zero$$trust$$gateway_id,
-  zero$$trust$$gateway_name$$5,
   zero$$trust$$gateway_response_collection$$8,
   zero$$trust$$gateway_subcategory,
 } from "./outputs.js";
@@ -30,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_categories_list",
     title: "List categories",
-    description: "List all categories.",
+    description: "List all categories.\n\nGET /accounts/{account_id}/gateway/categories",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier-3",
-              "description": "Provide the identifier string."
+              "description": "Provide the identifier string.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,22 +45,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier-3": zero$$trust$$gateway_identifier$$3,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-8",
       $defs: {
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
-        "zero-trust-gateway_beta": zero$$trust$$gateway_beta,
         "zero-trust-gateway_categories": zero$$trust$$gateway_categories,
-        "zero-trust-gateway_class": zero$$trust$$gateway_class,
-        "zero-trust-gateway_description-3": zero$$trust$$gateway_description$$3,
-        "zero-trust-gateway_id": zero$$trust$$gateway_id,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-5": zero$$trust$$gateway_name$$5,
         "zero-trust-gateway_response_collection-8": zero$$trust$$gateway_response_collection$$8,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
         "zero-trust-gateway_subcategory": zero$$trust$$gateway_subcategory,
@@ -106,13 +94,8 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
         "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
-        "zero-trust-gateway_beta": zero$$trust$$gateway_beta,
         "zero-trust-gateway_categories": zero$$trust$$gateway_categories,
-        "zero-trust-gateway_class": zero$$trust$$gateway_class,
-        "zero-trust-gateway_description-3": zero$$trust$$gateway_description$$3,
-        "zero-trust-gateway_id": zero$$trust$$gateway_id,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
-        "zero-trust-gateway_name-5": zero$$trust$$gateway_name$$5,
         "zero-trust-gateway_response_collection-8": zero$$trust$$gateway_response_collection$$8,
         "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
         "zero-trust-gateway_subcategory": zero$$trust$$gateway_subcategory,

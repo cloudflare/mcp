@@ -6,7 +6,6 @@ import {
   mconn$$telemetry_coded_message,
   mconn$$telemetry_envelope,
 } from "../outputs.js";
-import { mconn$$telemetry_account_id } from "../schemas.js";
 import {
   mconn$$telemetry_customer_snapshots_get_success,
   mconn$$telemetry_customer_snapshots_list_result,
@@ -32,15 +31,16 @@ export const tools: readonly Tool[] = [
   {
     name: "connectorTelemetrySnapshots_get",
     title: "Get Snapshot",
-    description: "Gets Magic WAN Connector Telemetry Snapshot",
+    description: "Gets Magic WAN Connector Telemetry Snapshot\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}/telemetry/snapshots/{snapshot_t}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn-telemetry_account_id",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "connector_id": {
               "type": "string"
@@ -60,9 +60,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mconn-telemetry_account_id": mconn$$telemetry_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn-telemetry_customer_snapshots_get_success",
@@ -152,15 +150,16 @@ export const tools: readonly Tool[] = [
   {
     name: "connectorTelemetrySnapshots_list",
     title: "List Snapshots",
-    description: "Lists Magic WAN Connector Telemetry Snapshots",
+    description: "Lists Magic WAN Connector Telemetry Snapshots\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}/telemetry/snapshots",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mconn-telemetry_account_id",
-              "description": "Account identifier"
+              "description": "Account identifier",
+              "type": "string"
             },
             "connector_id": {
               "type": "string"
@@ -173,6 +172,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "type": "string"
@@ -198,9 +198,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "mconn-telemetry_account_id": mconn$$telemetry_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn-telemetry_customer_snapshots_list_success",

@@ -37,7 +37,12 @@ export const dlp_UserRiskInfo: JsonSchema = {
       "type": "string"
     },
     "max_risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     },
     "name": {
       "type": "string"

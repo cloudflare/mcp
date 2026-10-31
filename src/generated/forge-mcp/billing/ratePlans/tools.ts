@@ -17,11 +17,12 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_ratePlans_get",
     title: "Get Rate Plan by Public Key",
-    description: "Gets a rate plan's details by its public key (e.g., 'teams_free', 'cf_pro_20_20'). This is a public catalog endpoint, so authentication is not enforced and credentials are accepted but not required.",
+    description: "Gets a rate plan's details by its public key (e.g., 'teams_free', 'cf_pro_20_20'). This is a public catalog endpoint, so authentication is not enforced and credentials are accepted but not required.\n\nGET /billing/rate_plans/{public_key}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "public_key": {
               "description": "The public key identifier for the rate plan.",
@@ -37,6 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_rate_plan_simple_response",

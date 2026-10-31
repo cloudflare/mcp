@@ -7,30 +7,14 @@ import {
   waitingroom_api$$response$$common$$2,
   waitingroom_api$$response$$common$$failure,
   waitingroom_messages,
-  waitingroom_timestamp,
 } from "../outputs.js";
 import {
-  waitingroom_identifier,
-  waitingroom_waiting_room_id,
-} from "../schemas.js";
-import {
-  waitingroom_rule_action,
-  waitingroom_rule_description,
-  waitingroom_rule_enabled,
-  waitingroom_rule_expression,
-  waitingroom_rule_id,
   waitingroom_rule_result,
-  waitingroom_rule_version,
   waitingroom_rules_response_collection,
 } from "./outputs.js";
 import {
   waitingroom_create_rule,
   waitingroom_patch_rule,
-  waitingroom_rule_action as waitingroom_rule_action$,
-  waitingroom_rule_description as waitingroom_rule_description$,
-  waitingroom_rule_enabled as waitingroom_rule_enabled$,
-  waitingroom_rule_expression as waitingroom_rule_expression$,
-  waitingroom_rule_id as waitingroom_rule_id$,
   waitingroom_rule_position,
   waitingroom_update_rules,
 } from "./schemas.js";
@@ -42,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_rules_create",
     title: "Create Waiting Room Rule",
-    description: "Only available for the Waiting Room Advanced subscription. Creates a rule for a waiting room.",
+    description: "Only available for the Waiting Room Advanced subscription. Creates a rule for a waiting room.\n\nPOST /zones/{zone_id}/waiting_rooms/{waiting_room_id}/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -50,13 +34,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waitingroom_create_rule"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -70,14 +55,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "waitingroom_create_rule": waitingroom_create_rule,
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_rule_action": waitingroom_rule_action$,
-        "waitingroom_rule_description": waitingroom_rule_description$,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled$,
-        "waitingroom_rule_expression": waitingroom_rule_expression$,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
       },
     },
     outputSchema: {
@@ -86,15 +66,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-collection": waitingroom_api$$response$$collection,
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     annotations: {
@@ -135,15 +108,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     request: (args) => ({
@@ -154,22 +120,23 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_rules_delete",
     title: "Delete Waiting Room Rule",
-    description: "Deletes a rule for a waiting room.\n\nConfirm with the user before calling this tool. This operation deletes the rule from the waiting room.",
+    description: "Deletes a rule for a waiting room.\n\nConfirm with the user before calling this tool. This operation deletes the rule from the waiting room.\n\nDELETE /zones/{zone_id}/waiting_rooms/{waiting_room_id}/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/waitingroom_rule_id",
-              "description": "The ID of the rule."
+              "description": "The ID of the rule.",
+              "type": "string"
             },
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -183,11 +150,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_rule_id": waitingroom_rule_id$,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_rules_response_collection",
@@ -195,15 +158,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-collection": waitingroom_api$$response$$collection,
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     annotations: {
@@ -247,15 +203,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     request: (args) => ({
@@ -265,7 +214,7 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_rules_edit",
     title: "Patch Waiting Room Rule",
-    description: "Patches a rule for a waiting room.",
+    description: "Patches a rule for a waiting room.\n\nPATCH /zones/{zone_id}/waiting_rooms/{waiting_room_id}/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -273,17 +222,18 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waitingroom_patch_rule"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "rule_id": {
-              "$ref": "#/$defs/waitingroom_rule_id",
-              "description": "The ID of the rule."
+              "description": "The ID of the rule.",
+              "type": "string"
             },
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -298,16 +248,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
         "waitingroom_patch_rule": waitingroom_patch_rule,
-        "waitingroom_rule_action": waitingroom_rule_action$,
-        "waitingroom_rule_description": waitingroom_rule_description$,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled$,
-        "waitingroom_rule_expression": waitingroom_rule_expression$,
-        "waitingroom_rule_id": waitingroom_rule_id$,
         "waitingroom_rule_position": waitingroom_rule_position,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
       },
     },
     outputSchema: {
@@ -316,15 +260,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-collection": waitingroom_api$$response$$collection,
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     annotations: {
@@ -368,15 +305,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     request: (args) => ({
@@ -387,18 +317,19 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_rules_get",
     title: "List Waiting Room Rules",
-    description: "Lists rules for a waiting room.",
+    description: "Lists rules for a waiting room.\n\nGET /zones/{zone_id}/waiting_rooms/{waiting_room_id}/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -411,10 +342,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_rules_response_collection",
@@ -422,15 +350,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-collection": waitingroom_api$$response$$collection,
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     annotations: {
@@ -475,15 +396,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     request: (args) => ({
@@ -493,7 +407,7 @@ export const tools: readonly Tool[] = [
   {
     name: "waitingRooms_rules_update",
     title: "Replace Waiting Room Rules",
-    description: "Only available for the Waiting Room Advanced subscription. Replaces all rules for a waiting room.",
+    description: "Only available for the Waiting Room Advanced subscription. Replaces all rules for a waiting room.\n\nPUT /zones/{zone_id}/waiting_rooms/{waiting_room_id}/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -501,13 +415,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waitingroom_update_rules"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "waiting_room_id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/waitingroom_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -521,15 +436,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "waitingroom_create_rule": waitingroom_create_rule,
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_rule_action": waitingroom_rule_action$,
-        "waitingroom_rule_description": waitingroom_rule_description$,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled$,
-        "waitingroom_rule_expression": waitingroom_rule_expression$,
         "waitingroom_update_rules": waitingroom_update_rules,
-        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
       },
     },
     outputSchema: {
@@ -538,15 +448,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-collection": waitingroom_api$$response$$collection,
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     annotations: {
@@ -590,15 +493,8 @@ export const tools: readonly Tool[] = [
         "waitingroom_api-response-common-2": waitingroom_api$$response$$common$$2,
         "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
         "waitingroom_messages": waitingroom_messages,
-        "waitingroom_rule_action": waitingroom_rule_action,
-        "waitingroom_rule_description": waitingroom_rule_description,
-        "waitingroom_rule_enabled": waitingroom_rule_enabled,
-        "waitingroom_rule_expression": waitingroom_rule_expression,
-        "waitingroom_rule_id": waitingroom_rule_id,
         "waitingroom_rule_result": waitingroom_rule_result,
-        "waitingroom_rule_version": waitingroom_rule_version,
         "waitingroom_rules_response_collection": waitingroom_rules_response_collection,
-        "waitingroom_timestamp": waitingroom_timestamp,
       },
     },
     request: (args) => ({

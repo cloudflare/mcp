@@ -2,15 +2,6 @@
 /* eslint-disable */
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
-import {
-  logpull_AccessKeyId,
-  logpull_AccountId,
-  logpull_Bucket,
-  logpull_Prefix,
-  logpull_SecretAccessKey,
-  logpull_TimestampRFC3339,
-} from "../schemas.js";
-import { logpull_Limit } from "./schemas.js";
 
 /**
  * The tools of `logs.list`.
@@ -19,17 +10,18 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_list_get",
     title: "List log files",
-    description: "Lists R2 objects containing logs matching the provided query parameters.",
+    description: "Lists R2 objects containing logs matching the provided query parameters.\n\nGET /accounts/{account_id}/logs/list",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "R2-Access-Key-Id": {
-              "$ref": "#/$defs/logpull_AccessKeyId"
+              "type": "string"
             },
             "R2-Secret-Access-Key": {
-              "$ref": "#/$defs/logpull_SecretAccessKey"
+              "type": "string"
             }
           },
           "required": [
@@ -39,10 +31,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpull_AccountId",
-              "description": "Cloudflare account ID (32-character hex string)."
+              "description": "Cloudflare account ID (32-character hex string).",
+              "type": "string"
             }
           },
           "required": [
@@ -51,26 +44,29 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "bucket": {
-              "$ref": "#/$defs/logpull_Bucket",
-              "description": "R2 bucket name."
+              "description": "R2 bucket name.",
+              "type": "string"
             },
             "end": {
-              "$ref": "#/$defs/logpull_TimestampRFC3339",
-              "description": "End time in RFC3339 format."
+              "description": "End time in RFC3339 format.",
+              "format": "date-time",
+              "type": "string"
             },
             "limit": {
-              "$ref": "#/$defs/logpull_Limit",
-              "description": "Maximum number of results to return."
+              "description": "Maximum number of results to return.",
+              "type": "integer"
             },
             "prefix": {
-              "$ref": "#/$defs/logpull_Prefix",
-              "description": "R2 bucket prefix logs are stored under."
+              "description": "R2 bucket prefix logs are stored under.",
+              "type": "string"
             },
             "start": {
-              "$ref": "#/$defs/logpull_TimestampRFC3339",
-              "description": "Start time in RFC3339 format."
+              "description": "Start time in RFC3339 format.",
+              "format": "date-time",
+              "type": "string"
             }
           },
           "required": [
@@ -86,15 +82,7 @@ export const tools: readonly Tool[] = [
         "query",
         "headers"
       ],
-      $defs: {
-        "logpull_AccessKeyId": logpull_AccessKeyId,
-        "logpull_AccountId": logpull_AccountId,
-        "logpull_Bucket": logpull_Bucket,
-        "logpull_Limit": logpull_Limit,
-        "logpull_Prefix": logpull_Prefix,
-        "logpull_SecretAccessKey": logpull_SecretAccessKey,
-        "logpull_TimestampRFC3339": logpull_TimestampRFC3339,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

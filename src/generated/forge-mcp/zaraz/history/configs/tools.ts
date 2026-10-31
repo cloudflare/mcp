@@ -23,7 +23,6 @@ import {
   zaraz_zaraz$$config$$base,
   zaraz_zaraz$$config$$return,
 } from "../../outputs.js";
-import { zaraz_identifier } from "../../schemas.js";
 import { zaraz_zaraz$$config$$row$$base } from "../outputs.js";
 import { zaraz_zaraz$$config$$history$$response } from "./outputs.js";
 
@@ -34,15 +33,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_history_configs_get",
     title: "Get Zaraz historical configurations by ID(s)",
-    description: "Gets a history of published Zaraz configurations by ID(s) for a zone.",
+    description: "Gets a history of published Zaraz configurations by ID(s) for a zone.\n\nGET /zones/{zone_id}/settings/zaraz/history/configs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zaraz_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,6 +51,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "ids": {
               "description": "Comma separated list of Zaraz configuration IDs.",
@@ -70,9 +71,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-config-history-response",

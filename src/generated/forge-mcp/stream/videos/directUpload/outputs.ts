@@ -16,10 +16,11 @@ export const stream_direct_upload_response: JsonSchema = {
         "result": {
           "properties": {
             "scheduledDeletion": {
-              "$ref": "#/$defs/stream_scheduledDeletion"
+              "format": "date-time",
+              "type": "string"
             },
             "uid": {
-              "$ref": "#/$defs/stream_identifier"
+              "type": "string"
             },
             "uploadURL": {
               "type": "string"

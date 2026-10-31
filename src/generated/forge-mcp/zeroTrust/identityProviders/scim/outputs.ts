@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_id` in responses.
- */
-export const access_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_meta` in responses.
  */
 export const access_meta: JsonSchema = {

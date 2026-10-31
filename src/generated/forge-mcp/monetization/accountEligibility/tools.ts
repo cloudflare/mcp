@@ -12,10 +12,7 @@ import {
   monetization_monetization$$eligibility$$response,
   monetization_monetization$$eligibility$$result,
 } from "./outputs.js";
-import {
-  monetization_account$$identifier,
-  monetization_monetization$$account$$eligibility$$check$$input,
-} from "./schemas.js";
+import { monetization_monetization$$account$$eligibility$$check$$input } from "./schemas.js";
 
 /**
  * The tools of `monetization.accountEligibility`.
@@ -24,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_accountEligibility_check",
     title: "Check account or zone monetization eligibility",
-    description: "Checks the account or zone for Monetization Gateway eligibility and returns its pending, approved, or rejected decision.\n\nThis method is beta.",
+    description: "Checks the account or zone for Monetization Gateway eligibility and returns its pending, approved, or rejected decision.\n\nThis method is beta.\n\nPOST /{account_or_zone}/{account_or_zone_id}/monetization",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +29,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/monetization_monetization-account-eligibility-check-input"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -42,8 +40,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/monetization_account-identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,8 +55,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "monetization_account-identifier": monetization_account$$identifier,
         "monetization_monetization-account-eligibility-check-input": monetization_monetization$$account$$eligibility$$check$$input,
       },
     },
@@ -111,11 +109,12 @@ export const tools: readonly Tool[] = [
   {
     name: "monetization_accountEligibility_get",
     title: "Get account or zone monetization eligibility",
-    description: "Returns the account or zone's latest stored monetization eligibility result.\n\nThis method is beta.",
+    description: "Returns the account or zone's latest stored monetization eligibility result.\n\nThis method is beta.\n\nGET /{account_or_zone}/{account_or_zone_id}/monetization",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -126,8 +125,8 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/monetization_account-identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -140,9 +139,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "monetization_account-identifier": monetization_account$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/monetization_monetization-eligibility-response",

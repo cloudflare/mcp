@@ -4,30 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_client-default`.
- */
-export const zero$$trust$$gateway_client$$default: JsonSchema = {
-  "description": "Indicate whether this location is the default location.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `zero-trust-gateway_dns-destination-ips-id-write`.
- */
-export const zero$$trust$$gateway_dns$$destination$$ips$$id$$write: JsonSchema = {
-  "description": "Specify the identifier of the pair of IPv4 addresses assigned to this location. When creating a location, if this field is absent or set to null, the pair of shared IPv4 addresses (0e4a32c6-6fb8-4858-9296-98f51631e8e6) is auto-assigned. When updating a location, if this field is absent or set to null, the pre-assigned pair remains unchanged.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_dns64-enabled`.
- */
-export const zero$$trust$$gateway_dns64$$enabled: JsonSchema = {
-  "description": "Enable DNS64 synthesis for DNS queries matched to this location. When updating a location, omitting this field resets it to false.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_doh_endpoint`.
  */
 export const zero$$trust$$gateway_doh_endpoint: JsonSchema = {
@@ -63,14 +39,6 @@ export const zero$$trust$$gateway_dot_endpoint: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_ecs-support`.
- */
-export const zero$$trust$$gateway_ecs$$support: JsonSchema = {
-  "description": "Indicate whether the location must resolve EDNS queries.",
-  "type": "boolean"
 };
 
 /**
@@ -278,12 +246,4 @@ export const zero$$trust$$gateway_max$$ttl: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_name-2`.
- */
-export const zero$$trust$$gateway_name$$2: JsonSchema = {
-  "description": "Specify the location name.",
-  "type": "string"
 };

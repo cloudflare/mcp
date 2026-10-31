@@ -7,7 +7,6 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../outputs.js";
-import { access_identifier, access_uuid } from "../../schemas.js";
 import {
   access_saml_certificate,
   access_saml_certificate_set,
@@ -21,19 +20,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_samlCertificate_create",
     title: "Create SAML encryption certificate for Identity Provider",
-    description: "Creates a new SAML encryption certificate set and assigns it to the specified \nSAML Identity Provider. This endpoint is idempotent - if the IdP already has \na certificate set assigned, the existing certificate set is returned with a 200 status.\n\n**Workflow for enabling SAML encryption:**\n1. Call this endpoint to create and assign a certificate set to the IdP\n2. Update the IdP configuration (PUT `/identity_providers/{id}`) with:\n   - `config.enable_encryption: true`\n   - `saml_certificate_set_id: <uid from step 1>`\n3. Configure the certificate's public key in your external SAML Identity Provider",
+    description: "Creates a new SAML encryption certificate set and assigns it to the specified \nSAML Identity Provider. This endpoint is idempotent - if the IdP already has \na certificate set assigned, the existing certificate set is returned with a 200 status.\n\n**Workflow for enabling SAML encryption:**\n1. Call this endpoint to create and assign a certificate set to the IdP\n2. Update the IdP configuration (PUT `/identity_providers/{id}`) with:\n   - `config.enable_encryption: true`\n   - `saml_certificate_set_id: <uid from step 1>`\n3. Configure the certificate's public key in your external SAML Identity Provider\n\nPOST /accounts/{account_id}/access/identity_providers/{identity_provider_id}/saml_certificate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,10 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_saml_certificate_set_response",

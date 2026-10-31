@@ -6,7 +6,6 @@ import {
   magic$$visibility$$pcaps_api$$response$$common$$failure,
   magic$$visibility$$pcaps_messages,
 } from "../outputs.js";
-import { magic$$visibility$$pcaps_identifier } from "../schemas.js";
 
 /**
  * The tools of `magicTransit.pcaps.download`.
@@ -15,19 +14,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_pcaps_download_get",
     title: "Download Simple PCAP",
-    description: "Download PCAP information into a file. Response is a binary PCAP file.",
+    description: "Download PCAP information into a file. Response is a binary PCAP file.\n\nGET /accounts/{account_id}/pcaps/{pcap_id}/download",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "pcap_id": {
-              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -40,9 +40,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

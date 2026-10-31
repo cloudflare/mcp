@@ -8,36 +8,22 @@ import {
   vectorize_api$$response$$single,
   vectorize_create$$index$$response,
   vectorize_index$$delete$$vectors$$by$$id$$v2$$response,
-  vectorize_index$$description,
   vectorize_index$$dimension$$configuration,
-  vectorize_index$$dimensions,
   vectorize_index$$get$$vectors$$by$$id$$response,
   vectorize_index$$info$$response,
   vectorize_index$$list$$vectors$$response,
-  vectorize_index$$metric,
-  vectorize_index$$name,
-  vectorize_index$$preset,
   vectorize_index$$query$$v2$$response,
   vectorize_messages,
-  vectorize_mutation$$uuid,
-  vectorize_vector$$identifier,
   vectorize_vector$$list$$item,
 } from "./outputs.js";
 import {
   vectorize_create$$index$$request,
-  vectorize_identifier,
   vectorize_index$$configuration,
   vectorize_index$$delete$$vectors$$by$$id$$request,
-  vectorize_index$$description as vectorize_index$$description$,
   vectorize_index$$dimension$$configuration as vectorize_index$$dimension$$configuration$,
-  vectorize_index$$dimensions as vectorize_index$$dimensions$,
   vectorize_index$$get$$vectors$$by$$id$$request,
-  vectorize_index$$metric as vectorize_index$$metric$,
-  vectorize_index$$name as vectorize_index$$name$,
-  vectorize_index$$preset as vectorize_index$$preset$,
   vectorize_index$$preset$$configuration,
   vectorize_index$$query$$v2$$request,
-  vectorize_vector$$identifier as vectorize_vector$$identifier$,
 } from "./schemas.js";
 
 /**
@@ -47,7 +33,7 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_create",
     title: "Create Vectorize Index",
-    description: "Creates and returns a new Vectorize Index.",
+    description: "Creates and returns a new Vectorize Index.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes",
     inputSchema: {
       type: "object",
       properties: {
@@ -55,10 +41,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/vectorize_create-index-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -71,16 +58,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "vectorize_create-index-request": vectorize_create$$index$$request,
-        "vectorize_identifier": vectorize_identifier,
         "vectorize_index-configuration": vectorize_index$$configuration,
-        "vectorize_index-description": vectorize_index$$description$,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration$,
-        "vectorize_index-dimensions": vectorize_index$$dimensions$,
-        "vectorize_index-metric": vectorize_index$$metric$,
-        "vectorize_index-name": vectorize_index$$name$,
-        "vectorize_index-preset": vectorize_index$$preset$,
         "vectorize_index-preset-configuration": vectorize_index$$preset$$configuration,
       },
     },
@@ -102,12 +84,7 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_create-index-response": vectorize_create$$index$$response,
-        "vectorize_index-description": vectorize_index$$description,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
-        "vectorize_index-metric": vectorize_index$$metric,
-        "vectorize_index-name": vectorize_index$$name,
-        "vectorize_index-preset": vectorize_index$$preset,
         "vectorize_messages": vectorize_messages,
       },
     },
@@ -156,12 +133,7 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_create-index-response": vectorize_create$$index$$response,
-        "vectorize_index-description": vectorize_index$$description,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
-        "vectorize_index-metric": vectorize_index$$metric,
-        "vectorize_index-name": vectorize_index$$name,
-        "vectorize_index-preset": vectorize_index$$preset,
         "vectorize_messages": vectorize_messages,
       },
     },
@@ -173,18 +145,19 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_delete",
     title: "Delete Vectorize Index",
-    description: "Deletes the specified Vectorize Index.",
+    description: "Deletes the specified Vectorize Index.\n\nDELETE /accounts/{account_id}/vectorize/v2/indexes/{index_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -197,10 +170,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -290,7 +260,7 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_deleteByIds",
     title: "Delete Vectors By Identifier",
-    description: "Delete a set of vectors from an index by their vector identifiers.",
+    description: "Delete a set of vectors from an index by their vector identifiers.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/delete_by_ids",
     inputSchema: {
       type: "object",
       properties: {
@@ -298,13 +268,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -318,11 +289,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "vectorize_identifier": vectorize_identifier,
         "vectorize_index-delete-vectors-by-id-request": vectorize_index$$delete$$vectors$$by$$id$$request,
-        "vectorize_index-name": vectorize_index$$name$,
-        "vectorize_vector-identifier": vectorize_vector$$identifier$,
       },
     },
     outputSchema: {
@@ -344,7 +313,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index$$delete$$vectors$$by$$id$$v2$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     annotations: {
@@ -393,7 +361,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index$$delete$$vectors$$by$$id$$v2$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     request: (args) => ({
@@ -404,18 +371,19 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_get",
     title: "Get Vectorize Index",
-    description: "Returns the specified Vectorize Index.",
+    description: "Returns the specified Vectorize Index.\n\nGET /accounts/{account_id}/vectorize/v2/indexes/{index_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -428,10 +396,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -451,12 +416,7 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_create-index-response": vectorize_create$$index$$response,
-        "vectorize_index-description": vectorize_index$$description,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
-        "vectorize_index-metric": vectorize_index$$metric,
-        "vectorize_index-name": vectorize_index$$name,
-        "vectorize_index-preset": vectorize_index$$preset,
         "vectorize_messages": vectorize_messages,
       },
     },
@@ -506,12 +466,7 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_create-index-response": vectorize_create$$index$$response,
-        "vectorize_index-description": vectorize_index$$description,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
-        "vectorize_index-metric": vectorize_index$$metric,
-        "vectorize_index-name": vectorize_index$$name,
-        "vectorize_index-preset": vectorize_index$$preset,
         "vectorize_messages": vectorize_messages,
       },
     },
@@ -522,7 +477,7 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_getByIds",
     title: "Get Vectors By Identifier",
-    description: "Get a set of vectors from an index by their vector identifiers.",
+    description: "Get a set of vectors from an index by their vector identifiers.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/get_by_ids",
     inputSchema: {
       type: "object",
       properties: {
@@ -530,13 +485,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/vectorize_index-get-vectors-by-id-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -550,11 +506,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "vectorize_identifier": vectorize_identifier,
         "vectorize_index-get-vectors-by-id-request": vectorize_index$$get$$vectors$$by$$id$$request,
-        "vectorize_index-name": vectorize_index$$name$,
-        "vectorize_vector-identifier": vectorize_vector$$identifier$,
       },
     },
     outputSchema: {
@@ -575,7 +529,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_index-get-vectors-by-id-response": vectorize_index$$get$$vectors$$by$$id$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_vector-identifier": vectorize_vector$$identifier,
       },
     },
     annotations: {
@@ -619,7 +572,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
         "vectorize_index-get-vectors-by-id-response": vectorize_index$$get$$vectors$$by$$id$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_vector-identifier": vectorize_vector$$identifier,
       },
     },
     request: (args) => ({
@@ -630,18 +582,19 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_info",
     title: "Get Vectorize Index Info",
-    description: "Get information about a vectorize index.",
+    description: "Get information about a vectorize index.\n\nGET /accounts/{account_id}/vectorize/v2/indexes/{index_name}/info",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -654,10 +607,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -676,10 +626,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
         "vectorize_index-info-response": vectorize_index$$info$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     annotations: {
@@ -727,10 +675,8 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
         "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
         "vectorize_index-info-response": vectorize_index$$info$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     request: (args) => ({
@@ -740,15 +686,16 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_list",
     title: "List Vectorize Indexes",
-    description: "Returns a list of Vectorize Indexes",
+    description: "Returns a list of Vectorize Indexes\n\nGET /accounts/{account_id}/vectorize/v2/indexes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -760,9 +707,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "vectorize_identifier": vectorize_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -784,12 +729,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_create-index-response": vectorize_create$$index$$response,
-        "vectorize_index-description": vectorize_index$$description,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
-        "vectorize_index-metric": vectorize_index$$metric,
-        "vectorize_index-name": vectorize_index$$name,
-        "vectorize_index-preset": vectorize_index$$preset,
         "vectorize_messages": vectorize_messages,
       },
     },
@@ -841,12 +781,7 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-common": vectorize_api$$response$$common,
         "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
         "vectorize_create-index-response": vectorize_create$$index$$response,
-        "vectorize_index-description": vectorize_index$$description,
         "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-        "vectorize_index-dimensions": vectorize_index$$dimensions,
-        "vectorize_index-metric": vectorize_index$$metric,
-        "vectorize_index-name": vectorize_index$$name,
-        "vectorize_index-preset": vectorize_index$$preset,
         "vectorize_messages": vectorize_messages,
       },
     },
@@ -857,18 +792,19 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_listVectors",
     title: "List Vectors",
-    description: "Returns a paginated list of vector identifiers from the specified index.",
+    description: "Returns a paginated list of vector identifiers from the specified index.\n\nGET /accounts/{account_id}/vectorize/v2/indexes/{index_name}/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -878,6 +814,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "count": {
               "default": 100,
@@ -895,10 +832,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -919,7 +853,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_index-list-vectors-response": vectorize_index$$list$$vectors$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_vector-identifier": vectorize_vector$$identifier,
         "vectorize_vector-list-item": vectorize_vector$$list$$item,
       },
     },
@@ -970,7 +903,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_index-list-vectors-response": vectorize_index$$list$$vectors$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_vector-identifier": vectorize_vector$$identifier,
         "vectorize_vector-list-item": vectorize_vector$$list$$item,
       },
     },
@@ -985,7 +917,7 @@ export const tools: readonly Tool[] = [
   {
     name: "vectorize_query",
     title: "Query Vectors",
-    description: "Finds vectors closest to a given vector in an index.",
+    description: "Finds vectors closest to a given vector in an index.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/query",
     inputSchema: {
       type: "object",
       properties: {
@@ -993,13 +925,14 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/vectorize_index-query-v2-request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/vectorize_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "index_name": {
-              "$ref": "#/$defs/vectorize_index-name"
+              "type": "string"
             }
           },
           "required": [
@@ -1013,9 +946,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index$$name$,
         "vectorize_index-query-v2-request": vectorize_index$$query$$v2$$request,
       },
     },
@@ -1038,7 +970,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_index-query-v2-response": vectorize_index$$query$$v2$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_vector-identifier": vectorize_vector$$identifier,
       },
     },
     annotations: {
@@ -1083,7 +1014,6 @@ export const tools: readonly Tool[] = [
         "vectorize_api-response-single": vectorize_api$$response$$single,
         "vectorize_index-query-v2-response": vectorize_index$$query$$v2$$response,
         "vectorize_messages": vectorize_messages,
-        "vectorize_vector-identifier": vectorize_vector$$identifier,
       },
     },
     request: (args) => ({

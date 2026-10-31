@@ -11,11 +11,9 @@ import {
 import {
   dlp_RiskScoreIntegration,
   dlp_RiskScoreIntegrationArray,
-  dlp_RiskScoreIntegrationType,
 } from "./outputs.js";
 import {
   dlp_CreateIntegrationBody,
-  dlp_RiskScoreIntegrationType as dlp_RiskScoreIntegrationType$,
   dlp_UpdateIntegrationBody,
 } from "./schemas.js";
 
@@ -26,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_integrations_create",
     title: "Create new risk score integration.",
-    description: "Creates a new Zero Trust risk score integration, connecting external risk signals to Cloudflare's risk scoring system.",
+    description: "Creates a new Zero Trust risk score integration, connecting external risk signals to Cloudflare's risk scoring system.\n\nPOST /accounts/{account_id}/zt_risk_scoring/integrations",
     inputSchema: {
       type: "object",
       properties: {
@@ -34,6 +32,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dlp_CreateIntegrationBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -49,9 +48,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CreateIntegrationBody": dlp_CreateIntegrationBody,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType$,
       },
     },
     outputSchema: {
@@ -70,7 +69,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -112,7 +110,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -126,11 +123,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_integrations_delete",
     title: "Delete a risk score integration.",
-    description: "Removes a Zero Trust risk score integration, disconnecting the external risk signal source.",
+    description: "Removes a Zero Trust risk score integration, disconnecting the external risk signal source.\n\nDELETE /accounts/{account_id}/zt_risk_scoring/integrations/{integration_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -150,6 +148,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -220,11 +219,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_integrations_get",
     title: "Get risk score integration by id.",
-    description: "Gets a Zero Trust risk score integration by ID.",
+    description: "Gets a Zero Trust risk score integration by ID.\n\nGET /accounts/{account_id}/zt_risk_scoring/integrations/{integration_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -244,6 +244,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -261,7 +262,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -304,7 +304,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -317,11 +316,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_integrations_list",
     title: "List all risk score integrations for the account.",
-    description: "Lists all configured Zero Trust risk score integrations for the account.",
+    description: "Lists all configured Zero Trust risk score integrations for the account.\n\nGET /accounts/{account_id}/zt_risk_scoring/integrations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -336,6 +336,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -354,7 +355,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
         "dlp_RiskScoreIntegrationArray": dlp_RiskScoreIntegrationArray,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -398,7 +398,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
         "dlp_RiskScoreIntegrationArray": dlp_RiskScoreIntegrationArray,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -411,7 +410,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_integrations_update",
     title: "Update a risk score integration.",
-    description: "Overwrite the reference_id, tenant_url, and active values with the ones provided.",
+    description: "Overwrite the reference_id, tenant_url, and active values with the ones provided.\n\nPUT /accounts/{account_id}/zt_risk_scoring/integrations/{integration_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -419,6 +418,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dlp_UpdateIntegrationBody"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -439,6 +439,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_UpdateIntegrationBody": dlp_UpdateIntegrationBody,
       },
@@ -459,7 +460,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -501,7 +501,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,

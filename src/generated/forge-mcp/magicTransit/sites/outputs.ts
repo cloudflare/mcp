@@ -4,40 +4,12 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_connector-id` in responses.
- */
-export const magic_connector$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_ip-address` in responses.
- */
-export const magic_ip$$address: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_port` in responses.
- */
-export const magic_port: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic_secondary-connector-id` in responses.
- */
-export const magic_secondary$$connector$$id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_site` in responses.
  */
 export const magic_site: JsonSchema = {
   "properties": {
     "connector_id": {
-      "$ref": "#/$defs/magic_connector-id"
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -46,16 +18,16 @@ export const magic_site: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "location": {
       "$ref": "#/$defs/magic_site-location"
     },
     "name": {
-      "$ref": "#/$defs/magic_site-name"
+      "type": "string"
     },
     "secondary_connector_id": {
-      "$ref": "#/$defs/magic_secondary-connector-id"
+      "type": "string"
     }
   },
   "type": "object"
@@ -74,13 +46,6 @@ export const magic_site$$location: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_site-name` in responses.
- */
-export const magic_site$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -160,11 +125,4 @@ export const magic_sites_collection_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic_vlan_tag` in responses.
- */
-export const magic_vlan_tag: JsonSchema = {
-  "type": "integer"
 };

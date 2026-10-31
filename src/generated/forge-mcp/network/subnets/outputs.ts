@@ -12,28 +12,36 @@ export const tunnel_subnet: JsonSchema = {
       "$ref": "#/$defs/tunnel_subnet_capacity"
     },
     "comment": {
-      "$ref": "#/$defs/tunnel_subnet_comment"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_subnet_id"
+      "format": "uuid",
+      "type": "string"
     },
     "is_default_network": {
-      "$ref": "#/$defs/tunnel_subnet_is_default_network"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/tunnel_subnet_name"
+      "type": "string"
     },
     "network": {
-      "$ref": "#/$defs/tunnel_subnet_ip_network"
+      "type": "string"
     },
     "subnet_type": {
-      "$ref": "#/$defs/tunnel_subnet_type"
+      "enum": [
+        "cloudflare_source",
+        "initial_resolved_ip",
+        "warp"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -52,42 +60,6 @@ export const tunnel_subnet_capacity: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_subnet_comment` in responses.
- */
-export const tunnel_subnet_comment: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_subnet_id` in responses.
- */
-export const tunnel_subnet_id: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_subnet_ip_network` in responses.
- */
-export const tunnel_subnet_ip_network: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_subnet_is_default_network` in responses.
- */
-export const tunnel_subnet_is_default_network: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `tunnel_subnet_name` in responses.
- */
-export const tunnel_subnet_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -129,16 +101,4 @@ export const tunnel_subnet_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tunnel_subnet_type` in responses.
- */
-export const tunnel_subnet_type: JsonSchema = {
-  "enum": [
-    "cloudflare_source",
-    "initial_resolved_ip",
-    "warp"
-  ],
-  "type": "string"
 };

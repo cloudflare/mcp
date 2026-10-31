@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../../schemas.js";
 import { r2_managed_domain_response } from "./outputs.js";
 import { r2_edit_managed_domain_request } from "./schemas.js";
 
@@ -19,11 +18,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_managed_list",
     title: "Get r2.dev Domain of Bucket",
-    description: "Gets the R2 bucket's managed r2.dev domain and whether public access is enabled. The r2.dev domain is rate-limited and intended for development use.",
+    description: "Gets the R2 bucket's managed r2.dev domain and whether public access is enabled. The r2.dev domain is rate-limited and intended for development use.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/domains/managed",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -41,14 +41,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,10 +62,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -142,7 +140,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_managed_update",
     title: "Update r2.dev Domain of Bucket",
-    description: "Enables or disables public access to the R2 bucket through its managed r2.dev domain. Custom domain access is unaffected. The r2.dev domain is rate-limited and intended for development use.\n\nConfirm with the user before calling this tool. This changes public access to the R2 bucket through its r2.dev domain.",
+    description: "Enables or disables public access to the R2 bucket through its managed r2.dev domain. Custom domain access is unaffected. The r2.dev domain is rate-limited and intended for development use.\n\nConfirm with the user before calling this tool. This changes public access to the R2 bucket through its r2.dev domain.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/domains/managed",
     inputSchema: {
       type: "object",
       properties: {
@@ -150,6 +148,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2_edit_managed_domain_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -167,14 +166,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -188,9 +188,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
         "r2_edit_managed_domain_request": r2_edit_managed_domain_request,
       },
     },

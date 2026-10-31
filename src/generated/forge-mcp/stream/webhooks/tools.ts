@@ -8,7 +8,6 @@ import {
   stream_deleted_response,
   stream_messages,
 } from "../outputs.js";
-import { stream_account_identifier } from "../schemas.js";
 import { stream_webhook_response_single } from "./outputs.js";
 import { stream_webhook_request } from "./schemas.js";
 
@@ -19,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_webhooks_delete",
     title: "Delete webhooks",
-    description: "Deletes the on-demand video webhook.\n\nConfirm with the user before calling this tool. Delete this webhook? If recreated, the secret will change.",
+    description: "Deletes the on-demand video webhook.\n\nConfirm with the user before calling this tool. Delete this webhook? If recreated, the secret will change.\n\nDELETE /accounts/{account_id}/stream/webhook",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -39,9 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
@@ -88,15 +86,16 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_webhooks_get",
     title: "View webhook",
-    description: "Retrieve current on-demand webhook information.",
+    description: "Retrieve current on-demand webhook information.\n\nGET /accounts/{account_id}/stream/webhook",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -108,9 +107,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_webhook_response_single",
@@ -158,7 +155,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_webhooks_update",
     title: "Create VOD webhooks",
-    description: "Create a webhook for notifications about on-demand video uploads.\n\nConfirm with the user before calling this tool. Create a webhook for on-demand operations? Will replace previously configured webhook. Live input webhooks are handled via Notifications Service.",
+    description: "Create a webhook for notifications about on-demand video uploads.\n\nConfirm with the user before calling this tool. Create a webhook for on-demand operations? Will replace previously configured webhook. Live input webhooks are handled via Notifications Service.\n\nPUT /accounts/{account_id}/stream/webhook",
     inputSchema: {
       type: "object",
       properties: {
@@ -166,10 +163,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_webhook_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -182,8 +180,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
         "stream_webhook_request": stream_webhook_request,
       },
     },

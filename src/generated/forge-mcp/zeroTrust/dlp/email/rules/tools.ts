@@ -12,16 +12,12 @@ import {
   dlp_EmailRuleAction,
   dlp_EmailRuleArray,
   dlp_EmailRuleCondition,
-  dlp_EmailRuleOperator,
-  dlp_EmailRuleSelector,
   dlp_EmailRuleValue,
 } from "./outputs.js";
 import {
   dlp_CreateEmailRule,
   dlp_EmailRuleAction as dlp_EmailRuleAction$,
   dlp_EmailRuleCondition as dlp_EmailRuleCondition$,
-  dlp_EmailRuleOperator as dlp_EmailRuleOperator$,
-  dlp_EmailRuleSelector as dlp_EmailRuleSelector$,
   dlp_EmailRuleValue as dlp_EmailRuleValue$,
   dlp_UpdateEmailRulePriorities,
 } from "./schemas.js";
@@ -33,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_rules_bulkEdit",
     title: "Update email scanner rule priorities",
-    description: "Reorders DLP email scanning rules by updating their priority values. Higher priority rules are evaluated first.",
+    description: "Reorders DLP email scanning rules by updating their priority values. Higher priority rules are evaluated first.\n\nPATCH /accounts/{account_id}/dlp/email/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,6 +38,7 @@ export const tools: readonly Tool[] = [
           "description": "Rule priorities."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -57,6 +54,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_UpdateEmailRulePriorities": dlp_UpdateEmailRulePriorities,
       },
@@ -79,8 +77,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -125,8 +121,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -141,7 +135,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_rules_create",
     title: "Create email scanner rule",
-    description: "Creates a new DLP email scanning rule that defines what content patterns to detect in email messages and what actions to take.",
+    description: "Creates a new DLP email scanning rule that defines what content patterns to detect in email messages and what actions to take.\n\nPOST /accounts/{account_id}/dlp/email/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -150,6 +144,7 @@ export const tools: readonly Tool[] = [
           "description": "Rule description."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -165,12 +160,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CreateEmailRule": dlp_CreateEmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction$,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition$,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator$,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector$,
         "dlp_EmailRuleValue": dlp_EmailRuleValue$,
       },
     },
@@ -192,8 +186,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -238,8 +230,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -254,11 +244,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_rules_delete",
     title: "Delete email scanner rule",
-    description: "Removes a DLP email scanning rule. The rule will no longer be applied to email messages.",
+    description: "Removes a DLP email scanning rule. The rule will no longer be applied to email messages.\n\nDELETE /accounts/{account_id}/dlp/email/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -278,6 +269,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -297,8 +289,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -343,8 +333,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -358,11 +346,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_rules_get",
     title: "Get an email scanner rule",
-    description: "Gets detailed configuration for a specific DLP email scanning rule, including detection patterns and actions.",
+    description: "Gets detailed configuration for a specific DLP email scanning rule, including detection patterns and actions.\n\nGET /accounts/{account_id}/dlp/email/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -382,6 +371,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -401,8 +391,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -448,8 +436,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -463,11 +449,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_rules_list",
     title: "List all email scanner rules",
-    description: "Lists all email scanner rules for an account.",
+    description: "Lists all email scanner rules for an account.\n\nGET /accounts/{account_id}/dlp/email/rules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -482,6 +469,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -502,8 +490,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleArray": dlp_EmailRuleArray,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -550,8 +536,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleArray": dlp_EmailRuleArray,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -565,7 +549,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_rules_update",
     title: "Update email scanner rule",
-    description: "Updates a DLP email scanning rule.",
+    description: "Updates a DLP email scanning rule.\n\nPUT /accounts/{account_id}/dlp/email/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -574,6 +558,7 @@ export const tools: readonly Tool[] = [
           "description": "Rule description."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -594,12 +579,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CreateEmailRule": dlp_CreateEmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction$,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition$,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator$,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector$,
         "dlp_EmailRuleValue": dlp_EmailRuleValue$,
       },
     },
@@ -621,8 +605,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -667,8 +649,6 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRule": dlp_EmailRule,
         "dlp_EmailRuleAction": dlp_EmailRuleAction,
         "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
         "dlp_EmailRuleValue": dlp_EmailRuleValue,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

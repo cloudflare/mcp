@@ -16,11 +16,3 @@ export const waf$$product$$api$$bundle_settings: JsonSchema = {
   },
   "type": "object"
 };
-
-/**
- * The schema of `waf-product-api-bundle_zone_id`.
- */
-export const waf$$product$$api$$bundle_zone_id: JsonSchema = {
-  "description": "Defines the zone.",
-  "type": "string"
-};

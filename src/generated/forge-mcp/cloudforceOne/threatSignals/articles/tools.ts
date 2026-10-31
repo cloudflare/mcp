@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_aggregateRelevance",
     title: "Count Threat Signals articles by relevance band",
-    description: "Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. read counts only read or only unread articles. All counts are read together and are exact.",
+    description: "Beta. Counts the account's Threat Signals articles in each relevance band, for each active Priority Intelligence Requirement and across all of them. Uses the same PIRs as article relevance: active PIRs, including those the matcher paused; drafts and deleted PIRs are excluded. Articles not scored against a PIR are not counted for it. The combined counts place each article once, in the band of its best score, so they are not the sum of the per-PIR counts. read counts only read or only unread articles. All counts are read together and are exact.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/relevance/aggregate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -26,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "published_after": {
               "description": "Include articles published at or after this ISO 8601 date-time with Z or a numeric UTC offset; normalized to UTC.",
@@ -48,6 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -284,11 +287,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_aggregateSeverity",
     title: "Count Threat Signals articles by severity band",
-    description: "Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the one reported as its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. read counts only read or only unread articles, in both articles and priorities. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.",
+    description: "Beta. Counts the account's Threat Signals articles in each intrinsic severity band. An article's band is the one reported as its severity, from informational to critical. Articles without a severity are not counted. Also counts, for each active Priority Intelligence Requirement, the articles scored against it. min_relevance counts only articles at or above a relevance band: overall, for any active PIR; per PIR, for that PIR, the same rule as the per-PIR relevance counts. pir_id counts for one active PIR only. read counts only read or only unread articles, in both articles and priorities. Like the article severity field, severity is reported only while the account has an active Priority Intelligence Requirement, including one the matcher paused; otherwise every count is zero and priorities is empty. All counts are read together and are exact.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/severity/aggregate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -300,6 +304,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "min_relevance": {
               "description": "Beta. Count only articles at or above this relevance band: in articles, for any active Priority Intelligence Requirement, as the article list's min_relevance does without pir_id; in each priority, for that PIR. Excludes articles that have not been scored against an active PIR.",
@@ -336,6 +341,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -590,7 +596,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_bulkMarkRead",
     title: "Bulk update Threat Signals article read status",
-    description: "Marks up to 50 Threat Signals articles as read or unread.",
+    description: "Marks up to 50 Threat Signals articles as read or unread.\n\nPATCH /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles",
     inputSchema: {
       type: "object",
       properties: {
@@ -618,6 +624,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -632,6 +639,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -832,11 +840,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_get",
     title: "Get Threat Signals article",
-    description: "Retrieves a Threat Signals article with its summary, tags, indicator status and relevance to the account's Priority Intelligence Requirements.",
+    description: "Retrieves a Threat Signals article with its summary, tags, indicator status and relevance to the account's Priority Intelligence Requirements.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -857,6 +866,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1541,11 +1551,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_getContent",
     title: "Get Threat Signals article content",
-    description: "Retrieves the stored content of a Threat Signals article, unchanged. Depending on how the article was captured from its source, the content is HTML, Markdown, or plain text. The format parameter sets only the response Content-Type; it does not convert the content.",
+    description: "Retrieves the stored content of a Threat Signals article, unchanged. Depending on how the article was captured from its source, the content is HTML, Markdown, or plain text. The format parameter sets only the response Content-Type; it does not convert the content.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/content",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1563,6 +1574,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Response Content-Type: text (the default) for text/plain or html for text/html. Neither value converts the content. html is deprecated; use text.",
@@ -1579,6 +1591,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -1611,11 +1624,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_list",
     title: "List Threat Signals articles",
-    description: "Lists articles from the account's Threat Signals feeds.",
+    description: "Lists articles from the account's Threat Signals feeds.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -1627,6 +1641,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "article_id": {
               "description": "Repeatable article UUID filter. Returns the union of matching account-owned articles; use this to list every Threat Signals article referenced by an indicator's sources.",
@@ -1774,6 +1789,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2420,7 +2436,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_markRead",
     title: "Update Threat Signals article read status",
-    description: "Marks a Threat Signals article as read or unread.",
+    description: "Marks a Threat Signals article as read or unread.\n\nPATCH /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -2437,6 +2453,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -2457,6 +2474,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -3033,7 +3051,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatSignals_articles_reprocess",
     title: "Reprocess a Threat Signals article",
-    description: "Synchronously re-runs every processing step for a Threat Signals article: pull content, clean content, extract IOCs, filter IOCs, summary, CVE tags, IOC context, article tags, and Event publication. Replaces the article's summary, AI tags, and indicators; indicators no longer found are removed. Creates a Threat Event only when the article has none; an existing Event is never updated. Takes over the article from any queued processing. Requires a paid Threat Signals subscription and the Cloudforce One Write permission.",
+    description: "Synchronously re-runs every processing step for a Threat Signals article: pull content, clean content, extract IOCs, filter IOCs, summary, CVE tags, IOC context, article tags, and Event publication. Replaces the article's summary, AI tags, and indicators; indicators no longer found are removed. Creates a Threat Event only when the article has none; an existing Event is never updated. Takes over the article from any queued processing. Requires a paid Threat Signals subscription and the Cloudforce One Write permission.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/reprocess",
     inputSchema: {
       type: "object",
       properties: {
@@ -3041,6 +3059,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -3061,6 +3080,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

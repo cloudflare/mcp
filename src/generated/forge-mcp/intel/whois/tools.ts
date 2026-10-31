@@ -5,13 +5,11 @@ import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
   cloudforce$$one$$whois_api$$response$$common$$failure,
   cloudforce$$one$$whois_api$$response$$single,
-  cloudforce$$one$$whois_domain_name,
   cloudforce$$one$$whois_messages,
   cloudforce$$one$$whois_schemas$$messages,
   cloudforce$$one$$whois_schemas$$single_response,
   cloudforce$$one$$whois_whois,
 } from "./outputs.js";
-import { cloudforce$$one$$whois_identifier } from "./schemas.js";
 
 /**
  * The tools of `intel.whois`.
@@ -20,15 +18,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_whois_get",
     title: "Get WHOIS Record",
-    description: "Retrieves WHOIS registration data for a domain, including registrant and nameserver information.",
+    description: "Retrieves WHOIS registration data for a domain, including registrant and nameserver information.\n\nGET /accounts/{account_id}/intel/whois",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/cloudforce-one-whois_identifier",
-              "description": "Use to uniquely identify or reference the resource."
+              "description": "Use to uniquely identify or reference the resource.",
+              "type": "string"
             }
           },
           "required": [
@@ -37,6 +36,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "domain": {
               "type": "string"
@@ -48,15 +48,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cloudforce-one-whois_identifier": cloudforce$$one$$whois_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one-whois_schemas-single_response",
       $defs: {
         "cloudforce-one-whois_api-response-single": cloudforce$$one$$whois_api$$response$$single,
-        "cloudforce-one-whois_domain_name": cloudforce$$one$$whois_domain_name,
         "cloudforce-one-whois_schemas-messages": cloudforce$$one$$whois_schemas$$messages,
         "cloudforce-one-whois_schemas-single_response": cloudforce$$one$$whois_schemas$$single_response,
         "cloudforce-one-whois_whois": cloudforce$$one$$whois_whois,
@@ -89,7 +86,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudforce-one-whois_api-response-common-failure": cloudforce$$one$$whois_api$$response$$common$$failure,
         "cloudforce-one-whois_api-response-single": cloudforce$$one$$whois_api$$response$$single,
-        "cloudforce-one-whois_domain_name": cloudforce$$one$$whois_domain_name,
         "cloudforce-one-whois_messages": cloudforce$$one$$whois_messages,
         "cloudforce-one-whois_schemas-messages": cloudforce$$one$$whois_schemas$$messages,
         "cloudforce-one-whois_schemas-single_response": cloudforce$$one$$whois_schemas$$single_response,

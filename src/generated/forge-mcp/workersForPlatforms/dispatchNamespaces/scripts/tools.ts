@@ -7,10 +7,7 @@ import {
   workers_api$$response$$common$$failure,
   workers_api$$response$$null$$result,
   workers_cache_options,
-  workers_compatibility_date,
-  workers_compatibility_flag,
   workers_compatibility_flags,
-  workers_created_on,
   workers_durable_object_deleted_export,
   workers_durable_object_expecting_transfer_export,
   workers_durable_object_export,
@@ -18,31 +15,18 @@ import {
   workers_durable_object_renamed_export,
   workers_durable_object_transferred_export,
   workers_entrypoint_cache_options,
-  workers_etag,
   workers_export_config,
-  workers_export_storage,
   workers_exports_config_map,
-  workers_has_assets,
-  workers_has_modules,
-  workers_logpush,
   workers_messages,
-  workers_modified_on,
   workers_observability$$2,
   workers_placement_info,
-  workers_placement_mode,
-  workers_placement_status,
   workers_placement_target,
   workers_script$$response,
-  workers_tag,
   workers_tags,
   workers_tail_consumers,
   workers_tail_consumers_script,
-  workers_usage_model,
   workers_worker_export,
 } from "../../../outputs.js";
-import { workers_identifier, workers_script_name } from "../../../schemas.js";
-import { workers_dispatch_namespace_name, workers_uuid } from "../outputs.js";
-import { workers_dispatch_namespace_name as workers_dispatch_namespace_name$ } from "../schemas.js";
 import {
   workers_namespace$$script$$delete$$bulk$$response,
   workers_namespace$$script$$response,
@@ -56,19 +40,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_bulkDelete",
     title: "Delete Workers for Platforms Scripts",
-    description: "Delete multiple scripts from a Workers for Platforms dispatch namespace based on optional tag filters.\n\nConfirm with the user before calling this tool. This will permanently delete matching scripts in the Workers for Platforms dispatch namespace.",
+    description: "Delete multiple scripts from a Workers for Platforms dispatch namespace based on optional tag filters.\n\nConfirm with the user before calling this tool. This will permanently delete matching scripts in the Workers for Platforms dispatch namespace.\n\nDELETE /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -78,6 +63,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "description": "Limit the number of scripts to delete.",
@@ -98,16 +84,12 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-script-delete-bulk-response",
       $defs: {
         "workers_namespace-script-delete-bulk-response": workers_namespace$$script$$delete$$bulk$$response,
-        "workers_uuid": workers_uuid,
       },
     },
     annotations: {
@@ -140,7 +122,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_messages": workers_messages,
         "workers_namespace-script-delete-bulk-response": workers_namespace$$script$$delete$$bulk$$response,
-        "workers_uuid": workers_uuid,
       },
     },
     request: (args) => ({
@@ -154,23 +135,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_delete",
     title: "Delete Workers for Platforms Script",
-    description: "Delete a script from a Workers for Platforms dispatch namespace. This call has no response body on a successful delete.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers for Platforms script.",
+    description: "Delete a script from a Workers for Platforms dispatch namespace. This call has no response body on a successful delete.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers for Platforms script.\n\nDELETE /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -181,6 +163,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "description": "If true, delete the script even when other Workers still reference it. Service bindings in those Workers may be left broken. Durable Object namespaces implemented by the deleted script are deleted even if other Workers reference them.",
@@ -193,11 +176,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-null-result",
@@ -247,23 +226,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_get",
     title: "Get Workers for Platforms Script details",
-    description: "Fetch information about a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Fetch information about a script uploaded to a Workers for Platforms dispatch namespace.\n\nGET /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -277,22 +257,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-script-response-single",
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
-        "workers_created_on": workers_created_on,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
         "workers_durable_object_export": workers_durable_object_export,
@@ -300,28 +272,18 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
-        "workers_etag": workers_etag,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
-        "workers_has_assets": workers_has_assets,
-        "workers_has_modules": workers_has_modules,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
         "workers_namespace-script-response": workers_namespace$$script$$response,
         "workers_namespace-script-response-single": workers_namespace$$script$$response$$single,
         "workers_observability-2": workers_observability$$2,
         "workers_placement_info": workers_placement_info,
-        "workers_placement_mode": workers_placement_mode,
-        "workers_placement_status": workers_placement_status,
         "workers_placement_target": workers_placement_target,
         "workers_script-response": workers_script$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers": workers_tail_consumers,
         "workers_tail_consumers_script": workers_tail_consumers_script,
-        "workers_usage_model": workers_usage_model,
         "workers_worker_export": workers_worker_export,
       },
     },
@@ -354,11 +316,7 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
-        "workers_created_on": workers_created_on,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
         "workers_durable_object_export": workers_durable_object_export,
@@ -366,28 +324,18 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
-        "workers_etag": workers_etag,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
-        "workers_has_assets": workers_has_assets,
-        "workers_has_modules": workers_has_modules,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
         "workers_namespace-script-response": workers_namespace$$script$$response,
         "workers_namespace-script-response-single": workers_namespace$$script$$response$$single,
         "workers_observability-2": workers_observability$$2,
         "workers_placement_info": workers_placement_info,
-        "workers_placement_mode": workers_placement_mode,
-        "workers_placement_status": workers_placement_status,
         "workers_placement_target": workers_placement_target,
         "workers_script-response": workers_script$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers": workers_tail_consumers,
         "workers_tail_consumers_script": workers_tail_consumers_script,
-        "workers_usage_model": workers_usage_model,
         "workers_worker_export": workers_worker_export,
       },
     },
@@ -398,19 +346,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_list",
     title: "List Workers for Platforms Scripts",
-    description: "Fetch a list of scripts uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Fetch a list of scripts uploaded to a Workers for Platforms dispatch namespace.\n\nGET /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -420,6 +369,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "tags": {
               "description": "Filter scripts by tags. Format: comma-separated list of tag:allowed pairs where allowed is 'yes' or 'no'.",
@@ -432,10 +382,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -460,11 +407,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
-        "workers_created_on": workers_created_on,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
         "workers_durable_object_export": workers_durable_object_export,
@@ -472,27 +415,17 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
-        "workers_etag": workers_etag,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
-        "workers_has_assets": workers_has_assets,
-        "workers_has_modules": workers_has_modules,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
         "workers_namespace-script-response": workers_namespace$$script$$response,
         "workers_observability-2": workers_observability$$2,
         "workers_placement_info": workers_placement_info,
-        "workers_placement_mode": workers_placement_mode,
-        "workers_placement_status": workers_placement_status,
         "workers_placement_target": workers_placement_target,
         "workers_script-response": workers_script$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers": workers_tail_consumers,
         "workers_tail_consumers_script": workers_tail_consumers_script,
-        "workers_usage_model": workers_usage_model,
         "workers_worker_export": workers_worker_export,
       },
     },
@@ -543,11 +476,7 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_cache_options": workers_cache_options,
-        "workers_compatibility_date": workers_compatibility_date,
-        "workers_compatibility_flag": workers_compatibility_flag,
         "workers_compatibility_flags": workers_compatibility_flags,
-        "workers_created_on": workers_created_on,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
         "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
         "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
         "workers_durable_object_export": workers_durable_object_export,
@@ -555,27 +484,17 @@ export const tools: readonly Tool[] = [
         "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
         "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
         "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
-        "workers_etag": workers_etag,
         "workers_export_config": workers_export_config,
-        "workers_export_storage": workers_export_storage,
         "workers_exports_config_map": workers_exports_config_map,
-        "workers_has_assets": workers_has_assets,
-        "workers_has_modules": workers_has_modules,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
-        "workers_modified_on": workers_modified_on,
         "workers_namespace-script-response": workers_namespace$$script$$response,
         "workers_observability-2": workers_observability$$2,
         "workers_placement_info": workers_placement_info,
-        "workers_placement_mode": workers_placement_mode,
-        "workers_placement_status": workers_placement_status,
         "workers_placement_target": workers_placement_target,
         "workers_script-response": workers_script$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers": workers_tail_consumers,
         "workers_tail_consumers_script": workers_tail_consumers_script,
-        "workers_usage_model": workers_usage_model,
         "workers_worker_export": workers_worker_export,
       },
     },

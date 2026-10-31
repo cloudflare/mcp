@@ -4,40 +4,20 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_count` in responses.
- */
-export const zero$$trust$$gateway_count: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `zero-trust-gateway_description` in responses.
- */
-export const zero$$trust$$gateway_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description_item` in responses.
- */
-export const zero$$trust$$gateway_description_item: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_items` in responses.
  */
 export const zero$$trust$$gateway_items: JsonSchema = {
   "items": {
     "properties": {
       "created_at": {
-        "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+        "format": "date-time",
+        "type": "string"
       },
       "description": {
-        "$ref": "#/$defs/zero-trust-gateway_description_item"
+        "type": "string"
       },
       "value": {
-        "$ref": "#/$defs/zero-trust-gateway_value"
+        "type": "string"
       }
     },
     "type": "object"
@@ -70,38 +50,44 @@ export const zero$$trust$$gateway_list_single_response: JsonSchema = {
 export const zero$$trust$$gateway_lists: JsonSchema = {
   "properties": {
     "count": {
-      "$ref": "#/$defs/zero-trust-gateway_count"
+      "type": "number"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-2"
+      "type": "string"
     },
     "items": {
       "$ref": "#/$defs/zero-trust-gateway_items"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/zero-trust-gateway_type-2"
+      "enum": [
+        "SERIAL",
+        "URL",
+        "DOMAIN",
+        "EMAIL",
+        "IP",
+        "CATEGORY",
+        "LOCATION",
+        "DEVICE",
+        "AAGUID"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_name` in responses.
- */
-export const zero$$trust$$gateway_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -140,25 +126,38 @@ export const zero$$trust$$gateway_single_response_with_list_items: JsonSchema = 
         "result": {
           "properties": {
             "created_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+              "format": "date-time",
+              "type": "string"
             },
             "description": {
-              "$ref": "#/$defs/zero-trust-gateway_description"
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/zero-trust-gateway_uuid-2"
+              "type": "string"
             },
             "items": {
               "$ref": "#/$defs/zero-trust-gateway_items"
             },
             "name": {
-              "$ref": "#/$defs/zero-trust-gateway_name"
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/zero-trust-gateway_type-2"
+              "enum": [
+                "SERIAL",
+                "URL",
+                "DOMAIN",
+                "EMAIL",
+                "IP",
+                "CATEGORY",
+                "LOCATION",
+                "DEVICE",
+                "AAGUID"
+              ],
+              "type": "string"
             },
             "updated_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
@@ -167,36 +166,4 @@ export const zero$$trust$$gateway_single_response_with_list_items: JsonSchema = 
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_type-2` in responses.
- */
-export const zero$$trust$$gateway_type$$2: JsonSchema = {
-  "enum": [
-    "SERIAL",
-    "URL",
-    "DOMAIN",
-    "EMAIL",
-    "IP",
-    "CATEGORY",
-    "LOCATION",
-    "DEVICE",
-    "AAGUID"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-2` in responses.
- */
-export const zero$$trust$$gateway_uuid$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_value` in responses.
- */
-export const zero$$trust$$gateway_value: JsonSchema = {
-  "type": "string"
 };

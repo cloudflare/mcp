@@ -7,38 +7,19 @@ import {
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
   api$$shield_basic_operation,
-  api$$shield_endpoint,
-  api$$shield_host,
   api$$shield_messages,
-  api$$shield_method,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../outputs.js";
 import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid as api$$shield_uuid$,
-  api$$shield_uuid$$2 as api$$shield_uuid$$2$,
-} from "../../../schemas.js";
-import {
-  api$$shield_api_discovery_origin,
   api$$shield_api_discovery_patch_multiple_request,
   api$$shield_api_discovery_patch_multiple_request_entry,
-  api$$shield_api_discovery_state,
-  api$$shield_api_discovery_state_patch,
   api$$shield_discovery_operation,
   api$$shield_patch_discoveries_response,
   api$$shield_patch_discovery_response,
   api$$shield_traffic_stats,
 } from "./outputs.js";
 import {
-  api$$shield_api_discovery_origin as api$$shield_api_discovery_origin$,
   api$$shield_api_discovery_patch_multiple_request as api$$shield_api_discovery_patch_multiple_request$,
   api$$shield_api_discovery_patch_multiple_request_entry as api$$shield_api_discovery_patch_multiple_request_entry$,
-  api$$shield_api_discovery_state as api$$shield_api_discovery_state$,
-  api$$shield_api_discovery_state_patch as api$$shield_api_discovery_state_patch$,
 } from "./schemas.js";
 
 /**
@@ -48,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_discovery_operations_bulkEdit",
     title: "Edit discovered web and API operations",
-    description: "Updates the state of one or more discovered web and API operations.",
+    description: "Updates the state of one or more discovered web and API operations.\n\nPATCH /zones/{zone_id}/api_gateway/discovery/operations",
     inputSchema: {
       type: "object",
       properties: {
@@ -56,9 +37,18 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/api-shield_api_discovery_patch_multiple_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -71,12 +61,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "api-shield_api_discovery_patch_multiple_request": api$$shield_api_discovery_patch_multiple_request$,
         "api-shield_api_discovery_patch_multiple_request_entry": api$$shield_api_discovery_patch_multiple_request_entry$,
-        "api-shield_api_discovery_state_patch": api$$shield_api_discovery_state_patch$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
       },
     },
     outputSchema: {
@@ -85,7 +73,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api_discovery_patch_multiple_request": api$$shield_api_discovery_patch_multiple_request,
         "api-shield_api_discovery_patch_multiple_request_entry": api$$shield_api_discovery_patch_multiple_request_entry,
-        "api-shield_api_discovery_state_patch": api$$shield_api_discovery_state_patch,
         "api-shield_messages": api$$shield_messages,
         "api-shield_patch_discoveries_response": api$$shield_patch_discoveries_response,
       },
@@ -119,7 +106,6 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
         "api-shield_api_discovery_patch_multiple_request": api$$shield_api_discovery_patch_multiple_request,
         "api-shield_api_discovery_patch_multiple_request_entry": api$$shield_api_discovery_patch_multiple_request_entry,
-        "api-shield_api_discovery_state_patch": api$$shield_api_discovery_state_patch,
         "api-shield_messages": api$$shield_messages,
         "api-shield_patch_discoveries_response": api$$shield_patch_discoveries_response,
       },
@@ -132,26 +118,48 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_discovery_operations_edit",
     title: "Edit a discovered web or API operation",
-    description: "Updates the state of a discovered web or API operation.",
+    description: "Updates the state of a discovered web or API operation.\n\nPATCH /zones/{zone_id}/api_gateway/discovery/operations/{discovery_id}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "state": {
-              "$ref": "#/$defs/api-shield_api_discovery_state_patch"
+              "description": "Mark state of operation in API Discovery\n  * `review` - Mark operation as for review\n  * `ignored` - Mark operation as ignored",
+              "enum": [
+                "review",
+                "ignored"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "discovery_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Discovery ID of a discovered operation"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -165,19 +173,12 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "api-shield_api_discovery_state_patch": api$$shield_api_discovery_state_patch$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_patch_discovery_response",
       $defs: {
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state,
         "api-shield_messages": api$$shield_messages,
         "api-shield_patch_discovery_response": api$$shield_patch_discovery_response,
       },
@@ -209,7 +210,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state,
         "api-shield_messages": api$$shield_messages,
         "api-shield_patch_discovery_response": api$$shield_patch_discovery_response,
       },
@@ -222,18 +222,35 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_discovery_operations_get",
     title: "Get a discovered web or API operation",
-    description: "Returns a discovered web or API operation by discovery ID.",
+    description: "Returns a discovered web or API operation by discovery ID.\n\nGET /zones/{zone_id}/api_gateway/discovery/operations/{discovery_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "discovery_id": {
-              "$ref": "#/$defs/api-shield_uuid-2",
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
               "description": "Discovery ID of a discovered operation"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -246,12 +263,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -276,19 +288,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_api_discovery_origin": api$$shield_api_discovery_origin,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state,
         "api-shield_basic_operation": api$$shield_basic_operation,
         "api-shield_discovery_operation": api$$shield_discovery_operation,
-        "api-shield_endpoint": api$$shield_endpoint,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_method": api$$shield_method,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
         "api-shield_traffic_stats": api$$shield_traffic_stats,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -339,19 +342,10 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_api_discovery_origin": api$$shield_api_discovery_origin,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state,
         "api-shield_basic_operation": api$$shield_basic_operation,
         "api-shield_discovery_operation": api$$shield_discovery_operation,
-        "api-shield_endpoint": api$$shield_endpoint,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_method": api$$shield_method,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
         "api-shield_traffic_stats": api$$shield_traffic_stats,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({
@@ -361,14 +355,23 @@ export const tools: readonly Tool[] = [
   {
     name: "webAssets_discovery_operations_list",
     title: "List discovered web and API operations",
-    description: "Returns the latest web and API operations discovered from zone traffic.",
+    description: "Returns the latest web and API operations discovered from zone traffic.\n\nGET /zones/{zone_id}/api_gateway/discovery/operations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -377,6 +380,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "diff": {
               "description": "When `true`, only return API Discovery results that are not saved into API Shield Endpoint Management",
@@ -420,8 +424,13 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "origin": {
-              "$ref": "#/$defs/api-shield_api_discovery_origin",
-              "description": "Filter results to only include discovery results sourced from a particular discovery engine\n  * `ML` - Discovered operations that were sourced using ML API Discovery\n  * `SessionIdentifier` - Discovered operations that were sourced using Session Identifier API Discovery\n"
+              "description": "Filter results to only include discovery results sourced from a particular discovery engine\n  * `ML` - Discovered operations that were sourced using ML API Discovery\n  * `SessionIdentifier` - Discovered operations that were sourced using Session Identifier API Discovery",
+              "enum": [
+                "ML",
+                "SessionIdentifier",
+                "LabelDiscovery"
+              ],
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -434,8 +443,13 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "state": {
-              "$ref": "#/$defs/api-shield_api_discovery_state",
-              "description": "Filter results to only include discovery results in a particular state. States are as follows\n  * `review` - Discovered operations that are not saved into API Shield Endpoint Management\n  * `saved` - Discovered operations that are already saved into API Shield Endpoint Management\n  * `ignored` - Discovered operations that have been marked as ignored\n"
+              "description": "Filter results to only include discovery results in a particular state. States are as follows\n  * `review` - Discovered operations that are not saved into API Shield Endpoint Management\n  * `saved` - Discovered operations that are already saved into API Shield Endpoint Management\n  * `ignored` - Discovered operations that have been marked as ignored",
+              "enum": [
+                "review",
+                "saved",
+                "ignored"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -444,12 +458,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_api_discovery_origin": api$$shield_api_discovery_origin$,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state$,
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -474,19 +483,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_api_discovery_origin": api$$shield_api_discovery_origin,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state,
         "api-shield_basic_operation": api$$shield_basic_operation,
         "api-shield_discovery_operation": api$$shield_discovery_operation,
-        "api-shield_endpoint": api$$shield_endpoint,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_method": api$$shield_method,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
         "api-shield_traffic_stats": api$$shield_traffic_stats,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -537,19 +537,10 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_api_discovery_origin": api$$shield_api_discovery_origin,
-        "api-shield_api_discovery_state": api$$shield_api_discovery_state,
         "api-shield_basic_operation": api$$shield_basic_operation,
         "api-shield_discovery_operation": api$$shield_discovery_operation,
-        "api-shield_endpoint": api$$shield_endpoint,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_method": api$$shield_method,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
         "api-shield_traffic_stats": api$$shield_traffic_stats,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

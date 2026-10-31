@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../_/tool.js";
 export const nsc_SlotInfo: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/nsc_AccountTag"
+      "type": "string"
     },
     "ccr_device_name": {
       "oneOf": [

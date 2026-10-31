@@ -25,7 +25,7 @@ export const pages_domain: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/pages_domain_name"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -110,11 +110,4 @@ export const pages_domain: JsonSchema = {
     "zone_tag"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `pages_domain_name` in responses.
- */
-export const pages_domain_name: JsonSchema = {
-  "type": "string"
 };

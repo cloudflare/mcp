@@ -7,10 +7,7 @@ import {
   dlp_api$$response$$single,
   dlp_messages,
 } from "../../../outputs.js";
-import {
-  dlp_RiskScoreIntegration,
-  dlp_RiskScoreIntegrationType,
-} from "../outputs.js";
+import { dlp_RiskScoreIntegration } from "../outputs.js";
 
 /**
  * The tools of `zeroTrust.riskScoring.integrations.references`.
@@ -19,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_integrations_references_get",
     title: "Get risk score integration by reference id.",
-    description: "Retrieves a Zero Trust risk score integration using its external reference ID.",
+    description: "Retrieves a Zero Trust risk score integration using its external reference ID.\n\nGET /accounts/{account_id}/zt_risk_scoring/integrations/reference_id/{reference_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -42,6 +40,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -59,7 +58,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -102,7 +100,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,

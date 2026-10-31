@@ -9,22 +9,42 @@ import type { JsonSchema } from "../_/tool.js";
 export const api$$shield_label: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/api-shield_label_description"
+      "type": "string"
     },
     "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "metadata": {
       "$ref": "#/$defs/api-shield_label_metadata"
     },
     "name": {
-      "$ref": "#/$defs/api-shield_label_name"
+      "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/api-shield_label_source"
+      "enum": [
+        "user",
+        "managed"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -39,33 +59,8 @@ export const api$$shield_label: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_label_description` in responses.
- */
-export const api$$shield_label_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `api-shield_label_metadata` in responses.
  */
 export const api$$shield_label_metadata: JsonSchema = {
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_label_name` in responses.
- */
-export const api$$shield_label_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_label_source` in responses.
- */
-export const api$$shield_label_source: JsonSchema = {
-  "enum": [
-    "user",
-    "managed"
-  ],
-  "type": "string"
 };

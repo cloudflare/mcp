@@ -19,16 +19,23 @@ export const logpush_transformer: JsonSchema = {
       "type": "string"
     },
     "dataset": {
-      "$ref": "#/$defs/logpush_transformer_dataset"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/logpush_transformer_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/logpush_transformer_identifier"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/logpush_transformer_name"
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",
@@ -36,20 +43,6 @@ export const logpush_transformer: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `logpush_transformer_dataset` in responses.
- */
-export const logpush_transformer_dataset: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -77,20 +70,6 @@ export const logpush_transformer_delete_response: JsonSchema = {
 };
 
 /**
- * The schema of `logpush_transformer_description` in responses.
- */
-export const logpush_transformer_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_transformer_identifier` in responses.
- */
-export const logpush_transformer_identifier: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `logpush_transformer_job_ref` in responses.
  */
 export const logpush_transformer_job_ref: JsonSchema = {
@@ -113,13 +92,6 @@ export const logpush_transformer_job_ref: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `logpush_transformer_name` in responses.
- */
-export const logpush_transformer_name: JsonSchema = {
-  "type": "string"
 };
 
 /**

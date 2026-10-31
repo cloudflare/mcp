@@ -10,16 +10,11 @@ import {
 } from "../../../outputs.js";
 import {
   dlp_AttachedEntry,
-  dlp_EntryType,
-  dlp_ProximityWeight,
   dlp_ProximityWord,
   dlp_ProximityWordValidator,
   dlp_ValidatorReferences,
 } from "../outputs.js";
-import {
-  dlp_ProximityWeight as dlp_ProximityWeight$,
-  dlp_ProximityWord as dlp_ProximityWord$,
-} from "../schemas.js";
+import { dlp_ProximityWord as dlp_ProximityWord$ } from "../schemas.js";
 import { dlp_ProximityWordValidatorArray } from "./outputs.js";
 import { dlp_ProximityWordValidatorWrite } from "./schemas.js";
 
@@ -30,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_proximityWords_create",
     title: "Create a proximity word validator",
-    description: "Creates a reusable list of weighted words that detection entries can attach to in order to\nrefine their matches. An account may own at most 100 validators across all kinds.",
+    description: "Creates a reusable list of weighted words that detection entries can attach to in order to\nrefine their matches. An account may own at most 100 validators across all kinds.\n\nPOST /accounts/{account_id}/dlp/validators/proximity_words",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,6 +34,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the new validator."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -54,8 +50,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_ProximityWeight": dlp_ProximityWeight$,
         "dlp_ProximityWord": dlp_ProximityWord$,
         "dlp_ProximityWordValidatorWrite": dlp_ProximityWordValidatorWrite,
       },
@@ -76,8 +72,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
@@ -122,8 +116,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
@@ -140,11 +132,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_proximityWords_delete",
     title: "Delete a proximity word validator",
-    description: "Deletes a `proximity_words` validator. Fails with `409` while any detection entry is still\nattached to it; detach it from those entries first.",
+    description: "Deletes a `proximity_words` validator. Fails with `409` while any detection entry is still\nattached to it; detach it from those entries first.\n\nDELETE /accounts/{account_id}/dlp/validators/proximity_words/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -164,6 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -234,11 +228,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_proximityWords_get",
     title: "Get a proximity word validator",
-    description: "Fetches a `proximity_words` validator by ID.",
+    description: "Fetches a `proximity_words` validator by ID.\n\nGET /accounts/{account_id}/dlp/validators/proximity_words/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -258,6 +253,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -275,8 +271,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
@@ -322,8 +316,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
@@ -339,11 +331,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_proximityWords_list",
     title: "List proximity word validators",
-    description: "Lists the `proximity_words` validators configured for the account.",
+    description: "Lists the `proximity_words` validators configured for the account.\n\nGET /accounts/{account_id}/dlp/validators/proximity_words",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -358,6 +351,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -375,8 +369,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ProximityWordValidatorArray": dlp_ProximityWordValidatorArray,
@@ -423,8 +415,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ProximityWordValidatorArray": dlp_ProximityWordValidatorArray,
@@ -441,7 +431,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_validators_proximityWords_update",
     title: "Update a proximity word validator",
-    description: "Replaces the name and word list of a `proximity_words` validator. Attachments to detection\nentries are owned from the entry side and are not affected.",
+    description: "Replaces the name and word list of a `proximity_words` validator. Attachments to detection\nentries are owned from the entry side and are not affected.\n\nPUT /accounts/{account_id}/dlp/validators/proximity_words/{validator_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -450,6 +440,7 @@ export const tools: readonly Tool[] = [
           "description": "Attributes of the validator to update."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -470,8 +461,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_ProximityWeight": dlp_ProximityWeight$,
         "dlp_ProximityWord": dlp_ProximityWord$,
         "dlp_ProximityWordValidatorWrite": dlp_ProximityWordValidatorWrite,
       },
@@ -492,8 +483,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
@@ -538,8 +527,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dlp_AttachedEntry": dlp_AttachedEntry,
-        "dlp_EntryType": dlp_EntryType,
-        "dlp_ProximityWeight": dlp_ProximityWeight,
         "dlp_ProximityWord": dlp_ProximityWord,
         "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,

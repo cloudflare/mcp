@@ -12,22 +12,30 @@ export const email_catch_all_rule: JsonSchema = {
       "$ref": "#/$defs/email_rule_catchall-actions"
     },
     "enabled": {
-      "$ref": "#/$defs/email_rule_enabled"
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/email_rule_identifier"
+      "type": "string"
     },
     "matchers": {
       "$ref": "#/$defs/email_rule_catchall-matchers"
     },
     "name": {
-      "$ref": "#/$defs/email_rule_name"
+      "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/email_rule_source"
+      "enum": [
+        "api",
+        "wrangler"
+      ],
+      "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_rule_tag"
+      "type": "string"
     }
   },
   "type": "object"

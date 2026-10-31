@@ -7,8 +7,6 @@ import {
   dlp_api$$response$$single,
   dlp_messages,
 } from "../../outputs.js";
-import { dlp_RiskLevel } from "../outputs.js";
-import { dlp_RiskLevel as dlp_RiskLevel$ } from "../schemas.js";
 import {
   dlp_Behavior,
   dlp_Behaviors,
@@ -27,11 +25,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_behaviours_get",
     title: "Get all behaviors and associated configuration",
-    description: "Retrieves configured risk score behaviors that define how user actions affect their overall risk score.",
+    description: "Retrieves configured risk score behaviors that define how user actions affect their overall risk score.\n\nGET /accounts/{account_id}/zt_risk_scoring/behaviors",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -46,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -64,7 +64,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Behavior": dlp_Behavior,
         "dlp_Behaviors": dlp_Behaviors,
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -108,7 +107,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Behavior": dlp_Behavior,
         "dlp_Behaviors": dlp_Behaviors,
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -121,7 +119,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_behaviours_update",
     title: "Update configuration for risk behaviors",
-    description: "Updates risk score behavior configurations, defining weights and thresholds for risk calculation.",
+    description: "Updates risk score behavior configurations, defining weights and thresholds for risk calculation.\n\nPUT /accounts/{account_id}/zt_risk_scoring/behaviors",
     inputSchema: {
       type: "object",
       properties: {
@@ -130,6 +128,7 @@ export const tools: readonly Tool[] = [
           "description": "Behaviors."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -146,8 +145,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel$,
         "dlp_UpdateBehavior": dlp_UpdateBehavior$,
         "dlp_UpdateBehaviors": dlp_UpdateBehaviors$,
       },
@@ -167,7 +166,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_UpdateBehavior": dlp_UpdateBehavior,
         "dlp_UpdateBehaviors": dlp_UpdateBehaviors,
         "dlp_api-response-single": dlp_api$$response$$single,
@@ -210,7 +208,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_UpdateBehavior": dlp_UpdateBehavior,
         "dlp_UpdateBehaviors": dlp_UpdateBehaviors,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,

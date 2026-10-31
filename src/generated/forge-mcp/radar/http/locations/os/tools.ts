@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_http_locations_os_get",
     title: "Get top locations by HTTP requests for an OS",
-    description: "Retrieves the top locations, by HTTP requests, of the requested operating system.",
+    description: "Retrieves the top locations, by HTTP requests, of the requested operating system.\n\nGET /radar/http/top/locations/os/{os}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "os": {
               "description": "Operating system.",
@@ -36,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -199,6 +201,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

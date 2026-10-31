@@ -7,10 +7,8 @@ import {
   bill$$subs$$api_api$$response$$common$$failure,
   bill$$subs$$api_api$$response$$single,
   bill$$subs$$api_billing_response_single,
-  bill$$subs$$api_components$$schemas$$identifier,
   bill$$subs$$api_messages,
 } from "../../outputs.js";
-import { bill$$subs$$api_identifier } from "../../schemas.js";
 import { bill$$subs$$api_payment_intent_response_single } from "./outputs.js";
 import { bill$$subs$$api_billing_profile_request } from "./schemas.js";
 
@@ -21,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_profiles_create",
     title: "Create Billing Profile",
-    description: "Creates a billing profile for an account.",
+    description: "Creates a billing profile for an account.\n\nPOST /accounts/{account_id}/billing/profile",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,10 +27,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bill-subs-api_billing_profile_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -45,9 +44,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "bill-subs-api_billing_profile_request": bill$$subs$$api_billing_profile_request,
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
@@ -56,7 +55,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -100,7 +98,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -112,15 +109,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_profiles_createPaymentIntent",
     title: "Create Payment Intent for Billing Profile",
-    description: "Creates a Stripe payment intent for adding or updating a payment method on the account's billing profile. Returns a client secret for frontend payment method collection.",
+    description: "Creates a Stripe payment intent for adding or updating a payment method on the account's billing profile. Returns a client secret for frontend payment method collection.\n\nPOST /accounts/{account_id}/billing/profile/payment-method",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -132,9 +130,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_payment_intent_response_single",
@@ -189,15 +185,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_profiles_delete",
     title: "Delete Billing Profile",
-    description: "Deletes the billing profile for an account.",
+    description: "Deletes the billing profile for an account.\n\nDELETE /accounts/{account_id}/billing/profile",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -209,9 +206,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -257,15 +252,16 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_profiles_get",
     title: "Get Billing Profile",
-    description: "Gets the current billing profile for the account.",
+    description: "Gets the current billing profile for the account.\n\nGET /accounts/{account_id}/billing/profile",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -277,9 +273,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_billing_response_single",
@@ -287,7 +281,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -331,7 +324,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -342,7 +334,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_profiles_update",
     title: "Update Billing Profile",
-    description: "Updates the billing profile for an account.",
+    description: "Updates the billing profile for an account.\n\nPUT /accounts/{account_id}/billing/profile",
     inputSchema: {
       type: "object",
       properties: {
@@ -350,10 +342,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bill-subs-api_billing_profile_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -366,9 +359,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "bill-subs-api_billing_profile_request": bill$$subs$$api_billing_profile_request,
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
@@ -377,7 +370,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -421,7 +413,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -433,7 +424,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_profiles_updateEmail",
     title: "Update Billing Email",
-    description: "Updates the billing email addresses and preferred locale for an account.",
+    description: "Updates the billing email addresses and preferred locale for an account.\n\nPATCH /accounts/{account_id}/billing/profile",
     inputSchema: {
       type: "object",
       properties: {
@@ -452,10 +443,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/bill-subs-api_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -468,9 +460,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill$$subs$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_billing_response_single",
@@ -478,7 +468,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
@@ -522,7 +511,6 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
         "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
         "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
-        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
         "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },

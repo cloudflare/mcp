@@ -4,43 +4,18 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `billing-spend-policies_identifier`.
- */
-export const billing$$spend$$policies_identifier: JsonSchema = {
-  "description": "Represents a Cloudflare resource identifier tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `billing-spend-policies_policy_action`.
- */
-export const billing$$spend$$policies_policy_action: JsonSchema = {
-  "description": "The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.",
-  "enum": [
-    "notification",
-    "usage_block"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `billing-spend-policies_policy_id`.
- */
-export const billing$$spend$$policies_policy_id: JsonSchema = {
-  "description": "The unique identifier of the spend policy.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `billing-spend-policies_policy_input`.
  */
 export const billing$$spend$$policies_policy_input: JsonSchema = {
   "description": "A spend policy as sent on create and on full replacement. Unknown fields and trailing JSON are rejected. Only the first 1 MiB of the body is read.",
   "properties": {
     "action": {
-      "$ref": "#/$defs/billing-spend-policies_policy_action",
-      "description": "The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early."
+      "description": "The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.",
+      "enum": [
+        "notification",
+        "usage_block"
+      ],
+      "type": "string"
     },
     "enabled": {
       "description": "Whether the policy is evaluated.",
@@ -55,8 +30,12 @@ export const billing$$spend$$policies_policy_input: JsonSchema = {
       "type": "string"
     },
     "product_id": {
-      "$ref": "#/$defs/billing-spend-policies_product_id",
-      "description": "The product the policy applies to: `workers` or `durable_objects`. Each product's balance and policies are separate. Both products support `notification` and `usage_block` policies on create and update."
+      "description": "The product the policy applies to: `workers` or `durable_objects`. Each product's balance and policies are separate. Both products support `notification` and `usage_block` policies on create and update.",
+      "enum": [
+        "workers",
+        "durable_objects"
+      ],
+      "type": "string"
     },
     "threshold_cents": {
       "description": "The spend threshold for the current billing period, in US cents. Must be greater than zero.",
@@ -71,16 +50,4 @@ export const billing$$spend$$policies_policy_input: JsonSchema = {
     "threshold_cents"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `billing-spend-policies_product_id`.
- */
-export const billing$$spend$$policies_product_id: JsonSchema = {
-  "description": "The product the policy applies to: `workers` or `durable_objects`. Each product's balance and policies are separate. Both products support `notification` and `usage_block` policies on create and update.",
-  "enum": [
-    "workers",
-    "durable_objects"
-  ],
-  "type": "string"
 };

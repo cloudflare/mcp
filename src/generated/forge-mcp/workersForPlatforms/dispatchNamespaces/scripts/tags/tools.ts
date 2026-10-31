@@ -7,17 +7,10 @@ import {
   workers_api$$response$$common$$failure,
   workers_api$$response$$null$$result,
   workers_messages,
-  workers_tag,
 } from "../../../../outputs.js";
-import {
-  workers_identifier,
-  workers_script_name,
-  workers_tag as workers_tag$,
-  workers_tags,
-} from "../../../../schemas.js";
-import { workers_dispatch_namespace_name } from "../../schemas.js";
+import { workers_tags } from "../../../../schemas.js";
 import { workers_tags$$kv$$response, workers_tags_kv } from "./outputs.js";
-import { workers_tag_patch, workers_typed_tag_key } from "./schemas.js";
+import { workers_tag_patch } from "./schemas.js";
 
 /**
  * The tools of `workersForPlatforms.dispatchNamespaces.scripts.tags`.
@@ -26,26 +19,27 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_tags_create",
     title: "Create Workers for Platforms Script Tag",
-    description: "Add a single tag to a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Add a single tag to a script uploaded to a Workers for Platforms dispatch namespace.\n\nPUT /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/tags/{tag}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             },
             "tag": {
-              "$ref": "#/$defs/workers_tag"
+              "type": "string"
             }
           },
           "required": [
@@ -60,12 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-        "workers_tag": workers_tag$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-null-result",
@@ -115,40 +104,43 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_tags_delete",
     title: "Delete Workers for Platforms Script Tag",
-    description: "Delete a tag from a script uploaded to a Workers for Platforms dispatch namespace.\n\nOn `api-version` dates on or after `2026-10-01`, `tag` identifies a key and the operation returns the complete updated tag map. Deleting a missing key succeeds. Earlier versions retain the legacy string-tag behavior and return a null result.\n\nConfirm with the user before calling this tool. This will delete the tag from the Workers for Platforms script.",
+    description: "Delete a tag from a script uploaded to a Workers for Platforms dispatch namespace.\n\nOn `api-version` dates on or after `2026-10-01`, `tag` identifies a key and the operation returns the complete updated tag map. Deleting a missing key succeeds. Earlier versions retain the legacy string-tag behavior and return a null result.\n\nConfirm with the user before calling this tool. This will delete the tag from the Workers for Platforms script.\n\nDELETE /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/tags/{tag}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "api-version": {
-              "description": "Requested API compatibility date in `YYYY-MM-DD[.release]` format (UTC). The optional release suffix contains lowercase letters; for example, `2026-10-01.epoch`.\n\nTyped Worker tag operations require a date on or after `2026-10-01`.\n",
+              "description": "Requested API compatibility date in `YYYY-MM-DD[.release]` format (UTC). The optional release suffix contains lowercase letters; for example, `2026-10-01.epoch`.\n\nTyped Worker tag operations require a date on or after `2026-10-01`.",
               "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             },
             "tag": {
               "oneOf": [
                 {
-                  "$ref": "#/$defs/workers_typed_tag_key"
+                  "description": "A typed tag key containing only Unicode letters or numbers, underscores, periods, or hyphens. The complete UTF-8 encoded tag (the key plus `=` and the value when the value is non-empty) must not exceed 1024 bytes. Cloudflare-reserved prefixes are not accepted.",
+                  "type": "string"
                 },
                 {
-                  "$ref": "#/$defs/workers_tag"
+                  "type": "string"
                 }
               ]
             }
@@ -165,13 +157,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-        "workers_tag": workers_tag$,
-        "workers_typed_tag_key": workers_typed_tag_key,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "oneOf": [
@@ -239,7 +225,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_tags_edit",
     title: "Update Workers for Platforms Script Tag",
-    description: "Add or update one tag key/value on a script uploaded to a Workers for Platforms dispatch namespace without replacing its other tags.\n\nThis operation requires an `api-version` on or after `2026-10-01`.",
+    description: "Add or update one tag key/value on a script uploaded to a Workers for Platforms dispatch namespace without replacing its other tags.\n\nThis operation requires an `api-version` on or after `2026-10-01`.\n\nPATCH /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/tags/{tag}",
     inputSchema: {
       type: "object",
       properties: {
@@ -247,31 +233,33 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_tag_patch"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "api-version": {
-              "description": "Requested API compatibility date in `YYYY-MM-DD[.release]` format (UTC). The optional release suffix contains lowercase letters; for example, `2026-10-01.epoch`.\n\nTyped Worker tag operations require a date on or after `2026-10-01`.\n",
+              "description": "Requested API compatibility date in `YYYY-MM-DD[.release]` format (UTC). The optional release suffix contains lowercase letters; for example, `2026-10-01.epoch`.\n\nTyped Worker tag operations require a date on or after `2026-10-01`.",
               "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             },
             "tag": {
-              "$ref": "#/$defs/workers_typed_tag_key",
-              "description": "Tag key. Cloudflare-reserved prefixes are not accepted."
+              "description": "Tag key. Cloudflare-reserved prefixes are not accepted.",
+              "type": "string"
             }
           },
           "required": [
@@ -287,12 +275,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
         "workers_tag_patch": workers_tag_patch,
-        "workers_typed_tag_key": workers_typed_tag_key,
       },
     },
     outputSchema: {
@@ -346,23 +331,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_tags_list",
     title: "List Workers for Platforms Script Tags",
-    description: "Fetch tags from a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Fetch tags from a script uploaded to a Workers for Platforms dispatch namespace.\n\nGET /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/tags",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -376,11 +362,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -391,7 +373,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "result": {
               "items": {
-                "$ref": "#/$defs/workers_tag"
+                "type": "string"
               },
               "type": "array"
             }
@@ -402,7 +384,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_messages": workers_messages,
-        "workers_tag": workers_tag,
       },
     },
     annotations: {
@@ -432,7 +413,7 @@ export const tools: readonly Tool[] = [
               "properties": {
                 "result": {
                   "items": {
-                    "$ref": "#/$defs/workers_tag"
+                    "type": "string"
                   },
                   "type": "array"
                 }
@@ -449,7 +430,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_messages": workers_messages,
-        "workers_tag": workers_tag,
       },
     },
     request: (args) => ({
@@ -459,7 +439,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_tags_update",
     title: "Replace Workers for Platforms Script Tags",
-    description: "Replace tags for a script uploaded to a Workers for Platforms dispatch namespace.",
+    description: "Replace tags for a script uploaded to a Workers for Platforms dispatch namespace.\n\nPUT /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/tags",
     inputSchema: {
       type: "object",
       properties: {
@@ -467,18 +447,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_tags"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "dispatch_namespace": {
-              "$ref": "#/$defs/workers_dispatch_namespace_name",
-              "description": "Name of the Workers for Platforms dispatch namespace."
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -493,11 +474,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-        "workers_tag": workers_tag$,
         "workers_tags": workers_tags,
       },
     },
@@ -510,7 +488,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "result": {
               "items": {
-                "$ref": "#/$defs/workers_tag"
+                "type": "string"
               },
               "type": "array"
             }
@@ -524,7 +502,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_messages": workers_messages,
-        "workers_tag": workers_tag,
       },
     },
     annotations: {
@@ -552,7 +529,7 @@ export const tools: readonly Tool[] = [
               "properties": {
                 "result": {
                   "items": {
-                    "$ref": "#/$defs/workers_tag"
+                    "type": "string"
                   },
                   "type": "array"
                 }
@@ -572,7 +549,6 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_messages": workers_messages,
-        "workers_tag": workers_tag,
       },
     },
     request: (args) => ({

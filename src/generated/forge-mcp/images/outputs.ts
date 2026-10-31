@@ -16,7 +16,14 @@ export const images_api$$response$$collection$$v2: JsonSchema = {
         "result": {
           "properties": {
             "continuation_token": {
-              "$ref": "#/$defs/images_images_list_continuation_token"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "type": "object"
@@ -151,22 +158,30 @@ export const images_deleted_response: JsonSchema = {
 export const images_image: JsonSchema = {
   "properties": {
     "creator": {
-      "$ref": "#/$defs/images_image_creator"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "filename": {
-      "$ref": "#/$defs/images_image_filename"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/images_image_identifier"
+      "type": "string"
     },
     "meta": {
       "$ref": "#/$defs/images_image_metadata"
     },
     "requireSignedURLs": {
-      "$ref": "#/$defs/images_image_requireSignedURLs"
+      "type": "boolean"
     },
     "uploaded": {
-      "$ref": "#/$defs/images_image_uploaded"
+      "format": "date-time",
+      "type": "string"
     },
     "variants": {
       "$ref": "#/$defs/images_image_variants"
@@ -176,59 +191,10 @@ export const images_image: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_creator` in responses.
- */
-export const images_image_creator: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `images_image_filename` in responses.
- */
-export const images_image_filename: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_hero_url` in responses.
- */
-export const images_image_hero_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_identifier` in responses.
- */
-export const images_image_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_metadata` in responses.
  */
 export const images_image_metadata: JsonSchema = {
   "type": "object"
-};
-
-/**
- * The schema of `images_image_original_url` in responses.
- */
-export const images_image_original_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_requireSignedURLs` in responses.
- */
-export const images_image_requireSignedURLs: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -265,52 +231,23 @@ export const images_image_response_single: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_thumbnail_url` in responses.
- */
-export const images_image_thumbnail_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_uploaded` in responses.
- */
-export const images_image_uploaded: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_variants` in responses.
  */
 export const images_image_variants: JsonSchema = {
   "items": {
     "anyOf": [
       {
-        "$ref": "#/$defs/images_image_thumbnail_url"
+        "type": "string"
       },
       {
-        "$ref": "#/$defs/images_image_hero_url"
+        "type": "string"
       },
       {
-        "$ref": "#/$defs/images_image_original_url"
+        "type": "string"
       }
     ]
   },
   "type": "array"
-};
-
-/**
- * The schema of `images_images_list_continuation_token` in responses.
- */
-export const images_images_list_continuation_token: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -353,32 +290,18 @@ export const images_images_stats: JsonSchema = {
 };
 
 /**
- * The schema of `images_images_stats_allowed` in responses.
- */
-export const images_images_stats_allowed: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `images_images_stats_count` in responses.
  */
 export const images_images_stats_count: JsonSchema = {
   "properties": {
     "allowed": {
-      "$ref": "#/$defs/images_images_stats_allowed"
+      "type": "number"
     },
     "current": {
-      "$ref": "#/$defs/images_images_stats_current"
+      "type": "number"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `images_images_stats_current` in responses.
- */
-export const images_images_stats_current: JsonSchema = {
-  "type": "number"
 };
 
 /**

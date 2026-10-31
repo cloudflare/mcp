@@ -22,8 +22,6 @@ import {
   realtimekit_RecordingConfig as realtimekit_RecordingConfig$,
   realtimekit_StorageConfig as realtimekit_StorageConfig$,
   realtimekit_VideoConfig as realtimekit_VideoConfig$,
-  realtimekit_account_identifier,
-  realtimekit_app_id,
   realtimekit_realtimekitBucketConfig as realtimekit_realtimekitBucketConfig$,
 } from "../schemas.js";
 import {
@@ -44,7 +42,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_create",
     title: "Create a meeting",
-    description: "Create a meeting for the given App ID.\n\nThis method is beta.",
+    description: "Create a meeting for the given App ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings",
     inputSchema: {
       type: "object",
       properties: {
@@ -86,7 +84,7 @@ export const tools: readonly Tool[] = [
             },
             "recording_config": {
               "$ref": "#/$defs/realtimekit_RecordingConfig",
-              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal.\n"
+              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal."
             },
             "session_keep_alive_time_in_secs": {
               "default": 60,
@@ -118,14 +116,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -139,6 +138,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_AIConfig": realtimekit_AIConfig$,
         "realtimekit_AudioConfig": realtimekit_AudioConfig$,
@@ -148,8 +148,6 @@ export const tools: readonly Tool[] = [
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig$,
         "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig$,
         "realtimekit_VideoConfig": realtimekit_VideoConfig$,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig$,
       },
     },
@@ -293,19 +291,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_get",
     title: "Fetch a meeting for an App",
-    description: "Returns a meeting details in an App for the given meeting ID.\n\nThis method is beta.",
+    description: "Returns a meeting details in an App for the given meeting ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
@@ -321,6 +320,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "type": "string"
@@ -332,10 +332,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -482,19 +479,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_list",
     title: "Fetch all meetings for an App",
-    description: "Returns all meetings for the given App ID.\n\nThis method is beta.",
+    description: "Returns all meetings for the given App ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -504,6 +502,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "end_time": {
               "description": "The end time range for which you want to retrieve the meetings. The time must be specified in ISO format.",
@@ -542,10 +541,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -644,7 +640,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_replace",
     title: "Replace a meeting",
-    description: "Replaces all the details for the given meeting ID.\n\nThis method is beta.",
+    description: "Replaces all the details for the given meeting ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -686,7 +682,7 @@ export const tools: readonly Tool[] = [
             },
             "recording_config": {
               "$ref": "#/$defs/realtimekit_RecordingConfig",
-              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal.\n"
+              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal."
             },
             "session_keep_alive_time_in_secs": {
               "default": 60,
@@ -718,14 +714,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
@@ -745,6 +742,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_AIConfig": realtimekit_AIConfig$,
         "realtimekit_AudioConfig": realtimekit_AudioConfig$,
@@ -754,8 +752,6 @@ export const tools: readonly Tool[] = [
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig$,
         "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig$,
         "realtimekit_VideoConfig": realtimekit_VideoConfig$,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig$,
       },
     },
@@ -899,7 +895,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_update",
     title: "Update a meeting",
-    description: "Updates a meeting in an App for the given meeting ID.\n\nThis method is beta.",
+    description: "Updates a meeting in an App for the given meeting ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -924,7 +920,7 @@ export const tools: readonly Tool[] = [
             },
             "recording_config": {
               "$ref": "#/$defs/realtimekit_RecordingConfig",
-              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal.\n"
+              "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal."
             },
             "session_keep_alive_time_in_secs": {
               "description": "Time in seconds, for which a session remains active, after the last participant has left the meeting.",
@@ -954,14 +950,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "meeting_id": {
               "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
@@ -981,6 +978,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_AIConfig": realtimekit_AIConfig$,
         "realtimekit_AudioConfig": realtimekit_AudioConfig$,
@@ -990,8 +988,6 @@ export const tools: readonly Tool[] = [
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig$,
         "realtimekit_TranscriptionConfig": realtimekit_TranscriptionConfig$,
         "realtimekit_VideoConfig": realtimekit_VideoConfig$,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig$,
       },
     },

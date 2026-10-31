@@ -9,13 +9,13 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const secondary$$dns_acl: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/secondary-dns_identifier-3"
+      "type": "string"
     },
     "ip_range": {
-      "$ref": "#/$defs/secondary-dns_ip_range"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-4"
+      "type": "string"
     }
   },
   "required": [
@@ -24,20 +24,6 @@ export const secondary$$dns_acl: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_ip_range` in responses.
- */
-export const secondary$$dns_ip_range: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_name-4` in responses.
- */
-export const secondary$$dns_name$$4: JsonSchema = {
-  "type": "string"
 };
 
 /**

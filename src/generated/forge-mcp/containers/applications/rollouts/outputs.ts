@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const cc_ApplicationRollout: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "current_configuration": {
       "$ref": "#/$defs/cc_ModifyUserDeploymentConfiguration"
@@ -24,7 +24,7 @@ export const cc_ApplicationRollout: JsonSchema = {
       "$ref": "#/$defs/cc_ApplicationHealth"
     },
     "id": {
-      "$ref": "#/$defs/cc_RolloutID"
+      "type": "string"
     },
     "kind": {
       "enum": [
@@ -35,7 +35,7 @@ export const cc_ApplicationRollout: JsonSchema = {
       "type": "string"
     },
     "last_updated_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "percentage": {
       "type": "integer"
@@ -159,7 +159,7 @@ export const cc_ApplicationRolloutProgress: JsonSchema = {
 export const cc_RolloutStep: JsonSchema = {
   "properties": {
     "completed_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -171,7 +171,7 @@ export const cc_RolloutStep: JsonSchema = {
       "type": "string"
     },
     "started_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "status": {
       "enum": [

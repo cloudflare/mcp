@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_create",
     title: "Create integration",
-    description: "Creates a new integration for the specified application. Integration creation with OAuth is not supported by API at the moment. For other auth methods, use `GET /v2/applications/{application_id}/credential-guide` to see the required credential structure and example payloads for each vendor.",
+    description: "Creates a new integration for the specified application. Integration creation with OAuth is not supported by API at the moment. For other auth methods, use `GET /v2/applications/{application_id}/credential-guide` to see the required credential structure and example payloads for each vendor.\n\nPOST /accounts/{account_id}/one/integrations",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,6 +32,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/one_IntegrationV2CreateRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "one_IntegrationV2CreateRequest": one_IntegrationV2CreateRequest,
       },
@@ -91,11 +93,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_delete",
     title: "Delete integration",
-    description: "Delete an integration by soft-deleting it.",
+    description: "Delete an integration by soft-deleting it.\n\nDELETE /accounts/{account_id}/one/integrations/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -116,6 +119,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -142,11 +146,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_get",
     title: "Get integration details",
-    description: "Returns full integration details including use cases and permissions.",
+    description: "Returns full integration details including use cases and permissions.\n\nGET /accounts/{account_id}/one/integrations/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -167,6 +172,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationDetailResponse",
@@ -206,11 +212,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_list",
     title: "List integrations",
-    description: "Returns a paginated list of integrations for the account.",
+    description: "Returns a paginated list of integrations for the account.\n\nGET /accounts/{account_id}/one/integrations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -223,6 +230,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "application": {
               "description": "Filter by application/vendor (e.g., GOOGLE_WORKSPACE, MICROSOFT_INTERNAL).",
@@ -283,6 +291,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList",
@@ -333,11 +342,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_pause",
     title: "Pause integration",
-    description: "Pauses an integration, stopping all crawlers.",
+    description: "Pauses an integration, stopping all crawlers.\n\nPOST /accounts/{account_id}/one/integrations/{id}/pause",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -358,6 +368,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationPauseResponse",
@@ -397,11 +408,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_resume",
     title: "Resume integration",
-    description: "Resumes a paused integration, restarting crawlers.",
+    description: "Resumes a paused integration, restarting crawlers.\n\nPOST /accounts/{account_id}/one/integrations/{id}/resume",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -422,6 +434,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationResumeResponse",
@@ -461,7 +474,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_update",
     title: "Update integration",
-    description: "Updates an integration's name, permissions, DLP profiles, use cases, or credentials.",
+    description: "Updates an integration's name, permissions, DLP profiles, use cases, or credentials.\n\nPATCH /accounts/{account_id}/one/integrations/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -469,6 +482,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/one_PatchedUpdateIntegrationV2Request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -489,6 +503,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "one_PatchedUpdateIntegrationV2Request": one_PatchedUpdateIntegrationV2Request,
       },

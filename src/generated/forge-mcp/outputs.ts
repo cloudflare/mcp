@@ -236,7 +236,7 @@ export const aaa_audit$$logs: JsonSchema = {
     "owner": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/aaa_identifier"
+          "type": "string"
         }
       },
       "type": "object"
@@ -329,7 +329,12 @@ export const aaa_audit$$logs$$v2$$history$$result$$info: JsonSchema = {
       "type": "string"
     },
     "history_status": {
-      "$ref": "#/$defs/aaa_history-status"
+      "enum": [
+        "exact",
+        "approximate",
+        "unavailable"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -368,32 +373,6 @@ export const aaa_audit_logs_response_collection: JsonSchema = {
       "$ref": "#/$defs/aaa_api-response-common"
     }
   ]
-};
-
-/**
- * The schema of `aaa_history-status` in responses.
- */
-export const aaa_history$$status: JsonSchema = {
-  "enum": [
-    "exact",
-    "approximate",
-    "unavailable"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_identifier` in responses.
- */
-export const aaa_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_identifier-2` in responses.
- */
-export const aaa_identifier$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -722,7 +701,11 @@ export const analytics$$sql_IntrospectionDatasetKind: JsonSchema = {
     "events": {
       "properties": {
         "sampling": {
-          "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
+          "enum": [
+            "unsampled",
+            "adaptive"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -733,7 +716,11 @@ export const analytics$$sql_IntrospectionDatasetKind: JsonSchema = {
     "logs": {
       "properties": {
         "sampling": {
-          "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
+          "enum": [
+            "unsampled",
+            "adaptive"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -744,7 +731,11 @@ export const analytics$$sql_IntrospectionDatasetKind: JsonSchema = {
     "states": {
       "properties": {
         "sampling": {
-          "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
+          "enum": [
+            "unsampled",
+            "adaptive"
+          ],
+          "type": "string"
         },
         "valid_aggregations": {
           "items": {
@@ -779,17 +770,6 @@ export const analytics$$sql_IntrospectionResponse: JsonSchema = {
     "datasets"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `analytics-sql_IntrospectionSampling` in responses.
- */
-export const analytics$$sql_IntrospectionSampling: JsonSchema = {
-  "enum": [
-    "unsampled",
-    "adaptive"
-  ],
-  "type": "string"
 };
 
 /**
@@ -956,25 +936,29 @@ export const api$$shield_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_auth_id_tokens` in responses.
- */
-export const api$$shield_auth_id_tokens: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `api-shield_basic_operation` in responses.
  */
 export const api$$shield_basic_operation: JsonSchema = {
   "properties": {
     "endpoint": {
-      "$ref": "#/$defs/api-shield_endpoint"
+      "type": "string"
     },
     "host": {
-      "$ref": "#/$defs/api-shield_host"
+      "type": "string"
     },
     "method": {
-      "$ref": "#/$defs/api-shield_method"
+      "enum": [
+        "GET",
+        "POST",
+        "HEAD",
+        "OPTIONS",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "PATCH",
+        "TRACE"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -998,27 +982,6 @@ export const api$$shield_confidence_intervals_bounds: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_data_points` in responses.
- */
-export const api$$shield_data_points: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `api-shield_endpoint` in responses.
- */
-export const api$$shield_endpoint: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_host` in responses.
- */
-export const api$$shield_host: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -1055,24 +1018,6 @@ export const api$$shield_messages: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_method` in responses.
- */
-export const api$$shield_method: JsonSchema = {
-  "enum": [
-    "GET",
-    "POST",
-    "HEAD",
-    "OPTIONS",
-    "PUT",
-    "DELETE",
-    "CONNECT",
-    "PATCH",
-    "TRACE"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `api-shield_operation` in responses.
  */
 export const api$$shield_operation: JsonSchema = {
@@ -1106,7 +1051,8 @@ export const api$$shield_operation_feature_api_routing: JsonSchema = {
     "api_routing": {
       "properties": {
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp"
+          "format": "date-time",
+          "type": "string"
         },
         "route": {
           "type": "string"
@@ -1127,7 +1073,8 @@ export const api$$shield_operation_feature_confidence_intervals: JsonSchema = {
     "confidence_intervals": {
       "properties": {
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp"
+          "format": "date-time",
+          "type": "string"
         },
         "suggested_threshold": {
           "properties": {
@@ -1166,7 +1113,8 @@ export const api$$shield_operation_feature_parameter_schemas: JsonSchema = {
     "parameter_schemas": {
       "properties": {
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp"
+          "format": "date-time",
+          "type": "string"
         },
         "parameter_schemas": {
           "$ref": "#/$defs/api-shield_parameter_schemas_definition"
@@ -1191,10 +1139,18 @@ export const api$$shield_operation_feature_schema_info: JsonSchema = {
         "active_schema": {
           "properties": {
             "created_at": {
-              "$ref": "#/$defs/api-shield_timestamp"
+              "format": "date-time",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/api-shield_uuid-2"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             },
             "name": {
               "type": "string"
@@ -1232,31 +1188,32 @@ export const api$$shield_operation_feature_thresholds: JsonSchema = {
     "thresholds": {
       "properties": {
         "auth_id_tokens": {
-          "$ref": "#/$defs/api-shield_auth_id_tokens"
+          "type": "integer"
         },
         "data_points": {
-          "$ref": "#/$defs/api-shield_data_points"
+          "type": "integer"
         },
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp"
+          "format": "date-time",
+          "type": "string"
         },
         "p50": {
-          "$ref": "#/$defs/api-shield_p50"
+          "type": "integer"
         },
         "p90": {
-          "$ref": "#/$defs/api-shield_p90"
+          "type": "integer"
         },
         "p99": {
-          "$ref": "#/$defs/api-shield_p99"
+          "type": "integer"
         },
         "period_seconds": {
-          "$ref": "#/$defs/api-shield_period_seconds"
+          "type": "integer"
         },
         "requests": {
-          "$ref": "#/$defs/api-shield_requests"
+          "type": "integer"
         },
         "suggested_threshold": {
-          "$ref": "#/$defs/api-shield_suggested_threshold"
+          "type": "integer"
         }
       },
       "type": "object"
@@ -1289,27 +1246,6 @@ export const api$$shield_operation_features: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_p50` in responses.
- */
-export const api$$shield_p50: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `api-shield_p90` in responses.
- */
-export const api$$shield_p90: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `api-shield_p99` in responses.
- */
-export const api$$shield_p99: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `api-shield_parameter_schemas_definition` in responses.
  */
 export const api$$shield_parameter_schemas_definition: JsonSchema = {
@@ -1335,20 +1271,6 @@ export const api$$shield_parameter_schemas_definition: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_period_seconds` in responses.
- */
-export const api$$shield_period_seconds: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `api-shield_requests` in responses.
- */
-export const api$$shield_requests: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `api-shield_standard_operation` in responses.
  */
 export const api$$shield_standard_operation: JsonSchema = {
@@ -1359,10 +1281,25 @@ export const api$$shield_standard_operation: JsonSchema = {
     {
       "properties": {
         "last_updated": {
-          "$ref": "#/$defs/api-shield_timestamp-2"
+          "allOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "operation_id": {
-          "$ref": "#/$defs/api-shield_uuid-2"
+          "allOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         }
       },
       "required": [
@@ -1370,56 +1307,6 @@ export const api$$shield_standard_operation: JsonSchema = {
         "operation_id"
       ],
       "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `api-shield_suggested_threshold` in responses.
- */
-export const api$$shield_suggested_threshold: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `api-shield_timestamp` in responses.
- */
-export const api$$shield_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_timestamp-2` in responses.
- */
-export const api$$shield_timestamp$$2: JsonSchema = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/api-shield_timestamp"
-    },
-    {
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `api-shield_uuid` in responses.
- */
-export const api$$shield_uuid: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `api-shield_uuid-2` in responses.
- */
-export const api$$shield_uuid$$2: JsonSchema = {
-  "allOf": [
-    {
-      "type": "string"
-    },
-    {
-      "$ref": "#/$defs/api-shield_uuid"
     }
   ]
 };
@@ -1621,7 +1508,7 @@ export const bill$$subs$$api_billing_response_single: JsonSchema = {
               "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+              "type": "string"
             },
             "is_partner": {
               "type": "boolean"
@@ -1739,63 +1626,6 @@ export const bill$$subs$$api_component_values: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_components-schemas-identifier` in responses.
- */
-export const bill$$subs$$api_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_currency` in responses.
- */
-export const bill$$subs$$api_currency: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_current_period_end` in responses.
- */
-export const bill$$subs$$api_current_period_end: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_current_period_start` in responses.
- */
-export const bill$$subs$$api_current_period_start: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_frequency` in responses.
- */
-export const bill$$subs$$api_frequency: JsonSchema = {
-  "enum": [
-    "weekly",
-    "monthly",
-    "quarterly",
-    "yearly"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_identifier` in responses.
- */
-export const bill$$subs$$api_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_install_id` in responses.
- */
-export const bill$$subs$$api_install_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `bill-subs-api_messages` in responses.
  */
 export const bill$$subs$$api_messages: JsonSchema = {
@@ -1815,20 +1645,6 @@ export const bill$$subs$$api_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `bill-subs-api_name` in responses.
- */
-export const bill$$subs$$api_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_price` in responses.
- */
-export const bill$$subs$$api_price: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -1886,29 +1702,6 @@ export const bill$$subs$$api_result_info: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_schemas-identifier` in responses.
- */
-export const bill$$subs$$api_schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_state` in responses.
- */
-export const bill$$subs$$api_state: JsonSchema = {
-  "enum": [
-    "Trial",
-    "Provisioned",
-    "Paid",
-    "AwaitingPayment",
-    "Cancelled",
-    "Failed",
-    "Expired"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `bill-subs-api_subscription` in responses.
  */
 export const bill$$subs$$api_subscription: JsonSchema = {
@@ -1916,7 +1709,7 @@ export const bill$$subs$$api_subscription: JsonSchema = {
     "app": {
       "properties": {
         "install_id": {
-          "$ref": "#/$defs/bill-subs-api_install_id"
+          "type": "string"
         }
       },
       "type": "object"
@@ -1925,28 +1718,45 @@ export const bill$$subs$$api_subscription: JsonSchema = {
       "$ref": "#/$defs/bill-subs-api_component_values"
     },
     "currency": {
-      "$ref": "#/$defs/bill-subs-api_currency"
+      "type": "string"
     },
     "current_period_end": {
-      "$ref": "#/$defs/bill-subs-api_current_period_end"
+      "format": "date-time",
+      "type": "string"
     },
     "current_period_start": {
-      "$ref": "#/$defs/bill-subs-api_current_period_start"
+      "format": "date-time",
+      "type": "string"
     },
     "frequency": {
-      "$ref": "#/$defs/bill-subs-api_frequency"
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+      "type": "string"
     },
     "price": {
-      "$ref": "#/$defs/bill-subs-api_price"
+      "type": "number"
     },
     "rate_plan": {
       "$ref": "#/$defs/bill-subs-api_rate_plan"
     },
     "state": {
-      "$ref": "#/$defs/bill-subs-api_state"
+      "enum": [
+        "Trial",
+        "Provisioned",
+        "Paid",
+        "AwaitingPayment",
+        "Cancelled",
+        "Failed",
+        "Expired"
+      ],
+      "type": "string"
     },
     "zone": {
       "$ref": "#/$defs/bill-subs-api_zone"
@@ -1963,7 +1773,7 @@ export const bill$$subs$$api_subscription$$v2: JsonSchema = {
     "app": {
       "properties": {
         "install_id": {
-          "$ref": "#/$defs/bill-subs-api_install_id"
+          "type": "string"
         }
       },
       "type": "object"
@@ -1972,28 +1782,45 @@ export const bill$$subs$$api_subscription$$v2: JsonSchema = {
       "$ref": "#/$defs/bill-subs-api_component_values"
     },
     "currency": {
-      "$ref": "#/$defs/bill-subs-api_currency"
+      "type": "string"
     },
     "current_period_end": {
-      "$ref": "#/$defs/bill-subs-api_current_period_end"
+      "format": "date-time",
+      "type": "string"
     },
     "current_period_start": {
-      "$ref": "#/$defs/bill-subs-api_current_period_start"
+      "format": "date-time",
+      "type": "string"
     },
     "frequency": {
-      "$ref": "#/$defs/bill-subs-api_frequency"
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+      "type": "string"
     },
     "price": {
-      "$ref": "#/$defs/bill-subs-api_price"
+      "type": "number"
     },
     "rate_plan": {
       "$ref": "#/$defs/bill-subs-api_rate_plan"
     },
     "state": {
-      "$ref": "#/$defs/bill-subs-api_state"
+      "enum": [
+        "Trial",
+        "Provisioned",
+        "Paid",
+        "AwaitingPayment",
+        "Cancelled",
+        "Failed",
+        "Expired"
+      ],
+      "type": "string"
     },
     "zone": {
       "$ref": "#/$defs/bill-subs-api_zone"
@@ -2008,10 +1835,10 @@ export const bill$$subs$$api_subscription$$v2: JsonSchema = {
 export const bill$$subs$$api_zone: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/bill-subs-api_identifier"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/bill-subs-api_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -2498,20 +2325,6 @@ export const builds_ApiError: JsonSchema = {
 };
 
 /**
- * The schema of `builds_BuildOutcome` in responses.
- */
-export const builds_BuildOutcome: JsonSchema = {
-  "enum": [
-    "success",
-    "fail",
-    "skipped",
-    "cancelled",
-    "terminated"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `builds_BuildResponse` in responses.
  */
 export const builds_BuildResponse: JsonSchema = {
@@ -2519,7 +2332,14 @@ export const builds_BuildResponse: JsonSchema = {
     "build_outcome": {
       "oneOf": [
         {
-          "$ref": "#/$defs/builds_BuildOutcome"
+          "enum": [
+            "success",
+            "fail",
+            "skipped",
+            "cancelled",
+            "terminated"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -2530,17 +2350,19 @@ export const builds_BuildResponse: JsonSchema = {
       "$ref": "#/$defs/builds_BuildTriggerMetadataResponse"
     },
     "build_uuid": {
-      "$ref": "#/$defs/builds_build_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/builds_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "deploy_hook": {
       "oneOf": [
         {
           "properties": {
             "deploy_hook_name": {
-              "$ref": "#/$defs/builds_deploy_hook_name"
+              "type": "string"
             }
           },
           "type": "object"
@@ -2562,7 +2384,8 @@ export const builds_BuildResponse: JsonSchema = {
       ]
     },
     "modified_on": {
-      "$ref": "#/$defs/builds_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "preview_url": {
       "type": "string"
@@ -2583,7 +2406,8 @@ export const builds_BuildResponse: JsonSchema = {
               ]
             },
             "created_on": {
-              "$ref": "#/$defs/builds_created_on"
+              "format": "date-time",
+              "type": "string"
             },
             "pull_request_url": {
               "type": "string"
@@ -2608,10 +2432,24 @@ export const builds_BuildResponse: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/builds_BuildStatus"
+      "enum": [
+        "queued",
+        "initializing",
+        "running",
+        "stopped"
+      ],
+      "type": "string"
     },
     "stopped_on": {
-      "$ref": "#/$defs/builds_stopped_on"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "trigger": {
       "properties": {
@@ -2622,25 +2460,35 @@ export const builds_BuildResponse: JsonSchema = {
           "$ref": "#/$defs/builds_branch_includes"
         },
         "build_caching_enabled": {
-          "$ref": "#/$defs/builds_build_caching_enabled"
+          "type": "boolean"
         },
         "build_command": {
-          "$ref": "#/$defs/builds_build_command"
+          "type": "string"
         },
         "created_on": {
-          "$ref": "#/$defs/builds_created_on"
+          "format": "date-time",
+          "type": "string"
         },
         "deleted_on": {
-          "$ref": "#/$defs/builds_deleted_on"
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "deploy_command": {
-          "$ref": "#/$defs/builds_deploy_command"
+          "type": "string"
         },
         "external_script_id": {
-          "$ref": "#/$defs/builds_external_script_id"
+          "type": "string"
         },
         "modified_on": {
-          "$ref": "#/$defs/builds_modified_on"
+          "format": "date-time",
+          "type": "string"
         },
         "path_excludes": {
           "$ref": "#/$defs/builds_path_excludes"
@@ -2652,32 +2500,20 @@ export const builds_BuildResponse: JsonSchema = {
           "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
         },
         "root_directory": {
-          "$ref": "#/$defs/builds_root_directory"
+          "type": "string"
         },
         "trigger_name": {
-          "$ref": "#/$defs/builds_trigger_name"
+          "type": "string"
         },
         "trigger_uuid": {
-          "$ref": "#/$defs/builds_trigger_uuid"
+          "format": "uuid",
+          "type": "string"
         }
       },
       "type": "object"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_BuildStatus` in responses.
- */
-export const builds_BuildStatus: JsonSchema = {
-  "enum": [
-    "queued",
-    "initializing",
-    "running",
-    "stopped"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2689,28 +2525,35 @@ export const builds_BuildTriggerMetadataResponse: JsonSchema = {
       "type": "string"
     },
     "branch": {
-      "$ref": "#/$defs/builds_branch"
+      "type": "string"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command"
+      "type": "string"
     },
     "build_token_name": {
-      "$ref": "#/$defs/builds_build_token_name"
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "build_trigger_source": {
-      "$ref": "#/$defs/builds_BuildTriggerSource"
+      "enum": [
+        "push",
+        "pull_request",
+        "manual",
+        "api"
+      ],
+      "type": "string"
     },
     "commit_hash": {
-      "$ref": "#/$defs/builds_commit_hash"
+      "type": "string"
     },
     "commit_message": {
       "type": "string"
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command"
+      "type": "string"
     },
     "environment_variables": {
       "additionalProperties": {
@@ -2719,32 +2562,25 @@ export const builds_BuildTriggerMetadataResponse: JsonSchema = {
       "type": "object"
     },
     "provider_account_name": {
-      "$ref": "#/$defs/builds_provider_account_name"
+      "type": "string"
     },
     "provider_type": {
-      "$ref": "#/$defs/builds_SCMProviderType"
+      "enum": [
+        "github",
+        "gitlab",
+        "gitlab_internal",
+        "origin"
+      ],
+      "type": "string"
     },
     "repo_name": {
-      "$ref": "#/$defs/builds_repo_name"
+      "type": "string"
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_BuildTriggerSource` in responses.
- */
-export const builds_BuildTriggerSource: JsonSchema = {
-  "enum": [
-    "push",
-    "pull_request",
-    "manual",
-    "api"
-  ],
-  "type": "string"
 };
 
 /**
@@ -2754,10 +2590,11 @@ export const builds_EnvironmentVariablesResponse: JsonSchema = {
   "additionalProperties": {
     "properties": {
       "created_on": {
-        "$ref": "#/$defs/builds_created_on"
+        "format": "date-time",
+        "type": "string"
       },
       "is_secret": {
-        "$ref": "#/$defs/builds_is_secret"
+        "type": "boolean"
       },
       "value": {
         "oneOf": [
@@ -2844,49 +2681,53 @@ export const builds_PaginationInfo: JsonSchema = {
 };
 
 /**
- * The schema of `builds_SCMProviderType` in responses.
- */
-export const builds_SCMProviderType: JsonSchema = {
-  "enum": [
-    "github",
-    "gitlab",
-    "gitlab_internal",
-    "origin"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `builds_UpsertRepoConnectionResponse` in responses.
  */
 export const builds_UpsertRepoConnectionResponse: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/builds_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_on": {
-      "$ref": "#/$defs/builds_deleted_on"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "modified_on": {
-      "$ref": "#/$defs/builds_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "provider_account_id": {
-      "$ref": "#/$defs/builds_provider_account_id"
+      "type": "string"
     },
     "provider_account_name": {
-      "$ref": "#/$defs/builds_provider_account_name"
+      "type": "string"
     },
     "provider_type": {
-      "$ref": "#/$defs/builds_SCMProviderType"
+      "enum": [
+        "github",
+        "gitlab",
+        "gitlab_internal",
+        "origin"
+      ],
+      "type": "string"
     },
     "repo_connection_uuid": {
-      "$ref": "#/$defs/builds_repo_connection_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "repo_id": {
-      "$ref": "#/$defs/builds_repo_id"
+      "type": "string"
     },
     "repo_name": {
-      "$ref": "#/$defs/builds_repo_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -2898,16 +2739,17 @@ export const builds_UpsertRepoConnectionResponse: JsonSchema = {
 export const builds_WorkerBuildSettings: JsonSchema = {
   "properties": {
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled"
+      "type": "boolean"
     },
     "build_command": {
-      "$ref": "#/$defs/builds_build_command"
+      "type": "string"
     },
     "build_token_uuid": {
-      "$ref": "#/$defs/builds_build_token_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command"
+      "type": "string"
     },
     "environment_variables": {
       "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
@@ -2929,7 +2771,7 @@ export const builds_WorkerBuildSettings: JsonSchema = {
       ]
     },
     "root_directory": {
-      "$ref": "#/$defs/builds_root_directory"
+      "type": "string"
     }
   },
   "type": "object"
@@ -2954,19 +2796,25 @@ export const builds_WorkerGitRepository: JsonSchema = {
       ]
     },
     "provider_account_id": {
-      "$ref": "#/$defs/builds_provider_account_id"
+      "type": "string"
     },
     "provider_account_name": {
-      "$ref": "#/$defs/builds_provider_account_name"
+      "type": "string"
     },
     "provider_type": {
-      "$ref": "#/$defs/builds_SCMProviderType"
+      "enum": [
+        "github",
+        "gitlab",
+        "gitlab_internal",
+        "origin"
+      ],
+      "type": "string"
     },
     "repo_id": {
-      "$ref": "#/$defs/builds_repo_id"
+      "type": "string"
     },
     "repo_name": {
-      "$ref": "#/$defs/builds_repo_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -2990,17 +2838,10 @@ export const builds_WorkerResponse: JsonSchema = {
       "$ref": "#/$defs/builds_WorkerBuildSettings"
     },
     "script_tag": {
-      "$ref": "#/$defs/builds_external_script_id"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_branch` in responses.
- */
-export const builds_branch: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -3024,109 +2865,6 @@ export const builds_branch_includes: JsonSchema = {
 };
 
 /**
- * The schema of `builds_build_caching_enabled` in responses.
- */
-export const builds_build_caching_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `builds_build_command` in responses.
- */
-export const builds_build_command: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_build_token_name` in responses.
- */
-export const builds_build_token_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_build_token_uuid` in responses.
- */
-export const builds_build_token_uuid: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_build_uuid` in responses.
- */
-export const builds_build_uuid: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_commit_hash` in responses.
- */
-export const builds_commit_hash: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_created_on` in responses.
- */
-export const builds_created_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_deleted_on` in responses.
- */
-export const builds_deleted_on: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `builds_deploy_command` in responses.
- */
-export const builds_deploy_command: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_deploy_hook_name` in responses.
- */
-export const builds_deploy_hook_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_external_script_id` in responses.
- */
-export const builds_external_script_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_is_secret` in responses.
- */
-export const builds_is_secret: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `builds_modified_on` in responses.
- */
-export const builds_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `builds_path_excludes` in responses.
  */
 export const builds_path_excludes: JsonSchema = {
@@ -3144,79 +2882,6 @@ export const builds_path_includes: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `builds_provider_account_id` in responses.
- */
-export const builds_provider_account_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_provider_account_name` in responses.
- */
-export const builds_provider_account_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_repo_connection_uuid` in responses.
- */
-export const builds_repo_connection_uuid: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_repo_id` in responses.
- */
-export const builds_repo_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_repo_name` in responses.
- */
-export const builds_repo_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_root_directory` in responses.
- */
-export const builds_root_directory: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_stopped_on` in responses.
- */
-export const builds_stopped_on: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `builds_trigger_name` in responses.
- */
-export const builds_trigger_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `builds_trigger_uuid` in responses.
- */
-export const builds_trigger_uuid: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };
 
 /**
@@ -3302,13 +2967,6 @@ export const cache$$settings_base: JsonSchema = {
 };
 
 /**
- * The schema of `cache-settings_editable` in responses.
- */
-export const cache$$settings_editable: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `cache-settings_messages` in responses.
  */
 export const cache$$settings_messages: JsonSchema = {
@@ -3331,29 +2989,22 @@ export const cache$$settings_messages: JsonSchema = {
 };
 
 /**
- * The schema of `cache-settings_modified_on` in responses.
- */
-export const cache$$settings_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `cache-settings_result-object` in responses.
  */
 export const cache$$settings_result$$object: JsonSchema = {
   "properties": {
     "editable": {
-      "$ref": "#/$defs/cache-settings_editable"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/cache-settings_setting_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/cache-settings_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cache-settings_setting_value"
+      "type": "string"
     }
   },
   "required": [
@@ -3370,13 +3021,14 @@ export const cache$$settings_result$$object: JsonSchema = {
 export const cache$$settings_result$$object$$delete: JsonSchema = {
   "properties": {
     "editable": {
-      "$ref": "#/$defs/cache-settings_editable"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/cache-settings_setting_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/cache-settings_modified_on"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -3384,20 +3036,6 @@ export const cache$$settings_result$$object$$delete: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache-settings_setting_id` in responses.
- */
-export const cache$$settings_setting_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cache-settings_setting_value` in responses.
- */
-export const cache$$settings_setting_value: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -3560,13 +3198,6 @@ export const dns$$custom$$nameservers_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `dns-custom-nameservers_identifier-2` in responses.
- */
-export const dns$$custom$$nameservers_identifier$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-custom-nameservers_messages` in responses.
  */
 export const dns$$custom$$nameservers_messages: JsonSchema = {
@@ -3597,20 +3228,6 @@ export const dns$$custom$$nameservers_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-custom-nameservers_ns_name` in responses.
- */
-export const dns$$custom$$nameservers_ns_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dns-custom-nameservers_ns_set` in responses.
- */
-export const dns$$custom$$nameservers_ns_set: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -3702,14 +3319,6 @@ export const email_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `email_created` in responses.
- */
-export const email_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `email_dns_record` in responses.
  */
 export const email_dns_record: JsonSchema = {
@@ -3786,13 +3395,6 @@ export const email_dns_settings_response_collection: JsonSchema = {
 };
 
 /**
- * The schema of `email_identifier` in responses.
- */
-export const email_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_messages` in responses.
  */
 export const email_messages: JsonSchema = {
@@ -3823,14 +3425,6 @@ export const email_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `email_modified` in responses.
- */
-export const email_modified: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -4103,13 +3697,6 @@ export const firewall_messages: JsonSchema = {
 };
 
 /**
- * The schema of `firewall_notes` in responses.
- */
-export const firewall_notes: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `firewall_result_info` in responses.
  */
 export const firewall_result_info: JsonSchema = {
@@ -4137,7 +3724,14 @@ export const firewall_rule: JsonSchema = {
   "properties": {
     "allowed_modes": {
       "items": {
-        "$ref": "#/$defs/firewall_schemas-mode"
+        "enum": [
+          "block",
+          "challenge",
+          "whitelist",
+          "js_challenge",
+          "managed_challenge"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -4149,17 +3743,24 @@ export const firewall_rule: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/firewall_schemas-identifier"
+      "type": "string"
     },
     "mode": {
-      "$ref": "#/$defs/firewall_schemas-mode"
+      "enum": [
+        "block",
+        "challenge",
+        "whitelist",
+        "js_challenge",
+        "managed_challenge"
+      ],
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",
       "type": "string"
     },
     "notes": {
-      "$ref": "#/$defs/firewall_notes"
+      "type": "string"
     }
   },
   "required": [
@@ -4169,49 +3770,6 @@ export const firewall_rule: JsonSchema = {
     "mode"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `firewall_schemas-identifier` in responses.
- */
-export const firewall_schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `firewall_schemas-mode` in responses.
- */
-export const firewall_schemas$$mode: JsonSchema = {
-  "enum": [
-    "block",
-    "challenge",
-    "whitelist",
-    "js_challenge",
-    "managed_challenge"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_access` in responses.
- */
-export const iam_access: JsonSchema = {
-  "enum": [
-    "allow",
-    "deny"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_account-type` in responses.
- */
-export const iam_account$$type: JsonSchema = {
-  "enum": [
-    "standard",
-    "enterprise"
-  ],
-  "type": "string"
 };
 
 /**
@@ -4330,7 +3888,7 @@ export const iam_api$$response$$single$$id: JsonSchema = {
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                  "type": "string"
                 }
               },
               "required": [
@@ -4382,13 +3940,6 @@ export const iam_collection_tokens_response: JsonSchema = {
 };
 
 /**
- * The schema of `iam_common_components-schemas-identifier` in responses.
- */
-export const iam_common_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `iam_condition` in responses.
  */
 export const iam_condition: JsonSchema = {
@@ -4398,53 +3949,6 @@ export const iam_condition: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `iam_creator_email_at_creation` in responses.
- */
-export const iam_creator_email_at_creation: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_effect` in responses.
- */
-export const iam_effect: JsonSchema = {
-  "enum": [
-    "allow",
-    "deny"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_email` in responses.
- */
-export const iam_email: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_expires_on` in responses.
- */
-export const iam_expires_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_first_name` in responses.
- */
-export const iam_first_name: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -4463,45 +3967,19 @@ export const iam_grants: JsonSchema = {
 };
 
 /**
- * The schema of `iam_issued_on` in responses.
- */
-export const iam_issued_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_last_name` in responses.
- */
-export const iam_last_name: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `iam_last_used_on` in responses.
- */
-export const iam_last_used_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `iam_list_member_policy` in responses.
  */
 export const iam_list_member_policy: JsonSchema = {
   "properties": {
     "access": {
-      "$ref": "#/$defs/iam_access"
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_policy_identifier"
+      "type": "string"
     },
     "permission_groups": {
       "$ref": "#/$defs/iam_permission_groups"
@@ -4511,13 +3989,6 @@ export const iam_list_member_policy: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `iam_membership_components-schemas-identifier` in responses.
- */
-export const iam_membership_components$$schemas$$identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -4551,29 +4022,6 @@ export const iam_messages$$2: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `iam_modified_on` in responses.
- */
-export const iam_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `iam_name` in responses.
- */
-export const iam_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_not_before` in responses.
- */
-export const iam_not_before: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -4743,22 +4191,19 @@ export const iam_permissions_group_response_collection: JsonSchema = {
 };
 
 /**
- * The schema of `iam_policy_identifier` in responses.
- */
-export const iam_policy_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `iam_policy_with_permission_groups_and_resources` in responses.
  */
 export const iam_policy_with_permission_groups_and_resources: JsonSchema = {
   "properties": {
     "effect": {
-      "$ref": "#/$defs/iam_effect"
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_policy_identifier"
+      "type": "string"
     },
     "permission_groups": {
       "$ref": "#/$defs/iam_permission_groups"
@@ -4774,27 +4219,6 @@ export const iam_policy_with_permission_groups_and_resources: JsonSchema = {
     "resources"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_provisioner_id` in responses.
- */
-export const iam_provisioner_id: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `iam_provisioner_type` in responses.
- */
-export const iam_provisioner_type: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -4903,7 +4327,7 @@ export const iam_response_single_value: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/iam_value"
+          "type": "string"
         }
       },
       "type": "object"
@@ -4937,9 +4361,7 @@ export const iam_result_info: JsonSchema = {
  */
 export const iam_scope: JsonSchema = {
   "properties": {
-    "key": {
-      "$ref": "#/$defs/iam_scope_key"
-    },
+    "key": {},
     "objects": {
       "items": {
         "$ref": "#/$defs/iam_scope_object"
@@ -4955,29 +4377,17 @@ export const iam_scope: JsonSchema = {
 };
 
 /**
- * The schema of `iam_scope_key` in responses.
- */
-export const iam_scope_key: JsonSchema = {};
-
-/**
  * The schema of `iam_scope_object` in responses.
  */
 export const iam_scope_object: JsonSchema = {
   "properties": {
-    "key": {
-      "$ref": "#/$defs/iam_scope_object_key"
-    }
+    "key": {}
   },
   "required": [
     "key"
   ],
   "type": "object"
 };
-
-/**
- * The schema of `iam_scope_object_key` in responses.
- */
-export const iam_scope_object_key: JsonSchema = {};
 
 /**
  * The schema of `iam_single_token_create_response` in responses.
@@ -5026,56 +4436,66 @@ export const iam_token_base: JsonSchema = {
       "$ref": "#/$defs/iam_condition"
     },
     "creator_email_at_creation": {
-      "$ref": "#/$defs/iam_creator_email_at_creation"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/iam_expires_on"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_token_identifier"
+      "type": "string"
     },
     "issued_on": {
-      "$ref": "#/$defs/iam_issued_on"
+      "format": "date-time",
+      "type": "string"
     },
     "last_used_on": {
-      "$ref": "#/$defs/iam_last_used_on"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/iam_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/iam_name"
+      "type": "string"
     },
     "not_before": {
-      "$ref": "#/$defs/iam_not_before"
+      "format": "date-time",
+      "type": "string"
     },
     "policies": {
       "$ref": "#/$defs/iam_token_policies"
     },
     "provisioner_id": {
-      "$ref": "#/$defs/iam_provisioner_id"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "provisioner_type": {
-      "$ref": "#/$defs/iam_provisioner_type"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/iam_token_status"
+      "enum": [
+        "active",
+        "disabled",
+        "expired"
+      ],
+      "type": "string"
     },
     "token_prefix": {
-      "$ref": "#/$defs/iam_token_prefix"
+      "type": "string"
     },
     "token_suffix": {
-      "$ref": "#/$defs/iam_token_suffix"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `iam_token_identifier` in responses.
- */
-export const iam_token_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -5086,32 +4506,6 @@ export const iam_token_policies: JsonSchema = {
     "$ref": "#/$defs/iam_policy_with_permission_groups_and_resources"
   },
   "type": "array"
-};
-
-/**
- * The schema of `iam_token_prefix` in responses.
- */
-export const iam_token_prefix: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_token_status` in responses.
- */
-export const iam_token_status: JsonSchema = {
-  "enum": [
-    "active",
-    "disabled",
-    "expired"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_token_suffix` in responses.
- */
-export const iam_token_suffix: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -5127,16 +4521,23 @@ export const iam_token_verify_response_single_segment: JsonSchema = {
         "result": {
           "properties": {
             "expires_on": {
-              "$ref": "#/$defs/iam_expires_on"
+              "format": "date-time",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/iam_token_identifier"
+              "type": "string"
             },
             "not_before": {
-              "$ref": "#/$defs/iam_not_before"
+              "format": "date-time",
+              "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/iam_token_status"
+              "enum": [
+                "active",
+                "disabled",
+                "expired"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -5162,26 +4563,12 @@ export const iam_token_with_value: JsonSchema = {
     {
       "properties": {
         "value": {
-          "$ref": "#/$defs/iam_value"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `iam_two_factor_authentication_enabled` in responses.
- */
-export const iam_two_factor_authentication_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `iam_value` in responses.
- */
-export const iam_value: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -5346,20 +4733,6 @@ export const load$$balancing_Host: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_address` in responses.
- */
-export const load$$balancing_address: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_allow_insecure` in responses.
- */
-export const load$$balancing_allow_insecure: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_api-paginated-response-collection` in
  * responses.
  */
@@ -5499,56 +4872,6 @@ export const load$$balancing_check_regions: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_consecutive_down` in responses.
- */
-export const load$$balancing_consecutive_down: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_consecutive_up` in responses.
- */
-export const load$$balancing_consecutive_up: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_description` in responses.
- */
-export const load$$balancing_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_disabled_at` in responses.
- */
-export const load$$balancing_disabled_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_enabled` in responses.
- */
-export const load$$balancing_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `load-balancing_expected_body` in responses.
- */
-export const load$$balancing_expected_body: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_expected_codes` in responses.
- */
-export const load$$balancing_expected_codes: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_filter_options` in responses.
  */
 export const load$$balancing_filter_options: JsonSchema = {
@@ -5582,13 +4905,6 @@ export const load$$balancing_filter_options: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_follow_redirects` in responses.
- */
-export const load$$balancing_follow_redirects: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -5677,7 +4993,7 @@ export const load$$balancing_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/load-balancing_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -5686,27 +5002,6 @@ export const load$$balancing_id_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_identifier` in responses.
- */
-export const load$$balancing_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_interval` in responses.
- */
-export const load$$balancing_interval: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_latitude` in responses.
- */
-export const load$$balancing_latitude: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -5745,13 +5040,6 @@ export const load$$balancing_load_shedding: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_longitude` in responses.
- */
-export const load$$balancing_longitude: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `load-balancing_messages` in responses.
  */
 export const load$$balancing_messages: JsonSchema = {
@@ -5774,20 +5062,6 @@ export const load$$balancing_messages: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_method` in responses.
- */
-export const load$$balancing_method: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_minimum_origins` in responses.
- */
-export const load$$balancing_minimum_origins: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `load-balancing_monitor` in responses.
  */
 export const load$$balancing_monitor: JsonSchema = {
@@ -5798,13 +5072,15 @@ export const load$$balancing_monitor: JsonSchema = {
     {
       "properties": {
         "created_on": {
-          "$ref": "#/$defs/load-balancing_timestamp"
+          "format": "date-time",
+          "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+          "type": "string"
         },
         "modified_on": {
-          "$ref": "#/$defs/load-balancing_timestamp"
+          "format": "date-time",
+          "type": "string"
         }
       },
       "type": "object"
@@ -5818,52 +5094,67 @@ export const load$$balancing_monitor: JsonSchema = {
 export const load$$balancing_monitor$$editable: JsonSchema = {
   "properties": {
     "allow_insecure": {
-      "$ref": "#/$defs/load-balancing_allow_insecure"
+      "type": "boolean"
     },
     "consecutive_down": {
-      "$ref": "#/$defs/load-balancing_consecutive_down"
+      "type": "integer"
     },
     "consecutive_up": {
-      "$ref": "#/$defs/load-balancing_consecutive_up"
+      "type": "integer"
     },
     "description": {
-      "$ref": "#/$defs/load-balancing_description"
+      "type": "string"
     },
     "expected_body": {
-      "$ref": "#/$defs/load-balancing_expected_body"
+      "type": "string"
     },
     "expected_codes": {
-      "$ref": "#/$defs/load-balancing_expected_codes"
+      "type": "string"
     },
     "follow_redirects": {
-      "$ref": "#/$defs/load-balancing_follow_redirects"
+      "type": "boolean"
     },
     "header": {
       "$ref": "#/$defs/load-balancing_header"
     },
     "interval": {
-      "$ref": "#/$defs/load-balancing_interval"
+      "type": "integer"
     },
     "method": {
-      "$ref": "#/$defs/load-balancing_method"
+      "type": "string"
     },
     "path": {
-      "$ref": "#/$defs/load-balancing_path"
+      "type": "string"
     },
     "port": {
-      "$ref": "#/$defs/load-balancing_port"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "probe_zone": {
-      "$ref": "#/$defs/load-balancing_probe_zone"
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/load-balancing_retries"
+      "type": "integer"
     },
     "timeout": {
-      "$ref": "#/$defs/load-balancing_timeout"
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/load-balancing_type"
+      "enum": [
+        "http",
+        "https",
+        "tcp",
+        "udp_icmp",
+        "icmp_ping",
+        "smtp"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -5952,27 +5243,6 @@ export const load$$balancing_monitor$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_monitor_group_id` in responses.
- */
-export const load$$balancing_monitor_group_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_monitor_id` in responses.
- */
-export const load$$balancing_monitor_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_name` in responses.
- */
-export const load$$balancing_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_networks` in responses.
  */
 export const load$$balancing_networks: JsonSchema = {
@@ -5980,13 +5250,6 @@ export const load$$balancing_networks: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `load-balancing_notification_email` in responses.
- */
-export const load$$balancing_notification_email: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -6017,31 +5280,32 @@ export const load$$balancing_notification_filter: JsonSchema = {
 export const load$$balancing_origin: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/load-balancing_address"
+      "type": "string"
     },
     "disabled_at": {
-      "$ref": "#/$defs/load-balancing_disabled_at"
+      "format": "date-time",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/load-balancing_schemas-enabled"
+      "type": "boolean"
     },
     "flatten_cname": {
-      "$ref": "#/$defs/load-balancing_origin_flatten_cname"
+      "type": "boolean"
     },
     "header": {
       "$ref": "#/$defs/load-balancing_schemas-header"
     },
     "name": {
-      "$ref": "#/$defs/load-balancing_schemas-name"
+      "type": "string"
     },
     "port": {
-      "$ref": "#/$defs/load-balancing_origin_port"
+      "type": "integer"
     },
     "virtual_network_id": {
-      "$ref": "#/$defs/load-balancing_virtual_network_id"
+      "type": "string"
     },
     "weight": {
-      "$ref": "#/$defs/load-balancing_weight"
+      "type": "number"
     }
   },
   "type": "object"
@@ -6074,13 +5338,6 @@ export const load$$balancing_origin$$health: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_origin_flatten_cname` in responses.
- */
-export const load$$balancing_origin_flatten_cname: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_origin_health_data` in responses.
  */
 export const load$$balancing_origin_health_data: JsonSchema = {
@@ -6099,13 +5356,6 @@ export const load$$balancing_origin_health_data: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `load-balancing_origin_port` in responses.
- */
-export const load$$balancing_origin_port: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -6144,13 +5394,6 @@ export const load$$balancing_origins: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_path` in responses.
- */
-export const load$$balancing_path: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_pool` in responses.
  */
 export const load$$balancing_pool: JsonSchema = {
@@ -6159,52 +5402,55 @@ export const load$$balancing_pool: JsonSchema = {
       "$ref": "#/$defs/load-balancing_check_regions"
     },
     "created_on": {
-      "$ref": "#/$defs/load-balancing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/load-balancing_schemas-description"
+      "type": "string"
     },
     "disabled_at": {
-      "$ref": "#/$defs/load-balancing_schemas-disabled_at"
+      "format": "date-time",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/load-balancing_enabled"
+      "type": "boolean"
     },
     "health_sources": {
       "$ref": "#/$defs/load-balancing_health_sources"
     },
     "id": {
-      "$ref": "#/$defs/load-balancing_schemas-identifier"
+      "type": "string"
     },
     "latitude": {
-      "$ref": "#/$defs/load-balancing_latitude"
+      "type": "number"
     },
     "load_shedding": {
       "$ref": "#/$defs/load-balancing_load_shedding"
     },
     "longitude": {
-      "$ref": "#/$defs/load-balancing_longitude"
+      "type": "number"
     },
     "minimum_origins": {
-      "$ref": "#/$defs/load-balancing_minimum_origins"
+      "type": "integer"
     },
     "modified_on": {
-      "$ref": "#/$defs/load-balancing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "monitor": {
-      "$ref": "#/$defs/load-balancing_monitor_id"
+      "type": "string"
     },
     "monitor_group": {
-      "$ref": "#/$defs/load-balancing_monitor_group_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/load-balancing_name"
+      "type": "string"
     },
     "networks": {
       "$ref": "#/$defs/load-balancing_networks"
     },
     "notification_email": {
-      "$ref": "#/$defs/load-balancing_notification_email"
+      "type": "string"
     },
     "notification_filter": {
       "$ref": "#/$defs/load-balancing_notification_filter"
@@ -6261,20 +5507,6 @@ export const load$$balancing_pools$$references$$response: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_port` in responses.
- */
-export const load$$balancing_port: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `load-balancing_preview_response` in responses.
  */
 export const load$$balancing_preview_response: JsonSchema = {
@@ -6293,7 +5525,7 @@ export const load$$balancing_preview_response: JsonSchema = {
               "type": "object"
             },
             "preview_id": {
-              "$ref": "#/$defs/load-balancing_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -6348,13 +5580,6 @@ export const load$$balancing_preview_result_response: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_probe_zone` in responses.
- */
-export const load$$balancing_probe_zone: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `load-balancing_region_components-schemas-response_collection`
  * in responses.
  */
@@ -6399,35 +5624,6 @@ export const load$$balancing_result_info: JsonSchema = {
 };
 
 /**
- * The schema of `load-balancing_retries` in responses.
- */
-export const load$$balancing_retries: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_schemas-description` in responses.
- */
-export const load$$balancing_schemas$$description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_schemas-disabled_at` in responses.
- */
-export const load$$balancing_schemas$$disabled_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_schemas-enabled` in responses.
- */
-export const load$$balancing_schemas$$enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `load-balancing_schemas-header` in responses.
  */
 export const load$$balancing_schemas$$header: JsonSchema = {
@@ -6452,7 +5648,7 @@ export const load$$balancing_schemas$$id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/load-balancing_schemas-identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -6461,20 +5657,6 @@ export const load$$balancing_schemas$$id_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_schemas-identifier` in responses.
- */
-export const load$$balancing_schemas$$identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_schemas-name` in responses.
- */
-export const load$$balancing_schemas$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -6516,50 +5698,6 @@ export const load$$balancing_schemas$$single_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `load-balancing_timeout` in responses.
- */
-export const load$$balancing_timeout: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `load-balancing_timestamp` in responses.
- */
-export const load$$balancing_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_type` in responses.
- */
-export const load$$balancing_type: JsonSchema = {
-  "enum": [
-    "http",
-    "https",
-    "tcp",
-    "udp_icmp",
-    "icmp_ping",
-    "smtp"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_virtual_network_id` in responses.
- */
-export const load$$balancing_virtual_network_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `load-balancing_weight` in responses.
- */
-export const load$$balancing_weight: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -6711,13 +5849,6 @@ export const mconn_response: JsonSchema = {
 };
 
 /**
- * The schema of `mconn_uuid` in responses.
- */
-export const mconn_uuid: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `organizations-api_Organization` in responses.
  */
 export const organizations$$api_Organization: JsonSchema = {
@@ -6727,7 +5858,7 @@ export const organizations$$api_Organization: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/organizations-api_OrganizationID"
+      "type": "string"
     },
     "meta": {
       "additionalProperties": {
@@ -6761,7 +5892,7 @@ export const organizations$$api_Organization: JsonSchema = {
     "parent": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -6827,13 +5958,6 @@ export const organizations$$api_OrganizationFlags: JsonSchema = {
     "sub_org_creation"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `organizations-api_OrganizationID` in responses.
- */
-export const organizations$$api_OrganizationID: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -7190,7 +6314,7 @@ export const r2$$data$$catalog_api$$response$$single: JsonSchema = {
       "$ref": "#/$defs/r2-data-catalog_api-response-messages"
     },
     "success": {
-      "$ref": "#/$defs/r2-data-catalog_api-response-success"
+      "type": "boolean"
     }
   },
   "required": [
@@ -7199,13 +6323,6 @@ export const r2$$data$$catalog_api$$response$$single: JsonSchema = {
     "success"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2-data-catalog_api-response-success` in responses.
- */
-export const r2$$data$$catalog_api$$response$$success: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -7219,7 +6336,11 @@ export const r2$$data$$catalog_catalog: JsonSchema = {
     "credential_status": {
       "oneOf": [
         {
-          "$ref": "#/$defs/r2-data-catalog_credential-status"
+          "enum": [
+            "present",
+            "absent"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -7247,7 +6368,11 @@ export const r2$$data$$catalog_catalog: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-status"
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -7285,10 +6410,20 @@ export const r2$$data$$catalog_catalog$$activation$$response: JsonSchema = {
 export const r2$$data$$catalog_catalog$$compaction$$config: JsonSchema = {
   "properties": {
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state"
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "target_size_mb": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-target-file-size"
+      "enum": [
+        "64",
+        "128",
+        "256",
+        "512"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -7325,7 +6460,7 @@ export const r2$$data$$catalog_catalog$$maintenance$$config: JsonSchema = {
       "$ref": "#/$defs/r2-data-catalog_catalog-compaction-config"
     },
     "interval": {
-      "$ref": "#/$defs/r2-data-catalog_maintenance-interval"
+      "type": "string"
     },
     "snapshot_expiration": {
       "$ref": "#/$defs/r2-data-catalog_snapshot-expiration-config"
@@ -7341,7 +6476,11 @@ export const r2$$data$$catalog_catalog$$maintenance$$config: JsonSchema = {
 export const r2$$data$$catalog_catalog$$maintenance$$config$$response: JsonSchema = {
   "properties": {
     "credential_status": {
-      "$ref": "#/$defs/r2-data-catalog_credential-status"
+      "enum": [
+        "present",
+        "absent"
+      ],
+      "type": "string"
     },
     "maintenance_config": {
       "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-config"
@@ -7352,64 +6491,6 @@ export const r2$$data$$catalog_catalog$$maintenance$$config$$response: JsonSchem
     "maintenance_config"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2-data-catalog_catalog-maintenance-state` in responses.
- */
-export const r2$$data$$catalog_catalog$$maintenance$$state: JsonSchema = {
-  "enum": [
-    "enabled",
-    "disabled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `r2-data-catalog_catalog-status` in responses.
- */
-export const r2$$data$$catalog_catalog$$status: JsonSchema = {
-  "enum": [
-    "active",
-    "inactive"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `r2-data-catalog_catalog-target-file-size` in responses.
- */
-export const r2$$data$$catalog_catalog$$target$$file$$size: JsonSchema = {
-  "enum": [
-    "64",
-    "128",
-    "256",
-    "512"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `r2-data-catalog_credential-probe-status` in responses.
- */
-export const r2$$data$$catalog_credential$$probe$$status: JsonSchema = {
-  "enum": [
-    "valid",
-    "invalid",
-    "absent"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `r2-data-catalog_credential-status` in responses.
- */
-export const r2$$data$$catalog_credential$$status: JsonSchema = {
-  "enum": [
-    "present",
-    "absent"
-  ],
-  "type": "string"
 };
 
 /**
@@ -7445,13 +6526,6 @@ export const r2$$data$$catalog_get$$table$$response: JsonSchema = {
     "total_snapshots"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2-data-catalog_maintenance-interval` in responses.
- */
-export const r2$$data$$catalog_maintenance$$interval: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -7797,7 +6871,11 @@ export const r2$$data$$catalog_snapshot$$expiration$$config: JsonSchema = {
       "type": "integer"
     },
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state"
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -7825,10 +6903,20 @@ export const r2$$data$$catalog_table$$compaction$$config: JsonSchema = {
       ]
     },
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state"
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "target_size_mb": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-target-file-size"
+      "enum": [
+        "64",
+        "128",
+        "256",
+        "512"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -7983,7 +7071,7 @@ export const r2$$data$$catalog_table$$maintenance$$config: JsonSchema = {
       "$ref": "#/$defs/r2-data-catalog_table-compaction-config"
     },
     "interval": {
-      "$ref": "#/$defs/r2-data-catalog_maintenance-interval"
+      "type": "string"
     },
     "snapshot_expiration": {
       "$ref": "#/$defs/r2-data-catalog_table-snapshot-expiration-config"
@@ -8039,7 +7127,11 @@ export const r2$$data$$catalog_table$$snapshot$$expiration$$config: JsonSchema =
       ]
     },
     "state": {
-      "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state"
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -8048,20 +7140,6 @@ export const r2$$data$$catalog_table$$snapshot$$expiration$$config: JsonSchema =
     "state"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `resource-sharing_account_id` in responses.
- */
-export const resource$$sharing_account_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_account_name` in responses.
- */
-export const resource$$sharing_account_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -8133,82 +7211,10 @@ export const resource$$sharing_api$$response$$common$$failure: JsonSchema = {
 };
 
 /**
- * The schema of `resource-sharing_created` in responses.
- */
-export const resource$$sharing_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_modified` in responses.
- */
-export const resource$$sharing_modified: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_organization_id` in responses.
- */
-export const resource$$sharing_organization_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_id` in responses.
- */
-export const resource$$sharing_resource_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-sharing_resource_meta` in responses.
  */
 export const resource$$sharing_resource_meta: JsonSchema = {
   "type": "object"
-};
-
-/**
- * The schema of `resource-sharing_resource_resource_id` in responses.
- */
-export const resource$$sharing_resource_resource_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_status` in responses.
- */
-export const resource$$sharing_resource_status: JsonSchema = {
-  "enum": [
-    "active",
-    "deleting",
-    "deleted"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_type` in responses.
- */
-export const resource$$sharing_resource_type: JsonSchema = {
-  "enum": [
-    "custom-ruleset",
-    "gateway-policy",
-    "gateway-destination-ip",
-    "gateway-block-page-settings",
-    "gateway-extended-email-matching",
-    "idp-federation-grant",
-    "trust-grant"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_resource_version` in responses.
- */
-export const resource$$sharing_resource_version: JsonSchema = {
-  "type": "integer"
 };
 
 /**
@@ -8236,40 +7242,15 @@ export const resource$$sharing_result_info: JsonSchema = {
 };
 
 /**
- * The schema of `resource-sharing_share_id` in responses.
- */
-export const resource$$sharing_share_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_kind` in responses.
- */
-export const resource$$sharing_share_kind: JsonSchema = {
-  "enum": [
-    "sent",
-    "received"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_name` in responses.
- */
-export const resource$$sharing_share_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-sharing_share_object` in responses.
  */
 export const resource$$sharing_share_object: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id"
+      "type": "string"
     },
     "account_name": {
-      "$ref": "#/$defs/resource-sharing_account_name"
+      "type": "string"
     },
     "associated_recipient_count": {
       "type": "integer"
@@ -8278,7 +7259,8 @@ export const resource$$sharing_share_object: JsonSchema = {
       "type": "integer"
     },
     "created": {
-      "$ref": "#/$defs/resource-sharing_created"
+      "format": "date-time",
+      "type": "string"
     },
     "disassociated_recipient_count": {
       "type": "integer"
@@ -8287,19 +7269,24 @@ export const resource$$sharing_share_object: JsonSchema = {
       "type": "integer"
     },
     "id": {
-      "$ref": "#/$defs/resource-sharing_share_id"
+      "type": "string"
     },
     "kind": {
-      "$ref": "#/$defs/resource-sharing_share_kind"
+      "enum": [
+        "sent",
+        "received"
+      ],
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/resource-sharing_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-sharing_share_name"
+      "type": "string"
     },
     "organization_id": {
-      "$ref": "#/$defs/resource-sharing_organization_id"
+      "type": "string"
     },
     "resources": {
       "items": {
@@ -8308,10 +7295,19 @@ export const resource$$sharing_share_object: JsonSchema = {
       "type": "array"
     },
     "status": {
-      "$ref": "#/$defs/resource-sharing_share_status"
+      "enum": [
+        "active",
+        "deleting",
+        "deleted"
+      ],
+      "type": "string"
     },
     "target_type": {
-      "$ref": "#/$defs/resource-sharing_share_target_type"
+      "enum": [
+        "account",
+        "organization"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -8334,31 +7330,47 @@ export const resource$$sharing_share_object: JsonSchema = {
 export const resource$$sharing_share_resource_object: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/resource-sharing_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-sharing_resource_id"
+      "type": "string"
     },
     "meta": {
       "$ref": "#/$defs/resource-sharing_resource_meta"
     },
     "modified": {
-      "$ref": "#/$defs/resource-sharing_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "resource_account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id"
+      "type": "string"
     },
     "resource_id": {
-      "$ref": "#/$defs/resource-sharing_resource_resource_id"
+      "type": "string"
     },
     "resource_type": {
-      "$ref": "#/$defs/resource-sharing_resource_type"
+      "enum": [
+        "custom-ruleset",
+        "gateway-policy",
+        "gateway-destination-ip",
+        "gateway-block-page-settings",
+        "gateway-extended-email-matching",
+        "idp-federation-grant",
+        "trust-grant"
+      ],
+      "type": "string"
     },
     "resource_version": {
-      "$ref": "#/$defs/resource-sharing_resource_version"
+      "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/resource-sharing_resource_status"
+      "enum": [
+        "active",
+        "deleting",
+        "deleted"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -8403,29 +7415,6 @@ export const resource$$sharing_share_response_collection_result: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `resource-sharing_share_status` in responses.
- */
-export const resource$$sharing_share_status: JsonSchema = {
-  "enum": [
-    "active",
-    "deleting",
-    "deleted"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `resource-sharing_share_target_type` in responses.
- */
-export const resource$$sharing_share_target_type: JsonSchema = {
-  "enum": [
-    "account",
-    "organization"
-  ],
-  "type": "string"
 };
 
 /**
@@ -8746,13 +7735,6 @@ export const security$$center_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `security-center_count` in responses.
- */
-export const security$$center_count: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `security-center_issue` in responses.
  */
 export const security$$center_issue: JsonSchema = {
@@ -8767,10 +7749,18 @@ export const security$$center_issue: JsonSchema = {
       "type": "string"
     },
     "issue_class": {
-      "$ref": "#/$defs/security-center_issueClass"
+      "type": "string"
     },
     "issue_type": {
-      "$ref": "#/$defs/security-center_issueType"
+      "enum": [
+        "compliance_violation",
+        "email_security",
+        "exposed_infrastructure",
+        "insecure_configuration",
+        "weak_authentication",
+        "configuration_suggestion"
+      ],
+      "type": "string"
     },
     "payload": {
       "properties": {
@@ -8802,7 +7792,11 @@ export const security$$center_issue: JsonSchema = {
       "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/security-center_source"
+      "enum": [
+        "cloudflare",
+        "riskrecon"
+      ],
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -8812,39 +7806,29 @@ export const security$$center_issue: JsonSchema = {
       "type": "string"
     },
     "subject": {
-      "$ref": "#/$defs/security-center_subject"
+      "type": "string"
     },
     "timestamp": {
       "format": "date-time",
       "type": "string"
     },
     "user_classification": {
-      "$ref": "#/$defs/security-center_userClassification"
+      "oneOf": [
+        {
+          "enum": [
+            "false_positive",
+            "accept_risk",
+            "other"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `security-center_issueClass` in responses.
- */
-export const security$$center_issueClass: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `security-center_issueType` in responses.
- */
-export const security$$center_issueType: JsonSchema = {
-  "enum": [
-    "compliance_violation",
-    "email_security",
-    "exposed_infrastructure",
-    "insecure_configuration",
-    "weak_authentication",
-    "configuration_suggestion"
-  ],
-  "type": "string"
 };
 
 /**
@@ -8878,57 +7862,6 @@ export const security$$center_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `security-center_page` in responses.
- */
-export const security$$center_page: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `security-center_perPage` in responses.
- */
-export const security$$center_perPage: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `security-center_source` in responses.
- */
-export const security$$center_source: JsonSchema = {
-  "enum": [
-    "cloudflare",
-    "riskrecon"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `security-center_subject` in responses.
- */
-export const security$$center_subject: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `security-center_userClassification` in responses.
- */
-export const security$$center_userClassification: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "false_positive",
-        "accept_risk",
-        "other"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -9200,28 +8133,6 @@ export const tls$$certificates$$and$$hostnames_api$$response$$single: JsonSchema
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_expires_on-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_expires_on$$2: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_identifier` in responses.
- */
-export const tls$$certificates$$and$$hostnames_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_issuer` in responses.
- */
-export const tls$$certificates$$and$$hostnames_issuer: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_messages` in responses.
  */
 export const tls$$certificates$$and$$hostnames_messages: JsonSchema = {
@@ -9252,21 +8163,6 @@ export const tls$$certificates$$and$$hostnames_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_signature` in responses.
- */
-export const tls$$certificates$$and$$hostnames_signature: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_uploaded_on` in responses.
- */
-export const tls$$certificates$$and$$hostnames_uploaded_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -9304,13 +8200,6 @@ export const tls$$certificates$$and$$hostnames_validation_record: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_account_id` in responses.
- */
-export const tunnel_account_id: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -9475,92 +8364,75 @@ export const tunnel_api$$response$$single$$2: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_arch` in responses.
- */
-export const tunnel_arch: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_cfd_tunnel` in responses.
  */
 export const tunnel_cfd_tunnel: JsonSchema = {
   "properties": {
     "account_tag": {
-      "$ref": "#/$defs/tunnel_account_id"
+      "type": "string"
     },
     "config_src": {
-      "$ref": "#/$defs/tunnel_config_src"
+      "enum": [
+        "local",
+        "cloudflare"
+      ],
+      "type": "string"
     },
     "connections": {
       "$ref": "#/$defs/tunnel_connections_deprecated"
     },
     "conns_active_at": {
-      "$ref": "#/$defs/tunnel_conns_active_at"
+      "format": "date-time",
+      "type": "string"
     },
     "conns_inactive_at": {
-      "$ref": "#/$defs/tunnel_conns_inactive_at"
+      "format": "date-time",
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_tunnel_id"
+      "format": "uuid",
+      "type": "string"
     },
     "metadata": {
       "$ref": "#/$defs/tunnel_metadata"
     },
     "name": {
-      "$ref": "#/$defs/tunnel_tunnel_name"
+      "type": "string"
     },
     "remote_config": {
-      "$ref": "#/$defs/tunnel_remote_config"
+      "type": "boolean"
     },
     "status": {
-      "$ref": "#/$defs/tunnel_status"
+      "enum": [
+        "inactive",
+        "degraded",
+        "healthy",
+        "down"
+      ],
+      "type": "string"
     },
     "tun_type": {
-      "$ref": "#/$defs/tunnel_tunnel_type"
+      "enum": [
+        "cfd_tunnel",
+        "warp_connector",
+        "warp",
+        "magic",
+        "ip_sec",
+        "gre",
+        "cni"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_client_id` in responses.
- */
-export const tunnel_client_id: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_colo_name` in responses.
- */
-export const tunnel_colo_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_config_src` in responses.
- */
-export const tunnel_config_src: JsonSchema = {
-  "enum": [
-    "local",
-    "cloudflare"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_connection_id` in responses.
- */
-export const tunnel_connection_id: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };
 
 /**
@@ -9571,38 +8443,6 @@ export const tunnel_connections_deprecated: JsonSchema = {
     "$ref": "#/$defs/tunnel_schemas-connection"
   },
   "type": "array"
-};
-
-/**
- * The schema of `tunnel_conns_active_at` in responses.
- */
-export const tunnel_conns_active_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_conns_inactive_at` in responses.
- */
-export const tunnel_conns_inactive_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_created_at` in responses.
- */
-export const tunnel_created_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_deleted_at` in responses.
- */
-export const tunnel_deleted_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -9632,27 +8472,6 @@ export const tunnel_features: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `tunnel_identifier` in responses.
- */
-export const tunnel_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_ip` in responses.
- */
-export const tunnel_ip: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_is_pending_reconnect` in responses.
- */
-export const tunnel_is_pending_reconnect: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -9721,13 +8540,6 @@ export const tunnel_metadata: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_remote_config` in responses.
- */
-export const tunnel_remote_config: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tunnel_result_info` in responses.
  */
 export const tunnel_result_info: JsonSchema = {
@@ -9749,81 +8561,40 @@ export const tunnel_result_info: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_run_at` in responses.
- */
-export const tunnel_run_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_schemas-connection` in responses.
  */
 export const tunnel_schemas$$connection: JsonSchema = {
   "properties": {
     "client_id": {
-      "$ref": "#/$defs/tunnel_client_id"
+      "format": "uuid",
+      "type": "string"
     },
     "client_version": {
-      "$ref": "#/$defs/tunnel_version"
+      "type": "string"
     },
     "colo_name": {
-      "$ref": "#/$defs/tunnel_colo_name"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_connection_id"
+      "format": "uuid",
+      "type": "string"
     },
     "is_pending_reconnect": {
-      "$ref": "#/$defs/tunnel_is_pending_reconnect"
+      "type": "boolean"
     },
     "opened_at": {
       "format": "date-time",
       "type": "string"
     },
     "origin_ip": {
-      "$ref": "#/$defs/tunnel_ip"
+      "type": "string"
     },
     "uuid": {
-      "$ref": "#/$defs/tunnel_connection_id"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_status` in responses.
- */
-export const tunnel_status: JsonSchema = {
-  "enum": [
-    "inactive",
-    "degraded",
-    "healthy",
-    "down"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_id` in responses.
- */
-export const tunnel_tunnel_id: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_id-2` in responses.
- */
-export const tunnel_tunnel_id$$2: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_name` in responses.
- */
-export const tunnel_tunnel_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -9837,7 +8608,7 @@ export const tunnel_tunnel_response_token: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/tunnel_tunnel_token"
+          "type": "string"
         }
       },
       "type": "object"
@@ -9846,72 +8617,62 @@ export const tunnel_tunnel_response_token: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_tunnel_token` in responses.
- */
-export const tunnel_tunnel_token: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_tunnel_type` in responses.
- */
-export const tunnel_tunnel_type: JsonSchema = {
-  "enum": [
-    "cfd_tunnel",
-    "warp_connector",
-    "warp",
-    "magic",
-    "ip_sec",
-    "gre",
-    "cni"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_version` in responses.
- */
-export const tunnel_version: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_warp_connector_tunnel` in responses.
  */
 export const tunnel_warp_connector_tunnel: JsonSchema = {
   "properties": {
     "account_tag": {
-      "$ref": "#/$defs/tunnel_account_id"
+      "type": "string"
     },
     "connections": {
       "$ref": "#/$defs/tunnel_connections_deprecated"
     },
     "conns_active_at": {
-      "$ref": "#/$defs/tunnel_conns_active_at"
+      "format": "date-time",
+      "type": "string"
     },
     "conns_inactive_at": {
-      "$ref": "#/$defs/tunnel_conns_inactive_at"
+      "format": "date-time",
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_tunnel_id"
+      "format": "uuid",
+      "type": "string"
     },
     "metadata": {
       "$ref": "#/$defs/tunnel_metadata"
     },
     "name": {
-      "$ref": "#/$defs/tunnel_tunnel_name"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tunnel_status"
+      "enum": [
+        "inactive",
+        "degraded",
+        "healthy",
+        "down"
+      ],
+      "type": "string"
     },
     "tun_type": {
-      "$ref": "#/$defs/tunnel_tunnel_type"
+      "enum": [
+        "cfd_tunnel",
+        "warp_connector",
+        "warp",
+        "magic",
+        "ip_sec",
+        "gre",
+        "cni"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -10116,13 +8877,6 @@ export const waf$$product$$api$$bundle_api$$response$$single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `waf-product-api-bundle_identifier` in responses.
- */
-export const waf$$product$$api$$bundle_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -10386,7 +9140,7 @@ export const workers_binding_item: JsonSchema = {
 export const workers_binding_kind_ai: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10411,7 +9165,7 @@ export const workers_binding_kind_ai_search: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace": {
       "type": "string"
@@ -10437,7 +9191,7 @@ export const workers_binding_kind_ai_search: JsonSchema = {
 export const workers_binding_kind_ai_search_namespace: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace": {
       "type": "string"
@@ -10466,7 +9220,7 @@ export const workers_binding_kind_analytics_engine: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10489,7 +9243,7 @@ export const workers_binding_kind_analytics_engine: JsonSchema = {
 export const workers_binding_kind_artifacts: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace": {
       "type": "string"
@@ -10515,7 +9269,7 @@ export const workers_binding_kind_artifacts: JsonSchema = {
 export const workers_binding_kind_assets: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10537,7 +9291,7 @@ export const workers_binding_kind_assets: JsonSchema = {
 export const workers_binding_kind_browser: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10565,7 +9319,7 @@ export const workers_binding_kind_d1: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10588,7 +9342,7 @@ export const workers_binding_kind_d1: JsonSchema = {
 export const workers_binding_kind_data_blob: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "part": {
       "type": "string"
@@ -10614,7 +9368,7 @@ export const workers_binding_kind_data_blob: JsonSchema = {
 export const workers_binding_kind_dispatch_namespace: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace": {
       "type": "string"
@@ -10682,12 +9436,12 @@ export const workers_binding_kind_durable_object_namespace: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace_id": {
       "allOf": [
         {
-          "$ref": "#/$defs/workers_namespace_identifier"
+          "type": "string"
         },
         {
           "type": "string"
@@ -10720,7 +9474,7 @@ export const workers_binding_kind_flagship: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10746,7 +9500,7 @@ export const workers_binding_kind_hyperdrive: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10769,7 +9523,7 @@ export const workers_binding_kind_hyperdrive: JsonSchema = {
 export const workers_binding_kind_images: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10822,7 +9576,7 @@ export const workers_binding_kind_json: JsonSchema = {
       "type": "object"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10845,7 +9599,7 @@ export const workers_binding_kind_json: JsonSchema = {
 export const workers_binding_kind_k2: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "stream": {
       "type": "string"
@@ -10871,10 +9625,10 @@ export const workers_binding_kind_k2: JsonSchema = {
 export const workers_binding_kind_kv_namespace: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace_id": {
-      "$ref": "#/$defs/workers_namespace_identifier"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10897,7 +9651,7 @@ export const workers_binding_kind_kv_namespace: JsonSchema = {
 export const workers_binding_kind_media: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10919,7 +9673,7 @@ export const workers_binding_kind_media: JsonSchema = {
 export const workers_binding_kind_messaging: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace": {
       "type": "string"
@@ -10948,7 +9702,7 @@ export const workers_binding_kind_mtls_certificate: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -10971,7 +9725,7 @@ export const workers_binding_kind_mtls_certificate: JsonSchema = {
 export const workers_binding_kind_pipelines: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "pipeline": {
       "type": "string"
@@ -10997,7 +9751,7 @@ export const workers_binding_kind_pipelines: JsonSchema = {
 export const workers_binding_kind_plain_text: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "text": {
       "type": "string"
@@ -11023,7 +9777,7 @@ export const workers_binding_kind_plain_text: JsonSchema = {
 export const workers_binding_kind_queue: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "queue_name": {
       "type": "string"
@@ -11061,7 +9815,7 @@ export const workers_binding_kind_r2_bucket: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -11084,7 +9838,7 @@ export const workers_binding_kind_r2_bucket: JsonSchema = {
 export const workers_binding_kind_ratelimit: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "namespace_id": {
       "type": "string"
@@ -11147,7 +9901,7 @@ export const workers_binding_kind_secret_key: JsonSchema = {
       "type": "object"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -11188,7 +9942,7 @@ export const workers_binding_kind_secret_key: JsonSchema = {
 export const workers_binding_kind_secret_text: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "text": {
       "type": "string"
@@ -11214,7 +9968,7 @@ export const workers_binding_kind_secret_text: JsonSchema = {
 export const workers_binding_kind_secrets_store_secret: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "secret_name": {
       "type": "string"
@@ -11259,7 +10013,7 @@ export const workers_binding_kind_send_email: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -11287,7 +10041,7 @@ export const workers_binding_kind_service: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "service": {
       "type": "string"
@@ -11313,7 +10067,7 @@ export const workers_binding_kind_service: JsonSchema = {
 export const workers_binding_kind_text_blob: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "part": {
       "type": "string"
@@ -11342,7 +10096,7 @@ export const workers_binding_kind_vectorize: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -11365,7 +10119,7 @@ export const workers_binding_kind_vectorize: JsonSchema = {
 export const workers_binding_kind_version_metadata: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -11393,7 +10147,7 @@ export const workers_binding_kind_vpc_network: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "network_id": {
       "type": "string"
@@ -11421,7 +10175,7 @@ export const workers_binding_kind_vpc_network: JsonSchema = {
 export const workers_binding_kind_vpc_service: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "service_id": {
       "type": "string"
@@ -11447,7 +10201,7 @@ export const workers_binding_kind_vpc_service: JsonSchema = {
 export const workers_binding_kind_wasm_module: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "part": {
       "type": "string"
@@ -11476,7 +10230,7 @@ export const workers_binding_kind_workflow: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/workers_binding_name"
+      "type": "string"
     },
     "script_name": {
       "type": "string"
@@ -11497,13 +10251,6 @@ export const workers_binding_kind_workflow: JsonSchema = {
     "workflow_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_binding_name` in responses.
- */
-export const workers_binding_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -11581,25 +10328,11 @@ export const workers_code_update_strategy: JsonSchema = {
 };
 
 /**
- * The schema of `workers_compatibility_date` in responses.
- */
-export const workers_compatibility_date: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `workers_compatibility_flag` in responses.
- */
-export const workers_compatibility_flag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers_compatibility_flags` in responses.
  */
 export const workers_compatibility_flags: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/workers_compatibility_flag"
+    "type": "string"
   },
   "type": "array"
 };
@@ -11635,14 +10368,6 @@ export const workers_create$$assets$$upload$$session$$response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `workers_created_on` in responses.
- */
-export const workers_created_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -11686,7 +10411,11 @@ export const workers_durable_object_expecting_transfer_export: JsonSchema = {
       "type": "string"
     },
     "storage": {
-      "$ref": "#/$defs/workers_export_storage"
+      "enum": [
+        "sqlite",
+        "legacy-kv"
+      ],
+      "type": "string"
     },
     "transfer_from": {
       "type": "string"
@@ -11722,7 +10451,11 @@ export const workers_durable_object_export: JsonSchema = {
       "type": "string"
     },
     "storage": {
-      "$ref": "#/$defs/workers_export_storage"
+      "enum": [
+        "sqlite",
+        "legacy-kv"
+      ],
+      "type": "string"
     },
     "type": {
       "enum": [
@@ -11835,13 +10568,6 @@ export const workers_entrypoint_cache_options: JsonSchema = {
 };
 
 /**
- * The schema of `workers_etag` in responses.
- */
-export const workers_etag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers_export_config` in responses.
  */
 export const workers_export_config: JsonSchema = {
@@ -11853,17 +10579,6 @@ export const workers_export_config: JsonSchema = {
       "$ref": "#/$defs/workers_durable_object_export_variants"
     }
   ]
-};
-
-/**
- * The schema of `workers_export_storage` in responses.
- */
-export const workers_export_storage: JsonSchema = {
-  "enum": [
-    "sqlite",
-    "legacy-kv"
-  ],
-  "type": "string"
 };
 
 /**
@@ -11898,7 +10613,42 @@ export const workers_exports_reconciliation_error: JsonSchema = {
       "type": "array"
     },
     "scenario": {
-      "$ref": "#/$defs/workers_exports_reconciliation_scenario"
+      "enum": [
+        "code_class_not_in_exports",
+        "provisioned_class_missing_from_config",
+        "config_export_not_in_code",
+        "config_references_nonexistent_class",
+        "orphaned_provisioned_namespace",
+        "storage_type_mismatch",
+        "free_tier_requires_sqlite",
+        "invalid_export",
+        "tombstone_delete_class_still_in_code",
+        "tombstone_delete_blocked_by_external_bindings",
+        "tombstone_renamed_to_occupied",
+        "transferred_pending_not_found",
+        "transferred_target_missing",
+        "transferred_target_mismatch",
+        "phase_one_transfer_source_missing",
+        "phase_one_transfer_source_namespace_missing",
+        "phase_one_transfer_target_class_provisioned",
+        "phase_one_transfer_after_commit_mismatch",
+        "phase_one_transfer_duplicate",
+        "phase_one_transfer_target_in_dispatch_namespace",
+        "phase_one_transfer_source_in_dispatch_namespace",
+        "transferred_source_in_dispatch_namespace",
+        "transferred_target_in_dispatch_namespace",
+        "container_undeclared_reference",
+        "container_class_not_durable_object",
+        "container_wiring_inconsistent",
+        "container_multiple_durable_objects",
+        "transfer_container_parity_mismatch",
+        "transfer_container_parity_mismatch_on_commit",
+        "tombstone_class_still_in_code",
+        "stale_tombstone",
+        "transfer_receive_already_applied",
+        "transfer_receive_cleanup_complete"
+      ],
+      "type": "string"
     },
     "suggestion": {
       "type": "string"
@@ -11997,7 +10747,42 @@ export const workers_exports_reconciliation_info: JsonSchema = {
       "type": "array"
     },
     "scenario": {
-      "$ref": "#/$defs/workers_exports_reconciliation_scenario"
+      "enum": [
+        "code_class_not_in_exports",
+        "provisioned_class_missing_from_config",
+        "config_export_not_in_code",
+        "config_references_nonexistent_class",
+        "orphaned_provisioned_namespace",
+        "storage_type_mismatch",
+        "free_tier_requires_sqlite",
+        "invalid_export",
+        "tombstone_delete_class_still_in_code",
+        "tombstone_delete_blocked_by_external_bindings",
+        "tombstone_renamed_to_occupied",
+        "transferred_pending_not_found",
+        "transferred_target_missing",
+        "transferred_target_mismatch",
+        "phase_one_transfer_source_missing",
+        "phase_one_transfer_source_namespace_missing",
+        "phase_one_transfer_target_class_provisioned",
+        "phase_one_transfer_after_commit_mismatch",
+        "phase_one_transfer_duplicate",
+        "phase_one_transfer_target_in_dispatch_namespace",
+        "phase_one_transfer_source_in_dispatch_namespace",
+        "transferred_source_in_dispatch_namespace",
+        "transferred_target_in_dispatch_namespace",
+        "container_undeclared_reference",
+        "container_class_not_durable_object",
+        "container_wiring_inconsistent",
+        "container_multiple_durable_objects",
+        "transfer_container_parity_mismatch",
+        "transfer_container_parity_mismatch_on_commit",
+        "tombstone_class_still_in_code",
+        "stale_tombstone",
+        "transfer_receive_already_applied",
+        "transfer_receive_cleanup_complete"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -12102,48 +10887,6 @@ export const workers_exports_reconciliation_result: JsonSchema = {
 };
 
 /**
- * The schema of `workers_exports_reconciliation_scenario` in responses.
- */
-export const workers_exports_reconciliation_scenario: JsonSchema = {
-  "enum": [
-    "code_class_not_in_exports",
-    "provisioned_class_missing_from_config",
-    "config_export_not_in_code",
-    "config_references_nonexistent_class",
-    "orphaned_provisioned_namespace",
-    "storage_type_mismatch",
-    "free_tier_requires_sqlite",
-    "invalid_export",
-    "tombstone_delete_class_still_in_code",
-    "tombstone_delete_blocked_by_external_bindings",
-    "tombstone_renamed_to_occupied",
-    "transferred_pending_not_found",
-    "transferred_target_missing",
-    "transferred_target_mismatch",
-    "phase_one_transfer_source_missing",
-    "phase_one_transfer_source_namespace_missing",
-    "phase_one_transfer_target_class_provisioned",
-    "phase_one_transfer_after_commit_mismatch",
-    "phase_one_transfer_duplicate",
-    "phase_one_transfer_target_in_dispatch_namespace",
-    "phase_one_transfer_source_in_dispatch_namespace",
-    "transferred_source_in_dispatch_namespace",
-    "transferred_target_in_dispatch_namespace",
-    "container_undeclared_reference",
-    "container_class_not_durable_object",
-    "container_wiring_inconsistent",
-    "container_multiple_durable_objects",
-    "transfer_container_parity_mismatch",
-    "transfer_container_parity_mismatch_on_commit",
-    "tombstone_class_still_in_code",
-    "stale_tombstone",
-    "transfer_receive_already_applied",
-    "transfer_receive_cleanup_complete"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers_exports_reconciliation_transfer` in responses.
  */
 export const workers_exports_reconciliation_transfer: JsonSchema = {
@@ -12204,7 +10947,42 @@ export const workers_exports_reconciliation_warning: JsonSchema = {
       "type": "string"
     },
     "scenario": {
-      "$ref": "#/$defs/workers_exports_reconciliation_scenario"
+      "enum": [
+        "code_class_not_in_exports",
+        "provisioned_class_missing_from_config",
+        "config_export_not_in_code",
+        "config_references_nonexistent_class",
+        "orphaned_provisioned_namespace",
+        "storage_type_mismatch",
+        "free_tier_requires_sqlite",
+        "invalid_export",
+        "tombstone_delete_class_still_in_code",
+        "tombstone_delete_blocked_by_external_bindings",
+        "tombstone_renamed_to_occupied",
+        "transferred_pending_not_found",
+        "transferred_target_missing",
+        "transferred_target_mismatch",
+        "phase_one_transfer_source_missing",
+        "phase_one_transfer_source_namespace_missing",
+        "phase_one_transfer_target_class_provisioned",
+        "phase_one_transfer_after_commit_mismatch",
+        "phase_one_transfer_duplicate",
+        "phase_one_transfer_target_in_dispatch_namespace",
+        "phase_one_transfer_source_in_dispatch_namespace",
+        "transferred_source_in_dispatch_namespace",
+        "transferred_target_in_dispatch_namespace",
+        "container_undeclared_reference",
+        "container_class_not_durable_object",
+        "container_wiring_inconsistent",
+        "container_multiple_durable_objects",
+        "transfer_container_parity_mismatch",
+        "transfer_container_parity_mismatch_on_commit",
+        "tombstone_class_still_in_code",
+        "stale_tombstone",
+        "transfer_receive_already_applied",
+        "transfer_receive_cleanup_complete"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -12213,27 +10991,6 @@ export const workers_exports_reconciliation_warning: JsonSchema = {
     "scenario"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_has_assets` in responses.
- */
-export const workers_has_assets: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `workers_has_modules` in responses.
- */
-export const workers_has_modules: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `workers_identifier` in responses.
- */
-export const workers_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -12249,13 +11006,6 @@ export const workers_limits: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_logpush` in responses.
- */
-export const workers_logpush: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -12365,14 +11115,6 @@ export const workers_migration_tag_conditions: JsonSchema = {
 };
 
 /**
- * The schema of `workers_modified_on` in responses.
- */
-export const workers_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `workers_multiple_step_migrations` in responses.
  */
 export const workers_multiple_step_migrations: JsonSchema = {
@@ -12392,13 +11134,6 @@ export const workers_multiple_step_migrations: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `workers_namespace_identifier` in responses.
- */
-export const workers_namespace_identifier: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -12673,7 +11408,12 @@ export const workers_placement_info: JsonSchema = {
           "type": "string"
         },
         "status": {
-          "$ref": "#/$defs/workers_placement_status"
+          "enum": [
+            "SUCCESS",
+            "UNSUPPORTED_APPLICATION",
+            "INSUFFICIENT_INVOCATIONS"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -12814,29 +11554,6 @@ export const workers_placement_info_no_status: JsonSchema = {
 };
 
 /**
- * The schema of `workers_placement_mode` in responses.
- */
-export const workers_placement_mode: JsonSchema = {
-  "enum": [
-    "smart",
-    "targeted"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `workers_placement_status` in responses.
- */
-export const workers_placement_status: JsonSchema = {
-  "enum": [
-    "SUCCESS",
-    "UNSUPPORTED_APPLICATION",
-    "INSUFFICIENT_INVOCATIONS"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers_placement_target` in responses.
  */
 export const workers_placement_target: JsonSchema = {
@@ -12886,16 +11603,17 @@ export const workers_script$$response: JsonSchema = {
       "$ref": "#/$defs/workers_cache_options"
     },
     "compatibility_date": {
-      "$ref": "#/$defs/workers_compatibility_date"
+      "type": "string"
     },
     "compatibility_flags": {
       "$ref": "#/$defs/workers_compatibility_flags"
     },
     "created_on": {
-      "$ref": "#/$defs/workers_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "etag": {
-      "$ref": "#/$defs/workers_etag"
+      "type": "string"
     },
     "exports": {
       "$ref": "#/$defs/workers_exports_config_map"
@@ -12907,10 +11625,10 @@ export const workers_script$$response: JsonSchema = {
       "type": "array"
     },
     "has_assets": {
-      "$ref": "#/$defs/workers_has_assets"
+      "type": "boolean"
     },
     "has_modules": {
-      "$ref": "#/$defs/workers_has_modules"
+      "type": "boolean"
     },
     "id": {
       "type": "string"
@@ -12919,13 +11637,14 @@ export const workers_script$$response: JsonSchema = {
       "type": "string"
     },
     "logpush": {
-      "$ref": "#/$defs/workers_logpush"
+      "type": "boolean"
     },
     "migration_tag": {
       "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/workers_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "named_handlers": {
       "items": {
@@ -12953,7 +11672,11 @@ export const workers_script$$response: JsonSchema = {
     "placement_mode": {
       "allOf": [
         {
-          "$ref": "#/$defs/workers_placement_mode"
+          "enum": [
+            "smart",
+            "targeted"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -12963,7 +11686,12 @@ export const workers_script$$response: JsonSchema = {
     "placement_status": {
       "allOf": [
         {
-          "$ref": "#/$defs/workers_placement_status"
+          "enum": [
+            "SUCCESS",
+            "UNSUPPORTED_APPLICATION",
+            "INSUFFICIENT_INVOCATIONS"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -12980,17 +11708,15 @@ export const workers_script$$response: JsonSchema = {
       "$ref": "#/$defs/workers_tail_consumers"
     },
     "usage_model": {
-      "$ref": "#/$defs/workers_usage_model"
+      "enum": [
+        "standard",
+        "bundled",
+        "unbound"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_script_name` in responses.
- */
-export const workers_script_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -13032,20 +11758,13 @@ export const workers_single_step_migrations: JsonSchema = {
 };
 
 /**
- * The schema of `workers_tag` in responses.
- */
-export const workers_tag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers_tags` in responses.
  */
 export const workers_tags: JsonSchema = {
   "oneOf": [
     {
       "items": {
-        "$ref": "#/$defs/workers_tag"
+        "type": "string"
       },
       "maxItems": 10,
       "type": "array"
@@ -13092,18 +11811,6 @@ export const workers_tail_consumers_script: JsonSchema = {
     "service"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_usage_model` in responses.
- */
-export const workers_usage_model: JsonSchema = {
-  "enum": [
-    "standard",
-    "bundled",
-    "unbound"
-  ],
-  "type": "string"
 };
 
 /**
@@ -13161,13 +11868,6 @@ export const zones_api$$response$$common$$failure$$2: JsonSchema = {
     "success"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `zones_identifier-2` in responses.
- */
-export const zones_identifier$$2: JsonSchema = {
-  "type": "string"
 };
 
 /**

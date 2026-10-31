@@ -9,33 +9,17 @@ import {
   images_api$$response$$single,
   images_deleted_response,
   images_image,
-  images_image_creator,
-  images_image_filename,
-  images_image_hero_url,
-  images_image_identifier,
   images_image_metadata,
-  images_image_original_url,
-  images_image_requireSignedURLs,
   images_image_response_blob,
   images_image_response_single,
-  images_image_thumbnail_url,
-  images_image_uploaded,
   images_image_variants,
-  images_images_list_continuation_token,
   images_images_list_response_v2,
   images_images_stats,
-  images_images_stats_allowed,
   images_images_stats_count,
-  images_images_stats_current,
   images_images_stats_response,
   images_messages,
 } from "./outputs.js";
-import {
-  images_account_identifier,
-  images_image_identifier as images_image_identifier$,
-  images_image_patch_request,
-  images_images_list_continuation_token as images_images_list_continuation_token$,
-} from "./schemas.js";
+import { images_image_patch_request } from "./schemas.js";
 
 /**
  * The tools of `images`.
@@ -44,19 +28,20 @@ export const tools: readonly Tool[] = [
   {
     name: "images_delete",
     title: "Delete image",
-    description: "Delete an image on Cloudflare Images. On success, all copies of the image are deleted and purged from cache.\n\nConfirm with the user before calling this tool. This operation will delete this image.",
+    description: "Delete an image on Cloudflare Images. On success, all copies of the image are deleted and purged from cache.\n\nConfirm with the user before calling this tool. This operation will delete this image.\n\nDELETE /accounts/{account_id}/images/v1/{image_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "image_id": {
-              "$ref": "#/$defs/images_image_identifier",
-              "description": "Image unique identifier."
+              "description": "Image unique identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -69,10 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_image_identifier": images_image_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_deleted_response",
@@ -128,7 +110,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_edit",
     title: "Update image",
-    description: "Update a CF Images image's metadata, creator, or access control. On access control change, all copies of the image are purged from cache.",
+    description: "Update a CF Images image's metadata, creator, or access control. On access control change, all copies of the image are purged from cache.\n\nPATCH /accounts/{account_id}/images/v1/{image_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -136,14 +118,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/images_image_patch_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "image_id": {
-              "$ref": "#/$defs/images_image_identifier",
-              "description": "Image unique identifier."
+              "description": "Image unique identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -157,9 +140,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_image_identifier": images_image_identifier$,
         "images_image_patch_request": images_image_patch_request,
       },
     },
@@ -169,16 +151,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_image": images_image,
-        "images_image_creator": images_image_creator,
-        "images_image_filename": images_image_filename,
-        "images_image_hero_url": images_image_hero_url,
-        "images_image_identifier": images_image_identifier,
         "images_image_metadata": images_image_metadata,
-        "images_image_original_url": images_image_original_url,
-        "images_image_requireSignedURLs": images_image_requireSignedURLs,
         "images_image_response_single": images_image_response_single,
-        "images_image_thumbnail_url": images_image_thumbnail_url,
-        "images_image_uploaded": images_image_uploaded,
         "images_image_variants": images_image_variants,
         "images_messages": images_messages,
       },
@@ -218,16 +192,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_image": images_image,
-        "images_image_creator": images_image_creator,
-        "images_image_filename": images_image_filename,
-        "images_image_hero_url": images_image_hero_url,
-        "images_image_identifier": images_image_identifier,
         "images_image_metadata": images_image_metadata,
-        "images_image_original_url": images_image_original_url,
-        "images_image_requireSignedURLs": images_image_requireSignedURLs,
         "images_image_response_single": images_image_response_single,
-        "images_image_thumbnail_url": images_image_thumbnail_url,
-        "images_image_uploaded": images_image_uploaded,
         "images_image_variants": images_image_variants,
         "images_messages": images_messages,
       },
@@ -240,19 +206,20 @@ export const tools: readonly Tool[] = [
   {
     name: "images_get",
     title: "Image details",
-    description: "Fetch details for a CF Images image.",
+    description: "Fetch details for a CF Images image.\n\nGET /accounts/{account_id}/images/v1/{image_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "image_id": {
-              "$ref": "#/$defs/images_image_identifier",
-              "description": "Image unique identifier."
+              "description": "Image unique identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -265,10 +232,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_image_identifier": images_image_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_image_response_single",
@@ -276,16 +240,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_image": images_image,
-        "images_image_creator": images_image_creator,
-        "images_image_filename": images_image_filename,
-        "images_image_hero_url": images_image_hero_url,
-        "images_image_identifier": images_image_identifier,
         "images_image_metadata": images_image_metadata,
-        "images_image_original_url": images_image_original_url,
-        "images_image_requireSignedURLs": images_image_requireSignedURLs,
         "images_image_response_single": images_image_response_single,
-        "images_image_thumbnail_url": images_image_thumbnail_url,
-        "images_image_uploaded": images_image_uploaded,
         "images_image_variants": images_image_variants,
         "images_messages": images_messages,
       },
@@ -326,16 +282,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_image": images_image,
-        "images_image_creator": images_image_creator,
-        "images_image_filename": images_image_filename,
-        "images_image_hero_url": images_image_hero_url,
-        "images_image_identifier": images_image_identifier,
         "images_image_metadata": images_image_metadata,
-        "images_image_original_url": images_image_original_url,
-        "images_image_requireSignedURLs": images_image_requireSignedURLs,
         "images_image_response_single": images_image_response_single,
-        "images_image_thumbnail_url": images_image_thumbnail_url,
-        "images_image_uploaded": images_image_uploaded,
         "images_image_variants": images_image_variants,
         "images_messages": images_messages,
       },
@@ -347,19 +295,20 @@ export const tools: readonly Tool[] = [
   {
     name: "images_getBlob",
     title: "Download image",
-    description: "Download an image from CF Images. For most images this will be the originally uploaded file. For larger images it can be a near-lossless version of the original.",
+    description: "Download an image from CF Images. For most images this will be the originally uploaded file. For larger images it can be a near-lossless version of the original.\n\nGET /accounts/{account_id}/images/v1/{image_id}/blob",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "image_id": {
-              "$ref": "#/$defs/images_image_identifier",
-              "description": "Image unique identifier."
+              "description": "Image unique identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -372,10 +321,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_image_identifier": images_image_identifier$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -419,15 +365,16 @@ export const tools: readonly Tool[] = [
   {
     name: "images_list",
     title: "List images V2",
-    description: "List up to 10000 images from CF Images, with up to 1000 results per page. Use the optional parameters below to get a specific range of images.\nPagination is supported via continuation_token.\n\n**Metadata Filtering (Optional):**\n\nYou can optionally filter images by custom metadata fields using the `meta.<field>[<operator>]=<value>` syntax.\n\n**Supported Operators:**\n- `eq` / `eq:string` / `eq:number` / `eq:boolean` - Exact match\n- `gt` / `gt:number` - Greater than (number only)\n- `gte` / `gte:number` - Greater than or equal (number only)\n- `lt` / `lt:number` - Less than (number only)\n- `lte` / `lte:number` - Less than or equal (number only)\n- `in` / `in:string` / `in:number` - Match any value in list (pipe-separated)\n\n**Metadata Filter Constraints:**\n- Maximum 5 metadata filters per request\n- Maximum 5 levels of nesting (e.g., `meta.first.second.third.fourth.fifth`)\n- Maximum 10 elements for list operators (`in`)\n- Supports string, number, and boolean value types\n- Range operators (`gt`, `gte`, `lt`, `lte`) only accept numeric values\n\n**Filter Consistency:**\nFilters are combined with AND logic. The system does not validate whether filter combinations are logically consistent. For example, `meta.priority[eq:number]=5&meta.priority[lte:number]=3` will return zero results because no value can satisfy both conditions simultaneously. It is the caller's responsibility to ensure filter combinations make sense.\n\n**Examples:**\n```\n# List all images\n/images/v2\n\n# Filter by metadata [eq]\n/images/v2?meta.status[eq:string]=active\n\n# Filter by metadata [in]\n/images/v2?meta.status[in]=pending|deleted|flagged\n\n# Filter by metadata [in:number]\n/images/v2?meta.ratings[in:number]=4|5\n\n# Filter by metadata range [gte:number]\n/images/v2?meta.priority[gte:number]=1\n\n# Filter by bounded range\n/images/v2?meta.priority[gte:number]=1&meta.priority[lte:number]=5\n\n# Filter by nested metadata\n/images/v2?meta.region.name[eq]=eu-west\n\n# Combine metadata filters with creator\n/images/v2?meta.status[eq]=active&creator=user123\n\n# Multiple metadata filters (AND logic)\n/images/v2?meta.status[eq]=active&meta.priority[eq:number]=5\n```",
+    description: "List up to 10000 images from CF Images, with up to 1000 results per page. Use the optional parameters below to get a specific range of images.\nPagination is supported via continuation_token.\n\n**Metadata Filtering (Optional):**\n\nYou can optionally filter images by custom metadata fields using the `meta.<field>[<operator>]=<value>` syntax.\n\n**Supported Operators:**\n- `eq` / `eq:string` / `eq:number` / `eq:boolean` - Exact match\n- `gt` / `gt:number` - Greater than (number only)\n- `gte` / `gte:number` - Greater than or equal (number only)\n- `lt` / `lt:number` - Less than (number only)\n- `lte` / `lte:number` - Less than or equal (number only)\n- `in` / `in:string` / `in:number` - Match any value in list (pipe-separated)\n\n**Metadata Filter Constraints:**\n- Maximum 5 metadata filters per request\n- Maximum 5 levels of nesting (e.g., `meta.first.second.third.fourth.fifth`)\n- Maximum 10 elements for list operators (`in`)\n- Supports string, number, and boolean value types\n- Range operators (`gt`, `gte`, `lt`, `lte`) only accept numeric values\n\n**Filter Consistency:**\nFilters are combined with AND logic. The system does not validate whether filter combinations are logically consistent. For example, `meta.priority[eq:number]=5&meta.priority[lte:number]=3` will return zero results because no value can satisfy both conditions simultaneously. It is the caller's responsibility to ensure filter combinations make sense.\n\n**Examples:**\n```\n# List all images\n/images/v2\n\n# Filter by metadata [eq]\n/images/v2?meta.status[eq:string]=active\n\n# Filter by metadata [in]\n/images/v2?meta.status[in]=pending|deleted|flagged\n\n# Filter by metadata [in:number]\n/images/v2?meta.ratings[in:number]=4|5\n\n# Filter by metadata range [gte:number]\n/images/v2?meta.priority[gte:number]=1\n\n# Filter by bounded range\n/images/v2?meta.priority[gte:number]=1&meta.priority[lte:number]=5\n\n# Filter by nested metadata\n/images/v2?meta.region.name[eq]=eu-west\n\n# Combine metadata filters with creator\n/images/v2?meta.status[eq]=active&creator=user123\n\n# Multiple metadata filters (AND logic)\n/images/v2?meta.status[eq]=active&meta.priority[eq:number]=5\n```\n\nGET /accounts/{account_id}/images/v2",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -436,10 +383,18 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "continuation_token": {
-              "$ref": "#/$defs/images_images_list_continuation_token",
-              "description": "Continuation token to fetch next page. Passed as a query param when requesting List V2 api endpoint."
+              "description": "Continuation token to fetch next page. Passed as a query param when requesting List V2 api endpoint.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "creator": {
               "description": "Internal user ID set within the creator field. Setting to empty string \"\" will return images where creator field is not set",
@@ -453,7 +408,7 @@ export const tools: readonly Tool[] = [
               ]
             },
             "meta.<field>[<operator>]": {
-              "description": "Optional metadata filter(s). Multiple filters can be combined with AND logic.\n\n**Operators:**\n- `eq`, `eq:string`, `eq:number`, `eq:boolean` - Exact match\n- `gt`, `gt:number` - Greater than (number only)\n- `gte`, `gte:number` - Greater than or equal (number only)\n- `lt`, `lt:number` - Less than (number only)\n- `lte`, `lte:number` - Less than or equal (number only)\n- `in`, `in:string`, `in:number` - Match any value in pipe-separated list\n\n**Examples:**\n- `meta.status[eq]=active`\n- `meta.priority[eq:number]=5`\n- `meta.enabled[eq:boolean]=true`\n- `meta.priority[gte:number]=1`\n- `meta.score[lt:number]=100`\n- `meta.region[in]=us-east|us-west|eu-west`\n\n**Note:** Filter consistency is not validated. Contradictory filters (e.g., `meta.priority[eq:number]=5&meta.priority[lte:number]=3`) will return zero results.\n",
+              "description": "Optional metadata filter(s). Multiple filters can be combined with AND logic.\n\n**Operators:**\n- `eq`, `eq:string`, `eq:number`, `eq:boolean` - Exact match\n- `gt`, `gt:number` - Greater than (number only)\n- `gte`, `gte:number` - Greater than or equal (number only)\n- `lt`, `lt:number` - Less than (number only)\n- `lte`, `lte:number` - Less than or equal (number only)\n- `in`, `in:string`, `in:number` - Match any value in pipe-separated list\n\n**Examples:**\n- `meta.status[eq]=active`\n- `meta.priority[eq:number]=5`\n- `meta.enabled[eq:boolean]=true`\n- `meta.priority[gte:number]=1`\n- `meta.score[lt:number]=100`\n- `meta.region[in]=us-east|us-west|eu-west`\n\n**Note:** Filter consistency is not validated. Contradictory filters (e.g., `meta.priority[eq:number]=5&meta.priority[lte:number]=3`) will return zero results.",
               "type": "string"
             },
             "per_page": {
@@ -477,10 +432,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_images_list_continuation_token": images_images_list_continuation_token$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_images_list_response_v2",
@@ -488,17 +440,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-collection-v2": images_api$$response$$collection$$v2,
         "images_api-response-common": images_api$$response$$common,
         "images_image": images_image,
-        "images_image_creator": images_image_creator,
-        "images_image_filename": images_image_filename,
-        "images_image_hero_url": images_image_hero_url,
-        "images_image_identifier": images_image_identifier,
         "images_image_metadata": images_image_metadata,
-        "images_image_original_url": images_image_original_url,
-        "images_image_requireSignedURLs": images_image_requireSignedURLs,
-        "images_image_thumbnail_url": images_image_thumbnail_url,
-        "images_image_uploaded": images_image_uploaded,
         "images_image_variants": images_image_variants,
-        "images_images_list_continuation_token": images_images_list_continuation_token,
         "images_images_list_response_v2": images_images_list_response_v2,
         "images_messages": images_messages,
       },
@@ -535,17 +478,8 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_image": images_image,
-        "images_image_creator": images_image_creator,
-        "images_image_filename": images_image_filename,
-        "images_image_hero_url": images_image_hero_url,
-        "images_image_identifier": images_image_identifier,
         "images_image_metadata": images_image_metadata,
-        "images_image_original_url": images_image_original_url,
-        "images_image_requireSignedURLs": images_image_requireSignedURLs,
-        "images_image_thumbnail_url": images_image_thumbnail_url,
-        "images_image_uploaded": images_image_uploaded,
         "images_image_variants": images_image_variants,
-        "images_images_list_continuation_token": images_images_list_continuation_token,
         "images_images_list_response_v2": images_images_list_response_v2,
         "images_messages": images_messages,
       },
@@ -564,15 +498,16 @@ export const tools: readonly Tool[] = [
   {
     name: "images_stats",
     title: "Images usage statistics",
-    description: "Fetch image statistics details for Cloudflare Images. The returned statistics detail storage usage, including the current image count vs this account's allowance.",
+    description: "Fetch image statistics details for Cloudflare Images. The returned statistics detail storage usage, including the current image count vs this account's allowance.\n\nGET /accounts/{account_id}/images/v1/stats",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/images_account_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -584,9 +519,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_images_stats_response",
@@ -594,9 +527,7 @@ export const tools: readonly Tool[] = [
         "images_api-response-common": images_api$$response$$common,
         "images_api-response-single": images_api$$response$$single,
         "images_images_stats": images_images_stats,
-        "images_images_stats_allowed": images_images_stats_allowed,
         "images_images_stats_count": images_images_stats_count,
-        "images_images_stats_current": images_images_stats_current,
         "images_images_stats_response": images_images_stats_response,
         "images_messages": images_messages,
       },
@@ -637,9 +568,7 @@ export const tools: readonly Tool[] = [
         "images_api-response-common-failure": images_api$$response$$common$$failure,
         "images_api-response-single": images_api$$response$$single,
         "images_images_stats": images_images_stats,
-        "images_images_stats_allowed": images_images_stats_allowed,
         "images_images_stats_count": images_images_stats_count,
-        "images_images_stats_current": images_images_stats_current,
         "images_images_stats_response": images_images_stats_response,
         "images_messages": images_messages,
       },

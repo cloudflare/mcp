@@ -8,7 +8,6 @@ import {
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_messages,
 } from "../../outputs.js";
-import { digital$$experience$$monitoring_account_identifier } from "../../schemas.js";
 import { digital$$experience$$monitoring_get_commands_quota_response } from "./outputs.js";
 
 /**
@@ -18,15 +17,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dex_commands_quota_get",
     title: "Returns account commands usage, quota, and reset time",
-    description: "Retrieves the current quota usage and limits for device commands within a specific account, including the time when the quota will reset",
+    description: "Retrieves the current quota usage and limits for device commands within a specific account, including the time when the quota will reset\n\nGET /accounts/{account_id}/dex/commands/quota",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-              "description": "Unique Cloudflare account ID."
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +38,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

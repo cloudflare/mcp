@@ -31,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_policies_create",
     title: "Create a new policy configuration",
-    description: "Creates a new policy configuration that defines automated actions to be executed \nwhen security findings are detected. A policy can include multiple remediation \nand/or webhook actions that will be triggered automatically.",
+    description: "Creates a new policy configuration that defines automated actions to be executed \nwhen security findings are detected. A policy can include multiple remediation \nand/or webhook actions that will be triggered automatically.\n\nPOST /accounts/{account_id}/data-security/posture/policies",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,6 +39,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_CreatePolicyRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -55,6 +56,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_CreatePolicyRequest": posture$$api_CreatePolicyRequest,
         "posture-api_PolicyActionsInput": posture$$api_PolicyActionsInput,
@@ -150,11 +152,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_policies_delete",
     title: "Delete a policy configuration",
-    description: "Deletes a policy configuration.",
+    description: "Deletes a policy configuration.\n\nDELETE /accounts/{account_id}/data-security/posture/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -176,6 +179,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -258,11 +262,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_policies_get",
     title: "Get a policy configuration by ID",
-    description: "Retrieves the details of a specific policy configuration, including its\nassociated remediation and webhook actions.",
+    description: "Retrieves the details of a specific policy configuration, including its\nassociated remediation and webhook actions.\n\nGET /accounts/{account_id}/data-security/posture/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -284,6 +289,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -373,11 +379,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_policies_list",
     title: "List policy configurations",
-    description: "Returns a list of integration-scoped policy configurations for the given account. This endpoint supports cursor based pagination. By default, results are returned in sorted order based on created_at.",
+    description: "Returns a list of integration-scoped policy configurations for the given account. This endpoint supports cursor based pagination. By default, results are returned in sorted order based on created_at.\n\nGET /accounts/{account_id}/data-security/posture/policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -390,6 +397,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Cursor for pagination. Obtained from the `result_info.cursor` field of a previous response.",
@@ -402,6 +410,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -500,7 +509,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_policies_update",
     title: "Update a policy configuration",
-    description: "Updates an existing policy configuration and replaces its actions.",
+    description: "Updates an existing policy configuration and replaces its actions.\n\nPUT /accounts/{account_id}/data-security/posture/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -508,6 +517,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_UpdatePolicyRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -530,6 +540,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_PolicyActionsInput": posture$$api_PolicyActionsInput,
         "posture-api_PolicyRemediationActionInput": posture$$api_PolicyRemediationActionInput,

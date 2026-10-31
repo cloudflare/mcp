@@ -7,7 +7,6 @@ import {
   intel_messages,
   intel_schemas$$messages,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
 import {
   intel_components$$schemas$$single_response,
   intel_passive$$dns$$by$$ip,
@@ -24,15 +23,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_dns_list",
     title: "Get Passive DNS by IP",
-    description: "Gets a list of all the domains that have resolved to a specific IP address.",
+    description: "Gets a list of all the domains that have resolved to a specific IP address.\n\nGET /accounts/{account_id}/intel/dns",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,6 +41,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "ipv4": {
               "type": "string"
@@ -63,8 +64,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "intel_identifier": intel_identifier,
         "intel_start_end_params": intel_start_end_params,
       },
     },

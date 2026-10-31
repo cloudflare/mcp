@@ -8,20 +8,14 @@ import {
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
-import { email$$security_identifier } from "../schemas.js";
 import {
   email$$security_DeletedImpersonationRegistry,
   email$$security_ImpersonationRegistry,
-  email$$security_ImpersonationRegistryId,
   email$$security_ImpersonationRegistryList,
-  email$$security_Provenance,
 } from "./outputs.js";
 import {
   email$$security_CreateImpersonationRegistry,
-  email$$security_ImpersonationRegistryId as email$$security_ImpersonationRegistryId$,
-  email$$security_Provenance as email$$security_Provenance$,
   email$$security_UpdateImpersonationRegistry,
 } from "./schemas.js";
 
@@ -32,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_impersonationRegistry_create",
     title: "Create impersonation registry entry",
-    description: "Creates a new entry in the impersonation registry to protect against impersonation. Emails attempting to impersonate this identity will be flagged. Supports regex patterns for flexible email matching.\n\nThis method is beta.",
+    description: "Creates a new entry in the impersonation registry to protect against impersonation. Emails attempting to impersonate this identity will be flagged. Supports regex patterns for flexible email matching.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/impersonation_registry",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateImpersonationRegistry"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -56,10 +51,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateImpersonationRegistry": email$$security_CreateImpersonationRegistry,
-        "email-security_Provenance": email$$security_Provenance$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -78,11 +72,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -123,12 +114,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -139,19 +127,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_impersonationRegistry_delete",
     title: "Delete an impersonation registry entry",
-    description: "Removes an entry from the impersonation registry. After deletion, this identity will no longer be protected from impersonation.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the impersonation registry entry and stops protecting the identity from impersonation.",
+    description: "Removes an entry from the impersonation registry. After deletion, this identity will no longer be protected from impersonation.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the impersonation registry entry and stops protecting the identity from impersonation.\n\nDELETE /accounts/{account_id}/email-security/settings/impersonation_registry/{impersonation_registry_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "impersonation_registry_id": {
-              "$ref": "#/$defs/email-security_ImpersonationRegistryId",
-              "description": "Impersonation registry entry identifier."
+              "description": "Impersonation registry entry identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -164,10 +154,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -185,7 +172,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedImpersonationRegistry": email$$security_DeletedImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -228,7 +214,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_DeletedImpersonationRegistry": email$$security_DeletedImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -241,7 +226,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_impersonationRegistry_edit",
     title: "Update an impersonation registry entry",
-    description: "Updates an existing impersonation registry entry. Only provided fields will be modified. Directory-synced entries can't be updated.\n\nThis method is beta.",
+    description: "Updates an existing impersonation registry entry. Only provided fields will be modified. Directory-synced entries can't be updated.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/impersonation_registry/{impersonation_registry_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -249,14 +234,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateImpersonationRegistry"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "impersonation_registry_id": {
-              "$ref": "#/$defs/email-security_ImpersonationRegistryId",
-              "description": "Impersonation registry entry identifier."
+              "description": "Impersonation registry entry identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -270,11 +257,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId$,
-        "email-security_Provenance": email$$security_Provenance$,
         "email-security_UpdateImpersonationRegistry": email$$security_UpdateImpersonationRegistry,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -293,11 +278,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -338,12 +320,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -354,19 +333,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_impersonationRegistry_get",
     title: "Get an impersonation registry entry",
-    description: "Retrieves details for a specific impersonation registry entry including the protected identity, email pattern, and synchronization source if directory-synced.\n\nThis method is beta.",
+    description: "Retrieves details for a specific impersonation registry entry including the protected identity, email pattern, and synchronization source if directory-synced.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/impersonation_registry/{impersonation_registry_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "impersonation_registry_id": {
-              "$ref": "#/$defs/email-security_ImpersonationRegistryId",
-              "description": "Impersonation registry entry identifier."
+              "description": "Impersonation registry entry identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -379,10 +360,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -400,11 +378,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -446,12 +421,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -461,15 +433,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_impersonationRegistry_list",
     title: "List impersonation registry entries",
-    description: "Returns a paginated list of protected identities in the impersonation registry. These entries define identities and email addresses to protect from impersonation attacks. Can be manually added or automatically synced from directory integrations.\n\nThis method is beta.",
+    description: "Returns a paginated list of protected identities in the impersonation registry. These entries define identities and email addresses to protect from impersonation attacks. Can be manually added or automatically synced from directory integrations.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/impersonation_registry",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -478,6 +451,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -507,7 +481,13 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "provenance": {
-              "$ref": "#/$defs/email-security_Provenance"
+              "enum": [
+                "A1S_INTERNAL",
+                "SNOOPY-CASB_OFFICE_365",
+                "SNOOPY-OFFICE_365",
+                "SNOOPY-GOOGLE_DIRECTORY"
+              ],
+              "type": "string"
             },
             "search": {
               "description": "Search term for filtering records. Behavior may change.",
@@ -520,10 +500,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_Provenance": email$$security_Provenance$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -541,13 +518,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
         "email-security_ImpersonationRegistryList": email$$security_ImpersonationRegistryList,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -589,14 +563,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
-        "email-security_ImpersonationRegistryId": email$$security_ImpersonationRegistryId,
         "email-security_ImpersonationRegistryList": email$$security_ImpersonationRegistryList,
-        "email-security_Provenance": email$$security_Provenance,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

@@ -9,7 +9,6 @@ import {
   intel_messages,
   intel_result_info,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
 import {
   intel_components$$schemas$$response,
   intel_ip$$list,
@@ -22,15 +21,16 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_ipLists_get",
     title: "Get Available IP Lists",
-    description: "Returns a list of available IP list categories (e.g., anonymizer, botnetcc, malware, tor, vpn, open_proxies). This endpoint provides metadata about which IP lists are available in the system.",
+    description: "Returns a list of available IP list categories (e.g., anonymizer, botnetcc, malware, tor, vpn, open_proxies). This endpoint provides metadata about which IP lists are available in the system.\n\nGET /accounts/{account_id}/intel/ip-lists",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -42,9 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_components-schemas-response",

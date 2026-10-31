@@ -5,12 +5,10 @@ import { type Tool, param, pathParam } from "../_/tool.js";
 import {
   organizations$$api_Organization,
   organizations$$api_OrganizationFlags,
-  organizations$$api_OrganizationID,
   organizations$$api_Profile,
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../outputs.js";
-import { organizations$$api_OrganizationID as organizations$$api_OrganizationID$ } from "../schemas.js";
 import {
   organizations$$api_DeleteOrganizationResult,
   organizations$$api_PageTokenResultInfo,
@@ -28,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_create",
     title: "Create organization",
-    description: "Create a new organization for a user. Sub-organization creation availability depends on\nthe organization's capabilities. The optional `profile` object accepts partial profile\ndetails; its individual fields are not required. Organization names are limited to 65\nUTF-8 bytes. Each profile field is limited to 1,000 UTF-8 bytes, and a non-empty business\nemail must be valid. At least one of business name, address, phone, or email must be\nnon-empty to persist a profile.",
+    description: "Create a new organization for a user. Sub-organization creation availability depends on\nthe organization's capabilities. The optional `profile` object accepts partial profile\ndetails; its individual fields are not required. Organization names are limited to 65\nUTF-8 bytes. Each profile field is limited to 1,000 UTF-8 bytes, and a non-empty business\nemail must be valid. At least one of business name, address, phone, or email must be\nnon-empty to persist a profile.\n\nPOST /organizations",
     inputSchema: {
       type: "object",
       properties: {
@@ -39,10 +37,10 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "organizations-api_CreateOrganizationProfileRequest": organizations$$api_CreateOrganizationProfileRequest,
         "organizations-api_CreateOrganizationRequest": organizations$$api_CreateOrganizationRequest,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID$,
       },
     },
     outputSchema: {
@@ -80,7 +78,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4Message": organizations$$api_V4Message,
       },
@@ -144,7 +141,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
         "organizations-api_V4Message": organizations$$api_V4Message,
@@ -158,15 +154,16 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_delete",
     title: "Delete organization",
-    description: "Delete an organization. It must not contain active sub-organizations or accounts. A root\norganization must also have no active managed users. Sub-organization deletion availability\ndepends on the organization's capabilities.\n\n**Access Control:** Root deletion is restricted to enterprise organizations.\n\nConfirm with the user before calling this tool. Delete this empty organization? This action cannot be undone.",
+    description: "Delete an organization. It must not contain active sub-organizations or accounts. A root\norganization must also have no active managed users. Sub-organization deletion availability\ndepends on the organization's capabilities.\n\n**Access Control:** Root deletion is restricted to enterprise organizations.\n\nConfirm with the user before calling this tool. Delete this empty organization? This action cannot be undone.\n\nDELETE /organizations/{organization_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID",
-              "description": "The ID of the organization to delete."
+              "description": "The ID of the organization to delete.",
+              "type": "string"
             }
           },
           "required": [
@@ -178,9 +175,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -283,15 +278,16 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_get",
     title: "Get organization",
-    description: "Retrieve the details of a certain organization.",
+    description: "Retrieve the details of a certain organization.\n\nGET /organizations/{organization_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID",
-              "description": "The ID of the organization to retrieve."
+              "description": "The ID of the organization to retrieve.",
+              "type": "string"
             }
           },
           "required": [
@@ -303,9 +299,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -342,7 +336,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4Message": organizations$$api_V4Message,
       },
@@ -401,7 +394,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
         "organizations-api_V4Message": organizations$$api_V4Message,
@@ -414,11 +406,12 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_list",
     title: "List organizations the user has access to",
-    description: "Retrieve a list of organizations a particular user has access to. At most one of\n`containing.account`, `containing.user`, or `containing.organization` may be provided.",
+    description: "Retrieve a list of organizations a particular user has access to. At most one of\n`containing.account`, `containing.user`, or `containing.organization` may be provided.\n\nGET /organizations",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "containing.account": {
               "description": "Filter the list of organizations to the ones that contain this particular\naccount.",
@@ -443,7 +436,8 @@ export const tools: readonly Tool[] = [
             "id": {
               "description": "Only return organizations with the specified IDs (ex. id=foo&id=bar). Send multiple elements\nby repeating the query value.",
               "items": {
-                "$ref": "#/$defs/organizations-api_OrganizationID"
+                "description": "Organization ID",
+                "type": "string"
               },
               "type": "array"
             },
@@ -485,7 +479,8 @@ export const tools: readonly Tool[] = [
             "parent.id": {
               "anyOf": [
                 {
-                  "$ref": "#/$defs/organizations-api_OrganizationID"
+                  "description": "Organization ID",
+                  "type": "string"
                 },
                 {
                   "enum": [
@@ -500,9 +495,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
-      $defs: {
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -546,7 +539,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_PageTokenResultInfo": organizations$$api_PageTokenResultInfo,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4Message": organizations$$api_V4Message,
@@ -619,7 +611,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_PageTokenResultInfo": organizations$$api_PageTokenResultInfo,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
@@ -649,7 +640,7 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_update",
     title: "Update organization",
-    description: "Update an organization's name. Supplying `parent_id` verifies the current parent; this\nendpoint cannot move an organization. Organization names are limited to 65 UTF-8 bytes.",
+    description: "Update an organization's name. Supplying `parent_id` verifies the current parent; this\nendpoint cannot move an organization. Organization names are limited to 65 UTF-8 bytes.\n\nPUT /organizations/{organization_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -658,10 +649,11 @@ export const tools: readonly Tool[] = [
           "description": "The Organization fields to update or verify."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "organization_id": {
-              "$ref": "#/$defs/organizations-api_OrganizationID",
-              "description": "The ID of the organization to modify."
+              "description": "The ID of the organization to modify.",
+              "type": "string"
             }
           },
           "required": [
@@ -674,9 +666,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "organizations-api_ModifyOrganizationRequest": organizations$$api_ModifyOrganizationRequest,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID$,
       },
     },
     outputSchema: {
@@ -714,7 +706,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4Message": organizations$$api_V4Message,
       },
@@ -773,7 +764,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_Organization": organizations$$api_Organization,
         "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
-        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
         "organizations-api_Profile": organizations$$api_Profile,
         "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
         "organizations-api_V4Message": organizations$$api_V4Message,

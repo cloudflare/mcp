@@ -6,10 +6,7 @@ import {
   addressing_api$$response$$common,
   addressing_api$$response$$common$$failure,
   addressing_messages,
-  addressing_service_identifier,
-  addressing_service_name,
 } from "../outputs.js";
-import { addressing_account_identifier } from "../schemas.js";
 
 /**
  * The tools of `addressing.services`.
@@ -18,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_services_list",
     title: "List Services",
-    description: "Bring-Your-Own IP (BYOIP) prefixes onboarded to Cloudflare must be bound to a service running on the Cloudflare network to enable a Cloudflare product on the IP addresses. This endpoint can be used as a reference of available services on the Cloudflare network, and their service IDs.",
+    description: "Bring-Your-Own IP (BYOIP) prefixes onboarded to Cloudflare must be bound to a service running on the Cloudflare network to enable a Cloudflare product on the IP addresses. This endpoint can be used as a reference of available services on the Cloudflare network, and their service IDs.\n\nGET /accounts/{account_id}/addressing/services",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/addressing_account_identifier",
-              "description": "Identifier of a Cloudflare account."
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
             }
           },
           "required": [
@@ -38,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -53,10 +49,10 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/addressing_service_identifier"
+                    "type": "string"
                   },
                   "name": {
-                    "$ref": "#/$defs/addressing_service_name"
+                    "type": "string"
                   }
                 },
                 "type": "object"
@@ -70,8 +66,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_messages": addressing_messages,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     annotations: {
@@ -102,10 +96,10 @@ export const tools: readonly Tool[] = [
                   "items": {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/addressing_service_identifier"
+                        "type": "string"
                       },
                       "name": {
-                        "$ref": "#/$defs/addressing_service_name"
+                        "type": "string"
                       }
                     },
                     "type": "object"
@@ -125,8 +119,6 @@ export const tools: readonly Tool[] = [
         "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
         "addressing_messages": addressing_messages,
-        "addressing_service_identifier": addressing_service_identifier,
-        "addressing_service_name": addressing_service_name,
       },
     },
     request: (args) => ({

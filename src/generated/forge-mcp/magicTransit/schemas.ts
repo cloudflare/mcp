@@ -4,38 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `advanced-ddos-protection_identifier`.
- */
-export const advanced$$ddos$$protection_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
- * The schema of `advanced-ddos-protection_uuid`.
- */
-export const advanced$$ddos$$protection_uuid: JsonSchema = {
-  "description": "UUID.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_account_app_id`.
- */
-export const magic_account_app_id: JsonSchema = {
-  "description": "Magic account app ID.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_automatic_return_routing`.
- */
-export const magic_automatic_return_routing: JsonSchema = {
-  "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_bgp_config`.
  */
 export const magic_bgp_config: JsonSchema = {
@@ -49,7 +17,7 @@ export const magic_bgp_config: JsonSchema = {
       "type": "string"
     },
     "extra_prefixes": {
-      "description": "Prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic routing table.\nEach entry must be a network address in CIDR notation with no host bits set (for example `192.0.2.0/24`, not\n`192.0.2.1/24`) and must not repeat another entry. IPv6 prefixes are accepted only when the tunnel has an\n`interface_address6`.\n",
+      "description": "Prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic routing table.\nEach entry must be a network address in CIDR notation with no host bits set (for example `192.0.2.0/24`, not\n`192.0.2.1/24`) and must not repeat another entry. IPv6 prefixes are accepted only when the tunnel has an\n`interface_address6`.",
       "items": {
         "type": "string"
       },
@@ -68,14 +36,6 @@ export const magic_bgp_config: JsonSchema = {
     "customer_asn"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_cidr`.
- */
-export const magic_cidr: JsonSchema = {
-  "description": "A valid CIDR notation representing an IP range.",
-  "type": "string"
 };
 
 /**
@@ -134,38 +94,6 @@ export const magic_health_check_target: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_identifier`.
- */
-export const magic_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_interface_address`.
- */
-export const magic_interface_address: JsonSchema = {
-  "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_interface_address6`.
- */
-export const magic_interface_address6: JsonSchema = {
-  "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_managed_app_id`.
- */
-export const magic_managed_app_id: JsonSchema = {
-  "description": "Managed app ID.",
-  "type": "string"
 };
 
 /**

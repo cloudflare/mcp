@@ -159,7 +159,14 @@ export const posture$$api_RemediationJob: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/posture-api_RemediationJobStatusEnum"
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed",
+        "validating"
+      ],
+      "type": "string"
     },
     "triggered_by_actor": {
       "oneOf": [
@@ -263,7 +270,26 @@ export const posture$$api_RemediationJobAssetCategory: JsonSchema = {
       "type": "string"
     },
     "vendor": {
-      "$ref": "#/$defs/posture-api_VendorsDisplayNameEnum"
+      "enum": [
+        "AWS",
+        "Anthropic",
+        "Bitbucket",
+        "Box",
+        "Confluence",
+        "Dropbox",
+        "GitHub",
+        "Google Cloud Platform",
+        "Google Workspace",
+        "Jira",
+        "Microsoft",
+        "Microsoft Internal",
+        "OpenAI",
+        "Slack",
+        "Salesforce",
+        "ServiceNow",
+        "Zoom"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -331,30 +357,4 @@ export const posture$$api_RemediationJobFailure: JsonSchema = {
     "finding_instance_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_VendorsDisplayNameEnum` in responses.
- */
-export const posture$$api_VendorsDisplayNameEnum: JsonSchema = {
-  "enum": [
-    "AWS",
-    "Anthropic",
-    "Bitbucket",
-    "Box",
-    "Confluence",
-    "Dropbox",
-    "GitHub",
-    "Google Cloud Platform",
-    "Google Workspace",
-    "Jira",
-    "Microsoft",
-    "Microsoft Internal",
-    "OpenAI",
-    "Slack",
-    "Salesforce",
-    "ServiceNow",
-    "Zoom"
-  ],
-  "type": "string"
 };

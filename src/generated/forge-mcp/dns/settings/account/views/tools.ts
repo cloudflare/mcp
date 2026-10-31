@@ -7,31 +7,18 @@ import {
   dns$$settings_api$$response$$common,
   dns$$settings_api$$response$$common$$failure,
   dns$$settings_api$$response$$single,
-  dns$$settings_identifier,
   dns$$settings_messages,
 } from "../outputs.js";
 import {
-  dns$$settings_identifier as dns$$settings_identifier$,
-  dns$$settings_page,
-} from "../schemas.js";
-import {
-  dns$$settings_created_time,
   dns$$settings_dns$$view,
   dns$$settings_dns$$view$$response,
   dns$$settings_dns_view_response_collection,
   dns$$settings_dns_view_response_single,
-  dns$$settings_modified_time,
-  dns$$settings_name,
   dns$$settings_zones,
 } from "./outputs.js";
 import {
-  dns$$settings_direction,
   dns$$settings_dns$$view$$patch,
   dns$$settings_dns$$view$$post,
-  dns$$settings_match,
-  dns$$settings_name as dns$$settings_name$,
-  dns$$settings_order,
-  dns$$settings_per_page,
   dns$$settings_zones as dns$$settings_zones$,
 } from "./schemas.js";
 
@@ -42,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_views_create",
     title: "Create Internal DNS View",
-    description: "Create Internal DNS View for an account",
+    description: "Create Internal DNS View for an account\n\nPOST /accounts/{account_id}/dns_settings/views",
     inputSchema: {
       type: "object",
       properties: {
@@ -50,10 +37,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-settings_dns-view-post"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -66,10 +54,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-settings_dns-view-post": dns$$settings_dns$$view$$post,
-        "dns-settings_identifier": dns$$settings_identifier$,
-        "dns-settings_name": dns$$settings_name$,
         "dns-settings_zones": dns$$settings_zones$,
       },
     },
@@ -77,14 +64,10 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-settings_dns_view_response_single",
       $defs: {
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_single": dns$$settings_dns_view_response_single,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -132,14 +115,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_single": dns$$settings_dns_view_response_single,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -151,19 +130,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_views_delete",
     title: "Delete Internal DNS View",
-    description: "Delete an existing Internal DNS View",
+    description: "Delete an existing Internal DNS View\n\nDELETE /accounts/{account_id}/dns_settings/views/{view_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "view_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -176,25 +156,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-settings_identifier": dns$$settings_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/dns-settings_identifier"
+              "type": "string"
             }
           },
           "type": "object"
         }
       },
       "type": "object",
-      $defs: {
-        "dns-settings_identifier": dns$$settings_identifier,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -228,7 +203,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/dns-settings_identifier"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -243,7 +218,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/dns-settings_identifier"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -259,7 +234,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
       },
     },
@@ -270,7 +244,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_views_edit",
     title: "Update Internal DNS View",
-    description: "Update an existing Internal DNS View",
+    description: "Update an existing Internal DNS View\n\nPATCH /accounts/{account_id}/dns_settings/views/{view_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -278,14 +252,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-settings_dns-view-patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "view_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -299,10 +274,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dns-settings_dns-view-patch": dns$$settings_dns$$view$$patch,
-        "dns-settings_identifier": dns$$settings_identifier$,
-        "dns-settings_name": dns$$settings_name$,
         "dns-settings_zones": dns$$settings_zones$,
       },
     },
@@ -310,14 +284,10 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-settings_dns_view_response_single",
       $defs: {
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_single": dns$$settings_dns_view_response_single,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -365,14 +335,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_single": dns$$settings_dns_view_response_single,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -384,19 +350,20 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_views_get",
     title: "DNS Internal View Details",
-    description: "Get DNS Internal View",
+    description: "Get DNS Internal View\n\nGET /accounts/{account_id}/dns_settings/views/{view_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "view_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -409,22 +376,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-settings_identifier": dns$$settings_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-settings_dns_view_response_single",
       $defs: {
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_single": dns$$settings_dns_view_response_single,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -473,14 +434,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_single": dns$$settings_dns_view_response_single,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -491,15 +448,16 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_views_list",
     title: "List Internal DNS Views",
-    description: "List DNS Internal Views for an Account",
+    description: "List DNS Internal Views for an Account\n\nGET /accounts/{account_id}/dns_settings/views",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/dns-settings_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -508,58 +466,72 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
-              "$ref": "#/$defs/dns-settings_direction",
               "default": "asc",
-              "description": "Direction to order DNS views in."
+              "description": "Direction to order DNS views in.",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
             },
             "match": {
-              "$ref": "#/$defs/dns-settings_match",
               "default": "all",
-              "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead.\n"
+              "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead.",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "type": "string"
             },
             "name": {
-              "description": "Exact value of the DNS view name. This is a convenience alias for `name.exact`.\n",
+              "description": "Exact value of the DNS view name. This is a convenience alias for `name.exact`.",
               "type": "string"
             },
             "name.contains": {
-              "description": "Substring of the DNS view name.\n",
+              "description": "Substring of the DNS view name.",
               "type": "string"
             },
             "name.endswith": {
-              "description": "Suffix of the DNS view name.\n",
+              "description": "Suffix of the DNS view name.",
               "type": "string"
             },
             "name.exact": {
-              "description": "Exact value of the DNS view name.\n",
+              "description": "Exact value of the DNS view name.",
               "type": "string"
             },
             "name.startswith": {
-              "description": "Prefix of the DNS view name.\n",
+              "description": "Prefix of the DNS view name.",
               "type": "string"
             },
             "order": {
-              "$ref": "#/$defs/dns-settings_order",
               "default": "type",
-              "description": "Field to order DNS views by."
+              "description": "Field to order DNS views by.",
+              "enum": [
+                "name",
+                "created_on",
+                "modified_on"
+              ],
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/dns-settings_page",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "integer"
             },
             "per_page": {
-              "$ref": "#/$defs/dns-settings_per_page",
               "default": 100,
-              "description": "Number of results per page."
+              "description": "Number of results per page.",
+              "type": "integer"
             },
             "zone_id": {
-              "description": "A zone ID that exists in the zones list for the view.\n",
+              "description": "A zone ID that exists in the zones list for the view.",
               "type": "string"
             },
             "zone_name": {
-              "description": "A zone name that exists in the zones list for the view.\n",
+              "description": "A zone name that exists in the zones list for the view.",
               "type": "string"
             }
           },
@@ -569,28 +541,17 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "dns-settings_direction": dns$$settings_direction,
-        "dns-settings_identifier": dns$$settings_identifier$,
-        "dns-settings_match": dns$$settings_match,
-        "dns-settings_order": dns$$settings_order,
-        "dns-settings_page": dns$$settings_page,
-        "dns-settings_per_page": dns$$settings_per_page,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-settings_dns_view_response_collection",
       $defs: {
         "dns-settings_api-response-collection": dns$$settings_api$$response$$collection,
         "dns-settings_api-response-common": dns$$settings_api$$response$$common,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_collection": dns$$settings_dns_view_response_collection,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },
@@ -640,14 +601,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_api-response-collection": dns$$settings_api$$response$$collection,
         "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
-        "dns-settings_created_time": dns$$settings_created_time,
         "dns-settings_dns-view": dns$$settings_dns$$view,
         "dns-settings_dns-view-response": dns$$settings_dns$$view$$response,
         "dns-settings_dns_view_response_collection": dns$$settings_dns_view_response_collection,
-        "dns-settings_identifier": dns$$settings_identifier,
         "dns-settings_messages": dns$$settings_messages,
-        "dns-settings_modified_time": dns$$settings_modified_time,
-        "dns-settings_name": dns$$settings_name,
         "dns-settings_zones": dns$$settings_zones,
       },
     },

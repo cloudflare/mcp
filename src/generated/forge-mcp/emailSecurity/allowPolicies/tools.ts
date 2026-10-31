@@ -3,26 +3,18 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  email$$security_PatternType,
   email$$security_api$$response$$collection,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
 import {
-  email$$security_PatternType as email$$security_PatternType$,
-  email$$security_identifier,
-} from "../schemas.js";
-import {
   email$$security_AllowPolicy,
-  email$$security_AllowPolicyId,
   email$$security_AllowPolicyList,
   email$$security_DeletedAllowPolicy,
 } from "./outputs.js";
 import {
-  email$$security_AllowPolicyId as email$$security_AllowPolicyId$,
   email$$security_CreateAllowPolicy,
   email$$security_UpdateAllowPolicy,
 } from "./schemas.js";
@@ -34,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_batch",
     title: "Batch allow policy operations",
-    description: "Executes multiple allow policy operations atomically: delete, partially update,\nreplace, and create allow policies in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected allow policies and restore normal security scanning and disposition actions for matching emails.",
+    description: "Executes multiple allow policy operations atomically: delete, partially update,\nreplace, and create allow policies in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected allow policies and restore normal security scanning and disposition actions for matching emails.\n\nPOST /accounts/{account_id}/email-security/settings/allow_policies/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,8 +37,9 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/email-security_AllowPolicyId",
-                    "description": "Allow policy identifier."
+                    "description": "Allow policy identifier.",
+                    "format": "uuid",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -67,7 +60,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_AllowPolicyId"
+                        "description": "Allow policy identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -98,7 +93,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_AllowPolicyId"
+                        "description": "Allow policy identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -121,10 +118,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -137,12 +135,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId$,
         "email-security_CreateAllowPolicy": email$$security_CreateAllowPolicy,
-        "email-security_PatternType": email$$security_PatternType$,
         "email-security_UpdateAllowPolicy": email$$security_UpdateAllowPolicy,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -178,13 +174,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
         "email-security_AllowPolicyList": email$$security_AllowPolicyList,
         "email-security_DeletedAllowPolicy": email$$security_DeletedAllowPolicy,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -242,14 +235,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
         "email-security_AllowPolicyList": email$$security_AllowPolicyList,
         "email-security_DeletedAllowPolicy": email$$security_DeletedAllowPolicy,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -260,7 +250,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_create",
     title: "Create email allow policy",
-    description: "Creates a new allow policy that exempts matching emails from security detections. Use with caution as this bypasses email security scanning. Policies can match on sender patterns and apply to specific detections or all detections.\n\nThis method is beta.",
+    description: "Creates a new allow policy that exempts matching emails from security detections. Use with caution as this bypasses email security scanning. Policies can match on sender patterns and apply to specific detections or all detections.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/allow_policies",
     inputSchema: {
       type: "object",
       properties: {
@@ -268,10 +258,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateAllowPolicy"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -284,10 +275,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateAllowPolicy": email$$security_CreateAllowPolicy,
-        "email-security_PatternType": email$$security_PatternType$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -306,11 +296,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -351,12 +338,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -367,19 +351,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_delete",
     title: "Delete an email allow policy",
-    description: "Removes an allow policy. After deletion, emails matching this pattern will be subject to normal security scanning and disposition actions.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the allow policy and restores normal security scanning and disposition actions for matching emails.",
+    description: "Removes an allow policy. After deletion, emails matching this pattern will be subject to normal security scanning and disposition actions.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the allow policy and restores normal security scanning and disposition actions for matching emails.\n\nDELETE /accounts/{account_id}/email-security/settings/allow_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_AllowPolicyId",
-              "description": "Allow policy identifier."
+              "description": "Allow policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -392,10 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -412,7 +395,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
         "email-security_DeletedAllowPolicy": email$$security_DeletedAllowPolicy,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -455,7 +437,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
         "email-security_DeletedAllowPolicy": email$$security_DeletedAllowPolicy,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
@@ -469,7 +450,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_edit",
     title: "Update an email allow policy",
-    description: "Updates an existing allow policy. Only provided fields will be modified. Changes take effect for new emails matching the pattern.\n\nThis method is beta.",
+    description: "Updates an existing allow policy. Only provided fields will be modified. Changes take effect for new emails matching the pattern.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/allow_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -477,14 +458,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateAllowPolicy"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_AllowPolicyId",
-              "description": "Allow policy identifier."
+              "description": "Allow policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -498,11 +481,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId$,
-        "email-security_PatternType": email$$security_PatternType$,
         "email-security_UpdateAllowPolicy": email$$security_UpdateAllowPolicy,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -521,11 +502,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -566,12 +544,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -582,19 +557,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_get",
     title: "Get an email allow policy",
-    description: "Retrieves details for a specific allow policy including its pattern, dispositions that are exempted, and whether it applies to all detections.\n\nThis method is beta.",
+    description: "Retrieves details for a specific allow policy including its pattern, dispositions that are exempted, and whether it applies to all detections.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/allow_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_AllowPolicyId",
-              "description": "Allow policy identifier."
+              "description": "Allow policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -607,10 +584,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -628,11 +602,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -674,12 +645,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -689,15 +657,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_list",
     title: "List email allow policies",
-    description: "Returns a paginated list of email allow policies. These policies exempt matching emails from security detection, allowing them to bypass disposition actions. Supports filtering by pattern type and policy attributes.\n\nThis method is beta.",
+    description: "Returns a paginated list of email allow policies. These policies exempt matching emails from security detection, allowing them to bypass disposition actions. Supports filtering by pattern type and policy attributes.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/allow_policies",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -706,6 +675,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -749,8 +719,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "pattern_type": {
-              "$ref": "#/$defs/email-security_PatternType",
-              "description": "Filter by pattern type."
+              "description": "Filter by pattern type.",
+              "enum": [
+                "EMAIL",
+                "DOMAIN",
+                "IP",
+                "UNKNOWN"
+              ],
+              "type": "string"
             },
             "per_page": {
               "default": 20,
@@ -772,10 +748,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_PatternType": email$$security_PatternType$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -793,13 +766,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
         "email-security_AllowPolicyList": email$$security_AllowPolicyList,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -841,14 +811,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
         "email-security_AllowPolicyList": email$$security_AllowPolicyList,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -872,7 +839,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_allowPolicies_update",
     title: "Replace an email allow policy",
-    description: "Replaces an existing allow policy in full. Unlike PATCH, every field is taken from the request body, so optional fields that are omitted are reset rather than left untouched. Use this when managing policies declaratively.\n\nThis method is beta.",
+    description: "Replaces an existing allow policy in full. Unlike PATCH, every field is taken from the request body, so optional fields that are omitted are reset rather than left untouched. Use this when managing policies declaratively.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/email-security/settings/allow_policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -880,14 +847,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateAllowPolicy"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "policy_id": {
-              "$ref": "#/$defs/email-security_AllowPolicyId",
-              "description": "Allow policy identifier."
+              "description": "Allow policy identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -901,11 +870,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId$,
         "email-security_CreateAllowPolicy": email$$security_CreateAllowPolicy,
-        "email-security_PatternType": email$$security_PatternType$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -924,11 +891,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -966,12 +930,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_AllowPolicy": email$$security_AllowPolicy,
-        "email-security_AllowPolicyId": email$$security_AllowPolicyId,
-        "email-security_PatternType": email$$security_PatternType,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

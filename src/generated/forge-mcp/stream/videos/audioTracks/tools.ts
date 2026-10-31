@@ -9,24 +9,12 @@ import {
   stream_deleted_response,
   stream_messages,
 } from "../../outputs.js";
-import { stream_account_identifier } from "../../schemas.js";
-import { stream_identifier } from "../outputs.js";
-import { stream_identifier as stream_identifier$ } from "../schemas.js";
 import {
   stream_addAudioTrackResponse,
   stream_additionalAudio,
-  stream_audio_default,
-  stream_audio_label,
-  stream_audio_state,
   stream_listAudioTrackResponse,
 } from "./outputs.js";
-import {
-  stream_audio_default as stream_audio_default$,
-  stream_audio_identifier,
-  stream_audio_label as stream_audio_label$,
-  stream_copyAudioTrack,
-  stream_editAudioTrack,
-} from "./schemas.js";
+import { stream_copyAudioTrack, stream_editAudioTrack } from "./schemas.js";
 
 /**
  * The tools of `stream.videos.audioTracks`.
@@ -35,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_audioTracks_copy",
     title: "Add audio tracks to a video",
-    description: "Adds an additional audio track to a video using the provided audio track URL.",
+    description: "Adds an additional audio track to a video using the provided audio track URL.\n\nPOST /accounts/{account_id}/stream/{identifier}/audio/copy",
     inputSchema: {
       type: "object",
       properties: {
@@ -43,14 +31,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_copyAudioTrack"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -64,11 +53,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_audio_label": stream_audio_label$,
         "stream_copyAudioTrack": stream_copyAudioTrack,
-        "stream_identifier": stream_identifier$,
       },
     },
     outputSchema: {
@@ -77,10 +64,6 @@ export const tools: readonly Tool[] = [
         "stream_addAudioTrackResponse": stream_addAudioTrackResponse,
         "stream_additionalAudio": stream_additionalAudio,
         "stream_api-response-common": stream_api$$response$$common,
-        "stream_audio_default": stream_audio_default,
-        "stream_audio_label": stream_audio_label,
-        "stream_audio_state": stream_audio_state,
-        "stream_identifier": stream_identifier,
         "stream_messages": stream_messages,
       },
     },
@@ -107,10 +90,6 @@ export const tools: readonly Tool[] = [
         "stream_additionalAudio": stream_additionalAudio,
         "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
-        "stream_audio_default": stream_audio_default,
-        "stream_audio_label": stream_audio_label,
-        "stream_audio_state": stream_audio_state,
-        "stream_identifier": stream_identifier,
         "stream_messages": stream_messages,
       },
     },
@@ -122,23 +101,24 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_audioTracks_delete",
     title: "Delete additional audio tracks on a video",
-    description: "Deletes additional audio tracks on a video. Deleting a default audio track is not allowed. You must assign another audio track as default prior to deletion.\n\nConfirm with the user before calling this tool. Permanently delete this audio track?",
+    description: "Deletes additional audio tracks on a video. Deleting a default audio track is not allowed. You must assign another audio track as default prior to deletion.\n\nConfirm with the user before calling this tool. Permanently delete this audio track?\n\nDELETE /accounts/{account_id}/stream/{identifier}/audio/{audio_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "audio_identifier": {
-              "$ref": "#/$defs/stream_audio_identifier",
-              "description": "The unique identifier for an additional audio track."
+              "description": "The unique identifier for an additional audio track.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -152,11 +132,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_audio_identifier": stream_audio_identifier,
-        "stream_identifier": stream_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
@@ -202,7 +178,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_audioTracks_edit",
     title: "Edit additional audio tracks on a video",
-    description: "Edits additional audio tracks on a video. Editing the default status of an audio track to `true` will mark all other audio tracks on the video default status to `false`.",
+    description: "Edits additional audio tracks on a video. Editing the default status of an audio track to `true` will mark all other audio tracks on the video default status to `false`.\n\nPATCH /accounts/{account_id}/stream/{identifier}/audio/{audio_identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -210,18 +186,19 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_editAudioTrack"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "audio_identifier": {
-              "$ref": "#/$defs/stream_audio_identifier",
-              "description": "The unique identifier for an additional audio track."
+              "description": "The unique identifier for an additional audio track.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -236,13 +213,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_audio_default": stream_audio_default$,
-        "stream_audio_identifier": stream_audio_identifier,
-        "stream_audio_label": stream_audio_label$,
         "stream_editAudioTrack": stream_editAudioTrack,
-        "stream_identifier": stream_identifier$,
       },
     },
     outputSchema: {
@@ -251,10 +224,6 @@ export const tools: readonly Tool[] = [
         "stream_addAudioTrackResponse": stream_addAudioTrackResponse,
         "stream_additionalAudio": stream_additionalAudio,
         "stream_api-response-common": stream_api$$response$$common,
-        "stream_audio_default": stream_audio_default,
-        "stream_audio_label": stream_audio_label,
-        "stream_audio_state": stream_audio_state,
-        "stream_identifier": stream_identifier,
         "stream_messages": stream_messages,
       },
     },
@@ -286,10 +255,6 @@ export const tools: readonly Tool[] = [
         "stream_additionalAudio": stream_additionalAudio,
         "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
-        "stream_audio_default": stream_audio_default,
-        "stream_audio_label": stream_audio_label,
-        "stream_audio_state": stream_audio_state,
-        "stream_identifier": stream_identifier,
         "stream_messages": stream_messages,
       },
     },
@@ -301,19 +266,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_audioTracks_list",
     title: "List additional audio tracks on a video",
-    description: "Lists additional audio tracks on a video. Note this API will not return information for audio attached to the video upload.",
+    description: "Lists additional audio tracks on a video. Note this API will not return information for audio attached to the video upload.\n\nGET /accounts/{account_id}/stream/{identifier}/audio",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -326,20 +292,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_identifier": stream_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_listAudioTrackResponse",
       $defs: {
         "stream_additionalAudio": stream_additionalAudio,
         "stream_api-response-common": stream_api$$response$$common,
-        "stream_audio_default": stream_audio_default,
-        "stream_audio_label": stream_audio_label,
-        "stream_audio_state": stream_audio_state,
-        "stream_identifier": stream_identifier,
         "stream_listAudioTrackResponse": stream_listAudioTrackResponse,
         "stream_messages": stream_messages,
       },
@@ -372,10 +331,6 @@ export const tools: readonly Tool[] = [
         "stream_additionalAudio": stream_additionalAudio,
         "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
-        "stream_audio_default": stream_audio_default,
-        "stream_audio_label": stream_audio_label,
-        "stream_audio_state": stream_audio_state,
-        "stream_identifier": stream_identifier,
         "stream_listAudioTrackResponse": stream_listAudioTrackResponse,
         "stream_messages": stream_messages,
       },

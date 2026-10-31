@@ -8,9 +8,7 @@ import {
   pages_api$$response$$common$$failure,
   pages_messages,
 } from "../outputs.js";
-import { pages_identifier, pages_project_name } from "../schemas.js";
-import { pages_domain, pages_domain_name } from "./outputs.js";
-import { pages_domain_name as pages_domain_name$ } from "./schemas.js";
+import { pages_domain } from "./outputs.js";
 
 /**
  * The tools of `pages.domains`.
@@ -19,15 +17,15 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_domains_create",
     title: "Add a Pages custom domain",
-    description: "Attach a custom domain to a Cloudflare Pages project.",
+    description: "Attach a custom domain to a Cloudflare Pages project.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/domains",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "name": {
-              "$ref": "#/$defs/pages_domain_name",
-              "description": "Fully qualified domain name for the Pages project, such as `example.com`."
+              "description": "Fully qualified domain name for the Pages project, such as `example.com`.",
+              "type": "string"
             }
           },
           "required": [
@@ -36,14 +34,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -57,11 +56,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "pages_domain_name": pages_domain_name$,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -83,7 +78,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pages_api-response-common": pages_api$$response$$common,
         "pages_domain": pages_domain,
-        "pages_domain_name": pages_domain_name,
         "pages_messages": pages_messages,
       },
     },
@@ -129,7 +123,6 @@ export const tools: readonly Tool[] = [
         "pages_api-response-common": pages_api$$response$$common,
         "pages_api-response-common-failure": pages_api$$response$$common$$failure,
         "pages_domain": pages_domain,
-        "pages_domain_name": pages_domain_name,
         "pages_messages": pages_messages,
       },
     },
@@ -141,23 +134,24 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_domains_delete",
     title: "Delete a Pages custom domain",
-    description: "Remove a custom domain from a Cloudflare Pages project.",
+    description: "Remove a custom domain from a Cloudflare Pages project.\n\nDELETE /accounts/{account_id}/pages/projects/{project_name}/domains/{domain_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/pages_domain_name",
-              "description": "Fully qualified domain name for the Pages project, such as `example.com`."
+              "description": "Fully qualified domain name for the Pages project, such as `example.com`.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -171,11 +165,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_domain_name": pages_domain_name$,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -264,23 +254,24 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_domains_get",
     title: "Get a Pages custom domain",
-    description: "Retrieve the configuration and validation status of a custom domain attached to a Cloudflare Pages project.",
+    description: "Retrieve the configuration and validation status of a custom domain attached to a Cloudflare Pages project.\n\nGET /accounts/{account_id}/pages/projects/{project_name}/domains/{domain_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/pages_domain_name",
-              "description": "Fully qualified domain name for the Pages project, such as `example.com`."
+              "description": "Fully qualified domain name for the Pages project, such as `example.com`.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -294,11 +285,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_domain_name": pages_domain_name$,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -320,7 +307,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pages_api-response-common": pages_api$$response$$common,
         "pages_domain": pages_domain,
-        "pages_domain_name": pages_domain_name,
         "pages_messages": pages_messages,
       },
     },
@@ -367,7 +353,6 @@ export const tools: readonly Tool[] = [
         "pages_api-response-common": pages_api$$response$$common,
         "pages_api-response-common-failure": pages_api$$response$$common$$failure,
         "pages_domain": pages_domain,
-        "pages_domain_name": pages_domain_name,
         "pages_messages": pages_messages,
       },
     },
@@ -378,19 +363,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_domains_list",
     title: "List Pages custom domains",
-    description: "List the custom domains associated with a Cloudflare Pages project.",
+    description: "List the custom domains associated with a Cloudflare Pages project.\n\nGET /accounts/{account_id}/pages/projects/{project_name}/domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -403,10 +389,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -432,7 +415,6 @@ export const tools: readonly Tool[] = [
         "pages_api-response-collection": pages_api$$response$$collection,
         "pages_api-response-common": pages_api$$response$$common,
         "pages_domain": pages_domain,
-        "pages_domain_name": pages_domain_name,
         "pages_messages": pages_messages,
       },
     },
@@ -483,7 +465,6 @@ export const tools: readonly Tool[] = [
         "pages_api-response-common": pages_api$$response$$common,
         "pages_api-response-common-failure": pages_api$$response$$common$$failure,
         "pages_domain": pages_domain,
-        "pages_domain_name": pages_domain_name,
         "pages_messages": pages_messages,
       },
     },

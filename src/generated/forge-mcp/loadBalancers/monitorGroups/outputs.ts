@@ -16,7 +16,7 @@ export const load$$balancing_monitor$$group: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/load-balancing_monitor_group_id"
+      "type": "string"
     },
     "members": {
       "items": {
@@ -50,7 +50,7 @@ export const load$$balancing_monitor$$group$$member: JsonSchema = {
       "type": "boolean"
     },
     "monitor_id": {
-      "$ref": "#/$defs/load-balancing_monitor_id"
+      "type": "string"
     },
     "monitoring_only": {
       "type": "boolean"

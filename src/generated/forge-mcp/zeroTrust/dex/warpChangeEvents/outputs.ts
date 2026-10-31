@@ -4,25 +4,16 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `digital-experience-monitoring_timestamp_datetime` in
- * responses.
- */
-export const digital$$experience$$monitoring_timestamp_datetime: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `digital-experience-monitoring_warp_config_change_event` in
  * responses.
  */
 export const digital$$experience$$monitoring_warp_config_change_event: JsonSchema = {
   "properties": {
     "device_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "device_registration": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "from": {
       "$ref": "#/$defs/digital-experience-monitoring_warp_config_details"
@@ -31,13 +22,14 @@ export const digital$$experience$$monitoring_warp_config_change_event: JsonSchem
       "type": "string"
     },
     "registration_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "serial_number": {
       "type": "string"
     },
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp_datetime"
+      "format": "date-time",
+      "type": "string"
     },
     "to": {
       "$ref": "#/$defs/digital-experience-monitoring_warp_config_details"
@@ -59,7 +51,7 @@ export const digital$$experience$$monitoring_warp_config_details: JsonSchema = {
       "type": "string"
     },
     "account_tag": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "config_name": {
       "type": "string"
@@ -99,22 +91,23 @@ export const digital$$experience$$monitoring_warp_toggle_change_event: JsonSchem
       "type": "string"
     },
     "device_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "device_registration": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "hostname": {
       "type": "string"
     },
     "registration_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "serial_number": {
       "type": "string"
     },
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp_datetime"
+      "format": "date-time",
+      "type": "string"
     },
     "toggle": {
       "enum": [

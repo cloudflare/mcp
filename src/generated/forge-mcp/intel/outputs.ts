@@ -146,13 +146,6 @@ export const intel_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `intel_domain_name` in responses.
- */
-export const intel_domain_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `intel_messages` in responses.
  */
 export const intel_messages: JsonSchema = {

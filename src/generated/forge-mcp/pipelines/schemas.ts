@@ -30,18 +30,6 @@ export const cloudflare$$pipelines_ConnectionSchema: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-pipelines_DecimalEncoding`.
- */
-export const cloudflare$$pipelines_DecimalEncoding: JsonSchema = {
-  "enum": [
-    "number",
-    "string",
-    "bytes"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cloudflare-pipelines_FieldType`.
  */
 export const cloudflare$$pipelines_FieldType: JsonSchema = {
@@ -230,10 +218,19 @@ export const cloudflare$$pipelines_FieldType: JsonSchema = {
 export const cloudflare$$pipelines_JsonFormat: JsonSchema = {
   "properties": {
     "decimal_encoding": {
-      "$ref": "#/$defs/cloudflare-pipelines_DecimalEncoding"
+      "enum": [
+        "number",
+        "string",
+        "bytes"
+      ],
+      "type": "string"
     },
     "timestamp_format": {
-      "$ref": "#/$defs/cloudflare-pipelines_TimestampFormat"
+      "enum": [
+        "rfc3339",
+        "unix_millis"
+      ],
+      "type": "string"
     },
     "unstructured": {
       "type": "boolean"
@@ -258,26 +255,19 @@ export const cloudflare$$pipelines_ListField: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-pipelines_ParquetCompression`.
- */
-export const cloudflare$$pipelines_ParquetCompression: JsonSchema = {
-  "enum": [
-    "uncompressed",
-    "snappy",
-    "gzip",
-    "zstd",
-    "lz4"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cloudflare-pipelines_ParquetFormat`.
  */
 export const cloudflare$$pipelines_ParquetFormat: JsonSchema = {
   "properties": {
     "compression": {
-      "$ref": "#/$defs/cloudflare-pipelines_ParquetCompression"
+      "enum": [
+        "uncompressed",
+        "snappy",
+        "gzip",
+        "zstd",
+        "lz4"
+      ],
+      "type": "string"
     },
     "row_group_bytes": {
       "oneOf": [
@@ -365,48 +355,14 @@ export const cloudflare$$pipelines_StructField: JsonSchema = {
 export const cloudflare$$pipelines_TimestampField: JsonSchema = {
   "properties": {
     "unit": {
-      "$ref": "#/$defs/cloudflare-pipelines_TimestampUnit"
+      "enum": [
+        "second",
+        "millisecond",
+        "microsecond",
+        "nanosecond"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_TimestampFormat`.
- */
-export const cloudflare$$pipelines_TimestampFormat: JsonSchema = {
-  "enum": [
-    "rfc3339",
-    "unix_millis"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `cloudflare-pipelines_TimestampUnit`.
- */
-export const cloudflare$$pipelines_TimestampUnit: JsonSchema = {
-  "enum": [
-    "second",
-    "millisecond",
-    "microsecond",
-    "nanosecond"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `cloudflare-pipelines_workers-pipelines-account-id`.
- */
-export const cloudflare$$pipelines_workers$$pipelines$$account$$id: JsonSchema = {
-  "description": "Specifies the public ID of the account.",
-  "type": "string"
-};
-
-/**
- * The schema of `cloudflare-pipelines_workers-pipelines-pipeline-id`.
- */
-export const cloudflare$$pipelines_workers$$pipelines$$pipeline$$id: JsonSchema = {
-  "description": "Specifies the public ID of the pipeline.",
-  "type": "string"
 };

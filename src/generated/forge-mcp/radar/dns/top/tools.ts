@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_dns_top_ases",
     title: "Get top ASes by DNS queries",
-    description: "Retrieves the top autonomous systems by DNS queries made to 1.1.1.1 DNS resolver.",
+    description: "Retrieves the top autonomous systems by DNS queries made to 1.1.1.1 DNS resolver.\n\nGET /radar/dns/top/ases",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -318,6 +319,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -803,11 +805,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_dns_top_locations",
     title: "Get top locations by DNS queries",
-    description: "Retrieves the top locations by DNS queries made to 1.1.1.1 DNS resolver.",
+    description: "Retrieves the top locations by DNS queries made to 1.1.1.1 DNS resolver.\n\nGET /radar/dns/top/locations",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
@@ -1118,6 +1121,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

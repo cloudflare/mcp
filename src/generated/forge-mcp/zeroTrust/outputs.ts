@@ -122,41 +122,6 @@ export const access_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `access_client_id` in responses.
- */
-export const access_client_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_created_at` in responses.
- */
-export const access_created_at: JsonSchema = {
-  "allOf": [
-    {
-      "type": "string"
-    },
-    {
-      "$ref": "#/$defs/access_timestamp"
-    }
-  ]
-};
-
-/**
- * The schema of `access_duration` in responses.
- */
-export const access_duration: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_enabled` in responses.
- */
-export const access_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_id_response` in responses.
  */
 export const access_id_response: JsonSchema = {
@@ -169,7 +134,7 @@ export const access_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/access_uuid"
+              "type": "string"
             }
           },
           "type": "object"
@@ -178,35 +143,6 @@ export const access_id_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `access_identifier` in responses.
- */
-export const access_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_leak_report_url` in responses.
- */
-export const access_leak_report_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_leak_reported_at` in responses.
- */
-export const access_leak_reported_at: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `access_leak_reporter` in responses.
- */
-export const access_leak_reporter: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -243,31 +179,33 @@ export const access_messages: JsonSchema = {
 };
 
 /**
- * The schema of `access_name-2` in responses.
- */
-export const access_name$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_service-tokens` in responses.
  */
 export const access_service$$tokens: JsonSchema = {
   "properties": {
     "client_id": {
-      "$ref": "#/$defs/access_client_id"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "duration": {
-      "$ref": "#/$defs/access_duration"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/access_enabled"
+      "type": "boolean"
     },
     "expires_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
       "allOf": [
@@ -275,7 +213,7 @@ export const access_service$$tokens: JsonSchema = {
           "type": "string"
         },
         {
-          "$ref": "#/$defs/access_uuid"
+          "type": "string"
         }
       ]
     },
@@ -285,27 +223,37 @@ export const access_service$$tokens: JsonSchema = {
           "type": "string"
         },
         {
-          "$ref": "#/$defs/access_timestamp"
+          "format": "date-time",
+          "type": "string"
         }
       ]
     },
     "leak_report_url": {
-      "$ref": "#/$defs/access_leak_report_url"
+      "type": "string"
     },
     "leak_reported_at": {
-      "$ref": "#/$defs/access_leak_reported_at"
+      "format": "date-time",
+      "type": "string"
     },
     "leak_reporter": {
-      "$ref": "#/$defs/access_leak_reporter"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-2"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
@@ -345,35 +293,6 @@ export const access_tags: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `access_timestamp` in responses.
- */
-export const access_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `access_updated_at` in responses.
- */
-export const access_updated_at: JsonSchema = {
-  "allOf": [
-    {
-      "type": "string"
-    },
-    {
-      "$ref": "#/$defs/access_timestamp"
-    }
-  ]
-};
-
-/**
- * The schema of `access_uuid` in responses.
- */
-export const access_uuid: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -555,12 +474,4 @@ export const zero$$trust$$gateway_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `zero-trust-gateway_read_only_timestamp` in responses.
- */
-export const zero$$trust$$gateway_read_only_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

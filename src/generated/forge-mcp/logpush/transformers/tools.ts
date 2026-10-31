@@ -8,25 +8,16 @@ import {
   logpush_api$$response$$single,
   logpush_messages,
 } from "../outputs.js";
-import { logpush_identifier } from "../schemas.js";
 import {
   logpush_transformer,
-  logpush_transformer_dataset,
   logpush_transformer_delete_response,
-  logpush_transformer_description,
-  logpush_transformer_identifier,
   logpush_transformer_job_ref,
-  logpush_transformer_name,
   logpush_transformer_preview_response,
   logpush_transformer_response_collection,
   logpush_transformer_response_single,
 } from "./outputs.js";
 import {
-  logpush_transformer_code,
   logpush_transformer_create_request,
-  logpush_transformer_description as logpush_transformer_description$,
-  logpush_transformer_identifier as logpush_transformer_identifier$,
-  logpush_transformer_name as logpush_transformer_name$,
   logpush_transformer_preview_request,
   logpush_transformer_update_request,
 } from "./schemas.js";
@@ -38,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_create",
     title: "Create transformer",
-    description: "Creates a new custom log transformer for an account.",
+    description: "Creates a new custom log transformer for an account.\n\nPOST /accounts/{account_id}/logpush/transformers",
     inputSchema: {
       type: "object",
       properties: {
@@ -46,10 +37,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/logpush_transformer_create_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -62,12 +54,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_code": logpush_transformer_code,
         "logpush_transformer_create_request": logpush_transformer_create_request,
-        "logpush_transformer_description": logpush_transformer_description$,
-        "logpush_transformer_name": logpush_transformer_name$,
       },
     },
     outputSchema: {
@@ -76,11 +65,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_single": logpush_transformer_response_single,
       },
     },
@@ -123,11 +108,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_single": logpush_transformer_response_single,
       },
     },
@@ -139,19 +120,20 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_delete",
     title: "Delete transformer",
-    description: "Deletes a custom log transformer. Returns 409 Conflict if any active logpush jobs reference the transformer.",
+    description: "Deletes a custom log transformer. Returns 409 Conflict if any active logpush jobs reference the transformer.\n\nDELETE /accounts/{account_id}/logpush/transformers/{transformer_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "transformer_id": {
-              "$ref": "#/$defs/logpush_transformer_identifier",
-              "description": "The transformer ID."
+              "description": "The transformer ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -164,10 +146,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_identifier": logpush_transformer_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_delete_response",
@@ -228,19 +207,20 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_get",
     title: "Get transformer",
-    description: "Gets a single custom log transformer by ID.",
+    description: "Gets a single custom log transformer by ID.\n\nGET /accounts/{account_id}/logpush/transformers/{transformer_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "transformer_id": {
-              "$ref": "#/$defs/logpush_transformer_identifier",
-              "description": "The transformer ID."
+              "description": "The transformer ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -253,10 +233,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_identifier": logpush_transformer_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_response_single",
@@ -264,11 +241,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_single": logpush_transformer_response_single,
       },
     },
@@ -311,11 +284,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_single": logpush_transformer_response_single,
       },
     },
@@ -326,15 +295,16 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_list",
     title: "List transformers",
-    description: "Lists all custom log transformers for an account.",
+    description: "Lists all custom log transformers for an account.\n\nGET /accounts/{account_id}/logpush/transformers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -346,9 +316,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_response_collection",
@@ -356,11 +324,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_collection": logpush_transformer_response_collection,
       },
     },
@@ -403,11 +367,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_collection": logpush_transformer_response_collection,
       },
     },
@@ -418,7 +378,7 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_preview",
     title: "Preview transformer",
-    description: "Executes a SQL transformer against a single input record and returns the transformed output. This is a stateless endpoint — nothing is persisted.",
+    description: "Executes a SQL transformer against a single input record and returns the transformed output. This is a stateless endpoint — nothing is persisted.\n\nPOST /accounts/{account_id}/logpush/transformers/preview",
     inputSchema: {
       type: "object",
       properties: {
@@ -426,10 +386,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/logpush_transformer_preview_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -442,9 +403,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_code": logpush_transformer_code,
         "logpush_transformer_preview_request": logpush_transformer_preview_request,
       },
     },
@@ -505,7 +465,7 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_transformers_update",
     title: "Update transformer",
-    description: "Updates an existing custom log transformer. When `code` is provided, the SQL query is validated and a new version is created. When `code` is omitted, only the name and description are updated. Omitting `description` clears the existing description.",
+    description: "Updates an existing custom log transformer. When `code` is provided, the SQL query is validated and a new version is created. When `code` is omitted, only the name and description are updated. Omitting `description` clears the existing description.\n\nPUT /accounts/{account_id}/logpush/transformers/{transformer_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -513,14 +473,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/logpush_transformer_update_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "transformer_id": {
-              "$ref": "#/$defs/logpush_transformer_identifier",
-              "description": "The transformer ID."
+              "description": "The transformer ID.",
+              "type": "integer"
             }
           },
           "required": [
@@ -534,12 +495,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_transformer_code": logpush_transformer_code,
-        "logpush_transformer_description": logpush_transformer_description$,
-        "logpush_transformer_identifier": logpush_transformer_identifier$,
-        "logpush_transformer_name": logpush_transformer_name$,
         "logpush_transformer_update_request": logpush_transformer_update_request,
       },
     },
@@ -549,11 +506,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_single": logpush_transformer_response_single,
       },
     },
@@ -596,11 +549,7 @@ export const tools: readonly Tool[] = [
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
-        "logpush_transformer_dataset": logpush_transformer_dataset,
-        "logpush_transformer_description": logpush_transformer_description,
-        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_job_ref": logpush_transformer_job_ref,
-        "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_response_single": logpush_transformer_response_single,
       },
     },

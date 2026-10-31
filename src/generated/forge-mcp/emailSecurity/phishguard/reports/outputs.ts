@@ -23,7 +23,19 @@ export const email$$security_PhishGuardReport: JsonSchema = {
       ]
     },
     "disposition": {
-      "$ref": "#/$defs/email-security_DispositionLabel"
+      "enum": [
+        "MALICIOUS",
+        "MALICIOUS-BEC",
+        "SUSPICIOUS",
+        "SPOOF",
+        "SPAM",
+        "BULK",
+        "ENCRYPTED",
+        "EXTERNAL",
+        "UNKNOWN",
+        "NONE"
+      ],
+      "type": "string"
     },
     "fields": {
       "properties": {

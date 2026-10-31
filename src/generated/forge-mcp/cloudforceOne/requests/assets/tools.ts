@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_assets_download",
     title: "Download asset (Customer)",
-    description: "Download a file asset from R2 storage. Customer can only download from their own account.",
+    description: "Download a file asset from R2 storage. Customer can only download from their own account.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/assets/{asset_id}/download",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -59,6 +60,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -89,11 +91,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_assets_list",
     title: "List assets in request (Customer)",
-    description: "List all file assets for a request. Customer can only list assets from their own account.",
+    description: "List all file assets for a request. Customer can only list assets from their own account.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/assets/list",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -133,6 +136,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -701,11 +705,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_assets_upload",
     title: "Upload asset to request (Customer)",
-    description: "Upload a file asset to R2 storage and associate it with a request. Customer can only upload to their own account.",
+    description: "Upload a file asset to R2 storage and associate it with a request. Customer can only upload to their own account.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}/assets/upload",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -745,6 +750,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -8,18 +8,14 @@ import {
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
-import { email$$security_identifier } from "../schemas.js";
 import {
   email$$security_DeletedSendingDomainRestriction,
   email$$security_SendingDomainRestriction,
-  email$$security_SendingDomainRestrictionId,
   email$$security_SendingDomainRestrictionList,
 } from "./outputs.js";
 import {
   email$$security_CreateSendingDomainRestriction,
-  email$$security_SendingDomainRestrictionId as email$$security_SendingDomainRestrictionId$,
   email$$security_UpdateSendingDomainRestriction,
 } from "./schemas.js";
 
@@ -30,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_sendingDomainRestrictions_create",
     title: "Create a sending domain restriction",
-    description: "Creates a new sending domain restriction to enforce TLS requirements for a domain. Emails without TLS from this domain will be dropped unless the subdomain is in the exclude list.\n\nThis method is beta.",
+    description: "Creates a new sending domain restriction to enforce TLS requirements for a domain. Emails without TLS from this domain will be dropped unless the subdomain is in the exclude list.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/sending_domain_restrictions",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,10 +34,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateSendingDomainRestriction"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -54,9 +51,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateSendingDomainRestriction": email$$security_CreateSendingDomainRestriction,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -75,10 +72,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -119,11 +114,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -134,19 +127,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_sendingDomainRestrictions_delete",
     title: "Delete a sending domain restriction",
-    description: "Removes a sending domain restriction. After deletion, TLS will no longer be enforced for emails from this domain.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the sending domain restriction and removes TLS enforcement for emails from this domain.",
+    description: "Removes a sending domain restriction. After deletion, TLS will no longer be enforced for emails from this domain.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the sending domain restriction and removes TLS enforcement for emails from this domain.\n\nDELETE /accounts/{account_id}/email-security/settings/sending_domain_restrictions/{sending_domain_restriction_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "sending_domain_restriction_id": {
-              "$ref": "#/$defs/email-security_SendingDomainRestrictionId",
-              "description": "Sending domain restriction identifier."
+              "description": "Sending domain restriction identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -159,10 +154,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -180,7 +172,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedSendingDomainRestriction": email$$security_DeletedSendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -223,7 +214,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_DeletedSendingDomainRestriction": email$$security_DeletedSendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -236,7 +226,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_sendingDomainRestrictions_edit",
     title: "Update a sending domain restriction",
-    description: "Updates an existing sending domain restriction. Only provided fields will be modified. Changes affect which domains require TLS and which subdomains are excluded.\n\nThis method is beta.",
+    description: "Updates an existing sending domain restriction. Only provided fields will be modified. Changes affect which domains require TLS and which subdomains are excluded.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/sending_domain_restrictions/{sending_domain_restriction_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -244,14 +234,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateSendingDomainRestriction"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "sending_domain_restriction_id": {
-              "$ref": "#/$defs/email-security_SendingDomainRestrictionId",
-              "description": "Sending domain restriction identifier."
+              "description": "Sending domain restriction identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -265,10 +257,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId$,
         "email-security_UpdateSendingDomainRestriction": email$$security_UpdateSendingDomainRestriction,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -287,10 +278,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -331,11 +320,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -346,19 +333,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_sendingDomainRestrictions_get",
     title: "Get a sending domain restriction",
-    description: "Retrieves details for a specific sending domain restriction including the domain requiring TLS and any excluded subdomains exempt from the TLS requirement.\n\nThis method is beta.",
+    description: "Retrieves details for a specific sending domain restriction including the domain requiring TLS and any excluded subdomains exempt from the TLS requirement.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/sending_domain_restrictions/{sending_domain_restriction_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "sending_domain_restriction_id": {
-              "$ref": "#/$defs/email-security_SendingDomainRestrictionId",
-              "description": "Sending domain restriction identifier."
+              "description": "Sending domain restriction identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -371,10 +360,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -392,10 +378,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -437,11 +421,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -451,15 +433,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_sendingDomainRestrictions_list",
     title: "List sending domain restrictions",
-    description: "Returns a paginated list of sending domain restrictions. These restrictions enforce TLS requirements for emails from specific domains. Mail without TLS from restricted domains will be dropped unless the subdomain is in the exclude list. Supports sorting and searching.\n\nThis method is beta.",
+    description: "Returns a paginated list of sending domain restrictions. These restrictions enforce TLS requirements for emails from specific domains. Mail without TLS from restricted domains will be dropped unless the subdomain is in the exclude list. Supports sorting and searching.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/sending_domain_restrictions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -468,6 +451,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -506,9 +490,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -526,12 +508,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_SendingDomainRestrictionList": email$$security_SendingDomainRestrictionList,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -573,13 +553,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_SendingDomainRestriction": email$$security_SendingDomainRestriction,
-        "email-security_SendingDomainRestrictionId": email$$security_SendingDomainRestrictionId,
         "email-security_SendingDomainRestrictionList": email$$security_SendingDomainRestrictionList,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

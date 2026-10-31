@@ -25,11 +25,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_approvals_cancel",
     title: "Cancel a pending approval",
-    description: "Cancel a pending rule approval. Only its original requester may cancel it.",
+    description: "Cancel a pending rule approval. Only its original requester may cancel it.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/approvals/{id}/cancel",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -50,6 +51,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_SuccessResponse",
@@ -93,11 +95,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_approvals_get",
     title: "Get rule approval details",
-    description: "Get a single rule approval with current rule data.",
+    description: "Get a single rule approval with current rule data.\n\nGET /accounts/{account_id}/cloudforce-one/rules/approvals/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -118,6 +121,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_RuleApprovalDetailResponse",
@@ -171,11 +175,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_approvals_list",
     title: "List rule approvals",
-    description: "Returns rule approvals with optional status, revision, reviewer-scope, and mutation-type filtering.",
+    description: "Returns rule approvals with optional status, revision, reviewer-scope, and mutation-type filtering.\n\nGET /accounts/{account_id}/cloudforce-one/rules/approvals",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -188,6 +193,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "change_type": {
               "description": "Limits approvals to the specified mutation type.",
@@ -274,6 +280,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_RuleApprovalsListResponse",
@@ -325,7 +332,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_approvals_resubmit",
     title: "Revise and resubmit a rejected approval",
-    description: "Create a new pending revision from a rejected rule approval. Only the original requester may resubmit the latest revision.",
+    description: "Create a new pending revision from a rejected rule approval. Only the original requester may resubmit the latest revision.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/approvals/{id}/resubmit",
     inputSchema: {
       type: "object",
       properties: {
@@ -333,6 +340,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cloudforce-one_ResubmitApprovalRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -353,6 +361,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_ResubmitApprovalRequest": cloudforce$$one_ResubmitApprovalRequest,
       },

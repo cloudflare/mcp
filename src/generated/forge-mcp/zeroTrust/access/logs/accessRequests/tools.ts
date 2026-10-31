@@ -6,25 +6,11 @@ import {
   access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_messages,
-  access_timestamp,
 } from "../../../outputs.js";
-import { access_identifier } from "../../../schemas.js";
 import {
   access_access$$requests,
-  access_action,
-  access_allowed,
-  access_app_domain,
-  access_app_uid,
-  access_connection,
-  access_email$$3,
-  access_ip,
-  access_ray_id,
   access_response_collection$$12,
 } from "./outputs.js";
-import {
-  access_email$$3 as access_email$$3$,
-  access_user_id,
-} from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.logs.accessRequests`.
@@ -33,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_logs_accessRequests_list",
     title: "Get Access authentication logs",
-    description: "Gets a list of Access authentication audit logs for an account.",
+    description: "Gets a list of Access authentication audit logs for an account.\n\nGET /accounts/{account_id}/access/logs/access_requests",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -50,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "allowedOp": {
               "default": "eq",
@@ -97,12 +85,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "email": {
-              "$ref": "#/$defs/access_email-3",
-              "description": "Filter by user email. Match mode is controlled by `emailOp` (preferred) or the legacy `email_exact` flag.\n- Default (no `emailOp`, `email_exact=false` or unset): substring match — `email=@example.com` returns all events with that domain.\n- Exact match: set `emailOp=eq` (preferred) or `email_exact=true` — e.g. `email=user@example.com&email_exact=true` returns only that user.\n- Explicit substring match: set `emailOp=contains` (without `email_exact=true`). When both are set, `email_exact=true` takes precedence and the match is exact.\n- Exclusion: set `emailOp=neq`. With `email_exact=true` this is an exact-value exclusion; without it, a fuzzy substring exclusion.\n"
+              "description": "Filter by user email. Match mode is controlled by `emailOp` (preferred) or the legacy `email_exact` flag.\n- Default (no `emailOp`, `email_exact=false` or unset): substring match — `email=@example.com` returns all events with that domain.\n- Exact match: set `emailOp=eq` (preferred) or `email_exact=true` — e.g. `email=user@example.com&email_exact=true` returns only that user.\n- Explicit substring match: set `emailOp=contains` (without `email_exact=true`). When both are set, `email_exact=true` takes precedence and the match is exact.\n- Exclusion: set `emailOp=neq`. With `email_exact=true` this is an exact-value exclusion; without it, a fuzzy substring exclusion.",
+              "type": "string"
             },
             "emailOp": {
               "default": "eq",
-              "description": "Operator for the `email` filter.\n`contains` performs a substring (case-sensitive) match. When `email_exact=true`\nis also set, `email_exact` takes precedence and `contains` is ignored.\n",
+              "description": "Operator for the `email` filter.\n`contains` performs a substring (case-sensitive) match. When `email_exact=true`\nis also set, `email_exact` takes precedence and `contains` is ignored.",
               "enum": [
                 "eq",
                 "neq",
@@ -116,7 +104,7 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "fields": {
-              "description": "Comma-separated list of fields to include in the response.\nWhen omitted, all fields are returned.\n",
+              "description": "Comma-separated list of fields to include in the response.\nWhen omitted, all fields are returned.",
               "type": "string"
             },
             "idpOp": {
@@ -172,14 +160,15 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_user_id",
               "deprecated": true,
-              "description": "Deprecated. Accepted for backward compatibility but no longer applied\nas a filter. Use `email` instead.\n"
+              "description": "Deprecated. Accepted for backward compatibility but no longer applied\nas a filter. Use `email` instead.",
+              "format": "uuid",
+              "type": "string"
             },
             "user_idOp": {
               "default": "eq",
               "deprecated": true,
-              "description": "Deprecated. Accepted for backward compatibility but no longer applied\nas a filter (the `user_id` parameter is itself deprecated).\n",
+              "description": "Deprecated. Accepted for backward compatibility but no longer applied\nas a filter (the `user_id` parameter is itself deprecated).",
               "enum": [
                 "eq",
                 "neq"
@@ -193,28 +182,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_email-3": access_email$$3$,
-        "access_identifier": access_identifier,
-        "access_user_id": access_user_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-12",
       $defs: {
         "access_access-requests": access_access$$requests,
-        "access_action": access_action,
-        "access_allowed": access_allowed,
         "access_api-response-common": access_api$$response$$common,
-        "access_app_domain": access_app_domain,
-        "access_app_uid": access_app_uid,
-        "access_connection": access_connection,
-        "access_email-3": access_email$$3,
-        "access_ip": access_ip,
         "access_messages": access_messages,
-        "access_ray_id": access_ray_id,
         "access_response_collection-12": access_response_collection$$12,
-        "access_timestamp": access_timestamp,
       },
     },
     annotations: {
@@ -242,19 +218,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_access-requests": access_access$$requests,
-        "access_action": access_action,
-        "access_allowed": access_allowed,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_app_domain": access_app_domain,
-        "access_app_uid": access_app_uid,
-        "access_connection": access_connection,
-        "access_email-3": access_email$$3,
-        "access_ip": access_ip,
         "access_messages": access_messages,
-        "access_ray_id": access_ray_id,
         "access_response_collection-12": access_response_collection$$12,
-        "access_timestamp": access_timestamp,
       },
     },
     request: (args) => ({

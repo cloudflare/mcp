@@ -7,10 +7,8 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
   tls$$certificates$$and$$hostnames_dcv_delegation_response,
-  tls$$certificates$$and$$hostnames_uuid,
   tls$$certificates$$and$$hostnames_uuidObject,
 } from "./outputs.js";
 
@@ -21,15 +19,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_dcvDelegation_get",
     title: "Retrieve the DCV Delegation unique identifier.",
-    description: "Retrieve the account and zone specific unique identifier used as part of the CNAME target for DCV Delegation.",
+    description: "Retrieve the account and zone specific unique identifier used as part of the CNAME target for DCV Delegation.\n\nGET /zones/{zone_id}/dcv_delegation/uuid",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,9 +40,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_dcv_delegation_response",
@@ -51,7 +48,6 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_dcv_delegation_response": tls$$certificates$$and$$hostnames_dcv_delegation_response,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_uuid": tls$$certificates$$and$$hostnames_uuid,
         "tls-certificates-and-hostnames_uuidObject": tls$$certificates$$and$$hostnames_uuidObject,
       },
     },
@@ -97,7 +93,6 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_dcv_delegation_response": tls$$certificates$$and$$hostnames_dcv_delegation_response,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_uuid": tls$$certificates$$and$$hostnames_uuid,
         "tls-certificates-and-hostnames_uuidObject": tls$$certificates$$and$$hostnames_uuidObject,
       },
     },

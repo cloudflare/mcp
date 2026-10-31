@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_metadata_list",
     title: "List metadata fields for an RFI type",
-    description: "Get custom metadata fields available for the specified project type",
+    description: "Get custom metadata fields available for the specified project type\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/metadata",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID",
@@ -46,6 +47,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "country": {
               "description": "Exclude fields restricted for this alpha-2 country code",
@@ -62,6 +64,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -106,7 +106,7 @@ export const workers_PreviewDeploymentConfig: JsonSchema = {
       "$ref": "#/$defs/workers_cache_options"
     },
     "compatibility_date": {
-      "$ref": "#/$defs/workers_compatibility_date"
+      "type": "string"
     },
     "compatibility_flags": {
       "$ref": "#/$defs/workers_compatibility_flags"

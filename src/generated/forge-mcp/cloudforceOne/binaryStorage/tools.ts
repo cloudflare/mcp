@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_binaryStorage_get",
     title: "Retrieves a file from Binary Storage",
-    description: "Retrieves a binary file from the Cloudforce One binary storage for analysis.",
+    description: "Retrieves a binary file from the Cloudforce One binary storage for analysis.\n\nGET /accounts/{account_id}/cloudforce-one/binary/{hash}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -35,6 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

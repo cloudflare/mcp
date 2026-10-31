@@ -4,17 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `zaraz_zaraz-workflow` in responses.
- */
-export const zaraz_zaraz$$workflow: JsonSchema = {
-  "enum": [
-    "realtime",
-    "preview"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zaraz_zaraz-workflow-response` in responses.
  */
 export const zaraz_zaraz$$workflow$$response: JsonSchema = {
@@ -25,7 +14,11 @@ export const zaraz_zaraz$$workflow$$response: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/zaraz_zaraz-workflow"
+          "enum": [
+            "realtime",
+            "preview"
+          ],
+          "type": "string"
         }
       },
       "type": "object"

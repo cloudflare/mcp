@@ -44,7 +44,7 @@ export const tunnel_ingressRule: JsonSchema = {
       "type": "string"
     },
     "service": {
-      "description": "Protocol and address of destination server. Supported protocols: http://, https://, unix://, tcp://, ssh://, rdp://, unix+tls://, smb://. Alternatively can return a HTTP status code http_status:[code] e.g. 'http_status:404'.\n",
+      "description": "Protocol and address of destination server. Supported protocols: http://, https://, unix://, tcp://, ssh://, rdp://, unix+tls://, smb://. Alternatively can return a HTTP status code http_status:[code] e.g. 'http_status:404'.",
       "type": "string"
     }
   },
@@ -130,7 +130,7 @@ export const tunnel_originRequest: JsonSchema = {
       "type": "string"
     },
     "proxyType": {
-      "description": "cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures what type of proxy will be started. Valid options are: \"\" for the regular proxy and \"socks\" for a SOCKS5 proxy.\n",
+      "description": "cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures what type of proxy will be started. Valid options are: \"\" for the regular proxy and \"socks\" for a SOCKS5 proxy.",
       "type": "string"
     },
     "tcpKeepAlive": {

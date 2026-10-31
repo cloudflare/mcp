@@ -137,7 +137,11 @@ export const teams$$devices_client_certificate_v2_input_request: JsonSchema = {
     },
     "extended_key_usage": {
       "items": {
-        "$ref": "#/$defs/teams-devices_extended_key_usage_enum"
+        "enum": [
+          "clientAuth",
+          "emailProtection"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -264,28 +268,21 @@ export const teams$$devices_custom_s2s_input_request: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_description` in responses.
- */
-export const teams$$devices_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_device-posture-rules` in responses.
  */
 export const teams$$devices_device$$posture$$rules: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/teams-devices_description"
+      "type": "string"
     },
     "enabled": {
       "type": "boolean"
     },
     "expiration": {
-      "$ref": "#/$defs/teams-devices_expiration"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/teams-devices_uuid"
+      "type": "string"
     },
     "input": {
       "$ref": "#/$defs/teams-devices_input"
@@ -294,13 +291,38 @@ export const teams$$devices_device$$posture$$rules: JsonSchema = {
       "$ref": "#/$defs/teams-devices_match"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_name"
+      "type": "string"
     },
     "schedule": {
-      "$ref": "#/$defs/teams-devices_schedule"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/teams-devices_type"
+      "enum": [
+        "file",
+        "application",
+        "tanium",
+        "gateway",
+        "warp",
+        "disk_encryption",
+        "serial_number",
+        "sentinelone",
+        "carbonblack",
+        "firewall",
+        "os_version",
+        "domain_joined",
+        "client_certificate",
+        "client_certificate_v2",
+        "antivirus",
+        "unique_client_id",
+        "kolide",
+        "tanium_s2s",
+        "crowdstrike_s2s",
+        "intune",
+        "workspace_one",
+        "sentinelone_s2s",
+        "custom_s2s"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -315,7 +337,7 @@ export const teams$$devices_disk_encryption_input_request: JsonSchema = {
       "$ref": "#/$defs/teams-devices_checkDisks"
     },
     "requireAll": {
-      "$ref": "#/$defs/teams-devices_requireAll"
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -340,24 +362,6 @@ export const teams$$devices_domain_joined_input_request: JsonSchema = {
     "operating_system"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_expiration` in responses.
- */
-export const teams$$devices_expiration: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_extended_key_usage_enum` in responses.
- */
-export const teams$$devices_extended_key_usage_enum: JsonSchema = {
-  "enum": [
-    "clientAuth",
-    "emailProtection"
-  ],
-  "type": "string"
 };
 
 /**
@@ -429,7 +433,7 @@ export const teams$$devices_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/teams-devices_uuid"
+              "type": "string"
             }
           },
           "type": "object"
@@ -592,17 +596,18 @@ export const teams$$devices_match: JsonSchema = {
 export const teams$$devices_match_item: JsonSchema = {
   "properties": {
     "platform": {
-      "$ref": "#/$defs/teams-devices_platform"
+      "enum": [
+        "windows",
+        "mac",
+        "linux",
+        "android",
+        "ios",
+        "chromeos"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_name` in responses.
- */
-export const teams$$devices_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -658,28 +663,6 @@ export const teams$$devices_paths: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_platform` in responses.
- */
-export const teams$$devices_platform: JsonSchema = {
-  "enum": [
-    "windows",
-    "mac",
-    "linux",
-    "android",
-    "ios",
-    "chromeos"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_requireAll` in responses.
- */
-export const teams$$devices_requireAll: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_response_collection` in responses.
  */
 export const teams$$devices_response_collection: JsonSchema = {
@@ -699,13 +682,6 @@ export const teams$$devices_response_collection: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `teams-devices_schedule` in responses.
- */
-export const teams$$devices_schedule: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -867,52 +843,13 @@ export const teams$$devices_tanium_input_request: JsonSchema = {
  */
 export const teams$$devices_trust_stores: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/teams-devices_trust_stores_enum"
+    "enum": [
+      "system",
+      "user"
+    ],
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `teams-devices_trust_stores_enum` in responses.
- */
-export const teams$$devices_trust_stores_enum: JsonSchema = {
-  "enum": [
-    "system",
-    "user"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_type` in responses.
- */
-export const teams$$devices_type: JsonSchema = {
-  "enum": [
-    "file",
-    "application",
-    "tanium",
-    "gateway",
-    "warp",
-    "disk_encryption",
-    "serial_number",
-    "sentinelone",
-    "carbonblack",
-    "firewall",
-    "os_version",
-    "domain_joined",
-    "client_certificate",
-    "client_certificate_v2",
-    "antivirus",
-    "unique_client_id",
-    "kolide",
-    "tanium_s2s",
-    "crowdstrike_s2s",
-    "intune",
-    "workspace_one",
-    "sentinelone_s2s",
-    "custom_s2s"
-  ],
-  "type": "string"
 };
 
 /**

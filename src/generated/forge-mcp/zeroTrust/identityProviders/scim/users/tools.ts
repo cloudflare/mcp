@@ -9,8 +9,7 @@ import {
   access_api$$response$$single,
   access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
-import { access_id, access_meta } from "../outputs.js";
+import { access_meta } from "../outputs.js";
 import {
   access_scim_user_response,
   access_scim_users_response,
@@ -18,10 +17,7 @@ import {
 } from "./outputs.js";
 import {
   access_cf_resource_id$$2,
-  access_email,
   access_idp_resource_id$$2,
-  access_name$$5,
-  access_username,
 } from "./schemas.js";
 
 /**
@@ -31,23 +27,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_scim_users_delete",
     title: "Delete a SCIM User resource",
-    description: "Deletes a SCIM User resource from the identity provider's SCIM population.",
+    description: "Deletes a SCIM User resource from the identity provider's SCIM population.\n\nDELETE /accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,10 +58,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -99,23 +93,24 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_scim_users_get",
     title: "Get a SCIM User resource",
-    description: "Returns a SCIM User resource synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).",
+    description: "Returns a SCIM User resource synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).\n\nGET /accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/users/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             },
             "user_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -129,16 +124,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_scim_user_response",
       $defs: {
         "access_api-response-single": access_api$$response$$single,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_user_response": access_scim_user_response,
@@ -172,7 +163,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-common-failure": access_api$$response$$common$$failure,
         "access_api-response-single": access_api$$response$$single,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_user_response": access_scim_user_response,
@@ -186,19 +176,20 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_identityProviders_scim_users_list",
     title: "List SCIM User resources",
-    description: "Lists SCIM User resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).",
+    description: "Lists SCIM User resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).\n\nGET /accounts/{account_id}/access/identity_providers/{identity_provider_id}/scim/users",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/access_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "identity_provider_id": {
-              "$ref": "#/$defs/access_uuid",
-              "description": "UUID."
+              "description": "UUID.",
+              "type": "string"
             }
           },
           "required": [
@@ -208,22 +199,23 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cf_resource_id": {
               "$ref": "#/$defs/access_cf_resource_id-2",
               "description": "The unique Cloudflare-generated Id of the SCIM User resource; also known as the \"Id\".\nPass once for a single lookup (`?cf_resource_id=A`) or repeat the parameter\n(`?cf_resource_id=A&cf_resource_id=B`) to look up multiple users in one request,\nup to 50 values. Mutually exclusive with `idp_resource_id`, `username`, `email`,\n`name`, `search_contains`, and `search_starts_with`."
             },
             "email": {
-              "$ref": "#/$defs/access_email",
-              "description": "The email address of the SCIM User resource."
+              "description": "The email address of the SCIM User resource.",
+              "type": "string"
             },
             "idp_resource_id": {
               "$ref": "#/$defs/access_idp_resource_id-2",
               "description": "The IdP-generated Id of the SCIM User resource; also known as the \"external Id\".\nPass once for a single lookup (`?idp_resource_id=A`) or repeat the parameter\n(`?idp_resource_id=A&idp_resource_id=B`) to look up multiple users in one request,\nup to 50 values. Mutually exclusive with `cf_resource_id`, `username`, `email`,\n`name`, `search_contains`, and `search_starts_with`."
             },
             "name": {
-              "$ref": "#/$defs/access_name-5",
-              "description": "The name of the SCIM User resource."
+              "description": "The name of the SCIM User resource.",
+              "type": "string"
             },
             "page": {
               "default": 1,
@@ -236,8 +228,8 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "username": {
-              "$ref": "#/$defs/access_username",
-              "description": "The username of the SCIM User resource."
+              "description": "The username of the SCIM User resource.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -246,14 +238,10 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "access_cf_resource_id-2": access_cf_resource_id$$2,
-        "access_email": access_email,
-        "access_identifier": access_identifier,
         "access_idp_resource_id-2": access_idp_resource_id$$2,
-        "access_name-5": access_name$$5,
-        "access_username": access_username,
-        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
@@ -261,7 +249,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_users_response": access_scim_users_response,
@@ -296,7 +283,6 @@ export const tools: readonly Tool[] = [
         "access_api-response-collection": access_api$$response$$collection,
         "access_api-response-common": access_api$$response$$common,
         "access_api-response-common-failure": access_api$$response$$common$$failure,
-        "access_id": access_id,
         "access_messages": access_messages,
         "access_meta": access_meta,
         "access_scim_users_response": access_scim_users_response,

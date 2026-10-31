@@ -4,48 +4,42 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `email-security_CustomerStatus` in responses.
- */
-export const email$$security_CustomerStatus: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "escalated",
-        "reviewed",
-        "unreviewed"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `email-security_OptionalSubmissionDisposition` in responses.
- */
-export const email$$security_OptionalSubmissionDisposition: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-security_SubmissionDisposition"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `email-security_Submission` in responses.
  */
 export const email$$security_Submission: JsonSchema = {
   "properties": {
     "customer_status": {
-      "$ref": "#/$defs/email-security_CustomerStatus"
+      "oneOf": [
+        {
+          "enum": [
+            "escalated",
+            "reviewed",
+            "unreviewed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "escalated_as": {
-      "$ref": "#/$defs/email-security_OptionalSubmissionDisposition"
+      "oneOf": [
+        {
+          "enum": [
+            "MALICIOUS",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "NONE"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "escalated_at": {
       "oneOf": [
@@ -79,7 +73,22 @@ export const email$$security_Submission: JsonSchema = {
       ]
     },
     "original_disposition": {
-      "$ref": "#/$defs/email-security_OptionalSubmissionDisposition"
+      "oneOf": [
+        {
+          "enum": [
+            "MALICIOUS",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "NONE"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "original_edf_hash": {
       "oneOf": [
@@ -112,7 +121,22 @@ export const email$$security_Submission: JsonSchema = {
       ]
     },
     "outcome_disposition": {
-      "$ref": "#/$defs/email-security_OptionalSubmissionDisposition"
+      "oneOf": [
+        {
+          "enum": [
+            "MALICIOUS",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "NONE"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "requested_at": {
       "format": "date-time",
@@ -129,7 +153,22 @@ export const email$$security_Submission: JsonSchema = {
       ]
     },
     "requested_disposition": {
-      "$ref": "#/$defs/email-security_OptionalSubmissionDisposition"
+      "oneOf": [
+        {
+          "enum": [
+            "MALICIOUS",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "NONE"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "requested_ts": {
       "type": "string"
@@ -177,21 +216,6 @@ export const email$$security_Submission: JsonSchema = {
     "submission_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-security_SubmissionDisposition` in responses.
- */
-export const email$$security_SubmissionDisposition: JsonSchema = {
-  "enum": [
-    "MALICIOUS",
-    "SUSPICIOUS",
-    "SPOOF",
-    "SPAM",
-    "BULK",
-    "NONE"
-  ],
-  "type": "string"
 };
 
 /**

@@ -16,7 +16,12 @@ export const workers_usage$$model$$response: JsonSchema = {
         "result": {
           "properties": {
             "usage_model": {
-              "$ref": "#/$defs/workers_usage_model"
+              "enum": [
+                "standard",
+                "bundled",
+                "unbound"
+              ],
+              "type": "string"
             },
             "user_limits": {
               "$ref": "#/$defs/workers_user_limits"

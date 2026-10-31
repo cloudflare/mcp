@@ -26,17 +26,6 @@ export const security$$center_partnerAssetResultInfo: JsonSchema = {
 };
 
 /**
- * The schema of `security-center_partnerEntitlement` in responses.
- */
-export const security$$center_partnerEntitlement: JsonSchema = {
-  "enum": [
-    "baseline",
-    "premium"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `security-center_shadowHost` in responses.
  */
 export const security$$center_shadowHost: JsonSchema = {
@@ -97,7 +86,11 @@ export const security$$center_shadowHostsResponse: JsonSchema = {
               "type": "string"
             },
             "entitlement": {
-              "$ref": "#/$defs/security-center_partnerEntitlement"
+              "enum": [
+                "baseline",
+                "premium"
+              ],
+              "type": "string"
             },
             "items": {
               "items": {

@@ -19,11 +19,12 @@ export const tools: readonly Tool[] = [
   {
     name: "fieldExtractors_delete",
     title: "Delete Field Extractor",
-    description: "Deletes all custom extraction rules for an extractor type.\n\nThis method is alpha.",
+    description: "Deletes all custom extraction rules for an extractor type.\n\nThis method is alpha.\n\nDELETE /accounts/{account_id}/field_extractors/{extractor}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/field-extractors_DeleteResponse",
@@ -83,11 +85,12 @@ export const tools: readonly Tool[] = [
   {
     name: "fieldExtractors_get",
     title: "Get Field Extractor",
-    description: "Retrieves the custom extraction rules configured for a given extractor type.\n\nThis method is alpha.",
+    description: "Retrieves the custom extraction rules configured for a given extractor type.\n\nThis method is alpha.\n\nGET /accounts/{account_id}/field_extractors/{extractor}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -108,6 +111,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/field-extractors_SuccessResponse",
@@ -153,7 +157,7 @@ export const tools: readonly Tool[] = [
   {
     name: "fieldExtractors_update",
     title: "Update Field Extractor",
-    description: "Replaces all custom extraction rules for an extractor type. Omitted rules are deleted.\n\nThis method is alpha.",
+    description: "Replaces all custom extraction rules for an extractor type. Omitted rules are deleted.\n\nThis method is alpha.\n\nPUT /accounts/{account_id}/field_extractors/{extractor}",
     inputSchema: {
       type: "object",
       properties: {
@@ -206,6 +210,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -226,6 +231,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/field-extractors_SuccessResponse",

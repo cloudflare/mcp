@@ -8,7 +8,6 @@ import {
   request$$tracer_messages,
   request$$tracer_trace,
 } from "./outputs.js";
-import { request$$tracer_account_identifier } from "./schemas.js";
 
 /**
  * The tools of `requestTracers.traces`.
@@ -17,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "requestTracers_traces_create",
     title: "Request Trace",
-    description: "Traces a simulated HTTP request through Cloudflare's edge to analyze how rules, settings, and configurations would process the request. Useful for debugging firewall rules, page rules, and other request transformations without sending actual traffic. Supports custom headers, cookies, body content, and geolocation context.",
+    description: "Traces a simulated HTTP request through Cloudflare's edge to analyze how rules, settings, and configurations would process the request. Useful for debugging firewall rules, page rules, and other request transformations without sending actual traffic. Supports custom headers, cookies, body content, and geolocation context.\n\nPOST /accounts/{account_id}/request-tracer/trace",
     inputSchema: {
       type: "object",
       properties: {
@@ -132,10 +131,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/request-tracer_account_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -148,9 +148,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "request-tracer_account_identifier": request$$tracer_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

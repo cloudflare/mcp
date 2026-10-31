@@ -4,95 +4,52 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `bot-management_ai_agent_action` in responses.
- */
-export const bot$$management_ai_agent_action: JsonSchema = {
-  "enum": [
-    "disabled",
-    "block",
-    "only_on_ad_pages"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `bot-management_ai_agents` in responses.
  */
 export const bot$$management_ai_agents: JsonSchema = {
   "properties": {
     "anthropic_agent": {
-      "$ref": "#/$defs/bot-management_ai_agent_action"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "google_agent": {
-      "$ref": "#/$defs/bot-management_ai_agent_action"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "instinct": {
-      "$ref": "#/$defs/bot-management_ai_agent_action"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "muse": {
-      "$ref": "#/$defs/bot-management_ai_agent_action"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "openai_agent": {
-      "$ref": "#/$defs/bot-management_ai_agent_action"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `bot-management_ai_bots_migration_opt_out` in responses.
- */
-export const bot$$management_ai_bots_migration_opt_out: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_ai_bots_protection` in responses.
- */
-export const bot$$management_ai_bots_protection: JsonSchema = {
-  "enum": [
-    "block",
-    "disabled",
-    "only_on_ad_pages"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_ai_search` in responses.
- */
-export const bot$$management_ai_search: JsonSchema = {
-  "enum": [
-    "disabled",
-    "block",
-    "only_on_ad_pages"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_ai_training` in responses.
- */
-export const bot$$management_ai_training: JsonSchema = {
-  "enum": [
-    "disabled",
-    "disallow",
-    "block",
-    "only_on_ad_pages"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_ai_user` in responses.
- */
-export const bot$$management_ai_user: JsonSchema = {
-  "enum": [
-    "disabled",
-    "block",
-    "only_on_ad_pages"
-  ],
-  "type": "string"
 };
 
 /**
@@ -152,13 +109,6 @@ export const bot$$management_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `bot-management_auto_update_model` in responses.
- */
-export const bot$$management_auto_update_model: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `bot-management_base_config` in responses.
  */
 export const bot$$management_base_config: JsonSchema = {
@@ -167,53 +117,79 @@ export const bot$$management_base_config: JsonSchema = {
       "$ref": "#/$defs/bot-management_ai_agents"
     },
     "ai_bots_migration_opt_out": {
-      "$ref": "#/$defs/bot-management_ai_bots_migration_opt_out"
+      "type": "boolean"
     },
     "ai_bots_protection": {
-      "$ref": "#/$defs/bot-management_ai_bots_protection"
+      "enum": [
+        "block",
+        "disabled",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "ai_search": {
-      "$ref": "#/$defs/bot-management_ai_search"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "ai_training": {
-      "$ref": "#/$defs/bot-management_ai_training"
+      "enum": [
+        "disabled",
+        "disallow",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "ai_user": {
-      "$ref": "#/$defs/bot-management_ai_user"
+      "enum": [
+        "disabled",
+        "block",
+        "only_on_ad_pages"
+      ],
+      "type": "string"
     },
     "bot_preference_sync_enabled": {
-      "$ref": "#/$defs/bot-management_bot_preference_sync_enabled"
+      "type": "boolean"
     },
     "cf_robots_variant": {
-      "$ref": "#/$defs/bot-management_cf_robots_variant"
+      "enum": [
+        "off",
+        "policy_only"
+      ],
+      "type": "string"
     },
     "content_bots_protection": {
-      "$ref": "#/$defs/bot-management_content_bots_protection"
+      "enum": [
+        "block",
+        "disabled"
+      ],
+      "type": "string"
     },
     "crawler_protection": {
-      "$ref": "#/$defs/bot-management_crawler_protection"
+      "enum": [
+        "enabled",
+        "disabled"
+      ],
+      "type": "string"
     },
     "enable_js": {
-      "$ref": "#/$defs/bot-management_enable_js"
+      "type": "boolean"
     },
     "is_robots_txt_managed": {
-      "$ref": "#/$defs/bot-management_is_robots_txt_managed"
+      "type": "boolean"
     },
     "jsd_api_results_enabled": {
-      "$ref": "#/$defs/bot-management_jsd_api_results_enabled"
+      "type": "boolean"
     },
     "using_latest_model": {
-      "$ref": "#/$defs/bot-management_using_latest_model"
+      "type": "boolean"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `bot-management_bm_cookie_enabled` in responses.
- */
-export const bot$$management_bm_cookie_enabled: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -227,36 +203,36 @@ export const bot$$management_bm_subscription_config: JsonSchema = {
     {
       "properties": {
         "auto_update_model": {
-          "$ref": "#/$defs/bot-management_auto_update_model"
+          "type": "boolean"
         },
         "bm_cookie_enabled": {
-          "$ref": "#/$defs/bot-management_bm_cookie_enabled"
+          "type": "boolean"
         },
         "stale_zone_configuration": {
           "properties": {
             "fight_mode": {
-              "$ref": "#/$defs/bot-management_fight_mode_turned_on"
+              "type": "boolean"
             },
             "optimize_wordpress": {
-              "$ref": "#/$defs/bot-management_optimize_wordpress_turned_on"
+              "type": "boolean"
             },
             "sbfm_definitely_automated": {
-              "$ref": "#/$defs/bot-management_sbfm_definitely_automated_turned_on"
+              "type": "string"
             },
             "sbfm_likely_automated": {
-              "$ref": "#/$defs/bot-management_sbfm_likely_automated_turned_on"
+              "type": "string"
             },
             "sbfm_static_resource_protection": {
-              "$ref": "#/$defs/bot-management_sbfm_static_resource_protection_turned_on"
+              "type": "string"
             },
             "sbfm_verified_bots": {
-              "$ref": "#/$defs/bot-management_sbfm_verified_bots_turned_on"
+              "type": "string"
             }
           },
           "type": "object"
         },
         "suppress_session_score": {
-          "$ref": "#/$defs/bot-management_suppress_session_score"
+          "type": "boolean"
         }
       },
       "type": "object"
@@ -275,27 +251,27 @@ export const bot$$management_bot_fight_mode_config: JsonSchema = {
     {
       "properties": {
         "fight_mode": {
-          "$ref": "#/$defs/bot-management_fight_mode"
+          "type": "boolean"
         },
         "stale_zone_configuration": {
           "properties": {
             "optimize_wordpress": {
-              "$ref": "#/$defs/bot-management_optimize_wordpress_turned_on"
+              "type": "boolean"
             },
             "sbfm_definitely_automated": {
-              "$ref": "#/$defs/bot-management_sbfm_definitely_automated_turned_on"
+              "type": "string"
             },
             "sbfm_likely_automated": {
-              "$ref": "#/$defs/bot-management_sbfm_likely_automated_turned_on"
+              "type": "string"
             },
             "sbfm_static_resource_protection": {
-              "$ref": "#/$defs/bot-management_sbfm_static_resource_protection_turned_on"
+              "type": "string"
             },
             "sbfm_verified_bots": {
-              "$ref": "#/$defs/bot-management_sbfm_verified_bots_turned_on"
+              "type": "string"
             },
             "suppress_session_score": {
-              "$ref": "#/$defs/bot-management_suppress_session_score_turned_off"
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -339,81 +315,6 @@ export const bot$$management_bot_management_response_body: JsonSchema = {
 };
 
 /**
- * The schema of `bot-management_bot_preference_sync_enabled` in responses.
- */
-export const bot$$management_bot_preference_sync_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_cf_robots_variant` in responses.
- */
-export const bot$$management_cf_robots_variant: JsonSchema = {
-  "enum": [
-    "off",
-    "policy_only"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_content_bots_protection` in responses.
- */
-export const bot$$management_content_bots_protection: JsonSchema = {
-  "enum": [
-    "block",
-    "disabled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_crawler_protection` in responses.
- */
-export const bot$$management_crawler_protection: JsonSchema = {
-  "enum": [
-    "enabled",
-    "disabled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_enable_js` in responses.
- */
-export const bot$$management_enable_js: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_fight_mode` in responses.
- */
-export const bot$$management_fight_mode: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_fight_mode_turned_on` in responses.
- */
-export const bot$$management_fight_mode_turned_on: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_is_robots_txt_managed` in responses.
- */
-export const bot$$management_is_robots_txt_managed: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_jsd_api_results_enabled` in responses.
- */
-export const bot$$management_jsd_api_results_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `bot-management_messages` in responses.
  */
 export const bot$$management_messages: JsonSchema = {
@@ -447,40 +348,6 @@ export const bot$$management_messages: JsonSchema = {
 };
 
 /**
- * The schema of `bot-management_optimize_wordpress` in responses.
- */
-export const bot$$management_optimize_wordpress: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_optimize_wordpress_turned_on` in responses.
- */
-export const bot$$management_optimize_wordpress_turned_on: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_sbfm_definitely_automated` in responses.
- */
-export const bot$$management_sbfm_definitely_automated: JsonSchema = {
-  "enum": [
-    "allow",
-    "block",
-    "managed_challenge"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_sbfm_definitely_automated_turned_on` in
- * responses.
- */
-export const bot$$management_sbfm_definitely_automated_turned_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `bot-management_sbfm_definitely_config` in responses.
  */
 export const bot$$management_sbfm_definitely_config: JsonSchema = {
@@ -491,24 +358,33 @@ export const bot$$management_sbfm_definitely_config: JsonSchema = {
     {
       "properties": {
         "optimize_wordpress": {
-          "$ref": "#/$defs/bot-management_optimize_wordpress"
+          "type": "boolean"
         },
         "sbfm_definitely_automated": {
-          "$ref": "#/$defs/bot-management_sbfm_definitely_automated"
+          "enum": [
+            "allow",
+            "block",
+            "managed_challenge"
+          ],
+          "type": "string"
         },
         "sbfm_static_resource_protection": {
-          "$ref": "#/$defs/bot-management_sbfm_static_resource_protection"
+          "type": "boolean"
         },
         "sbfm_verified_bots": {
-          "$ref": "#/$defs/bot-management_sbfm_verified_bots"
+          "enum": [
+            "allow",
+            "block"
+          ],
+          "type": "string"
         },
         "stale_zone_configuration": {
           "properties": {
             "fight_mode": {
-              "$ref": "#/$defs/bot-management_fight_mode_turned_on"
+              "type": "boolean"
             },
             "sbfm_likely_automated": {
-              "$ref": "#/$defs/bot-management_sbfm_likely_automated_turned_on"
+              "type": "string"
             }
           },
           "type": "object"
@@ -517,25 +393,6 @@ export const bot$$management_sbfm_definitely_config: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `bot-management_sbfm_likely_automated` in responses.
- */
-export const bot$$management_sbfm_likely_automated: JsonSchema = {
-  "enum": [
-    "allow",
-    "block",
-    "managed_challenge"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_sbfm_likely_automated_turned_on` in responses.
- */
-export const bot$$management_sbfm_likely_automated_turned_on: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -549,24 +406,38 @@ export const bot$$management_sbfm_likely_config: JsonSchema = {
     {
       "properties": {
         "optimize_wordpress": {
-          "$ref": "#/$defs/bot-management_optimize_wordpress"
+          "type": "boolean"
         },
         "sbfm_definitely_automated": {
-          "$ref": "#/$defs/bot-management_sbfm_definitely_automated"
+          "enum": [
+            "allow",
+            "block",
+            "managed_challenge"
+          ],
+          "type": "string"
         },
         "sbfm_likely_automated": {
-          "$ref": "#/$defs/bot-management_sbfm_likely_automated"
+          "enum": [
+            "allow",
+            "block",
+            "managed_challenge"
+          ],
+          "type": "string"
         },
         "sbfm_static_resource_protection": {
-          "$ref": "#/$defs/bot-management_sbfm_static_resource_protection"
+          "type": "boolean"
         },
         "sbfm_verified_bots": {
-          "$ref": "#/$defs/bot-management_sbfm_verified_bots"
+          "enum": [
+            "allow",
+            "block"
+          ],
+          "type": "string"
         },
         "stale_zone_configuration": {
           "properties": {
             "fight_mode": {
-              "$ref": "#/$defs/bot-management_fight_mode_turned_on"
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -575,59 +446,4 @@ export const bot$$management_sbfm_likely_config: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `bot-management_sbfm_static_resource_protection` in responses.
- */
-export const bot$$management_sbfm_static_resource_protection: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_sbfm_static_resource_protection_turned_on` in
- * responses.
- */
-export const bot$$management_sbfm_static_resource_protection_turned_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_sbfm_verified_bots` in responses.
- */
-export const bot$$management_sbfm_verified_bots: JsonSchema = {
-  "enum": [
-    "allow",
-    "block"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_sbfm_verified_bots_turned_on` in responses.
- */
-export const bot$$management_sbfm_verified_bots_turned_on: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bot-management_suppress_session_score` in responses.
- */
-export const bot$$management_suppress_session_score: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_suppress_session_score_turned_off` in
- * responses.
- */
-export const bot$$management_suppress_session_score_turned_off: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `bot-management_using_latest_model` in responses.
- */
-export const bot$$management_using_latest_model: JsonSchema = {
-  "type": "boolean"
 };

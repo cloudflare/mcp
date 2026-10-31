@@ -106,7 +106,13 @@ export const posture$$api_FindingSeverityOverride: JsonSchema = {
       "type": "string"
     },
     "severity": {
-      "$ref": "#/$defs/posture-api_SeverityEnum"
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "type": "string"
     }
   },
   "required": [

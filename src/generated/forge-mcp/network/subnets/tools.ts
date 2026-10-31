@@ -6,34 +6,14 @@ import {
   tunnel_api$$response$$collection,
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_created_at,
-  tunnel_deleted_at,
   tunnel_messages,
   tunnel_result_info,
 } from "../../outputs.js";
 import {
-  tunnel_account_id,
-  tunnel_existed_at,
-  tunnel_page_number,
-  tunnel_per_page,
-} from "../../schemas.js";
-import {
   tunnel_subnet,
   tunnel_subnet_capacity,
-  tunnel_subnet_comment,
-  tunnel_subnet_id,
-  tunnel_subnet_ip_network,
-  tunnel_subnet_is_default_network,
-  tunnel_subnet_name,
   tunnel_subnet_response_collection,
-  tunnel_subnet_type,
 } from "./outputs.js";
-import {
-  tunnel_address_family,
-  tunnel_ip_network_encoded,
-  tunnel_subnet_query_comment,
-  tunnel_subnet_query_name,
-} from "./schemas.js";
 
 /**
  * The tools of `network.subnets`.
@@ -42,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_list",
     title: "List Subnets",
-    description: "Lists and filters subnets in an account.",
+    description: "Lists and filters subnets in an account.\n\nGET /accounts/{account_id}/zerotrust/subnets",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             }
           },
           "required": [
@@ -59,18 +40,23 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "address_family": {
-              "$ref": "#/$defs/tunnel_address_family",
-              "description": "If set, only include subnets in the given address family - `v4` or `v6`"
+              "description": "If set, only include subnets in the given address family - `v4` or `v6`",
+              "enum": [
+                "v4",
+                "v6"
+              ],
+              "type": "string"
             },
             "comment": {
-              "$ref": "#/$defs/tunnel_subnet_query_comment",
-              "description": "If set, only list subnets with the given comment."
+              "description": "If set, only list subnets with the given comment.",
+              "type": "string"
             },
             "existed_at": {
-              "$ref": "#/$defs/tunnel_existed_at",
-              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded."
+              "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded.",
+              "type": "string"
             },
             "is_default_network": {
               "description": "If `true`, only include default subnets. If `false`, exclude default subnets subnets. If not set, all subnets will be included.",
@@ -81,21 +67,21 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/tunnel_subnet_query_name",
-              "description": "If set, only list subnets with the given name"
+              "description": "If set, only list subnets with the given name",
+              "type": "string"
             },
             "network": {
-              "$ref": "#/$defs/tunnel_ip_network_encoded",
-              "description": "If set, only list the subnet whose network exactly matches the given CIDR."
+              "description": "If set, only list the subnet whose network exactly matches the given CIDR.",
+              "type": "string"
             },
             "page": {
-              "$ref": "#/$defs/tunnel_page_number",
               "default": 1,
-              "description": "Page number of paginated results."
+              "description": "Page number of paginated results.",
+              "type": "number"
             },
             "per_page": {
-              "$ref": "#/$defs/tunnel_per_page",
-              "description": "Number of results to display."
+              "description": "Number of results to display.",
+              "type": "number"
             },
             "sort_order": {
               "description": "Sort order of the results. `asc` means oldest to newest, `desc` means newest to oldest. If not set, they will not be in any particular order.",
@@ -121,35 +107,18 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_address_family": tunnel_address_family,
-        "tunnel_existed_at": tunnel_existed_at,
-        "tunnel_ip_network_encoded": tunnel_ip_network_encoded,
-        "tunnel_page_number": tunnel_page_number,
-        "tunnel_per_page": tunnel_per_page,
-        "tunnel_subnet_query_comment": tunnel_subnet_query_comment,
-        "tunnel_subnet_query_name": tunnel_subnet_query_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_collection",
       $defs: {
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
         "tunnel_subnet": tunnel_subnet,
         "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
         "tunnel_subnet_response_collection": tunnel_subnet_response_collection,
-        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     annotations: {
@@ -187,19 +156,11 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_created_at": tunnel_created_at,
-        "tunnel_deleted_at": tunnel_deleted_at,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
         "tunnel_subnet": tunnel_subnet,
         "tunnel_subnet_capacity": tunnel_subnet_capacity,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
         "tunnel_subnet_response_collection": tunnel_subnet_response_collection,
-        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     request: (args) => ({

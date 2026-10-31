@@ -8,18 +8,7 @@ import {
   builds_ErrorResponse,
   builds_PaginationInfo,
 } from "../../../outputs.js";
-import {
-  builds_SCMProviderType,
-  builds_account_id,
-  builds_branch,
-  builds_provider_account_id,
-  builds_repo_id,
-  builds_root_directory,
-} from "../../../schemas.js";
-import {
-  builds_ConfigAutofillResponse,
-  builds_PackageManager,
-} from "./outputs.js";
+import { builds_ConfigAutofillResponse } from "./outputs.js";
 
 /**
  * The tools of `builds.repos.configAutofill`.
@@ -28,27 +17,34 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_repos_configAutofill_get",
     title: "Get repository configuration autofill",
-    description: "Analyze repository for automatic configuration detection",
+    description: "Analyze repository for automatic configuration detection\n\nGET /accounts/{account_id}/builds/repos/{provider_type}/{provider_account_id}/{repo_id}/config_autofill",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "provider_account_id": {
-              "$ref": "#/$defs/builds_provider_account_id",
-              "description": "Provider-specific identifier of the account or namespace that owns the repository."
+              "description": "Provider-specific identifier of the account or namespace that owns the repository.",
+              "type": "string"
             },
             "provider_type": {
-              "$ref": "#/$defs/builds_SCMProviderType",
-              "description": "SCM provider type"
+              "description": "SCM provider type",
+              "enum": [
+                "github",
+                "gitlab",
+                "gitlab_internal",
+                "origin"
+              ],
+              "type": "string"
             },
             "repo_id": {
-              "$ref": "#/$defs/builds_repo_id",
-              "description": "Provider-specific repository identifier."
+              "description": "Provider-specific repository identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -60,14 +56,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "branch": {
-              "$ref": "#/$defs/builds_branch",
-              "description": "Git branch name."
+              "description": "Git branch name.",
+              "type": "string"
             },
             "root_directory": {
-              "$ref": "#/$defs/builds_root_directory",
-              "description": "Repository directory in which build and deploy commands run."
+              "description": "Repository directory in which build and deploy commands run.",
+              "type": "string"
             }
           },
           "required": [
@@ -80,14 +77,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "builds_SCMProviderType": builds_SCMProviderType,
-        "builds_account_id": builds_account_id,
-        "builds_branch": builds_branch,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_repo_id": builds_repo_id,
-        "builds_root_directory": builds_root_directory,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -107,7 +97,6 @@ export const tools: readonly Tool[] = [
         "builds_APIResponse": builds_APIResponse,
         "builds_ApiError": builds_ApiError,
         "builds_ConfigAutofillResponse": builds_ConfigAutofillResponse,
-        "builds_PackageManager": builds_PackageManager,
         "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
@@ -152,7 +141,6 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_ConfigAutofillResponse": builds_ConfigAutofillResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
-        "builds_PackageManager": builds_PackageManager,
         "builds_PaginationInfo": builds_PaginationInfo,
       },
     },

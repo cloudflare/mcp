@@ -4,10 +4,8 @@
 import { type Tool, param, pathParam } from "../_/tool.js";
 import {
   zones_api$$response$$common$$failure$$2,
-  zones_identifier$$2,
   zones_messages$$2,
 } from "../outputs.js";
-import { zones_identifier$$2 as zones_identifier$$2$ } from "../schemas.js";
 import {
   zones_actions,
   zones_always_use_https,
@@ -24,7 +22,6 @@ import {
   zones_cache_level,
   zones_cache_on_cookie,
   zones_cache_ttl_by_status,
-  zones_created_on,
   zones_disable_apps,
   zones_disable_performance,
   zones_disable_security,
@@ -36,12 +33,10 @@ import {
   zones_host_header_override,
   zones_ip_geolocation,
   zones_mirage,
-  zones_modified_on,
   zones_opportunistic_encryption,
   zones_origin_error_page_pass_thru,
   zones_page_rule,
   zones_polish,
-  zones_priority,
   zones_resolve_override,
   zones_respect_strong_etag,
   zones_response_buffering,
@@ -49,7 +44,6 @@ import {
   zones_security_level,
   zones_sort_query_string_for_cache,
   zones_ssl,
-  zones_status,
   zones_string_constraint,
   zones_target,
   zones_targets,
@@ -84,7 +78,6 @@ import {
   zones_opportunistic_encryption as zones_opportunistic_encryption$,
   zones_origin_error_page_pass_thru as zones_origin_error_page_pass_thru$,
   zones_polish as zones_polish$,
-  zones_priority as zones_priority$,
   zones_resolve_override as zones_resolve_override$,
   zones_respect_strong_etag as zones_respect_strong_etag$,
   zones_response_buffering as zones_response_buffering$,
@@ -92,7 +85,6 @@ import {
   zones_security_level as zones_security_level$,
   zones_sort_query_string_for_cache as zones_sort_query_string_for_cache$,
   zones_ssl as zones_ssl$,
-  zones_status as zones_status$,
   zones_string_constraint as zones_string_constraint$,
   zones_target as zones_target$,
   zones_targets as zones_targets$,
@@ -108,7 +100,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pageRules_create",
     title: "Create a Page Rule",
-    description: "Creates a new Page Rule.",
+    description: "Creates a new Page Rule.\n\nPOST /zones/{zone_id}/pagerules",
     inputSchema: {
       type: "object",
       properties: {
@@ -116,17 +108,21 @@ export const tools: readonly Tool[] = [
           "properties": {
             "actions": {
               "$ref": "#/$defs/zones_actions",
-              "description": "The set of actions to perform if the targets of this rule match the\nrequest. Actions can redirect to another URL or override settings, but\nnot both.\n"
+              "description": "The set of actions to perform if the targets of this rule match the\nrequest. Actions can redirect to another URL or override settings, but\nnot both."
             },
             "priority": {
-              "$ref": "#/$defs/zones_priority",
               "default": 1,
-              "description": "The priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A.\n"
+              "description": "The priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A.",
+              "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/zones_status",
               "default": "disabled",
-              "description": "The status of the Page Rule."
+              "description": "The status of the Page Rule.",
+              "enum": [
+                "active",
+                "disabled"
+              ],
+              "type": "string"
             },
             "targets": {
               "$ref": "#/$defs/zones_targets",
@@ -140,10 +136,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -156,6 +153,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zones_actions": zones_actions$,
         "zones_always_use_https": zones_always_use_https$,
@@ -178,13 +176,11 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control$,
         "zones_forwarding_url": zones_forwarding_url$,
         "zones_host_header_override": zones_host_header_override$,
-        "zones_identifier-2": zones_identifier$$2$,
         "zones_ip_geolocation": zones_ip_geolocation$,
         "zones_mirage": zones_mirage$,
         "zones_opportunistic_encryption": zones_opportunistic_encryption$,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru$,
         "zones_polish": zones_polish$,
-        "zones_priority": zones_priority$,
         "zones_resolve_override": zones_resolve_override$,
         "zones_respect_strong_etag": zones_respect_strong_etag$,
         "zones_response_buffering": zones_response_buffering$,
@@ -192,7 +188,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level$,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache$,
         "zones_ssl": zones_ssl$,
-        "zones_status": zones_status$,
         "zones_string_constraint": zones_string_constraint$,
         "zones_target": zones_target$,
         "zones_targets": zones_targets$,
@@ -229,7 +224,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -239,16 +233,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -256,7 +247,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -316,7 +306,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -326,16 +315,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -343,7 +329,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -360,19 +345,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pageRules_delete",
     title: "Delete a Page Rule",
-    description: "Deletes an existing Page Rule.",
+    description: "Deletes an existing Page Rule.\n\nDELETE /zones/{zone_id}/pagerules/{pagerule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pagerule_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -385,16 +371,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zones_api-response-single-id-2",
       $defs: {
         "zones_api-response-common-2": zones_api$$response$$common$$2,
         "zones_api-response-single-id-2": zones_api$$response$$single$$id$$2,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_messages-2": zones_messages$$2,
       },
     },
@@ -426,7 +409,6 @@ export const tools: readonly Tool[] = [
         "zones_api-response-common-2": zones_api$$response$$common$$2,
         "zones_api-response-common-failure-2": zones_api$$response$$common$$failure$$2,
         "zones_api-response-single-id-2": zones_api$$response$$single$$id$$2,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_messages-2": zones_messages$$2,
       },
     },
@@ -437,7 +419,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pageRules_edit",
     title: "Edit a Page Rule",
-    description: "Updates one or more fields of an existing Page Rule.",
+    description: "Updates one or more fields of an existing Page Rule.\n\nPATCH /zones/{zone_id}/pagerules/{pagerule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -445,17 +427,21 @@ export const tools: readonly Tool[] = [
           "properties": {
             "actions": {
               "$ref": "#/$defs/zones_actions",
-              "description": "The set of actions to perform if the targets of this rule match the\nrequest. Actions can redirect to another URL or override settings, but\nnot both.\n"
+              "description": "The set of actions to perform if the targets of this rule match the\nrequest. Actions can redirect to another URL or override settings, but\nnot both."
             },
             "priority": {
-              "$ref": "#/$defs/zones_priority",
               "default": 1,
-              "description": "The priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A.\n"
+              "description": "The priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A.",
+              "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/zones_status",
               "default": "disabled",
-              "description": "The status of the Page Rule."
+              "description": "The status of the Page Rule.",
+              "enum": [
+                "active",
+                "disabled"
+              ],
+              "type": "string"
             },
             "targets": {
               "$ref": "#/$defs/zones_targets",
@@ -465,14 +451,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pagerule_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -486,6 +473,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zones_actions": zones_actions$,
         "zones_always_use_https": zones_always_use_https$,
@@ -508,13 +496,11 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control$,
         "zones_forwarding_url": zones_forwarding_url$,
         "zones_host_header_override": zones_host_header_override$,
-        "zones_identifier-2": zones_identifier$$2$,
         "zones_ip_geolocation": zones_ip_geolocation$,
         "zones_mirage": zones_mirage$,
         "zones_opportunistic_encryption": zones_opportunistic_encryption$,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru$,
         "zones_polish": zones_polish$,
-        "zones_priority": zones_priority$,
         "zones_resolve_override": zones_resolve_override$,
         "zones_respect_strong_etag": zones_respect_strong_etag$,
         "zones_response_buffering": zones_response_buffering$,
@@ -522,7 +508,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level$,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache$,
         "zones_ssl": zones_ssl$,
-        "zones_status": zones_status$,
         "zones_string_constraint": zones_string_constraint$,
         "zones_target": zones_target$,
         "zones_targets": zones_targets$,
@@ -559,7 +544,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -569,16 +553,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -586,7 +567,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -646,7 +626,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -656,16 +635,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -673,7 +649,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -690,19 +665,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pageRules_get",
     title: "Get a Page Rule",
-    description: "Fetches the details of a Page Rule.",
+    description: "Fetches the details of a Page Rule.\n\nGET /zones/{zone_id}/pagerules/{pagerule_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pagerule_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -715,9 +691,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -747,7 +721,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -757,16 +730,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -774,7 +744,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -871,7 +840,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -881,16 +849,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -898,7 +863,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -914,15 +878,16 @@ export const tools: readonly Tool[] = [
   {
     name: "pageRules_list",
     title: "List Page Rules",
-    description: "Fetches Page Rules in a zone.",
+    description: "Fetches Page Rules in a zone.\n\nGET /zones/{zone_id}/pagerules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -931,6 +896,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "desc",
@@ -975,9 +941,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zones_identifier-2": zones_identifier$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -1010,7 +974,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -1020,16 +983,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -1037,7 +997,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -1102,7 +1061,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -1112,16 +1070,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -1129,7 +1084,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -1151,7 +1105,7 @@ export const tools: readonly Tool[] = [
   {
     name: "pageRules_update",
     title: "Update a Page Rule",
-    description: "Replaces the configuration of an existing Page Rule. The configuration of the updated Page Rule will exactly match the data passed in the API request.",
+    description: "Replaces the configuration of an existing Page Rule. The configuration of the updated Page Rule will exactly match the data passed in the API request.\n\nPUT /zones/{zone_id}/pagerules/{pagerule_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1159,17 +1113,21 @@ export const tools: readonly Tool[] = [
           "properties": {
             "actions": {
               "$ref": "#/$defs/zones_actions",
-              "description": "The set of actions to perform if the targets of this rule match the\nrequest. Actions can redirect to another URL or override settings, but\nnot both.\n"
+              "description": "The set of actions to perform if the targets of this rule match the\nrequest. Actions can redirect to another URL or override settings, but\nnot both."
             },
             "priority": {
-              "$ref": "#/$defs/zones_priority",
               "default": 1,
-              "description": "The priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A.\n"
+              "description": "The priority of the rule, used to define which Page Rule is processed\nover another. A higher number indicates a higher priority. For example,\nif you have a catch-all Page Rule (rule A: `/images/*`) but want a more\nspecific Page Rule to take precedence (rule B: `/images/special/*`),\nspecify a higher priority for rule B so it overrides rule A.",
+              "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/zones_status",
               "default": "disabled",
-              "description": "The status of the Page Rule."
+              "description": "The status of the Page Rule.",
+              "enum": [
+                "active",
+                "disabled"
+              ],
+              "type": "string"
             },
             "targets": {
               "$ref": "#/$defs/zones_targets",
@@ -1183,14 +1141,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "pagerule_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/zones_identifier-2",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -1204,6 +1163,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zones_actions": zones_actions$,
         "zones_always_use_https": zones_always_use_https$,
@@ -1226,13 +1186,11 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control$,
         "zones_forwarding_url": zones_forwarding_url$,
         "zones_host_header_override": zones_host_header_override$,
-        "zones_identifier-2": zones_identifier$$2$,
         "zones_ip_geolocation": zones_ip_geolocation$,
         "zones_mirage": zones_mirage$,
         "zones_opportunistic_encryption": zones_opportunistic_encryption$,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru$,
         "zones_polish": zones_polish$,
-        "zones_priority": zones_priority$,
         "zones_resolve_override": zones_resolve_override$,
         "zones_respect_strong_etag": zones_respect_strong_etag$,
         "zones_response_buffering": zones_response_buffering$,
@@ -1240,7 +1198,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level$,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache$,
         "zones_ssl": zones_ssl$,
-        "zones_status": zones_status$,
         "zones_string_constraint": zones_string_constraint$,
         "zones_target": zones_target$,
         "zones_targets": zones_targets$,
@@ -1277,7 +1234,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -1287,16 +1243,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -1304,7 +1257,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,
@@ -1364,7 +1316,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
-        "zones_created_on": zones_created_on,
         "zones_disable_apps": zones_disable_apps,
         "zones_disable_performance": zones_disable_performance,
         "zones_disable_security": zones_disable_security,
@@ -1374,16 +1325,13 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
-        "zones_identifier-2": zones_identifier$$2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_messages-2": zones_messages$$2,
         "zones_mirage": zones_mirage,
-        "zones_modified_on": zones_modified_on,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
         "zones_origin_error_page_pass_thru": zones_origin_error_page_pass_thru,
         "zones_page_rule": zones_page_rule,
         "zones_polish": zones_polish,
-        "zones_priority": zones_priority,
         "zones_resolve_override": zones_resolve_override,
         "zones_respect_strong_etag": zones_respect_strong_etag,
         "zones_response_buffering": zones_response_buffering,
@@ -1391,7 +1339,6 @@ export const tools: readonly Tool[] = [
         "zones_security_level": zones_security_level,
         "zones_sort_query_string_for_cache": zones_sort_query_string_for_cache,
         "zones_ssl": zones_ssl,
-        "zones_status": zones_status,
         "zones_string_constraint": zones_string_constraint,
         "zones_target": zones_target,
         "zones_targets": zones_targets,

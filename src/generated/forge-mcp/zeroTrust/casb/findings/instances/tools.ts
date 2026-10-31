@@ -5,16 +5,12 @@ import { type Tool, param, pathParam } from "../../../../_/tool.js";
 import {
   posture$$api_DlpContext,
   posture$$api_ExportJob,
-  posture$$api_ExportJobTypeEnum,
-  posture$$api_RemediationJobStatusEnum,
-  posture$$api_StatusEnum,
   posture$$api_api$$response$$collection,
   posture$$api_api$$response$$common,
   posture$$api_export$$job$$response,
   posture$$api_messages,
   posture$$api_result$$info,
 } from "../../outputs.js";
-import { posture$$api_DirectionEnum } from "../../schemas.js";
 import {
   posture$$api_Asset,
   posture$$api_AssetCategory,
@@ -38,7 +34,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_instances_archive",
     title: "Archive a finding",
-    description: "Archive one or more finding instances.",
+    description: "Archive one or more finding instances.\n\nPOST /accounts/{account_id}/data-security/posture/findings/{finding_id}/instances/archive",
     inputSchema: {
       type: "object",
       properties: {
@@ -46,6 +42,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_FindingInstanceBulkActionRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -67,6 +64,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_FindingInstanceBulkActionRequest": posture$$api_FindingInstanceBulkActionRequest,
       },
@@ -79,7 +77,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -118,7 +115,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -134,7 +130,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_instances_export",
     title: "Create a finding instances export",
-    description: "Creates a CSV export for Finding instances and accepts optional filters in the payload.\n\nIdentify the finding as `<integration_id>-<finding_type_id>`: join the `integration.id` and\n`finding.id` of the finding (from the List posture findings response) with a hyphen.",
+    description: "Creates a CSV export for Finding instances and accepts optional filters in the payload.\n\nIdentify the finding as `<integration_id>-<finding_type_id>`: join the `integration.id` and\n`finding.id` of the finding (from the List posture findings response) with a hyphen.\n\nPOST /accounts/{account_id}/data-security/posture/findings/{storage_namespace_id}/instances/export",
     inputSchema: {
       type: "object",
       properties: {
@@ -142,6 +138,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_FindingInstanceExportFilterRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -162,8 +159,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_DirectionEnum": posture$$api_DirectionEnum,
         "posture-api_FindingInstanceExportFilterRequest": posture$$api_FindingInstanceExportFilterRequest,
         "posture-api_FindingInstanceExportOrderFilterRequest": posture$$api_FindingInstanceExportOrderFilterRequest,
       },
@@ -172,8 +169,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -207,8 +202,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -222,11 +215,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_instances_get",
     title: "Get a finding instance using an instance ID",
-    description: "Gets a security Finding instance by id.",
+    description: "Gets a security Finding instance by id.\n\nGET /accounts/{account_id}/data-security/posture/findings/{finding_id}/instances/{instance_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -254,6 +248,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_finding-instance-response",
@@ -263,7 +258,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -303,7 +297,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -318,11 +311,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_instances_list",
     title: "List instances of a finding",
-    description: "Lists all security finding instances for a given security finding.",
+    description: "Lists all security finding instances for a given security finding.\n\nGET /accounts/{account_id}/data-security/posture/findings/{finding_id}/instances",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -341,6 +335,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "archived": {
               "description": "Archived",
@@ -427,6 +422,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_paginated-finding-instance-list",
@@ -436,7 +432,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
@@ -477,7 +472,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-collection": posture$$api_api$$response$$collection,
@@ -508,7 +502,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_findings_instances_unarchive",
     title: "Remove the archive marking from a finding instance",
-    description: "Remove the archive marking from one or more finding instances.",
+    description: "Remove the archive marking from one or more finding instances.\n\nPOST /accounts/{account_id}/data-security/posture/findings/{finding_id}/instances/unarchive",
     inputSchema: {
       type: "object",
       properties: {
@@ -516,6 +510,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_FindingInstanceBulkActionRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -537,6 +532,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_FindingInstanceBulkActionRequest": posture$$api_FindingInstanceBulkActionRequest,
       },
@@ -549,7 +545,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
@@ -588,7 +583,6 @@ export const tools: readonly Tool[] = [
         "posture-api_AssetField": posture$$api_AssetField,
         "posture-api_DlpContext": posture$$api_DlpContext,
         "posture-api_FindingInstance": posture$$api_FindingInstance,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
         "posture-api_RemediationJobSummary": posture$$api_RemediationJobSummary,
         "posture-api_WebhookInvocationSummary": posture$$api_WebhookInvocationSummary,
         "posture-api_api-response-common": posture$$api_api$$response$$common,

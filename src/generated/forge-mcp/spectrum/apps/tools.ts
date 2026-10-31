@@ -6,68 +6,30 @@ import {
   spectrum$$config_api$$response$$collection,
   spectrum$$config_api$$response$$common,
   spectrum$$config_api$$response$$common$$failure,
-  spectrum$$config_identifier,
   spectrum$$config_messages,
 } from "../outputs.js";
-import {
-  spectrum$$config_identifier as spectrum$$config_identifier$,
-  spectrum$$config_zone_identifier,
-} from "../schemas.js";
 import {
   spectrum$$config_api$$response$$single,
   spectrum$$config_api$$response$$single$$id,
   spectrum$$config_app_config,
   spectrum$$config_app_config_collection,
   spectrum$$config_app_config_single,
-  spectrum$$config_app_identifier,
-  spectrum$$config_argo_smart_routing,
   spectrum$$config_base_app_config,
-  spectrum$$config_created,
   spectrum$$config_dns,
-  spectrum$$config_dns_name,
-  spectrum$$config_dns_ttl,
-  spectrum$$config_dns_type,
   spectrum$$config_edge_ips,
-  spectrum$$config_ip_firewall,
-  spectrum$$config_modified,
   spectrum$$config_origin_direct,
   spectrum$$config_origin_dns,
-  spectrum$$config_origin_dns_name,
-  spectrum$$config_origin_dns_type,
-  spectrum$$config_origin_port,
-  spectrum$$config_origin_worker_id,
   spectrum$$config_paygo_app_config,
-  spectrum$$config_protocol,
-  spectrum$$config_proxy_protocol,
-  spectrum$$config_timestamp,
-  spectrum$$config_tls,
-  spectrum$$config_traffic_type,
-  spectrum$$config_virtual_network_id,
 } from "./outputs.js";
 import {
   spectrum$$config_app_config as spectrum$$config_app_config$,
-  spectrum$$config_app_identifier as spectrum$$config_app_identifier$,
-  spectrum$$config_argo_smart_routing as spectrum$$config_argo_smart_routing$,
   spectrum$$config_base_app_config as spectrum$$config_base_app_config$,
   spectrum$$config_dns as spectrum$$config_dns$,
-  spectrum$$config_dns_name as spectrum$$config_dns_name$,
-  spectrum$$config_dns_ttl as spectrum$$config_dns_ttl$,
-  spectrum$$config_dns_type as spectrum$$config_dns_type$,
   spectrum$$config_edge_ips as spectrum$$config_edge_ips$,
-  spectrum$$config_ip_firewall as spectrum$$config_ip_firewall$,
   spectrum$$config_origin_direct as spectrum$$config_origin_direct$,
   spectrum$$config_origin_dns as spectrum$$config_origin_dns$,
-  spectrum$$config_origin_dns_name as spectrum$$config_origin_dns_name$,
-  spectrum$$config_origin_dns_type as spectrum$$config_origin_dns_type$,
-  spectrum$$config_origin_port as spectrum$$config_origin_port$,
-  spectrum$$config_origin_worker_id as spectrum$$config_origin_worker_id$,
   spectrum$$config_paygo_app_config as spectrum$$config_paygo_app_config$,
-  spectrum$$config_protocol as spectrum$$config_protocol$,
-  spectrum$$config_proxy_protocol as spectrum$$config_proxy_protocol$,
-  spectrum$$config_tls as spectrum$$config_tls$,
-  spectrum$$config_traffic_type as spectrum$$config_traffic_type$,
   spectrum$$config_update_app_config,
-  spectrum$$config_virtual_network_id as spectrum$$config_virtual_network_id$,
 } from "./schemas.js";
 
 /**
@@ -77,7 +39,7 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_apps_create",
     title: "Create Spectrum application using a name for the origin",
-    description: "Creates a new Spectrum application from a configuration using a name for the origin.",
+    description: "Creates a new Spectrum application from a configuration using a name for the origin.\n\nPOST /zones/{zone_id}/spectrum/apps",
     inputSchema: {
       type: "object",
       properties: {
@@ -85,10 +47,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/spectrum-config_update_app_config"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/spectrum-config_zone_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -101,31 +64,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "spectrum-config_app_config": spectrum$$config_app_config$,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing$,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config$,
         "spectrum-config_dns": spectrum$$config_dns$,
-        "spectrum-config_dns_name": spectrum$$config_dns_name$,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl$,
-        "spectrum-config_dns_type": spectrum$$config_dns_type$,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips$,
-        "spectrum-config_identifier": spectrum$$config_identifier$,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall$,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct$,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns$,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name$,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type$,
-        "spectrum-config_origin_port": spectrum$$config_origin_port$,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id$,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config$,
-        "spectrum-config_protocol": spectrum$$config_protocol$,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol$,
-        "spectrum-config_tls": spectrum$$config_tls$,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type$,
         "spectrum-config_update_app_config": spectrum$$config_update_app_config,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id$,
-        "spectrum-config_zone_identifier": spectrum$$config_zone_identifier,
       },
     },
     outputSchema: {
@@ -134,32 +82,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     annotations: {
@@ -190,32 +119,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -226,19 +136,20 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_apps_delete",
     title: "Delete Spectrum application",
-    description: "Deletes a previously existing application.",
+    description: "Deletes a previously existing application.\n\nDELETE /zones/{zone_id}/spectrum/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "app_id": {
-              "$ref": "#/$defs/spectrum-config_app_identifier",
-              "description": "App identifier."
+              "description": "App identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/spectrum-config_zone_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -251,18 +162,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier$,
-        "spectrum-config_identifier": spectrum$$config_identifier$,
-        "spectrum-config_zone_identifier": spectrum$$config_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_api-response-single-id",
       $defs: {
         "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
         "spectrum-config_api-response-single-id": spectrum$$config_api$$response$$single$$id,
-        "spectrum-config_identifier": spectrum$$config_identifier,
         "spectrum-config_messages": spectrum$$config_messages,
       },
     },
@@ -293,7 +199,6 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
         "spectrum-config_api-response-common-failure": spectrum$$config_api$$response$$common$$failure,
         "spectrum-config_api-response-single-id": spectrum$$config_api$$response$$single$$id,
-        "spectrum-config_identifier": spectrum$$config_identifier,
         "spectrum-config_messages": spectrum$$config_messages,
       },
     },
@@ -304,19 +209,20 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_apps_get",
     title: "Get Spectrum application configuration",
-    description: "Gets the application configuration of a specific application inside a zone.",
+    description: "Gets the application configuration of a specific application inside a zone.\n\nGET /zones/{zone_id}/spectrum/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "app_id": {
-              "$ref": "#/$defs/spectrum-config_app_identifier",
-              "description": "App identifier."
+              "description": "App identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/spectrum-config_zone_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -329,11 +235,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier$,
-        "spectrum-config_identifier": spectrum$$config_identifier$,
-        "spectrum-config_zone_identifier": spectrum$$config_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_app_config_single",
@@ -341,32 +243,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     annotations: {
@@ -398,32 +281,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -433,15 +297,16 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_apps_list",
     title: "List Spectrum applications",
-    description: "Retrieves a list of currently existing Spectrum applications inside a zone.",
+    description: "Retrieves a list of currently existing Spectrum applications inside a zone.\n\nGET /zones/{zone_id}/spectrum/apps",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/spectrum-config_zone_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -450,6 +315,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -488,10 +354,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "spectrum-config_identifier": spectrum$$config_identifier$,
-        "spectrum-config_zone_identifier": spectrum$$config_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_app_config_collection",
@@ -500,32 +363,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_collection": spectrum$$config_app_config_collection,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     annotations: {
@@ -558,32 +402,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-common-failure": spectrum$$config_api$$response$$common$$failure,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_collection": spectrum$$config_app_config_collection,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     request: (args) => ({
@@ -599,7 +424,7 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_apps_update",
     title: "Update Spectrum application configuration using a name for the origin",
-    description: "Updates a previously existing application's configuration that uses a name for the origin.",
+    description: "Updates a previously existing application's configuration that uses a name for the origin.\n\nPUT /zones/{zone_id}/spectrum/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -607,14 +432,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/spectrum-config_update_app_config"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "app_id": {
-              "$ref": "#/$defs/spectrum-config_app_identifier",
-              "description": "App identifier."
+              "description": "App identifier.",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/spectrum-config_zone_identifier",
-              "description": "Zone identifier."
+              "description": "Zone identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -628,32 +454,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "spectrum-config_app_config": spectrum$$config_app_config$,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier$,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing$,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config$,
         "spectrum-config_dns": spectrum$$config_dns$,
-        "spectrum-config_dns_name": spectrum$$config_dns_name$,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl$,
-        "spectrum-config_dns_type": spectrum$$config_dns_type$,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips$,
-        "spectrum-config_identifier": spectrum$$config_identifier$,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall$,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct$,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns$,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name$,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type$,
-        "spectrum-config_origin_port": spectrum$$config_origin_port$,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id$,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config$,
-        "spectrum-config_protocol": spectrum$$config_protocol$,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol$,
-        "spectrum-config_tls": spectrum$$config_tls$,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type$,
         "spectrum-config_update_app_config": spectrum$$config_update_app_config,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id$,
-        "spectrum-config_zone_identifier": spectrum$$config_zone_identifier,
       },
     },
     outputSchema: {
@@ -662,32 +472,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     annotations: {
@@ -718,32 +509,13 @@ export const tools: readonly Tool[] = [
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
-        "spectrum-config_app_identifier": spectrum$$config_app_identifier,
-        "spectrum-config_argo_smart_routing": spectrum$$config_argo_smart_routing,
         "spectrum-config_base_app_config": spectrum$$config_base_app_config,
-        "spectrum-config_created": spectrum$$config_created,
         "spectrum-config_dns": spectrum$$config_dns,
-        "spectrum-config_dns_name": spectrum$$config_dns_name,
-        "spectrum-config_dns_ttl": spectrum$$config_dns_ttl,
-        "spectrum-config_dns_type": spectrum$$config_dns_type,
         "spectrum-config_edge_ips": spectrum$$config_edge_ips,
-        "spectrum-config_identifier": spectrum$$config_identifier,
-        "spectrum-config_ip_firewall": spectrum$$config_ip_firewall,
         "spectrum-config_messages": spectrum$$config_messages,
-        "spectrum-config_modified": spectrum$$config_modified,
         "spectrum-config_origin_direct": spectrum$$config_origin_direct,
         "spectrum-config_origin_dns": spectrum$$config_origin_dns,
-        "spectrum-config_origin_dns_name": spectrum$$config_origin_dns_name,
-        "spectrum-config_origin_dns_type": spectrum$$config_origin_dns_type,
-        "spectrum-config_origin_port": spectrum$$config_origin_port,
-        "spectrum-config_origin_worker_id": spectrum$$config_origin_worker_id,
         "spectrum-config_paygo_app_config": spectrum$$config_paygo_app_config,
-        "spectrum-config_protocol": spectrum$$config_protocol,
-        "spectrum-config_proxy_protocol": spectrum$$config_proxy_protocol,
-        "spectrum-config_timestamp": spectrum$$config_timestamp,
-        "spectrum-config_tls": spectrum$$config_tls,
-        "spectrum-config_traffic_type": spectrum$$config_traffic_type,
-        "spectrum-config_virtual_network_id": spectrum$$config_virtual_network_id,
       },
     },
     request: (args) => ({

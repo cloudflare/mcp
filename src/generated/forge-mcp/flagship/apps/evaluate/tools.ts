@@ -17,11 +17,12 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_evaluate_get",
     title: "Evaluate flag from query context",
-    description: "Evaluates a flag against the provided context. Pass context attributes as query parameters; values are coerced to numbers or booleans where unambiguous. For low-latency in-Worker evaluation, prefer the Flagship binding over this endpoint.\n\nThis method is beta.",
+    description: "Evaluates a flag against the provided context. Pass context attributes as query parameters; values are coerced to numbers or booleans where unambiguous. For low-latency in-Worker evaluation, prefer the Flagship binding over this endpoint.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}/evaluate",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID that owns the Flagship app.",
@@ -39,6 +40,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "flagKey": {
               "description": "The flag key to evaluate.",
@@ -59,6 +61,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/flagship_EvaluationResult",

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_permissions_create",
     title: "Grant access to a dataset",
-    description: "Gives an account or account group (`subjectType` and `subjectId`) `read` or `write` access to a dataset.",
+    description: "Gives an account or account group (`subjectType` and `subjectId`) `read` or `write` access to a dataset.\n\nPOST /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/permissions",
     inputSchema: {
       type: "object",
       properties: {
@@ -42,6 +42,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -63,6 +64,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -223,11 +225,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_permissions_delete",
     title: "Revoke access to a dataset",
-    description: "Removes an access grant from a dataset.",
+    description: "Removes an access grant from a dataset.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/permissions/{grant_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -253,6 +256,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -361,11 +365,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_permissions_list",
     title: "List dataset permissions",
-    description: "Lists the access grants on a dataset.",
+    description: "Lists the access grants on a dataset.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/permissions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -387,6 +392,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -582,7 +588,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_threatIntel_datasets_access_permissions_update",
     title: "Change a dataset permission",
-    description: "Changes the `role` of an access grant to `read` or `write`.",
+    description: "Changes the `role` of an access grant to `read` or `write`.\n\nPUT /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/permissions/{grant_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -602,6 +608,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Account ID.",
@@ -627,6 +634,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

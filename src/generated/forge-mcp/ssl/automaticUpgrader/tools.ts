@@ -8,8 +8,7 @@ import {
   cache_messages,
   cache_result,
 } from "../outputs.js";
-import { cache_identifier } from "../schemas.js";
-import { cache_schemas_patch, cache_schemas_value } from "./schemas.js";
+import { cache_schemas_patch } from "./schemas.js";
 
 /**
  * The tools of `ssl.automaticUpgrader`.
@@ -18,14 +17,15 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_automaticUpgrader_get",
     title: "Get Automatic SSL/TLS enrollment status for the given zone",
-    description: "If the system is enabled, the response will include next_scheduled_scan, representing the next time this zone will be scanned and the zone's ssl/tls encryption mode is potentially upgraded by the system. If the system is disabled, next_scheduled_scan will not be present in the response body.",
+    description: "If the system is enabled, the response will include next_scheduled_scan, representing the next time this zone will be scanned and the zone's ssl/tls encryption mode is potentially upgraded by the system. If the system is disabled, next_scheduled_scan will not be present in the response body.\n\nGET /zones/{zone_id}/settings/ssl_automatic_mode",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -37,9 +37,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "cache_identifier": cache_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cache_api-response-single-id",
@@ -100,7 +98,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_automaticUpgrader_patch",
     title: "Patch Automatic SSL/TLS Enrollment status for given zone",
-    description: "The automatic system is enabled when this endpoint is hit with value in the request body is set to \"auto\", and disabled when the request body value is set to \"custom\".",
+    description: "The automatic system is enabled when this endpoint is hit with value in the request body is set to \"auto\", and disabled when the request body value is set to \"custom\".\n\nPATCH /zones/{zone_id}/settings/ssl_automatic_mode",
     inputSchema: {
       type: "object",
       properties: {
@@ -108,9 +106,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache_schemas_patch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/cache_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -123,10 +122,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache_identifier": cache_identifier,
         "cache_schemas_patch": cache_schemas_patch,
-        "cache_schemas_value": cache_schemas_value,
       },
     },
     outputSchema: {

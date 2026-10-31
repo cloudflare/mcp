@@ -7,11 +7,9 @@ import {
   client$$side$$security_api$$list$$response$$collection,
   client$$side$$security_api$$response$$common,
   client$$side$$security_api$$response$$common$$failure,
-  client$$side$$security_id,
   client$$side$$security_messages,
   client$$side$$security_result_info,
 } from "../outputs.js";
-import { client$$side$$security_id as client$$side$$security_id$ } from "../schemas.js";
 import {
   client$$side$$security_connection,
   client$$side$$security_get$$zone$$connection$$response,
@@ -25,19 +23,20 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_connections_get",
     title: "Get a detected connection",
-    description: "Returns a webpage connection detected on the zone by connection ID.",
+    description: "Returns a webpage connection detected on the zone by connection ID.\n\nGET /zones/{zone_id}/page_shield/connections/{connection_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "connection_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -50,9 +49,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_get-zone-connection-response",
@@ -61,7 +58,6 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_connection": client$$side$$security_connection,
         "client-side-security_get-zone-connection-response": client$$side$$security_get$$zone$$connection$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
       },
     },
@@ -105,7 +101,6 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
         "client-side-security_connection": client$$side$$security_connection,
         "client-side-security_get-zone-connection-response": client$$side$$security_get$$zone$$connection$$response,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_messages": client$$side$$security_messages,
       },
     },
@@ -116,15 +111,16 @@ export const tools: readonly Tool[] = [
   {
     name: "clientSideSecurity_connections_list",
     title: "List detected connections",
-    description: "Lists outbound connections made by webpages in the zone.",
+    description: "Lists outbound connections made by webpages in the zone.\n\nGET /zones/{zone_id}/page_shield/connections",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/client-side-security_id",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -133,6 +129,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The direction used to sort returned connections.",
@@ -147,7 +144,7 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "exclude_urls": {
-              "description": "Excludes connections whose URL contains one of the URL-encoded URLs separated by commas.\n",
+              "description": "Excludes connections whose URL contains one of the URL-encoded URLs separated by commas.",
               "type": "string"
             },
             "export": {
@@ -158,7 +155,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "hosts": {
-              "description": "Includes connections that match one or more URL-encoded hostnames separated by commas.\n\nWildcards are supported at the start and end of each hostname to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match\n",
+              "description": "Includes connections that match one or more URL-encoded hostnames separated by commas.\n\nWildcards are supported at the start and end of each hostname to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match",
               "type": "string"
             },
             "order_by": {
@@ -170,11 +167,11 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "page": {
-              "description": "The current page number of the paginated results.\n\nWe additionally support a special value \"all\". When \"all\" is used, the API will return all the connections\nwith the applied filters in a single page. This feature is best-effort and it may only work for zones with\na low number of connections\n",
+              "description": "The current page number of the paginated results.\n\nWe additionally support a special value \"all\". When \"all\" is used, the API will return all the connections\nwith the applied filters in a single page. This feature is best-effort and it may only work for zones with\na low number of connections",
               "type": "string"
             },
             "page_url": {
-              "description": "Includes connections that match one or more page URLs (separated by commas) where they were last seen\n\nWildcards are supported at the start and end of each page URL to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match\n",
+              "description": "Includes connections that match one or more page URLs (separated by commas) where they were last seen\n\nWildcards are supported at the start and end of each page URL to support starts with, ends with\nand contains. If no wildcards are used, results will be filtered by exact match",
               "type": "string"
             },
             "per_page": {
@@ -190,7 +187,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "urls": {
-              "description": "Includes connections whose URL contain one or more URL-encoded URLs separated by commas.\n",
+              "description": "Includes connections whose URL contain one or more URL-encoded URLs separated by commas.",
               "type": "string"
             }
           },
@@ -200,9 +197,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "client-side-security_id": client$$side$$security_id$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/client-side-security_list-zone-connections-response",
@@ -210,7 +205,6 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-list-response-collection": client$$side$$security_api$$list$$response$$collection,
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_connection": client$$side$$security_connection,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_list-zone-connections-response": client$$side$$security_list$$zone$$connections$$response,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_result_info": client$$side$$security_result_info,
@@ -255,7 +249,6 @@ export const tools: readonly Tool[] = [
         "client-side-security_api-response-common": client$$side$$security_api$$response$$common,
         "client-side-security_api-response-common-failure": client$$side$$security_api$$response$$common$$failure,
         "client-side-security_connection": client$$side$$security_connection,
-        "client-side-security_id": client$$side$$security_id,
         "client-side-security_list-zone-connections-response": client$$side$$security_list$$zone$$connections$$response,
         "client-side-security_messages": client$$side$$security_messages,
         "client-side-security_result_info": client$$side$$security_result_info,

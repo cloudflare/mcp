@@ -28,19 +28,19 @@ export const digital$$experience$$monitoring_commands_devices_response: JsonSche
             "type": "string"
           },
           "platform": {
-            "$ref": "#/$defs/digital-experience-monitoring_platform"
+            "type": "string"
           },
           "registrationId": {
             "type": "string"
           },
           "status": {
-            "$ref": "#/$defs/digital-experience-monitoring_status"
+            "type": "string"
           },
           "timestamp": {
-            "$ref": "#/$defs/digital-experience-monitoring_timestamp"
+            "type": "string"
           },
           "version": {
-            "$ref": "#/$defs/digital-experience-monitoring_version"
+            "type": "string"
           }
         },
         "type": "object"

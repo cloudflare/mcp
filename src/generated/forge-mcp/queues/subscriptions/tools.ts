@@ -8,7 +8,6 @@ import {
   mq_api$$v4$$message,
   mq_api$$v4$$success,
 } from "../outputs.js";
-import { mq_identifier } from "../schemas.js";
 import {
   mq_event$$destination,
   mq_event$$destination$$queue,
@@ -46,7 +45,7 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_subscriptions_create",
     title: "Create Event Subscription",
-    description: "Creates an event subscription for a Queue.",
+    description: "Creates an event subscription for a Queue.\n\nPOST /accounts/{account_id}/event_subscriptions/subscriptions",
     inputSchema: {
       type: "object",
       properties: {
@@ -80,10 +79,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -96,6 +96,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "mq_event-destination": mq_event$$destination$,
         "mq_event-destination-queue": mq_event$$destination$$queue$,
@@ -109,7 +110,6 @@ export const tools: readonly Tool[] = [
         "mq_event-source-workers-builds-worker": mq_event$$source$$workers$$builds$$worker$,
         "mq_event-source-workers-script": mq_event$$source$$workers$$script$,
         "mq_event-source-workflows-workflow": mq_event$$source$$workflows$$workflow$,
-        "mq_identifier": mq_identifier,
       },
     },
     outputSchema: {
@@ -215,19 +215,20 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_subscriptions_delete",
     title: "Delete Event Subscription",
-    description: "Deletes an existing Queue event subscription.",
+    description: "Deletes an existing Queue event subscription.\n\nDELETE /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "subscription_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -240,9 +241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -340,19 +339,20 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_subscriptions_get",
     title: "Get Event Subscription",
-    description: "Returns an existing Queue event subscription.",
+    description: "Returns an existing Queue event subscription.\n\nGET /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "subscription_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -365,9 +365,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -465,15 +463,16 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_subscriptions_list",
     title: "List Event Subscriptions",
-    description: "Returns a paginated list of Queue event subscriptions with optional sorting and filtering.",
+    description: "Returns a paginated list of Queue event subscriptions with optional sorting and filtering.\n\nGET /accounts/{account_id}/event_subscriptions/subscriptions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -482,6 +481,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "default": "asc",
@@ -520,9 +520,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -688,7 +686,7 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_subscriptions_update",
     title: "Update Event Subscription",
-    description: "Updates an existing Queue event subscription.",
+    description: "Updates an existing Queue event subscription.\n\nPATCH /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -718,14 +716,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             },
             "subscription_id": {
-              "$ref": "#/$defs/mq_identifier",
-              "description": "A Resource identifier."
+              "description": "A Resource identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -739,10 +738,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "mq_event-destination": mq_event$$destination$,
         "mq_event-destination-queue": mq_event$$destination$$queue$,
-        "mq_identifier": mq_identifier,
       },
     },
     outputSchema: {

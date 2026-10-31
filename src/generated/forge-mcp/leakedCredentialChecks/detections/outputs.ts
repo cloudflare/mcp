@@ -38,7 +38,7 @@ export const waf$$product$$api$$bundle_api$$response$$collection: JsonSchema = {
 export const waf$$product$$api$$bundle_custom$$detection: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/waf-product-api-bundle_detection-id"
+      "type": "string"
     },
     "password": {
       "type": "string"
@@ -48,13 +48,6 @@ export const waf$$product$$api$$bundle_custom$$detection: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `waf-product-api-bundle_detection-id` in responses.
- */
-export const waf$$product$$api$$bundle_detection$$id: JsonSchema = {
-  "$ref": "#/$defs/waf-product-api-bundle_identifier"
 };
 
 /**

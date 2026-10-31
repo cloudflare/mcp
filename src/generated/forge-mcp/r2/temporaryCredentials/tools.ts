@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../outputs.js";
-import { r2_account_identifier } from "../schemas.js";
 import { r2_temp_access_creds_response } from "./outputs.js";
 import { r2_temp_access_creds_request } from "./schemas.js";
 
@@ -19,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_temporaryCredentials_create",
     title: "Create Temporary Access Credentials",
-    description: "Creates temporary access credentials on a bucket that can be optionally scoped to prefixes or objects.",
+    description: "Creates temporary access credentials on a bucket that can be optionally scoped to prefixes or objects.\n\nPOST /accounts/{account_id}/r2/temp-access-credentials",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,10 +26,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2_temp_access_creds_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,8 +43,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
         "r2_temp_access_creds_request": r2_temp_access_creds_request,
       },
     },

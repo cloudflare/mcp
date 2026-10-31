@@ -12,7 +12,7 @@ export const workers_tail: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/workers_identifier"
+      "type": "string"
     },
     "url": {
       "type": "string"

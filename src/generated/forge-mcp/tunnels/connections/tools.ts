@@ -6,30 +6,13 @@ import {
   tunnel_api$$response$$collection,
   tunnel_api$$response$$common,
   tunnel_api$$response$$common$$failure,
-  tunnel_arch,
-  tunnel_client_id,
-  tunnel_colo_name,
-  tunnel_connection_id,
   tunnel_empty_response,
   tunnel_features,
-  tunnel_ip,
-  tunnel_is_pending_reconnect,
   tunnel_messages,
   tunnel_result_info,
-  tunnel_run_at,
   tunnel_schemas$$connection,
-  tunnel_version,
 } from "../../outputs.js";
-import {
-  tunnel_account_id,
-  tunnel_client_id as tunnel_client_id$,
-  tunnel_tunnel_id,
-} from "../../schemas.js";
-import {
-  tunnel_config_version,
-  tunnel_connections,
-  tunnel_tunnel_client,
-} from "../outputs.js";
+import { tunnel_connections, tunnel_tunnel_client } from "../outputs.js";
 import { tunnel_tunnel_connections_response } from "./outputs.js";
 
 /**
@@ -39,19 +22,21 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnels_connections_cleanup",
     title: "Clean up Cloudflare Tunnel connections",
-    description: "Removes a connection (aka Cloudflare Tunnel Connector) from a Cloudflare Tunnel independently of its current state. If no connector id (client_id) is provided all connectors will be removed. We recommend running this command after rotating tokens.\n\nConfirm with the user before calling this tool. This operation removes Cloudflare Tunnel connections.",
+    description: "Removes a connection (aka Cloudflare Tunnel Connector) from a Cloudflare Tunnel independently of its current state. If no connector id (client_id) is provided all connectors will be removed. We recommend running this command after rotating tokens.\n\nConfirm with the user before calling this tool. This operation removes Cloudflare Tunnel connections.\n\nDELETE /accounts/{account_id}/cfd_tunnel/{tunnel_id}/connections",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -61,10 +46,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "client_id": {
-              "$ref": "#/$defs/tunnel_client_id",
-              "description": "UUID of the Cloudflare Tunnel connector."
+              "description": "UUID of the Cloudflare Tunnel connector.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "type": "object"
@@ -73,11 +60,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_client_id": tunnel_client_id$,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_empty_response",
@@ -136,19 +119,21 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnels_connections_list",
     title: "List Cloudflare Tunnel connections",
-    description: "Lists the connections for a Cloudflare Tunnel, including connector IDs, cloudflared versions, and Cloudflare locations.",
+    description: "Lists the connections for a Cloudflare Tunnel, including connector IDs, cloudflared versions, and Cloudflare locations.\n\nGET /accounts/{account_id}/cfd_tunnel/{tunnel_id}/connections",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -161,32 +146,20 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_tunnel_connections_response",
       $defs: {
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
-        "tunnel_arch": tunnel_arch,
-        "tunnel_client_id": tunnel_client_id,
-        "tunnel_colo_name": tunnel_colo_name,
-        "tunnel_config_version": tunnel_config_version,
-        "tunnel_connection_id": tunnel_connection_id,
         "tunnel_connections": tunnel_connections,
         "tunnel_features": tunnel_features,
-        "tunnel_ip": tunnel_ip,
-        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_run_at": tunnel_run_at,
         "tunnel_schemas-connection": tunnel_schemas$$connection,
         "tunnel_tunnel_client": tunnel_tunnel_client,
         "tunnel_tunnel_connections_response": tunnel_tunnel_connections_response,
-        "tunnel_version": tunnel_version,
       },
     },
     annotations: {
@@ -228,22 +201,13 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-collection": tunnel_api$$response$$collection,
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
-        "tunnel_arch": tunnel_arch,
-        "tunnel_client_id": tunnel_client_id,
-        "tunnel_colo_name": tunnel_colo_name,
-        "tunnel_config_version": tunnel_config_version,
-        "tunnel_connection_id": tunnel_connection_id,
         "tunnel_connections": tunnel_connections,
         "tunnel_features": tunnel_features,
-        "tunnel_ip": tunnel_ip,
-        "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect,
         "tunnel_messages": tunnel_messages,
         "tunnel_result_info": tunnel_result_info,
-        "tunnel_run_at": tunnel_run_at,
         "tunnel_schemas-connection": tunnel_schemas$$connection,
         "tunnel_tunnel_client": tunnel_tunnel_client,
         "tunnel_tunnel_connections_response": tunnel_tunnel_connections_response,
-        "tunnel_version": tunnel_version,
       },
     },
     request: (args) => ({

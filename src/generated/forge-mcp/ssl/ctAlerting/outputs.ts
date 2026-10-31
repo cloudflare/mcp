@@ -16,14 +16,6 @@ export const tls$$certificates$$and$$hostnames_ct_alerting_emails: JsonSchema = 
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_ct_alerting_enabled` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_ct_alerting_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_ct_alerting_subscription` in
  * responses.
  */
@@ -33,7 +25,7 @@ export const tls$$certificates$$and$$hostnames_ct_alerting_subscription: JsonSch
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_emails"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_enabled"
+      "type": "boolean"
     }
   },
   "required": [

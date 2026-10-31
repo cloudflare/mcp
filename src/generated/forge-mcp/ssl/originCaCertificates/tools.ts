@@ -9,28 +9,14 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls$$certificates$$and$$hostnames_certificate$$4,
   tls$$certificates$$and$$hostnames_certificate_response_collection$$2,
   tls$$certificates$$and$$hostnames_certificate_response_single$$2,
   tls$$certificates$$and$$hostnames_certificate_revoke_response,
   tls$$certificates$$and$$hostnames_certificates,
-  tls$$certificates$$and$$hostnames_csr,
-  tls$$certificates$$and$$hostnames_expires_on$$3,
   tls$$certificates$$and$$hostnames_hostnames,
-  tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-  tls$$certificates$$and$$hostnames_request_type,
-  tls$$certificates$$and$$hostnames_requested_validity,
-  tls$$certificates$$and$$hostnames_revoked_at,
 } from "./outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_csr as tls$$certificates$$and$$hostnames_csr$,
-  tls$$certificates$$and$$hostnames_hostnames as tls$$certificates$$and$$hostnames_hostnames$,
-  tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier as tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier$,
-  tls$$certificates$$and$$hostnames_request_type as tls$$certificates$$and$$hostnames_request_type$,
-  tls$$certificates$$and$$hostnames_requested_validity as tls$$certificates$$and$$hostnames_requested_validity$,
-} from "./schemas.js";
+import { tls$$certificates$$and$$hostnames_hostnames as tls$$certificates$$and$$hostnames_hostnames$ } from "./schemas.js";
 
 /**
  * The tools of `ssl.originCaCertificates`.
@@ -39,28 +25,42 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originCaCertificates_create",
     title: "Create Certificate",
-    description: "Create an Origin CA certificate. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).",
+    description: "Create an Origin CA certificate. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nPOST /certificates",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "csr": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_csr",
-              "description": "The Certificate Signing Request (CSR). Must be newline-encoded."
+              "description": "The Certificate Signing Request (CSR). Must be newline-encoded.",
+              "type": "string"
             },
             "hostnames": {
               "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames",
               "description": "Array of hostnames or wildcard names bound to the certificate.\nHostnames must be fully qualified domain names (FQDNs) belonging to zones on your account (e.g., `example.com` or `sub.example.com`). Wildcards are supported only as a `*.` prefix for a single level (e.g., `*.example.com`). Double wildcards (`*.*.example.com`) and interior wildcards (`foo.*.example.com`) are not allowed. The wildcard suffix must be a multi-label domain (`*.example.com` is valid, but `*.com` is not). Unicode/IDN hostnames are accepted and automatically converted to punycode."
             },
             "request_type": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_request_type",
-              "description": "Signature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers)."
+              "description": "Signature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers).",
+              "enum": [
+                "origin-rsa",
+                "origin-ecc",
+                "keyless-certificate"
+              ],
+              "type": "string"
             },
             "requested_validity": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_requested_validity",
               "default": 5475,
-              "description": "The number of days for which the certificate should be valid."
+              "description": "The number of days for which the certificate should be valid.",
+              "enum": [
+                7,
+                30,
+                90,
+                365,
+                730,
+                1095,
+                5475
+              ],
+              "type": "integer"
             }
           },
           "required": [
@@ -74,27 +74,19 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr$,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames$,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type$,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-2",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-4": tls$$certificates$$and$$hostnames_certificate$$4,
         "tls-certificates-and-hostnames_certificate_response_single-2": tls$$certificates$$and$$hostnames_certificate_response_single$$2,
         "tls-certificates-and-hostnames_certificates": tls$$certificates$$and$$hostnames_certificates,
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr,
-        "tls-certificates-and-hostnames_expires_on-3": tls$$certificates$$and$$hostnames_expires_on$$3,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity,
       },
     },
     annotations: {
@@ -133,16 +125,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-4": tls$$certificates$$and$$hostnames_certificate$$4,
         "tls-certificates-and-hostnames_certificate_response_single-2": tls$$certificates$$and$$hostnames_certificate_response_single$$2,
         "tls-certificates-and-hostnames_certificates": tls$$certificates$$and$$hostnames_certificates,
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr,
-        "tls-certificates-and-hostnames_expires_on-3": tls$$certificates$$and$$hostnames_expires_on$$3,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity,
       },
     },
     request: (args) => ({
@@ -153,15 +139,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originCaCertificates_delete",
     title: "Revoke Certificate",
-    description: "Revoke an existing Origin CA certificate by its serial number. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).",
+    description: "Revoke an existing Origin CA certificate by its serial number. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nDELETE /certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_origin_ca_certificate_identifier",
-              "description": "The x509 serial number of the Origin CA certificate."
+              "description": "The x509 serial number of the Origin CA certificate.",
+              "type": "string"
             }
           },
           "required": [
@@ -173,16 +160,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_revoke_response",
       $defs: {
         "tls-certificates-and-hostnames_certificate_revoke_response": tls$$certificates$$and$$hostnames_certificate_revoke_response,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_revoked_at": tls$$certificates$$and$$hostnames_revoked_at,
       },
     },
     annotations: {
@@ -222,8 +205,6 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_certificate_revoke_response": tls$$certificates$$and$$hostnames_certificate_revoke_response,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_revoked_at": tls$$certificates$$and$$hostnames_revoked_at,
       },
     },
     request: (args) => ({
@@ -233,15 +214,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originCaCertificates_get",
     title: "Get Certificate",
-    description: "Get an existing Origin CA certificate by its serial number. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).",
+    description: "Get an existing Origin CA certificate by its serial number. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nGET /certificates/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "certificate_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_origin_ca_certificate_identifier",
-              "description": "The x509 serial number of the Origin CA certificate."
+              "description": "The x509 serial number of the Origin CA certificate.",
+              "type": "string"
             }
           },
           "required": [
@@ -253,24 +235,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-2",
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-4": tls$$certificates$$and$$hostnames_certificate$$4,
         "tls-certificates-and-hostnames_certificate_response_single-2": tls$$certificates$$and$$hostnames_certificate_response_single$$2,
         "tls-certificates-and-hostnames_certificates": tls$$certificates$$and$$hostnames_certificates,
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr,
-        "tls-certificates-and-hostnames_expires_on-3": tls$$certificates$$and$$hostnames_expires_on$$3,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity,
       },
     },
     annotations: {
@@ -309,16 +283,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate-4": tls$$certificates$$and$$hostnames_certificate$$4,
         "tls-certificates-and-hostnames_certificate_response_single-2": tls$$certificates$$and$$hostnames_certificate_response_single$$2,
         "tls-certificates-and-hostnames_certificates": tls$$certificates$$and$$hostnames_certificates,
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr,
-        "tls-certificates-and-hostnames_expires_on-3": tls$$certificates$$and$$hostnames_expires_on$$3,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity,
       },
     },
     request: (args) => ({
@@ -328,11 +296,12 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originCaCertificates_list",
     title: "List Certificates",
-    description: "List all existing Origin CA certificates for a given zone. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).",
+    description: "List all existing Origin CA certificates for a given zone. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nGET /certificates",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "limit": {
               "description": "Limit to the number of records returned.",
@@ -353,8 +322,8 @@ export const tools: readonly Tool[] = [
               "type": "number"
             },
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -366,25 +335,17 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-2",
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
-        "tls-certificates-and-hostnames_certificate-4": tls$$certificates$$and$$hostnames_certificate$$4,
         "tls-certificates-and-hostnames_certificate_response_collection-2": tls$$certificates$$and$$hostnames_certificate_response_collection$$2,
         "tls-certificates-and-hostnames_certificates": tls$$certificates$$and$$hostnames_certificates,
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr,
-        "tls-certificates-and-hostnames_expires_on-3": tls$$certificates$$and$$hostnames_expires_on$$3,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity,
       },
     },
     annotations: {
@@ -424,16 +385,10 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_certificate-4": tls$$certificates$$and$$hostnames_certificate$$4,
         "tls-certificates-and-hostnames_certificate_response_collection-2": tls$$certificates$$and$$hostnames_certificate_response_collection$$2,
         "tls-certificates-and-hostnames_certificates": tls$$certificates$$and$$hostnames_certificates,
-        "tls-certificates-and-hostnames_csr": tls$$certificates$$and$$hostnames_csr,
-        "tls-certificates-and-hostnames_expires_on-3": tls$$certificates$$and$$hostnames_expires_on$$3,
         "tls-certificates-and-hostnames_hostnames": tls$$certificates$$and$$hostnames_hostnames,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_origin_ca_certificate_identifier": tls$$certificates$$and$$hostnames_origin_ca_certificate_identifier,
-        "tls-certificates-and-hostnames_request_type": tls$$certificates$$and$$hostnames_request_type,
-        "tls-certificates-and-hostnames_requested_validity": tls$$certificates$$and$$hostnames_requested_validity,
       },
     },
     request: (args) => ({

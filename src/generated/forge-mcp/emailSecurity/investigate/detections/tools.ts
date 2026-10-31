@@ -3,17 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email$$security_DispositionLabel,
   email$$security_Validation,
-  email$$security_ValidationStatus,
   email$$security_api$$response$$common,
   email$$security_api$$response$$common$$failure,
   email$$security_messages,
 } from "../../outputs.js";
-import {
-  email$$security_InvestigateId,
-  email$$security_identifier,
-} from "../../schemas.js";
 import {
   email$$security_Attachment,
   email$$security_Finding,
@@ -30,19 +24,20 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_investigate_detections_get",
     title: "Get message detection details",
-    description: "Returns detection details such as threat categories and sender information for messages with a detection.\n\nThis method is beta.",
+    description: "Returns detection details such as threat categories and sender information for messages with a detection.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}/detections",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "investigate_id": {
-              "$ref": "#/$defs/email-security_InvestigateId",
-              "description": "Unique identifier for a message retrieved from investigation."
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
             }
           },
           "required": [
@@ -55,10 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email$$security_InvestigateId,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -79,14 +71,12 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_Attachment": email$$security_Attachment,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
         "email-security_Finding": email$$security_Finding,
         "email-security_Link": email$$security_Link,
         "email-security_MessageDetectionDetails": email$$security_MessageDetectionDetails,
         "email-security_MessageHeader": email$$security_MessageHeader,
         "email-security_ThreatCategory": email$$security_ThreatCategory,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
       },
@@ -133,14 +123,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_Attachment": email$$security_Attachment,
-        "email-security_DispositionLabel": email$$security_DispositionLabel,
         "email-security_Finding": email$$security_Finding,
         "email-security_Link": email$$security_Link,
         "email-security_MessageDetectionDetails": email$$security_MessageDetectionDetails,
         "email-security_MessageHeader": email$$security_MessageHeader,
         "email-security_ThreatCategory": email$$security_ThreatCategory,
         "email-security_Validation": email$$security_Validation,
-        "email-security_ValidationStatus": email$$security_ValidationStatus,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,

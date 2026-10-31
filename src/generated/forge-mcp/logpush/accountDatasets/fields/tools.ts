@@ -7,7 +7,6 @@ import {
   logpush_api$$response$$common$$failure,
   logpush_messages,
 } from "../../outputs.js";
-import { logpush_dataset, logpush_identifier } from "../../schemas.js";
 import { logpush_logpush_field_response_collection } from "./outputs.js";
 
 /**
@@ -17,11 +16,12 @@ export const tools: readonly Tool[] = [
   {
     name: "logpush_accountDatasets_fields_get",
     title: "List fields",
-    description: "Lists all fields available for a dataset. The response result is. an object with key-value pairs, where keys are field names, and values are descriptions.",
+    description: "Lists all fields available for a dataset. The response result is. an object with key-value pairs, where keys are field names, and values are descriptions.\n\nGET /{account_or_zone}/{account_or_zone_id}/logpush/datasets/{dataset_id}/fields",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_or_zone": {
               "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
@@ -32,13 +32,60 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "$ref": "#/$defs/logpush_identifier",
-              "description": "The account ID or zone ID, as selected by account_or_zone."
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
             },
             "dataset_id": {
-              "$ref": "#/$defs/logpush_dataset",
               "default": "http_requests",
-              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/).",
+              "oneOf": [
+                {
+                  "enum": [
+                    "access_requests",
+                    "account_abuse_protection_events",
+                    "ai_gateway_events",
+                    "audit_logs",
+                    "audit_logs_v2",
+                    "biso_user_actions",
+                    "casb_findings",
+                    "device_posture_results",
+                    "dex_application_tests",
+                    "dex_device_state_events",
+                    "dlp_forensic_copies",
+                    "dns_firewall_logs",
+                    "dns_logs",
+                    "email_security_alerts",
+                    "email_security_post_delivery_events",
+                    "firewall_events",
+                    "gateway_dns",
+                    "gateway_http",
+                    "gateway_network",
+                    "http_requests",
+                    "ipsec_logs",
+                    "magic_bgp_logs",
+                    "magic_ids_detections",
+                    "mcp_portal_logs",
+                    "mnm_flow_logs",
+                    "nel_reports",
+                    "network_analytics_logs",
+                    "page_shield_events",
+                    "sinkhole_http_logs",
+                    "spectrum_events",
+                    "ssh_logs",
+                    "turnstile_events",
+                    "warp_config_changes",
+                    "warp_toggle_changes",
+                    "websocket_analytics",
+                    "workers_trace_events",
+                    "zaraz_events",
+                    "zero_trust_network_sessions"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -52,10 +99,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "logpush_dataset": logpush_dataset,
-        "logpush_identifier": logpush_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_field_response_collection",

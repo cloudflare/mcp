@@ -155,21 +155,6 @@ export const dnssec_dnskey_signing_key: JsonSchema = {
 };
 
 /**
- * The schema of `dnssec_dnssec_key_state` in responses.
- */
-export const dnssec_dnssec_key_state: JsonSchema = {
-  "enum": [
-    "active",
-    "publish",
-    "external",
-    "retired",
-    "revoked",
-    "removed"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dnssec_dnssec_zsk` in responses.
  */
 export const dnssec_dnssec_zsk: JsonSchema = {
@@ -178,7 +163,11 @@ export const dnssec_dnssec_zsk: JsonSchema = {
       "$ref": "#/$defs/dnssec_dnskey_record"
     },
     "Location": {
-      "$ref": "#/$defs/dnssec_key_storage_location"
+      "enum": [
+        "database",
+        "vault"
+      ],
+      "type": "string"
     },
     "Name": {
       "type": "string"
@@ -187,7 +176,15 @@ export const dnssec_dnssec_zsk: JsonSchema = {
       "$ref": "#/$defs/dnssec_dnskey_signing_key"
     },
     "Tag": {
-      "$ref": "#/$defs/dnssec_dnssec_key_state"
+      "enum": [
+        "active",
+        "publish",
+        "external",
+        "retired",
+        "revoked",
+        "removed"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -213,15 +210,4 @@ export const dnssec_dnssec_zsk_response_collection: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `dnssec_key_storage_location` in responses.
- */
-export const dnssec_key_storage_location: JsonSchema = {
-  "enum": [
-    "database",
-    "vault"
-  ],
-  "type": "string"
 };

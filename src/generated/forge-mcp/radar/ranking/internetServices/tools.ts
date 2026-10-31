@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ranking_internetServices_categories",
     title: "List Internet services categories",
-    description: "Retrieves the list of Internet services categories.",
+    description: "Retrieves the list of Internet services categories.\n\nGET /radar/ranking/internet_services/categories",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
               "description": "Filters results by the specified array of dates.",
@@ -47,6 +48,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -184,11 +186,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ranking_internetServices_timeseriesGroups",
     title: "Get Internet services rank time series",
-    description: "Retrieves Internet Services rank update changes over time.",
+    description: "Retrieves Internet Services rank update changes over time.\n\nGET /radar/ranking/internet_services/timeseries_groups",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`. When requesting comparison series, every series must resolve to the same duration as the main series. Each `dateStart`/`dateEnd` is floored to the nearest 15 minutes before evaluation, so windows whose durations match only before alignment may be rejected.",
@@ -244,6 +247,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -754,11 +758,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ranking_internetServices_top",
     title: "Get top Internet services",
-    description: "Retrieves top Internet services based on their rank.",
+    description: "Retrieves top Internet services based on their rank.\n\nGET /radar/ranking/internet_services/top",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
               "description": "Filters results by the specified array of dates.",
@@ -798,6 +803,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -4,39 +4,18 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-transit_asn` in responses.
- */
-export const magic$$transit_asn: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-transit_colo` in responses.
  */
 export const magic$$transit_colo: JsonSchema = {
   "properties": {
     "city": {
-      "$ref": "#/$defs/magic-transit_colo_city"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/magic-transit_colo_name"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic-transit_colo_city` in responses.
- */
-export const magic$$transit_colo_city: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-transit_colo_name` in responses.
- */
-export const magic$$transit_colo_name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -48,7 +27,14 @@ export const magic$$transit_colo_result: JsonSchema = {
       "$ref": "#/$defs/magic-transit_colo"
     },
     "error": {
-      "$ref": "#/$defs/magic-transit_error"
+      "enum": [
+        "",
+        "Could not gather traceroute data: Code 1",
+        "Could not gather traceroute data: Code 2",
+        "Could not gather traceroute data: Code 3",
+        "Could not gather traceroute data: Code 4"
+      ],
+      "type": "string"
     },
     "hops": {
       "items": {
@@ -60,24 +46,10 @@ export const magic$$transit_colo_result: JsonSchema = {
       "$ref": "#/$defs/magic-transit_target_summary"
     },
     "traceroute_time_ms": {
-      "$ref": "#/$defs/magic-transit_traceroute_time_ms"
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic-transit_error` in responses.
- */
-export const magic$$transit_error: JsonSchema = {
-  "enum": [
-    "",
-    "Could not gather traceroute data: Code 1",
-    "Could not gather traceroute data: Code 2",
-    "Could not gather traceroute data: Code 3",
-    "Could not gather traceroute data: Code 4"
-  ],
-  "type": "string"
 };
 
 /**
@@ -92,23 +64,16 @@ export const magic$$transit_hop_result: JsonSchema = {
       "type": "array"
     },
     "packets_lost": {
-      "$ref": "#/$defs/magic-transit_packets_lost"
+      "type": "integer"
     },
     "packets_sent": {
-      "$ref": "#/$defs/magic-transit_packets_sent"
+      "type": "integer"
     },
     "packets_ttl": {
-      "$ref": "#/$defs/magic-transit_packets_ttl"
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic-transit_ip` in responses.
- */
-export const magic$$transit_ip: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -122,109 +87,39 @@ export const magic$$transit_labels: JsonSchema = {
 };
 
 /**
- * The schema of `magic-transit_max_rtt_ms` in responses.
- */
-export const magic$$transit_max_rtt_ms: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-transit_mean_rtt_ms` in responses.
- */
-export const magic$$transit_mean_rtt_ms: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-transit_min_rtt_ms` in responses.
- */
-export const magic$$transit_min_rtt_ms: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-transit_name` in responses.
- */
-export const magic$$transit_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-transit_node_result` in responses.
  */
 export const magic$$transit_node_result: JsonSchema = {
   "properties": {
     "asn": {
-      "$ref": "#/$defs/magic-transit_asn"
+      "type": "string"
     },
     "ip": {
-      "$ref": "#/$defs/magic-transit_ip"
+      "type": "string"
     },
     "labels": {
       "$ref": "#/$defs/magic-transit_labels"
     },
     "max_rtt_ms": {
-      "$ref": "#/$defs/magic-transit_max_rtt_ms"
+      "type": "number"
     },
     "mean_rtt_ms": {
-      "$ref": "#/$defs/magic-transit_mean_rtt_ms"
+      "type": "number"
     },
     "min_rtt_ms": {
-      "$ref": "#/$defs/magic-transit_min_rtt_ms"
+      "type": "number"
     },
     "name": {
-      "$ref": "#/$defs/magic-transit_name"
+      "type": "string"
     },
     "packet_count": {
-      "$ref": "#/$defs/magic-transit_packet_count"
+      "type": "integer"
     },
     "std_dev_rtt_ms": {
-      "$ref": "#/$defs/magic-transit_std_dev_rtt_ms"
+      "type": "number"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic-transit_packet_count` in responses.
- */
-export const magic$$transit_packet_count: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic-transit_packets_lost` in responses.
- */
-export const magic$$transit_packets_lost: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic-transit_packets_sent` in responses.
- */
-export const magic$$transit_packets_sent: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic-transit_packets_ttl` in responses.
- */
-export const magic$$transit_packets_ttl: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic-transit_std_dev_rtt_ms` in responses.
- */
-export const magic$$transit_std_dev_rtt_ms: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-transit_target` in responses.
- */
-export const magic$$transit_target: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -239,7 +134,7 @@ export const magic$$transit_target_result: JsonSchema = {
       "type": "array"
     },
     "target": {
-      "$ref": "#/$defs/magic-transit_target"
+      "type": "string"
     }
   },
   "type": "object"
@@ -272,11 +167,4 @@ export const magic$$transit_traceroute_response_collection: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic-transit_traceroute_time_ms` in responses.
- */
-export const magic$$transit_traceroute_time_ms: JsonSchema = {
-  "type": "integer"
 };

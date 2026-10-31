@@ -12,11 +12,12 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_stats_get",
     title: "Get dashboard stats",
-    description: "Get statistics about rules for the dashboard.",
+    description: "Get statistics about rules for the dashboard.\n\nGET /accounts/{account_id}/cloudforce-one/rules/stats",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -32,6 +33,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_StatsResponse",

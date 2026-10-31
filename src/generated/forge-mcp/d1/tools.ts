@@ -5,36 +5,21 @@ import { type Tool, param, pathParam } from "../_/tool.js";
 import {
   d1_api$$response$$common,
   d1_api$$response$$common$$failure,
-  d1_created$$at,
   d1_database$$details$$response,
-  d1_database$$identifier,
-  d1_database$$name,
   d1_database$$response,
-  d1_database$$version,
-  d1_file$$size,
-  d1_jurisdiction$$nullable,
   d1_messages,
   d1_query$$meta,
   d1_query$$result$$response,
   d1_raw$$result$$response,
   d1_read$$replication$$details$$for$$response,
-  d1_served$$by$$colo,
-  d1_served$$by$$region,
-  d1_table$$count,
 } from "./outputs.js";
 import {
-  d1_account$$identifier,
   d1_batch$$query,
-  d1_database$$identifier as d1_database$$identifier$,
-  d1_database$$name as d1_database$$name$,
   d1_database$$update$$partial$$request$$body,
   d1_database$$update$$request$$body,
-  d1_jurisdiction,
   d1_params,
-  d1_primary$$location$$hint,
   d1_read$$replication$$details$$for$$request,
   d1_single$$query,
-  d1_sql,
 } from "./schemas.js";
 
 /**
@@ -44,23 +29,36 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_create",
     title: "Create D1 Database",
-    description: "Create a new D1 database in your account.",
+    description: "Create a new D1 database in your account.\n\nPOST /accounts/{account_id}/d1/database",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "jurisdiction": {
-              "$ref": "#/$defs/d1_jurisdiction",
-              "description": "Specify the location to restrict the D1 database to run and store data. If this option is present, the location hint is ignored."
+              "description": "Specify the location to restrict the D1 database to run and store data. If this option is present, the location hint is ignored.",
+              "enum": [
+                "eu",
+                "fedramp",
+                "us"
+              ],
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/d1_database-name",
-              "description": "D1 database name."
+              "description": "D1 database name.",
+              "type": "string"
             },
             "primary_location_hint": {
-              "$ref": "#/$defs/d1_primary-location-hint",
-              "description": "Specify the region to create the D1 primary, if available. If this option is omitted, the D1 will be created as close as possible to the current user."
+              "description": "Specify the region to create the D1 primary, if available. If this option is omitted, the D1 will be created as close as possible to the current user.",
+              "enum": [
+                "wnam",
+                "enam",
+                "weur",
+                "eeur",
+                "apac",
+                "oc"
+              ],
+              "type": "string"
             },
             "read_replication": {
               "$ref": "#/$defs/d1_read-replication-details-for-request",
@@ -73,10 +71,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -89,11 +88,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-name": d1_database$$name$,
-        "d1_jurisdiction": d1_jurisdiction,
-        "d1_primary-location-hint": d1_primary$$location$$hint,
         "d1_read-replication-details-for-request": d1_read$$replication$$details$$for$$request,
       },
     },
@@ -113,16 +109,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     annotations: {
@@ -164,16 +153,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     request: (args) => ({
@@ -184,19 +166,20 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_delete",
     title: "Delete D1 Database",
-    description: "Delete a D1 database.\n\nConfirm with the user before calling this tool. This permanently deletes the D1 database and all of its data.",
+    description: "Delete a D1 database.\n\nConfirm with the user before calling this tool. This permanently deletes the D1 database and all of its data.\n\nDELETE /accounts/{account_id}/d1/database/{database_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -209,10 +192,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -282,7 +262,7 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_edit",
     title: "Update D1 Database partially",
-    description: "Partially update a D1 database's configuration.",
+    description: "Partially update a D1 database's configuration.\n\nPATCH /accounts/{account_id}/d1/database/{database_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -290,14 +270,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/d1_database-update-partial-request-body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -311,9 +292,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier$,
         "d1_database-update-partial-request-body": d1_database$$update$$partial$$request$$body,
         "d1_read-replication-details-for-request": d1_read$$replication$$details$$for$$request,
       },
@@ -334,16 +314,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     annotations: {
@@ -384,16 +357,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     request: (args) => ({
@@ -404,23 +370,26 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_get",
     title: "Get D1 Database",
-    description: "Get details for a specific D1 database.",
+    description: "Get details for a specific D1 database.\n\nGET /accounts/{account_id}/d1/database/{database_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
               "oneOf": [
                 {
-                  "$ref": "#/$defs/d1_database-identifier"
+                  "description": "D1 database identifier (UUID).",
+                  "type": "string"
                 },
                 {
-                  "$ref": "#/$defs/d1_database-name"
+                  "description": "D1 database name.",
+                  "type": "string"
                 }
               ]
             }
@@ -432,9 +401,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "fields": {
-              "description": "Comma-separated list of fields to include in the response. When omitted,\nall fields are returned.\n",
+              "description": "Comma-separated list of fields to include in the response. When omitted,\nall fields are returned.",
               "items": {
                 "enum": [
                   "uuid",
@@ -458,11 +428,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier$,
-        "d1_database-name": d1_database$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -480,16 +446,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     annotations: {
@@ -532,16 +491,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     request: (args) => ({
@@ -554,15 +506,16 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_list",
     title: "List D1 Databases",
-    description: "List D1 databases in your account.",
+    description: "List D1 databases in your account.\n\nGET /accounts/{account_id}/d1/database",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -571,6 +524,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "name": {
               "description": "a database name to search for.",
@@ -593,9 +547,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -633,12 +585,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
-        "d1_created-at": d1_created$$at,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
         "d1_database-response": d1_database$$response,
-        "d1_database-version": d1_database$$version,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
       },
     },
@@ -702,12 +649,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
-        "d1_created-at": d1_created$$at,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
         "d1_database-response": d1_database$$response,
-        "d1_database-version": d1_database$$version,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
       },
     },
@@ -723,7 +665,7 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_query",
     title: "Query D1 Database",
-    description: "Execute a SQL query against a D1 database and return results as objects.",
+    description: "Execute a SQL query against a D1 database and return results as objects.\n\nPOST /accounts/{account_id}/d1/database/{database_id}/query",
     inputSchema: {
       type: "object",
       properties: {
@@ -731,14 +673,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/d1_batch-query"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -752,13 +695,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "d1_account-identifier": d1_account$$identifier,
         "d1_batch-query": d1_batch$$query,
-        "d1_database-identifier": d1_database$$identifier$,
         "d1_params": d1_params,
         "d1_single-query": d1_single$$query,
-        "d1_sql": d1_sql,
       },
     },
     outputSchema: {
@@ -783,8 +724,6 @@ export const tools: readonly Tool[] = [
         "d1_messages": d1_messages,
         "d1_query-meta": d1_query$$meta,
         "d1_query-result-response": d1_query$$result$$response,
-        "d1_served-by-colo": d1_served$$by$$colo,
-        "d1_served-by-region": d1_served$$by$$region,
       },
     },
     annotations: {
@@ -833,8 +772,6 @@ export const tools: readonly Tool[] = [
         "d1_messages": d1_messages,
         "d1_query-meta": d1_query$$meta,
         "d1_query-result-response": d1_query$$result$$response,
-        "d1_served-by-colo": d1_served$$by$$colo,
-        "d1_served-by-region": d1_served$$by$$region,
       },
     },
     request: (args) => ({
@@ -845,7 +782,7 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_raw",
     title: "Raw D1 Database query",
-    description: "Execute a SQL query against a D1 database and return result rows as arrays rather than objects. This is a performance-optimized version of the /query endpoint.",
+    description: "Execute a SQL query against a D1 database and return result rows as arrays rather than objects. This is a performance-optimized version of the /query endpoint.\n\nPOST /accounts/{account_id}/d1/database/{database_id}/raw",
     inputSchema: {
       type: "object",
       properties: {
@@ -853,14 +790,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/d1_batch-query"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -874,13 +812,11 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "d1_account-identifier": d1_account$$identifier,
         "d1_batch-query": d1_batch$$query,
-        "d1_database-identifier": d1_database$$identifier$,
         "d1_params": d1_params,
         "d1_single-query": d1_single$$query,
-        "d1_sql": d1_sql,
       },
     },
     outputSchema: {
@@ -905,8 +841,6 @@ export const tools: readonly Tool[] = [
         "d1_messages": d1_messages,
         "d1_query-meta": d1_query$$meta,
         "d1_raw-result-response": d1_raw$$result$$response,
-        "d1_served-by-colo": d1_served$$by$$colo,
-        "d1_served-by-region": d1_served$$by$$region,
       },
     },
     annotations: {
@@ -955,8 +889,6 @@ export const tools: readonly Tool[] = [
         "d1_messages": d1_messages,
         "d1_query-meta": d1_query$$meta,
         "d1_raw-result-response": d1_raw$$result$$response,
-        "d1_served-by-colo": d1_served$$by$$colo,
-        "d1_served-by-region": d1_served$$by$$region,
       },
     },
     request: (args) => ({
@@ -967,28 +899,29 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_undelete",
     title: "Undelete D1 Database",
-    description: "Restore a deleted D1 database. The database is restored with the name it had when it was deleted,\nunless `new_name` is provided. The restored database counts against the account's limits.\nUndeleting a database that is not deleted succeeds without changes, unless `new_name` differs from its current name which errors.\nA database can only be undeleted within 7 days (7 * 24 hours) of its deletion.\n\nOnce a database is undeleted, Time Travel (point-in-time recovery) cannot restore it to a bookmark or\ntimestamp at or before the undeletion. Only states after the undeletion can be restored.\n\nConfirm with the user before calling this tool. After undeleting, Time Travel cannot restore the D1 database to a point in time at or before the undeletion.",
+    description: "Restore a deleted D1 database. The database is restored with the name it had when it was deleted,\nunless `new_name` is provided. The restored database counts against the account's limits.\nUndeleting a database that is not deleted succeeds without changes, unless `new_name` differs from its current name which errors.\nA database can only be undeleted within 7 days (7 * 24 hours) of its deletion.\n\nOnce a database is undeleted, Time Travel (point-in-time recovery) cannot restore it to a bookmark or\ntimestamp at or before the undeletion. Only states after the undeletion can be restored.\n\nConfirm with the user before calling this tool. After undeleting, Time Travel cannot restore the D1 database to a point in time at or before the undeletion.\n\nPOST /accounts/{account_id}/d1/database/{database_id}/undelete",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "new_name": {
-              "$ref": "#/$defs/d1_database-name",
-              "description": "Restore the database with this name instead of the name it had when it was deleted. Required if another database in the account already uses that name."
+              "description": "Restore the database with this name instead of the name it had when it was deleted. Required if another database in the account already uses that name.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -1001,11 +934,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier$,
-        "d1_database-name": d1_database$$name$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -1023,16 +952,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     annotations: {
@@ -1071,16 +993,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     request: (args) => ({
@@ -1091,7 +1006,7 @@ export const tools: readonly Tool[] = [
   {
     name: "d1_update",
     title: "Update D1 Database",
-    description: "Update a D1 database's configuration.",
+    description: "Update a D1 database's configuration.\n\nPUT /accounts/{account_id}/d1/database/{database_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1099,14 +1014,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/d1_database-update-request-body"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/d1_account-identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "database_id": {
-              "$ref": "#/$defs/d1_database-identifier",
-              "description": "D1 database identifier (UUID)."
+              "description": "D1 database identifier (UUID).",
+              "type": "string"
             }
           },
           "required": [
@@ -1120,9 +1036,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "d1_account-identifier": d1_account$$identifier,
-        "d1_database-identifier": d1_database$$identifier$,
         "d1_database-update-request-body": d1_database$$update$$request$$body,
         "d1_read-replication-details-for-request": d1_read$$replication$$details$$for$$request,
       },
@@ -1143,16 +1058,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     annotations: {
@@ -1194,16 +1102,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "d1_api-response-common": d1_api$$response$$common,
         "d1_api-response-common-failure": d1_api$$response$$common$$failure,
-        "d1_created-at": d1_created$$at,
         "d1_database-details-response": d1_database$$details$$response,
-        "d1_database-identifier": d1_database$$identifier,
-        "d1_database-name": d1_database$$name,
-        "d1_database-version": d1_database$$version,
-        "d1_file-size": d1_file$$size,
-        "d1_jurisdiction-nullable": d1_jurisdiction$$nullable,
         "d1_messages": d1_messages,
         "d1_read-replication-details-for-response": d1_read$$replication$$details$$for$$response,
-        "d1_table-count": d1_table$$count,
       },
     },
     request: (args) => ({

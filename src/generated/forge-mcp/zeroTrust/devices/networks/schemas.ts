@@ -4,26 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_components-schemas-type`.
- */
-export const teams$$devices_components$$schemas$$type: JsonSchema = {
-  "description": "The type of device managed network.",
-  "enum": [
-    "tls"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of
- * `teams-devices_device-managed-networks_components-schemas-name`.
- */
-export const teams$$devices_device$$managed$$networks_components$$schemas$$name: JsonSchema = {
-  "description": "The name of the device managed network. This name must be unique.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_schemas-config_request`.
  */
 export const teams$$devices_schemas$$config_request: JsonSchema = {

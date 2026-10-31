@@ -200,82 +200,6 @@ export const waitingroom_cookie_attributes: JsonSchema = {
 };
 
 /**
- * The schema of `waitingroom_cookie_suffix` in responses.
- */
-export const waitingroom_cookie_suffix: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_custom_page_html` in responses.
- */
-export const waitingroom_custom_page_html: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_default_template_language` in responses.
- */
-export const waitingroom_default_template_language: JsonSchema = {
-  "enum": [
-    "en-US",
-    "es-ES",
-    "de-DE",
-    "fr-FR",
-    "it-IT",
-    "ja-JP",
-    "ko-KR",
-    "pt-BR",
-    "zh-CN",
-    "zh-TW",
-    "nl-NL",
-    "pl-PL",
-    "id-ID",
-    "tr-TR",
-    "ar-EG",
-    "ru-RU",
-    "fa-IR",
-    "bg-BG",
-    "hr-HR",
-    "cs-CZ",
-    "da-DK",
-    "fi-FI",
-    "lt-LT",
-    "lv-LV",
-    "ms-MY",
-    "nb-NO",
-    "ro-RO",
-    "el-GR",
-    "he-IL",
-    "hi-IN",
-    "hu-HU",
-    "sr-BA",
-    "sk-SK",
-    "sl-SI",
-    "sv-SE",
-    "tl-PH",
-    "th-TH",
-    "uk-UA",
-    "vi-VN"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_description` in responses.
- */
-export const waitingroom_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_disable_session_renewal` in responses.
- */
-export const waitingroom_disable_session_renewal: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `waitingroom_enabled_origin_commands` in responses.
  */
 export const waitingroom_enabled_origin_commands: JsonSchema = {
@@ -286,20 +210,6 @@ export const waitingroom_enabled_origin_commands: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `waitingroom_host` in responses.
- */
-export const waitingroom_host: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_json_response_enabled` in responses.
- */
-export const waitingroom_json_response_enabled: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
@@ -336,94 +246,6 @@ export const waitingroom_messages: JsonSchema = {
 };
 
 /**
- * The schema of `waitingroom_name` in responses.
- */
-export const waitingroom_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_new_users_per_minute` in responses.
- */
-export const waitingroom_new_users_per_minute: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_next_event_prequeue_start_time` in responses.
- */
-export const waitingroom_next_event_prequeue_start_time: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_next_event_start_time` in responses.
- */
-export const waitingroom_next_event_start_time: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_path` in responses.
- */
-export const waitingroom_path: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_queue_all` in responses.
- */
-export const waitingroom_queue_all: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_queueing_method` in responses.
- */
-export const waitingroom_queueing_method: JsonSchema = {
-  "enum": [
-    "fifo",
-    "random",
-    "passthrough",
-    "reject"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_queueing_status_code` in responses.
- */
-export const waitingroom_queueing_status_code: JsonSchema = {
-  "enum": [
-    200,
-    202,
-    429
-  ],
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_session_duration` in responses.
- */
-export const waitingroom_session_duration: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `waitingroom_single_response` in responses.
  */
 export const waitingroom_single_response: JsonSchema = {
@@ -443,59 +265,6 @@ export const waitingroom_single_response: JsonSchema = {
 };
 
 /**
- * The schema of `waitingroom_suspended` in responses.
- */
-export const waitingroom_suspended: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_timestamp` in responses.
- */
-export const waitingroom_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_total_active_users` in responses.
- */
-export const waitingroom_total_active_users: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_turnstile_action` in responses.
- */
-export const waitingroom_turnstile_action: JsonSchema = {
-  "enum": [
-    "log",
-    "infinite_queue"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_turnstile_mode` in responses.
- */
-export const waitingroom_turnstile_mode: JsonSchema = {
-  "enum": [
-    "off",
-    "invisible",
-    "visible_non_interactive",
-    "visible_managed"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_waiting_room_id` in responses.
- */
-export const waitingroom_waiting_room_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_waiting_room_id_response` in responses.
  */
 export const waitingroom_waiting_room_id_response: JsonSchema = {
@@ -508,7 +277,7 @@ export const waitingroom_waiting_room_id_response: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/waitingroom_waiting_room_id"
+              "type": "string"
             }
           },
           "type": "object"
@@ -531,76 +300,154 @@ export const waitingroom_waitingroom: JsonSchema = {
       "$ref": "#/$defs/waitingroom_cookie_attributes"
     },
     "cookie_suffix": {
-      "$ref": "#/$defs/waitingroom_cookie_suffix"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "custom_page_html": {
-      "$ref": "#/$defs/waitingroom_custom_page_html"
+      "type": "string"
     },
     "default_template_language": {
-      "$ref": "#/$defs/waitingroom_default_template_language"
+      "enum": [
+        "en-US",
+        "es-ES",
+        "de-DE",
+        "fr-FR",
+        "it-IT",
+        "ja-JP",
+        "ko-KR",
+        "pt-BR",
+        "zh-CN",
+        "zh-TW",
+        "nl-NL",
+        "pl-PL",
+        "id-ID",
+        "tr-TR",
+        "ar-EG",
+        "ru-RU",
+        "fa-IR",
+        "bg-BG",
+        "hr-HR",
+        "cs-CZ",
+        "da-DK",
+        "fi-FI",
+        "lt-LT",
+        "lv-LV",
+        "ms-MY",
+        "nb-NO",
+        "ro-RO",
+        "el-GR",
+        "he-IL",
+        "hi-IN",
+        "hu-HU",
+        "sr-BA",
+        "sk-SK",
+        "sl-SI",
+        "sv-SE",
+        "tl-PH",
+        "th-TH",
+        "uk-UA",
+        "vi-VN"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_description"
+      "type": "string"
     },
     "disable_session_renewal": {
-      "$ref": "#/$defs/waitingroom_disable_session_renewal"
+      "type": "boolean"
     },
     "enabled_origin_commands": {
       "$ref": "#/$defs/waitingroom_enabled_origin_commands"
     },
     "host": {
-      "$ref": "#/$defs/waitingroom_host"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/waitingroom_waiting_room_id"
+      "type": "string"
     },
     "json_response_enabled": {
-      "$ref": "#/$defs/waitingroom_json_response_enabled"
+      "type": "boolean"
     },
     "modified_on": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/waitingroom_name"
+      "type": "string"
     },
     "new_users_per_minute": {
-      "$ref": "#/$defs/waitingroom_new_users_per_minute"
+      "type": "integer"
     },
     "next_event_prequeue_start_time": {
-      "$ref": "#/$defs/waitingroom_next_event_prequeue_start_time"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "next_event_start_time": {
-      "$ref": "#/$defs/waitingroom_next_event_start_time"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "path": {
-      "$ref": "#/$defs/waitingroom_path"
+      "type": "string"
     },
     "queue_all": {
-      "$ref": "#/$defs/waitingroom_queue_all"
+      "type": "boolean"
     },
     "queueing_method": {
-      "$ref": "#/$defs/waitingroom_queueing_method"
+      "enum": [
+        "fifo",
+        "random",
+        "passthrough",
+        "reject"
+      ],
+      "type": "string"
     },
     "queueing_status_code": {
-      "$ref": "#/$defs/waitingroom_queueing_status_code"
+      "enum": [
+        200,
+        202,
+        429
+      ],
+      "type": "integer"
     },
     "session_duration": {
-      "$ref": "#/$defs/waitingroom_session_duration"
+      "type": "integer"
     },
     "suspended": {
-      "$ref": "#/$defs/waitingroom_suspended"
+      "type": "boolean"
     },
     "total_active_users": {
-      "$ref": "#/$defs/waitingroom_total_active_users"
+      "type": "integer"
     },
     "turnstile_action": {
-      "$ref": "#/$defs/waitingroom_turnstile_action"
+      "enum": [
+        "log",
+        "infinite_queue"
+      ],
+      "type": "string"
     },
     "turnstile_mode": {
-      "$ref": "#/$defs/waitingroom_turnstile_mode"
+      "enum": [
+        "off",
+        "invisible",
+        "visible_non_interactive",
+        "visible_managed"
+      ],
+      "type": "string"
     }
   },
   "type": "object"

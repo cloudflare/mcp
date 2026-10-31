@@ -4,19 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `abuse-reports_MitigatedEntityType` in responses.
- */
-export const abuse$$reports_MitigatedEntityType: JsonSchema = {
-  "enum": [
-    "url_pattern",
-    "account",
-    "zone",
-    "custom_expression"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `abuse-reports_MitigationAppealResult` in responses.
  */
 export const abuse$$reports_MitigationAppealResult: JsonSchema = {
@@ -89,16 +76,29 @@ export const abuse$$reports_MitigationListItem: JsonSchema = {
       "type": "string"
     },
     "entity_type": {
-      "$ref": "#/$defs/abuse-reports_MitigatedEntityType"
+      "enum": [
+        "url_pattern",
+        "account",
+        "zone",
+        "custom_expression"
+      ],
+      "type": "string"
     },
     "id": {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/abuse-reports_MitigationStatus"
+      "enum": [
+        "pending",
+        "active",
+        "in_review",
+        "cancelled",
+        "removed"
+      ],
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/abuse-reports_MitigationType"
+      "type": "string"
     }
   },
   "required": [
@@ -110,11 +110,4 @@ export const abuse$$reports_MitigationListItem: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `abuse-reports_MitigationType` in responses.
- */
-export const abuse$$reports_MitigationType: JsonSchema = {
-  "type": "string"
 };

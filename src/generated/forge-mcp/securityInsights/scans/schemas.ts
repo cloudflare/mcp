@@ -12,7 +12,15 @@ export const security$$center_newScanRequest: JsonSchema = {
     {
       "properties": {
         "issue_type": {
-          "$ref": "#/$defs/security-center_issueType"
+          "enum": [
+            "compliance_violation",
+            "email_security",
+            "exposed_infrastructure",
+            "insecure_configuration",
+            "weak_authentication",
+            "configuration_suggestion"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -23,7 +31,7 @@ export const security$$center_newScanRequest: JsonSchema = {
     {
       "properties": {
         "issue_class": {
-          "$ref": "#/$defs/security-center_issueClass"
+          "type": "string"
         }
       },
       "required": [

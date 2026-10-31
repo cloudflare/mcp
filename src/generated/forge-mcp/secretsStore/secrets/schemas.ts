@@ -4,33 +4,25 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `secrets-store_comment`.
- */
-export const secrets$$store_comment: JsonSchema = {
-  "description": "Freeform text describing the secret.",
-  "type": "string"
-};
-
-/**
  * The schema of `secrets-store_createSecretObject`.
  */
 export const secrets$$store_createSecretObject: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/secrets-store_comment",
-      "description": "Freeform text describing the secret."
+      "description": "Freeform text describing the secret.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secrets-store_secret_name",
-      "description": "The name of the secret."
+      "description": "The name of the secret.",
+      "type": "string"
     },
     "scopes": {
       "$ref": "#/$defs/secrets-store_scopes",
       "description": "The list of services that can use this secret. Omit it on create or duplicate to inherit the store's scopes. An empty list lets no service use the secret."
     },
     "value": {
-      "$ref": "#/$defs/secrets-store_value",
-      "description": "The value of the secret. Maximum 64 KiB (65,536 bytes). Note that this is 'write only' - the API never returns this value; it exists only to create or modify secrets."
+      "description": "The value of the secret. Maximum 64 KiB (65,536 bytes). Note that this is 'write only' - the API never returns this value; it exists only to create or modify secrets.",
+      "type": "string"
     }
   },
   "required": [
@@ -49,7 +41,8 @@ export const secrets$$store_deleteSecretsRequest: JsonSchema = {
     "ids": {
       "description": "List of secret identifier tags to delete.",
       "items": {
-        "$ref": "#/$defs/secrets-store_identifier"
+        "description": "Secret identifier tag.",
+        "type": "string"
       },
       "type": "array"
     }
@@ -66,12 +59,12 @@ export const secrets$$store_deleteSecretsRequest: JsonSchema = {
 export const secrets$$store_duplicateSecretObject: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/secrets-store_comment",
-      "description": "Freeform text describing the secret."
+      "description": "Freeform text describing the secret.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secrets-store_secret_name",
-      "description": "The name of the secret."
+      "description": "The name of the secret.",
+      "type": "string"
     },
     "scopes": {
       "$ref": "#/$defs/secrets-store_scopes",
@@ -82,14 +75,6 @@ export const secrets$$store_duplicateSecretObject: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `secrets-store_identifier`.
- */
-export const secrets$$store_identifier: JsonSchema = {
-  "description": "Secret identifier tag.",
-  "type": "string"
 };
 
 /**
@@ -124,16 +109,16 @@ export const secrets$$store_inheritable_scopes: JsonSchema = {
 export const secrets$$store_patchSecretObject: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/secrets-store_comment",
-      "description": "Freeform text describing the secret."
+      "description": "Freeform text describing the secret.",
+      "type": "string"
     },
     "scopes": {
       "$ref": "#/$defs/secrets-store_inheritable_scopes",
       "description": "The list of services that can use this secret, or null when the secret inherits its store's scopes. Set it to null in a patch to inherit again. An empty list lets no service use the secret."
     },
     "value": {
-      "$ref": "#/$defs/secrets-store_value",
-      "description": "The value of the secret. Maximum 64 KiB (65,536 bytes). Note that this is 'write only' - the API never returns this value; it exists only to create or modify secrets."
+      "description": "The value of the secret. Maximum 64 KiB (65,536 bytes). Note that this is 'write only' - the API never returns this value; it exists only to create or modify secrets.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -156,20 +141,4 @@ export const secrets$$store_scopes: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `secrets-store_secret_name`.
- */
-export const secrets$$store_secret_name: JsonSchema = {
-  "description": "The name of the secret.",
-  "type": "string"
-};
-
-/**
- * The schema of `secrets-store_value`.
- */
-export const secrets$$store_value: JsonSchema = {
-  "description": "The value of the secret. Maximum 64 KiB (65,536 bytes). Note that this is 'write only' - the API never returns this value; it exists only to create or modify secrets.",
-  "type": "string"
 };

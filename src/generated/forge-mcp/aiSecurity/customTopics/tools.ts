@@ -8,7 +8,6 @@ import {
   waf$$product$$api$$bundle_messages,
 } from "../../outputs.js";
 import { waf$$product$$api$$bundle_api$$response$$common$$failure$$3 } from "../outputs.js";
-import { waf$$product$$api$$bundle_zone_id } from "../schemas.js";
 import {
   waf$$product$$api$$bundle_custom$$topic,
   waf$$product$$api$$bundle_custom$$topics,
@@ -26,15 +25,16 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSecurity_customTopics_get",
     title: "Get the AI Security for Apps custom topics of a zone.",
-    description: "Get the custom topic categories defined for the zone. While AI Security for Apps is enabled, it scores every incoming prompt against these topics and writes the scores to the `cf.llm.prompt.custom_topic_categories` field, keyed by topic label. Topics can be configured while the detection is disabled, but no prompt is scored until you enable it.",
+    description: "Get the custom topic categories defined for the zone. While AI Security for Apps is enabled, it scores every incoming prompt against these topics and writes the scores to the `cf.llm.prompt.custom_topic_categories` field, keyed by topic label. Topics can be configured while the detection is disabled, but no prompt is scored until you enable it.\n\nGET /zones/{zone_id}/ai-security/custom-topics",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-              "description": "Defines the zone."
+              "description": "Defines the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,9 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_zone_id": waf$$product$$api$$bundle_zone_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics",
@@ -103,7 +101,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiSecurity_customTopics_update",
     title: "Update the AI Security for Apps custom topics of a zone.",
-    description: "Update the custom topic list of the zone, overwriting it entirely with the topics in the request, so include\nevery topic you want to keep. Changes can take up to a minute to propagate.\n\nEach entry has a `label`, used to reference the topic in rule expressions and analytics, and a `topic`\ndescription, which the classifier scores prompts against while AI Security for Apps is enabled. The following\nrules apply:\n\n- A zone can hold at most 20 topics.\n- `label` must be 2–20 characters, using only lowercase letters (a–z), digits (0–9), and hyphens.\n- `topic` must be 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers,\n  punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.\n- Labels must be unique within the zone, and so must topic descriptions.\n\nConfirm with the user before calling this tool. This operation overwrites the AI Security for Apps custom topics for a zone.",
+    description: "Update the custom topic list of the zone, overwriting it entirely with the topics in the request, so include\nevery topic you want to keep. Changes can take up to a minute to propagate.\n\nEach entry has a `label`, used to reference the topic in rule expressions and analytics, and a `topic`\ndescription, which the classifier scores prompts against while AI Security for Apps is enabled. The following\nrules apply:\n\n- A zone can hold at most 20 topics.\n- `label` must be 2–20 characters, using only lowercase letters (a–z), digits (0–9), and hyphens.\n- `topic` must be 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers,\n  punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.\n- Labels must be unique within the zone, and so must topic descriptions.\n\nConfirm with the user before calling this tool. This operation overwrites the AI Security for Apps custom topics for a zone.\n\nPUT /zones/{zone_id}/ai-security/custom-topics",
     inputSchema: {
       type: "object",
       properties: {
@@ -111,10 +109,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-              "description": "Defines the zone."
+              "description": "Defines the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -127,10 +126,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "waf-product-api-bundle_custom-topic": waf$$product$$api$$bundle_custom$$topic$,
         "waf-product-api-bundle_custom-topics": waf$$product$$api$$bundle_custom$$topics$,
-        "waf-product-api-bundle_zone_id": waf$$product$$api$$bundle_zone_id,
       },
     },
     outputSchema: {

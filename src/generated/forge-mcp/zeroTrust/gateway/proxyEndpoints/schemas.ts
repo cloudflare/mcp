@@ -15,14 +15,6 @@ export const zero$$trust$$gateway_ips: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_name-6`.
- */
-export const zero$$trust$$gateway_name$$6: JsonSchema = {
-  "description": "Specify the name of the proxy endpoint.",
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_proxy-endpoint-identity-create`.
  */
 export const zero$$trust$$gateway_proxy$$endpoint$$identity$$create: JsonSchema = {
@@ -35,8 +27,8 @@ export const zero$$trust$$gateway_proxy$$endpoint$$identity$$create: JsonSchema 
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-6",
-      "description": "Specify the name of the proxy endpoint."
+      "description": "Specify the name of the proxy endpoint.",
+      "type": "string"
     }
   },
   "required": [
@@ -59,8 +51,8 @@ export const zero$$trust$$gateway_proxy$$endpoint$$ip$$create: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-6",
-      "description": "Specify the name of the proxy endpoint."
+      "description": "Specify the name of the proxy endpoint.",
+      "type": "string"
     }
   },
   "required": [

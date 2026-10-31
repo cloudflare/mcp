@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ct_logs_get",
     title: "Get certificate log details",
-    description: "Retrieves the requested certificate log information.",
+    description: "Retrieves the requested certificate log information.\n\nGET /radar/ct/logs/{log_slug}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "log_slug": {
               "description": "Certificate log slug.",
@@ -27,6 +28,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -43,6 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -500,11 +503,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ct_logs_list",
     title: "List certificate logs",
-    description: "Retrieves a list of certificate logs.",
+    description: "Retrieves a list of certificate logs.\n\nGET /radar/ct/logs",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "format": {
               "description": "Format in which results will be returned.",
@@ -527,6 +531,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_submit",
     title: "Search scanned images",
-    description: "Submit an image and find the n closest matches from the scanned images index without creating any match records. Returns similarity scores and metadata for each match.",
+    description: "Submit an image and find the n closest matches from the scanned images index without creating any match records. Returns similarity scores and metadata for each match.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/search",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,6 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "download": {
               "description": "If true, include base64-encoded image data in the response",
@@ -65,6 +67,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -207,11 +210,12 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_urlInfo",
     title: "Get total queries",
-    description: "Get the total number of saved brand protection queries (domain + logo) for an account",
+    description: "Get the total number of saved brand protection queries (domain + logo) for an account\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/total-queries",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -226,6 +230,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

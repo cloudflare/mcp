@@ -9,7 +9,15 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const api$$shield_public_schema: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "kind": {
       "enum": [
@@ -23,7 +31,14 @@ export const api$$shield_public_schema: JsonSchema = {
     "schema_id": {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_uuid-2"
+          "allOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         {
           "format": "uuid",

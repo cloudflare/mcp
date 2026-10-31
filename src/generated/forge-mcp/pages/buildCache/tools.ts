@@ -7,7 +7,6 @@ import {
   pages_api$$response$$common$$failure,
   pages_messages,
 } from "../outputs.js";
-import { pages_identifier, pages_project_name } from "../schemas.js";
 
 /**
  * The tools of `pages.buildCache`.
@@ -16,19 +15,20 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_buildCache_purge",
     title: "Purge the Pages build cache",
-    description: "Remove cached build artifacts so subsequent builds run without the project's existing build cache.\n\nConfirm with the user before calling this tool. This operation purges the build cache for a Pages project.",
+    description: "Remove cached build artifacts so subsequent builds run without the project's existing build cache.\n\nConfirm with the user before calling this tool. This operation purges the build cache for a Pages project.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/purge_build_cache",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/pages_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "project_name": {
-              "$ref": "#/$defs/pages_project_name",
-              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
             }
           },
           "required": [
@@ -41,10 +41,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

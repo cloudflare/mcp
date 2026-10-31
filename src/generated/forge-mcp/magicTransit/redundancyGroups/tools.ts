@@ -8,7 +8,6 @@ import {
   magic_api$$response$$single,
   magic_messages,
 } from "../outputs.js";
-import { magic_identifier } from "../schemas.js";
 import {
   magic_delete_redundancy_group_response,
   magic_redundancy_group,
@@ -30,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_redundancyGroups_create",
     title: "Create a Redundancy Group",
-    description: "Creates a new redundancy group, optionally with tunnel members.",
+    description: "Creates a new redundancy group, optionally with tunnel members.\n\nPOST /accounts/{account_id}/magic/redundancy_groups",
     inputSchema: {
       type: "object",
       properties: {
@@ -38,10 +37,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_create_redundancy_group_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -54,9 +54,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
-        "magic_identifier": magic_identifier,
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },
@@ -113,19 +113,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_redundancyGroups_delete",
     title: "Delete a Redundancy Group",
-    description: "Deletes a redundancy group. Member tunnels are not deleted — their redundancy_group_id is cleared.",
+    description: "Deletes a redundancy group. Member tunnels are not deleted — their redundancy_group_id is cleared.\n\nDELETE /accounts/{account_id}/magic/redundancy_groups/{redundancy_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "redundancy_group_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -138,9 +139,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_delete_redundancy_group_response",
@@ -194,19 +193,20 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_redundancyGroups_get",
     title: "Get Redundancy Group Details",
-    description: "Gets details for a specific redundancy group, including full member tunnel data.",
+    description: "Gets details for a specific redundancy group, including full member tunnel data.\n\nGET /accounts/{account_id}/magic/redundancy_groups/{redundancy_group_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "redundancy_group_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -219,9 +219,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_redundancy_group_with_members_response",
@@ -279,15 +277,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_redundancyGroups_list",
     title: "List Redundancy Groups",
-    description: "Lists redundancy groups associated with an account, including full member tunnel data.",
+    description: "Lists redundancy groups associated with an account, including full member tunnel data.\n\nGET /accounts/{account_id}/magic/redundancy_groups",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -299,9 +298,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_redundancy_groups_collection_response",
@@ -359,7 +356,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_redundancyGroups_update",
     title: "Update a Redundancy Group",
-    description: "Replaces the name, description, and full set of members for an existing redundancy group.",
+    description: "Replaces the name, description, and full set of members for an existing redundancy group.\n\nPUT /accounts/{account_id}/magic/redundancy_groups/{redundancy_group_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -367,14 +364,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/magic_create_redundancy_group_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "redundancy_group_id": {
-              "$ref": "#/$defs/magic_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -388,9 +386,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
-        "magic_identifier": magic_identifier,
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },

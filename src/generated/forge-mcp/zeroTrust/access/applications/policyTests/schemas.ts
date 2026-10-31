@@ -24,11 +24,3 @@ export const access_policy_init_req: JsonSchema = {
   },
   "type": "object"
 };
-
-/**
- * The schema of `access_policy_test_id`.
- */
-export const access_policy_test_id: JsonSchema = {
-  "description": "The UUID of the policy test.",
-  "type": "string"
-};

@@ -8,7 +8,6 @@ import {
   custom$$indicator$$feeds_messages,
   custom$$indicator$$feeds_messages$$2,
 } from "../outputs.js";
-import { custom$$indicator$$feeds_identifier } from "../schemas.js";
 import {
   custom$$indicator$$feeds_create_provider_response,
   custom$$indicator$$feeds_create_provider_result,
@@ -22,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_providers_create",
     title: "Create indicator feed provider",
-    description: "Creates a new indicator feed provider for an account. Only available to Intel accounts.",
+    description: "Creates a new indicator feed provider for an account. Only available to Intel accounts.\n\nPUT /accounts/{account_id}/intel/indicator-feeds/permissions/createProvider",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,10 +29,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/custom-indicator-feeds_create_provider_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             }
           },
           "required": [
@@ -46,9 +46,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "custom-indicator-feeds_create_provider_request": custom$$indicator$$feeds_create_provider_request,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
       },
     },
     outputSchema: {

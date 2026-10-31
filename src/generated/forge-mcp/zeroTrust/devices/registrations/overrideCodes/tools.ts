@@ -15,11 +15,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_devices_registrations_overrideCodes_get",
     title: "Get override codes",
-    description: "Fetches one-time use admin override codes for a registration. This relies on the **Admin Override** setting being enabled in your device configuration.",
+    description: "Fetches one-time use admin override codes for a registration. This relies on the **Admin Override** setting being enabled in your device configuration.\n\nGET /accounts/{account_id}/devices/registrations/{registration_id}/override_codes",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -38,6 +39,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

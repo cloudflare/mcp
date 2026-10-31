@@ -8,9 +8,7 @@ import {
   builds_ErrorResponse,
   builds_PaginationInfo,
 } from "../../outputs.js";
-import { builds_account_id, builds_build_uuid } from "../../schemas.js";
-import { builds_BuildLogsResponse, builds_cursor } from "./outputs.js";
-import { builds_cursor as builds_cursor$ } from "./schemas.js";
+import { builds_BuildLogsResponse } from "./outputs.js";
 
 /**
  * The tools of `builds.logs`.
@@ -19,19 +17,21 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_logs_get",
     title: "Get Workers build logs",
-    description: "Retrieve cursor-paginated log lines for a build UUID.",
+    description: "Retrieve cursor-paginated log lines for a build UUID.\n\nGET /accounts/{account_id}/builds/builds/{build_uuid}/logs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/builds_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "build_uuid": {
-              "$ref": "#/$defs/builds_build_uuid",
-              "description": "Build UUID."
+              "description": "Build UUID.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -41,10 +41,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
-              "$ref": "#/$defs/builds_cursor",
-              "description": "Pagination cursor for log retrieval."
+              "description": "Pagination cursor for log retrieval.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -53,11 +54,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_build_uuid": builds_build_uuid,
-        "builds_cursor": builds_cursor$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -78,7 +75,6 @@ export const tools: readonly Tool[] = [
         "builds_ApiError": builds_ApiError,
         "builds_BuildLogsResponse": builds_BuildLogsResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_cursor": builds_cursor,
       },
     },
     annotations: {
@@ -126,7 +122,6 @@ export const tools: readonly Tool[] = [
         "builds_BuildLogsResponse": builds_BuildLogsResponse,
         "builds_ErrorResponse": builds_ErrorResponse,
         "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_cursor": builds_cursor,
       },
     },
     request: (args) => ({

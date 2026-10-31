@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `cloudforce-one-port-scan-api_frequency` in responses.
- */
-export const cloudforce$$one$$port$$scan$$api_frequency: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `cloudforce-one-port-scan-api_ips` in responses.
  */
 export const cloudforce$$one$$port$$scan$$api_ips: JsonSchema = {
@@ -39,7 +32,7 @@ export const cloudforce$$one$$port$$scan$$api_scan$$config: JsonSchema = {
       "type": "string"
     },
     "frequency": {
-      "$ref": "#/$defs/cloudforce-one-port-scan-api_frequency"
+      "type": "number"
     },
     "id": {
       "type": "string"

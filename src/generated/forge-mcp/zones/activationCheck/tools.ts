@@ -5,10 +5,8 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   zone$$activation_api$$response$$common$$failure,
   zone$$activation_api$$response$$single,
-  zone$$activation_identifier,
   zone$$activation_messages,
 } from "./outputs.js";
-import { zone$$activation_identifier as zone$$activation_identifier$ } from "./schemas.js";
 
 /**
  * The tools of `zones.activationCheck`.
@@ -17,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_activationCheck_activate",
     title: "Rerun the Activation Check",
-    description: "Triggeres a new activation check for a PENDING Zone. This can be\ntriggered every 5 min for paygo/ent customers, every hour for FREE\nZones.",
+    description: "Triggeres a new activation check for a PENDING Zone. This can be\ntriggered every 5 min for paygo/ent customers, every hour for FREE\nZones.\n\nPUT /zones/{zone_id}/activation_check",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/zone-activation_identifier",
-              "description": "Zone ID"
+              "description": "Zone ID",
+              "type": "string"
             }
           },
           "required": [
@@ -37,9 +36,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zone-activation_identifier": zone$$activation_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,7 +48,7 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/zone-activation_identifier"
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -62,7 +59,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "zone-activation_api-response-single": zone$$activation_api$$response$$single,
-        "zone-activation_identifier": zone$$activation_identifier,
         "zone-activation_messages": zone$$activation_messages,
       },
     },
@@ -92,7 +88,7 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "id": {
-                      "$ref": "#/$defs/zone-activation_identifier"
+                      "type": "string"
                     }
                   },
                   "type": "object"
@@ -109,7 +105,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zone-activation_api-response-common-failure": zone$$activation_api$$response$$common$$failure,
         "zone-activation_api-response-single": zone$$activation_api$$response$$single,
-        "zone-activation_identifier": zone$$activation_identifier,
         "zone-activation_messages": zone$$activation_messages,
       },
     },

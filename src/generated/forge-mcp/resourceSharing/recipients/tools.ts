@@ -3,30 +3,16 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$sharing_account_id,
   resource$$sharing_api$$response$$collection,
   resource$$sharing_api$$response$$collection$$info,
   resource$$sharing_api$$response$$common,
   resource$$sharing_api$$response$$common$$failure,
-  resource$$sharing_created,
-  resource$$sharing_modified,
-  resource$$sharing_resource_resource_id,
-  resource$$sharing_resource_version,
   resource$$sharing_result_info,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../../outputs.js";
-import {
-  resource$$sharing_account_id as resource$$sharing_account_id$,
-  resource$$sharing_organization_id,
-  resource$$sharing_share_id,
-} from "../../schemas.js";
 import { resource$$sharing_create_share_recipient_request } from "../schemas.js";
 import {
-  resource$$sharing_recipient_association_status,
-  resource$$sharing_recipient_id,
-  resource$$sharing_recipient_resource_error,
-  resource$$sharing_recipient_resource_error_terminal,
   resource$$sharing_share_recipient_object,
   resource$$sharing_share_recipient_resource_object,
   resource$$sharing_share_recipient_response_collection,
@@ -34,10 +20,7 @@ import {
   resource$$sharing_share_recipient_response_single,
   resource$$sharing_share_recipient_response_single_result,
 } from "./outputs.js";
-import {
-  resource$$sharing_recipient_id as resource$$sharing_recipient_id$,
-  resource$$sharing_update_share_recipients_request,
-} from "./schemas.js";
+import { resource$$sharing_update_share_recipients_request } from "./schemas.js";
 
 /**
  * The tools of `resourceSharing.recipients`.
@@ -46,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_recipients_create",
     title: "Trigger a recipient addition to a share",
-    description: "Adds a single recipient to an account-targeted resource share, granting\nthem access to the shared resources. The recipient account must belong\nto the same organization as the share owner.\n\nTo replace the entire recipient list in one call, use\n`PUT /accounts/{account_id}/shares/{share_id}/recipients` instead.",
+    description: "Adds a single recipient to an account-targeted resource share, granting\nthem access to the shared resources. The recipient account must belong\nto the same organization as the share owner.\n\nTo replace the entire recipient list in one call, use\n`PUT /accounts/{account_id}/shares/{share_id}/recipients` instead.\n\nPOST /accounts/{account_id}/shares/{share_id}/recipients",
     inputSchema: {
       type: "object",
       properties: {
@@ -54,14 +37,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_create_share_recipient_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -75,26 +59,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
         "resource-sharing_create_share_recipient_request": resource$$sharing_create_share_recipient_request,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_share_id": resource$$sharing_share_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -134,17 +107,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -161,23 +125,24 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_recipients_delete",
     title: "Trigger a recipient removal from a share",
-    description: "Performs a **soft delete**: sets the recipient's\n`desired_association_status` to `disassociated`, which signals the\nbackground reconciliation workflow (Temporal) to remove the shared\nresources from the recipient account. The recipient record remains in\nthe database for audit purposes and is still returned by\n`GET /accounts/{account_id}/shares/{share_id}/recipients` with its\nupdated status.\n\nResource access is not fully removed until the workflow completes and\n`current_association_status` transitions to `disassociated`. The\nrecipient record itself is never physically deleted.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
+    description: "Performs a **soft delete**: sets the recipient's\n`desired_association_status` to `disassociated`, which signals the\nbackground reconciliation workflow (Temporal) to remove the shared\nresources from the recipient account. The recipient record remains in\nthe database for audit purposes and is still returned by\n`GET /accounts/{account_id}/shares/{share_id}/recipients` with its\nupdated status.\n\nResource access is not fully removed until the workflow completes and\n`current_association_status` transitions to `disassociated`. The\nrecipient record itself is never physically deleted.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.\n\nDELETE /accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "recipient_id": {
-              "$ref": "#/$defs/resource-sharing_recipient_id",
-              "description": "Share Recipient identifier tag."
+              "description": "Share Recipient identifier tag.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -191,25 +156,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -249,17 +201,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -275,23 +218,24 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_recipients_get",
     title: "Get share recipient by ID",
-    description: "Get share recipient by ID.",
+    description: "Get share recipient by ID.\n\nGET /accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "recipient_id": {
-              "$ref": "#/$defs/resource-sharing_recipient_id",
-              "description": "Share Recipient identifier tag."
+              "description": "Share Recipient identifier tag.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -302,6 +246,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_resources": {
               "description": "Include resources in the response.",
@@ -314,25 +259,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_single",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -372,17 +304,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -401,19 +324,20 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_recipients_list",
     title: "List share recipients by share ID",
-    description: "List share recipients by share ID. Returns **all** recipients\nregardless of their `association_status` (associating, associated,\ndisassociating, disassociated). Callers that want only \"active\"\nrecipients must filter client-side on the `association_status` field.",
+    description: "List share recipients by share ID. Returns **all** recipients\nregardless of their `association_status` (associating, associated,\ndisassociating, disassociated). Callers that want only \"active\"\nrecipients must filter client-side on the `association_status` field.\n\nGET /accounts/{account_id}/shares/{share_id}/recipients",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -423,6 +347,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_resources": {
               "description": "Include resources in the response.",
@@ -445,26 +370,14 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
-        "resource-sharing_share_id": resource$$sharing_share_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_collection",
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
@@ -505,19 +418,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id,
         "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
         "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
         "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
         "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
-        "resource-sharing_created": resource$$sharing_created,
-        "resource-sharing_modified": resource$$sharing_modified,
-        "resource-sharing_recipient_association_status": resource$$sharing_recipient_association_status,
-        "resource-sharing_recipient_id": resource$$sharing_recipient_id,
-        "resource-sharing_recipient_resource_error": resource$$sharing_recipient_resource_error,
-        "resource-sharing_recipient_resource_error_terminal": resource$$sharing_recipient_resource_error_terminal,
-        "resource-sharing_resource_resource_id": resource$$sharing_resource_resource_id,
-        "resource-sharing_resource_version": resource$$sharing_resource_version,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
@@ -539,7 +443,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_recipients_update",
     title: "Trigger recipient reconciliation on a share",
-    description: "Replaces the full recipient list for an account-targeted share. The\nserver computes the diff between the current and desired recipients:\nnew accounts are added, accounts no longer in the list are marked for\ndisassociation, and unchanged accounts are left as-is.\n\nReturns an error if the share targets an organization\n(`target_type=organization`); org-targeted shares derive their\nrecipients dynamically from org membership and cannot be modified\nthrough this endpoint.",
+    description: "Replaces the full recipient list for an account-targeted share. The\nserver computes the diff between the current and desired recipients:\nnew accounts are added, accounts no longer in the list are marked for\ndisassociation, and unchanged accounts are left as-is.\n\nReturns an error if the share targets an organization\n(`target_type=organization`); org-targeted shares derive their\nrecipients dynamically from org membership and cannot be modified\nthrough this endpoint.\n\nPUT /accounts/{account_id}/shares/{share_id}/recipients",
     inputSchema: {
       type: "object",
       properties: {
@@ -547,14 +451,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_update_share_recipients_request"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/resource-sharing_account_id",
-              "description": "Account identifier."
+              "description": "Account identifier.",
+              "type": "string"
             },
             "share_id": {
-              "$ref": "#/$defs/resource-sharing_share_id",
-              "description": "Share identifier tag."
+              "description": "Share identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -568,11 +473,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "resource-sharing_account_id": resource$$sharing_account_id$,
         "resource-sharing_create_share_recipient_request": resource$$sharing_create_share_recipient_request,
-        "resource-sharing_organization_id": resource$$sharing_organization_id,
-        "resource-sharing_share_id": resource$$sharing_share_id,
         "resource-sharing_update_share_recipients_request": resource$$sharing_update_share_recipients_request,
       },
     },

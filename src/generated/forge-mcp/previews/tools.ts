@@ -7,7 +7,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../outputs.js";
-import { workers_identifier } from "../schemas.js";
 
 /**
  * The tools of `previews`.
@@ -16,15 +15,16 @@ export const tools: readonly Tool[] = [
   {
     name: "previews_delete",
     title: "Delete Preview",
-    description: "Delete a Preview.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the Preview.",
+    description: "Delete a Preview.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation permanently deletes the Preview.\n\nDELETE /accounts/{account_id}/workers/workers/{worker_id}/previews/{preview_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "preview_id": {
               "description": "Identifier for the Preview, which can be ID, slug, or URL-encoded name.",
@@ -43,6 +43,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "force": {
               "description": "If true, delete the Preview even when other Workers still reference it. Service bindings in those Workers may be left broken. Durable Object namespaces implemented by the deleted Preview are deleted even if other Workers reference them.",
@@ -55,9 +56,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",

@@ -41,7 +41,7 @@ export const tls$$certificates$$and$$hostnames_certificate_response_id_only: Jso
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_certificate_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -79,13 +79,19 @@ export const tls$$certificates$$and$$hostnames_certificate_response_single: Json
 export const tls$$certificates$$and$$hostnames_custom$$certificate: JsonSchema = {
   "properties": {
     "bundle_method": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_bundle_method"
+      "enum": [
+        "ubiquitous",
+        "optimal",
+        "force"
+      ],
+      "type": "string"
     },
     "custom_csr_id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_id"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on"
+      "format": "date-time",
+      "type": "string"
     },
     "geo_restrictions": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_geo_restrictions"
@@ -94,34 +100,43 @@ export const tls$$certificates$$and$$hostnames_custom$$certificate: JsonSchema =
       "$ref": "#/$defs/tls-certificates-and-hostnames_hosts"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_certificate_identifier"
+      "type": "string"
     },
     "issuer": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issuer"
+      "type": "string"
     },
     "keyless_server": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_keyless-certificate"
     },
     "modified_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "policy_restrictions": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_policy_restrictions"
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_priority"
+      "type": "number"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status"
+      "enum": [
+        "active",
+        "expired",
+        "deleted",
+        "pending",
+        "initializing"
+      ],
+      "type": "string"
     },
     "uploaded_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uploaded_on"
+      "format": "date-time",
+      "type": "string"
     },
     "zone_id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -129,29 +144,6 @@ export const tls$$certificates$$and$$hostnames_custom$$certificate: JsonSchema =
     "zone_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_certificate_identifier`
- * in responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_certificate_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_csr_id` in responses.
- */
-export const tls$$certificates$$and$$hostnames_custom_csr_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_expires_on` in responses.
- */
-export const tls$$certificates$$and$$hostnames_expires_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -179,41 +171,4 @@ export const tls$$certificates$$and$$hostnames_hosts: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_modified_on` in responses.
- */
-export const tls$$certificates$$and$$hostnames_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_policy_restrictions` in
- * responses.
- */
-export const tls$$certificates$$and$$hostnames_policy_restrictions: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_priority` in responses.
- */
-export const tls$$certificates$$and$$hostnames_priority: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status` in responses.
- */
-export const tls$$certificates$$and$$hostnames_status: JsonSchema = {
-  "enum": [
-    "active",
-    "expired",
-    "deleted",
-    "pending",
-    "initializing"
-  ],
-  "type": "string"
 };

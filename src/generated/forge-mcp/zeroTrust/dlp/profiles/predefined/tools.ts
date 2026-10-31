@@ -18,13 +18,10 @@ import {
   dlp_Pattern,
   dlp_PredefinedEntry,
   dlp_PredefinedEntryVariant,
-  dlp_PromptTopicType,
   dlp_SensitivityLevelRef,
-  dlp_Validation,
   dlp_WordListEntry,
 } from "../../outputs.js";
 import {
-  dlp_Confidence,
   dlp_ContextAwareness,
   dlp_CustomProfile,
   dlp_IntegrationProfile,
@@ -48,7 +45,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_profiles_predefined_update",
     title: "Update predefined profile",
-    description: "Updates a DLP predefined profile. Only supports enabling/disabling entries.",
+    description: "Updates a DLP predefined profile. Only supports enabling/disabling entries.\n\nPUT /accounts/{account_id}/dlp/profiles/predefined/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -57,6 +54,7 @@ export const tools: readonly Tool[] = [
           "description": "The updated parameters for the predefined profile."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -77,6 +75,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_ContextAwareness": dlp_ContextAwareness$,
         "dlp_PredefinedProfileEntryUpdate": dlp_PredefinedProfileEntryUpdate,
@@ -99,7 +98,6 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Confidence": dlp_Confidence,
         "dlp_ContextAwareness": dlp_ContextAwareness,
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomProfile": dlp_CustomProfile,
@@ -115,10 +113,8 @@ export const tools: readonly Tool[] = [
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
         "dlp_PredefinedProfile": dlp_PredefinedProfile,
         "dlp_Profile": dlp_Profile,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
@@ -160,7 +156,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Confidence": dlp_Confidence,
         "dlp_ContextAwareness": dlp_ContextAwareness,
         "dlp_CustomEntry": dlp_CustomEntry,
         "dlp_CustomProfile": dlp_CustomProfile,
@@ -176,10 +171,8 @@ export const tools: readonly Tool[] = [
         "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
         "dlp_PredefinedProfile": dlp_PredefinedProfile,
         "dlp_Profile": dlp_Profile,
-        "dlp_PromptTopicType": dlp_PromptTopicType,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
         "dlp_WordListEntry": dlp_WordListEntry,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
         "dlp_api-response-single": dlp_api$$response$$single,

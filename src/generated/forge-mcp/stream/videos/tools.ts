@@ -6,82 +6,25 @@ import {
   stream_api$$response$$common,
   stream_api$$response$$common$$failure,
   stream_api$$response$$single,
-  stream_creator,
-  stream_downloadedFrom,
-  stream_height,
   stream_messages,
-  stream_name,
-  stream_opacity,
-  stream_padding,
-  stream_position,
-  stream_scale,
-  stream_watermark_created,
-  stream_watermark_identifier,
-  stream_watermark_size,
   stream_watermarks,
-  stream_width,
 } from "../outputs.js";
-import {
-  stream_account_identifier,
-  stream_creator as stream_creator$,
-  stream_include_counts,
-} from "../schemas.js";
 import {
   stream_allowedOrigins,
   stream_clipResponseSingle,
-  stream_created,
-  stream_duration,
-  stream_errorReasonCode,
-  stream_errorReasonText,
-  stream_identifier,
   stream_input,
-  stream_liveInput,
-  stream_maxDurationSeconds,
   stream_media_metadata,
-  stream_media_state,
   stream_media_status,
-  stream_modified,
-  stream_oneTimeUploadExpiry,
-  stream_pctComplete,
   stream_playback,
-  stream_preview,
-  stream_readyToStream,
-  stream_readyToStreamAt,
-  stream_requireSignedURLs,
-  stream_scheduledDeletion,
-  stream_size,
-  stream_thumbnailTimestampPct,
-  stream_thumbnail_url,
-  stream_uploaded,
   stream_video_response_collection,
   stream_video_response_single,
   stream_videos,
 } from "./outputs.js";
 import {
   stream_allowedOrigins as stream_allowedOrigins$,
-  stream_asc,
-  stream_clipped_from_video_uid,
-  stream_direct_user,
-  stream_end,
-  stream_end_time_seconds,
-  stream_identifier as stream_identifier$,
-  stream_maxDurationSeconds as stream_maxDurationSeconds$,
   stream_media_metadata as stream_media_metadata$,
-  stream_media_state as stream_media_state$,
-  stream_oneTimeUploadExpiry as stream_oneTimeUploadExpiry$,
-  stream_requireSignedURLs as stream_requireSignedURLs$,
-  stream_scheduledDeletion as stream_scheduledDeletion$,
-  stream_search,
-  stream_start,
-  stream_start_time_seconds,
-  stream_thumbnailTimestampPct as stream_thumbnailTimestampPct$,
-  stream_tus_resumable,
-  stream_type,
-  stream_upload_length,
-  stream_upload_metadata,
   stream_videoClipStandard,
   stream_video_copy_request,
-  stream_video_name,
   stream_video_update,
   stream_watermarkAtUpload,
   stream_watermark_at_upload,
@@ -94,7 +37,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_clip",
     title: "Clip videos given a start and end time",
-    description: "Clips a video based on the specified start and end times provided in seconds.",
+    description: "Clips a video based on the specified start and end times provided in seconds.\n\nPOST /accounts/{account_id}/stream/clip",
     inputSchema: {
       type: "object",
       properties: {
@@ -102,10 +45,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_videoClipStandard"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -118,17 +62,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
         "stream_allowedOrigins": stream_allowedOrigins$,
-        "stream_clipped_from_video_uid": stream_clipped_from_video_uid,
-        "stream_creator": stream_creator$,
-        "stream_end_time_seconds": stream_end_time_seconds,
         "stream_media_metadata": stream_media_metadata$,
-        "stream_requireSignedURLs": stream_requireSignedURLs$,
-        "stream_scheduledDeletion": stream_scheduledDeletion$,
-        "stream_start_time_seconds": stream_start_time_seconds,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct$,
         "stream_videoClipStandard": stream_videoClipStandard,
         "stream_watermarkAtUpload": stream_watermarkAtUpload,
       },
@@ -139,45 +76,13 @@ export const tools: readonly Tool[] = [
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_clipResponseSingle": stream_clipResponseSingle,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -208,45 +113,13 @@ export const tools: readonly Tool[] = [
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_clipResponseSingle": stream_clipResponseSingle,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -257,7 +130,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_copy",
     title: "Upload videos from a URL",
-    description: "Uploads a video to Stream from a provided URL.",
+    description: "Uploads a video to Stream from a provided URL.\n\nPOST /accounts/{account_id}/stream/copy",
     inputSchema: {
       type: "object",
       properties: {
@@ -265,19 +138,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_video_copy_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Upload-Creator": {
-              "$ref": "#/$defs/stream_creator",
-              "description": "A user-defined identifier for the media creator."
+              "description": "A user-defined identifier for the media creator.",
+              "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -290,14 +165,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
         "stream_allowedOrigins": stream_allowedOrigins$,
-        "stream_creator": stream_creator$,
         "stream_media_metadata": stream_media_metadata$,
-        "stream_requireSignedURLs": stream_requireSignedURLs$,
-        "stream_scheduledDeletion": stream_scheduledDeletion$,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct$,
         "stream_video_copy_request": stream_video_copy_request,
         "stream_watermark_at_upload": stream_watermark_at_upload,
       },
@@ -307,46 +178,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_single": stream_video_response_single,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -376,46 +215,14 @@ export const tools: readonly Tool[] = [
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_single": stream_video_response_single,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -429,27 +236,31 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_create",
     title: "Initiate video uploads using TUS",
-    description: "Initiates a video upload using the TUS protocol. On success, the server responds with a status code 201 (created) and includes a `location` header to indicate where the content should be uploaded. Refer to https://tus.io for protocol details.",
+    description: "Initiates a video upload using the TUS protocol. On success, the server responds with a status code 201 (created) and includes a `location` header to indicate where the content should be uploaded. Refer to https://tus.io for protocol details.\n\nPOST /accounts/{account_id}/stream",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Tus-Resumable": {
-              "$ref": "#/$defs/stream_tus_resumable",
-              "description": "Specifies the TUS protocol version. This value must be included in every upload request.\nNotes: The only supported version of TUS protocol is 1.0.0."
+              "description": "Specifies the TUS protocol version. This value must be included in every upload request.\nNotes: The only supported version of TUS protocol is 1.0.0.",
+              "enum": [
+                "1.0.0"
+              ],
+              "type": "string"
             },
             "Upload-Creator": {
-              "$ref": "#/$defs/stream_creator",
-              "description": "A user-defined identifier for the media creator."
+              "description": "A user-defined identifier for the media creator.",
+              "type": "string"
             },
             "Upload-Length": {
-              "$ref": "#/$defs/stream_upload_length",
-              "description": "Indicates the size of the entire upload in bytes. The value must be a non-negative integer."
+              "description": "Indicates the size of the entire upload in bytes. The value must be a non-negative integer.",
+              "type": "integer"
             },
             "Upload-Metadata": {
-              "$ref": "#/$defs/stream_upload_metadata",
-              "description": "Comma-separated key-value pairs following the TUS protocol specification. Values are Base-64 encoded.\nSupported keys: `name`, `requiresignedurls`, `allowedorigins`, `thumbnailtimestamppct`, `watermark`, `scheduleddeletion`, `maxdurationseconds`."
+              "description": "Comma-separated key-value pairs following the TUS protocol specification. Values are Base-64 encoded.\nSupported keys: `name`, `requiresignedurls`, `allowedorigins`, `thumbnailtimestamppct`, `watermark`, `scheduleddeletion`, `maxdurationseconds`.",
+              "type": "string"
             }
           },
           "required": [
@@ -459,10 +270,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -471,11 +283,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direct_user": {
-              "$ref": "#/$defs/stream_direct_user",
               "default": false,
-              "description": "Provisions a URL to let your end users upload videos directly to Cloudflare Stream without exposing your API token to clients."
+              "description": "Provisions a URL to let your end users upload videos directly to Cloudflare Stream without exposing your API token to clients.",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -485,14 +298,7 @@ export const tools: readonly Tool[] = [
         "path",
         "headers"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_creator": stream_creator$,
-        "stream_direct_user": stream_direct_user,
-        "stream_tus_resumable": stream_tus_resumable,
-        "stream_upload_length": stream_upload_length,
-        "stream_upload_metadata": stream_upload_metadata,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -536,19 +342,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_delete",
     title: "Delete video",
-    description: "Deletes a video and its copies from Cloudflare Stream.\n\nConfirm with the user before calling this tool. Permanently delete this video?",
+    description: "Deletes a video and its copies from Cloudflare Stream.\n\nConfirm with the user before calling this tool. Permanently delete this video?\n\nDELETE /accounts/{account_id}/stream/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -561,10 +368,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_identifier": stream_identifier$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -599,7 +403,7 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_edit",
     title: "Edit video details",
-    description: "Edit details for a single video.",
+    description: "Edit details for a single video.\n\nPOST /accounts/{account_id}/stream/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -607,14 +411,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/stream_video_update"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -628,17 +433,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
         "stream_allowedOrigins": stream_allowedOrigins$,
-        "stream_creator": stream_creator$,
-        "stream_identifier": stream_identifier$,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds$,
         "stream_media_metadata": stream_media_metadata$,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry$,
-        "stream_requireSignedURLs": stream_requireSignedURLs$,
-        "stream_scheduledDeletion": stream_scheduledDeletion$,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct$,
         "stream_video_update": stream_video_update,
       },
     },
@@ -647,46 +445,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_single": stream_video_response_single,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -711,46 +477,14 @@ export const tools: readonly Tool[] = [
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_single": stream_video_response_single,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -761,19 +495,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_embed",
     title: "Deprecated: Retrieve legacy embed code HTML",
-    description: "Fetches the legacy HTML code snippet to embed a video in a web page delivered through Cloudflare. On success, returns an HTML fragment for use on web pages to display a video. On failure, returns a JSON response body.\n\nThis method is deprecated.",
+    description: "Fetches the legacy HTML code snippet to embed a video in a web page delivered through Cloudflare. On success, returns an HTML fragment for use on web pages to display a video. On failure, returns a JSON response body.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/stream/{identifier}/embed",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -786,10 +521,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_identifier": stream_identifier$,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -825,19 +557,20 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_get",
     title: "Retrieve video details",
-    description: "Fetches details for a single video.",
+    description: "Fetches details for a single video.\n\nGET /accounts/{account_id}/stream/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "identifier": {
-              "$ref": "#/$defs/stream_identifier",
-              "description": "A Cloudflare-generated unique identifier for a media item."
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
             }
           },
           "required": [
@@ -850,56 +583,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_identifier": stream_identifier$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_video_response_single",
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_single": stream_video_response_single,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -930,46 +628,14 @@ export const tools: readonly Tool[] = [
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
         "stream_api-response-single": stream_api$$response$$single,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_single": stream_video_response_single,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -979,15 +645,16 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_list",
     title: "List videos",
-    description: "Lists up to 1000 videos from a single request. For a specific range, refer to the optional parameters.",
+    description: "Lists up to 1000 videos from a single request. For a specific range, refer to the optional parameters.\n\nGET /accounts/{account_id}/stream",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/stream_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -996,6 +663,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "after": {
               "description": "Alias for 'start'. Returns videos created after this date/time (RFC 3339 format).",
@@ -1003,9 +671,9 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "asc": {
-              "$ref": "#/$defs/stream_asc",
               "default": false,
-              "description": "Lists videos in ascending order of creation."
+              "description": "Lists videos in ascending order of creation.",
+              "type": "boolean"
             },
             "before": {
               "description": "Alias for 'end'. Returns videos created before this date/time (RFC 3339 format).",
@@ -1013,21 +681,22 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "creator": {
-              "$ref": "#/$defs/stream_creator",
-              "description": "A user-defined identifier for the media creator."
+              "description": "A user-defined identifier for the media creator.",
+              "type": "string"
             },
             "end": {
-              "$ref": "#/$defs/stream_end",
-              "description": "Lists videos created before the specified date."
+              "description": "Lists videos created before the specified date.",
+              "format": "date-time",
+              "type": "string"
             },
             "id": {
               "description": "Filter by video ID(s). Can be a single ID or a comma-separated list of IDs.",
               "type": "string"
             },
             "include_counts": {
-              "$ref": "#/$defs/stream_include_counts",
               "default": false,
-              "description": "Includes the total number of videos associated with the submitted query parameters."
+              "description": "Includes the total number of videos associated with the submitted query parameters.",
+              "type": "boolean"
             },
             "limit": {
               "description": "Maximum number of videos to return (default 1000, max 1000).",
@@ -1042,24 +711,34 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "search": {
-              "$ref": "#/$defs/stream_search",
-              "description": "Provides a partial word match of the `name` key in the `meta` field. Slow for medium to large video libraries. May be unavailable for very large libraries."
+              "description": "Provides a partial word match of the `name` key in the `meta` field. Slow for medium to large video libraries. May be unavailable for very large libraries.",
+              "type": "string"
             },
             "start": {
-              "$ref": "#/$defs/stream_start",
-              "description": "Lists videos created after the specified date."
+              "description": "Lists videos created after the specified date.",
+              "format": "date-time",
+              "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/stream_media_state",
-              "description": "Specifies the processing status for all quality levels for a video."
+              "description": "Specifies the processing status for all quality levels for a video.",
+              "enum": [
+                "pendingupload",
+                "downloading",
+                "queued",
+                "inprogress",
+                "ready",
+                "error",
+                "live-inprogress"
+              ],
+              "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/stream_type",
-              "description": "Specifies whether the video is `vod` or `live`."
+              "description": "Specifies whether the video is `vod` or `live`.",
+              "type": "string"
             },
             "video_name": {
-              "$ref": "#/$defs/stream_video_name",
-              "description": "Provides a fast, exact string match on the `name` key in the `meta` field."
+              "description": "Provides a fast, exact string match on the `name` key in the `meta` field.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -1068,64 +747,21 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-        "stream_asc": stream_asc,
-        "stream_creator": stream_creator$,
-        "stream_end": stream_end,
-        "stream_include_counts": stream_include_counts,
-        "stream_media_state": stream_media_state$,
-        "stream_search": stream_search,
-        "stream_start": stream_start,
-        "stream_type": stream_type,
-        "stream_video_name": stream_video_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_video_response_collection",
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-common": stream_api$$response$$common,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_collection": stream_video_response_collection,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -1156,46 +792,14 @@ export const tools: readonly Tool[] = [
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-common-failure": stream_api$$response$$common$$failure,
-        "stream_created": stream_created,
-        "stream_creator": stream_creator,
-        "stream_downloadedFrom": stream_downloadedFrom,
-        "stream_duration": stream_duration,
-        "stream_errorReasonCode": stream_errorReasonCode,
-        "stream_errorReasonText": stream_errorReasonText,
-        "stream_height": stream_height,
-        "stream_identifier": stream_identifier,
         "stream_input": stream_input,
-        "stream_liveInput": stream_liveInput,
-        "stream_maxDurationSeconds": stream_maxDurationSeconds,
         "stream_media_metadata": stream_media_metadata,
-        "stream_media_state": stream_media_state,
         "stream_media_status": stream_media_status,
         "stream_messages": stream_messages,
-        "stream_modified": stream_modified,
-        "stream_name": stream_name,
-        "stream_oneTimeUploadExpiry": stream_oneTimeUploadExpiry,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_pctComplete": stream_pctComplete,
         "stream_playback": stream_playback,
-        "stream_position": stream_position,
-        "stream_preview": stream_preview,
-        "stream_readyToStream": stream_readyToStream,
-        "stream_readyToStreamAt": stream_readyToStreamAt,
-        "stream_requireSignedURLs": stream_requireSignedURLs,
-        "stream_scale": stream_scale,
-        "stream_scheduledDeletion": stream_scheduledDeletion,
-        "stream_size": stream_size,
-        "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_thumbnail_url": stream_thumbnail_url,
-        "stream_uploaded": stream_uploaded,
         "stream_video_response_collection": stream_video_response_collection,
         "stream_videos": stream_videos,
-        "stream_watermark_created": stream_watermark_created,
-        "stream_watermark_identifier": stream_watermark_identifier,
-        "stream_watermark_size": stream_watermark_size,
         "stream_watermarks": stream_watermarks,
-        "stream_width": stream_width,
       },
     },
     request: (args) => ({

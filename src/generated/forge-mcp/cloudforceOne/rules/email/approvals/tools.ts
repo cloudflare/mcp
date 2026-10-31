@@ -22,7 +22,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_rules_email_approvals_resubmit",
     title: "Revise and resubmit a rejected structured email rule approval",
-    description: "Validates and compiles a complete structured email rule, then creates an immutable pending revision of its rejected approval.",
+    description: "Validates and compiles a complete structured email rule, then creates an immutable pending revision of its rejected approval.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/structured/approvals/{id}/resubmit",
     inputSchema: {
       type: "object",
       properties: {
@@ -115,6 +115,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID.",
@@ -132,6 +133,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "module": {
               "default": "eml",
@@ -148,6 +150,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "cloudforce-one_EmailRuleArrayCondition": cloudforce$$one_EmailRuleArrayCondition,
         "cloudforce-one_EmailRuleCondition": cloudforce$$one_EmailRuleCondition,

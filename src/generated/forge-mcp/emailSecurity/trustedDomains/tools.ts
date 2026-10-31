@@ -8,18 +8,14 @@ import {
   email$$security_api$$response$$common$$failure,
   email$$security_api$$response$$single,
   email$$security_messages,
-  email$$security_timestamp,
 } from "../outputs.js";
-import { email$$security_identifier } from "../schemas.js";
 import {
   email$$security_DeletedTrustedDomain,
   email$$security_TrustedDomain,
-  email$$security_TrustedDomainId,
   email$$security_TrustedDomainList,
 } from "./outputs.js";
 import {
   email$$security_CreateTrustedDomain,
-  email$$security_TrustedDomainId as email$$security_TrustedDomainId$,
   email$$security_UpdateTrustedDomain,
 } from "./schemas.js";
 
@@ -30,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_batch",
     title: "Batch trusted domain operations",
-    description: "Executes multiple trusted domain operations atomically: delete, partially update,\nreplace, and create trusted domain patterns in a single request. All four operation\narrays (deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected trusted domain patterns and restore normal recent domain and similarity checks for matching emails.",
+    description: "Executes multiple trusted domain operations atomically: delete, partially update,\nreplace, and create trusted domain patterns in a single request. All four operation\narrays (deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected trusted domain patterns and restore normal recent domain and similarity checks for matching emails.\n\nPOST /accounts/{account_id}/email-security/settings/trusted_domains/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,8 +37,9 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/email-security_TrustedDomainId",
-                    "description": "Trusted domain identifier."
+                    "description": "Trusted domain identifier.",
+                    "format": "uuid",
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -63,7 +60,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_TrustedDomainId"
+                        "description": "Trusted domain identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -94,7 +93,9 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_TrustedDomainId"
+                        "description": "Trusted domain identifier.",
+                        "format": "uuid",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -117,10 +118,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -133,11 +135,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateTrustedDomain": email$$security_CreateTrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId$,
         "email-security_UpdateTrustedDomain": email$$security_UpdateTrustedDomain,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -174,11 +175,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_TrustedDomainList": email$$security_TrustedDomainList,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -237,12 +236,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_TrustedDomainList": email$$security_TrustedDomainList,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -253,7 +250,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_create",
     title: "Create trusted email domain",
-    description: "Creates a new trusted domain pattern. Use for partner domains or approved senders that should bypass recent domain registration and similarity checks. Configure whether it prevents recent domain or spoof dispositions.\n\nThis method is beta.",
+    description: "Creates a new trusted domain pattern. Use for partner domains or approved senders that should bypass recent domain registration and similarity checks. Configure whether it prevents recent domain or spoof dispositions.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/email-security/settings/trusted_domains",
     inputSchema: {
       type: "object",
       properties: {
@@ -261,10 +258,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateTrustedDomain"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -277,9 +275,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateTrustedDomain": email$$security_CreateTrustedDomain,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -298,10 +296,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -342,11 +338,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -357,19 +351,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_delete",
     title: "Delete a trusted email domain",
-    description: "Removes a trusted domain pattern. After deletion, emails from this domain will be subject to normal recent domain and similarity checks.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the trusted domain pattern and restores normal recent domain and similarity checks for matching emails.",
+    description: "Removes a trusted domain pattern. After deletion, emails from this domain will be subject to normal recent domain and similarity checks.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the trusted domain pattern and restores normal recent domain and similarity checks for matching emails.\n\nDELETE /accounts/{account_id}/email-security/settings/trusted_domains/{trusted_domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "trusted_domain_id": {
-              "$ref": "#/$defs/email-security_TrustedDomainId",
-              "description": "Trusted domain identifier."
+              "description": "Trusted domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -382,10 +378,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -403,7 +396,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -446,7 +438,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
@@ -459,7 +450,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_edit",
     title: "Update a trusted email domain",
-    description: "Updates an existing trusted domain pattern. Only provided fields will be modified. Changes take effect for new emails matching the pattern.\n\nThis method is beta.",
+    description: "Updates an existing trusted domain pattern. Only provided fields will be modified. Changes take effect for new emails matching the pattern.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/email-security/settings/trusted_domains/{trusted_domain_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -467,14 +458,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_UpdateTrustedDomain"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "trusted_domain_id": {
-              "$ref": "#/$defs/email-security_TrustedDomainId",
-              "description": "Trusted domain identifier."
+              "description": "Trusted domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -488,10 +481,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId$,
         "email-security_UpdateTrustedDomain": email$$security_UpdateTrustedDomain,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -510,10 +502,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -554,11 +544,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -569,19 +557,21 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_get",
     title: "Get a trusted email domain",
-    description: "Retrieves details for a specific trusted domain pattern including its pattern value, whether it uses regex matching, and which detection types it affects.\n\nThis method is beta.",
+    description: "Retrieves details for a specific trusted domain pattern including its pattern value, whether it uses regex matching, and which detection types it affects.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/trusted_domains/{trusted_domain_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "trusted_domain_id": {
-              "$ref": "#/$defs/email-security_TrustedDomainId",
-              "description": "Trusted domain identifier."
+              "description": "Trusted domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -594,10 +584,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId$,
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -615,10 +602,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -660,11 +645,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -674,15 +657,16 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_list",
     title: "List trusted email domains",
-    description: "Returns a paginated list of trusted domain patterns. Trusted domains prevent false positives for recently registered domains and lookalike domain detections. Patterns can use regular expressions for flexible matching.\n\nThis method is beta.",
+    description: "Returns a paginated list of trusted domain patterns. Trusted domains prevent false positives for recently registered domains and lookalike domain detections. Patterns can use regular expressions for flexible matching.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/settings/trusted_domains",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -691,6 +675,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The sorting direction.",
@@ -740,9 +725,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "email-security_identifier": email$$security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -760,12 +743,10 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_TrustedDomainList": email$$security_TrustedDomainList,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -807,13 +788,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_TrustedDomainList": email$$security_TrustedDomainList,
         "email-security_api-response-collection": email$$security_api$$response$$collection,
         "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({
@@ -833,7 +812,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSecurity_trustedDomains_update",
     title: "Replace a trusted email domain",
-    description: "Replaces an existing trusted domain in full. Unlike PATCH, every field is taken from the request body, so optional fields that are omitted are reset rather than left untouched. Use this when managing trusted domains declaratively.\n\nThis method is beta.",
+    description: "Replaces an existing trusted domain in full. Unlike PATCH, every field is taken from the request body, so optional fields that are omitted are reset rather than left untouched. Use this when managing trusted domains declaratively.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/email-security/settings/trusted_domains/{trusted_domain_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -841,14 +820,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email-security_CreateTrustedDomain"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/email-security_identifier",
-              "description": "Account identifier tag."
+              "description": "Account identifier tag.",
+              "type": "string"
             },
             "trusted_domain_id": {
-              "$ref": "#/$defs/email-security_TrustedDomainId",
-              "description": "Trusted domain identifier."
+              "description": "Trusted domain identifier.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -862,10 +843,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "email-security_CreateTrustedDomain": email$$security_CreateTrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId$,
-        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -884,10 +864,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     annotations: {
@@ -925,11 +903,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
-        "email-security_TrustedDomainId": email$$security_TrustedDomainId,
         "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
-        "email-security_timestamp": email$$security_timestamp,
       },
     },
     request: (args) => ({

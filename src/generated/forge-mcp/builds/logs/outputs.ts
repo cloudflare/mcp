@@ -9,7 +9,7 @@ import type { JsonSchema } from "../../_/tool.js";
 export const builds_BuildLogsResponse: JsonSchema = {
   "properties": {
     "cursor": {
-      "$ref": "#/$defs/builds_cursor"
+      "type": "string"
     },
     "lines": {
       "items": {
@@ -34,11 +34,4 @@ export const builds_BuildLogsResponse: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_cursor` in responses.
- */
-export const builds_cursor: JsonSchema = {
-  "type": "string"
 };

@@ -8,15 +8,12 @@ import {
   rulesets_Messages,
   rulesets_Response,
 } from "../outputs.js";
-import { rulesets_ZoneId } from "../schemas.js";
 import {
   rulesets_ManagedTransform,
-  rulesets_ManagedTransformId,
   rulesets_ManagedTransforms,
 } from "./outputs.js";
 import {
   rulesets_ManagedTransform as rulesets_ManagedTransform$,
-  rulesets_ManagedTransformId as rulesets_ManagedTransformId$,
   rulesets_ManagedTransformsPatch,
 } from "./schemas.js";
 
@@ -27,15 +24,16 @@ export const tools: readonly Tool[] = [
   {
     name: "managedTransforms_delete",
     title: "Delete Managed Transforms",
-    description: "Disables all Managed Transforms.",
+    description: "Disables all Managed Transforms.\n\nDELETE /zones/{zone_id}/managed_headers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/rulesets_ZoneId",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -47,9 +45,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rulesets_ZoneId": rulesets_ZoneId,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -130,15 +126,16 @@ export const tools: readonly Tool[] = [
   {
     name: "managedTransforms_list",
     title: "List Managed Transforms",
-    description: "Fetches a list of all Managed Transforms.",
+    description: "Fetches a list of all Managed Transforms.\n\nGET /zones/{zone_id}/managed_headers",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/rulesets_ZoneId",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -150,9 +147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "rulesets_ZoneId": rulesets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -178,7 +173,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rulesets_Errors": rulesets_Errors,
         "rulesets_ManagedTransform": rulesets_ManagedTransform,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
         "rulesets_Message": rulesets_Message,
         "rulesets_Messages": rulesets_Messages,
@@ -295,7 +289,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rulesets_Errors": rulesets_Errors,
         "rulesets_ManagedTransform": rulesets_ManagedTransform,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
         "rulesets_Message": rulesets_Message,
         "rulesets_Messages": rulesets_Messages,
@@ -309,7 +302,7 @@ export const tools: readonly Tool[] = [
   {
     name: "managedTransforms_update",
     title: "Update Managed Transforms",
-    description: "Updates the status of one or more Managed Transforms.",
+    description: "Updates the status of one or more Managed Transforms.\n\nPATCH /zones/{zone_id}/managed_headers",
     inputSchema: {
       type: "object",
       properties: {
@@ -317,10 +310,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rulesets_ManagedTransformsPatch"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/rulesets_ZoneId",
-              "description": "The unique ID of the zone."
+              "description": "The unique ID of the zone.",
+              "type": "string"
             }
           },
           "required": [
@@ -333,11 +327,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "rulesets_ManagedTransform": rulesets_ManagedTransform$,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId$,
         "rulesets_ManagedTransformsPatch": rulesets_ManagedTransformsPatch,
-        "rulesets_ZoneId": rulesets_ZoneId,
       },
     },
     outputSchema: {
@@ -364,7 +357,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rulesets_Errors": rulesets_Errors,
         "rulesets_ManagedTransform": rulesets_ManagedTransform,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
         "rulesets_Message": rulesets_Message,
         "rulesets_Messages": rulesets_Messages,
@@ -460,7 +452,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rulesets_Errors": rulesets_Errors,
         "rulesets_ManagedTransform": rulesets_ManagedTransform,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
         "rulesets_Message": rulesets_Message,
         "rulesets_Messages": rulesets_Messages,

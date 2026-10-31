@@ -4,38 +4,22 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `argo-config_identifier`.
- */
-export const argo$$config_identifier: JsonSchema = {
-  "description": "Specifies the zone associated with the API call.",
-  "type": "string"
-};
-
-/**
  * The schema of `argo-config_patch`.
  */
 export const argo$$config_patch: JsonSchema = {
   "description": "Configures the enablement of Argo Smart Routing.",
   "properties": {
     "value": {
-      "$ref": "#/$defs/argo-config_setting_value",
-      "description": "Specifies the enablement value of Argo Smart Routing."
+      "description": "Specifies the enablement value of Argo Smart Routing.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     }
   },
   "required": [
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `argo-config_setting_value`.
- */
-export const argo$$config_setting_value: JsonSchema = {
-  "description": "Specifies the enablement value of Argo Smart Routing.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ranking_timeseriesGroups",
     title: "Get domains rank time series",
-    description: "Retrieves domains rank over time.",
+    description: "Retrieves domains rank over time.\n\nGET /radar/ranking/timeseries_groups",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "dateEnd": {
               "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`. When requesting comparison series, every series must resolve to the same duration as the main series. Each `dateStart`/`dateEnd` is floored to the nearest 15 minutes before evaluation, so windows whose durations match only before alignment may be rejected.",
@@ -94,6 +95,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -607,11 +609,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_ranking_top",
     title: "Get top or trending domains",
-    description: "Retrieves the top or trending domains based on their rank. Popular domains are domains of broad appeal based on how people use the Internet. Trending domains are domains that are generating a surge in interest. For more information on top domains, see https://blog.cloudflare.com/radar-domain-rankings/.",
+    description: "Retrieves the top or trending domains based on their rank. Popular domains are domains of broad appeal based on how people use the Internet. Trending domains are domains that are generating a surge in interest. For more information on top domains, see https://blog.cloudflare.com/radar-domain-rankings/.\n\nGET /radar/ranking/top",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "date": {
               "description": "Filters results by the specified array of dates.",
@@ -668,6 +671,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         }
       },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

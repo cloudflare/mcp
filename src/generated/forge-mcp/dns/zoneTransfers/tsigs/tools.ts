@@ -9,24 +9,13 @@ import {
   secondary$$dns_api$$response$$single,
   secondary$$dns_messages,
 } from "../outputs.js";
-import { secondary$$dns_account_identifier } from "../schemas.js";
 import {
-  secondary$$dns_algo,
   secondary$$dns_id_response$$2,
-  secondary$$dns_identifier$$2,
-  secondary$$dns_name$$2,
   secondary$$dns_response_collection,
-  secondary$$dns_secret,
   secondary$$dns_single_response,
   secondary$$dns_tsig,
 } from "./outputs.js";
-import {
-  secondary$$dns_algo as secondary$$dns_algo$,
-  secondary$$dns_identifier$$2 as secondary$$dns_identifier$$2$,
-  secondary$$dns_name$$2 as secondary$$dns_name$$2$,
-  secondary$$dns_secret as secondary$$dns_secret$,
-  secondary$$dns_tsig as secondary$$dns_tsig$,
-} from "./schemas.js";
+import { secondary$$dns_tsig as secondary$$dns_tsig$ } from "./schemas.js";
 
 /**
  * The tools of `dns.zoneTransfers.tsigs`.
@@ -35,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_tsigs_create",
     title: "Create TSIG",
-    description: "Create TSIG.",
+    description: "Create TSIG.\n\nPOST /accounts/{account_id}/secondary_dns/tsigs",
     inputSchema: {
       type: "object",
       properties: {
@@ -43,9 +32,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_tsig"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -58,23 +48,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_algo": secondary$$dns_algo$,
-        "secondary-dns_name-2": secondary$$dns_name$$2$,
-        "secondary-dns_secret": secondary$$dns_secret$,
         "secondary-dns_tsig": secondary$$dns_tsig$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response",
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_single_response": secondary$$dns_single_response,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
@@ -116,13 +99,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_single_response": secondary$$dns_single_response,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
@@ -135,17 +114,18 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_tsigs_delete",
     title: "Delete TSIG",
-    description: "Delete TSIG.",
+    description: "Delete TSIG.\n\nDELETE /accounts/{account_id}/secondary_dns/tsigs/{tsig_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             },
             "tsig_id": {
-              "$ref": "#/$defs/secondary-dns_identifier-2"
+              "type": "string"
             }
           },
           "required": [
@@ -158,17 +138,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_id_response-2",
       $defs: {
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response-2": secondary$$dns_id_response$$2,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -212,7 +188,6 @@ export const tools: readonly Tool[] = [
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response-2": secondary$$dns_id_response$$2,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
       },
     },
@@ -223,17 +198,18 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_tsigs_get",
     title: "TSIG Details",
-    description: "Get TSIG.",
+    description: "Get TSIG.\n\nGET /accounts/{account_id}/secondary_dns/tsigs/{tsig_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             },
             "tsig_id": {
-              "$ref": "#/$defs/secondary-dns_identifier-2"
+              "type": "string"
             }
           },
           "required": [
@@ -246,20 +222,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response",
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_single_response": secondary$$dns_single_response,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
@@ -302,13 +271,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_single_response": secondary$$dns_single_response,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
@@ -320,14 +285,15 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_tsigs_list",
     title: "List TSIGs",
-    description: "List TSIGs.",
+    description: "List TSIGs.\n\nGET /accounts/{account_id}/secondary_dns/tsigs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -339,21 +305,15 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_response_collection",
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-collection": secondary$$dns_api$$response$$collection,
         "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
         "secondary-dns_response_collection": secondary$$dns_response_collection,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
     },
@@ -395,15 +355,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-collection": secondary$$dns_api$$response$$collection,
         "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
         "secondary-dns_response_collection": secondary$$dns_response_collection,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
     },
@@ -414,7 +370,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_zoneTransfers_tsigs_update",
     title: "Update TSIG",
-    description: "Modify TSIG.",
+    description: "Modify TSIG.\n\nPUT /accounts/{account_id}/secondary_dns/tsigs/{tsig_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -422,12 +378,13 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_tsig"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/secondary-dns_account_identifier"
+              "type": "string"
             },
             "tsig_id": {
-              "$ref": "#/$defs/secondary-dns_identifier-2"
+              "type": "string"
             }
           },
           "required": [
@@ -441,24 +398,16 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
-        "secondary-dns_algo": secondary$$dns_algo$,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2$,
-        "secondary-dns_name-2": secondary$$dns_name$$2$,
-        "secondary-dns_secret": secondary$$dns_secret$,
         "secondary-dns_tsig": secondary$$dns_tsig$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response",
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_single_response": secondary$$dns_single_response,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },
@@ -500,13 +449,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_algo": secondary$$dns_algo,
         "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
-        "secondary-dns_identifier-2": secondary$$dns_identifier$$2,
         "secondary-dns_messages": secondary$$dns_messages,
-        "secondary-dns_name-2": secondary$$dns_name$$2,
-        "secondary-dns_secret": secondary$$dns_secret,
         "secondary-dns_single_response": secondary$$dns_single_response,
         "secondary-dns_tsig": secondary$$dns_tsig,
       },

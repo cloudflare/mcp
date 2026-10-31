@@ -78,13 +78,6 @@ export const mq_api$$v4$$success: JsonSchema = {
 };
 
 /**
- * The schema of `mq_batch-size` in responses.
- */
-export const mq_batch$$size: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `mq_consumer-response` in responses.
  */
 export const mq_consumer$$response: JsonSchema = {
@@ -104,7 +97,7 @@ export const mq_consumer$$response: JsonSchema = {
 export const mq_http$$consumer$$response: JsonSchema = {
   "properties": {
     "consumer_id": {
-      "$ref": "#/$defs/mq_identifier"
+      "type": "string"
     },
     "created_on": {
       "format": "date-time",
@@ -114,21 +107,21 @@ export const mq_http$$consumer$$response: JsonSchema = {
       "type": "string"
     },
     "queue_name": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "settings": {
       "properties": {
         "batch_size": {
-          "$ref": "#/$defs/mq_batch-size"
+          "type": "number"
         },
         "max_retries": {
-          "$ref": "#/$defs/mq_max-retries"
+          "type": "number"
         },
         "retry_delay": {
-          "$ref": "#/$defs/mq_retry-delay"
+          "type": "number"
         },
         "visibility_timeout_ms": {
-          "$ref": "#/$defs/mq_visibility-timeout"
+          "type": "number"
         }
       },
       "type": "object"
@@ -141,46 +134,6 @@ export const mq_http$$consumer$$response: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `mq_identifier` in responses.
- */
-export const mq_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `mq_jurisdiction` in responses.
- */
-export const mq_jurisdiction: JsonSchema = {
-  "enum": [
-    "eu",
-    "us",
-    "fedramp"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `mq_max-concurrency` in responses.
- */
-export const mq_max$$concurrency: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `mq_max-retries` in responses.
- */
-export const mq_max$$retries: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `mq_max-wait-time` in responses.
- */
-export const mq_max$$wait$$time: JsonSchema = {
-  "type": "number"
 };
 
 /**
@@ -215,7 +168,12 @@ export const mq_queue: JsonSchema = {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/mq_jurisdiction"
+      "enum": [
+        "eu",
+        "us",
+        "fedramp"
+      ],
+      "type": "string"
     },
     "modified_on": {
       "type": "string"
@@ -233,7 +191,7 @@ export const mq_queue: JsonSchema = {
       "type": "string"
     },
     "queue_name": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "settings": {
       "$ref": "#/$defs/mq_queue-settings"
@@ -263,13 +221,6 @@ export const mq_queue$$metrics: JsonSchema = {
     "oldest_message_timestamp_ms"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `mq_queue-name` in responses.
- */
-export const mq_queue$$name: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -309,33 +260,12 @@ export const mq_r2$$producer: JsonSchema = {
 };
 
 /**
- * The schema of `mq_retry-delay` in responses.
- */
-export const mq_retry$$delay: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `mq_script-name` in responses.
- */
-export const mq_script$$name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `mq_visibility-timeout` in responses.
- */
-export const mq_visibility$$timeout: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `mq_worker-consumer-response` in responses.
  */
 export const mq_worker$$consumer$$response: JsonSchema = {
   "properties": {
     "consumer_id": {
-      "$ref": "#/$defs/mq_identifier"
+      "type": "string"
     },
     "created_on": {
       "format": "date-time",
@@ -345,27 +275,27 @@ export const mq_worker$$consumer$$response: JsonSchema = {
       "type": "string"
     },
     "queue_name": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "script_name": {
-      "$ref": "#/$defs/mq_script-name"
+      "type": "string"
     },
     "settings": {
       "properties": {
         "batch_size": {
-          "$ref": "#/$defs/mq_batch-size"
+          "type": "number"
         },
         "max_concurrency": {
-          "$ref": "#/$defs/mq_max-concurrency"
+          "type": "number"
         },
         "max_retries": {
-          "$ref": "#/$defs/mq_max-retries"
+          "type": "number"
         },
         "max_wait_time_ms": {
-          "$ref": "#/$defs/mq_max-wait-time"
+          "type": "number"
         },
         "retry_delay": {
-          "$ref": "#/$defs/mq_retry-delay"
+          "type": "number"
         }
       },
       "type": "object"

@@ -9,12 +9,19 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const magic_cf1_site_ramp_body: JsonSchema = {
   "properties": {
     "source_ramp_id": {
-      "$ref": "#/$defs/magic_identifier",
-      "description": "Identifier of the source network resource to associate as a ramp."
+      "description": "Identifier of the source network resource to associate as a ramp.",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/magic_cf1_site_ramp_type",
-      "description": "The type of network connection (ramp) linking a CF1 Site to Cloudflare's network."
+      "description": "The type of network connection (ramp) linking a CF1 Site to Cloudflare's network.",
+      "enum": [
+        "gre",
+        "gre_interconnect",
+        "mpls_interconnect",
+        "mconn",
+        "ipsec"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -22,19 +29,4 @@ export const magic_cf1_site_ramp_body: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_cf1_site_ramp_type`.
- */
-export const magic_cf1_site_ramp_type: JsonSchema = {
-  "description": "The type of network connection (ramp) linking a CF1 Site to Cloudflare's network.",
-  "enum": [
-    "gre",
-    "gre_interconnect",
-    "mpls_interconnect",
-    "mconn",
-    "ipsec"
-  ],
-  "type": "string"
 };

@@ -19,7 +19,7 @@ export const custom$$indicator$$feeds_upload_status: JsonSchema = {
       "type": "string"
     },
     "feed_id": {
-      "$ref": "#/$defs/custom-indicator-feeds_feed_id"
+      "type": "integer"
     },
     "filename": {
       "type": "string"

@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../../schemas.js";
 import {
   r2_add_custom_domain_response,
   r2_edit_custom_domain_response,
@@ -18,7 +17,6 @@ import {
 } from "./outputs.js";
 import {
   r2_add_custom_domain_request,
-  r2_domain_name,
   r2_edit_custom_domain_request,
 } from "./schemas.js";
 
@@ -29,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_custom_create",
     title: "Attach Custom Domain To Bucket",
-    description: "Register a new custom domain for an existing R2 bucket.",
+    description: "Register a new custom domain for an existing R2 bucket.\n\nPOST /accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom",
     inputSchema: {
       type: "object",
       properties: {
@@ -37,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2_add_custom_domain_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -54,14 +53,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -75,10 +75,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
         "r2_add_custom_domain_request": r2_add_custom_domain_request,
-        "r2_bucket_name": r2_bucket_name,
       },
     },
     outputSchema: {
@@ -158,11 +157,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_custom_delete",
     title: "Remove Custom Domain From Bucket",
-    description: "Disconnects a custom domain from an R2 bucket and removes its configuration. Access through other enabled custom domains or the bucket's r2.dev domain is unaffected.\n\nConfirm with the user before calling this tool. This disconnects the custom domain from the R2 bucket. Access through other enabled domains remains available.",
+    description: "Disconnects a custom domain from an R2 bucket and removes its configuration. Access through other enabled custom domains or the bucket's r2.dev domain is unaffected.\n\nConfirm with the user before calling this tool. This disconnects the custom domain from the R2 bucket. Access through other enabled domains remains available.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom/{domain}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -180,18 +180,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "domain": {
-              "$ref": "#/$defs/r2_domain_name",
-              "description": "Name of the custom domain."
+              "description": "Name of the custom domain.",
+              "type": "string"
             }
           },
           "required": [
@@ -205,11 +206,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_domain_name": r2_domain_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -285,11 +282,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_custom_get",
     title: "Get Custom Domain Settings",
-    description: "Get the configuration for a custom domain on an existing R2 bucket.",
+    description: "Get the configuration for a custom domain on an existing R2 bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom/{domain}",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -307,18 +305,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "domain": {
-              "$ref": "#/$defs/r2_domain_name",
-              "description": "Name of the custom domain."
+              "description": "Name of the custom domain.",
+              "type": "string"
             }
           },
           "required": [
@@ -332,11 +331,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_domain_name": r2_domain_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -413,11 +408,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_custom_list",
     title: "List Custom Domains of Bucket",
-    description: "Gets a list of all custom domains registered with an existing R2 bucket.",
+    description: "Gets a list of all custom domains registered with an existing R2 bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -435,14 +431,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -455,10 +452,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -536,7 +530,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_domains_custom_update",
     title: "Configure Custom Domain Settings",
-    description: "Edit the configuration for a custom domain on an existing R2 bucket.",
+    description: "Edit the configuration for a custom domain on an existing R2 bucket.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/domains/custom/{domain}",
     inputSchema: {
       type: "object",
       properties: {
@@ -544,6 +538,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/r2_edit_custom_domain_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -561,18 +556,19 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             },
             "domain": {
-              "$ref": "#/$defs/r2_domain_name",
-              "description": "Name of the custom domain."
+              "description": "Name of the custom domain.",
+              "type": "string"
             }
           },
           "required": [
@@ -587,10 +583,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-        "r2_domain_name": r2_domain_name,
         "r2_edit_custom_domain_request": r2_edit_custom_domain_request,
       },
     },

@@ -21,8 +21,6 @@ import {
   realtimekit_LivestreamingConfig as realtimekit_LivestreamingConfig$,
   realtimekit_StorageConfig as realtimekit_StorageConfig$,
   realtimekit_VideoConfig as realtimekit_VideoConfig$,
-  realtimekit_account_identifier,
-  realtimekit_app_id,
   realtimekit_realtimekitBucketConfig as realtimekit_realtimekitBucketConfig$,
 } from "../schemas.js";
 import {
@@ -39,7 +37,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_recordings_control",
     title: "Pause/Resume/Stop recording",
-    description: "Pause/Resume/Stop a given recording ID.\n\nThis method is beta.",
+    description: "Pause/Resume/Stop a given recording ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/recordings/{recording_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -60,14 +58,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "recording_id": {
               "description": "ID of the recording",
@@ -87,10 +86,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -205,19 +201,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_recordings_get",
     title: "Fetch details of a recording",
-    description: "Returns details of a recording for the given recording ID.\n\nThis method is beta.",
+    description: "Returns details of a recording for the given recording ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/recordings/{recording_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "recording_id": {
               "description": "ID of the recording",
@@ -236,10 +233,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -353,19 +347,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_recordings_list",
     title: "Fetch all recordings for an App",
-    description: "Returns all recordings for an App. If the `meeting_id` parameter is passed, returns all recordings for the given meeting ID.\n\nThis method is beta.",
+    description: "Returns all recordings for an App. If the `meeting_id` parameter is passed, returns all recordings for the given meeting ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/recordings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -375,6 +370,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "end_time": {
               "description": "The end time range for which you want to retrieve the meetings. The time must be specified in ISO format.",
@@ -442,10 +438,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -590,7 +583,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_recordings_start",
     title: "Start recording a meeting",
-    description: "Starts recording a meeting. The meeting can be started by an App admin directly, or a participant with permissions to start a recording, based on the type of authorization used.\n\nThis method is beta.",
+    description: "Starts recording a meeting. The meeting can be started by an App admin directly, or a participant with permissions to start a recording, based on the type of authorization used.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/recordings",
     inputSchema: {
       type: "object",
       properties: {
@@ -645,14 +638,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -666,14 +660,13 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_AudioConfig": realtimekit_AudioConfig$,
         "realtimekit_InteractiveConfig": realtimekit_InteractiveConfig,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig$,
         "realtimekit_StorageConfig": realtimekit_StorageConfig$,
         "realtimekit_VideoConfig": realtimekit_VideoConfig$,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
         "realtimekit_realtimekitBucketConfig": realtimekit_realtimekitBucketConfig$,
       },
     },

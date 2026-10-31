@@ -9,11 +9,6 @@ import {
   workers$$kv_list_metadata,
   workers$$kv_messages,
 } from "../outputs.js";
-import {
-  workers$$kv_identifier,
-  workers$$kv_key_name,
-  workers$$kv_namespace_identifier,
-} from "../schemas.js";
 
 /**
  * The tools of `kv.metadata`.
@@ -22,23 +17,24 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_metadata_get",
     title: "Get a key's metadata",
-    description: "Returns the JSON metadata associated with the specified key in the Workers KV namespace, without retrieving its value. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL.",
+    description: "Returns the JSON metadata associated with the specified key in the Workers KV namespace, without retrieving its value. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL.\n\nGET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/metadata/{key_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "key_name": {
-              "$ref": "#/$defs/workers-kv_key_name",
-              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."
+              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -52,11 +48,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_key_name": workers$$kv_key_name,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

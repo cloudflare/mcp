@@ -11,7 +11,6 @@ import {
 import {
   dlp_RiskEvent,
   dlp_RiskEvents,
-  dlp_RiskLevel,
   dlp_api$$response$$collection,
   dlp_api$$response$$common,
 } from "./outputs.js";
@@ -23,11 +22,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_get",
     title: "Get risk event/score information for a specific user",
-    description: "Retrieves the detailed risk score breakdown for a specific user, including contributing factors.",
+    description: "Retrieves the detailed risk score breakdown for a specific user, including contributing factors.\n\nGET /accounts/{account_id}/zt_risk_scoring/{user_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -47,6 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -65,7 +66,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_RiskEvent": dlp_RiskEvent,
         "dlp_RiskEvents": dlp_RiskEvents,
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_api-response-collection": dlp_api$$response$$collection,
         "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_messages": dlp_messages,
@@ -109,7 +109,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_RiskEvent": dlp_RiskEvent,
         "dlp_RiskEvents": dlp_RiskEvents,
-        "dlp_RiskLevel": dlp_RiskLevel,
         "dlp_api-response-collection": dlp_api$$response$$collection,
         "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
@@ -123,11 +122,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_riskScoring_reset",
     title: "Clear the risk score for a particular user",
-    description: "Resets risk scores for specified users, clearing their accumulated risk history.\n\nConfirm with the user before calling this tool. This operation wipes risk-scoring history.",
+    description: "Resets risk scores for specified users, clearing their accumulated risk history.\n\nConfirm with the user before calling this tool. This operation wipes risk-scoring history.\n\nPOST /accounts/{account_id}/zt_risk_scoring/{user_id}/reset",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -147,6 +147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

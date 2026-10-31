@@ -9,31 +9,38 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const teams$$devices_ip_profile: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/teams-devices_ip_profile_created_at"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/teams-devices_ip_profile_description"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "enabled": {
-      "$ref": "#/$defs/teams-devices_ip_profile_enabled"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/teams-devices_ip_profile_id"
+      "type": "string"
     },
     "match": {
-      "$ref": "#/$defs/teams-devices_ip_profile_match"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_ip_profile_name"
+      "type": "string"
     },
     "precedence": {
-      "$ref": "#/$defs/teams-devices_ip_profile_precedence"
+      "type": "integer"
     },
     "subnet_id": {
-      "$ref": "#/$defs/teams-devices_ip_profile_subnet_id"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/teams-devices_ip_profile_updated_at"
+      "type": "string"
     }
   },
   "required": [
@@ -48,74 +55,4 @@ export const teams$$devices_ip_profile: JsonSchema = {
     "updated_at"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_created_at` in responses.
- */
-export const teams$$devices_ip_profile_created_at: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_description` in responses.
- */
-export const teams$$devices_ip_profile_description: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `teams-devices_ip_profile_enabled` in responses.
- */
-export const teams$$devices_ip_profile_enabled: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_id` in responses.
- */
-export const teams$$devices_ip_profile_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_match` in responses.
- */
-export const teams$$devices_ip_profile_match: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_name` in responses.
- */
-export const teams$$devices_ip_profile_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_precedence` in responses.
- */
-export const teams$$devices_ip_profile_precedence: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_subnet_id` in responses.
- */
-export const teams$$devices_ip_profile_subnet_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_ip_profile_updated_at` in responses.
- */
-export const teams$$devices_ip_profile_updated_at: JsonSchema = {
-  "type": "string"
 };

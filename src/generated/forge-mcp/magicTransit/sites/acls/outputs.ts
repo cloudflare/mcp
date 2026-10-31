@@ -12,10 +12,10 @@ export const magic_acl: JsonSchema = {
       "type": "string"
     },
     "forward_locally": {
-      "$ref": "#/$defs/magic_forward_locally"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "lan_1": {
       "$ref": "#/$defs/magic_lan-acl-configuration"
@@ -38,31 +38,10 @@ export const magic_acl: JsonSchema = {
       "type": "array"
     },
     "unidirectional": {
-      "$ref": "#/$defs/magic_unidirectional"
+      "type": "boolean"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_acl-port-range` in responses.
- */
-export const magic_acl$$port$$range: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_acl-subnet` in responses.
- */
-export const magic_acl$$subnet: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/magic_ip-address"
-    },
-    {
-      "$ref": "#/$defs/magic_cidr"
-    }
-  ]
 };
 
 /**
@@ -145,13 +124,6 @@ export const magic_acls_collection_response: JsonSchema = {
 };
 
 /**
- * The schema of `magic_forward_locally` in responses.
- */
-export const magic_forward_locally: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_lan-acl-configuration` in responses.
  */
 export const magic_lan$$acl$$configuration: JsonSchema = {
@@ -164,19 +136,26 @@ export const magic_lan$$acl$$configuration: JsonSchema = {
     },
     "port_ranges": {
       "items": {
-        "$ref": "#/$defs/magic_acl-port-range"
+        "type": "string"
       },
       "type": "array"
     },
     "ports": {
       "items": {
-        "$ref": "#/$defs/magic_port"
+        "type": "integer"
       },
       "type": "array"
     },
     "subnets": {
       "items": {
-        "$ref": "#/$defs/magic_acl-subnet"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ]
       },
       "type": "array"
     }
@@ -185,11 +164,4 @@ export const magic_lan$$acl$$configuration: JsonSchema = {
     "lan_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_unidirectional` in responses.
- */
-export const magic_unidirectional: JsonSchema = {
-  "type": "boolean"
 };

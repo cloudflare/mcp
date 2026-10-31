@@ -4,28 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `r2_queue_identifier`.
- */
-export const r2_queue_identifier: JsonSchema = {
-  "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
-  "type": "string"
-};
-
-/**
- * The schema of `r2_r2-action`.
- */
-export const r2_r2$$action: JsonSchema = {
-  "enum": [
-    "PutObject",
-    "CopyObject",
-    "DeleteObject",
-    "CompleteMultipartUpload",
-    "LifecycleDeletion"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2_rule`.
  */
 export const r2_rule: JsonSchema = {
@@ -33,7 +11,14 @@ export const r2_rule: JsonSchema = {
     "actions": {
       "description": "Array of R2 object actions that will trigger notifications.",
       "items": {
-        "$ref": "#/$defs/r2_r2-action"
+        "enum": [
+          "PutObject",
+          "CopyObject",
+          "DeleteObject",
+          "CompleteMultipartUpload",
+          "LifecycleDeletion"
+        ],
+        "type": "string"
       },
       "type": "array"
     },

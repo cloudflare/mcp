@@ -78,10 +78,14 @@ export const email_account_rules_plan_remote_rule: JsonSchema = {
       "$ref": "#/$defs/email_rule_actions"
     },
     "enabled": {
-      "$ref": "#/$defs/email_rule_enabled"
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/email_rule_identifier"
+      "type": "string"
     },
     "matchers": {
       "$ref": "#/$defs/email_rule_matchers"
@@ -90,7 +94,11 @@ export const email_account_rules_plan_remote_rule: JsonSchema = {
       "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/email_rule_source"
+      "enum": [
+        "api",
+        "wrangler"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -127,7 +135,7 @@ export const email_account_rules_plan_zone: JsonSchema = {
       "type": "array"
     },
     "zone_id": {
-      "$ref": "#/$defs/email_identifier"
+      "type": "string"
     },
     "zone_name": {
       "type": "string"
@@ -282,24 +290,6 @@ export const email_rule_catchall$$matchers: JsonSchema = {
 };
 
 /**
- * The schema of `email_rule_enabled` in responses.
- */
-export const email_rule_enabled: JsonSchema = {
-  "enum": [
-    true,
-    false
-  ],
-  "type": "boolean"
-};
-
-/**
- * The schema of `email_rule_identifier` in responses.
- */
-export const email_rule_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_rule_matcher` in responses.
  */
 export const email_rule_matcher: JsonSchema = {
@@ -338,20 +328,6 @@ export const email_rule_matchers: JsonSchema = {
 };
 
 /**
- * The schema of `email_rule_name` in responses.
- */
-export const email_rule_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `email_rule_priority` in responses.
- */
-export const email_rule_priority: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `email_rule_properties` in responses.
  */
 export const email_rule_properties: JsonSchema = {
@@ -360,25 +336,33 @@ export const email_rule_properties: JsonSchema = {
       "$ref": "#/$defs/email_rule_actions"
     },
     "enabled": {
-      "$ref": "#/$defs/email_rule_enabled"
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/email_rule_identifier"
+      "type": "string"
     },
     "matchers": {
       "$ref": "#/$defs/email_rule_matchers"
     },
     "name": {
-      "$ref": "#/$defs/email_rule_name"
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/email_rule_priority"
+      "type": "number"
     },
     "source": {
-      "$ref": "#/$defs/email_rule_source"
+      "enum": [
+        "api",
+        "wrangler"
+      ],
+      "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_rule_tag"
+      "type": "string"
     }
   },
   "type": "object"
@@ -404,24 +388,6 @@ export const email_rule_response_single: JsonSchema = {
 };
 
 /**
- * The schema of `email_rule_source` in responses.
- */
-export const email_rule_source: JsonSchema = {
-  "enum": [
-    "api",
-    "wrangler"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email_rule_tag` in responses.
- */
-export const email_rule_tag: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_rules` in responses.
  */
 export const email_rules: JsonSchema = {
@@ -430,25 +396,33 @@ export const email_rules: JsonSchema = {
       "$ref": "#/$defs/email_rule_actions"
     },
     "enabled": {
-      "$ref": "#/$defs/email_rule_enabled"
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/email_rule_identifier"
+      "type": "string"
     },
     "matchers": {
       "$ref": "#/$defs/email_rule_matchers"
     },
     "name": {
-      "$ref": "#/$defs/email_rule_name"
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/email_rule_priority"
+      "type": "number"
     },
     "source": {
-      "$ref": "#/$defs/email_rule_source"
+      "enum": [
+        "api",
+        "wrangler"
+      ],
+      "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_rule_tag"
+      "type": "string"
     }
   },
   "type": "object"

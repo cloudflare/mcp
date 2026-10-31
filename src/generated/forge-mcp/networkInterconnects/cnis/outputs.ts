@@ -36,29 +36,22 @@ export const nsc_BgpControl: JsonSchema = {
 };
 
 /**
- * The schema of `nsc_BgpMode` in responses.
- */
-export const nsc_BgpMode: JsonSchema = {
-  "enum": [
-    "dynamic_route_exchange",
-    "advertise_only"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `nsc_Cni` in responses.
  */
 export const nsc_Cni: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/nsc_AccountTag"
+      "type": "string"
     },
     "bgp": {
       "$ref": "#/$defs/nsc_BgpControl"
     },
     "bgp_mode": {
-      "$ref": "#/$defs/nsc_BgpMode"
+      "enum": [
+        "dynamic_route_exchange",
+        "advertise_only"
+      ],
+      "type": "string"
     },
     "cust_ip": {
       "type": "string"

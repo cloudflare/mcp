@@ -8,7 +8,6 @@ import {
   advanced$$ddos$$protection_api$$response$$common$$failure,
   advanced$$ddos$$protection_messages,
 } from "../../../outputs.js";
-import { advanced$$ddos$$protection_identifier } from "../../../schemas.js";
 import {
   advanced$$ddos$$protection_InfraPrefix,
   advanced$$ddos$$protection_infra$$prefix$$list$$response,
@@ -23,15 +22,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_allowlist_bulkDelete",
     title: "Delete all allowlist prefixes.",
-    description: "Delete all allowlist prefixes for an account.",
+    description: "Delete all allowlist prefixes for an account.\n\nDELETE /accounts/{account_id}/magic/advanced_tcp_protection/configs/allowlist",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,9 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
@@ -90,7 +88,7 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_allowlist_create",
     title: "Create allowlist prefix.",
-    description: "Create an allowlist prefix for an account.",
+    description: "Create an allowlist prefix for an account.\n\nPOST /accounts/{account_id}/magic/advanced_tcp_protection/configs/allowlist",
     inputSchema: {
       type: "object",
       properties: {
@@ -99,10 +97,11 @@ export const tools: readonly Tool[] = [
           "description": "The new allowlist prefix to create."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -115,9 +114,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "advanced-ddos-protection_NewInfraPrefix": advanced$$ddos$$protection_NewInfraPrefix,
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {
@@ -168,15 +167,16 @@ export const tools: readonly Tool[] = [
   {
     name: "magicTransit_advancedTcpProtection_configs_allowlist_list",
     title: "List all allowlist prefixes.",
-    description: "List all allowlist prefixes for an account.",
+    description: "List all allowlist prefixes for an account.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/allowlist",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/advanced-ddos-protection_identifier",
-              "description": "The ID of the account."
+              "description": "The ID of the account.",
+              "type": "string"
             }
           },
           "required": [
@@ -185,6 +185,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "direction": {
               "description": "The direction of ordering (ASC or DESC). Defaults to 'ASC'.",
@@ -209,9 +210,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_infra-prefix-list-response",

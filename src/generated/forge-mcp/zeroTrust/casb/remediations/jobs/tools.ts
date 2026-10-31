@@ -4,18 +4,11 @@
 import { type Tool, param, pathParam } from "../../../../_/tool.js";
 import {
   posture$$api_ExportJob,
-  posture$$api_ExportJobTypeEnum,
-  posture$$api_RemediationJobStatusEnum,
-  posture$$api_StatusEnum,
   posture$$api_api$$response$$common,
   posture$$api_error$$response,
   posture$$api_export$$job$$response,
   posture$$api_messages,
 } from "../../outputs.js";
-import {
-  posture$$api_DirectionEnum,
-  posture$$api_RemediationJobStatusEnum as posture$$api_RemediationJobStatusEnum$,
-} from "../../schemas.js";
 import {
   posture$$api_CreateRemediationJobResponse,
   posture$$api_PaginatedRemediationJobList,
@@ -24,10 +17,8 @@ import {
   posture$$api_RemediationJobAssetCategory,
   posture$$api_RemediationJobAssetField,
   posture$$api_RemediationJobFailure,
-  posture$$api_VendorsDisplayNameEnum,
 } from "./outputs.js";
 import {
-  posture$$api_RemediationJobActorTypeEnum,
   posture$$api_RemediationJobsCreateRequest,
   posture$$api_RemediationJobsExportFilterRequest,
   posture$$api_RemediationJobsExportOrderFilterRequest,
@@ -40,7 +31,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_remediations_jobs_create",
     title: "Creates remediation jobs",
-    description: "Create one or more remediation jobs tied to a specific Cloudflare Account.",
+    description: "Create one or more remediation jobs tied to a specific Cloudflare Account.\n\nPOST /accounts/{account_id}/data-security/posture/remediations/jobs",
     inputSchema: {
       type: "object",
       properties: {
@@ -48,6 +39,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_RemediationJobsCreateRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -63,6 +55,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
         "posture-api_RemediationJobsCreateRequest": posture$$api_RemediationJobsCreateRequest,
       },
@@ -76,8 +69,6 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobAssetCategory": posture$$api_RemediationJobAssetCategory,
         "posture-api_RemediationJobAssetField": posture$$api_RemediationJobAssetField,
         "posture-api_RemediationJobFailure": posture$$api_RemediationJobFailure,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
-        "posture-api_VendorsDisplayNameEnum": posture$$api_VendorsDisplayNameEnum,
       },
     },
     annotations: {
@@ -116,8 +107,6 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobAssetCategory": posture$$api_RemediationJobAssetCategory,
         "posture-api_RemediationJobAssetField": posture$$api_RemediationJobAssetField,
         "posture-api_RemediationJobFailure": posture$$api_RemediationJobFailure,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
-        "posture-api_VendorsDisplayNameEnum": posture$$api_VendorsDisplayNameEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_error-response": posture$$api_error$$response,
         "posture-api_messages": posture$$api_messages,
@@ -131,7 +120,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_remediations_jobs_export",
     title: "Create a remediation jobs export",
-    description: "Creates a CSV export for remediation jobs and accepts optional filters in the payload.",
+    description: "Creates a CSV export for remediation jobs and accepts optional filters in the payload.\n\nPOST /accounts/{account_id}/data-security/posture/remediations/jobs/export",
     inputSchema: {
       type: "object",
       properties: {
@@ -139,6 +128,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/posture-api_RemediationJobsExportFilterRequest"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -154,9 +144,8 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_DirectionEnum": posture$$api_DirectionEnum,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum$,
         "posture-api_RemediationJobsExportFilterRequest": posture$$api_RemediationJobsExportFilterRequest,
         "posture-api_RemediationJobsExportOrderFilterRequest": posture$$api_RemediationJobsExportOrderFilterRequest,
       },
@@ -165,8 +154,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -199,8 +186,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_ExportJob": posture$$api_ExportJob,
-        "posture-api_ExportJobTypeEnum": posture$$api_ExportJobTypeEnum,
-        "posture-api_StatusEnum": posture$$api_StatusEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_export-job-response": posture$$api_export$$job$$response,
         "posture-api_messages": posture$$api_messages,
@@ -214,11 +199,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_remediations_jobs_list",
     title: "List remediation jobs",
-    description: "List all remediation jobs tied to a specific Cloudflare Account. Note that `cursor` and `page` are mutually exclusive.",
+    description: "List all remediation jobs tied to a specific Cloudflare Account. Note that `cursor` and `page` are mutually exclusive.\n\nGET /accounts/{account_id}/data-security/posture/remediations/jobs",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account ID for the user making the request.",
@@ -231,6 +217,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "A cursor for pagination.",
@@ -285,13 +272,25 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "status": {
-              "$ref": "#/$defs/posture-api_RemediationJobStatusEnum",
-              "description": "Filter to view remediations with the given status."
+              "description": "Filter to view remediations with the given status.",
+              "enum": [
+                "pending",
+                "processing",
+                "completed",
+                "failed",
+                "validating"
+              ],
+              "type": "string"
             },
             "triggered_by_actor": {
               "description": "Filter remediations by what kind of actor triggered them. Supports multiple comma-separated values.",
               "items": {
-                "$ref": "#/$defs/posture-api_RemediationJobActorTypeEnum"
+                "description": "Type of actor that triggered the remediation job.",
+                "enum": [
+                  "user",
+                  "account_token"
+                ],
+                "type": "string"
               },
               "type": "array"
             }
@@ -302,10 +301,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "posture-api_RemediationJobActorTypeEnum": posture$$api_RemediationJobActorTypeEnum,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_PaginatedRemediationJobList",
@@ -315,8 +311,6 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobAsset": posture$$api_RemediationJobAsset,
         "posture-api_RemediationJobAssetCategory": posture$$api_RemediationJobAssetCategory,
         "posture-api_RemediationJobAssetField": posture$$api_RemediationJobAssetField,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
-        "posture-api_VendorsDisplayNameEnum": posture$$api_VendorsDisplayNameEnum,
       },
     },
     annotations: {
@@ -350,8 +344,6 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobAsset": posture$$api_RemediationJobAsset,
         "posture-api_RemediationJobAssetCategory": posture$$api_RemediationJobAssetCategory,
         "posture-api_RemediationJobAssetField": posture$$api_RemediationJobAssetField,
-        "posture-api_RemediationJobStatusEnum": posture$$api_RemediationJobStatusEnum,
-        "posture-api_VendorsDisplayNameEnum": posture$$api_VendorsDisplayNameEnum,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_messages": posture$$api_messages,
       },

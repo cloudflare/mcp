@@ -107,13 +107,6 @@ export const client$$side$$security_api$$response$$common$$failure: JsonSchema =
 };
 
 /**
- * The schema of `client-side-security_id` in responses.
- */
-export const client$$side$$security_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `client-side-security_messages` in responses.
  */
 export const client$$side$$security_messages: JsonSchema = {

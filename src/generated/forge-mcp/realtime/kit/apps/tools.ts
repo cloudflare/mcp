@@ -7,10 +7,6 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../schemas.js";
 
 /**
  * The tools of `realtime.kit.apps`.
@@ -19,7 +15,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_apps_create",
     title: "Create App",
-    description: "Create new app for your account\n\nThis method is beta.",
+    description: "Create new app for your account\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/apps",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,10 +31,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,9 +48,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -147,19 +142,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_apps_get",
     title: "Fetch app details",
-    description: "Fetch details for an app in your account.\n\nThis method is beta.",
+    description: "Fetch details for an app in your account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -172,10 +168,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -272,15 +265,16 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_apps_list",
     title: "Fetch all apps",
-    description: "Fetch all apps for your account\n\nThis method is beta.",
+    description: "Fetch all apps for your account\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/apps",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             }
           },
           "required": [
@@ -289,6 +283,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page_no": {
               "default": 1,
@@ -320,9 +315,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -445,7 +438,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_apps_update",
     title: "Update an app",
-    description: "Update the name of an app in your account.\n\nThis method is beta.",
+    description: "Update the name of an app in your account.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -462,10 +455,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
               "format": "uuid",
@@ -483,9 +477,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

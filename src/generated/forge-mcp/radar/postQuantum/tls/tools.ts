@@ -10,11 +10,12 @@ export const tools: readonly Tool[] = [
   {
     name: "radar_postQuantum_tls_support",
     title: "Check Post-Quantum TLS support",
-    description: "Tests whether a hostname or IP address supports Post-Quantum (PQ) TLS key exchange. Returns information about the negotiated key exchange algorithm, whether it uses PQ cryptography, and any detected TLS implementation bugs (Split ClientHello, HRR failure, etc.).",
+    description: "Tests whether a hostname or IP address supports Post-Quantum (PQ) TLS key exchange. Returns information about the negotiated key exchange algorithm, whether it uses PQ cryptography, and any detected TLS implementation bugs (Split ClientHello, HRR failure, etc.).\n\nGET /radar/post_quantum/tls/support",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
+          "additionalProperties": false,
           "properties": {
             "host": {
               "description": "Hostname or IP address to test for Post-Quantum TLS support, optionally with port (defaults to 443).",
@@ -30,6 +31,7 @@ export const tools: readonly Tool[] = [
       required: [
         "query"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

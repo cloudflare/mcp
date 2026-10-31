@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_destinations_create",
     title: "Create Destination",
-    description: "Create a new Workers Observability Telemetry Destination.",
+    description: "Create a new Workers Observability Telemetry Destination.\n\nPOST /accounts/{account_id}/workers/observability/destinations",
     inputSchema: {
       type: "object",
       properties: {
@@ -68,6 +68,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -83,6 +84,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -577,11 +579,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_destinations_delete",
     title: "Delete Destination",
-    description: "Delete a Workers Observability Telemetry Destination.",
+    description: "Delete a Workers Observability Telemetry Destination.\n\nDELETE /accounts/{account_id}/workers/observability/destinations/{slug}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -601,6 +604,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1092,11 +1096,12 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_destinations_list",
     title: "Get Destinations",
-    description: "List your Workers Observability Telemetry Destinations.",
+    description: "List your Workers Observability Telemetry Destinations.\n\nGET /accounts/{account_id}/workers/observability/destinations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1109,6 +1114,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "order": {
               "default": "desc",
@@ -1141,6 +1147,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1596,7 +1603,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_destinations_update",
     title: "Update Destination",
-    description: "Update an existing Workers Observability Telemetry Destination.",
+    description: "Update an existing Workers Observability Telemetry Destination.\n\nPATCH /accounts/{account_id}/workers/observability/destinations/{slug}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1647,6 +1654,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Your Cloudflare account ID.",
@@ -1666,6 +1674,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

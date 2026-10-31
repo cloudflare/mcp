@@ -7,7 +7,6 @@ import {
   workers_api$$response$$common$$failure,
   workers_messages,
 } from "../../../outputs.js";
-import { workers_identifier, workers_script_name } from "../../../schemas.js";
 import { workers_schedule } from "./outputs.js";
 import { workers_schedule as workers_schedule$ } from "./schemas.js";
 
@@ -18,19 +17,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_scripts_schedules_get",
     title: "Get Worker Script Schedules (Cron Triggers)",
-    description: "Get the schedules (Cron Triggers) for a Worker script.",
+    description: "Get the schedules (Cron Triggers) for a Worker script.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/schedules",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -43,10 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -157,7 +154,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_scripts_schedules_update",
     title: "Update Worker Script Schedules (Cron Triggers)",
-    description: "Update the schedules (Cron Triggers) for a Worker script.",
+    description: "Update the schedules (Cron Triggers) for a Worker script.\n\nPUT /accounts/{account_id}/workers/scripts/{script_name}/schedules",
     inputSchema: {
       type: "object",
       properties: {
@@ -168,14 +165,15 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -189,10 +187,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_identifier": workers_identifier,
         "workers_schedule": workers_schedule$,
-        "workers_script_name": workers_script_name,
       },
     },
     outputSchema: {

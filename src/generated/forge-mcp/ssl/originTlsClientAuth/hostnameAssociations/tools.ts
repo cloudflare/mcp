@@ -8,15 +8,6 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls$$certificates$$and$$hostnames_identifier } from "../../../schemas.js";
-import {
-  tls$$certificates$$and$$hostnames_cert_id,
-  tls$$certificates$$and$$hostnames_created_at$$3,
-  tls$$certificates$$and$$hostnames_enabled$$5,
-  tls$$certificates$$and$$hostnames_hostname$$2,
-  tls$$certificates$$and$$hostnames_status$$9,
-  tls$$certificates$$and$$hostnames_updated_at$$3,
-} from "../outputs.js";
 import {
   tls$$certificates$$and$$hostnames_hostname_assoc_object,
   tls$$certificates$$and$$hostnames_hostname_assoc_response_collection,
@@ -29,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originTlsClientAuth_hostnameAssociations_list",
     title: "List Hostname Associations",
-    description: "List certificate ID - hostname associations for the given zone. Shows which hostnames are associated to which certificates for authenticated origin pulls.",
+    description: "List certificate ID - hostname associations for the given zone. Shows which hostnames are associated to which certificates for authenticated origin pulls.\n\nGET /zones/{zone_id}/origin_tls_client_auth/hostnames",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "zone_id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -46,6 +38,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "page": {
               "default": 1,
@@ -77,24 +70,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_assoc_response_collection",
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
-        "tls-certificates-and-hostnames_cert_id": tls$$certificates$$and$$hostnames_cert_id,
-        "tls-certificates-and-hostnames_created_at-3": tls$$certificates$$and$$hostnames_created_at$$3,
-        "tls-certificates-and-hostnames_enabled-5": tls$$certificates$$and$$hostnames_enabled$$5,
-        "tls-certificates-and-hostnames_hostname-2": tls$$certificates$$and$$hostnames_hostname$$2,
         "tls-certificates-and-hostnames_hostname_assoc_object": tls$$certificates$$and$$hostnames_hostname_assoc_object,
         "tls-certificates-and-hostnames_hostname_assoc_response_collection": tls$$certificates$$and$$hostnames_hostname_assoc_response_collection,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_status-9": tls$$certificates$$and$$hostnames_status$$9,
-        "tls-certificates-and-hostnames_updated_at-3": tls$$certificates$$and$$hostnames_updated_at$$3,
       },
     },
     annotations: {
@@ -138,15 +123,9 @@ export const tools: readonly Tool[] = [
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
-        "tls-certificates-and-hostnames_cert_id": tls$$certificates$$and$$hostnames_cert_id,
-        "tls-certificates-and-hostnames_created_at-3": tls$$certificates$$and$$hostnames_created_at$$3,
-        "tls-certificates-and-hostnames_enabled-5": tls$$certificates$$and$$hostnames_enabled$$5,
-        "tls-certificates-and-hostnames_hostname-2": tls$$certificates$$and$$hostnames_hostname$$2,
         "tls-certificates-and-hostnames_hostname_assoc_object": tls$$certificates$$and$$hostnames_hostname_assoc_object,
         "tls-certificates-and-hostnames_hostname_assoc_response_collection": tls$$certificates$$and$$hostnames_hostname_assoc_response_collection,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_status-9": tls$$certificates$$and$$hostnames_status$$9,
-        "tls-certificates-and-hostnames_updated_at-3": tls$$certificates$$and$$hostnames_updated_at$$3,
       },
     },
     request: (args) => ({

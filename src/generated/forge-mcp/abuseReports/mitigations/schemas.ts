@@ -4,30 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `abuse-reports_AppealReason`.
- */
-export const abuse$$reports_AppealReason: JsonSchema = {
-  "description": "Reason why the customer is appealing.",
-  "enum": [
-    "removed",
-    "misclassified"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `abuse-reports_AppealType`.
- */
-export const abuse$$reports_AppealType: JsonSchema = {
-  "description": "The type of appeal being submitted.",
-  "enum": [
-    "counter_notice",
-    "content_removed"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `abuse-reports_DMCACounterNotice`.
  */
 export const abuse$$reports_DMCACounterNotice: JsonSchema = {
@@ -97,20 +73,6 @@ export const abuse$$reports_DMCACounterNotice: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_MitigatedEntityType`.
- */
-export const abuse$$reports_MitigatedEntityType: JsonSchema = {
-  "description": "The type of entity targeted by a mitigation.",
-  "enum": [
-    "url_pattern",
-    "account",
-    "zone",
-    "custom_expression"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `abuse-reports_MitigationAppeal`.
  */
 export const abuse$$reports_MitigationAppeal: JsonSchema = {
@@ -120,8 +82,12 @@ export const abuse$$reports_MitigationAppeal: JsonSchema = {
       "type": "string"
     },
     "reason": {
-      "$ref": "#/$defs/abuse-reports_AppealReason",
-      "description": "Reason why the customer is appealing."
+      "description": "Reason why the customer is appealing.",
+      "enum": [
+        "removed",
+        "misclassified"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -153,17 +119,13 @@ export const abuse$$reports_MitigationAppealRequest: JsonSchema = {
       "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/abuse-reports_AppealType",
-      "description": "The type of appeal being submitted."
+      "description": "The type of appeal being submitted.",
+      "enum": [
+        "counter_notice",
+        "content_removed"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `abuse-reports_MitigationType`.
- */
-export const abuse$$reports_MitigationType: JsonSchema = {
-  "description": "The type of mitigation applied to a reported entity.",
-  "type": "string"
 };

@@ -4,27 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_hostname-3`.
- */
-export const tls$$certificates$$and$$hostnames_hostname$$3: JsonSchema = {
-  "description": "The hostname for which the tls settings are set.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_setting_id`.
- */
-export const tls$$certificates$$and$$hostnames_setting_id: JsonSchema = {
-  "description": "The TLS Setting name.\nThe value type depends on the setting:\n- `ciphers`: value is an array of cipher suite strings (e.g., `[\"ECDHE-RSA-AES128-GCM-SHA256\", \"AES128-GCM-SHA256\"]`).\n- `min_tls_version`: value is a TLS version string (`\"1.0\"`, `\"1.1\"`, `\"1.2\"`, or `\"1.3\"`).\n- `http2`: value is `\"on\"` or `\"off\"`.",
-  "enum": [
-    "ciphers",
-    "min_tls_version",
-    "http2"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_value`.
  */
 export const tls$$certificates$$and$$hostnames_value: JsonSchema = {

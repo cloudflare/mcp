@@ -60,13 +60,6 @@ export const spectrum$$analytics_api$$response$$single: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-analytics_identifier` in responses.
- */
-export const spectrum$$analytics_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-analytics_messages` in responses.
  */
 export const spectrum$$analytics_messages: JsonSchema = {
@@ -97,40 +90,4 @@ export const spectrum$$analytics_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `spectrum-analytics_since` in responses.
- */
-export const spectrum$$analytics_since: JsonSchema = {
-  "allOf": [
-    {
-      "type": "string"
-    },
-    {
-      "$ref": "#/$defs/spectrum-analytics_timestamp"
-    }
-  ]
-};
-
-/**
- * The schema of `spectrum-analytics_timestamp` in responses.
- */
-export const spectrum$$analytics_timestamp: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-analytics_until` in responses.
- */
-export const spectrum$$analytics_until: JsonSchema = {
-  "allOf": [
-    {
-      "type": "string"
-    },
-    {
-      "$ref": "#/$defs/spectrum-analytics_timestamp"
-    }
-  ]
 };

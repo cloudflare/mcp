@@ -7,20 +7,10 @@ import {
   workers$$kv_api$$response$$common,
   workers$$kv_api$$response$$common$$failure,
   workers$$kv_api$$response$$common$$no$$result,
-  workers$$kv_key_name,
   workers$$kv_list_metadata,
   workers$$kv_messages,
 } from "../outputs.js";
-import {
-  workers$$kv_identifier,
-  workers$$kv_key_name as workers$$kv_key_name$,
-  workers$$kv_namespace_identifier,
-} from "../schemas.js";
-import {
-  workers$$kv_cursor,
-  workers$$kv_cursor_result_info,
-  workers$$kv_key,
-} from "./outputs.js";
+import { workers$$kv_cursor_result_info, workers$$kv_key } from "./outputs.js";
 
 /**
  * The tools of `kv.keys`.
@@ -29,23 +19,24 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_keys_delete",
     title: "Delete a key-value pair",
-    description: "Deletes the specified key and its value from the Workers KV namespace. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL.\n\nConfirm with the user before calling this tool. This operation deletes the selected key-value pair from the Workers KV namespace.",
+    description: "Deletes the specified key and its value from the Workers KV namespace. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL.\n\nConfirm with the user before calling this tool. This operation deletes the selected key-value pair from the Workers KV namespace.\n\nDELETE /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "key_name": {
-              "$ref": "#/$defs/workers-kv_key_name",
-              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."
+              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,11 +50,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_key_name": workers$$kv_key_name$,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers-kv_api-response-common-no-result",
@@ -110,23 +97,24 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_keys_get",
     title: "Get a key's value",
-    description: "Returns the value stored under the specified key in the Workers KV namespace as raw bytes. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL. If the key-value pair expires, the `expiration` response header contains its expiration time in seconds since the UNIX epoch.",
+    description: "Returns the value stored under the specified key in the Workers KV namespace as raw bytes. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL. If the key-value pair expires, the `expiration` response header contains its expiration time in seconds since the UNIX epoch.\n\nGET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "key_name": {
-              "$ref": "#/$defs/workers-kv_key_name",
-              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."
+              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -140,11 +128,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_key_name": workers$$kv_key_name$,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -180,19 +164,20 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_keys_list",
     title: "List keys in a namespace",
-    description: "Lists key names in the specified Workers KV namespace, with expiration times and metadata when present. Use `prefix` to filter names and `cursor` to request the next page. Values are not included.",
+    description: "Lists key names in the specified Workers KV namespace, with expiration times and metadata when present. Use `prefix` to filter names and `cursor` to request the next page. Values are not included.\n\nGET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/keys",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers-kv_identifier",
-              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
             },
             "namespace_id": {
-              "$ref": "#/$defs/workers-kv_namespace_identifier",
-              "description": "ID of the Workers KV namespace."
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
             }
           },
           "required": [
@@ -202,6 +187,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
               "description": "Opaque pagination token from `result_info.cursor` in the previous response. Pass it unchanged to request the next page of keys.",
@@ -223,10 +209,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers$$kv_identifier,
-        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -251,10 +234,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-kv_any": workers$$kv_any,
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
-        "workers-kv_cursor": workers$$kv_cursor,
         "workers-kv_cursor_result_info": workers$$kv_cursor_result_info,
         "workers-kv_key": workers$$kv_key,
-        "workers-kv_key_name": workers$$kv_key_name,
         "workers-kv_list_metadata": workers$$kv_list_metadata,
         "workers-kv_messages": workers$$kv_messages,
       },
@@ -305,10 +286,8 @@ export const tools: readonly Tool[] = [
         "workers-kv_any": workers$$kv_any,
         "workers-kv_api-response-common": workers$$kv_api$$response$$common,
         "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
-        "workers-kv_cursor": workers$$kv_cursor,
         "workers-kv_cursor_result_info": workers$$kv_cursor_result_info,
         "workers-kv_key": workers$$kv_key,
-        "workers-kv_key_name": workers$$kv_key_name,
         "workers-kv_list_metadata": workers$$kv_list_metadata,
         "workers-kv_messages": workers$$kv_messages,
       },

@@ -6,10 +6,6 @@ import {
   realtimekit_GenericErrorResponse,
   realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
 import { realtimekit_PeerEvent } from "../outputs.js";
 import { realtimekit_ParticipantsList } from "./outputs.js";
 
@@ -20,19 +16,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_participants_get",
     title: "Fetch details of a participant",
-    description: "Returns details of the given participant ID for the given session ID. Use the peer report endpoint to retrieve call statistics.\n\nThis method is beta.",
+    description: "Returns details of the given participant ID for the given session ID. Use the peer report endpoint to retrieve call statistics.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/participants/{participant_id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "participant_id": {
               "description": "ID of the participant",
@@ -54,6 +51,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_peer_events": {
               "default": false,
@@ -67,10 +65,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -146,19 +141,20 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_participants_list",
     title: "Fetch participants list of a session",
-    description: "Returns a list of participants for the given session ID.\n\nThis method is beta.",
+    description: "Returns a list of participants for the given session ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/participants",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/realtimekit_account_identifier",
-              "description": "The account identifier tag."
+              "description": "The account identifier tag.",
+              "type": "string"
             },
             "app_id": {
-              "$ref": "#/$defs/realtimekit_app_id",
-              "description": "The app identifier tag."
+              "description": "The app identifier tag.",
+              "type": "string"
             },
             "session_id": {
               "description": "ID of the session",
@@ -174,6 +170,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "include_peer_events": {
               "default": false,
@@ -223,10 +220,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

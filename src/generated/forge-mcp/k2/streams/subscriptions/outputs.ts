@@ -102,7 +102,7 @@ export const cloudflare$$k2_K2MonitoredSubscriptionListResponse: JsonSchema = {
       "type": "array"
     },
     "success": {
-      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+      "type": "boolean"
     }
   },
   "required": [

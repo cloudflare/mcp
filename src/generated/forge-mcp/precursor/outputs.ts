@@ -98,13 +98,18 @@ export const precursor_messages: JsonSchema = {
 export const precursor_precursor_config: JsonSchema = {
   "properties": {
     "mode": {
-      "$ref": "#/$defs/precursor_precursor_mode"
+      "enum": [
+        "off",
+        "monitor",
+        "arm"
+      ],
+      "type": "string"
     },
     "rules": {
       "$ref": "#/$defs/precursor_precursor_rules"
     },
     "show_interstitial": {
-      "$ref": "#/$defs/precursor_show_interstitial"
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -130,18 +135,6 @@ export const precursor_precursor_config_response_body: JsonSchema = {
 };
 
 /**
- * The schema of `precursor_precursor_mode` in responses.
- */
-export const precursor_precursor_mode: JsonSchema = {
-  "enum": [
-    "off",
-    "monitor",
-    "arm"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `precursor_precursor_rule` in responses.
  */
 export const precursor_precursor_rule: JsonSchema = {
@@ -159,7 +152,7 @@ export const precursor_precursor_rule: JsonSchema = {
       "type": "string"
     },
     "show_interstitial": {
-      "$ref": "#/$defs/precursor_show_interstitial"
+      "type": "boolean"
     }
   },
   "required": [
@@ -177,11 +170,4 @@ export const precursor_precursor_rules: JsonSchema = {
     "$ref": "#/$defs/precursor_precursor_rule"
   },
   "type": "array"
-};
-
-/**
- * The schema of `precursor_show_interstitial` in responses.
- */
-export const precursor_show_interstitial: JsonSchema = {
-  "type": "boolean"
 };

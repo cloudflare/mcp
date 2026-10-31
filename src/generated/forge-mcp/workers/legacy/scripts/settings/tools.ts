@@ -7,20 +7,13 @@ import {
   workers_api$$response$$common$$failure,
   workers_exports_reconciliation_error,
   workers_exports_reconciliation_error_response,
-  workers_exports_reconciliation_scenario,
-  workers_logpush,
   workers_messages,
   workers_observability$$2,
-  workers_tag,
   workers_tags,
   workers_tail_consumers_script,
 } from "../../../../outputs.js";
 import {
-  workers_identifier,
-  workers_logpush as workers_logpush$,
   workers_observability$$2 as workers_observability$$2$,
-  workers_script_name,
-  workers_tag as workers_tag$,
   workers_tags as workers_tags$,
   workers_tail_consumers_script as workers_tail_consumers_script$,
 } from "../../../../schemas.js";
@@ -37,7 +30,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_settings_edit",
     title: "Patch Worker Script Settings",
-    description: "Patch Worker script-level settings when using [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions). Including but not limited to Logpush and Tail Consumers.\n\nThis method is deprecated.",
+    description: "Patch Worker script-level settings when using [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions). Including but not limited to Logpush and Tail Consumers.\n\nThis method is deprecated.\n\nPATCH /accounts/{account_id}/workers/scripts/{script_name}/script-settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -45,14 +38,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_script-settings-item"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -66,13 +60,10 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_logpush": workers_logpush$,
         "workers_observability-2": workers_observability$$2$,
         "workers_script-settings-item": workers_script$$settings$$item$,
-        "workers_script_name": workers_script_name,
-        "workers_tag": workers_tag$,
         "workers_tags": workers_tags$,
         "workers_tail_consumers_script": workers_tail_consumers_script$,
       },
@@ -81,12 +72,10 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/workers_script-settings-response",
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
         "workers_observability-2": workers_observability$$2,
         "workers_script-settings-item": workers_script$$settings$$item,
         "workers_script-settings-response": workers_script$$settings$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers_script": workers_tail_consumers_script,
       },
@@ -133,13 +122,10 @@ export const tools: readonly Tool[] = [
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
         "workers_exports_reconciliation_error": workers_exports_reconciliation_error,
         "workers_exports_reconciliation_error_response": workers_exports_reconciliation_error_response,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
         "workers_observability-2": workers_observability$$2,
         "workers_script-settings-item": workers_script$$settings$$item,
         "workers_script-settings-response": workers_script$$settings$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers_script": workers_tail_consumers_script,
       },
@@ -152,19 +138,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_settings_get",
     title: "Get Worker Script Settings",
-    description: "Get Worker script-level settings when using [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions). Includes Logpush and Tail Consumers.\n\nThis method is deprecated.",
+    description: "Get Worker script-level settings when using [Worker Versions](https://developers.cloudflare.com/api/operations/worker-versions-list-versions). Includes Logpush and Tail Consumers.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/script-settings",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -177,21 +164,16 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_script-settings-response",
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
         "workers_observability-2": workers_observability$$2,
         "workers_script-settings-item": workers_script$$settings$$item,
         "workers_script-settings-response": workers_script$$settings$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers_script": workers_tail_consumers_script,
       },
@@ -235,12 +217,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
-        "workers_logpush": workers_logpush,
         "workers_messages": workers_messages,
         "workers_observability-2": workers_observability$$2,
         "workers_script-settings-item": workers_script$$settings$$item,
         "workers_script-settings-response": workers_script$$settings$$response,
-        "workers_tag": workers_tag,
         "workers_tags": workers_tags,
         "workers_tail_consumers_script": workers_tail_consumers_script,
       },

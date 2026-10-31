@@ -19,13 +19,6 @@ export const organizations$$api_DeleteOrganizationResult: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_MemberID` in responses.
- */
-export const organizations$$api_MemberID: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `organizations-api_MemberSubjectUser` in responses.
  */
 export const organizations$$api_MemberSubjectUser: JsonSchema = {

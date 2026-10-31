@@ -7,9 +7,7 @@ import {
   tunnel_api$$response$$common$$failure,
   tunnel_messages,
   tunnel_tunnel_response_token,
-  tunnel_tunnel_token,
 } from "../../outputs.js";
-import { tunnel_account_id, tunnel_tunnel_id } from "../../schemas.js";
 
 /**
  * The tools of `tunnels.token`.
@@ -18,19 +16,21 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnels_token_get",
     title: "Get a Cloudflare Tunnel token",
-    description: "Retrieves the token used to run cloudflared and associate it with a specific Cloudflare Tunnel. Treat the token as a secret.",
+    description: "Retrieves the token used to run cloudflared and associate it with a specific Cloudflare Tunnel. Treat the token as a secret.\n\nGET /accounts/{account_id}/cfd_tunnel/{tunnel_id}/token",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/tunnel_account_id",
-              "description": "Cloudflare account ID"
+              "description": "Cloudflare account ID",
+              "type": "string"
             },
             "tunnel_id": {
-              "$ref": "#/$defs/tunnel_tunnel_id",
-              "description": "UUID of the tunnel."
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -43,10 +43,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_tunnel_response_token",
@@ -54,7 +51,6 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-common": tunnel_api$$response$$common,
         "tunnel_messages": tunnel_messages,
         "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
-        "tunnel_tunnel_token": tunnel_tunnel_token,
       },
     },
     annotations: {
@@ -94,7 +90,6 @@ export const tools: readonly Tool[] = [
         "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
         "tunnel_messages": tunnel_messages,
         "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
-        "tunnel_tunnel_token": tunnel_tunnel_token,
       },
     },
     request: (args) => ({

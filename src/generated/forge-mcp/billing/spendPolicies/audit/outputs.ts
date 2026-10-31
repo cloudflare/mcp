@@ -9,7 +9,11 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const billing$$spend$$policies_policy_audit_entry: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/billing-spend-policies_policy_action"
+      "enum": [
+        "notification",
+        "usage_block"
+      ],
+      "type": "string"
     },
     "balance_cents": {
       "type": "integer"

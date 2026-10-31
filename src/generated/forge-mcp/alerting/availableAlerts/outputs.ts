@@ -9,16 +9,16 @@ import type { JsonSchema } from "../../_/tool.js";
 export const aaa_alert$$types: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/aaa_description"
+      "type": "string"
     },
     "display_name": {
-      "$ref": "#/$defs/aaa_display_name"
+      "type": "string"
     },
     "filter_options": {
       "$ref": "#/$defs/aaa_filter_options"
     },
     "type": {
-      "$ref": "#/$defs/aaa_type"
+      "type": "string"
     }
   },
   "type": "object"
@@ -50,20 +50,6 @@ export const aaa_alerts$$response_collection: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_description` in responses.
- */
-export const aaa_description: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_display_name` in responses.
- */
-export const aaa_display_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_filter_options` in responses.
  */
 export const aaa_filter_options: JsonSchema = {
@@ -71,11 +57,4 @@ export const aaa_filter_options: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `aaa_type` in responses.
- */
-export const aaa_type: JsonSchema = {
-  "type": "string"
 };

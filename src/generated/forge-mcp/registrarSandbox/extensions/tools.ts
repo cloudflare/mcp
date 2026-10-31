@@ -7,7 +7,6 @@ import {
   registrar$$api$$sandbox_api$$response$$common$$failure,
   registrar$$api$$sandbox_messages,
 } from "../outputs.js";
-import { registrar$$api$$sandbox_identifier } from "../schemas.js";
 import {
   registrar$$api$$sandbox_extension$$item,
   registrar$$api$$sandbox_extension$$response$$collection,
@@ -21,15 +20,16 @@ export const tools: readonly Tool[] = [
   {
     name: "registrarSandbox_extensions_get",
     title: "Get extension",
-    description: "Returns metadata and JSON Schema documents describing the expected input\nstructure for registration and transfer operations on a specific\nextension (TLD).\n\nSupports HTTP conditional GET via `ETag`. Include the `ETag` value\nfrom a previous response in an `If-None-Match` header to receive a\n`304 Not Modified` when the data has not changed.",
+    description: "Returns metadata and JSON Schema documents describing the expected input\nstructure for registration and transfer operations on a specific\nextension (TLD).\n\nSupports HTTP conditional GET via `ETag`. Include the `ETag` value\nfrom a previous response in an `If-None-Match` header to receive a\n`304 Not Modified` when the data has not changed.\n\nGET /accounts/{account_id}/registrar-sandbox/extensions/{extension}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api-sandbox_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "extension": {
               "description": "The extension name (e.g., `com`, `co.uk`).",
@@ -46,9 +46,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api-sandbox_identifier": registrar$$api$$sandbox_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api-sandbox_extension-response-single",
@@ -93,15 +91,16 @@ export const tools: readonly Tool[] = [
   {
     name: "registrarSandbox_extensions_list",
     title: "List extensions",
-    description: "Returns metadata and JSON Schema documents describing the expected input\nstructure for registration and transfer operations on each supported\nextension (TLD).\n\nThis endpoint uses cursor-based pagination. Results are ordered by\nextension name by default. To fetch the next page, pass the `cursor`\nvalue from the `result_info` object in the response as the `cursor`\nquery parameter in your next request. An empty `cursor` string\nindicates there are no more pages.\n\nSupports HTTP conditional GET via `ETag`. Include the `ETag` value\nfrom a previous response in an `If-None-Match` header to receive a\n`304 Not Modified` when the data has not changed.",
+    description: "Returns metadata and JSON Schema documents describing the expected input\nstructure for registration and transfer operations on each supported\nextension (TLD).\n\nThis endpoint uses cursor-based pagination. Results are ordered by\nextension name by default. To fetch the next page, pass the `cursor`\nvalue from the `result_info` object in the response as the `cursor`\nquery parameter in your next request. An empty `cursor` string\nindicates there are no more pages.\n\nSupports HTTP conditional GET via `ETag`. Include the `ETag` value\nfrom a previous response in an `If-None-Match` header to receive a\n`304 Not Modified` when the data has not changed.\n\nGET /accounts/{account_id}/registrar-sandbox/extensions",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api-sandbox_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -110,14 +109,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
-              "description": "Opaque token from a previous response's `result_info.cursor`.\nPass this value to fetch the next page of results. Omit (or\npass an empty string) for the first page.\n",
+              "description": "Opaque token from a previous response's `result_info.cursor`.\nPass this value to fetch the next page of results. Omit (or\npass an empty string) for the first page.",
               "type": "string"
             },
             "direction": {
               "default": "asc",
-              "description": "Sort direction for results. Defaults to ascending order.\n",
+              "description": "Sort direction for results. Defaults to ascending order.",
               "enum": [
                 "asc",
                 "desc"
@@ -125,7 +125,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "name": {
-              "description": "Filter extensions by exact name match.\nFor example, `name=com` returns only the `com` extension.\n",
+              "description": "Filter extensions by exact name match.\nFor example, `name=com` returns only the `com` extension.",
               "type": "string"
             },
             "per_page": {
@@ -135,7 +135,7 @@ export const tools: readonly Tool[] = [
             },
             "sort_by": {
               "default": "name",
-              "description": "Column to sort results by. Defaults to `name` when omitted.\n",
+              "description": "Column to sort results by. Defaults to `name` when omitted.",
               "enum": [
                 "name",
                 "created_at",
@@ -150,9 +150,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api-sandbox_identifier": registrar$$api$$sandbox_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api-sandbox_extension-response-collection",

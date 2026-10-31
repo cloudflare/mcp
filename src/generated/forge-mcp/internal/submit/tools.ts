@@ -11,10 +11,11 @@ export const tools: readonly Tool[] = [
   {
     name: "internal_submit_create",
     title: "Internal route for testing URL submissions",
-    description: "Internal route for testing URL submissions.",
+    description: "Internal route for testing URL submissions.\n\nPOST /internal/submit",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

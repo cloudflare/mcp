@@ -4,60 +4,52 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tunnel_ip_network` in responses.
- */
-export const tunnel_ip_network: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_route_comment` in responses.
- */
-export const tunnel_route_comment: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_route_id` in responses.
- */
-export const tunnel_route_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_teamnet` in responses.
  */
 export const tunnel_teamnet: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/tunnel_route_comment"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_route_id"
+      "type": "string"
     },
     "network": {
-      "$ref": "#/$defs/tunnel_ip_network"
+      "type": "string"
     },
     "tun_type": {
-      "$ref": "#/$defs/tunnel_tunnel_type"
+      "enum": [
+        "cfd_tunnel",
+        "warp_connector",
+        "warp",
+        "magic",
+        "ip_sec",
+        "gre",
+        "cni"
+      ],
+      "type": "string"
     },
     "tunnel_id": {
-      "$ref": "#/$defs/tunnel_tunnel_id"
+      "format": "uuid",
+      "type": "string"
     },
     "tunnel_name": {
-      "$ref": "#/$defs/tunnel_tunnel_name"
+      "type": "string"
     },
     "virtual_network_id": {
-      "$ref": "#/$defs/tunnel_virtual_network_id_computed_optional"
+      "format": "uuid",
+      "type": "string"
     },
     "virtual_network_name": {
-      "$ref": "#/$defs/tunnel_virtual_network_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -80,12 +72,4 @@ export const tunnel_teamnet_response_single: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tunnel_virtual_network_id_computed_optional` in responses.
- */
-export const tunnel_virtual_network_id_computed_optional: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

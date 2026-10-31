@@ -10,10 +10,6 @@ import {
   custom$$indicator$$feeds_update_feed,
   custom$$indicator$$feeds_update_feed_response,
 } from "../outputs.js";
-import {
-  custom$$indicator$$feeds_feed_id,
-  custom$$indicator$$feeds_identifier,
-} from "../schemas.js";
 
 /**
  * The tools of `intel.indicatorFeeds.downloads`.
@@ -22,19 +18,20 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_indicatorFeeds_downloads_get",
     title: "Download indicator feed data",
-    description: "Downloads the content of a custom threat indicator feed.",
+    description: "Downloads the content of a custom threat indicator feed.\n\nGET /accounts/{account_id}/intel/indicator-feeds/{feed_id}/download",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_identifier",
-              "description": "Identifier"
+              "description": "Identifier",
+              "type": "string"
             },
             "feed_id": {
-              "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-              "description": "Indicator feed ID"
+              "description": "Indicator feed ID",
+              "type": "integer"
             }
           },
           "required": [
@@ -47,10 +44,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
-        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_update_feed_response",

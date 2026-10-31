@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_enabled-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_enabled$$2: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of
  * `tls-certificates-and-hostnames_ssl_universal_settings_response` in
  * responses.
@@ -37,7 +30,7 @@ export const tls$$certificates$$and$$hostnames_ssl_universal_settings_response: 
 export const tls$$certificates$$and$$hostnames_universal: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-2"
+      "type": "boolean"
     }
   },
   "type": "object"

@@ -6,14 +6,9 @@ import {
   api$$shield_api$$response$$collection,
   api$$shield_api$$response$$common,
   api$$shield_api$$response$$common$$failure,
-  api$$shield_auth_id_tokens,
   api$$shield_basic_operation,
   api$$shield_confidence_intervals_bounds,
-  api$$shield_data_points,
-  api$$shield_endpoint,
-  api$$shield_host,
   api$$shield_messages,
-  api$$shield_method,
   api$$shield_operation,
   api$$shield_operation_feature_api_routing,
   api$$shield_operation_feature_confidence_intervals,
@@ -21,25 +16,9 @@ import {
   api$$shield_operation_feature_schema_info,
   api$$shield_operation_feature_thresholds,
   api$$shield_operation_features,
-  api$$shield_p50,
-  api$$shield_p90,
-  api$$shield_p99,
   api$$shield_parameter_schemas_definition,
-  api$$shield_period_seconds,
-  api$$shield_requests,
   api$$shield_standard_operation,
-  api$$shield_suggested_threshold,
-  api$$shield_timestamp,
-  api$$shield_timestamp$$2,
-  api$$shield_uuid,
-  api$$shield_uuid$$2,
 } from "../../../../outputs.js";
-import {
-  api$$shield_identifier,
-  api$$shield_identifier$$2,
-  api$$shield_uuid as api$$shield_uuid$,
-  api$$shield_uuid$$2 as api$$shield_uuid$$2$,
-} from "../../../../schemas.js";
 
 /**
  * The tools of `apiSecurity.schemaValidation.schemas.operations`.
@@ -48,16 +27,25 @@ export const tools: readonly Tool[] = [
   {
     name: "apiSecurity_schemaValidation_schemas_operations_list",
     title: "Retrieve all operations from the schema",
-    description: "Retrieves all operations from the schema. Operations that already exist in API Shield Endpoint Management will be returned as full operations.",
+    description: "Retrieves all operations from the schema. Operations that already exist in API Shield Endpoint Management will be returned as full operations.\n\nGET /zones/{zone_id}/schema_validation/schemas/{schema_id}/operations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "schema_id": {
               "allOf": [
                 {
-                  "$ref": "#/$defs/api-shield_uuid-2"
+                  "allOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "description": "UUID.",
+                      "type": "string"
+                    }
+                  ]
                 },
                 {
                   "format": "uuid",
@@ -67,7 +55,15 @@ export const tools: readonly Tool[] = [
               "description": "The unique identifier of the schema"
             },
             "zone_id": {
-              "$ref": "#/$defs/api-shield_identifier-2"
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [
@@ -77,6 +73,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "endpoint": {
               "description": "Filter results to only include endpoints containing this pattern.",
@@ -134,12 +131,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "api-shield_identifier": api$$shield_identifier,
-        "api-shield_identifier-2": api$$shield_identifier$$2,
-        "api-shield_uuid": api$$shield_uuid$,
-        "api-shield_uuid-2": api$$shield_uuid$$2$,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -171,14 +163,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
-        "api-shield_auth_id_tokens": api$$shield_auth_id_tokens,
         "api-shield_basic_operation": api$$shield_basic_operation,
         "api-shield_confidence_intervals_bounds": api$$shield_confidence_intervals_bounds,
-        "api-shield_data_points": api$$shield_data_points,
-        "api-shield_endpoint": api$$shield_endpoint,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_method": api$$shield_method,
         "api-shield_operation": api$$shield_operation,
         "api-shield_operation_feature_api_routing": api$$shield_operation_feature_api_routing,
         "api-shield_operation_feature_confidence_intervals": api$$shield_operation_feature_confidence_intervals,
@@ -186,18 +173,8 @@ export const tools: readonly Tool[] = [
         "api-shield_operation_feature_schema_info": api$$shield_operation_feature_schema_info,
         "api-shield_operation_feature_thresholds": api$$shield_operation_feature_thresholds,
         "api-shield_operation_features": api$$shield_operation_features,
-        "api-shield_p50": api$$shield_p50,
-        "api-shield_p90": api$$shield_p90,
-        "api-shield_p99": api$$shield_p99,
         "api-shield_parameter_schemas_definition": api$$shield_parameter_schemas_definition,
-        "api-shield_period_seconds": api$$shield_period_seconds,
-        "api-shield_requests": api$$shield_requests,
         "api-shield_standard_operation": api$$shield_standard_operation,
-        "api-shield_suggested_threshold": api$$shield_suggested_threshold,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     annotations: {
@@ -255,14 +232,9 @@ export const tools: readonly Tool[] = [
         "api-shield_api-response-collection": api$$shield_api$$response$$collection,
         "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
-        "api-shield_auth_id_tokens": api$$shield_auth_id_tokens,
         "api-shield_basic_operation": api$$shield_basic_operation,
         "api-shield_confidence_intervals_bounds": api$$shield_confidence_intervals_bounds,
-        "api-shield_data_points": api$$shield_data_points,
-        "api-shield_endpoint": api$$shield_endpoint,
-        "api-shield_host": api$$shield_host,
         "api-shield_messages": api$$shield_messages,
-        "api-shield_method": api$$shield_method,
         "api-shield_operation": api$$shield_operation,
         "api-shield_operation_feature_api_routing": api$$shield_operation_feature_api_routing,
         "api-shield_operation_feature_confidence_intervals": api$$shield_operation_feature_confidence_intervals,
@@ -270,18 +242,8 @@ export const tools: readonly Tool[] = [
         "api-shield_operation_feature_schema_info": api$$shield_operation_feature_schema_info,
         "api-shield_operation_feature_thresholds": api$$shield_operation_feature_thresholds,
         "api-shield_operation_features": api$$shield_operation_features,
-        "api-shield_p50": api$$shield_p50,
-        "api-shield_p90": api$$shield_p90,
-        "api-shield_p99": api$$shield_p99,
         "api-shield_parameter_schemas_definition": api$$shield_parameter_schemas_definition,
-        "api-shield_period_seconds": api$$shield_period_seconds,
-        "api-shield_requests": api$$shield_requests,
         "api-shield_standard_operation": api$$shield_standard_operation,
-        "api-shield_suggested_threshold": api$$shield_suggested_threshold,
-        "api-shield_timestamp": api$$shield_timestamp,
-        "api-shield_timestamp-2": api$$shield_timestamp$$2,
-        "api-shield_uuid": api$$shield_uuid,
-        "api-shield_uuid-2": api$$shield_uuid$$2,
       },
     },
     request: (args) => ({

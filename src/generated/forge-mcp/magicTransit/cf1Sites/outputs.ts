@@ -16,7 +16,7 @@ export const magic_cf1_site: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "location": {
       "$ref": "#/$defs/magic_cf1_site_location"

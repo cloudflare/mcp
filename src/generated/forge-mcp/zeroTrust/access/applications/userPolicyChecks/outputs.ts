@@ -18,7 +18,7 @@ export const access_policy_check_response: JsonSchema = {
             "app_state": {
               "properties": {
                 "app_uid": {
-                  "$ref": "#/$defs/access_uuid"
+                  "type": "string"
                 },
                 "aud": {
                   "type": "string"
@@ -76,7 +76,7 @@ export const access_policy_check_response: JsonSchema = {
                   "type": "string"
                 },
                 "user_uuid": {
-                  "$ref": "#/$defs/access_uuid"
+                  "type": "string"
                 },
                 "version": {
                   "type": "integer"

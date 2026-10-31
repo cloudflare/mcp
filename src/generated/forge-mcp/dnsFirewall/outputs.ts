@@ -144,13 +144,6 @@ export const dns$$firewall_attack_mitigation: JsonSchema = {
 };
 
 /**
- * The schema of `dns-firewall_deprecate_any_requests` in responses.
- */
-export const dns$$firewall_deprecate_any_requests: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `dns-firewall_dns-firewall-cluster` in responses.
  */
 export const dns$$firewall_dns$$firewall$$cluster: JsonSchema = {
@@ -159,28 +152,42 @@ export const dns$$firewall_dns$$firewall$$cluster: JsonSchema = {
       "$ref": "#/$defs/dns-firewall_attack_mitigation"
     },
     "deprecate_any_requests": {
-      "$ref": "#/$defs/dns-firewall_deprecate_any_requests"
+      "type": "boolean"
     },
     "ecs_fallback": {
-      "$ref": "#/$defs/dns-firewall_ecs_fallback"
+      "type": "boolean"
     },
     "maximum_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_maximum_cache_ttl"
+      "type": "number"
     },
     "minimum_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_minimum_cache_ttl"
+      "type": "number"
     },
     "name": {
-      "$ref": "#/$defs/dns-firewall_name"
+      "type": "string"
     },
     "negative_cache_ttl": {
-      "$ref": "#/$defs/dns-firewall_negative_cache_ttl"
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "ratelimit": {
-      "$ref": "#/$defs/dns-firewall_ratelimit"
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "retries": {
-      "$ref": "#/$defs/dns-firewall_retries"
+      "type": "number"
     },
     "upstream_ips": {
       "$ref": "#/$defs/dns-firewall_upstream_ips"
@@ -203,10 +210,11 @@ export const dns$$firewall_dns$$firewall$$cluster$$response: JsonSchema = {
           "$ref": "#/$defs/dns-firewall_dns_firewall_ips"
         },
         "id": {
-          "$ref": "#/$defs/dns-firewall_identifier"
+          "type": "string"
         },
         "modified_on": {
-          "$ref": "#/$defs/dns-firewall_modified_on"
+          "format": "date-time",
+          "type": "string"
         }
       },
       "required": [
@@ -271,27 +279,6 @@ export const dns$$firewall_dns_firewall_single_response: JsonSchema = {
 };
 
 /**
- * The schema of `dns-firewall_ecs_fallback` in responses.
- */
-export const dns$$firewall_ecs_fallback: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-firewall_identifier` in responses.
- */
-export const dns$$firewall_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dns-firewall_maximum_cache_ttl` in responses.
- */
-export const dns$$firewall_maximum_cache_ttl: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `dns-firewall_messages` in responses.
  */
 export const dns$$firewall_messages: JsonSchema = {
@@ -322,63 +309,6 @@ export const dns$$firewall_messages: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-firewall_minimum_cache_ttl` in responses.
- */
-export const dns$$firewall_minimum_cache_ttl: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `dns-firewall_modified_on` in responses.
- */
-export const dns$$firewall_modified_on: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-firewall_name` in responses.
- */
-export const dns$$firewall_name: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dns-firewall_negative_cache_ttl` in responses.
- */
-export const dns$$firewall_negative_cache_ttl: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dns-firewall_ratelimit` in responses.
- */
-export const dns$$firewall_ratelimit: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dns-firewall_retries` in responses.
- */
-export const dns$$firewall_retries: JsonSchema = {
-  "type": "number"
 };
 
 /**

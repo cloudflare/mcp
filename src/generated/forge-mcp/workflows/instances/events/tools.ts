@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_events_send",
     title: "Send event to instance",
-    description: "Sends an event to a running workflow instance to trigger state transitions.",
+    description: "Sends an event to a running workflow instance to trigger state transitions.\n\nPOST /accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/events/{event_type}",
     inputSchema: {
       type: "object",
       properties: {
@@ -18,6 +18,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -46,6 +47,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

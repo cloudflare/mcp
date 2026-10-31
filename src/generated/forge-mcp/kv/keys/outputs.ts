@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `workers-kv_cursor` in responses.
- */
-export const workers$$kv_cursor: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_cursor_result_info` in responses.
  */
 export const workers$$kv_cursor_result_info: JsonSchema = {
@@ -19,7 +12,7 @@ export const workers$$kv_cursor_result_info: JsonSchema = {
       "type": "number"
     },
     "cursor": {
-      "$ref": "#/$defs/workers-kv_cursor"
+      "type": "string"
     }
   },
   "type": "object"
@@ -37,7 +30,7 @@ export const workers$$kv_key: JsonSchema = {
       "$ref": "#/$defs/workers-kv_list_metadata"
     },
     "name": {
-      "$ref": "#/$defs/workers-kv_key_name"
+      "type": "string"
     }
   },
   "required": [

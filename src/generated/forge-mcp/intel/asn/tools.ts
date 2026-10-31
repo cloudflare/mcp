@@ -8,12 +8,7 @@ import {
   intel_messages,
   intel_schemas$$messages,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
-import {
-  intel_asn,
-  intel_asn_components$$schemas$$response,
-} from "./outputs.js";
-import { intel_asn as intel_asn$ } from "./schemas.js";
+import { intel_asn_components$$schemas$$response } from "./outputs.js";
 
 /**
  * The tools of `intel.asn`.
@@ -22,18 +17,19 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_asn_get",
     title: "Get ASN Overview.",
-    description: "Gets an overview of the Autonomous System Number (ASN) and a list of subnets for it.",
+    description: "Gets an overview of the Autonomous System Number (ASN) and a list of subnets for it.\n\nGET /accounts/{account_id}/intel/asn/{asn}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/intel_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "asn": {
-              "$ref": "#/$defs/intel_asn"
+              "type": "integer"
             }
           },
           "required": [
@@ -46,16 +42,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "intel_asn": intel_asn$,
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_asn_components-schemas-response",
       $defs: {
         "intel_api-response-single": intel_api$$response$$single,
-        "intel_asn": intel_asn,
         "intel_asn_components-schemas-response": intel_asn_components$$schemas$$response,
         "intel_schemas-messages": intel_schemas$$messages,
       },
@@ -94,7 +86,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "intel_api-response-common-failure": intel_api$$response$$common$$failure,
         "intel_api-response-single": intel_api$$response$$single,
-        "intel_asn": intel_asn,
         "intel_asn_components-schemas-response": intel_asn_components$$schemas$$response,
         "intel_messages": intel_messages,
         "intel_schemas-messages": intel_schemas$$messages,

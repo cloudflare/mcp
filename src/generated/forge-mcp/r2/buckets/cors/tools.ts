@@ -8,7 +8,6 @@ import {
   r2_v4_response,
   r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
 import { r2_cors$$rule } from "./outputs.js";
 import { r2_cors$$rule as r2_cors$$rule$ } from "./schemas.js";
 
@@ -19,11 +18,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_cors_delete",
     title: "Delete Bucket CORS Policy",
-    description: "Delete the CORS policy for a bucket.\n\nConfirm with the user before calling this tool. This removes the R2 bucket's CORS policy. Browser requests that depend on these cross-origin permissions may fail.",
+    description: "Delete the CORS policy for a bucket.\n\nConfirm with the user before calling this tool. This removes the R2 bucket's CORS policy. Browser requests that depend on these cross-origin permissions may fail.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/cors",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -41,14 +41,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -61,10 +62,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/r2_v4_response",
@@ -109,11 +107,12 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_cors_get",
     title: "Get Bucket CORS Policy",
-    description: "Get the CORS policy for a bucket.",
+    description: "Get the CORS policy for a bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/cors",
     inputSchema: {
       type: "object",
       properties: {
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -131,14 +130,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -151,10 +151,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -241,7 +238,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_cors_update",
     title: "Set Bucket CORS Policy",
-    description: "Replaces the Cross-Origin Resource Sharing (CORS) rules for an R2 bucket. Rules specify which origins, methods, and headers are allowed for browser requests to objects in the bucket.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's CORS policy. Browser requests that relied on the previous rules may fail.",
+    description: "Replaces the Cross-Origin Resource Sharing (CORS) rules for an R2 bucket. Rules specify which origins, methods, and headers are allowed for browser requests to objects in the bucket.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's CORS policy. Browser requests that relied on the previous rules may fail.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/cors",
     inputSchema: {
       type: "object",
       properties: {
@@ -257,6 +254,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "cf-r2-jurisdiction": {
               "default": "default",
@@ -274,14 +272,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/r2_account_identifier",
-              "description": "Cloudflare account ID that owns the R2 resource."
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
             },
             "bucket_name": {
-              "$ref": "#/$defs/r2_bucket_name",
-              "description": "Name of the bucket."
+              "description": "Name of the bucket.",
+              "type": "string"
             }
           },
           "required": [
@@ -295,9 +294,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
         "r2_cors-rule": r2_cors$$rule$,
       },
     },

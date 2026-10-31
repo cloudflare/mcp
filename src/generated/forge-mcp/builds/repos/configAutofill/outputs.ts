@@ -42,7 +42,14 @@ export const builds_ConfigAutofillResponse: JsonSchema = {
       ]
     },
     "package_manager": {
-      "$ref": "#/$defs/builds_PackageManager"
+      "enum": [
+        "npm",
+        "yarn",
+        "pnpm",
+        "bun",
+        "uv"
+      ],
+      "type": "string"
     },
     "scripts": {
       "oneOf": [
@@ -59,18 +66,4 @@ export const builds_ConfigAutofillResponse: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_PackageManager` in responses.
- */
-export const builds_PackageManager: JsonSchema = {
-  "enum": [
-    "npm",
-    "yarn",
-    "pnpm",
-    "bun",
-    "uv"
-  ],
-  "type": "string"
 };

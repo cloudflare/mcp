@@ -5,13 +5,8 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_api$$response$$common,
   workers_api$$response$$common$$failure,
-  workers_identifier,
   workers_messages,
 } from "../../outputs.js";
-import {
-  workers_identifier as workers_identifier$,
-  workers_script_name,
-} from "../../schemas.js";
 import { workers_tail } from "./outputs.js";
 
 /**
@@ -21,23 +16,24 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_tail_delete",
     title: "Delete Worker Tail",
-    description: "Deletes a tail from a Worker.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker tail session.",
+    description: "Deletes a tail from a Worker.\n\nConfirm with the user before calling this tool. This will permanently delete the Worker tail session.\n\nDELETE /accounts/{account_id}/workers/scripts/{script_name}/tails/{id}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -51,10 +47,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -107,19 +100,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_tail_list",
     title: "List Worker Tails",
-    description: "Get a list of tails currently deployed on a Worker.",
+    description: "Get a list of tails currently deployed on a Worker.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/tails",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -132,10 +126,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -156,7 +147,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
-        "workers_identifier": workers_identifier,
         "workers_messages": workers_messages,
         "workers_tail": workers_tail,
       },
@@ -214,7 +204,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
-        "workers_identifier": workers_identifier,
         "workers_messages": workers_messages,
         "workers_tail": workers_tail,
       },
@@ -226,19 +215,20 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_tail_start",
     title: "Start Worker Tail",
-    description: "Starts a tail that receives logs and exceptions from a Worker.",
+    description: "Starts a tail that receives logs and exceptions from a Worker.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/tails",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/workers_identifier",
-              "description": "Identifier."
+              "description": "Identifier.",
+              "type": "string"
             },
             "script_name": {
-              "$ref": "#/$defs/workers_script_name",
-              "description": "Name of the script."
+              "description": "Name of the script.",
+              "type": "string"
             }
           },
           "required": [
@@ -251,10 +241,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier$,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -275,7 +262,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
-        "workers_identifier": workers_identifier,
         "workers_messages": workers_messages,
         "workers_tail": workers_tail,
       },
@@ -329,7 +315,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-common-failure": workers_api$$response$$common$$failure,
-        "workers_identifier": workers_identifier,
         "workers_messages": workers_messages,
         "workers_tail": workers_tail,
       },

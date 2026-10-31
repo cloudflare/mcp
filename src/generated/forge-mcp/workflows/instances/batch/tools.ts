@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_instances_batch_create",
     title: "Batch create new Workflow instances",
-    description: "Creates multiple workflow instances in a single batch operation.",
+    description: "Creates multiple workflow instances in a single batch operation.\n\nPOST /accounts/{account_id}/workflows/{workflow_name}/instances/batch",
     inputSchema: {
       type: "object",
       properties: {
@@ -76,6 +76,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -95,6 +96,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

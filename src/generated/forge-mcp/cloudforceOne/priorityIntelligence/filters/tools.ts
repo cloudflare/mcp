@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_filters_generate",
     title: "Generate event filters from a PIR",
-    description: "Translates a natural-language Priority Intelligence Requirement into Threat Events `searchBranches` with Workers AI. Terms that cannot be expressed as event filters are returned in `unresolved_terms`. Nothing is stored or executed.",
+    description: "Translates a natural-language Priority Intelligence Requirement into Threat Events `searchBranches` with Workers AI. Terms that cannot be expressed as event filters are returned in `unresolved_terms`. Nothing is stored or executed.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/filters/generate",
     inputSchema: {
       type: "object",
       properties: {
@@ -27,6 +27,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -41,6 +42,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

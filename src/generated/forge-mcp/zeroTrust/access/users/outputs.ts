@@ -4,20 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_access_seat-2` in responses.
- */
-export const access_access_seat$$2: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_active_device_count` in responses.
- */
-export const access_active_device_count: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `access_delete_user_response` in responses.
  */
 export const access_delete_user_response: JsonSchema = {
@@ -130,13 +116,6 @@ export const access_empty_response: JsonSchema = {
 };
 
 /**
- * The schema of `access_gateway_seat-2` in responses.
- */
-export const access_gateway_seat$$2: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_geo` in responses.
  */
 export const access_geo: JsonSchema = {
@@ -240,14 +219,6 @@ export const access_identity: JsonSchema = {
 };
 
 /**
- * The schema of `access_last_successful_login` in responses.
- */
-export const access_last_successful_login: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `access_response_collection-25` in responses.
  */
 export const access_response_collection$$25: JsonSchema = {
@@ -292,13 +263,6 @@ export const access_response_collection$$25: JsonSchema = {
 };
 
 /**
- * The schema of `access_seat_uid-2` in responses.
- */
-export const access_seat_uid$$2: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_single_user_response` in responses.
  */
 export const access_single_user_response: JsonSchema = {
@@ -328,49 +292,45 @@ export const access_string_key_map_device_session: JsonSchema = {
 };
 
 /**
- * The schema of `access_uid` in responses.
- */
-export const access_uid: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_users-2` in responses.
  */
 export const access_users$$2: JsonSchema = {
   "properties": {
     "access_seat": {
-      "$ref": "#/$defs/access_access_seat-2"
+      "type": "boolean"
     },
     "active_device_count": {
-      "$ref": "#/$defs/access_active_device_count"
+      "type": "number"
     },
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "email": {
-      "$ref": "#/$defs/access_email-2"
+      "type": "string"
     },
     "gateway_seat": {
-      "$ref": "#/$defs/access_gateway_seat-2"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "last_successful_login": {
-      "$ref": "#/$defs/access_last_successful_login"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-10"
+      "type": "string"
     },
     "seat_uid": {
-      "$ref": "#/$defs/access_seat_uid-2"
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/access_uid"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"

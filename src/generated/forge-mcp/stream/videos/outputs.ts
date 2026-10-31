@@ -33,52 +33,23 @@ export const stream_clipResponseSingle: JsonSchema = {
 };
 
 /**
- * The schema of `stream_created` in responses.
- */
-export const stream_created: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_download_percent_complete` in responses.
- */
-export const stream_download_percent_complete: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_download_status` in responses.
- */
-export const stream_download_status: JsonSchema = {
-  "enum": [
-    "ready",
-    "inprogress",
-    "error"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `stream_download_url` in responses.
- */
-export const stream_download_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `stream_downloads` in responses.
  */
 export const stream_downloads: JsonSchema = {
   "properties": {
     "percentComplete": {
-      "$ref": "#/$defs/stream_download_percent_complete"
+      "type": "number"
     },
     "status": {
-      "$ref": "#/$defs/stream_download_status"
+      "enum": [
+        "ready",
+        "inprogress",
+        "error"
+      ],
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_download_url"
+      "type": "string"
     }
   },
   "required": [
@@ -116,34 +87,6 @@ export const stream_downloads_response: JsonSchema = {
 };
 
 /**
- * The schema of `stream_duration` in responses.
- */
-export const stream_duration: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_errorReasonCode` in responses.
- */
-export const stream_errorReasonCode: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_errorReasonText` in responses.
- */
-export const stream_errorReasonText: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_identifier` in responses.
- */
-export const stream_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `stream_input` in responses.
  */
 export const stream_input: JsonSchema = {
@@ -159,40 +102,10 @@ export const stream_input: JsonSchema = {
 };
 
 /**
- * The schema of `stream_liveInput` in responses.
- */
-export const stream_liveInput: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_maxDurationSeconds` in responses.
- */
-export const stream_maxDurationSeconds: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `stream_media_metadata` in responses.
  */
 export const stream_media_metadata: JsonSchema = {
   "type": "object"
-};
-
-/**
- * The schema of `stream_media_state` in responses.
- */
-export const stream_media_state: JsonSchema = {
-  "enum": [
-    "pendingupload",
-    "downloading",
-    "queued",
-    "inprogress",
-    "ready",
-    "error",
-    "live-inprogress"
-  ],
-  "type": "string"
 };
 
 /**
@@ -201,42 +114,28 @@ export const stream_media_state: JsonSchema = {
 export const stream_media_status: JsonSchema = {
   "properties": {
     "errorReasonCode": {
-      "$ref": "#/$defs/stream_errorReasonCode"
+      "type": "string"
     },
     "errorReasonText": {
-      "$ref": "#/$defs/stream_errorReasonText"
+      "type": "string"
     },
     "pctComplete": {
-      "$ref": "#/$defs/stream_pctComplete"
+      "type": "string"
     },
     "state": {
-      "$ref": "#/$defs/stream_media_state"
+      "enum": [
+        "pendingupload",
+        "downloading",
+        "queued",
+        "inprogress",
+        "ready",
+        "error",
+        "live-inprogress"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_modified` in responses.
- */
-export const stream_modified: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_oneTimeUploadExpiry` in responses.
- */
-export const stream_oneTimeUploadExpiry: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_pctComplete` in responses.
- */
-export const stream_pctComplete: JsonSchema = {
-  "type": "string"
 };
 
 /**
@@ -252,72 +151,6 @@ export const stream_playback: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_preview` in responses.
- */
-export const stream_preview: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_readyToStream` in responses.
- */
-export const stream_readyToStream: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_readyToStreamAt` in responses.
- */
-export const stream_readyToStreamAt: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_requireSignedURLs` in responses.
- */
-export const stream_requireSignedURLs: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_scheduledDeletion` in responses.
- */
-export const stream_scheduledDeletion: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_size` in responses.
- */
-export const stream_size: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_thumbnailTimestampPct` in responses.
- */
-export const stream_thumbnailTimestampPct: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `stream_thumbnail_url` in responses.
- */
-export const stream_thumbnail_url: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_uploaded` in responses.
- */
-export const stream_uploaded: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };
 
 /**
@@ -384,22 +217,23 @@ export const stream_videos: JsonSchema = {
       "type": "string"
     },
     "created": {
-      "$ref": "#/$defs/stream_created"
+      "format": "date-time",
+      "type": "string"
     },
     "creator": {
-      "$ref": "#/$defs/stream_creator"
+      "type": "string"
     },
     "duration": {
-      "$ref": "#/$defs/stream_duration"
+      "type": "number"
     },
     "input": {
       "$ref": "#/$defs/stream_input"
     },
     "liveInput": {
-      "$ref": "#/$defs/stream_liveInput"
+      "type": "string"
     },
     "maxDurationSeconds": {
-      "$ref": "#/$defs/stream_maxDurationSeconds"
+      "type": "integer"
     },
     "maxSizeBytes": {
       "type": "integer"
@@ -408,13 +242,14 @@ export const stream_videos: JsonSchema = {
       "$ref": "#/$defs/stream_media_metadata"
     },
     "modified": {
-      "$ref": "#/$defs/stream_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "playback": {
       "$ref": "#/$defs/stream_playback"
     },
     "preview": {
-      "$ref": "#/$defs/stream_preview"
+      "type": "string"
     },
     "publicDetails": {
       "properties": {
@@ -465,37 +300,41 @@ export const stream_videos: JsonSchema = {
       "type": "object"
     },
     "readyToStream": {
-      "$ref": "#/$defs/stream_readyToStream"
+      "type": "boolean"
     },
     "readyToStreamAt": {
-      "$ref": "#/$defs/stream_readyToStreamAt"
+      "format": "date-time",
+      "type": "string"
     },
     "requireSignedURLs": {
-      "$ref": "#/$defs/stream_requireSignedURLs"
+      "type": "boolean"
     },
     "scheduledDeletion": {
-      "$ref": "#/$defs/stream_scheduledDeletion"
+      "format": "date-time",
+      "type": "string"
     },
     "size": {
-      "$ref": "#/$defs/stream_size"
+      "type": "number"
     },
     "status": {
       "$ref": "#/$defs/stream_media_status"
     },
     "thumbnail": {
-      "$ref": "#/$defs/stream_thumbnail_url"
+      "type": "string"
     },
     "thumbnailTimestampPct": {
-      "$ref": "#/$defs/stream_thumbnailTimestampPct"
+      "type": "number"
     },
     "uid": {
-      "$ref": "#/$defs/stream_identifier"
+      "type": "string"
     },
     "uploadExpiry": {
-      "$ref": "#/$defs/stream_oneTimeUploadExpiry"
+      "format": "date-time",
+      "type": "string"
     },
     "uploaded": {
-      "$ref": "#/$defs/stream_uploaded"
+      "format": "date-time",
+      "type": "string"
     },
     "watermark": {
       "$ref": "#/$defs/stream_watermarks"

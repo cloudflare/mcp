@@ -20,7 +20,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_accountMapping_create",
     title: "Create mapping",
-    description: "Creates a mapping between a Cloudflare account and an email provider for DLP email scanning integration.",
+    description: "Creates a mapping between a Cloudflare account and an email provider for DLP email scanning integration.\n\nPOST /accounts/{account_id}/dlp/email/account_mapping",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,6 +29,7 @@ export const tools: readonly Tool[] = [
           "description": "Account mapping."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_AddinAuth": dlp_AddinAuth$,
         "dlp_UpdateAddinAccountMapping": dlp_UpdateAddinAccountMapping,
@@ -121,11 +123,12 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_dlp_email_accountMapping_get",
     title: "Get mapping",
-    description: "Retrieves the email provider mapping configuration for DLP email scanning.",
+    description: "Retrieves the email provider mapping configuration for DLP email scanning.\n\nGET /accounts/{account_id}/dlp/email/account_mapping",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "type": "string"
@@ -140,6 +143,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [

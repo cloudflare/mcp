@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_dataSecurity_findings_summary",
     title: "Data security findings summary",
-    description: "Returns aggregate current-period and previous-period totals for CASB findings.\n\nThis method is beta.",
+    description: "Returns aggregate current-period and previous-period totals for CASB findings.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/data-security/findings/summary",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,6 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/art_DataSecurityFindingsSummaryQuery"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_DataSecurityFindingsSummaryQuery": art_DataSecurityFindingsSummaryQuery,
         "art_Filter": art_Filter,
@@ -113,7 +115,7 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_dataSecurity_findings_timeseries",
     title: "Data security findings timeseries",
-    description: "Returns merged time-bucketed CASB findings.\n\nThis method is beta.",
+    description: "Returns merged time-bucketed CASB findings.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/data-security/findings/timeseries",
     inputSchema: {
       type: "object",
       properties: {
@@ -121,6 +123,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesQuery"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
               "description": "Cloudflare account identifier.",
@@ -137,6 +140,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_DataSecurityFindingsTimeseriesQuery": art_DataSecurityFindingsTimeseriesQuery,
         "art_Filter": art_Filter,

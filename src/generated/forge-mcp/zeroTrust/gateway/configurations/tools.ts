@@ -6,9 +6,7 @@ import {
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
-  zero$$trust$$gateway_read_only_timestamp,
 } from "../../outputs.js";
-import { zero$$trust$$gateway_identifier } from "../schemas.js";
 import {
   zero$$trust$$gateway_activity$$log$$settings,
   zero$$trust$$gateway_anti$$virus$$settings,
@@ -17,16 +15,12 @@ import {
   zero$$trust$$gateway_browser$$isolation$$settings,
   zero$$trust$$gateway_certificate$$settings,
   zero$$trust$$gateway_custom$$certificate$$settings,
-  zero$$trust$$gateway_enabled_download_phase,
-  zero$$trust$$gateway_enabled_upload_phase,
   zero$$trust$$gateway_extended$$email$$matching,
-  zero$$trust$$gateway_fail_closed,
   zero$$trust$$gateway_fips$$settings,
   zero$$trust$$gateway_gateway$$account$$settings,
   zero$$trust$$gateway_gateway_account_config,
   zero$$trust$$gateway_host$$selector$$settings,
   zero$$trust$$gateway_inspection$$settings,
-  zero$$trust$$gateway_max$$ttl$$secs,
   zero$$trust$$gateway_notification_settings,
   zero$$trust$$gateway_protocol$$detection,
   zero$$trust$$gateway_sandbox,
@@ -40,15 +34,11 @@ import {
   zero$$trust$$gateway_browser$$isolation$$settings as zero$$trust$$gateway_browser$$isolation$$settings$,
   zero$$trust$$gateway_certificate$$settings as zero$$trust$$gateway_certificate$$settings$,
   zero$$trust$$gateway_custom$$certificate$$settings as zero$$trust$$gateway_custom$$certificate$$settings$,
-  zero$$trust$$gateway_enabled_download_phase as zero$$trust$$gateway_enabled_download_phase$,
-  zero$$trust$$gateway_enabled_upload_phase as zero$$trust$$gateway_enabled_upload_phase$,
   zero$$trust$$gateway_extended$$email$$matching as zero$$trust$$gateway_extended$$email$$matching$,
-  zero$$trust$$gateway_fail_closed as zero$$trust$$gateway_fail_closed$,
   zero$$trust$$gateway_fips$$settings as zero$$trust$$gateway_fips$$settings$,
   zero$$trust$$gateway_gateway$$account$$settings as zero$$trust$$gateway_gateway$$account$$settings$,
   zero$$trust$$gateway_host$$selector$$settings as zero$$trust$$gateway_host$$selector$$settings$,
   zero$$trust$$gateway_inspection$$settings as zero$$trust$$gateway_inspection$$settings$,
-  zero$$trust$$gateway_max$$ttl$$secs as zero$$trust$$gateway_max$$ttl$$secs$,
   zero$$trust$$gateway_notification_settings as zero$$trust$$gateway_notification_settings$,
   zero$$trust$$gateway_protocol$$detection as zero$$trust$$gateway_protocol$$detection$,
   zero$$trust$$gateway_sandbox as zero$$trust$$gateway_sandbox$,
@@ -62,7 +52,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_configurations_edit",
     title: "Patch Zero Trust account configuration",
-    description: "Update (PATCH) a single subcollection of settings such as `antivirus`, `tls_decrypt`, `activity_log`, `block_page`, `browser_isolation`, `fips`, `body_scanning`, `certificate`, or `max_ttl_secs` without updating the entire configuration object. This endpoint returns an error if any settings collection lacks proper configuration.",
+    description: "Update (PATCH) a single subcollection of settings such as `antivirus`, `tls_decrypt`, `activity_log`, `block_page`, `browser_isolation`, `fips`, `body_scanning`, `certificate`, or `max_ttl_secs` without updating the entire configuration object. This endpoint returns an error if any settings collection lacks proper configuration.\n\nPATCH /accounts/{account_id}/gateway/configuration",
     inputSchema: {
       type: "object",
       properties: {
@@ -70,10 +60,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -86,6 +77,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zero-trust-gateway_activity-log-settings": zero$$trust$$gateway_activity$$log$$settings$,
         "zero-trust-gateway_anti-virus-settings": zero$$trust$$gateway_anti$$virus$$settings$,
@@ -94,16 +86,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings$,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings$,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings$,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase$,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase$,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching$,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed$,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings$,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings$,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings$,
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings$,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs$,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings$,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection$,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox$,
@@ -121,20 +108,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings,
         "zero-trust-gateway_gateway_account_config": zero$$trust$$gateway_gateway_account_config,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox,
         "zero-trust-gateway_tls-settings": zero$$trust$$gateway_tls$$settings,
       },
@@ -174,20 +156,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings,
         "zero-trust-gateway_gateway_account_config": zero$$trust$$gateway_gateway_account_config,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox,
         "zero-trust-gateway_tls-settings": zero$$trust$$gateway_tls$$settings,
       },
@@ -200,15 +177,16 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_configurations_get",
     title: "Get Zero Trust account configuration",
-    description: "Retrieve the current Zero Trust account configuration.",
+    description: "Retrieve the current Zero Trust account configuration.\n\nGET /accounts/{account_id}/gateway/configuration",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -220,9 +198,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_gateway_account_config",
@@ -235,20 +211,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings,
         "zero-trust-gateway_gateway_account_config": zero$$trust$$gateway_gateway_account_config,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox,
         "zero-trust-gateway_tls-settings": zero$$trust$$gateway_tls$$settings,
       },
@@ -288,20 +259,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings,
         "zero-trust-gateway_gateway_account_config": zero$$trust$$gateway_gateway_account_config,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox,
         "zero-trust-gateway_tls-settings": zero$$trust$$gateway_tls$$settings,
       },
@@ -313,7 +279,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_configurations_update",
     title: "Update Zero Trust account configuration",
-    description: "Update the current Zero Trust account configuration.",
+    description: "Update the current Zero Trust account configuration.\n\nPUT /accounts/{account_id}/gateway/configuration",
     inputSchema: {
       type: "object",
       properties: {
@@ -321,10 +287,11 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/zero-trust-gateway_identifier",
-              "description": "Specify the Cloudflare account identifier."
+              "description": "Specify the Cloudflare account identifier.",
+              "type": "string"
             }
           },
           "required": [
@@ -337,6 +304,7 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "zero-trust-gateway_activity-log-settings": zero$$trust$$gateway_activity$$log$$settings$,
         "zero-trust-gateway_anti-virus-settings": zero$$trust$$gateway_anti$$virus$$settings$,
@@ -345,16 +313,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings$,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings$,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings$,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase$,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase$,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching$,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed$,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings$,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings$,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings$,
-        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings$,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs$,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings$,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection$,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox$,
@@ -372,20 +335,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings,
         "zero-trust-gateway_gateway_account_config": zero$$trust$$gateway_gateway_account_config,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox,
         "zero-trust-gateway_tls-settings": zero$$trust$$gateway_tls$$settings,
       },
@@ -425,20 +383,15 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_browser-isolation-settings": zero$$trust$$gateway_browser$$isolation$$settings,
         "zero-trust-gateway_certificate-settings": zero$$trust$$gateway_certificate$$settings,
         "zero-trust-gateway_custom-certificate-settings": zero$$trust$$gateway_custom$$certificate$$settings,
-        "zero-trust-gateway_enabled_download_phase": zero$$trust$$gateway_enabled_download_phase,
-        "zero-trust-gateway_enabled_upload_phase": zero$$trust$$gateway_enabled_upload_phase,
         "zero-trust-gateway_extended-email-matching": zero$$trust$$gateway_extended$$email$$matching,
-        "zero-trust-gateway_fail_closed": zero$$trust$$gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero$$trust$$gateway_fips$$settings,
         "zero-trust-gateway_gateway-account-settings": zero$$trust$$gateway_gateway$$account$$settings,
         "zero-trust-gateway_gateway_account_config": zero$$trust$$gateway_gateway_account_config,
         "zero-trust-gateway_host-selector-settings": zero$$trust$$gateway_host$$selector$$settings,
         "zero-trust-gateway_inspection-settings": zero$$trust$$gateway_inspection$$settings,
-        "zero-trust-gateway_max-ttl-secs": zero$$trust$$gateway_max$$ttl$$secs,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_notification_settings": zero$$trust$$gateway_notification_settings,
         "zero-trust-gateway_protocol-detection": zero$$trust$$gateway_protocol$$detection,
-        "zero-trust-gateway_read_only_timestamp": zero$$trust$$gateway_read_only_timestamp,
         "zero-trust-gateway_sandbox": zero$$trust$$gateway_sandbox,
         "zero-trust-gateway_tls-settings": zero$$trust$$gateway_tls$$settings,
       },

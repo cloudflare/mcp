@@ -7,15 +7,12 @@ import {
   registrar$$api_api$$response$$common$$failure,
   registrar$$api_messages,
 } from "../outputs.js";
-import { registrar$$api_identifier } from "../schemas.js";
 import {
   registrar$$api_cursor_result_info,
   registrar$$api_domain_check_response,
   registrar$$api_domain_check_result,
-  registrar$$api_domain_name,
   registrar$$api_domain_search_response,
   registrar$$api_domain_search_result,
-  registrar$$api_domain_transfer_check_reason,
   registrar$$api_domain_transfer_check_response,
   registrar$$api_domain_transfer_check_result,
   registrar$$api_pricing_base,
@@ -31,7 +28,6 @@ import {
 } from "./outputs.js";
 import {
   registrar$$api_domain_check_request,
-  registrar$$api_domain_name as registrar$$api_domain_name$,
   registrar$$api_domain_transfer_check_request,
   registrar$$api_registration_contact,
   registrar$$api_registration_contact_address,
@@ -49,7 +45,7 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_check",
     title: "Check domain availability",
-    description: "Performs real-time, authoritative availability checks directly against domain\nregistries. Use this endpoint to verify a domain is available before attempting\nregistration via `POST /registrations`.\n\n**Important:** Unlike the Search endpoint, these results are authoritative and\nreflect current registry status. Always check availability immediately before\nregistration as domain status can change rapidly.\n\n**Note:** This endpoint uses POST to accept a list of domains in the request\nbody. It is a read-only operation — it does not create, modify, or reserve\nany domains.\n\n### Extension support\n\nOnly domains on extensions supported for programmatic registration by this API\ncan be registered. If you check a domain on an unsupported extension, the response\nwill include `registrable: false` with a `reason` field explaining why:\n\n- `extension_not_supported_via_api` — Cloudflare Registrar supports this extension\n  in the dashboard, but it is not yet available for programmatic registration via\n  this API. Register via `https://dash.cloudflare.com/{account_id}/domains/registrations` instead.\n- `extension_not_supported` — This extension is not supported by Cloudflare\n  Registrar.\n- `extension_disallows_registration` — The extension's registry has temporarily\n  or permanently frozen new registrations. No registrar can register domains on\n  this extension at this time.\n- `domain_premium` — The domain is premium priced. Premium registration is not\n  currently supported by this API.\n- `domain_unavailable` — The domain is already registered, reserved, or otherwise\n  not available for registration on a supported extension.\n\nThe `reason` field is only present when `registrable` is `false`.\n\n### Behavior\n- Maximum 20 domains per request\n- Pricing is only returned for domains where `registrable: true`\n- Results are not cached; each request queries the registry\n\n### Workflow\n1. Call this endpoint with domains the user wants to register.\n2. For each domain where `registrable: true`, present pricing to the user.\n3. If `tier: premium`, note that premium registration is not currently\n   supported by this API and do not proceed to `POST /registrations`.\n4. Proceed to `POST /registrations` only for supported non-premium domains.",
+    description: "Performs real-time, authoritative availability checks directly against domain\nregistries. Use this endpoint to verify a domain is available before attempting\nregistration via `POST /registrations`.\n\n**Important:** Unlike the Search endpoint, these results are authoritative and\nreflect current registry status. Always check availability immediately before\nregistration as domain status can change rapidly.\n\n**Note:** This endpoint uses POST to accept a list of domains in the request\nbody. It is a read-only operation — it does not create, modify, or reserve\nany domains.\n\n### Extension support\n\nOnly domains on extensions supported for programmatic registration by this API\ncan be registered. If you check a domain on an unsupported extension, the response\nwill include `registrable: false` with a `reason` field explaining why:\n\n- `extension_not_supported_via_api` — Cloudflare Registrar supports this extension\n  in the dashboard, but it is not yet available for programmatic registration via\n  this API. Register via `https://dash.cloudflare.com/{account_id}/domains/registrations` instead.\n- `extension_not_supported` — This extension is not supported by Cloudflare\n  Registrar.\n- `extension_disallows_registration` — The extension's registry has temporarily\n  or permanently frozen new registrations. No registrar can register domains on\n  this extension at this time.\n- `domain_premium` — The domain is premium priced. Premium registration is not\n  currently supported by this API.\n- `domain_unavailable` — The domain is already registered, reserved, or otherwise\n  not available for registration on a supported extension.\n\nThe `reason` field is only present when `registrable` is `false`.\n\n### Behavior\n- Maximum 20 domains per request\n- Pricing is only returned for domains where `registrable: true`\n- Results are not cached; each request queries the registry\n\n### Workflow\n1. Call this endpoint with domains the user wants to register.\n2. For each domain where `registrable: true`, present pricing to the user.\n3. If `tier: premium`, note that premium registration is not currently\n   supported by this API and do not proceed to `POST /registrations`.\n4. Proceed to `POST /registrations` only for supported non-premium domains.\n\nPOST /accounts/{account_id}/registrar/domain-check",
     inputSchema: {
       type: "object",
       properties: {
@@ -58,10 +54,11 @@ export const tools: readonly Tool[] = [
           "description": "List of fully qualified domain names (FQDNs) to check. Each domain must include the extension (e.g., \"example.com\", not \"example\")."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             }
           },
           "required": [
@@ -74,9 +71,9 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "registrar-api_domain_check_request": registrar$$api_domain_check_request,
-        "registrar-api_identifier": registrar$$api_identifier,
       },
     },
     outputSchema: {
@@ -133,7 +130,7 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_create",
     title: "Create Registration",
-    description: "Starts a domain registration workflow. This is a billable operation — successful\nregistration charges the account's default payment method. All successful\ndomain registrations are non-refundable — once the workflow completes with\n`state: succeeded`, the charge cannot be reversed.\n\n### Prerequisites\n- The account must have a billing profile with a valid default payment method.\n  Set this up at `https://dash.cloudflare.com/{account_id}/billing/payment-info`.\n- The account must not already be at the maximum supported domain limit.\n  A single account may own up to 500 domains in total across registrations\n  created through either the dashboard or this API.\n- The domain must be on a supported extension for programmatic registration.\n- Use `POST /domain-check` immediately before calling this endpoint to confirm\n  real-time availability and pricing.\n\n### Supported extensions\n\nThis API supports programmatic registration for all extensions supported by\nthe dashboard experience, with the following exceptions:\n\n`giving`, `mom`, `inc`, `lol`, `sh`, `link`, `cc`, `new`\n\nCloudflare Registrar supports 400+ extensions in the dashboard. Extensions\nlisted above can be registered at\n`https://dash.cloudflare.com/{account_id}/domains/registrations`.\n\n### Express mode\nThe only required field is `domain_name`. If `contacts` is omitted, the system\nuses the account's default address book entry as the registrant. If no default\nexists and no contact is provided, the request fails. Set up a default address\nbook entry and accept the required agreement at\n`https://dash.cloudflare.com/{account_id}/domains/registrations`.\n\n### Defaults\n- `years`: defaults to the extension's minimum registration period (1 year for\n  most extensions, but varies — for example, `.ai` (if supported) requires a minimum of 2 years).\n- `auto_renew`: defaults to `false`. Setting it to `true` is an explicit\n  opt-in authorizing Cloudflare to charge the account's default payment\n  method up to 30 days before domain expiry to renew the registration.\n  Renewal pricing may change over time based on registry pricing.\n- `privacy_mode`: defaults to `redaction`.\n\n### Premium domains\nPremium domain registration is not currently supported by this API.\nIf `POST /domain-check` returns `tier: premium`, do not call this\nendpoint for that domain.\n\n### Response behavior\nBy default, the server holds the connection for a bounded, server-defined\namount of time while the registration completes. Most registrations finish\nwithin this window and return `201 Created` with a completed workflow status.\n\nIf the registration is still processing after this synchronous wait window,\nthe server returns `202 Accepted`. Poll the URL in `links.self` to track progress.\n\nTo skip the wait and receive an immediate `202`, send `Prefer: respond-async`.",
+    description: "Starts a domain registration workflow. This is a billable operation — successful\nregistration charges the account's default payment method. All successful\ndomain registrations are non-refundable — once the workflow completes with\n`state: succeeded`, the charge cannot be reversed.\n\n### Prerequisites\n- The account must have a billing profile with a valid default payment method.\n  Set this up at `https://dash.cloudflare.com/{account_id}/billing/payment-info`.\n- The account must not already be at the maximum supported domain limit.\n  A single account may own up to 500 domains in total across registrations\n  created through either the dashboard or this API.\n- The domain must be on a supported extension for programmatic registration.\n- Use `POST /domain-check` immediately before calling this endpoint to confirm\n  real-time availability and pricing.\n\n### Supported extensions\n\nThis API supports programmatic registration for all extensions supported by\nthe dashboard experience, with the following exceptions:\n\n`giving`, `mom`, `inc`, `lol`, `sh`, `link`, `cc`, `new`\n\nCloudflare Registrar supports 400+ extensions in the dashboard. Extensions\nlisted above can be registered at\n`https://dash.cloudflare.com/{account_id}/domains/registrations`.\n\n### Express mode\nThe only required field is `domain_name`. If `contacts` is omitted, the system\nuses the account's default address book entry as the registrant. If no default\nexists and no contact is provided, the request fails. Set up a default address\nbook entry and accept the required agreement at\n`https://dash.cloudflare.com/{account_id}/domains/registrations`.\n\n### Defaults\n- `years`: defaults to the extension's minimum registration period (1 year for\n  most extensions, but varies — for example, `.ai` (if supported) requires a minimum of 2 years).\n- `auto_renew`: defaults to `false`. Setting it to `true` is an explicit\n  opt-in authorizing Cloudflare to charge the account's default payment\n  method up to 30 days before domain expiry to renew the registration.\n  Renewal pricing may change over time based on registry pricing.\n- `privacy_mode`: defaults to `redaction`.\n\n### Premium domains\nPremium domain registration is not currently supported by this API.\nIf `POST /domain-check` returns `tier: premium`, do not call this\nendpoint for that domain.\n\n### Response behavior\nBy default, the server holds the connection for a bounded, server-defined\namount of time while the registration completes. Most registrations finish\nwithin this window and return `201 Created` with a completed workflow status.\n\nIf the registration is still processing after this synchronous wait window,\nthe server returns `202 Accepted`. Poll the URL in `links.self` to track progress.\n\nTo skip the wait and receive an immediate `202`, send `Prefer: respond-async`.\n\nPOST /accounts/{account_id}/registrar/registrations",
     inputSchema: {
       type: "object",
       properties: {
@@ -141,19 +138,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/registrar-api_registration_create_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Prefer": {
-              "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).\n\nThe header may be combined with other preferences using standard\ncomma-separated syntax.\n",
+              "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).\n\nThe header may be combined with other preferences using standard\ncomma-separated syntax.",
               "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             }
           },
           "required": [
@@ -166,9 +165,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
         "registrar-api_registration_contact": registrar$$api_registration_contact,
         "registrar-api_registration_contact_address": registrar$$api_registration_contact_address,
         "registrar-api_registration_contact_postal_info": registrar$$api_registration_contact_postal_info,
@@ -229,19 +227,20 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_get",
     title: "Get Registration",
-    description: "Returns the current state of a domain registration.\n\nThis is the canonical read endpoint for a domain you own. It returns\nthe full registration resource including current settings and expiration.\nWhen the registration resource is ready, both `created_at` and `expires_at`\nare present in the response.",
+    description: "Returns the current state of a domain registration.\n\nThis is the canonical read endpoint for a domain you own. It returns\nthe full registration resource including current settings and expiration.\nWhen the registration resource is ready, both `created_at` and `expires_at`\nare present in the response.\n\nGET /accounts/{account_id}/registrar/registrations/{domain_name}",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID."
+              "description": "Cloudflare account ID.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/registrar-api_domain_name",
-              "description": "Domain name to retrieve."
+              "description": "Domain name to retrieve.",
+              "type": "string"
             }
           },
           "required": [
@@ -254,16 +253,12 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_registration-response-single",
       $defs: {
         "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_domain_name": registrar$$api_domain_name,
         "registrar-api_messages": registrar$$api_messages,
         "registrar-api_registration": registrar$$api_registration,
         "registrar-api_registration-response-single": registrar$$api_registration$$response$$single,
@@ -290,7 +285,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "registrar-api_api-response-common": registrar$$api_api$$response$$common,
         "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-        "registrar-api_domain_name": registrar$$api_domain_name,
         "registrar-api_messages": registrar$$api_messages,
         "registrar-api_registration": registrar$$api_registration,
         "registrar-api_registration-response-single": registrar$$api_registration$$response$$single,
@@ -303,19 +297,20 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_getRegistrationStatus",
     title: "Get Registration Status",
-    description: "Returns the current status of a domain registration workflow.\n\nUse this endpoint to poll for completion when the POST response\nreturned `202 Accepted`. The URL is provided in the `links.self`\nfield of the workflow status response.\n\nPoll this endpoint until the workflow reaches a terminal state or a\nstate that requires user attention.\n\n**Terminal states:** `succeeded` and `failed` are terminal and always\nhave `completed: true`.\n\n**Non-terminal states:**\n- `action_required` has `completed: false` and will not resolve on its\n  own. The workflow is paused pending user intervention.\n- `blocked` has `completed: false` and indicates the workflow is waiting\n  on a third party such as the extension registry or losing registrar.\n  Continue polling while informing the user of the delay.\n\nUse increasing backoff between polls. When `state: blocked`, use a\nlonger polling interval and do not poll indefinitely.\n\nA naive polling loop that only checks `completed` can run indefinitely\nwhen `state: action_required`. Break explicitly on `action_required`:\n\n```js\nlet status;\ndo {\n  await new Promise(r => setTimeout(r, 2000));\n  status = await cloudflare.request({\n    method: 'GET',\n    path: reg.result.links.self,\n  });\n} while (\n  !status.result.completed &&\n  status.result.state !== 'action_required'\n);\n\nif (status.result.state === 'action_required') {\n  // Surface context.action and context.confirmation_sent_to to the user.\n  // Do not re-submit the registration request.\n}\n```",
+    description: "Returns the current status of a domain registration workflow.\n\nUse this endpoint to poll for completion when the POST response\nreturned `202 Accepted`. The URL is provided in the `links.self`\nfield of the workflow status response.\n\nPoll this endpoint until the workflow reaches a terminal state or a\nstate that requires user attention.\n\n**Terminal states:** `succeeded` and `failed` are terminal and always\nhave `completed: true`.\n\n**Non-terminal states:**\n- `action_required` has `completed: false` and will not resolve on its\n  own. The workflow is paused pending user intervention.\n- `blocked` has `completed: false` and indicates the workflow is waiting\n  on a third party such as the extension registry or losing registrar.\n  Continue polling while informing the user of the delay.\n\nUse increasing backoff between polls. When `state: blocked`, use a\nlonger polling interval and do not poll indefinitely.\n\nA naive polling loop that only checks `completed` can run indefinitely\nwhen `state: action_required`. Break explicitly on `action_required`:\n\n```js\nlet status;\ndo {\n  await new Promise(r => setTimeout(r, 2000));\n  status = await cloudflare.request({\n    method: 'GET',\n    path: reg.result.links.self,\n  });\n} while (\n  !status.result.completed &&\n  status.result.state !== 'action_required'\n);\n\nif (status.result.state === 'action_required') {\n  // Surface context.action and context.confirmation_sent_to to the user.\n  // Do not re-submit the registration request.\n}\n```\n\nGET /accounts/{account_id}/registrar/registrations/{domain_name}/registration-status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/registrar-api_domain_name",
-              "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
+              "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.",
+              "type": "string"
             }
           },
           "required": [
@@ -328,10 +323,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_workflow-status-response-single",
@@ -379,19 +371,20 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_getTransferStatus",
     title: "Get Transfer Status",
-    description: "Returns the current status of a domain transfer workflow.\n\nUse this endpoint to poll transfer progress after initiating a transfer\nwith `POST /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in`.\nThe URL is provided in the `links.self` field of the transfer response.\n\n### Transfer timelines\nTransfers typically take 1–10 days due to ICANN-mandated approval windows.\n\n### Workflow states\n\n**Terminal states:** `succeeded` and `failed` are terminal and always\nhave `completed: true`.\n\n**Non-terminal states:**\n- `in_progress`: Transfer has been submitted to the registry and is being\n  processed. Continue polling.\n- `blocked`: The workflow is waiting on the losing registrar or registry\n  to release the domain. This is the **most common state** for transfers\n  and is entirely normal — it means the ICANN transfer approval window is\n  in effect. The losing registrar has up to 5 days to approve or reject.\n  Continue polling with longer intervals (e.g., every 30–60 minutes).\n- `action_required`: The user needs to take action (e.g., the FOA email\n  needs to be accepted). See `context` for details on what is needed.\n- `pending`: Transfer workflow created but not yet started processing.\n\n### Polling guidance\nAdjust your polling interval based on the current workflow state:\n- `pending` or `in_progress`: Poll every 30 seconds.\n- `blocked`: The transfer is waiting on a third party (e.g., losing\n  registrar approval). Poll every 30–60 minutes.\n- `action_required`: Stop polling. The workflow will not advance until\n  the user takes action. Check `context` for details on what is needed.\n- `succeeded` or `failed`: Terminal — stop polling.",
+    description: "Returns the current status of a domain transfer workflow.\n\nUse this endpoint to poll transfer progress after initiating a transfer\nwith `POST /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in`.\nThe URL is provided in the `links.self` field of the transfer response.\n\n### Transfer timelines\nTransfers typically take 1–10 days due to ICANN-mandated approval windows.\n\n### Workflow states\n\n**Terminal states:** `succeeded` and `failed` are terminal and always\nhave `completed: true`.\n\n**Non-terminal states:**\n- `in_progress`: Transfer has been submitted to the registry and is being\n  processed. Continue polling.\n- `blocked`: The workflow is waiting on the losing registrar or registry\n  to release the domain. This is the **most common state** for transfers\n  and is entirely normal — it means the ICANN transfer approval window is\n  in effect. The losing registrar has up to 5 days to approve or reject.\n  Continue polling with longer intervals (e.g., every 30–60 minutes).\n- `action_required`: The user needs to take action (e.g., the FOA email\n  needs to be accepted). See `context` for details on what is needed.\n- `pending`: Transfer workflow created but not yet started processing.\n\n### Polling guidance\nAdjust your polling interval based on the current workflow state:\n- `pending` or `in_progress`: Poll every 30 seconds.\n- `blocked`: The transfer is waiting on a third party (e.g., losing\n  registrar approval). Poll every 30–60 minutes.\n- `action_required`: Stop polling. The workflow will not advance until\n  the user takes action. Check `context` for details on what is needed.\n- `succeeded` or `failed`: Terminal — stop polling.\n\nGET /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in-status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/registrar-api_domain_name",
-              "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
+              "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.",
+              "type": "string"
             }
           },
           "required": [
@@ -404,10 +397,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_workflow-status-response-single",
@@ -455,19 +445,20 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_getUpdateStatus",
     title: "Get Update Status",
-    description: "Returns the current status of a domain update workflow.\n\nUse this endpoint to poll for completion when the PATCH response\nreturned `202 Accepted`. The URL is provided in the `links.self`\nfield of the workflow status response.\n\nPoll this endpoint until the workflow reaches a terminal state or a\nstate that requires user attention.\n\nUse increasing backoff between polls. When the workflow remains blocked\non a third party, use a longer polling interval and do not poll indefinitely.",
+    description: "Returns the current status of a domain update workflow.\n\nUse this endpoint to poll for completion when the PATCH response\nreturned `202 Accepted`. The URL is provided in the `links.self`\nfield of the workflow status response.\n\nPoll this endpoint until the workflow reaches a terminal state or a\nstate that requires user attention.\n\nUse increasing backoff between polls. When the workflow remains blocked\non a third party, use a longer polling interval and do not poll indefinitely.\n\nGET /accounts/{account_id}/registrar/registrations/{domain_name}/update-status",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID."
+              "description": "Cloudflare account ID.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/registrar-api_domain_name",
-              "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
+              "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.",
+              "type": "string"
             }
           },
           "required": [
@@ -480,10 +471,7 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_workflow-status-response-single",
@@ -531,15 +519,16 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_list",
     title: "List Registrations",
-    description: "Returns a paginated list of domain registrations owned by the account.\n\nThis endpoint uses cursor-based pagination. Results are ordered by registration\ndate by default. To fetch the next page, pass the `cursor` value from the\n`result_info` object in the response as the `cursor` query parameter in\nyour next request. An empty `cursor` string indicates there are no more\npages.",
+    description: "Returns a paginated list of domain registrations owned by the account.\n\nThis endpoint uses cursor-based pagination. Results are ordered by registration\ndate by default. To fetch the next page, pass the `cursor` value from the\n`result_info` object in the response as the `cursor` query parameter in\nyour next request. An empty `cursor` string indicates there are no more\npages.\n\nGET /accounts/{account_id}/registrar/registrations",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID."
+              "description": "Cloudflare account ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -548,14 +537,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "cursor": {
-              "description": "Opaque token from a previous response's `result_info.cursor`.\nPass this value to fetch the next page of results. Omit (or\npass an empty string) for the first page.\n",
+              "description": "Opaque token from a previous response's `result_info.cursor`.\nPass this value to fetch the next page of results. Omit (or\npass an empty string) for the first page.",
               "type": "string"
             },
             "direction": {
               "default": "asc",
-              "description": "Sort direction for results. Defaults to ascending order.\n",
+              "description": "Sort direction for results. Defaults to ascending order.",
               "enum": [
                 "asc",
                 "desc"
@@ -584,16 +574,13 @@ export const tools: readonly Tool[] = [
       required: [
         "path"
       ],
-      $defs: {
-        "registrar-api_identifier": registrar$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_registration-response-collection",
       $defs: {
         "registrar-api_api-response-common": registrar$$api_api$$response$$common,
         "registrar-api_cursor_result_info": registrar$$api_cursor_result_info,
-        "registrar-api_domain_name": registrar$$api_domain_name,
         "registrar-api_messages": registrar$$api_messages,
         "registrar-api_registration": registrar$$api_registration,
         "registrar-api_registration-response-collection": registrar$$api_registration$$response$$collection,
@@ -621,7 +608,6 @@ export const tools: readonly Tool[] = [
         "registrar-api_api-response-common": registrar$$api_api$$response$$common,
         "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
         "registrar-api_cursor_result_info": registrar$$api_cursor_result_info,
-        "registrar-api_domain_name": registrar$$api_domain_name,
         "registrar-api_messages": registrar$$api_messages,
         "registrar-api_registration": registrar$$api_registration,
         "registrar-api_registration-response-collection": registrar$$api_registration$$response$$collection,
@@ -640,15 +626,16 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_search",
     title: "Search for available domains",
-    description: "Searches for domain name suggestions based on a keyword, phrase, or partial domain name.\nReturns a list of potentially available domains with pricing information.\n\n**Important:** Results are non-authoritative and based on cached data. Always use the\n`/domain-check` endpoint to verify real-time availability before attempting registration.\n\nSuggestions are scoped to extensions supported for programmatic registration\nvia this API (`POST /registrations`). Domains on unsupported extensions will\nnot appear in results, even if they are available at the registry level.\n\n### Use cases\n- Brand name discovery (e.g., \"acme corp\" → acmecorp.com, acmecorp.dev)\n- Keyword-based suggestions (e.g., \"coffee shop\" → coffeeshop.com, mycoffeeshop.net)\n- Alternative extension discovery (e.g., \"example.com\" → example.com, example.app, example.xyz)\n\n### Workflow\n1. Call this endpoint with a keyword or domain name.\n2. Present suggestions to the user.\n3. Call `/domain-check` with the user's chosen domains to confirm real-time availability and pricing.\n4. Proceed to `POST /registrations` only for supported non-premium domains\n   where the Check response returns `registrable: true`.\n\n**Note:** Searching with just a domain extension (e.g., \"com\" or \".app\") is not supported. Provide a keyword or domain name.",
+    description: "Searches for domain name suggestions based on a keyword, phrase, or partial domain name.\nReturns a list of potentially available domains with pricing information.\n\n**Important:** Results are non-authoritative and based on cached data. Always use the\n`/domain-check` endpoint to verify real-time availability before attempting registration.\n\nSuggestions are scoped to extensions supported for programmatic registration\nvia this API (`POST /registrations`). Domains on unsupported extensions will\nnot appear in results, even if they are available at the registry level.\n\n### Use cases\n- Brand name discovery (e.g., \"acme corp\" → acmecorp.com, acmecorp.dev)\n- Keyword-based suggestions (e.g., \"coffee shop\" → coffeeshop.com, mycoffeeshop.net)\n- Alternative extension discovery (e.g., \"example.com\" → example.com, example.app, example.xyz)\n\n### Workflow\n1. Call this endpoint with a keyword or domain name.\n2. Present suggestions to the user.\n3. Call `/domain-check` with the user's chosen domains to confirm real-time availability and pricing.\n4. Proceed to `POST /registrations` only for supported non-premium domains\n   where the Check response returns `registrable: true`.\n\n**Note:** Searching with just a domain extension (e.g., \"com\" or \".app\") is not supported. Provide a keyword or domain name.\n\nGET /accounts/{account_id}/registrar/domain-search",
     inputSchema: {
       type: "object",
       properties: {
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             }
           },
           "required": [
@@ -657,9 +644,10 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "query": {
+          "additionalProperties": false,
           "properties": {
             "extensions": {
-              "description": "Limits results to specific domain extensions from the supported set. If not specified,\nreturns results across all supported extensions. Extensions not in the supported\nset are silently ignored.\n",
+              "description": "Limits results to specific domain extensions from the supported set. If not specified,\nreturns results across all supported extensions. Extensions not in the supported\nset are silently ignored.",
               "items": {
                 "type": "string"
               },
@@ -668,11 +656,11 @@ export const tools: readonly Tool[] = [
             },
             "limit": {
               "default": 20,
-              "description": "Maximum number of domain suggestions to return. Defaults to 20 if not specified.\n",
+              "description": "Maximum number of domain suggestions to return. Defaults to 20 if not specified.",
               "type": "integer"
             },
             "q": {
-              "description": "The search term to find domain suggestions. Accepts keywords, phrases, or full domain names.\n- Phrases: \"coffee shop\" returns coffeeshop.com, mycoffeeshop.net, etc.\n- Domain names: \"example.com\" returns example.com and variations across extensions\n",
+              "description": "The search term to find domain suggestions. Accepts keywords, phrases, or full domain names.\n- Phrases: \"coffee shop\" returns coffeeshop.com, mycoffeeshop.net, etc.\n- Domain names: \"example.com\" returns example.com and variations across extensions",
               "type": "string"
             }
           },
@@ -686,9 +674,7 @@ export const tools: readonly Tool[] = [
         "path",
         "query"
       ],
-      $defs: {
-        "registrar-api_identifier": registrar$$api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_domain_search_response",
@@ -741,7 +727,7 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_transferCheck",
     title: "Check domain transfer eligibility",
-    description: "Performs real-time, authoritative eligibility checks directly against needed requirements.\nUse this endpoint to verify a domain is available before\nattempting a transfer via `POST /registrations/:domain_name/transfer-in`.\n\n**Note:** This endpoint uses POST to accept a list of domains in the request\nbody. It is a read-only operation — it does not create, modify, or reserve\nany domains.\n\n### Behavior\n- Maximum 10 domains per request\n- Pricing is only returned for domains where `transferable: true`\n- Results are not cached; each request queries the registry & other needed upstreams\n\n## Extension Support\n\nAll `.uk` extensions (`.uk`, `.co.uk`, etc) do not support auth codes. As such,\nCloudflare will ignore the `auth_code` section of this request for `.uk` domains.\n\nThis means that a `.uk` domain depends on public data to obtain domain information,\nso it might be a few minutes outdated.\n\n### Workflow\n1. Call this endpoint with domains the user wants to transfer.\n2. For each domain where `transferable: true`, present pricing to the user.\n3. For each domain where `transferable: false`, present reasons to the user\n4. Proceed to `POST /registrations/:domain_name/transfer-in` only for the `transferable: true` domains.",
+    description: "Performs real-time, authoritative eligibility checks directly against needed requirements.\nUse this endpoint to verify a domain is available before\nattempting a transfer via `POST /registrations/:domain_name/transfer-in`.\n\n**Note:** This endpoint uses POST to accept a list of domains in the request\nbody. It is a read-only operation — it does not create, modify, or reserve\nany domains.\n\n### Behavior\n- Maximum 10 domains per request\n- Pricing is only returned for domains where `transferable: true`\n- Results are not cached; each request queries the registry & other needed upstreams\n\n## Extension Support\n\nAll `.uk` extensions (`.uk`, `.co.uk`, etc) do not support auth codes. As such,\nCloudflare will ignore the `auth_code` section of this request for `.uk` domains.\n\nThis means that a `.uk` domain depends on public data to obtain domain information,\nso it might be a few minutes outdated.\n\n### Workflow\n1. Call this endpoint with domains the user wants to transfer.\n2. For each domain where `transferable: true`, present pricing to the user.\n3. For each domain where `transferable: false`, present reasons to the user\n4. Proceed to `POST /registrations/:domain_name/transfer-in` only for the `transferable: true` domains.\n\nPOST /accounts/{account_id}/registrar/domain-transfer-check",
     inputSchema: {
       type: "object",
       properties: {
@@ -750,10 +736,11 @@ export const tools: readonly Tool[] = [
           "description": "List of transferable domain objects to check."
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             }
           },
           "required": [
@@ -766,16 +753,15 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "registrar-api_domain_transfer_check_request": registrar$$api_domain_transfer_check_request,
-        "registrar-api_identifier": registrar$$api_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/registrar-api_domain_transfer_check_response",
       $defs: {
         "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_domain_transfer_check_reason": registrar$$api_domain_transfer_check_reason,
         "registrar-api_domain_transfer_check_response": registrar$$api_domain_transfer_check_response,
         "registrar-api_domain_transfer_check_result": registrar$$api_domain_transfer_check_result,
         "registrar-api_messages": registrar$$api_messages,
@@ -807,7 +793,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "registrar-api_api-response-common": registrar$$api_api$$response$$common,
         "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-        "registrar-api_domain_transfer_check_reason": registrar$$api_domain_transfer_check_reason,
         "registrar-api_domain_transfer_check_response": registrar$$api_domain_transfer_check_response,
         "registrar-api_domain_transfer_check_result": registrar$$api_domain_transfer_check_result,
         "registrar-api_messages": registrar$$api_messages,
@@ -823,7 +808,7 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_transferIn",
     title: "Initiate Transfer",
-    description: "Starts a domain transfer-in workflow. This is typically a billable\noperation — successful transfers charge the account's default payment\nmethod, except for extensions with zero transfer pricing (e.g. UK\nextensions). All successful domain transfers are non-refundable.\n\n### How transfers work\nDomain transfers move a domain from another registrar to Cloudflare.\nTransfers typically take 1-10 days due to ICANN-mandated approval windows.\n\n### Prerequisites\n- The domain must already have a zone in the Cloudflare account (added\n  through the dashboard or zone API).\n- The zone must have DNSSec disabled.\n- For billable transfers (i.e. extensions with non-zero transfer pricing), the\n  account must have a billing profile with a valid default payment method.\n  Set this up at `https://dash.cloudflare.com/{account_id}/billing/payment-info`.\n- The domain must be unlocked at the current registrar.\n- An authorization/EPP code from the current registrar is required,\n  except for UK extensions — see Auth code below.\n\n### Auth code\nAn authorization code (also called EPP code, transfer key, or auth-info code)\nis required for most extensions, with the exception of UK extensions. Obtain\nthis from your current registrar's control panel.\n\nThe auth code in the request body must be base64-encoded per RFC 4648 §4 (standard\nalphabet, no line breaks).\n\n### Response behavior\nSuccessful transfer initiation returns `202 Accepted`. Validation or\ninitiation failures return the documented `4XX` responses. Poll\n`GET /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in-status` to track progress.\n\n### Premium domains\nPremium domain transfers are not currently supported by this API. Please use\nthe [dashboard](https://dash.cloudflare.com/) for now.\n\n### Billing\nThe account's default payment method is charged upon successful transfer\ncompletion, unless the extension has zero transfer pricing (e.g. UK\nextensions). The transfer adds time to the domain's existing expiration\ndate (typically 1 year).",
+    description: "Starts a domain transfer-in workflow. This is typically a billable\noperation — successful transfers charge the account's default payment\nmethod, except for extensions with zero transfer pricing (e.g. UK\nextensions). All successful domain transfers are non-refundable.\n\n### How transfers work\nDomain transfers move a domain from another registrar to Cloudflare.\nTransfers typically take 1-10 days due to ICANN-mandated approval windows.\n\n### Prerequisites\n- The domain must already have a zone in the Cloudflare account (added\n  through the dashboard or zone API).\n- The zone must have DNSSec disabled.\n- For billable transfers (i.e. extensions with non-zero transfer pricing), the\n  account must have a billing profile with a valid default payment method.\n  Set this up at `https://dash.cloudflare.com/{account_id}/billing/payment-info`.\n- The domain must be unlocked at the current registrar.\n- An authorization/EPP code from the current registrar is required,\n  except for UK extensions — see Auth code below.\n\n### Auth code\nAn authorization code (also called EPP code, transfer key, or auth-info code)\nis required for most extensions, with the exception of UK extensions. Obtain\nthis from your current registrar's control panel.\n\nThe auth code in the request body must be base64-encoded per RFC 4648 §4 (standard\nalphabet, no line breaks).\n\n### Response behavior\nSuccessful transfer initiation returns `202 Accepted`. Validation or\ninitiation failures return the documented `4XX` responses. Poll\n`GET /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in-status` to track progress.\n\n### Premium domains\nPremium domain transfers are not currently supported by this API. Please use\nthe [dashboard](https://dash.cloudflare.com/) for now.\n\n### Billing\nThe account's default payment method is charged upon successful transfer\ncompletion, unless the extension has zero transfer pricing (e.g. UK\nextensions). The transfer adds time to the domain's existing expiration\ndate (typically 1 year).\n\nPOST /accounts/{account_id}/registrar/registrations/{domain_name}/transfer-in",
     inputSchema: {
       type: "object",
       properties: {
@@ -831,23 +816,25 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/registrar-api_transfer_in_create_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Prefer": {
-              "description": "Set to `respond-async` to indicate a preference for asynchronous\nprocessing (RFC 7240).\n",
+              "description": "Set to `respond-async` to indicate a preference for asynchronous\nprocessing (RFC 7240).",
               "type": "string"
             }
           },
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID. Required for all Registrar API operations."
+              "description": "Cloudflare account ID. Required for all Registrar API operations.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/registrar-api_domain_name",
-              "description": "Domain name to transfer."
+              "description": "Domain name to transfer.",
+              "type": "string"
             }
           },
           "required": [
@@ -861,9 +848,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
         "registrar-api_registration_contact": registrar$$api_registration_contact,
         "registrar-api_registration_contact_address": registrar$$api_registration_contact_address,
         "registrar-api_registration_contact_postal_info": registrar$$api_registration_contact_postal_info,
@@ -921,7 +907,7 @@ export const tools: readonly Tool[] = [
   {
     name: "registrar_registrations_update",
     title: "Update Registration",
-    description: "Updates an existing domain registration.\n\nBy default, the server holds the connection for a bounded, server-defined\namount of time while the update completes. Most updates finish within this\nwindow and return `200 OK` with a completed workflow status.\n\nIf the update is still processing after this synchronous wait window, the\nserver returns `202 Accepted`. Poll the URL in `links.self` to track progress.\n\nTo skip the wait and receive an immediate `202`, send `Prefer: respond-async`.\n\nThis endpoint currently supports updating `auto_renew` only.",
+    description: "Updates an existing domain registration.\n\nBy default, the server holds the connection for a bounded, server-defined\namount of time while the update completes. Most updates finish within this\nwindow and return `200 OK` with a completed workflow status.\n\nIf the update is still processing after this synchronous wait window, the\nserver returns `202 Accepted`. Poll the URL in `links.self` to track progress.\n\nTo skip the wait and receive an immediate `202`, send `Prefer: respond-async`.\n\nThis endpoint currently supports updating `auto_renew` only.\n\nPATCH /accounts/{account_id}/registrar/registrations/{domain_name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -929,9 +915,10 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/registrar-api_registration_update_request"
         },
         "headers": {
+          "additionalProperties": false,
           "properties": {
             "Prefer": {
-              "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).\n",
+              "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).",
               "enum": [
                 "respond-async"
               ],
@@ -941,14 +928,15 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "path": {
+          "additionalProperties": false,
           "properties": {
             "account_id": {
-              "$ref": "#/$defs/registrar-api_identifier",
-              "description": "Cloudflare account ID."
+              "description": "Cloudflare account ID.",
+              "type": "string"
             },
             "domain_name": {
-              "$ref": "#/$defs/registrar-api_domain_name",
-              "description": "Domain name to update."
+              "description": "Domain name to update.",
+              "type": "string"
             }
           },
           "required": [
@@ -962,9 +950,8 @@ export const tools: readonly Tool[] = [
         "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "registrar-api_domain_name": registrar$$api_domain_name$,
-        "registrar-api_identifier": registrar$$api_identifier,
         "registrar-api_registration_update_request": registrar$$api_registration_update_request,
       },
     },

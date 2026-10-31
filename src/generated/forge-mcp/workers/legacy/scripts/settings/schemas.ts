@@ -9,9 +9,9 @@ import type { JsonSchema } from "../../../../_/tool.js";
 export const workers_script$$settings$$item: JsonSchema = {
   "properties": {
     "logpush": {
-      "$ref": "#/$defs/workers_logpush",
       "default": false,
-      "description": "Whether Logpush is turned on for the Worker."
+      "description": "Whether Logpush is turned on for the Worker.",
+      "type": "boolean"
     },
     "observability": {
       "$ref": "#/$defs/workers_observability-2"
@@ -25,7 +25,7 @@ export const workers_script$$settings$$item: JsonSchema = {
           "oneOf": [
             {
               "items": {
-                "$ref": "#/$defs/workers_tag"
+                "type": "string"
               },
               "type": "array"
             },
