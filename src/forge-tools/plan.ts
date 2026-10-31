@@ -26,8 +26,11 @@ export interface PlanOptions {
 export type CallPlan =
   | { readonly kind: 'unknown' }
   | { readonly kind: 'invalid'; readonly message: string }
-  /** The tool takes an account, the caller left it out, and the session has more than one. */
-  | { readonly kind: 'needs_account' }
+  /**
+   * The tool takes an account, the caller left it out, and the session has
+   * more than one. `argument` is where it goes, such as `path.account_id`.
+   */
+  | { readonly kind: 'needs_account'; readonly argument: string }
   | (HttpRequest & {
       readonly kind: 'request'
       /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
@@ -45,13 +48,16 @@ export type CallPlan =
  * as it is.
  */
 export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPlan {
+  const unknown = unknownArguments(tool, given)
+  if (unknown) return { kind: 'invalid', message: unknown }
+
   let request: HttpRequest
   let accountId: string | undefined
   try {
     const key = accountKey(tool, given)
     let args = given
     if (key && param(given, 'path', key) === undefined) {
-      if (!options.sessionAccountId) return { kind: 'needs_account' }
+      if (!options.sessionAccountId) return { kind: 'needs_account', argument: `path.${key}` }
       args = withPathParam(given, key, options.sessionAccountId)
     }
     request = buildRequest(tool, args, options.baseUrl)
@@ -80,6 +86,28 @@ function accountKey(tool: Tool, args: Args): string | undefined {
     return 'account_or_zone_id'
   }
   return undefined
+}
+
+/**
+ * Why `args` can't be used if it has arguments the tool doesn't take, else
+ * `undefined`. A tool takes only `path`, `query`, `headers` and `body`, so a
+ * parameter passed at the top level, such as `account_id`, would otherwise be
+ * ignored; the message names the place it belongs in.
+ */
+function unknownArguments(tool: Tool, args: Args): string | undefined {
+  const properties = tool.inputSchema.properties ?? {}
+  const unknown = Object.keys(args).filter((key) => !Object.hasOwn(properties, key))
+  if (unknown.length === 0) return undefined
+  const hints = unknown.map((key) => {
+    const place = Object.keys(properties).find((p) =>
+      Object.hasOwn((properties[p] as { properties?: object }).properties ?? {}, key)
+    )
+    return place
+      ? `${key} goes in ${place}: { "${place}": { "${key}": … } }`
+      : `${key} is not an argument`
+  })
+  const takes = Object.keys(properties)
+  return `Unknown arguments for ${tool.name}: ${hints.join('; ')}. It takes ${takes.length > 0 ? takes.join(', ') : 'no arguments'}.`
 }
 
 /** Returns `args` with the path parameter `key` set to `value`. */

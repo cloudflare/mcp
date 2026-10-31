@@ -27,8 +27,30 @@ describe('planning a generated tool call', () => {
     expect(result.kind === 'request' && result.headers).not.toHaveProperty('authorization')
   })
 
-  it('asks for an account when the session has several', async () => {
-    expect(await plan('d1_list', {})).toEqual({ kind: 'needs_account' })
+  it('asks for an account when the session has several, naming where it goes', async () => {
+    expect(await plan('d1_list', {})).toEqual({
+      kind: 'needs_account',
+      argument: 'path.account_id'
+    })
+    expect(
+      await plan('zeroTrust_access_applications_list', { path: { account_or_zone: 'accounts' } })
+    ).toEqual({ kind: 'needs_account', argument: 'path.account_or_zone_id' })
+  })
+
+  it('refuses parameters passed at the top level, and says where they go', async () => {
+    const result = await plan(
+      'd1_list',
+      { account_id: ACCOUNT, per_page: 5, verbose: true },
+      { sessionAccountId: ACCOUNT }
+    )
+
+    expect(result).toEqual({
+      kind: 'invalid',
+      message:
+        'Unknown arguments for d1_list: account_id goes in path: { "path": { "account_id": … } }; ' +
+        'per_page goes in query: { "query": { "per_page": … } }; verbose is not an argument. ' +
+        'It takes path, query.'
+    })
   })
 
   it('keeps an account the caller passed, and sends the body', async () => {

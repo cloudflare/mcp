@@ -57,11 +57,16 @@ function formatAccounts(accounts: AccountSchema[]): string {
  * Error for a call that needs an account when none was passed or auto-resolved.
  * Tool results reach only the calling session, so unlike tool metadata they can
  * name its accounts. `discoveryGuidance` is used when the list isn't known.
+ * `argument` names where the account goes, such as `path.account_id`.
  */
-export function missingAccountMessage(props: AuthProps, discoveryGuidance: string): string {
+export function missingAccountMessage(
+  props: AuthProps,
+  discoveryGuidance: string,
+  argument = 'account_id'
+): string {
   const accounts = knownAccounts(props)
   if (accounts?.length) {
-    return `No account selected. Pass account_id with one of this session's accounts:\n${formatAccounts(accounts)}`
+    return `No account selected. Pass ${argument} with one of this session's accounts:\n${formatAccounts(accounts)}`
   }
   if (accounts)
     return 'No account selected: no Cloudflare accounts are authorized for this session.'

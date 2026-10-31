@@ -185,6 +185,31 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     expect(toolText(zone)).toContain('zone-app')
   })
 
+  it('asks for path.account_id when the session has several accounts', async () => {
+    mockIdentityProbe({
+      user: { id: 'u1', email: 'u@example.com' },
+      accounts: [
+        { id: ACCOUNT_ID, name: 'Acc One' },
+        { id: '00000000000000000000000000000002', name: 'Acc Two' }
+      ]
+    })
+
+    const result = await callForgeTool('multi-account-user-token-forge', 'd1_list', {})
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain(
+      "No account selected. Pass path.account_id with one of this session's accounts:"
+    )
+    expect(toolText(result)).toContain(`- ${ACCOUNT_ID} (Acc One)`)
+  })
+
+  it('refuses a parameter passed at the top level instead of ignoring it', async () => {
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { per_page: 5 })
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('per_page goes in query: { "query": { "per_page": … } }')
+  })
+
   it("explains a refused call and names the token's account", async () => {
     server.use(
       http.get(`${API_BASE}/accounts/not-mine/d1/database`, () =>
