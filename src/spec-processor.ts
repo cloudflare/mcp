@@ -145,12 +145,11 @@ function listingParts(schema: unknown): { result: unknown; resultInfo?: unknown 
 
 /**
  * Present each 2xx JSON response schema as the schema of `result`, where
- * `cloudflare.request()` returns the payload. `openapi.forge.json` leaves
- * Cloudflare's envelope out of success schemas: a paginated list is
- * `{ result, result_info }`, anything else is the result itself, or the whole
- * body of an API without the envelope, which `cloudflare.request()` also
- * returns as `result`. So a list's schema becomes its `result`, and its
- * `result_info` schema moves to the response's `x-result-info`.
+ * `cloudflare.request()` returns the payload. Most schemas describe the body as
+ * the API sends it, in Cloudflare's envelope, so an enveloped schema becomes
+ * its `result` (every declaration of it combined), and its `result_info`
+ * schema moves to the response's `x-result-info`. A body without the envelope
+ * is left as it is: `cloudflare.request()` returns it as `result` too.
  */
 function resultResponses(responses: unknown): unknown {
   if (!isObject(responses)) return responses
