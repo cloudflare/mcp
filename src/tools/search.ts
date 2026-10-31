@@ -23,7 +23,7 @@ async function runSearch(code: string): Promise<unknown> {
  * the `spec` types the sandboxed search code can use.
  */
 function searchToolDescription(products: string[]): string {
-  return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline. A 2xx response schema describes \`result\` of what cloudflare.request() returns; a paginated list's \`result_info\` schema is in the response's \`x-result-info\`.
+  return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline. Response schemas describe the body as the API sends it, usually Cloudflare's envelope: \`{ success, errors, messages, result }\`, plus \`result_info\` on paginated lists.
 
 Products: ${products.slice(0, 30).join(', ')}... (${products.length} total)
 

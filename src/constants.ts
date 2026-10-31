@@ -38,26 +38,20 @@ interface CloudflareRequestOptions {
   contentType?: string;
 }
 
-interface CloudflareResponse<T = unknown> {
+// The response body as the API sends it. Most APIs wrap it in this envelope; a few send their JSON
+// bare (the spec's response schema shows which). Non-JSON responses are text, or a Uint8Array for
+// binary content (images, PDFs, archives). Bytes in the value your code returns appear as
+// { base64, byteLength }. A failed request throws.
+interface CloudflareEnvelope<T = unknown> {
   success: boolean;
-  status: number;
-  // A JSON response's result. For any other response, its text, or a Uint8Array for binary content
-  // (images, PDFs, archives, and anything else that isn't valid UTF-8). Bytes in the value your code
-  // returns appear as { base64, byteLength }.
-  result: T;
   errors: Array<{ code: number; message: string }>;
   messages: Array<{ code: number; message: string }>;
-  result_info?: {
-    page: number;
-    per_page: number;
-    total_pages: number;
-    count: number;
-    total_count: number;
-  };
+  result: T;
+  result_info?: { page: number; per_page: number; total_pages: number; count: number; total_count: number };
 }
 
 declare const cloudflare: {
-  request<T = unknown>(options: CloudflareRequestOptions): Promise<CloudflareResponse<T>>;
+  request<T = CloudflareEnvelope>(options: CloudflareRequestOptions): Promise<T>;
 };
 
 declare const accountId: string;
