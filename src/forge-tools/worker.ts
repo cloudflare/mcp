@@ -17,7 +17,6 @@ import { listTools, tools as generatedTools, toolsByName, type Args } from '../g
 import { cloudflareTool } from './cloudflare'
 import { planCall, type CallPlan, type PlanOptions } from './plan'
 import { findMismatch, type Mismatch, type TrimmedResponse } from '../response-schema-check'
-import { concretePaths } from '../spec-processor'
 import type { SpecArtifactName } from '../spec-release'
 import { SPEC_ARTIFACTS, isSpecArtifactName } from './spec'
 import { runSearch, type SearchOutcome } from './search'
@@ -32,22 +31,10 @@ const listingWithOutput = isolate.lazy(() =>
   JSON.stringify(listTools(tools, { outputSchema: true }))
 )
 
-/**
- * The generated tools by `METHOD template`. A tool on a merged
- * `/{account_or_zone}/…` path is also found by the account and zone routes
- * `processSpec` splits it into, which the endpoint tools (`?codemode=false`)
- * use; a route the spec lists on its own keeps its own tool.
- */
-const toolsByOperation = isolate.lazy(() => {
-  const byOperation = new Map(tools.map((tool) => [`${tool.method} ${tool.path}`, tool]))
-  for (const tool of tools) {
-    for (const { path } of concretePaths(tool.path)) {
-      const key = `${tool.method} ${path}`
-      if (!byOperation.has(key)) byOperation.set(key, tool)
-    }
-  }
-  return byOperation
-})
+/** The generated tools by `METHOD template`, the key a direct tool's response check names. */
+const toolsByOperation = isolate.lazy(
+  () => new Map(tools.map((tool) => [`${tool.method} ${tool.path}`, tool]))
+)
 
 /** A direct-tool response to check against the generated response schemas. */
 export interface ResponseCheck extends TrimmedResponse {

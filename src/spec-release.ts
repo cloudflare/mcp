@@ -12,4 +12,4 @@ export const SPEC_RELEASE: string = source.release
  * The artifacts built from the spec. `scripts/generate-tools.ts` writes them to
  * `src/generated/spec`, and the forge tools service serves them.
  */
-export type SpecArtifactName = 'spec.json' | 'products.json' | 'mcp-tools.json'
+export type SpecArtifactName = 'spec.json' | 'products.json' | 'permissions.json'

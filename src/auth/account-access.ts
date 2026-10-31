@@ -6,10 +6,6 @@ export const ACCOUNT_DISCOVERY_GUIDANCE = 'Call GET /accounts to discover availa
 /** Detailed Code-Mode guidance for tool descriptions. */
 export const ACCOUNT_DISCOVERY_DESCRIPTION = `${ACCOUNT_DISCOVERY_GUIDANCE} Paginate as needed, or filter by exact name with GET /accounts?name=<exact account name>.`
 
-/** Non-Code-Mode guidance using the generated endpoint tool name. */
-export const NON_CODEMODE_ACCOUNT_DISCOVERY_GUIDANCE =
-  'Call the get_accounts tool to discover available accounts.'
-
 /**
  * Account selection helpers — the single source of truth for how a session's
  * `props` map onto "which Cloudflare account does an API call target". Keep all

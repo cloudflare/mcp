@@ -1,5 +1,5 @@
-import mcpTools from '../generated/spec/mcp-tools.json.txt'
 import products from '../generated/spec/products.json.txt'
+import permissions from '../generated/spec/permissions.json.txt'
 import spec from '../generated/spec/spec.json.txt'
 import type { SpecArtifactName } from '../spec-release'
 
@@ -11,7 +11,7 @@ import type { SpecArtifactName } from '../spec-release'
 export const SPEC_ARTIFACTS: Readonly<Record<SpecArtifactName, string>> = {
   'spec.json': spec,
   'products.json': products,
-  'mcp-tools.json': mcpTools
+  'permissions.json': permissions
 }
 
 /** Whether `name` names a spec artifact. */

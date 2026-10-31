@@ -19,7 +19,7 @@ import { ScopeChallenge } from './scope-challenge'
 import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
 import { cachedToolListResponse } from './tools/tool-list-response'
-import { getForgeToolList, getMcpTools } from './isolate-cache'
+import { getForgeToolList } from './isolate-cache'
 
 export const MCP_ROUTE = '/mcp'
 
@@ -40,11 +40,10 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
  *
  * - `codemode` stays on unless the client passes exactly `false`, e.g.
  *   `/mcp?codemode=false`.
- * - `experimentalForge` is off unless it is exactly `true`, e.g.
- *   `/mcp?codemode=false&experimentalForge=true`.
  * - `experimentalOutputSchema` is off unless it is exactly `true`. It applies
- *   only with the two above, e.g.
- *   `/mcp?codemode=false&experimentalForge=true&experimentalOutputSchema=true`.
+ *   only with `codemode=false`, e.g.
+ *   `/mcp?codemode=false&experimentalOutputSchema=true`. `experimentalForge`,
+ *   which chose the forge tools while they were opt-in, is ignored.
  * - Without `truncateToolResult`, `createServer` picks the default for the tool
  *   mode. With it, truncation is on unless the value is exactly `false`.
  */
@@ -53,7 +52,6 @@ function serverOptionsFromUrl(url: string): ServerOptions {
   const truncate = params.get('truncateToolResult')
   return {
     codemode: params.get('codemode') !== 'false',
-    experimentalForge: params.get('experimentalForge') === 'true',
     experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true',
     ...(truncate === null ? {} : { truncateToolResult: truncate !== 'false' })
   }
@@ -214,10 +212,8 @@ export async function handleAuthenticatedMcpRequest(
   const props = AuthPropsSchema.parse(rawProps)
   const options = serverOptionsFromUrl(request.url)
   if (!options.codemode) {
-    // 2025-era listings never carry output schemas, so both modes list the same tools.
-    const listed = await cachedToolListResponse(request, async () =>
-      options.experimentalForge ? getForgeToolList() : (await getMcpTools()).list
-    )
+    // 2025-era listings never carry output schemas.
+    const listed = await cachedToolListResponse(request, () => getForgeToolList())
     if (listed) return withCors(listed, request)
   }
   const connection = connectionFromAuth(auth)

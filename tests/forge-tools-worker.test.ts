@@ -16,7 +16,7 @@ import {
 import { server } from './setup/msw'
 
 /**
- * The generated direct tools at /mcp?codemode=false&experimentalForge=true,
+ * The generated direct tools at /mcp?codemode=false,
  * through the real worker:
  * auth, the transport, the generated tools and their request code, and
  * account resolution are real; the Cloudflare API is mocked with MSW.
@@ -25,7 +25,7 @@ import { server } from './setup/msw'
 const ACCOUNT_ID = '00000000000000000000000000000001'
 const ACCOUNT_TOKEN = 'acct-token-forge'
 const ZONE_ID = '0000000000000000000000000000000z'
-const FORGE_URL = `${MCP_URL}?codemode=false&experimentalForge=true`
+const FORGE_URL = `${MCP_URL}?codemode=false`
 
 type ListedTool = {
   name: string
@@ -65,7 +65,7 @@ afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
 
-describe('generated direct tools (?codemode=false&experimentalForge=true)', () => {
+describe('generated direct tools (?codemode=false)', () => {
   it('lists docs, whoami and every generated tool, without their request code or response schemas', async () => {
     const tools = await listForgeTools(ACCOUNT_TOKEN)
 
@@ -120,8 +120,10 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     expect(JSON.stringify(subdomain.content['application/json'].schema)).toContain('"success"')
     expect(subdomain).not.toHaveProperty('x-result-info')
     expect(JSON.parse(await text('products.json'))).toContain('workers')
-    const mcpTools = JSON.parse(await text('mcp-tools.json')) as { name: string }[]
-    expect(mcpTools.length).toBeGreaterThan(1000)
+    const permissions = JSON.parse(await text('permissions.json')) as typeof spec.paths
+    expect(permissions['/accounts/{account_id}/d1/database'].get).toEqual({
+      'x-api-token-group': spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group']
+    })
   })
 
   it("fills in the session's account and sends the token", async () => {
@@ -251,13 +253,14 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     expect(toolText(result)).toBe('Tool nope not found')
   })
 
-  it('keeps the mcp-tools.json direct tools for ?codemode=false without the flag', async () => {
-    const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}?codemode=false`)).map(
-      (tool) => tool.name
-    )
+  it.each(['?codemode=false', '?codemode=false&experimentalForge=false'])(
+    'serves the forge tools for %s',
+    async (query) => {
+      const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}${query}`)).map((tool) => tool.name)
 
-    expect(names).not.toContain('d1_list')
-  })
+      expect(names).toContain('d1_list')
+    }
+  )
 
   it.each(['?experimentalForge=true', '?forge=true'])('serves Code Mode for %s', async (query) => {
     const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}${query}`)).map((tool) => tool.name)
@@ -333,10 +336,6 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     it.each([
       ['a 2025-era request', () => listTools(ACCOUNT_TOKEN, OUTPUT_URL)],
       ['a request without the parameter', () => listModern(FORGE_URL)],
-      [
-        'the endpoint tools',
-        () => listModern(`${MCP_URL}?codemode=false&experimentalOutputSchema=true`)
-      ],
       [
         'Code Mode',
         () => listModern(`${MCP_URL}?experimentalForge=true&experimentalOutputSchema=true`)
