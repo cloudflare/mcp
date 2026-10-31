@@ -225,14 +225,14 @@ describe('execute', () => {
   })
 })
 
-describe('endpoint tools', () => {
+describe('direct tools', () => {
   it('challenge for the missing scope', async () => {
     const token = await connectWithOAuth(BASELINE)
     const response = await exports.default.fetch(
       modernMcpRequest(
         token,
         'tools/call',
-        { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
+        { name: 'dns_records_list', arguments: { path: { zone_id: ZONE_ID } } },
         { url: `${MCP_URL}?codemode=false` }
       )
     )
@@ -247,7 +247,7 @@ describe('endpoint tools', () => {
       modernMcpRequest(
         token,
         'tools/call',
-        { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
+        { name: 'dns_records_list', arguments: { path: { zone_id: ZONE_ID } } },
         { url: `${MCP_URL}?codemode=false` }
       )
     )

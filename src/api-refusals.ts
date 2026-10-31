@@ -8,8 +8,7 @@ import {
   type Authorization,
   type Connection
 } from './api-permissions'
-import { getMcpTools, type McpTools } from './isolate-cache'
-import { isolate } from './lib/isolate'
+import { getPermissionPaths } from './isolate-cache'
 
 /**
  * Header `GlobalOutbound` sets on a refused response so the `execute` sandbox
@@ -128,28 +127,6 @@ export function refusalFor(
   return undefined
 }
 
-type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
-
-/**
- * Every operation's accepted permissions by path template and method, taken
- * from the cached `mcp-tools.json` rather than `spec.json`: the tool catalog is
- * a few MB and already shared per isolate, while parsing the ~25 MB spec in
- * the request path could exhaust the isolate's memory. Built once per loaded
- * catalog.
- */
-const permissionPathsOf = isolate.derived((tools: McpTools): PermissionPaths => {
-  const paths: PermissionPaths = {}
-  for (const tool of tools.byName.values()) {
-    paths[tool.path] ??= {}
-    paths[tool.path][tool.method] = { 'x-api-token-group': tool.permissions }
-  }
-  return paths
-})
-
-async function getPermissionPaths(): Promise<PermissionPaths> {
-  return permissionPathsOf(await getMcpTools())
-}
-
 /** An empty list with `result_info` is a couple of hundred bytes; longer bodies aren't read. */
 const MAX_EMPTY_LIST_BYTES = 4096
 
@@ -180,7 +157,7 @@ function parseJson(text: string): unknown {
 
 /**
  * Review a Cloudflare API response for `execute`, which sends arbitrary
- * paths: look the endpoint up in `mcp-tools.json`, and report a refusal the
+ * paths: look the endpoint up in `permissions.json`, and report a refusal the
  * way the sandbox expects it.
  *
  * A 401, or a 403 that refused the credential, keeps its status and body and

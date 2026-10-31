@@ -224,9 +224,14 @@ describe('execute', () => {
   })
 })
 
-describe('endpoint tools', () => {
+describe('direct tools', () => {
   const listDns = (token: string, query: string) =>
-    callDirectTool(token, 'get_zones_dns_records', { zone_id: ZONE_ID }, `?codemode=false${query}`)
+    callDirectTool(
+      token,
+      'dns_records_list',
+      { path: { zone_id: ZONE_ID } },
+      `?codemode=false${query}`
+    )
 
   it('challenge for the scope', async () => {
     const token = await connectWithOAuth(BASELINE)
@@ -266,8 +271,8 @@ describe('endpoint tools', () => {
     const { status, result } = await resultOf(
       await callDirectTool(
         token,
-        'get_accounts_members',
-        { account_id: ACCOUNT_ID },
+        'accounts_members_list',
+        { path: { account_id: ACCOUNT_ID } },
         '?codemode=false'
       )
     )
@@ -278,7 +283,7 @@ describe('endpoint tools', () => {
 })
 
 describe('forge tools', () => {
-  const FORGE_QUERY = '?codemode=false&experimentalForge=true'
+  const FORGE_QUERY = '?codemode=false'
 
   it('challenge for the scope', async () => {
     const token = await connectWithOAuth(BASELINE)
