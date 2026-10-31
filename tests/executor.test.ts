@@ -100,7 +100,8 @@ describe('execute: REST responses', () => {
       { status: 403 }
     )
     expect(text).toContain('Cloudflare API error')
-    expect(text).toContain('1000: Invalid API Token')
+    expect(text).toContain('"code": 1000')
+    expect(text).toContain('"message": "Invalid API Token"')
   })
 
   it('handles a failure envelope with NO errors array without crashing', async () => {
@@ -182,7 +183,28 @@ describe('execute: REST responses', () => {
 
   it('rejects an explicit failure envelope even with HTTP 200', async () => {
     const text = await runExecute('/envelope', cfError([{ code: 1000, message: 'Denied' }]))
-    expect(text).toContain('Cloudflare API error: GET /envelope returned HTTP 200: 1000: Denied')
+    expect(text).toContain('Cloudflare API error: GET /envelope returned HTTP 200.')
+    expect(text).toContain('"message": "Denied"')
+  })
+
+  it('shows the error body as the API sent it, with the Ray ID', async () => {
+    // An Access error with a code and no message once read "1010: undefined" (#292).
+    const body = {
+      success: false,
+      errors: [
+        { code: 1010, error_chain: [{ code: 12130, message: 'session_duration is invalid' }] }
+      ],
+      messages: [],
+      result: null
+    }
+    const text = await runExecute('/failure', body, {
+      status: 400,
+      headers: { 'cf-ray': '8f2a1b3c4d5e6f70-SJC' }
+    })
+    expect(text).toBe(
+      'Error: Cloudflare API error: GET /failure returned HTTP 400 (Ray ID 8f2a1b3c4d5e6f70-SJC).\n\n' +
+        JSON.stringify(body, null, 2)
+    )
   })
 
   it.each([
@@ -553,7 +575,7 @@ describe('execute: account resolution', () => {
     })
     const text = toolText(result)
     expect(result.result?.isError).toBe(true)
-    expect(text).toContain('9109: Unauthorized to access requested resource')
+    expect(text).toContain('"code": 9109')
     expect(text).toContain("account_id not-my-account is not one of this session's accounts:")
     expect(text).toContain(`- ${ACCOUNT_ID} (Acc One)`)
   })
