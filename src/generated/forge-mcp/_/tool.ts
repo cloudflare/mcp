@@ -144,26 +144,53 @@ export function pathParam(args: Args, name: string): string {
 
 /**
  * Throws {@link InvalidArguments} if `args` has an argument `tool` doesn't
- * take, naming where it goes when it is a parameter passed in the wrong place,
- * such as `per_page` at the top level instead of in `query`.
+ * take: a top-level one, naming the place it goes when it is a parameter, such
+ * as `per_page` at the top level instead of in `query`, or one inside `path`,
+ * `query` or `headers`, such as a misspelled `query.nmae`.
  */
 function checkUnknownArguments(tool: Tool, args: Args): void {
   const properties = tool.inputSchema.properties ?? {};
-  const unknown = Object.keys(args).filter((key) => !Object.hasOwn(properties, key));
-  if (unknown.length === 0) {
-    return;
-  }
-  const hints = unknown.map((key) => {
-    const place = Object.keys(properties).find((name) => {
-      const params = properties[name]?.['properties'];
-      return typeof params === 'object' && params !== null && Object.hasOwn(params, key);
+  const placeParams = (place: string): readonly string[] => {
+    const params = properties[place]?.['properties'];
+    return typeof params === 'object' && params !== null ? Object.keys(params) : [];
+  };
+  const problems = Object.keys(args)
+    .filter((key) => !Object.hasOwn(properties, key))
+    .map((key) => {
+      const place = Object.keys(properties).find((name) => placeParams(name).includes(key));
+      return place ? `${key} goes in ${place}: { "${place}": { "${key}": … } }` : `${key} is not an argument`;
     });
-    return place ? `${key} goes in ${place}: { "${place}": { "${key}": … } }` : `${key} is not an argument`;
-  });
-  const takes = Object.keys(properties);
-  throw new InvalidArguments(
-    `Unknown arguments for ${tool.name}: ${hints.join('; ')}. It takes ${takes.length > 0 ? takes.join(', ') : 'no arguments'}.`,
-  );
+  for (const place of ['path', 'query', 'headers'] as const) {
+    const given = args[place];
+    if (given === null || typeof given !== 'object' || Array.isArray(given) || !Object.hasOwn(properties, place)) {
+      continue;
+    }
+    const takes = placeParams(place);
+    for (const key of Object.keys(given).filter((name) => !takes.includes(name))) {
+      problems.push(`${place}.${key} is not an argument; ${place} takes ${takes.join(', ')}`);
+    }
+  }
+  if (problems.length > 0) {
+    const takes = Object.keys(properties);
+    throw new InvalidArguments(
+      `Unknown arguments for ${tool.name}: ${problems.join('; ')}. It takes ${takes.length > 0 ? takes.join(', ') : 'no arguments'}.`,
+    );
+  }
+}
+
+/**
+ * Throws {@link InvalidArguments} if `tool` can't be called with `args`: an
+ * argument it doesn't take, or a required one left out. {@link buildRequest}
+ * calls it; a server that fills in arguments, such as an account from the
+ * session, can call it first, so a misplaced argument isn't mistaken for a
+ * missing one.
+ */
+export function checkArguments(tool: Tool, args: Args): void {
+  checkUnknownArguments(tool, args);
+  const missing = missingArguments(tool, args);
+  if (missing.length > 0) {
+    throw new InvalidArguments(`Missing required arguments: ${missing.join(', ')}`);
+  }
 }
 
 /**
@@ -194,11 +221,7 @@ function missingArguments(tool: Tool, args: Args): string[] {
  * Throws {@link InvalidArguments}.
  */
 export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpRequest {
-  checkUnknownArguments(tool, args);
-  const missing = missingArguments(tool, args);
-  if (missing.length > 0) {
-    throw new InvalidArguments(`Missing required arguments: ${missing.join(', ')}`);
-  }
+  checkArguments(tool, args);
   const api = tool.request(args);
   const url = new URL(withoutTrailingSlashes(baseUrl) + api.path);
   for (const [name, value, explode] of api.query ?? []) {

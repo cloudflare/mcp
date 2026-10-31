@@ -1,6 +1,6 @@
-import { dereference, validate, type Schema } from '@cfworker/json-schema'
 import {
   buildRequest,
+  checkArguments,
   InvalidArguments,
   param,
   type Args,
@@ -8,7 +8,6 @@ import {
   type Tool
 } from '../generated/forge-mcp/_/tool'
 import { permissionsOf } from './cloudflare'
-import { isolate } from '../lib/isolate'
 
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
 
@@ -53,6 +52,8 @@ export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPla
   let request: HttpRequest
   let accountId: string | undefined
   try {
+    // Before filling in the account, so a misplaced account_id is reported as such.
+    checkArguments(tool, given)
     const key = accountKey(tool, given)
     let args = given
     if (key && param(given, 'path', key) === undefined) {
@@ -60,8 +61,6 @@ export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPla
       args = withPathParam(given, key, options.sessionAccountId)
     }
     request = buildRequest(tool, args, options.baseUrl)
-    const invalid = argumentErrors(tool, args)
-    if (invalid) return { kind: 'invalid', message: invalid }
     accountId = accountIdOf(args)
   } catch (error) {
     if (error instanceof InvalidArguments) return { kind: 'invalid', message: error.message }
@@ -87,34 +86,6 @@ function accountKey(tool: Tool, args: Args): string | undefined {
     return 'account_or_zone_id'
   }
   return undefined
-}
-
-/** Each tool's input schema, compiled once per isolate. */
-const inputSchemas = isolate.map<string, { root: Schema; lookup: ReturnType<typeof dereference> }>()
-
-/** Keywords whose errors only say that a nested error happened. */
-const NESTING_KEYWORDS = new Set(['properties', 'items', 'allOf', 'anyOf', 'oneOf', '$ref'])
-
-/**
- * Why `args` don't match `tool`'s input schema, or `undefined` when they do,
- * so a wrong type such as `query.per_page: "two"` is refused here with the
- * argument's name rather than by the API. `buildRequest` has already refused
- * unknown and missing arguments.
- */
-function argumentErrors(tool: Tool, args: Args): string | undefined {
-  const { root, lookup } = inputSchemas.getOrSet(tool.name, () => {
-    // The validator annotates the schemas it indexes, so it gets a copy.
-    const root = structuredClone(tool.inputSchema) as Schema
-    return { root, lookup: dereference(root) }
-  })
-  const result = validate(args, root, '2020-12', lookup, false)
-  if (result.valid) return undefined
-  const leaves = result.errors.filter((error) => !NESTING_KEYWORDS.has(error.keyword))
-  const shown = (leaves.length > 0 ? leaves : result.errors).slice(0, 3).map((error) => {
-    const at = error.instanceLocation.replace(/^#\/?/, '').split('/').join('.')
-    return `${at || 'arguments'}: ${error.error}`
-  })
-  return `Invalid arguments for ${tool.name}: ${shown.join('; ')}`
 }
 
 /** Returns `args` with the path parameter `key` set to `value`. */
